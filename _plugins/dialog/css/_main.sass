@@ -1,0 +1,63 @@
+
+#DIALOG
+  display: none
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  z-index: 100
+
+  background: rgba(0, 0, 0, 0.4)
+  overflow-y: auto
+
+
+.dialog
+  display: block
+  position: relative
+
+  width: 95%
+  margin: 100px auto
+    bottom: 40px
+
+  background: $G-COLOR-4
+  box-shadow: 0 2px 26px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.1)
+  border: $G-STYLE-DARK-BORDER
+    radius: 3px
+
+
+.dialog-header
+  padding: 10px 12px
+  line-height: 19px
+  background-color: #f6f7f9
+  border:
+    bottom: 1px solid #e5e5e5
+    radius: 3px 3px 0 0
+  color: #1d2129
+  font-weight: bold
+
+.dialog-content
+  padding: 12px
+  font-size: 14px
+  line-height: 18px
+
+
+.dialog-content-part > div
+  padding-bottom: 5px
+
+.dialog-content-part > input
+  width: 95%
+  box-sizing: border-box
+
+.dialog-content-part:last-child
+  text-align: right
+
+
+@media (min-width: $G-SIZE-1)
+
+  .dialog
+    width: 500px
+    margin-top: 200px
+
+  .dialog-content-part > input
+    width: 468px

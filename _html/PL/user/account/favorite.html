@@ -1,0 +1,26 @@
+<script>
+  window.APP.DATA = {
+    title : 'Register',
+    description : 'Here you can register.'
+  };
+</script>
+
+
+<div class="ground-block block-1">
+
+    <div class="block-background fill-abs"></div>
+    {% include "ground/html/navigation.html" %}
+
+    <div class="block-content">
+
+        {% if favorites %}
+            {% include 'products/html/tiles_favorite.html' %}
+        {% else %}
+            <div class="block-content-message">Products in favorite not found</div>
+        {% endif %}
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "ground/html/footer.html" %}

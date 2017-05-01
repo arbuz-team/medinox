@@ -1,0 +1,172 @@
+{% load tags %}
+
+<script>
+  window.APP.DATA = {
+    title : 'Payment',
+    description : '',
+  };
+
+  window.APP.throw_event(window.EVENTS.plugins.close_cart);
+</script>
+
+<div class="ground-block block-1 BIG" id="PAYMENT">
+
+    <div class="block-background fill-abs"></div>
+    {% include "ground/html/navigation.html" %}
+
+    <div class="block-content payment field_shell">
+
+        {% if cart %}
+
+            {% if not address_is_validate %}
+
+                <ul class="cart-list">
+
+                    {% for selected in cart %}
+
+                        <li class="cart-list-product">
+                            <div class="cart-list-name">
+                                <a href="/product/{{ selected.product.pk }}/{% product_name_url selected.product %}/">
+                                    {% product_name selected.product %}
+                                </a>
+                            </div>
+                            <div class="cart-list-actions">
+                                <span>{{ selected.number }} x {% get_price selected.product %}</span>
+                                <button class="post_button icon" type="button"
+                                      data-name="Delete_{{ selected.product.pk }}"
+                                      data-action="delete"
+                                      data-value="{{ selected.product.pk }}"
+                                      data-reload="cart ground"
+                                      data-url="/cart/">
+                                    <i style="background-image: url(/_static/img/icons/32/dark/waste_bin.png)"> &nbsp; </i>
+                                </button>
+
+                            </div><!-- cart-list-name -->
+                        </li>
+
+                    {% endfor %}
+
+                    <li class="cart-list-total_price">
+                        <div>Cost of delivery:</div>
+                        <div>{% delivery_price delivery %}</div>
+                    </li>
+
+                    <li class="cart-list-total_price">
+                        <div>Total price:</div>
+                        <div>{{ total_price }} {{ request.session.translator_currency }}</div>
+                    </li>
+
+                </ul><!-- cart-list -->
+
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+                <form method="post" action="" id="form_address" data-name="address" data-type="address" class="field_shell">
+
+                    <div class="form-accept">
+                        <div>Please select your address of below list <wbr>for shipment and invoice.</div>
+                        <button type="submit">Next</button>
+                    </div>
+
+                    {% for item in address %}
+
+                        <div class="form_block fields">
+                            <div>
+
+                                <div class="shell_form"></div>
+
+                                <div class="title"> Address {{ forloop.counter0 }} </div>
+
+                                <div class="field">{{ item.full_name }} &nbsp;</div>
+                                <div class="field">{{ item.address_line }} &nbsp;</div>
+                                <div class="field">{{ item.city }} &nbsp;</div>
+                                <div class="field">{{ item.region }} &nbsp;</div>
+                                <div class="field">{{ item.postcode }} &nbsp;</div>
+                                <div class="field">{{ item.country }} &nbsp;</div>
+
+                                <div>
+                                    <span>Select address to</span>
+                                    <div class="selecter radio">
+                                        <input type="radio"
+                                               id="id_shipment_{{ forloop.counter0 }}"
+                                               name="shipment"
+                                               value="{{ item.pk }}"
+                                               {% if forloop.counter0 == 0 %}
+                                               checked
+                                               {% endif %}
+                                        />
+                                        <label for="id_shipment_{{ forloop.counter0 }}" class="selecter-field"></label>
+                                        <label for="id_shipment_{{ forloop.counter0 }}" class="selecter-text">shipment</label>
+                                    </div>
+                                    <div class="selecter radio">
+                                        <input type="radio"
+                                               id="id_invoice_{{ forloop.counter0 }}"
+                                               name="invoice"
+                                               value="{{ item.pk }}"
+                                               {% if forloop.counter0 == 0 %}
+                                               checked
+                                               {% endif %}
+                                        />
+                                        <label for="id_invoice_{{ forloop.counter0 }}" class="selecter-field"></label>
+                                        <label for="id_invoice_{{ forloop.counter0 }}" class="selecter-text">invoice</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div><!-- form_block fields -->
+
+                    {% endfor %}
+
+                    <div class="form_block fields new">
+                        <div>
+
+                            <div class="shell_form"></div>
+
+                            <div class="title"> Add new address </div>
+
+                            <a href="{% redirect 'user.account.addresses' 'payment' %}" class="form_block-image"></a>
+
+                        </div>
+                    </div><!-- form_block fields new -->
+
+                </form>
+
+            {% else %}<!-- form address -->
+
+                <div class="cart-list-button">
+                    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                        OPIS DLA PAYPAL <br>
+                        {{ paypal.as_p }}
+                        <input class="button" type="submit" value="PayPal" />
+                    </form>
+                </div>
+                <div class="cart-list-button">
+                    <form action="https://ssl.dotpay.pl/test_payment/" method="post">
+                        OPIS DLA DOTPAY <br>
+                        {{ dotpay.as_p }}
+                        <input class="button" type="submit" value="Dotpay" />
+                    </form>
+                </div>
+
+            {% endif %}<!-- form payment -->
+
+
+        {% else %}<!-- cart full -->
+
+            <ul class="cart-list">
+                <li>
+                    <div class="cart-list-empty">
+                      Payment is empty
+                    </div>
+                </li>
+            </ul><!-- cart-list -->
+
+        {% endif %}<!-- cart empty -->
+
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

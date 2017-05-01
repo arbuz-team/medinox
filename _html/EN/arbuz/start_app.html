@@ -1,0 +1,32 @@
+{% load tags %}
+
+<script>
+    window.APP.DATA = {
+        title : '{% get_app_name %}',
+        description : 'Browse a list of possibilities {% get_app_name %} panel.',
+    };
+</script>
+
+<div class="ground-block block-1">
+
+    <div class="block-background fill-abs"></div>
+    {% include "ground/html/navigation.html" %}
+
+    <ul class="block-content block-link_tiles">
+
+        {% for app in apps %}
+
+            <li>
+                <a href="{{ app.url }}">
+                    <div class="block-link_tiles-icon"><i style="background-image: url('{{ app.icon }}');">&nbsp;</i></div>
+                    <div class="block-link_tiles-text">{{ app.name }}</div>
+                </a>
+            </li>
+
+        {% endfor %}
+
+    </ul><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

@@ -1,0 +1,99 @@
+
+
+//-----------------------------------------
+//  FILL ELEMENTS STYLES
+//
+//  fill - fill element
+//  abs - absolute
+//  rel - relative
+//  fix - static
+//-----------------------------------------
+
+=fill($position)
+  position: $position
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+
+
+.fill-abs
+  +fill(absolute)
+
+
+.fill-rel
+  +fill(relative)
+
+
+.fill-fix
+  +fill(fixed)
+
+
+
+// -- Standard style elements
+
+=background-img( $sciezka, $rozmiar: auto auto, $pozycja:0 0 )
+  background:
+    image: $sciezka
+    size: $rozmiar
+    position: $pozycja
+    repeat: no-repeat
+
+
+=box-shadow($param)
+  -moz-box-shadow: $param
+  -webkit-box-shadow: $param
+  box-shadow: $param
+
+
+=linear-gradient($param1, $param2, $param3)
+  background:
+    image: -webkit-linear-gradient($param1, $param2, $param3)
+    image: -moz-linear-gradient($param1, $param2, $param3)
+    image: -ms-linear-gradient($param1, $param2, $param3)
+    image: -o-linear-gradient($param1, $param2, $param3)
+    image: linear-gradient($param1, $param2, $param3)
+
+
+=box-sizing($param)
+  -webkit-box-sizing: $param
+  -moz-box-sizing: $param
+  box-sizing: $param
+
+
+=order($number)
+  -ms-order: $number
+  -webkit-order: $number
+  -moz-order: $number
+  -ms-flex-order: $number
+  order: $number
+
+=transition($param)
+  -webkit-transition: $param
+  -moz-transition: $param
+  -ms-transition: $param
+  -o-transition: $param
+  transition: $param
+
+
+
+// -- Own style elements
+
+=my-box()
+  padding: 10px 15px
+
+  margin: 0
+    bottom: 10px
+
+  color: $G-COLOR-0
+  font-size: 16px
+  background: $G-COLOR-4
+
+
+=no_style_field()
+  background: none
+  border: none
+  box-shadow: none
+  box-sizing: border-box
+  outline: none
+  background: transparent

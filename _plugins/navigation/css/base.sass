@@ -1,0 +1,97 @@
+
+$navigation--height: 100%
+$navigation-primery_secondery--height: 45px
+
+$navigation--color: $G-COLOR-4
+$navigation--background-color: $G-COLOR-0
+$navigation-focus--background-color: $G-COLOR-1
+
+
+//--------------------------------------
+//       STYLE PRZESUWANEGO MENU
+//--------------------------------------
+
+#NAVIGATION
+  left: 0
+  top: -$navigation--height
+  right: 0
+
+  height: $navigation--height
+  background-color: $navigation--background-color
+
+  z-index: 80
+
+  >.hide
+    bottom: 0
+    left: 0
+    right: 0
+    height: 50px
+
+    background-color: inherit
+    text-align: center
+    cursor: pointer
+    +box-shadow(0px -5px 5px 0px rgba(85,85,85,0.4))
+
+    opacity: .8
+
+    >span
+      line-height: 50px
+      color: $G-COLOR-4
+
+
+.navigation
+  margin-bottom: 100px
+
+  color: $navigation--color
+  background-color: inherit
+
+
+  >.navigation-mobile
+    display: none
+
+
+  >.navigation-primary, >.navigation-secondary
+
+    .navigation-secondary-space
+      display: none
+
+    li
+      position: relative
+      height: $navigation-primery_secondery--height
+
+      border-bottom: solid #666 1px
+      background-color: $navigation-focus--background-color
+
+      >.link
+        padding: 0 15px
+        line-height: $navigation-primery_secondery--height
+
+        background-color: $navigation--background-color
+
+
+    li.navigation-primary-language
+      display: none
+
+      button
+        background: transparent
+        border: none
+        margin: 0
+        padding: 0
+
+        color: $navigation--color
+        font-size: 19px
+        font-weight: bold
+
+    li.navigation-secondary-cart
+      font-weight: bold
+
+    li.navigation-secondary-searcher
+      display: none
+
+//--------------------------------------
+//            EKRAN KOMPUTERA
+//--------------------------------------
+
+@media (min-width: $G-SIZE-2)
+  #NAVIGATION
+    top: -$navigation--height !important

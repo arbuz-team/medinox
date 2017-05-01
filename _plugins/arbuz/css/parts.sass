@@ -1,0 +1,63 @@
+
+$part--z-index: 5
+$part-motion--z-index: 60
+
+$part-translucent--opacity: .85
+$part-translucent-hover--opacity: 1
+
+
+.container-part
+  z-index: $part--z-index
+  overflow: visible
+
+
+.container-part-loading
+  padding: 10px 15px
+
+
+
+.container-motion
+  position: absolute
+  z-index: $part-motion--z-index
+
+  display: block
+  overflow: visible
+
+  >.hide
+    position: absolute
+
+    display: none
+
+    >div
+      position: absolute
+
+
+
+.container-part-scroll
+  +fill(absolute)
+  overflow: hidden
+
+
+.container-part-scroll-content
+  +fill(absolute)
+  right: -15px // trick - hidden scroll
+  overflow: visible
+    x: visible
+    y: scroll
+
+  >div
+    position: relative
+
+
+
+@media (min-width: $G-SIZE-3)
+
+  .container-part
+    .translucent
+      >*
+        opacity: $part-translucent--opacity
+
+  .container-part:hover
+    .translucent
+      >*
+        opacity: $part-translucent-hover--opacity

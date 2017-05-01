@@ -1,0 +1,23 @@
+<script>
+  window.APP.DATA = {
+    title : 'Create root',
+    description : 'Description'
+  };
+</script>
+
+<div class="ground-block block-1 SMALL">
+
+  <div class="block-background fill-abs"></div>
+  {% include "ground/html/navigation.html" %}
+
+  <div class="block-content">
+
+      <div class="block-content-message">
+          Hi, nice to meet you! This is your password {{ password }}. Write down or remeber this password! ;)
+      </div>
+
+  </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "ground/html/footer.html" %}

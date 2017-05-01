@@ -1,0 +1,35 @@
+{% load staticfiles %}
+{% load tags %}
+
+    </div>
+
+    <script>
+        window.DATA = {};
+        window.DATA.dictionary = {
+            '/cart/':           '{% url "cart.start" %}',
+            '/searcher/':       '{% url "searcher.start" %}',
+            '/navigation/':     '{% url "navigation.start" %}',
+            'Sending...':       '{% text 102 %}',
+            'Waiting...':       '{% text 103 %}',
+            'It\'s done!':      '{% text 104 %}',
+            'Error / Resend':   '{% text 105 %}',
+            'Show addresses':   '{% text 131 %}',
+            'Get invoice':      '{% text 132 %}',
+            'Close':            '{% text 133 %}',
+            'Clear filters':    '{% text 134 %}'
+        };
+    </script>
+
+    <script type="text/javascript" src="{% static 'js/jquery-3.1.1.min.js' %}" charset="utf-8"></script>
+
+    {% comment %}
+        <script type="text/javascript" src="{% static 'js/hammer.min.js' %}" charset="utf-8"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.hammer.js' %}" charset="utf-8"></script>
+    {% endcomment %}
+
+    <script type="text/javascript" src="{% static 'js/bundle.js' %}?3" charset="utf-8"></script>
+
+  </body>
+
+</html>
+

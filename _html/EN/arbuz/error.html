@@ -1,0 +1,79 @@
+{% load tags %}
+
+<script>
+    window.APP.DATA = {
+        title : 'Internal error',
+        description : '',
+    };
+</script>
+
+<div class="ground-block block-1">
+
+    <div class="block-background fill-abs"></div>
+
+    <div class="block-content">
+
+        <div class="block-content-message">
+            {% if error == 'form' %}
+                Undefined form name.
+            {% elif error == 'no_event' %}
+                No defining POST instruction.
+            {% elif error == 'unauthorized' %}
+
+                <script>
+
+                    // {% if request.session.arbuz_permissions == 'only_root' %}
+                        window.APP.DATA.redirect = "{% redirect 'root.sign_in' %}";
+                    // {% elif request.session.arbuz_permissions == 'authorization' %}
+                        window.APP.DATA.redirect = "{% redirect 'user.sign_in' %}";
+                    // {% endif %}
+
+                    // {% if request.session.arbuz_permissions == 'only_root' or request.session.arbuz_permissions == 'authorization' %}
+                        window.APP.DATA.delay = 0;
+                        window.APP.throw_event(window.EVENTS.redirect);
+                    // {% endif %}
+
+                </script>
+
+            {% elif error == 'post_is_dangerous' %}
+                POST contain HTML tags. It is forbidden to use the expression <.*>
+            {% endif %}
+        </div><!-- block-content-message -->
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}
+
+
+<!-- ////////////////////////////////////////////////////////////////////// -->
+
+<div class="dialog-header">
+    {% if error == 'form' or error == 'no_event' %}
+        Error!
+    {% elif error == 'post_is_dangerous' %}
+        Dangerous!
+    {% endif %}
+</div>
+
+
+<div class="dialog-content">
+
+    <div class="dialog-content-part">
+        {% if error == 'form' %}
+            Undefined form name.
+        {% elif error == 'no_event' %}
+            No defining POST instruction.
+        {% elif error == 'post_is_dangerous' %}
+            POST contain HTML tags. It is forbidden to use the expression <.*>
+        {% endif %}
+    </div><!-- dialog-content-part -->
+
+
+    <div class="dialog-content-part field_shell">
+        <!--buttons-->
+        <button class="dialog-content-button" data-dialog-button="cancel"> Close </button>
+    </div><!-- dialog-content-part -->
+
+</div><!-- dialog-content -->

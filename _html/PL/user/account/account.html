@@ -1,0 +1,87 @@
+<script>
+  window.APP.DATA = {
+    title : 'Account',
+    description : 'Discription'
+  };
+</script>
+
+
+<div class="ground-block block-1 BIG">
+
+  <div class="block-background fill-abs"></div>
+  {% include "ground/html/navigation.html" %}
+
+  <div class="block-content field_shell">
+  
+    <div class="title"> User details: </div>
+
+    <div class="hide_form">
+      <div class="hide_form-label"> Email: </div>
+      <div class="hide_form-field">
+        <div> {{ user.email }} </div>
+        <input name="email" id="id_email" value="{{ user.email }}" type="text" />
+        <button data-type="edit" type="button"> Edit </button>
+      </div>
+    </div>
+
+    <div class="hide_form">
+      <div class="hide_form-label"> Username: </div>
+        <div class="hide_form-field">
+        <div> {{ user.username }} </div>
+        <input name="username" id="id_username" value="{{ user.username }}" type="text" />
+        <button data-type="edit" type="button"> Edit </button>
+      </div>
+    </div>
+
+    <div class="title"> Edit addresses </div>
+
+    {% for id_address, edit_form_address in edit_forms_address.items %}
+        <div class="form_address">
+            <form method="post" action="" data-name="{{ form_name_edit }}_{{ id_address }}" data-type="user_address" data-test="yes">
+
+                <div class="shell_form"></div>
+
+                <div class="title"> Address {{ id_address }} </div>
+
+                {% for address in edit_form_address %}
+
+                    {{ address }}
+                    {{ address.errors }}
+
+                {% endfor %}
+
+                <div>
+                    <button disabled type="submit"> Update </button>
+                    <button class="post_button" type="button"
+                            data-name="delete_address"
+                            data-value="{{ id_address }}"> Delete </button>
+                </div>
+
+            </form>
+        </div>
+    {% endfor %}
+
+    <div class="form_address">
+        <form method="post" action="" data-name="{{ form_name_new }}" data-type="user_address" data-test="yes">
+
+            <div class="shell_form"></div>
+
+            <div class="title"> Add new address </div>
+
+            {% for address in new_form_address %}
+
+                {{ address }}
+                {{ address.errors }}
+
+            {% endfor %}
+
+            <div>
+                <button disabled type="submit"> Add address </button>
+            </div>
+
+        </form>
+    </div>
+  
+  </div>
+
+</div>

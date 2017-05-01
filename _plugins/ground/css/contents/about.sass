@@ -1,0 +1,102 @@
+
+.ground-block.about
+
+  .block-content-paragraph
+    position: relative
+
+    line-height: 30px
+
+    >.block-content-paragraph-actions
+      position: absolute
+      top: -30px
+      right: 0
+      text-align: right
+
+      >button
+        padding:
+          top: 2px
+          bottom: 2px
+
+
+    >.block-content-paragraph-image
+      max-width: 650px
+      margin: 20px auto
+        bottom: 0
+
+      text-align: center
+      border-bottom: $G-STYLE-BORDER
+        color: $G-COLOR-1
+        width: 5px
+
+      >img
+        height: auto
+        vertical-align: bottom
+
+
+  .block-content-paragraph.new
+    margin:
+      left: 10%
+      right: 10%
+
+    >div
+      >.block-content-paragraph-new-image
+        height: 200px
+        +background-img(url(/_static/img/icons/128/dark/add.png), 100px, center)
+        border: $G-STYLE-DARK-BORDER-DASHED
+        opacity: .8
+
+      >.block-content-paragraph-new-title
+        min-height: 30px
+
+  .block-content-paragraph.new:hover
+    >div
+      >.block-content-paragraph-new-image
+        opacity: .9
+
+
+@media (min-width: $G-SIZE-3)
+
+  .ground-block.about
+
+    .block-content-paragraph
+
+      .block-content-paragraph-actions
+        top: -20px
+        display: none
+
+    .block-content-paragraph:hover
+
+      .block-content-paragraph-actions
+        display: block
+
+
+@media (min-width: $G-SIZE-4)
+
+  .ground-block.about
+
+    .block-content
+      max-width: 1200px
+      margin:
+        left: auto
+        right: auto
+
+    .block-content-paragraph
+
+      >.paragraph.with_image, >.block-content-paragraph-image
+        display: inline-block
+        width: 48%
+        vertical-align: top
+
+      >.block-content-paragraph-image
+        margin-left: 20px
+
+
+@media (min-width: 1300px)
+
+  .ground-block.about
+
+    .block-content-paragraph.new
+      max-width: 800px
+      margin:
+        left: auto
+        right: auto

@@ -1,0 +1,26 @@
+{% load staticfiles %}
+{% load tags %}
+
+<div class="dialog-header">
+    Choose language
+</div>
+
+
+<div class="dialog-content">
+
+    <div class="dialog-content-part field_shell">
+        <!--fields of form-->
+
+        Choose language on website! ;)<br />
+        <br />
+        <a class="button" href="{{ request.session.arbuz_url.en }}">english</a>
+        <a class="button" href="{{ request.session.arbuz_url.pl }}">polski</a>
+        <a class="button" href="{{ request.session.arbuz_url.de }}">deutsch</a>
+    </div><!-- dialog-content-part -->
+
+    <div class="dialog-content-part field_shell">
+        <!--buttons-->
+        <button type="button" class="dialog-content-button" data-dialog-button="cancel"> Close </button>
+    </div><!-- dialog-content-part -->
+
+</div><!-- dialog-content -->

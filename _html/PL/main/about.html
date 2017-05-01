@@ -1,0 +1,102 @@
+{% load staticfiles %}
+
+<script>
+  window.APP.DATA = {
+    title : 'About'
+    , description : 'This page is about us. ;)'
+  };
+</script>
+
+<div class="ground-block block-1 about">
+
+    <div class="block-background fill-abs"></div>
+    {% include "ground/html/navigation.html" %}
+
+    <div class="block-content">
+
+        {% for element in content %}
+
+            <div class="block-content-paragraph field_shell">
+
+                {% if request.session.root_login %}
+                    <div class="block-content-paragraph-actions">
+                        <button type="button" class="post_button submit"
+                                data-name="About_{{ element.pk }}"
+                                data-action="delete"
+                                data-value="{{ element.pk }}"
+                                data-reload="ground"
+                                data-url="/about/delete/">Delete</button>
+                        <!--<button type="button" class="post_button submit"-->
+                                <!--data-type="confirm"-->
+                                <!--data-name="delete_about">-->
+                            <!--Delete-->
+                        <!--</button>-->
+
+                        <button type="button" class="dialog_button submit"
+                                data-type="prompt"
+                                data-name="content_tab"
+                                data-url="/about/edit/{{ element.pk }}/">
+                            Edit
+                        </button>
+                    </div>
+                {% endif %}
+
+
+                {% if element.header %}
+                <div class="block-content-paragraph-header">
+                    {{ element.header | safe }}
+                </div>
+                {% endif %}
+
+
+                {% if element.image %}
+                    <div class="block-content-paragraph-text with_image">
+                        {{ element.paragraph | safe }}
+                    </div>
+                {% else %}
+                    <div class="block-content-paragraph-text">
+                        {{ element.paragraph | safe }}
+                    </div>
+                {% endif %}
+
+
+                {% if element.image and element.header %}
+                    <div class="block-content-paragraph-image">
+                        <img data-src="{{ element.image }}"
+                             alt="{{ element.header }}"
+                             src="{% static 'img/pixel.png' %}"/>
+                    </div>
+                {% elif element.image %}
+                    <div class="block-content-paragraph-image">
+                        <img data-src="{{ element.image }}"
+                             alt="Example image"
+                             src="{% static 'img/pixel.png' %}"/>
+                    </div>
+                {% endif %}
+
+            </div><!-- block-content-paragraph -->
+
+        {% endfor %}
+
+
+        {% if request.session.root_login %}
+
+            <div class="block-content-paragraph new">
+
+                <div class="dialog_button" data-type="alert" data-name="recommended">
+
+                    <div class="block-content-paragraph-new-image"></div>
+
+                    <div class="block-content-paragraph-new-title"> Add new paragraph </div>
+
+                </div>
+
+            </div><!-- block-content-paragraph new -->
+
+        {% endif %}
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "ground/html/footer.html" %}

@@ -1,0 +1,201 @@
+// -----------------------------------------
+//			  DEFINIOWANIE ZMIENNYCH
+// -----------------------------------------
+
+$searcher--width: 250px
+$searcher-field--height: 40px
+$searcher-logo_text--height: 100px
+$searcher--background-color: $G-COLOR-4
+$searcher--color: $G-COLOR-0
+
+
+//-----------------------------------------
+//			  ELEMENTY TREŚCI
+//-----------------------------------------
+
+#SEARCHER
+  top: 0
+  left: -$searcher--width
+  bottom: 0
+
+  min-width: $searcher--width
+  width: $searcher--width
+
+  background-color: $searcher--background-color
+  color: $searcher--color
+  border-right: $G-STYLE-BORDER-BOLD
+
+  z-index: 75
+
+
+  >.hide
+    left: 100%
+    top: 0
+    bottom: 0
+
+    width: 1000px
+
+    >div
+      left: 0
+      top: 0
+      bottom: 0
+
+      width: 500px
+      +linear-gradient(right, transparent, $G-GRAY-SHADOW-2)
+
+
+.searcher-clear
+  position: absolute
+  left: 0
+  right: 0
+  bottom: 0
+  height: 50px
+
+  background-color: $G-COLOR-4
+  border-top: $G-STYLE-BORDER-BOLD
+  cursor: pointer
+  font:
+    size: 16px
+    weight: bold
+  text-align: center
+
+  span
+    line-height: 50px
+    opacity: .7
+
+
+.searcher-clear:hover
+  span
+    opacity: .9
+
+
+.searcher
+  width: $searcher--width - 2px
+  padding-bottom: 70px
+
+  >.logo_text
+    opacity: 1 !important
+    display: block
+    height: $searcher-logo_text--height
+
+    line-height: $searcher-logo_text--height
+    text-align: center
+    font-size: 20px
+    font-weight: bold
+
+
+  .field_shell
+
+    input
+      padding-left: 5px
+
+    select, input[type=text]
+      display: block
+      width: ($searcher--width - 30px)
+      height: $searcher-field--height
+      margin: 10px 15px
+      padding: 0
+
+      background-color: transparent
+      color: inherit
+      border: none
+
+      >option
+        background-color: $searcher--background-color
+        color: $searcher--color
+
+
+.searcher-searcher
+  border:
+    top: $G-STYLE-BORDER
+    bottom: $G-STYLE-BORDER
+
+  >form >input[type=text]
+    height: 30px
+    margin-left: 10px
+    padding: 3px 0
+      left: 5px
+    vertical-align: top
+
+    box-shadow: none !important
+    background-color: $G-COLOR-4
+    color: $G-COLOR-0
+
+    font:
+      size: 16px
+      weight: bold
+
+.searcher-header
+  opacity: 1 !important
+  display: block
+  height: 30px
+  background-color: $G-COLOR-0
+
+.searcher-logo
+  opacity: 1 !important
+  display: block
+  height: 100px
+
+  text-align: center
+
+  a
+    position: relative
+    top: 30px
+    display: inline-block
+
+  img
+    width: 200px
+    height: auto
+
+
+.searcher-filters
+  display: block
+  width: 100%
+
+.searcher-filters-title
+  display: block
+  height: $searcher-field--height
+  margin-top: 10px
+  padding:
+    top: 3px
+    bottom: 3px
+
+  line-height: $searcher-field--height
+  font-weight: bold
+  text-align: center
+
+  background-color: transparent
+  border-top: $G-STYLE-BORDER
+
+.searcher-filters-content
+  display: block
+  min-height: $searcher-field--height
+  padding: 10px 15px
+    top: 3px
+
+  background-color: transparent
+  
+  button.icon
+    float: right
+    opacity: .6
+
+  button.icon:hover
+    opacity: .8
+
+//-----------------------------------------
+//			  EKRAN KOMPUTERA
+//-----------------------------------------
+
+
+@media (min-width: $G-SIZE-3)
+
+  #SEARCHER
+    left: 0 !important
+
+    z-index: 60
+
+  .searcher-logo
+    height: 130px
+
+    a
+      top: 45px

@@ -1,0 +1,55 @@
+
+.ground-block.start
+  >.block-background
+    background-color: $G-COLOR-3
+
+  >.block-content
+    padding: 0
+      bottom: 50px
+
+  .products.tiles.recommended
+    min-height: 384px
+
+  .block-content-recommended-title
+    padding: 15px 50px
+      bottom: 15px
+
+    background-color: #fcfcfc
+    border-bottom: $G-STYLE-BORDER-BOLD
+
+    >span
+      line-height: 30px
+      opacity: .4
+      font:
+        size: 25px
+        weight: bold
+      color: $G-COLOR-0
+
+  .block-content-image
+    display: none
+
+
+@media (min-width: $G-SIZE-3)
+  .ground-block.start
+
+    .block-content-recommended-title
+      display: none
+
+    .block-content-image
+      display: block
+      position: relative
+      background-color: $G-COLOR-4
+      border-bottom: $G-STYLE-DARK-BORDER-BOLD
+      overflow: hidden
+
+      >img
+        display: block
+        max-width: none
+        width: auto
+        height: 100%
+        vertical-align: middle
+
+.footer.start
+  >.footer-content
+    background-color: $G-COLOR-4
+    border-top: $G-STYLE-BORDER-BOLD

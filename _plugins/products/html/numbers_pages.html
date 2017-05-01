@@ -1,0 +1,99 @@
+
+{% if number_of_pages > 1 %}
+
+    <div class="block-content-numbers_pages field_shell">
+
+
+        <form class="numbers_pages-filters auto_form" action="" data-origin="button" data-reload="ground">
+
+            <div class="numbers_pages-one_step">
+                <button class="post_button" type="button"
+                        data-name="prev_page"
+                        data-action="change"
+                        data-value="{{ prev_page }}"
+                        data-reload="ground">
+                    Prev page
+                </button>
+            </div><!-- numbers_pages-one_step -->
+
+
+            {% if number_of_pages > 20 %}
+
+                <input name="number_input" placeholder="Number"
+                       type="text"
+                       class="auto_field only_number_3"
+                       data-name="number_page"
+                       value="{{ request.session.main_page }}" />
+
+            {% else %}
+
+                <select name="number_select" class="auto_field" data-name="number_page">
+                    {% for option in list_pages %}
+
+                        {% if option == request.session.main_page %}
+                            <option value="{{ option }}" selected> {{ option }} </option>
+                        {% else %}
+                            <option value="{{ option }}"> {{ option }} </option>
+                        {% endif %}
+
+                    {% endfor %}
+                </select>
+
+            {% endif %}
+
+
+            <div class="numbers_pages-one_step">
+                <button class="post_button" type="button"
+                        data-name="next_page"
+                        data-action="change"
+                        data-value="{{ next_page }}"
+                        data-reload="ground">
+                    Next page
+                </button>
+            </div><!-- numbers_pages-one_step -->
+
+
+        </form><!-- searcher-filters -->
+
+
+    <!-- ///////////////////////////////////////////////////// -->
+
+
+        <div class="numbers_pages-change_page">
+
+            {% for list_buttons in split_pages %}
+
+                {% if forloop.counter0 != 0 %}
+                    <div class="button">...</div>
+                {% endif %}
+
+                {% for button in list_buttons %}
+
+                    {% if button == request.session.main_page %}
+                        <button class="post_button submit" type="button"
+                                data-name="change_page_{{ button }}"
+                                data-action="change"
+                                data-value="{{ button }}"
+                                data-reload="ground">
+                            {{ button }}
+                        </button>
+                    {% else %}
+                        <button class="post_button" type="button"
+                                data-name="change_page_{{ button }}"
+                                data-action="change"
+                                data-value="{{ button }}"
+                                data-reload="ground">
+                            {{ button }}
+                        </button>
+                    {% endif %}
+
+                {% endfor %}
+
+            {% endfor %}
+
+        </div><!-- numbers_pages-change_page -->
+
+
+    </div><!-- block-content-numbers_pages -->
+
+{% endif %}

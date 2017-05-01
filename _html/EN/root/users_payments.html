@@ -1,0 +1,69 @@
+<script>
+    window.APP.DATA = {
+        title : 'Users payments',
+        description : ''
+    };
+</script>
+
+<div class="ground-block block-1 BIG users_payments">
+
+    <div class="block-background fill-abs"></div>
+    {% include "ground/html/navigation.html" %}
+
+    <div class="block-content">
+
+        <div class="title">Users payments</div>
+
+
+        <form class="users_payments-filters auto_form field_shell" action="" data-origin="filter" data-reload="ground" data-delay="100">
+
+            <input name="date_from" type="date" class="auto_field" data-name="date_from" value="{{ date_from }}" />
+
+            <input name="date_to" type="date" class="auto_field" data-name="date_to" value="{{ date_to }}"/>
+
+
+            {% if request.session.root_payments_approved %}
+                <button class="post_button submit" type="button"
+                        data-name="approved"
+                        data-action="change"
+                        data-value="approved"
+                        data-reload="ground">
+                    Approved
+                </button>
+                &nbsp;
+                <button class="post_button" type="button"
+                        data-name="not_approved"
+                        data-action="change"
+                        data-value="not_approved"
+                        data-reload="ground">
+                    Not approved
+                </button>
+            {% else %}
+                <button class="post_button" type="button"
+                        data-name="approved"
+                        data-action="change"
+                        data-value="approved"
+                        data-reload="ground">
+                    Approved
+                </button>
+                &nbsp;
+                <button class="post_button submit" type="button"
+                        data-name="not_approved"
+                        data-action="change"
+                        data-value="not_approved"
+                        data-reload="ground">
+                    Not approved
+                </button>
+            {% endif %}
+
+        </form>
+
+
+        {% include "cart/html/users_payments.html" %}
+
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

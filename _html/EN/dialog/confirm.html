@@ -1,0 +1,31 @@
+
+<div class="dialog-header">
+    {{ title }}
+</div>
+
+
+<div class="dialog-content">
+
+    <div class="dialog-content-part field_shell">
+        <!--dialog text-->
+        {{ text | safe }}
+    </div><!-- dialog-content-part -->
+
+
+    <div class="dialog-content-part field_shell">
+        <!--buttons-->
+        <button class="dialog-content-button" data-dialog-button="cancel"> Cancel </button>
+        <button class="dialog-content-button post_button" type="button"
+                data-dialog-button="cancel"
+                data-name="{{ additional.name }}"
+                data-action="{{ additional.action }}"
+                data-value="{{ additional.value }}"
+                data-reload="{{ additional.reload }}"
+                data-redirect="{{ additional.redirect }}"
+                data-event="{{ additional.event }}"
+                data-url="{{ additional.url}}">
+            Delete
+        </button>
+    </div><!-- dialog-content-part -->
+
+</div><!-- dialog-content -->

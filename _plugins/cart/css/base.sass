@@ -1,0 +1,215 @@
+
+$cart--position-top-mobile: $header--height_mobile + 8px
+$cart--position-top-small : $header--height_small + 8px
+$cart--position-top-big: $header--height_big + 8px
+
+$cart--width: 400px
+$cart-title--height: 70px
+
+$cart--background-color: $G-COLOR-4
+$cart--color: $G-COLOR-0
+
+
+#CART
+  top: $cart--position-top-mobile
+  right: -$cart--width
+  bottom: 0
+
+  width: 100%
+
+  background-color: $cart--background-color
+  color: $cart--color
+  border-left: none
+  font-size: 16px
+
+  z-index: 59
+
+
+.cart
+  margin-right: 15px
+
+
+.cart, .payment
+
+  >.cart-close
+    position: absolute
+    top: 20px
+    right: 20px
+
+    width: 20px
+    height: 20px
+
+    text-align: center
+    cursor: pointer
+
+    >i
+      display: block
+      width: 20px
+      height: 20px
+
+      opacity: 0.7
+      +background-img(url('/_static/img/icons/32/dark/close.png'), 100%, center)
+
+    >span
+      position: relative
+      left: -2px
+      top: -3px
+
+      color: #999
+      font-size: 16px
+
+  >.cart-close:hover
+
+    >i
+      opacity: 1
+
+    >span
+      color: $G-COLOR-0
+
+
+.cart-title
+  display: block
+  height: $cart-title--height
+  line-height: $cart-title--height
+
+  text-align: center
+  font-size: 18px
+  font-weight: bold
+  border-bottom: $G-STYLE-BORDER
+
+.cart-list
+  display: block
+  min-height: $cart-title--height
+
+  margin: 30px 15px
+
+  >li.cart-list-product
+    margin-top: 5px
+    padding-bottom: 3px
+    border-bottom: $G-STYLE-BORDER
+
+    overflow: hidden
+
+
+  >li
+
+    >*
+      display: inline-block
+
+    >.cart-list-name
+      width: 180px
+      font-size: 15px
+
+      opacity: .8
+
+    >.cart-list-name:hover
+      opacity: .95
+
+    >.cart-list-actions
+      min-width: 120px
+      float: right
+      width: 150px
+      vertical-align: top
+
+      font-size: 14px
+      text-align: right
+      color: $G-COLOR-0
+
+      input
+        min-width: 30px
+        width: 30px
+
+        padding: 2px 2px
+        margin: 0
+        line-height: 20px
+
+        border: 1px solid #cfcfcf
+          top: 1px solid #b9b9b9
+
+      button
+        margin:
+          left: 3px
+          right: 0
+
+      button, span
+        opacity: .7
+
+
+
+    >.cart-list-empty
+      opacity: .6
+      display: block
+      text-align: center
+      color: $G-COLOR-1
+      font-weight: bold
+
+    >.cart-list-button
+      margin-top: 30px
+      width: 49%
+
+      button
+        display: block
+        width: 98%
+
+  >li.cart-list-total_price
+    padding-top: 10px
+    font-weight: bold
+    border-top: $G-STYLE-BORDER
+
+    >div
+      display: inline-block
+      width: 49%
+
+    >div:last-child
+      text-align: right
+
+
+@media (min-width: $G-SIZE-1)
+
+  .cart-list
+    >li
+      >.cart-list-name
+        width: 270px
+
+@media (min-width: 600px)
+
+  .cart-list
+    >li
+      >.cart-list-name
+        width: 370px
+
+
+@media (min-width: $G-SIZE-2)
+
+  #CART
+    top: $cart--position-top-small
+
+  .cart-list
+    >li
+      >.cart-list-name
+        width: 470px
+
+
+@media (min-width: 750px)
+
+  #CART
+    border-left: $G-STYLE-BORDER
+
+  #CART, .cart
+    width: $cart--width
+    margin-right: 0
+
+  .cart-list
+    margin: 30px 20px
+
+    >li
+
+      >.cart-list-name
+        width: 210px
+        opacity: .95
+
+
+@media (min-width: $G-SIZE-3)
+
+  #CART
+    top: $cart--position-top-big

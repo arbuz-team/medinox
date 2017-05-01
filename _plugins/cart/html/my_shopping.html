@@ -1,0 +1,21 @@
+{% for item in shopping %}
+
+
+    {% include "cart/html/mini_cart/admission.html" %}
+
+        {% include "cart/html/mini_cart/title.html" %}
+
+
+            {{ item.payment.date }}     &nbsp;<br>
+            {{ item.full_name }}        &nbsp;
+
+
+        {% include "cart/html/mini_cart/end_title.html" %}
+
+
+        {% include "cart/html/mini_cart/main.html" %}
+
+    {% include "cart/html/mini_cart/ending.html" %}
+
+
+{% endfor %}

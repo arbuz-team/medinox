@@ -1,0 +1,13 @@
+<div class="block-content products tiles recommended">
+    <ul>
+        {% if request.session.root_login %}
+            {% include "products/html/add_recommended.html" %}
+        {% endif %}
+
+        {% for product in recommended %}
+
+            {% include 'products/html/single.html' %}
+
+        {% endfor %}
+    </ul>
+</div>

@@ -1,0 +1,115 @@
+
+.products.tiles
+  padding:
+    top: 0
+    bottom: 0
+
+  >ul
+    width: auto
+
+    .product
+      width: auto
+      max-width: 300px
+      min-height: 220px
+      margin: 0
+        left: auto
+        right: auto
+
+      border-bottom: $G-STYLE-BORDER
+
+      >a, >.dialog_button
+        >.product-img
+          position: relative
+          width: 100%
+          height: 200px
+          overflow: hidden
+          text-align: center
+
+          //>img
+
+        >.product-title
+          margin:
+            top: 10px
+            bottom: 10px
+          font-weight: bold
+
+      .product-content
+        max-width: 300px
+        margin: 0
+        padding: 0
+
+        >.product-content-details > a > button
+          margin-bottom: 0
+
+        >.product-content-price
+          position: absolute
+          right: 0
+          bottom: 0
+
+          height: 38px
+          line-height: 38px
+
+
+.products.tiles.recommended
+  padding:
+    top: 15px
+    bottom: 15px
+
+  .product
+    margin: 0 auto
+      bottom: 10px
+    background-color: $G-COLOR-4
+    +box-shadow(0px 0px 1px 1px #e8e8e8)
+    border: $G-STYLE-BORDER
+      radius: 1px
+
+
+//-----------------------------------------
+//				EKRAN KOMPUTERA
+//-----------------------------------------
+
+@media (min-width: $G-SIZE-2)
+
+  .products.tiles > ul
+    font-size: 0
+    text-align: center
+
+    .product
+      display: inline-block
+      width: 285px
+      max-width: none
+      margin: 0
+      font-size: 16px
+
+      >a
+        >.product-img
+          height: 200px
+          overflow: hidden
+
+        >.product-title
+          text-align: left
+
+      >.product-content
+
+        >.product-content-details
+          text-align: left
+
+
+  .products.tiles.recommended
+    .product
+      margin-right: 10px
+
+
+@media (min-width: 870px)
+  .products.tiles .product
+    width: 285px
+
+
+@media (min-width: 992px)
+  .products.tiles .product
+      width: 360px
+
+
+@media (min-width: $G-SIZE-4)
+  .products.tiles .product
+      width: 445px

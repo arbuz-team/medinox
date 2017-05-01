@@ -1,0 +1,174 @@
+
+.footer
+
+  .footer-content
+    position: relative
+    min-height: 100px
+
+    background-color: $G-COLOR-3
+    border-top: $G-STYLE-BORDER
+    font-size: 15px
+
+    >div
+      position: relative
+      padding: 0 15px
+
+////////////////////
+
+.footer-cookies
+  margin-bottom: 30px
+  line-height: 40px
+
+  font-weight: bold
+  border-bottom: $G-STYLE-DARK-BORDER
+  text-align: center
+
+  >span
+    opacity: .7
+
+.start
+  .footer-cookies
+    border-bottom: $G-STYLE-BORDER
+
+
+////////////////////
+
+.footer-social, .footer-navigation, .footer-contact
+  line-height: 40px
+  text-align: center
+
+////////////////////
+
+.footer-social
+  padding-top: 10px
+
+  >.social-element
+    display: inline-block
+
+    opacity: .9
+    text-align: center
+
+    >div
+      width: 100px
+      height: 40px
+
+    >span
+      font:
+        size: 12px
+        weight: bold
+
+  >a.social-element
+    opacity: .8
+
+    >div
+      +background-img('', 40px 40px, center)
+
+    >span
+      opacity: .8
+
+
+  >a.social-element:hover
+    opacity: .9
+
+
+  .social-dot >div
+    width: 24px
+    height: 24px
+    margin: 0 auto
+
+    background-color: $G-COLOR-0
+    border-radius: 50%
+
+    opacity: .2
+
+.social-1
+  background-image: url(/_static/img/icons/64/dark/facebook.png)
+
+.social-2
+  background-image: url(/_static/img/icons/64/dark/google-plus.png)
+
+.social-3
+  background-image: url(/_static/img/icons/64/dark/twitter.png)
+
+.social-4
+  background-image: url(/_static/img/icons/64/dark/instagram.png)
+
+.social-5
+  background-image: url(/_static/img/icons/64/dark/linkedin.png)
+
+.social-6
+  background-image: url(/_static/img/icons/64/dark/tumblr.png)
+
+.social-7
+  background-image: url(/_static/img/icons/64/dark/youtube.png)
+
+
+////////////////////
+
+.footer-navigation
+  margin-top: 15px
+
+  font-size: 18px
+
+  >*
+    display: inline-block
+    font-weight: bold
+    opacity: .8
+
+  >div
+    cursor: pointer
+
+  >span
+    opacity: .5
+    margin: 0 2px
+
+  >a:hover
+    opacity: .9
+
+
+////////////////////
+
+.footer-contact
+  margin-top: 20px
+
+  >.contact-element
+    display: inline-block
+    margin: 0 5px
+    vertical-align: top
+    line-height: 20px
+
+  .icon
+    display: inline-block
+    width: 30px
+    height: 30px
+    line-height: 30px
+
+    opacity: .8
+
+  .icon.email
+    +background-img(url('/_static/img/icons/32/dark/email.png'), 28px, center)
+
+  .icon.number
+    +background-img(url('/_static/img/icons/32/dark/telephone.png'), 23px, center)
+
+  .icon.address
+    +background-img(url('/_static/img/icons/32/dark/home.png'), 25px, center)
+
+
+////////////////////
+
+.footer-author
+  margin-top: 30px
+  line-height: 30px
+
+  border-top: $G-STYLE-BORDER
+  background-color: $G-COLOR-0
+  color: $G-COLOR-4
+  text-align: right
+  font-size: 14px
+
+  >*
+    opacity: .7
+
+  >a:hover
+    opacity: .9

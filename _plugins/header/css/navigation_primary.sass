@@ -1,0 +1,94 @@
+
+//--------------------------------------
+//         Navigation primary
+//--------------------------------------
+
+#HEADER >.header >.navigation-primary
+  display: none
+
+
+@media (min-width: $G-SIZE-2)
+
+  #HEADER >.header >.navigation-primary
+    display: block
+    position: relative
+    height: inherit
+
+
+    >li
+      display: inline-block
+      position: relative
+      z-index: 38
+
+      margin-top: 34px
+      height: 40px
+      min-width: 150px
+
+      line-height: 40px
+      border-radius: 2px
+
+      >a
+        display: block
+        height: 100%
+        padding: 0 15px
+
+        font-size: 20px
+        text-align: center
+        color: $header--color
+
+    >li.wybrany,
+    >li:hover
+      background-color: #fafafa
+
+      >a
+        color: $header--color
+
+    >li.navigation-primary-language
+      float: right
+      display: block
+      position: relative
+
+      min-width: 40px !important
+      width: 40px !important
+      height: 40px !important
+
+      margin: 0
+        top: 35px
+        right: 10px
+
+      button
+        position: absolute
+        left: 0
+        top: 0
+
+        width: 100%
+        height: 100%
+        margin: 0
+
+        border: none
+        background-color: transparent
+
+        *
+          display: none
+
+      button.EN
+        +background-img(url('/_static/img/flags/uk_UK.png'), 100% 100%, center bottom)
+      button.PL
+        +background-img(url('/_static/img/flags/pl_PL.png'), 100% 100%, center bottom)
+      button.DE
+        +background-img(url('/_static/img/flags/de_DE.png'), 100% 100%, center bottom)
+
+
+@media (min-width: $G-SIZE-3)
+
+  #HEADER >.header >.navigation-primary
+
+    >li
+      height: 55px
+      margin-top: 30px
+      line-height: 55px
+
+    >li.navigation-primary-language
+      margin:
+        top: 40px
+        right: 15px

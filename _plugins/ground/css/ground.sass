@@ -1,0 +1,205 @@
+// -----------------------------------------
+//			  DEFINIOWANIE ZMIENNYCH
+// -----------------------------------------
+
+$ground--background-color: $G-COLOR-4
+$ground--color: $G-COLOR-0
+$ground--border-color: transparent
+
+
+//-----------------------------------------
+//			  ELEMENTY TREŚCI
+//-----------------------------------------
+
+
+#GROUND::before
+  box-sizing: border-box
+  position: absolute
+  left: 0
+  top: 0
+  right: 0
+  height: 8px
+  border-bottom: $G-STYLE-BORDER-BOLD
+  background: $header--background-color
+  content: ''
+  z-index: 200
+
+#GROUND
+  position: relative
+  display: block
+
+.ground
+  top: 8px
+
+  opacity: 0.4
+  overflow-y: scroll
+  background-color: $G-COLOR-3
+
+
+  >.block-1
+    border-bottom: 1px solid $ground--border-color
+
+
+.ground-block
+  position: relative
+  display: inline-block
+  margin: 0
+  padding-bottom: 50px
+
+  width: 100%
+  min-height: 550px
+
+
+  >.block-title
+    position: relative
+    z-index: 12
+
+    margin-top: 15px
+    padding-left: 30px
+
+    color: $ground--color
+    font-size: 18px
+    font-weight: bold
+
+  >.block-content, >.block-content-message
+    position: relative
+    padding: 10px 15px
+    z-index: 12
+
+    color: $ground--color
+    font-size: 16px
+
+  .block-content-message
+    color: $G-COLOR-1
+    font-weight: bold
+    font-size: 18px
+
+  >.block-background
+    z-index: 10
+    background-color: $ground--background-color
+
+
+  >.block-2 > .block-background
+    background-color: $ground--background-color
+
+
+.block-content
+
+  .title, .subtitle
+    padding: 10px 0
+
+    font-weight: bold
+    opacity: .92
+
+
+  .title
+    margin:
+      top: 15px
+      bottom: 10px
+
+    font-size: 18px
+    text-align: center
+    border-bottom: 1px solid #eee
+
+
+  .subtitle
+    padding:
+      left: 5px
+      right: 5px
+    margin: 10px 0
+
+    font-size: 15px
+
+
+  .paragraph
+    margin-bottom: 15px
+    margin-left: 15px
+
+
+.block-content.contact
+
+  >.block-content-right
+    margin-top: 15px
+
+
+
+.block-content
+  position: relative
+  padding: 10px 15px
+  z-index: 12
+
+.block-background
+  z-index: 10
+
+//-----------------------------------------
+//				EKRAN KOMPUTERA
+//-----------------------------------------
+
+@media (min-width: $G-SIZE-1)
+
+  .block-content.contact
+
+    >.block-content-right
+      height: 300px
+
+
+@media (min-width: $G-SIZE-2)
+
+  .ground-block
+    padding-bottom: 100px
+
+  .ground:not(.smaller) .block-content.contact
+
+    >.block-content-left, >.block-content-right
+      display: inline-block
+
+    >.block-content-left
+      width: 47%
+
+    >.block-content-right
+      position: absolute
+      top: 30px
+      right: 30px
+      width: 47%
+      height: 300px
+      margin-top: 0
+
+
+@media (min-width: $G-SIZE-3)
+
+  #GROUND
+    margin-left: 250px
+
+  .ground:not(.smaller) .block-content.contact
+
+    >.block-content-left
+      width: 400px
+
+    >.block-content-right
+      width: auto
+      left: 450px
+
+
+@media (min-width: $G-SIZE-4)
+
+  .ground:not(.smaller) .block-content.contact
+
+    >.block-content-right
+      height: 500px
+
+
+//-----------------------------------------
+//	EKRAN KOMPUTERA z wysuniętym koszykiem
+//-----------------------------------------
+
+@media (min-width: $G-SIZE-5)
+
+  .ground.smaller .block-content.contact
+
+    >.block-content-right
+      position: absolute
+      left: 415px
+      top: 30px
+      right: 30px
+      height: 500px
+      margin-top: 0

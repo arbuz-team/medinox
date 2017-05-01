@@ -1,0 +1,24 @@
+{% load tags %}
+
+{% for selected in item.products %}
+<div class="field">
+    <span>{{ selected.product }}</span> <span>x {{ selected.number }}</span>
+</div>
+{% endfor %}
+
+<div class="field_shell">
+    <div>
+        <span>{{ item.payment.service }}</span> <span>{{ item.payment.total_price }} {{ item.payment.currency }}</span>
+    </div>
+    <div>
+        <button class="dialog_button" type="button"
+                data-type="alert"
+                data-name="{{ button_address_name }}"
+                data-value="{{ item.payment.pk }}">
+            Show addresses
+        </button>
+        <a class="button" href="{% url 'pdf.invoice' full=True pk=item.payment.pk %}">
+            Get invoice
+        </a>
+    </div>
+</div>

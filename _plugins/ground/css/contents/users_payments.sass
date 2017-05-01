@@ -1,0 +1,103 @@
+
+@import '../../../forms/css/form_blocks/definitions'
+
+.users_payments-filters
+  text-align: center
+
+  button
+    width: 145px
+
+
+.users_payments
+  .form_block.fields
+
+    div
+
+      >span
+        font:
+          size: 15px
+          weight: bold
+
+      >span:first-child
+        opacity: .9
+
+      >span:last-child
+        float: right
+        margin-left: 5px
+        opacity: .6
+
+
+    .title
+      button
+        float: right
+        vertical-align: top
+
+    >div >.field_shell
+
+      >div:first-child
+        >span:first-child
+          opacity: .6
+
+        >span:last-child
+          opacity: .9
+
+      >div:last-child
+        margin-top: 5px
+
+        >button, >.button
+          width: 100%
+          margin:
+            top: 5px
+            bottom: 0
+
+
+
+@media (min-width: $G-SIZE-2)
+
+  .ground:not(.smaller) .ground-block.BIG.users_payments
+
+    .form_block.fields
+      max-height: $field_blocks--max-height - 10px
+
+      cursor: pointer
+
+      .shell_form
+        height: 50px
+        background-image: none
+
+      .title
+        font-size: 16px
+        color: $G-COLOR-1
+        cursor: pointer
+
+    .form_block.visible.fields
+      max-height: $ALL_blocks--max-height-visible
+      cursor: auto
+
+      .shell_form
+        height: 0
+
+
+@media (min-width: 1300px)
+
+  .ground.smaller .ground-block.BIG.users_payments
+
+    .form_block.fields
+      max-height: $field_blocks--max-height - 10px
+
+      cursor: pointer
+
+      .shell_form
+        height: 50px
+        background-image: none
+
+      .title
+        color: $G-COLOR-1
+        cursor: pointer
+
+    .form_block.visible.fields
+      max-height: $ALL_blocks--max-height-visible
+      cursor: auto
+
+      .shell_form
+        height: 0

@@ -1,0 +1,16 @@
+<div class="dialog-header">
+    {{ title }}
+</div>
+
+<div class="dialog-content">
+
+    <div class="dialog-content-part field_shell">
+        &nbsp;
+
+        <script>
+            window.APP.DATA.delay = 0;
+            window.APP.throw_event(window.EVENTS.plugins.close_dialog);
+        </script>
+    </div><!-- dialog-content-part -->
+
+</div><!-- dialog-content -->

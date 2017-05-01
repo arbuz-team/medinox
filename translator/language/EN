@@ -1,0 +1,147 @@
+1:Select or create product brand
+2:Select or create product purpose
+3:Product details in English
+4:Product details in Polish
+5:Product details in German
+6:Where to display product
+7:Add image to product
+9:Append new recommended product
+10:First recommended product must exist in list product. To add recommended product you have to search product and click `Recommend` button in product details.
+11:Price in {0} have to be greater than zero.
+12:Stock have to be greater than zero.
+13:English details are required.
+15:Product's brand name is required.
+17:Product's image is required.
+18:Keywords
+19:Name
+20:Description
+23:Sign in
+24:Sign out
+25:Company details
+26:Map references
+27:Users' payments
+28:Root does not exist.
+29:Wrong password.
+30:Wrong password. Try again.
+31:Password
+32:Change your password.
+33:Confirm your new account.
+34:Your order is confirmed.
+35:Sign in
+36:Sign up
+37:Sign out
+38:Account
+39:Email
+40:Password
+41:User with this email does not exist.
+42:Your account is not confirmed. Check your mailbox.
+43:Wrong password. Try again.
+44:Username
+45:Password
+46:Email
+47:Full Name
+48:Address Line
+50:City
+51:State / Province / Region
+52:ZIP / Postal Code
+53:Country
+54:User with this email does not exist.
+55:Your account is not confirmed. Check your mailbox.
+56:Email
+57:Password
+58:Account details
+59:Your addresses
+60:My shopping
+61:Favorite products
+62:Shopping cart
+63:Doctor's number
+64:Product can have only one image. Choice one option: paste URL or select image from disk.
+65:Please select image.
+66:It's not an image.
+67:It's not an image.
+69:Unauthorized access
+70:The dialog is reserved for logged-in user's or root.
+71:Title
+72:Your name
+73:Email
+74:Message
+75:Product
+76:Url
+77:Product
+78:Url
+79:Product
+80:Url
+81:Question about product availability
+82:Comment on the website
+83:Other questions
+84:Password
+85:Wrong password
+86:Edit email address
+87:Edit username
+88:Edit password
+89:New email address
+90:New username
+91:New password
+92:First field is required
+93:Edit content
+94:The dialog is not valid in this URL address.
+95:Header
+96:Paragraph
+97:Paste image URL
+98:Delete product
+99:Are you sure you want to remove the product?
+100:Clear cart
+101:Are you sure you want to clear cart?
+102:Sending...
+103:Waiting...
+104:It's done!
+105:Error / Resend
+106:invoice.pdf
+107:Delete address
+108:Are you sure you want to remove the address?
+109:Delete brand
+110:Are you sure you want to remove the brand? Number of products pinned to the brand {0}
+111:Delete purpose
+112:Are you sure you want to remove the purpose? Number of products pinned to the purpose {0}
+113:arbuz
+114:cart
+115:dialog
+116:main
+117:navigation
+118:payment
+119:pdf
+120:product
+121:root
+122:searcher
+123:sender
+124:session
+125:setting
+126:statement
+127:translator
+128:user
+129:user.account
+130:invoice.pdf
+131:Show addresses
+132:Get invoice
+133:Close
+134:Clear filters
+135:Social media
+136:Delivery settings
+137:Credits
+138:Icons made by <a href="http://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a>, <a href="http://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> and <a href="http://www.flaticon.com/authors/bogdan-rosu" title="Bogdan Rosu">Bogdan Rosu</a> <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+139:Phone
+140:Email
+141:Price in EUR
+142:Price in PLN
+143:Stock
+144:Name is required
+145:Modeling Mouth
+146:Deep Wrinkles
+147:Shallow Wrinkles
+148:Medium Wrinkles
+149:Volumetry
+150:Eye Area
+151:Payment was not successful
+152:Payments for selected products in Medifiller shop.
+153:Delete paragraph
+154:Are you sure you want to remove the paragraph?

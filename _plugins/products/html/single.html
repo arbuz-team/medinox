@@ -1,0 +1,38 @@
+{% load staticfiles %}
+{% load tags %}
+
+<li class="product" data-id="{{ product.pk }}">
+    <a href="/product/{{ product.pk }}/{% product_name_url product %}/">
+
+        <div class="product-img mini_image">
+            <div class="fill-abs">
+                <img data-src="{{ product.image }}" alt="{% product_name product %}" src="{% static 'img/pixel.png' %}" />
+            </div>
+        </div>
+
+        <h3 class="product-title"> {% product_name product %} </h3>
+    </a>
+
+    <div class="product-content field_shell">
+
+        <!--<a href="/product/edit/{{ product.pk }}/"><button type="button">Edytuj</button></a>-->
+
+        <!--<button class="post_button" type="button"-->
+        <!--data-name="Delete_{{ product.pk }}"-->
+        <!--data-action="delete"-->
+        <!--data-value="{{ product.pk }}"-->
+        <!--data-url="/product/delete/">Delete</button> <br>-->
+
+        <div class="product-content-details">
+            <a href="/product/{{ product.pk }}/{% product_name_url product %}/"><button type="button">Details...</button></a>
+        </div>
+
+        <div class="product-content-price">
+            {% if request.session.user_login %}
+                {% get_price product %}
+            {% endif %}
+        </div>
+    </div>
+</li>
+
+

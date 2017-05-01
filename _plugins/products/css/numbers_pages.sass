@@ -1,0 +1,52 @@
+
+.block-content-numbers_pages
+  padding-top: 15px
+
+  text-align: center
+
+
+.numbers_pages-one_step
+  display: inline-block
+
+  >button
+    min-width: 100px
+
+
+.numbers_pages-filters
+  display: inline-block
+  width: auto
+
+  >.auto_field
+    width: 100px
+    min-width: 100px
+
+.numbers_pages-change_page
+  display: none
+
+  .button
+    background:
+      color: transparent !important
+      image: none !important
+    border: none !important
+
+
+
+@media (min-width: 900px) and (max-width: 999px), (min-width: 1150px)
+
+  .ground:not(.smaller)
+    .numbers_pages-filters
+      display: none
+
+    .numbers_pages-change_page
+      display: inline-block
+
+
+
+@media (min-width: 1550px)
+
+  .ground.smaller
+    .numbers_pages-filters
+      display: none
+
+    .numbers_pages-change_page
+      display: inline-block

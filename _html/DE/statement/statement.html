@@ -1,0 +1,25 @@
+<script>
+  window.APP.DATA = {
+    title : '{{ title }}',
+    description : 'This page is about us. ;)'
+  };
+</script>
+
+<div class="ground-block block-1">
+
+  <div class="block-background fill-abs"></div>
+  {% include "ground/html/navigation.html" %}
+
+  <div class="block-content">
+
+    {% if title == '403' %}
+      Sorry, the page is inactive or protected.
+    {% elif title == '404' %}
+      Sorry, we couldn't find that page.
+    {% elif title == '500' %}
+      Sorry... It's not you. It's us.
+    {% endif %}
+
+  </div>
+
+</div>

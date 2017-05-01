@@ -1,0 +1,141 @@
+
+<ul class="navigation-mini">
+
+    <li class="navigation-mini-filter">
+        <button></button>
+    </li>
+
+    <li class="navigation-mini-navigation">
+        <button></button>
+    </li>
+
+    {% if request.session.user_login %}
+    <li class="navigation-mini-cart">
+        <button></button>
+    </li>
+    {% else %}
+    <li class="navigation-mini-cart">
+        <a href="/user/sign_in/"></a>
+    </li>
+    {% endif %}
+
+</ul>
+
+<!-- /////////////////////////////////////////////////////// -->
+
+<ul class="navigation-primary">
+
+    <li>
+        <a class="link" href="/">
+            Home
+        </a>
+    </li>
+
+    <li>
+        <a class="link" href="/products/">
+            Products
+        </a>
+    </li>
+
+    <li>
+        <a class="link" href="/about/">
+            About
+        </a>
+    </li>
+
+    {% if request.session.user_login %}
+        <li>
+            <a class="link" href="/user/account/">
+                Account
+            </a>
+        </li>
+    {% else %}
+        <li>
+            <a class="link" href="/user/sign_in/">
+                Sign in
+            </a>
+        </li>
+    {% endif %}
+
+    <li class="navigation-primary-language field_shell">
+        <button type="button"
+                class="dialog_button {{ request.session.translator_language }}"
+                data-type="alert"
+                data-name="language"></button>
+    </li>
+
+</ul>
+
+<!-- /////////////////////////////////////////////////////// -->
+
+<div class="navigation-secondary">
+    {% if request.session.root_login %}
+    <ul class="navigation-secondary-root">
+
+        <li>
+            <a class="link" href="/root/map_references/">
+                Map references
+            </a>
+        </li>
+
+        <li class="navigation-secondary-space"> | </li>
+
+        <li>
+            <a class="link" href="/root/users_payments/">
+                Users payments
+            </a>
+        </li>
+
+        <li class="navigation-secondary-space"> | </li>
+
+        <li>
+            <a class="link fill-abs" href="/root/sign_out/">
+                Root sign out
+            </a>
+        </li>
+
+    </ul>
+    {% endif %}
+
+    <ul class="navigation-secondary-user">
+
+        {% if request.session.user_login %}
+            <li>
+                <a class="link fill-abs" href="/user/sign_out/">
+                    Sign out
+                </a>
+            </li>
+        {% else %}
+            <li>
+                <a class="link fill-abs" href="/user/sign_up/">
+                    Sign up
+                </a>
+            </li>
+        {% endif %}
+
+        <li class="navigation-secondary-space"> | </li>
+
+        <li>
+            <a class="link fill-abs" href="/contact/">
+                Contact
+            </a>
+        </li>
+
+        <li class="navigation-secondary-space"> | </li>
+
+        {% if request.session.user_login %}
+            <li class="navigation-secondary-cart" title="CTRL+SHIFT+X">
+                <div class="link fill-abs">
+                    Cart
+                </div>
+            </li>
+        {% else %}
+            <li>
+                <a class="link fill-abs" href="/user/sign_in/">
+                    Cart
+                </a>
+            </li>
+        {% endif %}
+
+    </ul>
+</div>

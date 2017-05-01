@@ -1,0 +1,17 @@
+<div class="block-content products tiles">
+
+    <ul>
+        {% if request.session.root_login %}
+            {% include "products/html/add.html" %}
+        {% endif %}
+
+        {% for product in products %}
+
+            {% include 'products/html/single.html' %}
+
+        {% endfor %}
+    </ul>
+
+    {% include "products/html/numbers_pages.html" %}
+
+</div>

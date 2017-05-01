@@ -1,0 +1,49 @@
+
+<div class="dialog-header">
+    Addresses - delivery and invoice
+</div>
+
+
+<div class="dialog-content">
+
+    <div class="dialog-content-part">
+        Address delivery<br><br>
+
+            Full name:      {{ delivery.full_name }}        <br>
+
+            {% if delivery.doctor_number %}
+            Doctor number:  {{ delivery.doctor_number }}    <br>
+            {% endif %}
+
+            Address line:   {{ delivery.address_line }}     <br>
+            City:           {{ delivery.city }}             <br>
+            Region:         {{ delivery.region }}           <br>
+            Postcode:       {{ delivery.postcode }}         <br>
+            Country:        {{ delivery.country }}          <br>
+
+        <br><br>
+        Address invoice<br>
+        <br>
+
+            Full name:      {{ invoice.full_name }}        <br>
+
+            {% if delivery.doctor_number %}
+            Doctor number:  {{ invoice.doctor_number }}    <br>
+            {% endif %}
+
+            Address line:   {{ invoice.address_line }}   <br>
+            City:           {{ invoice.city }}             <br>
+            Region:         {{ invoice.region }}           <br>
+            Postcode:       {{ invoice.postcode }}         <br>
+            Country:        {{ invoice.country }}          <br>
+
+    </div><!-- dialog-content-part -->
+
+
+
+    <div class="dialog-content-part field_shell">
+        <!--buttons-->
+        <button class="dialog-content-button" data-dialog-button="cancel"> Close </button>
+    </div><!-- dialog-content-part -->
+
+</div><!-- dialog-content -->

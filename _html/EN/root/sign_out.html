@@ -1,0 +1,25 @@
+<script>
+    window.APP.throw_event(window.EVENTS.plugins.reload_root_sign_in);
+
+  window.APP.DATA.redirect = '/';
+  window.APP.DATA.delay = 1500;
+  window.APP.throw_event(window.EVENTS.redirect);
+</script>
+
+
+<div class="ground-block block-1 SMALL">
+
+  <div class="block-background fill-abs"></div>
+  {% include "ground/html/navigation.html" %}
+
+  <div class="block-content">
+
+      <div class="block-content-message">
+          You have been logged out.
+      </div>
+
+  </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

@@ -1,0 +1,78 @@
+{% load tags %}
+
+{% if request.session.user_login %}
+
+    <div class="cart-close">
+        <i>&nbsp;</i>
+        <span>esc</span>
+    </div>
+
+    <div class="cart-title"> Shopping cart </div>
+
+    <ul class="cart-list">
+
+        {% if cart %}
+
+            {% for selected in cart %}
+
+            <li class="cart-list-product">
+                <div class="cart-list-name">
+                    <a href="/product/{{ selected.product.pk }}/{% product_name_url selected.product %}/">
+                        {% product_name selected.product %}
+                    </a>
+                </div>
+                <div class="cart-list-actions field_shell">
+                    <span>{{ selected.number }} x {% get_price selected.product %}</span>
+                    <button class="post_button icon" type="button"
+                            data-name="Delete_{{ selected.product.pk }}"
+                            data-action="delete"
+                            data-value="{{ selected.product.pk }}"
+                            data-reload="cart ground"
+                            data-url="/cart/">
+                        <i style="background-image: url(/_static/img/icons/32/dark/waste_bin.png)"> &nbsp; </i>
+                    </button>
+                </div>
+            </li>
+
+            {% endfor %}
+
+            <li class="cart-list-total_price">
+                <div>Total price:</div>
+                <div>{{ payment.total_price }} {{ request.session.translator_currency }}</div>
+            </li>
+
+            <li class="field_shell">
+                <div class="cart-list-button">
+                    <button class="dialog_button" type="button"
+                            data-type="confirm"
+                            data-name="clear_cart"
+                            data-dialog-name="Clear_cart"
+                            data-dialog-action="clear"
+                            data-dialog-reload="cart"
+                            data-dialog-url="/cart/">
+                        Clear cart
+                    </button>
+                </div>
+                <a class="cart-list-button" href="/payment/">
+                    <button class="submit" type="button">Go to paymants</button>
+                </a>
+            </li>
+
+            <!--{{ suma }}-->
+
+        {% else %}
+
+            <li>
+                <div class="cart-list-empty">
+                    Cart is empty
+                </div>
+            </li>
+
+        {% endif %}
+
+    </ul><!-- cart-list -->
+{% else %}
+
+    Loading...
+
+{% endif %}

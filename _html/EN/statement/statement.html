@@ -1,0 +1,57 @@
+<script>
+    window.APP.DATA = {
+        title : '{{ title }}',
+        description : ''
+    };
+</script>
+
+<div class="ground-block block-1">
+
+    <div class="block-background fill-abs"></div>
+
+    <div class="block-content">
+
+        <div class="block-content-message">
+            {% if title == '403' %}
+                Sorry, the page is inactive or protected. :(
+            {% elif title == '404' %}
+                Sorry, we couldn't find that page. :(
+            {% elif title == '500' %}
+                Sorry... It's not you. It's us. <br>
+                Internal Server Error :(
+            {% endif %}
+        </div>
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}
+
+
+<!-- ////////////////////////////////////////////////////////////////////// -->
+
+<div class="dialog-header">
+    Error!
+</div>
+
+<div class="dialog-content">
+
+    <div class="dialog-content-part">
+        {% if title == '403' %}
+            Sorry, the page is inactive or protected. :(
+        {% elif title == '404' %}
+            Sorry, we couldn't find that page. :(
+        {% elif title == '500' %}
+            Sorry... It's not you. It's us. :( <br>
+            Internal Server Error
+        {% endif %}
+    </div><!-- dialog-content-part -->
+
+
+    <div class="dialog-content-part field_shell">
+        <!--buttons-->
+        <button class="dialog-content-button" data-dialog-button="cancel"> Close </button>
+    </div><!-- dialog-content-part -->
+
+</div><!-- dialog-content -->

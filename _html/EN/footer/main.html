@@ -1,0 +1,85 @@
+{% load staticfiles %}
+{% load tags %}
+
+<div class="footer-content">
+
+    <div class="footer-cookies">
+        <span>This website uses cookies. By using our services you agree to our use of cookies.</span>
+        <!--Ta strona używa cookies. Korzystając ze strony wyrażasz zgodę na używanie plików cookies.-->
+    </div><!-- footer-cookies -->
+
+
+    <div class="footer-social">
+
+        {% if request.session.root_login %}
+            <div class="footer-edit buttons_to_action field_shell">
+                <a class="button submit" href="/root/social_media/">Edit</a>
+            </div>
+        {% endif %}
+
+
+        <div class="social-element">
+            <div class="social-dot"><div></div></div>
+            <!--<span>&nbsp;</span>-->
+        </div>
+
+        {% for element in request.session.root_social_media %}
+
+            {% if element.url %}
+                <a class="social-element" href="{{ element.url }}" target="_blank">
+                    <div class="social-{{ element.pk }}"></div>
+                    <!--<span>&nbsp;</span>-->
+                </a>
+            {% endif %}
+
+        {% endfor %}
+
+        <div class="social-element">
+            <div class="social-dot"><div></div></div>
+            <!--<span>&nbsp;</span>-->
+        </div>
+    </div><!-- footer-social -->
+
+
+    <div class="footer-navigation">
+        <a href="/contact/"> Contact </a>
+        <span>&nbsp;|&nbsp;</span>
+        <a href="/user/agreement/"> User Agreement </a>
+        <span>&nbsp;|&nbsp;</span>
+        <div class="dialog_button" data-type="alert" data-name="icons"> Credits </div>
+        <span>&nbsp;|&nbsp;</span>
+        <a href="/user/sign_up/"> Sign up </a>
+    </div><!-- footer-navigation -->
+
+
+    <div class="footer-contact">
+        {% if request.session.root_login %}
+            <div class="footer-edit buttons_to_action field_shell">
+                <a class="button submit" href="/root/company_details/">Edit</a>
+            </div>
+        {% endif %}
+
+        <div class="contact-element"><i class="icon email">&nbsp;</i> {{ request.session.root_address.email }} </div>
+
+        {% if request.session.root_address.phone %}
+            <div class="contact-element"><i class="icon number">&nbsp;</i> {{ request.session.root_address.phone }} </div>
+        {% endif %}
+
+        <div class="contact-element"><i class="icon address">&nbsp;</i>
+            <span>
+                {{ request.session.root_address.address_line }} <br>
+                {{ request.session.root_address.postcode }} {{ request.session.root_address.city }}
+            </span>
+        </div>
+    </div><!-- footer-contact -->
+
+
+    <div class="footer-author">
+        <span>© 2016 ArbuzTeam. All Rights Reserved</span>
+        <span>&nbsp;|&nbsp;</span>
+        <a href="{% redirect 'root.sign_in' 'root.start' %}">Login</a>
+        <span>&nbsp;|&nbsp;</span>
+        <a href="https://www.arbuz.team/">ArbuzTeam</a>
+    </div><!-- footer-author -->
+
+</div>

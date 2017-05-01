@@ -1,0 +1,75 @@
+
+$header-navigation-secondary--color: $G-COLOR-4
+$header-navigation-secondary--background-color: $G-COLOR-0
+
+
+//--------------------------------------
+//         Navigation secondary
+//--------------------------------------
+
+#HEADER >.header >.navigation-secondary
+  display: none
+
+
+@media (min-width: $G-SIZE-2)
+
+  #HEADER >.header >.navigation-secondary
+    position: absolute
+    left: -3px
+    top: 0
+    right: 0
+
+    display: block
+    height: 30px
+    padding:
+      left: 17px
+      right: 15px
+
+    background-color: $header--color
+    color: $header--background-color
+
+    z-index: 70
+
+    >.navigation-secondary-left
+      float: left
+      text-align: left
+
+    >.navigation-secondary-right
+      float: right
+      text-align: right
+
+    >ul
+      display: inline-block
+
+      >li
+        display: inline-block
+        width: auto
+        font:
+          size: 14px
+          weight: normal
+
+        >.link
+          position: relative
+
+          font-weight: bold
+          cursor: pointer
+
+    .navigation-secondary-searcher
+      >div >i
+        display: inline-block
+        position: relative
+        top: 2px
+
+        width: 15px
+        height: 15px
+        margin-right: 3px
+
+        +background-img( url(/_static/img/icons/32/light/searcher.png), 100%, center)
+
+
+@media (min-width: $G-SIZE-3)
+
+  #HEADER >.header >.navigation-secondary
+
+    .navigation-secondary-searcher, .navigation-secondary-space.for_searcher
+      display: none

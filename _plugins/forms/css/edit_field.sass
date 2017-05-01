@@ -1,0 +1,54 @@
+
+.field_shell
+
+  .edit_field-label
+    opacity: .6
+    font:
+      size: 15px
+      weight: bold
+
+  .edit_field-content
+    position: relative
+    padding: 5px 10px
+
+    opacity: .85
+    font-weight: bold
+
+    >button
+      position: absolute
+      top: -5px
+      right: 5px
+
+      padding: 5px
+      line-height: 17px
+
+      >i
+        display: inline-block
+        width: 17px
+        height: 17px
+
+        opacity: .8
+        +background-img( url(/_static/img/icons/32/dark/edit.png), 100%, center)
+
+      >i:hover
+        opacity: 1
+
+
+@media (min-width: 1000px)
+
+  .field_shell
+
+    .edit_field-label
+      display: block
+
+    .edit_field-content
+      >button
+        display: none
+
+  .field_shell .edit_field:hover
+
+    .edit_field-content
+      opacity: 1
+
+      >button
+        display: block

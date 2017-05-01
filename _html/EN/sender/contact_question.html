@@ -1,0 +1,21 @@
+{% extends 'EN/sender/template.html' %}
+
+{% block content %}
+
+    <div class="content-image"> <img src="cid:logo" /> </div>
+    <div class="content-title"> This is the questions customer. </div>
+    <div class="content-text">
+        Customer: {{ client }} <br>
+        Question: {{ question }} <br>
+
+        {% if product %}
+            Product: {{ product }} <br>
+        {% endif %}
+
+        {% if url %}
+            URL: {{ url }} <br>
+        {% endif %}
+
+    </div><!-- content-text -->
+
+{% endblock content %}

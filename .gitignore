@@ -1,0 +1,11 @@
+.idea/*
+*.pyc
+*.swp
+*.swo
+arbuz/settings.py
+update_settings.sh
+update_settings_outside.sh
+*migrations*
+db.sqlite3
+node_modules/*
+*.directory

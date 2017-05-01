@@ -1,0 +1,27 @@
+{% extends 'EN/sender/template.html' %}
+{% load tags %}
+
+{% block content %}
+    <div id="content">
+
+        <div class="content-image"> <img src="cid:logo" /> </div>
+        <div class="content-title"> You have bought product. </div>
+        <div class="content-text">
+
+            {% for selected in selected_products %}
+
+                {{ selected.product }}
+                {{ selected.number }} x
+                {% get_price selected.product payment.currency %} <br>
+
+            {% endfor %}
+
+            {{ payment.user }} <br>
+            {{ payment.user.email }} <br>
+            {{ payment.total_price }} <br>
+            {{ payment.service }} <br>
+
+        </div>
+
+    </div>
+{% endblock content %}

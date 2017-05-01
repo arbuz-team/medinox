@@ -1,0 +1,207 @@
+
+@import 'definitions'
+
+.ground-block
+
+  .field_shell, form > div
+    position: relative
+
+    input[type=text], input[type=email], input[type=password], input[type=number], input[type=url], select, button, textarea
+      margin:
+        left: 0
+        right: 0
+      +box-sizing(border-box)
+
+    input[type=checkbox]
+      position: absolute
+      right: 8px
+      top: 9px
+      width: 18px
+      height: 18px
+
+    .g-recaptcha
+      margin-left: 5px
+
+
+  form > .form_buttons:not(.long)
+    padding-left: 5px
+
+  form > .form_buttons:first-child
+    margin:
+      top: 10px
+    padding-top: 10px
+    border-top: 1px solid #eee
+
+
+.ground-block.SMALL
+
+  .block-content
+    width: $SMALL--width
+    margin: $ALL_blocks--margin
+
+  form
+    >div:not(.short), >div.long
+      >input[type=text], >input[type=email], >input[type=password], >input[type=number], >input[type=url], >select, >button, >textarea,
+      >a >button
+        display: inline-block
+        min-width: $SMALL-input--width
+        max-width: $SMALL-input--width
+        margin:
+          left: auto
+          right: auto
+
+
+/////////////////////////////////////////////////
+
+.ground-block.BIG
+
+  .block-content
+    width: $SMALL--width
+    margin: $ALL_blocks--margin
+
+
+  .form_block.visible, .form_block.visible.fields
+    max-height: $ALL_blocks--max-height-visible
+    cursor: auto
+
+    .shell_form
+      height: 0
+
+    .title
+      color: #999
+      cursor: pointer
+
+
+
+  .form_block.fields
+    max-height: $field_blocks--max-height
+    padding: 5px 10px
+
+    background-color: #f8f8f8
+    border: $G-STYLE-BORDER
+      radius: 3px
+
+    .title
+      padding-top: 10px
+      margin-bottom: 15px
+      border-bottom: $G-STYLE-DARK-BORDER
+      color: $G-COLOR-1 !important
+
+    >div >div:last-child
+      margin-top: 15px
+      padding-top: 5px
+      border-top: $G-STYLE-DARK-BORDER
+
+      >span
+        font-weight: bold
+        opacity: .8
+
+  .form_block.fields:hover
+    background-color: #f8f8f8
+
+
+
+  .form_block
+    margin-top: 15px
+    position: relative
+    display: block
+    max-height: $form_blocks--max-height
+    overflow: hidden
+
+    +transition(max-height 500ms ease)
+    cursor: pointer
+    vertical-align: top
+
+    .shell_form
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 0
+      
+      height: 50px
+      background-image: linear-gradient(transparent, white)
+      +transition(height 500ms ease)
+
+    .title
+      margin-top: 0
+      padding-bottom: 5px
+
+      color: $G-COLOR-1
+      text-align: left
+
+  .form_block
+    input[type=text], input[type=email], input[type=password], input[type=number], input[type=url], select, textarea
+      display: inline-block
+      min-width: $SMALL-input--width
+      max-width: $SMALL-input--width
+      margin-left: 5px
+
+
+@media (min-width: $G-SIZE-2)
+
+  .ground:not(.smaller) .ground-block.BIG
+
+    .block-content
+      width: $BIG--width
+
+    .form_block
+      display: inline-block
+      width: $BIG-form_block--width-normal
+      max-height: $ALL_blocks--max-height-visible
+      margin-right: $ALL_blocks--padding-width
+
+      cursor: auto
+
+      .shell_form
+        height: 0
+
+      .title
+        color: #999
+        cursor: auto
+
+    .form_block:nth-child(3n + 4)
+      margin-right: 0
+
+    .form_block.fields
+      width: $BIG-form_block--width-normal - 2px
+      background-color: #fafafa
+
+    .form_block
+      input[type=text], input[type=email], input[type=password], input[type=number], input[type=url], select, textarea
+        min-width: $BIG-input--width-normal
+        max-width: $BIG-input--width-normal
+
+
+@media (min-width: 1300px)
+
+  .ground.smaller .ground-block.BIG
+
+    .block-content
+      width: $BIG--width
+
+    .form_block
+      display: inline-block
+      width: $BIG-form_block--width-normal
+      max-height: $ALL_blocks--max-height-visible
+      margin-right: $ALL_blocks--padding-width
+
+      cursor: auto
+
+      .shell_form
+        height: 0
+
+      .title
+        color: #999
+        cursor: auto
+
+    .form_block:nth-child(3n + 4)
+      margin-right: 0
+
+    .form_block.fields
+      width: $BIG-form_block--width-normal - 2px
+      background-color: #fafafa
+
+    .form_block
+      input[type=text], input[type=email], input[type=password], input[type=number], input[type=url], select, textarea
+        min-width: $BIG-input--width-normal
+        max-width: $BIG-input--width-normal

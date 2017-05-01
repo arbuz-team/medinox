@@ -1,0 +1,25 @@
+<script>
+  window.APP.DATA = {
+    title : 'Internal error',
+    description : ''
+  };
+</script>
+
+<div class="ground-block block-1">
+
+  <div class="block-background fill-abs"></div>
+  {% include "ground/html/navigation.html" %}
+
+  <ul class="block-content block-link_tiles">
+
+    {% for app in apps %}
+
+      <li>
+          <a href="{{ app.url }}" class="fill-abs">{{ app.name }}</a>
+      </li>
+
+    {% endfor %}
+
+  </ul>
+
+</div>

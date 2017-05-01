@@ -1,0 +1,143 @@
+
+.field_shell
+
+  .field
+    border: 1px solid transparent
+
+  .form_block .field
+    margin: 0
+    padding: 0
+      left: 5px
+
+  //////////////////////////////////////////////////////////////
+
+  button.icon
+    background:
+      color: transparent
+      image: none
+    border: none
+    padding: 0
+    margin: 0 3px
+    line-height: 25px
+    height: 20px
+
+    >i
+      display: inline-block
+      width: 20px
+      height: 20px
+
+      opacity: .8
+      +background-img( '', 100%, center)
+
+    >i:hover
+      opacity: 1
+
+  //////////////////////////////////////////////////////////////
+
+  .selecter
+    width: 100%
+    position: relative
+    min-height: 27px
+    line-height: 27px
+    padding: 0
+
+    label
+      cursor: pointer
+
+    label.selecter-field
+      width: 20px
+      height: 20px
+      cursor: pointer
+      position: absolute
+      top: 3px
+      left: 0
+      background: linear-gradient(top, #222 0%, #45484d 100%)
+      border: $G-STYLE-DARK-BORDER
+        radius: 2px
+      font-size: 19px
+      //overflow: hidden
+
+    label.selecter-text
+      position: relative
+      left: 2px
+
+      font-size: 16px
+      opacity: .8
+
+
+    label.selecter-field
+      &:after
+        position: absolute
+
+        border: none
+        background: transparent
+        opacity: 0
+
+      &:hover::after
+        opacity: .3
+
+      &:hover
+        border-color: $G-COLOR-DARKER-BORDER
+
+      &:hover + label.selecter-text, & + label.selecter-text:hover
+        opacity: 1
+
+
+    input[type=checkbox], input[type=radio]
+      visibility: hidden
+      &:checked + label.selecter-field
+        border-color: $G-COLOR-DARKER-BORDER
+
+        &:after, & + label.selecter-text
+          opacity: 1
+
+
+  .checkbox
+    label.selecter-field
+      border-radius: 2px
+
+      &:after
+        content: '✔'
+        width: 9px
+        height: 5px
+        top: -4px
+        left: 2px
+
+
+  .radio
+    label.selecter-field
+      border-radius: 50%
+
+      &:after
+        content: ''
+        width: 12px
+        height: 12px
+        top: 3px
+        left: 3px
+
+        background-color: #555
+        border-radius: 50%
+
+  //////////////////////////////////////////////////////////////
+
+  select
+    +background-img(url('/_static/img/icons/32/dark/sort_down.png'), 15px, right 10px center)
+    min-width: 150px
+    padding-right: 35px
+
+    min-height: 37px
+
+    background-color: transparent
+    cursor: pointer
+    opacity: .8
+
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+
+    >option
+      line-height: inherit
+
+  select:hover, select:focus
+    opacity: .9
+

@@ -1,0 +1,64 @@
+{% load tags %}
+
+<div class="dialog-header">
+    {{ title }}
+</div>
+
+
+<div class="dialog-content">
+
+    <div class="dialog-content-part field_shell">
+
+        <div class="little_form" data-origin="little" data-reload="dialog searcher">
+            <input type="text" data-name="{{ form_name }}" placeholder="Name for new {{ form_name }}"><button type="button">Create</button>
+        </div>
+
+    </div>
+
+    <!--data-type="{{ form_name }}" data-test="yes"-->
+    <form method="post" data-name="{{ form_name }}">
+
+        <div class="dialog-content-part field_shell">
+            <!--fields of form-->
+
+            {{ form.non_field_errors }}
+
+            <div class="scroll">
+                {% for field in form %}
+
+
+                    {% if field|is_checkbox %}
+
+                        <div class="selecter checkbox">
+                            {{ field }}
+                            <label for="id_{{ field.name }}" class="selecter-field"></label>
+                            <label for="id_{{ field.name }}" class="selecter-text">{{ field.label }}</label>
+                        </div>
+
+
+                    {% elif field|is_radio %}
+
+                        {% for selector in field %}
+                        <div class="selecter radio">
+                            {{ selector.tag }}
+                            <label for="{{ selector.id_for_label }}" class="selecter-field"></label>
+                            <label for="{{ selector.id_for_label }}" class="selecter-text">{{ selector.choice_label }}</label>
+                        </div>
+                        {% endfor %}
+
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+
+        </div><!-- dialog-content-part -->
+
+        <div class="dialog-content-part field_shell">
+            <!--buttons-->
+            <button type="button" class="dialog-content-button" data-dialog-button="cancel"> Cancel </button>
+            <button type="button" class="dialog-content-button" data-dialog-button="send"> Accept </button>
+        </div><!-- dialog-content-part -->
+
+    </form>
+
+</div><!-- dialog-content -->

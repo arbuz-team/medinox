@@ -1,0 +1,48 @@
+<script>
+  window.APP.DATA = {
+    title : 'Social media',
+    description : ''
+  };
+</script>
+
+<div class="ground-block block-1 BIG">
+
+    <div class="block-background fill-abs"></div>
+    {% include "ground/html/navigation.html" %}
+
+    <div class="block-content">
+
+        <form class="auto_form field_shell" action="" data-origin="form">
+
+            <div class="title">Social media</div>
+
+            {% for item in social_media %}
+
+                <div class="fields_with_label full">
+                    <label for="edit_{{ item.name }}">{{ item.name }}:&nbsp;</label>
+                    <input name="{{ item.name }}" type="url"
+                           placeholder="{{ item.name }} account..."
+                           id="edit_{{ item.name }}"
+                           class="auto_field"
+                           data-name="{{ item.pk }}"
+                           value="{{ item.url }}" />
+                </div>
+
+            {% endfor %}
+
+            <div class="fields_with_label full">
+                <label for="button_refresh">&nbsp;</label>
+                <button type="button"
+                        class="event_button submit"
+                        id="button_refresh"
+                        data-name="button_refresh"
+                        data-event="reload_website">
+                    Show changes
+                </button>
+            </div>
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

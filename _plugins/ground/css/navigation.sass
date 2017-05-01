@@ -1,0 +1,48 @@
+
+$ground-navigation--height: 25px
+$ground-navigation--background-color: $G-COLOR-3
+$ground-navigation--image: url(/_static/img/icons/32/dark/home.png)
+
+
+#GROUND
+
+  .ground-navigation
+    position: relative
+    z-index: 12
+    min-height: $ground-navigation--height + 20px
+    margin: 0
+
+    padding: 10px 15px
+    background-color: $ground-navigation--background-color
+    color: $G-COLOR-0
+    border-bottom: $G-STYLE-BORDER
+
+    line-height: $ground-navigation--height
+    font-size: 16px
+    cursor: default
+
+    >a, >span
+      opacity: .6
+
+    >a:first-child, >a:last-child
+      opacity: .8
+
+    >a:hover
+      opacity: 1
+
+    >*
+      display: inline-block
+      height: $ground-navigation--height
+      margin: auto 3px
+      line-height: $ground-navigation--height
+
+
+      >i
+        display: inline-block
+        width: $ground-navigation--height
+        line-height: $ground-navigation--height
+        background:
+          image: $ground-navigation--image
+          position: center
+          size: 100%
+          repeat: no-repeat

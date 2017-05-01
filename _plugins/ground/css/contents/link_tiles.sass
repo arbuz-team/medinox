@@ -1,0 +1,79 @@
+
+.block-link_tiles
+  background-color: transparent
+  text-align: center
+
+  padding-top: 20px
+
+  >li
+    display: inline-block
+    position: relative
+
+    margin-bottom: 30px
+    background-color: $G-COLOR-4
+
+    >a
+      display: block
+      width: 150px
+
+      text-align: center
+      opacity: .85
+
+      >.block-link_tiles-icon
+        position: relative
+        display: block
+        height: 130px
+
+        >i
+          position: relative
+          top: 15px
+
+          display: block
+          width: 100px
+          height: 100px
+
+          margin: 0 auto
+          +background-img('', 100% 100%, center)
+
+
+      >.block-link_tiles-text
+        display: block
+        height: 30px
+
+
+    >a:hover
+      background-color: #f5f5f5
+      border-radius: 2px
+      opacity: 1
+
+
+
+
+@media (min-width: 450px)
+
+  .ground-block > .block-link_tiles
+
+    >li >a
+      width: 200px
+
+      >.block-link_tiles-icon
+        height: 160px
+
+        >i
+          width: 128px
+          height: 128px
+
+
+@media (min-width: 550px)
+
+  .ground-block > .block-link_tiles
+    padding-top: 35px
+
+    >li >a
+      width: 250px
+
+
+@media (min-width: 675px)
+
+  .ground-block > .block-link_tiles
+    padding-top: 50px

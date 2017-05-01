@@ -1,0 +1,101 @@
+
+// -----------------------------------------
+//				  FONT FACE
+// -----------------------------------------
+
+@font-face
+  font-family: 'OS_Regular'
+  src: url('/_static/img/czcionki/OpenSans-Regular.ttf')
+
+@font-face
+  font-family: 'OS_Bold'
+  src: url('/_static/img/czcionki/OpenSans-Bold.ttf')
+
+//-----------------------------------------
+//			ZEROWANIE ELEMENTÓW
+//-----------------------------------------
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small,
+strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form,
+label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
+details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section,
+summary, time, mark, audio, video
+  margin: 0
+  padding: 0
+
+  border: 0
+
+  font: inherit
+  font-size: 100%
+  vertical-align: baseline
+
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section
+  display: block
+
+
+body, html
+  width: 100%
+  min-height: 100%
+  max-height: 100%
+  height: 100%
+  overflow: hidden
+
+  background-color: $G-COLOR-4
+
+  color: $G-COLOR-0
+  font-family: 'OS_Regular', sans-serif
+  font-size: 19px
+  line-height: 1.45
+
+
+body
+  position: absolute
+
+  overflow: hidden
+  -webkit-user-select: none !important
+
+@media (min-width: $G-SIZE-3)
+  body
+    -webkit-user-select: text !important
+
+
+a, a:hover, a:active, a:visited
+  color: inherit
+  text-decoration: none
+  font-weight: bold
+  cursor: pointer
+
+
+ul
+  list-style: none
+
+strong
+  font-weight: bold
+
+*
+  +box-sizing(border-box)
+
+
+//-----------------------------------------
+//      PODSTAWOWE ELEMENTY NA STRONIE
+//-----------------------------------------
+
+#CONTAINTER
+  overflow: hidden
+  z-index: 3
+  background-color: $G-COLOR-4
+
+
+div >.buttons_to_action
+  display: none
+  position: absolute
+  top: -20px
+  right: 10px
+  text-align: right
+
+div:hover >.buttons_to_action
+  display: block
+
+

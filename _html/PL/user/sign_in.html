@@ -1,0 +1,63 @@
+<script>
+    window.APP.DATA = {
+        title : 'Login',
+        description : 'Here you can login.'
+    };
+</script>
+
+
+<div class="ground-block block-1 SMALL">
+
+    <div class="block-background fill-abs"></div>
+    {% include "ground/html/navigation.html" %}
+
+    <div class="block-content">
+
+        {% if not form or request.session.user_login %}
+
+            <div class="block-content-message">
+                Hello {{ request.session.user_username }}. Have a nice shopping! ;)
+            </div>
+
+            <script>
+               window.APP.throw_event(window.EVENTS.plugins.reload_sign_in);
+                window.APP.DATA.redirect = '{{ go_back }}';
+
+                window.APP.DATA.delay = 2000;
+                window.APP.throw_event(window.EVENTS.redirect);
+            </script>
+
+        {% else %}
+
+            <form method="post" action="" id="form_{{ form_name }}" data-name="{{ form_name }}" data-type="{{ form_name }}" data-test="yes" class="field_shell">
+
+                <div class="title"> Sign in </div>
+
+                {% for i in form %}
+
+                    <div>
+                        {{ i }}
+                        {{ i.errors }}
+
+                        {% if i.name == 'email' %}
+                            <div class="status"></div>
+                        {% endif %}
+                    </div>
+
+                {% endfor %}
+
+                <div class="form_buttons long">
+                    <button disabled type="submit"> Done </button>
+                    <a href="/user/sign_up/"><button type="button"> Register </button></a>
+                    <a href="/user/forgot/"><button type="button"> Forgot your password? </button></a>
+                </div>
+
+            </form>
+
+        {% endif %}
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "ground/html/footer.html" %}

@@ -1,0 +1,148 @@
+1:Wybierz lub utwórz nowego producenta produktu
+2:Wybierz lub utwórz nowe przeznaczenie produktu
+3:Szczegóły produktu po angielsku
+4:Szczegóły produktu po polsku
+5:Szczegóły produktu po niemiecku
+6:Gdzie wyświetlać produkt
+7:Dodaj zdjęcie produktu
+9:Dodaj nowy polecany produkt
+10:Aby dodać polecany produkt, należy wyszukać go w istniejących produktach na stronie. Następnie w szczegółach produktu nacisnąć na przycisk `Recommended`.
+11:Cena w walucie {0} musi być większa niż zero.
+12:Liczba produktów dostępnych w magazynie musi być większa niż zero.
+13:Szczegóły produktu po angielsku są wymagane.
+14:Szczegóły wyświetlania produktu są wymagane.
+15:Producent produktu jest wymagany.
+17:Zdjęcie produktu jest wymagane.
+18:Słowa kluczowe
+19:Nazwa
+20:Opis
+23:Zaloguj
+24:Wyloguj
+25:Dane firmy
+26:Mapa adresów
+27:Płatności użytkowników
+28:Administrator nie istnieje.
+29:Błędne hasło.
+30:Błędne hasło. Spróbuj ponownie.
+31:Hasło
+32:Zmień swoje hasło.
+33:Potwierdź swoje nowe konto.
+34:Twoje zamówienie zostało zatwierdzone.
+35:Zaloguj
+36:Zarejestruj
+37:Wyloguj
+38:Konto
+39:Email
+40:Hasło
+41:Użykownik z tym adresem email nie istnieje.
+42:Użytkownik z tym adresem email nie został potwierdzony. Sprawdź swoją skrzynkę mailową.
+43:Błędne hasło. Spróbuj ponownie.
+44:Nazwa użytkownika
+45:Hasło
+46:Email
+47:Imie i nazwisko
+48:Adres zamieszkania
+50:Miasto
+51:Stan / Prowincja / Region
+52:ZIP / Kod pocztowy
+53:Kraj
+54:Użykownik z tym adresem email nie istnieje.
+55:Użytkownik z tym adresem email nie został potwierdzony. Sprawdź swoją skrzynkę mailową.
+56:Email
+57:Hasło
+58:Szczegóły konta
+59:Adresy użytkownika
+60:Moje zakupy
+61:Ulubione produkty
+62:Koszyk
+63:Numer doktora
+64:Produkt może posiadać tylko jedno zdjęcie. Może powinieneś usunąć adres URL?
+65:Prosze wybrać zdjęcie.
+66:To nie jest zdjęcie.
+67:To nie jest zdjęcie.
+69:Nieautoryzowany dostęp
+70:Ten komunikat jest zastrzeżony dla zalogowanych użytkowników lub administratora.
+71:Tytuł
+72:Twoja godność
+73:Email
+74:Wiadomość
+75:Produkt
+76:Url
+77:Produkt
+78:Url
+79:Produkt
+80:Url
+81:Pytanie o dostępność produktu
+82:Uwagi dotyczące strony WWW
+83:Inny temat
+84:Hasło
+85:Błędne hasło
+86:Edycja adresu email
+87:Edycja nazwy użytkownika
+88:Edycja hasła użytkownika
+89:Nowy adres email
+90:Nowa nazwa użytkownika
+91:Nowe hasło użytkownika
+92:Pierwsze pole jest wymagane
+93:Edycja zawartości zakładki
+94:Te okno dialogowe musi zostać wykonane na prawidłowym adresie URL.
+95:Nagłówek
+96:Akapit
+97:Wklej adres URL obrazka
+98:Usuwanie produktu
+99:Jesteś pewny, że chcesz usunąć ten produkt?
+100:Czyszczenie koszyka
+101:Jesteś pewny, że chcesz wyczyścić koszyk?
+102:Wysyłanie...
+103:Oczekiwanie...
+104:Zrobione!
+105:Błąd / Ponów
+106:faktura.pdf
+107:Usuwanie adresu
+108:Jesteś pewny, że chcesz usunąć ten adres?
+109:Usuwanie producenta
+110:Jesteś pewny, że chcesz usunąć tego producenta? Liczba produktów podpiętych pod tego producenta {0}
+111:Usuwanie przeznaczenie produktu
+112:Jesteś pewny, że chcesz usunąć te przeznaczenie produktu? Liczba produktów podpiętych pod tego przeznaczenia {0}
+113:arbuz
+114:koszyk
+115:dialog
+116:główna
+117:nawigacja
+118:płatności
+119:pdf
+120:produkt
+121:administrator
+122:wyszukiwarka
+123:nadawca
+124:sesja
+125:ustawienia
+126:komunikaty
+127:tłumacz
+128:użytkownik
+129:użytkownik.konto
+130:faktura.pdf
+131:Pokaż adresy
+132:Pobierz fakturę
+133:Zamknij
+134:Wyczyść filtry
+135:Media społecznościowe
+136:Ustawienia dostawy
+137:Kto stworzył ikony
+138:Ikony zostały stworzone przez <a href="http://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a>, <a href="http://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> i <a href="http://www.flaticon.com/authors/bogdan-rosu" title="Bogdan Rosu">Bogdan Rosu</a> <a href="http://www.freepik.com" title="Freepik">Freepik</a> z <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> na licencji <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+139:Telefon
+140:Email
+141:Cena w EUR
+142:Cena w PLN
+143:Magazyn
+144:Nazwa jest wymagana
+145:Modelowanie Ust
+146:Zmarszczki Głębokie
+147:Zmarszczki Płytkie
+148:Zmarszczki Średnie
+149:Wolumetria
+150:Okolice Oczu
+151:Płatność zakończona niepowodzeniem
+152:Dokonywanie płatności za wybrane produkty w sklepie Medifiller.
+153:Usuń paragraf
+154:Jesteś pewny, że chcesz usunąć ten paragraf?

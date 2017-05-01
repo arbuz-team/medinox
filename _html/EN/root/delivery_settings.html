@@ -1,0 +1,46 @@
+{% load tags %}
+
+<script>
+  window.APP.DATA = {
+    title : 'Price for delivery',
+    description : ''
+  };
+</script>
+
+<div class="ground-block block-1 BIG">
+
+    <div class="block-background fill-abs"></div>
+    {% include "ground/html/navigation.html" %}
+
+    <div class="block-content">
+
+        <form class="auto_form field_shell" action="" data-origin="form">
+
+            <div class="title">Price for delivery</div>
+
+            {% for item in options %}
+
+                <div class="fields_with_label price">
+                    <label for="{{ item.country }}_EUR">{{ item.country }}:&nbsp;</label>
+
+                    <input name="{{ item.country }}_EUR" type="text"
+                           id="{{ item.country }}_EUR"
+                           class="auto_field"
+                           data-name="{{ item.pk }} EUR"
+                           value="{{ item.price_eur|to_price }}" />&nbsp;EUR&nbsp;
+                    <input name="{{ item.country }}_PLN" type="text"
+                           id="{{ item.country }}_PLN"
+                           class="auto_field"
+                           data-name="{{ item.pk }} PLN"
+                           value="{{ item.price_pln|to_price }}" />&nbsp;PLN&nbsp;
+                </div>
+
+            {% endfor %}
+
+        </form>
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

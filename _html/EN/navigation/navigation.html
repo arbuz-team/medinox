@@ -1,0 +1,160 @@
+
+
+<!-- //     MOBILE NAVIGATION    // -->
+
+<ul class="navigation-mobile">
+
+    <li class="navigation-mobile-filter">
+        <button class="event_button" type="button"
+                data-name="mobile-open_searcher"
+                data-event="plugins.open_searcher">
+        </button>
+    </li>
+
+    <li class="navigation-mobile-navigation">
+        <button class="event_button" type="button"
+                data-name="mobile-open_navigation"
+                data-event="plugins.open_navigation">
+        </button>
+    </li>
+
+    {% if request.session.user_login %}
+    <li class="navigation-mobile-cart">
+        <button class="event_button" type="button"
+                data-name="mobile-open_or_close_cart"
+                data-event="plugins.open_or_close_cart">
+        </button>
+    </li>
+    {% else %}
+    <li class="navigation-mobile-cart">
+        <a href="/user/sign_in/"></a>
+    </li>
+    {% endif %}
+
+</ul><!-- navigation-mobile -->
+
+
+<!-- //     PRIMARY NAVIGATION    // -->
+
+<ul class="navigation-primary">
+
+    <li>
+        <a class="link fill-abs" href="/">
+            Home
+        </a>
+    </li>
+
+    <li>
+        <a class="link fill-abs" href="/products/">
+            Products
+        </a>
+    </li>
+
+    <li>
+        <a class="link fill-abs" href="/about/">
+            About
+        </a>
+    </li>
+
+    {% if request.session.user_login %}
+        <li>
+            <a class="link fill-abs" href="/user/account/">
+                Account
+            </a>
+        </li>
+    {% else %}
+        <li>
+            <a class="link fill-abs" href="/user/sign_in/">
+                Sign in
+            </a>
+        </li>
+    {% endif %}
+
+    <li class="navigation-primary-language field_shell">
+        <div class="link fill-abs">
+            <button type="button"
+                    class="dialog_button {{ request.session.translator_language }}"
+                    data-type="alert"
+                    data-name="language"><span>Change language</span></button>
+        </div>
+    </li>
+
+</ul><!-- navigation-primary -->
+
+
+<!-- //     SECONDARY NAVIGATION    // -->
+
+<div class="navigation-secondary">
+
+    <ul class="navigation-secondary-left">
+
+        <li class="navigation-secondary-searcher" title="CTRL+SHIFT+S">
+            <div class="link fill-abs event_button" data-name="secondary-open_searcher" data-event="plugins.open_searcher">
+                <i> &nbsp; </i> Search
+            </div>
+        </li>
+
+        {% if request.session.root_login %}
+
+            <li class="navigation-secondary-space for_searcher"> | </li>
+
+            <li>
+                <a class="link fill-abs" href="/root/">
+                    Root settings
+                </a>
+            </li>
+
+            <li class="navigation-secondary-space"> | </li>
+
+            <li>
+                <a class="link fill-abs" href="/root/sign_out/">
+                    Root sign out
+                </a>
+            </li>
+        {% endif %}
+
+    </ul><!-- navigation-secondary-left -->
+
+    <ul class="navigation-secondary-right">
+
+        {% if request.session.user_login %}
+            <li>
+                <a class="link fill-abs" href="/user/sign_out/">
+                    Sign out
+                </a>
+            </li>
+        {% else %}
+            <li>
+                <a class="link fill-abs" href="/user/sign_up/">
+                    Sign up
+                </a>
+            </li>
+        {% endif %}
+
+        <li class="navigation-secondary-space"> | </li>
+
+        <li>
+            <a class="link fill-abs" href="/contact/">
+                Contact
+            </a>
+        </li>
+
+        <li class="navigation-secondary-space"> | </li>
+
+        {% if request.session.user_login %}
+            <li class="navigation-secondary-cart" title="CTRL+SHIFT+X">
+                <div class="link fill-abs event_button" data-name="navigation-open_or_close_cart" data-event="plugins.open_or_close_cart">
+                    Cart
+                </div>
+            </li>
+        {% else %}
+            <li>
+                <a class="link fill-abs" href="/user/sign_in/">
+                    Cart
+                </a>
+            </li>
+        {% endif %}
+
+    </ul><!-- navigation-secondary-right -->
+
+</div><!-- navigation-secondary -->

@@ -1,0 +1,67 @@
+{% load tags %}
+
+{% if request.session.user_login %}
+
+    <div class="cart-close">
+        <i>&nbsp;</i>
+        <span>esc</span>
+    </div>
+
+    <div class="cart-title"> Shopping cart </div>
+
+    <ul class="cart-list">
+
+        {% if cart %}
+
+            {% for selected in cart %}
+
+            <li>
+                <div class="cart-list-name">
+                    <a href="/product/{{ selected.product.pk }}/{% product_name_url selected.product %}/">
+                        {% product_name selected.product %}
+                    </a>
+                </div>
+                <div class="cart-list-actions field_shell"> {{ selected.number }} x {% get_price selected.product %}
+                    <!--<button class="post_button" type="button"-->
+                           <!--data-name="Delete_{{ product.pk }}"-->
+                           <!--data-action=""-->
+                           <!--data-value="{{ product.pk }}"-->
+                           <!--data-reload="cart"-->
+                           <!--data-url="/cart/">X</button>-->
+                </div>
+            </li>
+
+            {% endfor %}
+
+            <li class="field_shell">
+                <div class="cart-list-button">
+                    <button class="post_button" type="button"
+                            data-name="Clear_cart"
+                            data-action="clear"
+                            data-reload="cart"
+                            data-url="/cart/">Clear cart</button>
+                </div>
+                <a class="cart-list-button" href="/payment/">
+                    <button class="submit" type="button">Go to paymants</button>
+                </a>
+            </li>
+
+            <!--{{ suma }}-->
+
+        {% else %}
+
+            <li>
+                <div class="cart-list-empty">
+                    Cart is empty
+                </div>
+            </li>
+
+        {% endif %}
+
+    </ul>
+
+{% else %}
+
+    Loading...
+
+{% endif %}
