@@ -1,4 +1,5 @@
 from arbuz.views import *
+from django.http.response import HttpResponse
 from product.base import *
 from product.models import *
 from django.db.models import Q
@@ -315,6 +316,7 @@ class Searcher(Dynamic_Event_Manager):
 
     @staticmethod
     def Launch(request):
-        searcher = Searcher(request, clear_session=True)
-        Search_Engine.Filter_Products(request)
-        return searcher.HTML
+        # searcher = Searcher(request, clear_session=True)
+        # Search_Engine.Filter_Products(request)
+        # return searcher.HTML
+        return HttpResponse('')

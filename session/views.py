@@ -75,38 +75,7 @@ class Session_Controller:
         Translator.Set_Currency(self.request)
 
     def Check_Session_Product(self):
-
-        if 'product_details_en' not in self.request.session:
-            details = Details_EN(name='', description='')
-            self.request.session['product_details_en'] = details
-            self.request.session['product_details_en'].save()
-
-        if 'product_details_pl' not in self.request.session:
-            details = Details_PL(name='', description='')
-            self.request.session['product_details_pl'] = details
-            self.request.session['product_details_pl'].save()
-
-        if 'product_details_de' not in self.request.session:
-            details = Details_DE(name='', description='')
-            self.request.session['product_details_de'] = details
-            self.request.session['product_details_de'].save()
-
-        if 'product_where_display' not in self.request.session:
-            self.request.session['product_where_display'] = \
-                Where_Display.objects.get(display_en=True,
-                      display_pl=True, display_de=True)
-
-        if 'product_brand' not in self.request.session:
-            self.request.session['product_brand'] = None
-
-        if 'product_purpose' not in self.request.session:
-            self.request.session['product_purpose'] = {}
-
-        if 'product_image' not in self.request.session:
-            self.request.session['product_image'] = None
-
-        if 'product_image_url' not in self.request.session:
-            self.request.session['product_image_url'] = None
+        pass
 
     def Check_Session_Searcher(self):
 
