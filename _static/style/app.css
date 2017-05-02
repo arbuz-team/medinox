@@ -775,24 +775,24 @@ div:hover > .buttons_to_action {
     .tile > a > .tile-title, .tile > div > .tile-title {
       font-weight: bold; }
 
-.products.tiles > ul > .product.new > a > .product-img.mini_image, .products.tiles > ul > .product.new > div > .product-img.mini_image {
+.products.tiles > ul > .tile.new > a > .tile-img.mini_image, .products.tiles > ul > .tile.new > div > .tile-img.mini_image {
   background-image: url(/_static/img/icons/128/dark/add.png);
   background-size: 40%;
   background-position: center;
   background-repeat: no-repeat;
   border: 3px dashed #d1d1d1; }
 
-.products.tiles > ul > .product.new > a > .product-title, .products.tiles > ul > .product.new > div > .product-title {
+.products.tiles > ul > .tile.new > a > .tile-title, .products.tiles > ul > .tile.new > div > .tile-title {
   min-height: 20px; }
 
 @media (min-width: 675px) {
-  .products.tiles > ul > .product.new > a > .product-title, .products.tiles > ul > .product.new > div > .product-title {
+  .products.tiles > ul > .tile.new > a > .tile-title, .products.tiles > ul > .tile.new > div > .tile-title {
     min-height: 60px; } }
 
 @media (min-width: 1000px) {
-  .products.tiles > ul > .product.new > a > .product-img.mini_image, .products.tiles > ul > .product.new > div > .product-img.mini_image {
+  .products.tiles > ul > .tile.new > a > .tile-img.mini_image, .products.tiles > ul > .tile.new > div > .tile-img.mini_image {
     opacity: .8; }
-  .products.tiles > ul > .product.new:hover > a > .product-img.mini_image, .products.tiles > ul > .product.new:hover > div > .product-img.mini_image {
+  .products.tiles > ul > .tile.new:hover > a > .tile-img.mini_image, .products.tiles > ul > .tile.new:hover > div > .tile-img.mini_image {
     opacity: .9; } }
 
 .products.tiles {

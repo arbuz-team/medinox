@@ -11,9 +11,11 @@
 
     {% include "ground/html/navigation.html" %}
 
-    {% if products %}
+    {% if products or request.session.root_login %}
         {% include 'products/html/tiles.html' %}
-    {% else %}
+    {% endif %}
+
+    {% if not products %}
         <div class="block-content-message">Products not found</div>
     {% endif %}
 
