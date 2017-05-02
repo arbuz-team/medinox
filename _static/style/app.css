@@ -746,15 +746,15 @@ div:hover > .buttons_to_action {
     .searcher-logo a {
       top: 45px; } }
 
-.product {
+.tile {
   overflow: hidden;
   margin-bottom: 10px;
   padding: 30px;
   cursor: pointer; }
-  .product > a, .product > div {
+  .tile > a, .tile > div {
     display: block;
     height: 100%; }
-    .product > a > .product-img, .product > div > .product-img {
+    .tile > a > .tile-img, .tile > div > .tile-img {
       padding: 10px 15px;
       margin: 0;
         margin-bottom: 10px;
@@ -766,13 +766,13 @@ div:hover > .buttons_to_action {
       padding: 0;
         padding-top: 80%;
       overflow: hidden; }
-      .product > a > .product-img > div, .product > div > .product-img > div {
+      .tile > a > .tile-img > div, .tile > div > .tile-img > div {
         text-align: center; }
-        .product > a > .product-img > div > img, .product > div > .product-img > div > img {
+        .tile > a > .tile-img > div > img, .tile > div > .tile-img > div > img {
           max-width: 100%;
           max-height: 100%;
           vertical-align: middle; }
-    .product > a > .product-title, .product > div > .product-title {
+    .tile > a > .tile-title, .tile > div > .tile-title {
       font-weight: bold; }
 
 .products.tiles > ul > .product.new > a > .product-img.mini_image, .products.tiles > ul > .product.new > div > .product-img.mini_image {
@@ -800,7 +800,7 @@ div:hover > .buttons_to_action {
   padding-bottom: 0; }
   .products.tiles > ul {
     width: auto; }
-    .products.tiles > ul .product {
+    .products.tiles > ul .tile {
       width: auto;
       max-width: 300px;
       min-height: 220px;
@@ -808,23 +808,23 @@ div:hover > .buttons_to_action {
         margin-left: auto;
         margin-right: auto;
       border-bottom: 1px solid #e8e8e8; }
-      .products.tiles > ul .product > a > .product-img, .products.tiles > ul .product > .dialog_button > .product-img {
+      .products.tiles > ul .tile > a > .tile-img, .products.tiles > ul .tile > .dialog_button > .tile-img {
         position: relative;
         width: 100%;
         height: 200px;
         overflow: hidden;
         text-align: center; }
-      .products.tiles > ul .product > a > .product-title, .products.tiles > ul .product > .dialog_button > .product-title {
+      .products.tiles > ul .tile > a > .tile-title, .products.tiles > ul .tile > .dialog_button > .tile-title {
         margin-top: 10px;
         margin-bottom: 10px;
         font-weight: bold; }
-      .products.tiles > ul .product .product-content {
+      .products.tiles > ul .tile .tile-content {
         max-width: 300px;
         margin: 0;
         padding: 0; }
-        .products.tiles > ul .product .product-content > .product-content-details > a > button {
+        .products.tiles > ul .tile .tile-content > .tile-content-details > a > button {
           margin-bottom: 0; }
-        .products.tiles > ul .product .product-content > .product-content-price {
+        .products.tiles > ul .tile .tile-content > .tile-content-price {
           position: absolute;
           right: 0;
           bottom: 0;
@@ -834,7 +834,7 @@ div:hover > .buttons_to_action {
 .products.tiles.recommended {
   padding-top: 15px;
   padding-bottom: 15px; }
-  .products.tiles.recommended .product {
+  .products.tiles.recommended .tile {
     margin: 0 auto;
       margin-bottom: 10px;
     background-color: #ffffff;
@@ -848,32 +848,32 @@ div:hover > .buttons_to_action {
   .products.tiles > ul {
     font-size: 0;
     text-align: center; }
-    .products.tiles > ul .product {
+    .products.tiles > ul .tile {
       display: inline-block;
       width: 285px;
       max-width: none;
       margin: 0;
       font-size: 16px; }
-      .products.tiles > ul .product > a > .product-img {
+      .products.tiles > ul .tile > a > .tile-img {
         height: 200px;
         overflow: hidden; }
-      .products.tiles > ul .product > a > .product-title {
+      .products.tiles > ul .tile > a > .tile-title {
         text-align: left; }
-      .products.tiles > ul .product > .product-content > .product-content-details {
+      .products.tiles > ul .tile > .tile-content > .tile-content-details {
         text-align: left; }
-  .products.tiles.recommended .product {
+  .products.tiles.recommended .tile {
     margin-right: 10px; } }
 
 @media (min-width: 870px) {
-  .products.tiles .product {
+  .products.tiles .tile {
     width: 285px; } }
 
 @media (min-width: 992px) {
-  .products.tiles .product {
+  .products.tiles .tile {
     width: 360px; } }
 
 @media (min-width: 1200px) {
-  .products.tiles .product {
+  .products.tiles .tile {
     width: 445px; } }
 
 .product_details {

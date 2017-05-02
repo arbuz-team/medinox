@@ -7,7 +7,7 @@
   >ul
     width: auto
 
-    .product
+    .tile
       width: auto
       max-width: 300px
       min-height: 220px
@@ -18,7 +18,7 @@
       border-bottom: $G-STYLE-BORDER
 
       >a, >.dialog_button
-        >.product-img
+        >.tile-img
           position: relative
           width: 100%
           height: 200px
@@ -27,21 +27,21 @@
 
           //>img
 
-        >.product-title
+        >.tile-title
           margin:
             top: 10px
             bottom: 10px
           font-weight: bold
 
-      .product-content
+      .tile-content
         max-width: 300px
         margin: 0
         padding: 0
 
-        >.product-content-details > a > button
+        >.tile-content-details > a > button
           margin-bottom: 0
 
-        >.product-content-price
+        >.tile-content-price
           position: absolute
           right: 0
           bottom: 0
@@ -55,7 +55,7 @@
     top: 15px
     bottom: 15px
 
-  .product
+  .tile
     margin: 0 auto
       bottom: 10px
     background-color: $G-COLOR-4
@@ -74,7 +74,7 @@
     font-size: 0
     text-align: center
 
-    .product
+    .tile
       display: inline-block
       width: 285px
       max-width: none
@@ -82,34 +82,34 @@
       font-size: 16px
 
       >a
-        >.product-img
+        >.tile-img
           height: 200px
           overflow: hidden
 
-        >.product-title
+        >.tile-title
           text-align: left
 
-      >.product-content
+      >.tile-content
 
-        >.product-content-details
+        >.tile-content-details
           text-align: left
 
 
   .products.tiles.recommended
-    .product
+    .tile
       margin-right: 10px
 
 
 @media (min-width: 870px)
-  .products.tiles .product
+  .products.tiles .tile
     width: 285px
 
 
 @media (min-width: 992px)
-  .products.tiles .product
+  .products.tiles .tile
       width: 360px
 
 
 @media (min-width: $G-SIZE-4)
-  .products.tiles .product
+  .products.tiles .tile
       width: 445px
