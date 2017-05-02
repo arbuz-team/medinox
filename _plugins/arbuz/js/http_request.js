@@ -13,7 +13,7 @@ let
 
   send_post_preprocess_url = function( response_url )
   {
-    if( response_url )
+    if( response_url.substring(0, 1) === '/' )
       return response_url;
     else
       return data_controller.get( 'path' );
@@ -52,6 +52,8 @@ let
   {
     url = send_post_preprocess_url(url);
     post_data = send_post_prepare(post_data);
+
+    console.log('url: '+ url);
 
     $.ajax({
       type: 'POST',

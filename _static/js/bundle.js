@@ -233,7 +233,7 @@
 	 */
 	
 	var send_post_preprocess_url = function send_post_preprocess_url(response_url) {
-	  if (response_url) return response_url;else return _structure.data_controller.get('path');
+	  if (response_url.substring(0, 1) === '/') return response_url;else return _structure.data_controller.get('path');
 	},
 	    send_post_prepare = function send_post_prepare(post_data) {
 	  if (!post_data) post_data = {};
@@ -262,6 +262,8 @@
 	window.APP.http_request = function (url, post_data, callback) {
 	  url = send_post_preprocess_url(url);
 	  post_data = send_post_prepare(post_data);
+	
+	  console.log('url: ' + url);
 	
 	  $.ajax({
 	    type: 'POST',
