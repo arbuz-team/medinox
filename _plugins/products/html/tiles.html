@@ -5,10 +5,14 @@
             {% include "products/html/add.html" %}
         {% endif %}
 
+
+        {% for catalog in catalogs %}
+            {% include 'products/html/single_catalog.html' %}
+        {% endfor %}
+
+
         {% for product in products %}
-
-            {% include 'products/html/single.html' %}
-
+            {% include 'products/html/single_product.html' %}
         {% endfor %}
     </ul>
 

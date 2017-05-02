@@ -1,9 +1,13 @@
 <div class="block-content products tiles">
-    <ul>
-        {% for product in favorites %}
 
-            {% include 'products/html/single.html' %}
+    <ul>
+        {% for product in products %}
+
+            {% include 'products/html/single_product.html' %}
 
         {% endfor %}
     </ul>
+
+    {% include "products/html/numbers_pages.html" %}
+
 </div>
