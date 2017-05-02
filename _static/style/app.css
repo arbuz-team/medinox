@@ -1454,6 +1454,8 @@ img {
     color: #774D34;
     font-weight: bold;
     font-size: 18px; }
+    .ground-block .block-content-message.center {
+      text-align: center; }
   .ground-block > .block-background {
     z-index: 10;
     background-color: #ffffff; }

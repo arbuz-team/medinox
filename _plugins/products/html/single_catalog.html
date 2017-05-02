@@ -2,7 +2,7 @@
 {% load tags %}
 
 <li class="tile" data-id="{{ catalog.pk }}">
-    <a href="/catalog/{{ catalog.pk }}/{% catalog_name_url catalog %}/">
+    <a href="{% catalog_name_url catalog %}/">
 
         <div class="tile-img mini_image">
             <div class="fill-abs">
@@ -16,7 +16,7 @@
     <div class="tile-content field_shell">
 
         <div class="tile-content-details">
-            <a href="/catalog/{{ catalog.pk }}/{% catalog_name_url catalog %}/"><button type="button">Show products...</button></a>
+            <a href="{% catalog_name_url catalog %}/"><button type="button">Show products...</button></a>
         </div>
 
     </div>

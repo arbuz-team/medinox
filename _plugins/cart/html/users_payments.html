@@ -5,10 +5,8 @@
 
         {% include "cart/html/mini_cart/title.html" %}
 
-
             {{ item.payment.date }}     &nbsp;<br>
             {{ item.payment.user }}     &nbsp;
-
 
         {% include "cart/html/mini_cart/end_title.html" %}
 
@@ -19,3 +17,9 @@
 
 
 {% endfor %}
+
+
+{% if not shopping %}
+    </div>
+    <div class="block-content-message center">No payments found
+{% endif %}
