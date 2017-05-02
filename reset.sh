@@ -1,5 +1,7 @@
 #! /bin/bash
 
+rm -rf $(dirname $0)/product/migrations
+
 python3 $(dirname $0)/manage.py makemigrations cart
 python3 $(dirname $0)/manage.py makemigrations main
 python3 $(dirname $0)/manage.py makemigrations payment

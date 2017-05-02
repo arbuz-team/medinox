@@ -43,8 +43,8 @@ class Dynamic_Base:
             'en': secure + 'en.' + domain +
                   reverse(name, urlconf='arbuz.urls.en', kwargs=kwargs),
 
-            'pl': secure + 'pl.' + domain +
-                 reverse(name, urlconf='arbuz.urls.pl', kwargs=kwargs),
+            # 'pl': secure + 'pl.' + domain +
+            #      reverse(name, urlconf='arbuz.urls.pl', kwargs=kwargs),
 
             # 'de': secure + 'de.' + domain +
             #      reverse(name, urlconf='arbuz.urls.de', kwargs=kwargs),

@@ -319,4 +319,5 @@ class Searcher(Dynamic_Event_Manager):
         # searcher = Searcher(request, clear_session=True)
         # Search_Engine.Filter_Products(request)
         # return searcher.HTML
+        request.session['searcher_result'] = Product.objects.all()
         return HttpResponse('')

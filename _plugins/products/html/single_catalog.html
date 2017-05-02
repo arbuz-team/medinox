@@ -2,21 +2,21 @@
 {% load tags %}
 
 <li class="tile" data-id="{{ catalog.pk }}">
-    <a href="{% catalog_name_url catalog %}/">
+    <a href="{{ catalog.url_name }}/">
 
         <div class="tile-img mini_image">
             <div class="fill-abs">
-                <img data-src="{{ catalog.image }}" alt="{% catalog_name catalog %}" src="{% static 'img/pixel.png' %}" />
+                <img data-src="{{ catalog.image }}" alt="{{ catalog.name }}" src="{% static 'img/pixel.png' %}" />
             </div>
         </div>
 
-        <h3 class="tile-title"> {% catalog_name catalog %} </h3>
+        <h3 class="tile-title"> {{ catalog.name }} </h3>
     </a>
 
     <div class="tile-content field_shell">
 
         <div class="tile-content-details">
-            <a href="{% catalog_name_url catalog %}/"><button type="button">Show products...</button></a>
+            <a href="{{ catalog.url_name }}/"><button type="button">Show products...</button></a>
         </div>
 
     </div>

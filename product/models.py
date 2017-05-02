@@ -34,9 +34,10 @@ class Values(Abstract_Model):
 
 class Catalog(Abstract_Model):
 
+    url_name = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     image = models.ImageField(blank=True)
-    parent = models.ForeignKey('Catalog')
+    parent = models.ForeignKey('Catalog', null=True)
 
     def Set_Variables(self):
         self.image_dir = '/_static/img/catalog/'
@@ -48,6 +49,7 @@ class Catalog(Abstract_Model):
 
 class Product(Abstract_Model):
 
+    url_name = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     price = models.IntegerField(blank=True)
     image = models.ImageField(blank=True)
