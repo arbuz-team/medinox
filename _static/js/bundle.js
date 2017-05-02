@@ -263,8 +263,6 @@
 	  url = send_post_preprocess_url(url);
 	  post_data = send_post_prepare(post_data);
 	
-	  console.log('url: ' + url);
-	
 	  $.ajax({
 	    type: 'POST',
 	    url: url,
