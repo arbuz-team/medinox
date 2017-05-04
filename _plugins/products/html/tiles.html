@@ -2,14 +2,18 @@
 
     <ul>
         {% if request.session.root_login %}
-            {% include "products/html/add.html" %}
+            {% include "products/html/add_catalog.html" %}
         {% endif %}
-
 
         {% for catalog in catalogs %}
             {% include 'products/html/single_catalog.html' %}
         {% endfor %}
 
+
+
+        {% if request.session.root_login %}
+        {% include "products/html/add_product.html" %}
+        {% endif %}
 
         {% for product in products %}
             {% include 'products/html/single_product.html' %}
