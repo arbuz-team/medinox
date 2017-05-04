@@ -17,9 +17,14 @@ class Start_App(Dynamic_Event_Manager):
 class Details(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
-        return self.Render_HTML('product/start.html')
+        self.content['product'] = Product.objects.get(pk=self.other_value)
+        return self.Render_HTML('product/details.html')
+
+    @staticmethod
+    def Details(request, pk):
+        return Details(request, other_value=pk).HTML
 
     @staticmethod
     def Launch(request):
-        return Details(request).HTML
+        pass
 

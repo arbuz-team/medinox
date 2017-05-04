@@ -1,5 +1,5 @@
-from arbuz.models import *
 from user.models import User
+from catalog.models import *
 
 
 class Brand(Abstract_Model):
@@ -26,21 +26,6 @@ class Values(Abstract_Model):
     name = models.CharField(max_length=50)
     super_price = models.IntegerField(default=0)
     widget = models.ForeignKey(Widget)
-
-    def __str__(self):
-        return self.name
-
-
-
-class Catalog(Abstract_Model):
-
-    url_name = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
-    image = models.ImageField(blank=True)
-    parent = models.ForeignKey('Catalog', null=True)
-
-    def Set_Variables(self):
-        self.image_dir = '/_static/img/catalog/'
 
     def __str__(self):
         return self.name

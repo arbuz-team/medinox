@@ -68,7 +68,7 @@ class Dynamic_Base:
         urls = \
         {
             'en': reverse(name, urlconf='arbuz.urls.en', kwargs=kwargs),
-            'pl': reverse(name, urlconf='arbuz.urls.pl', kwargs=kwargs),
+            # 'pl': reverse(name, urlconf='arbuz.urls.pl', kwargs=kwargs),
             # 'de': reverse(name, urlconf='arbuz.urls.de', kwargs=kwargs),
         }
 

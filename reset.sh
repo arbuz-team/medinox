@@ -5,6 +5,7 @@ rm -rf $(dirname $0)/product/migrations
 python3 $(dirname $0)/manage.py makemigrations cart
 python3 $(dirname $0)/manage.py makemigrations main
 python3 $(dirname $0)/manage.py makemigrations payment
+python3 $(dirname $0)/manage.py makemigrations catalog
 python3 $(dirname $0)/manage.py makemigrations product
 python3 $(dirname $0)/manage.py makemigrations root
 python3 $(dirname $0)/manage.py makemigrations sender

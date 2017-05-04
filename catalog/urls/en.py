@@ -3,6 +3,7 @@ from catalog import views
 
 urlpatterns = [
 
+    url(r'^new/(?P<parent>\d+)/$', views.New_Catalog.Add, name='catalog.new'),
     url(r'^$', views.Change_Catalog.Change, name='catalog.change'),
 
     url(r'^(?P<cat_1>\w+)/$',
