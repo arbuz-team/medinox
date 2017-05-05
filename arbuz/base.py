@@ -110,6 +110,11 @@ class Dynamic_Base:
                 del self.request.session[key]
 
     @staticmethod
+    def To_URL(text):
+        text = text.replace(' ', '_').lower()
+        return Dynamic_Base.Convert_Polish_To_Ascii(text)
+
+    @staticmethod
     def Generate_Passwrod(length):
         password = ''
         permitted_chars = string.ascii_letters + \

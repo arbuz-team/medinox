@@ -15,10 +15,13 @@
 
         {% if not form %}
 
-            Product has been insert to databases.
+            <div class="block-content-message">
+                Catalog has been created.
+            </div>
+
             <script>
-                window.APP.DATA.redirect = '/catalog/new/';
-                window.APP.DATA.delay = 2000;
+                window.APP.DATA.redirect = '{{ go_back }}';
+                window.APP.DATA.delay = 1500;
                 window.dispatchEvent(window.EVENTS.redirect);
             </script>
 

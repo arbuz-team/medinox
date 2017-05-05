@@ -77,6 +77,11 @@ class Session_Controller:
     def Check_Session_Product(self):
         pass
 
+    def Check_Session_Catalog(self):
+
+        if 'catalog_parent' not in self.request.session:
+            self.request.session['catalog_parent'] = None
+
     def Check_Session_Searcher(self):
 
         if 'searcher_filter_brand' not in self.request.session:

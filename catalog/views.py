@@ -2,6 +2,17 @@ from statement.views import *
 from catalog.forms import *
 
 
+class Start_App(Dynamic_Event_Manager):
+
+    def Manage_Content_Ground(self):
+        return self.Render_HTML('catalog/start.html')
+
+    @staticmethod
+    def Launch(request):
+        return Start_App(request).HTML
+
+
+
 class Change_Catalog(Dynamic_Event_Manager):
 
     @staticmethod
@@ -39,6 +50,7 @@ class Change_Catalog(Dynamic_Event_Manager):
         try: catalog = self.Get_Last_Catalog()
         except: return Statement_404.Launch(self.request)
 
+        self.request.session['catalog_parent'] = catalog
         self.content['catalogs'] = Catalog.objects.filter(parent=catalog)
         self.content['products'] = Product.objects.filter(parent=catalog)
         return self.Render_HTML('main/products.html')
@@ -56,12 +68,12 @@ class Change_Catalog(Dynamic_Event_Manager):
 class New_Catalog(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
-        self.content['form'] = Form_New_Catalog(self.request)
+        self.content['form'] = Form_Catalog(self.request)
         return self.Render_HTML('catalog/new.html', 'new_catalog')
 
     def Manage_Form_New_Catalog(self):
 
-        self.content['form'] = Form_New_Catalog(
+        self.content['form'] = Form_Catalog(
             self.request, self.request.POST)
 
         if self.content['form'].is_valid():
@@ -69,7 +81,10 @@ class New_Catalog(Dynamic_Event_Manager):
             catalog = Catalog()
             catalog.name = self.content['form'].cleaned_data['name']
             catalog.url_name = self.content['form'].cleaned_data['name']
+            catalog.parent = self.request.session['catalog_parent']
             catalog.save()
+
+            catalog.Save_Image(self.content['form'].cleaned_data['image'])
 
             self.content['form'] = None
             return self.Render_HTML('catalog/new.html')
@@ -82,8 +97,62 @@ class New_Catalog(Dynamic_Event_Manager):
             return self.Manage_Form_New_Catalog()
 
     @staticmethod
-    def Add(request, parent):
+    def Redirect(request, url):
+        other_value = {'redirect': url}
+        return New_Catalog(request, other_value=other_value,
+                           length_navigation=2, only_root=True).HTML
+
+    @staticmethod
+    def Launch(request):
         return New_Catalog(request, only_root=True).HTML
+
+
+
+class Edit_Catalog(Dynamic_Event_Manager):
+
+    def Manage_Content_Ground(self):
+
+        catalog = Catalog.objects.get(pk=self.other_value['pk'])
+        self.content['form'] = Form_Catalog(self.request,
+            initial={'name': catalog.name})
+
+        self.content['image'] = catalog.image
+        return self.Render_HTML('catalog/edit.html', 'edit_catalog')
+
+    def Manage_Form_Edit_Catalog(self):
+
+        self.content['form'] = Form_Catalog(
+            self.request, self.request.POST)
+
+        if self.content['form'].is_valid():
+            catalog = Catalog.objects.get(pk=self.other_value['pk'])
+            catalog.name = self.content['form'].cleaned_data['name']
+            catalog.url_name = self.To_URL(self.content['form'].cleaned_data['name'])
+            catalog.parent = self.request.session['catalog_parent']
+            catalog.save()
+
+            catalog.Save_Image(self.content['form'].cleaned_data['image'])
+
+            self.content['form'] = None
+            return self.Render_HTML('catalog/new.html')
+
+        return self.Render_HTML('catalog/new.html', 'new_catalog')
+
+    def Manage_Form(self):
+
+        if 'edit_catalog' in self.request.POST['__form__']:
+            return self.Manage_Form_Edit_Catalog()
+
+    @staticmethod
+    def Redirect(request, pk, url):
+        other_value = {'redirect': url, 'pk': pk}
+        return Edit_Catalog(request, other_value=other_value,
+                            length_navigation=3, only_root=True).HTML
+
+    @staticmethod
+    def Edit(request, pk):
+        return Edit_Catalog(request, other_value={'pk': pk},
+                            only_root=True).HTML
 
     @staticmethod
     def Launch(request):
