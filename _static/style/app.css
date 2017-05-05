@@ -880,10 +880,16 @@ div:hover > .buttons_to_action {
   position: relative;
   padding-top: 15px !important;
   padding-bottom: 50px !important; }
-  .product_details > .block-content-left, .product_details > .block-content-right {
+  .product_details > div {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto; }
+  .product_details .block-content-left, .product_details .block-content-right {
     display: block;
     width: auto;
     height: auto; }
+  .product_details .block-content-right {
+    max-width: 800px; }
   .product_details .product_details-image {
     padding: 10px 15px;
     margin: 0;
@@ -912,6 +918,18 @@ div:hover > .buttons_to_action {
     margin: 0; }
   .product_details .product_details-section:last-child {
     border-bottom: none; }
+  .product_details .subproduct_widgets .widget {
+    display: inline-block;
+    vertical-align: top;
+    max-width: 350px;
+    width: 100%;
+    min-width: 280px;
+    margin-bottom: 20px; }
+  .product_details .subproduct_widgets .widget-title {
+    padding-left: 5px;
+    margin-bottom: 5px;
+    opacity: .4;
+    font-weight: bold; }
 
 @media (min-width: 400px) {
   .ground:not(.smaller) .product_details .product_details-image {
@@ -926,12 +944,12 @@ div:hover > .buttons_to_action {
     height: 400px;
     margin: 0 auto;
     padding: 0; }
-  .ground:not(.smaller) .product_details > .block-content-left {
+  .ground:not(.smaller) .product_details .block-content-left {
     position: absolute;
     left: 15px;
     top: 30px;
     width: 300px; }
-  .ground:not(.smaller) .product_details > .block-content-right {
+  .ground:not(.smaller) .product_details .block-content-right {
     margin-left: 315px;
     border-left: 1px solid #e8e8e8; }
   .ground:not(.smaller) .product_details .product_details-image {
@@ -1121,7 +1139,8 @@ button {
     .field_shell .selecter input[type=checkbox]:checked + label.selecter-field, .field_shell .selecter input[type=radio]:checked + label.selecter-field {
       border-color: #aaa; }
       .field_shell .selecter input[type=checkbox]:checked + label.selecter-field:after, .field_shell .selecter input[type=checkbox]:checked + label.selecter-field + label.selecter-text, .field_shell .selecter input[type=radio]:checked + label.selecter-field:after, .field_shell .selecter input[type=radio]:checked + label.selecter-field + label.selecter-text {
-        opacity: 1; }
+        opacity: 1;
+        color: #555555; }
 
 .field_shell .checkbox label.selecter-field {
   border-radius: 2px; }
@@ -1171,12 +1190,6 @@ button {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box; }
-  .ground-block .field_shell input[type=checkbox], .ground-block form > div input[type=checkbox] {
-    position: absolute;
-    right: 8px;
-    top: 9px;
-    width: 18px;
-    height: 18px; }
   .ground-block .field_shell .g-recaptcha, .ground-block form > div .g-recaptcha {
     margin-left: 5px; }
 
@@ -1484,7 +1497,7 @@ img {
   margin-bottom: 15px;
   margin-left: 15px; }
 
-.block-content.contact > .block-content-right {
+.block-content.contact .block-content-right {
   margin-top: 15px; }
 
 .block-content {
@@ -1496,17 +1509,17 @@ img {
   z-index: 10; }
 
 @media (min-width: 500px) {
-  .block-content.contact > .block-content-right {
+  .block-content.contact .block-content-right {
     height: 300px; } }
 
 @media (min-width: 675px) {
   .ground-block {
     padding-bottom: 100px; }
-  .ground:not(.smaller) .block-content.contact > .block-content-left, .ground:not(.smaller) .block-content.contact > .block-content-right {
+  .ground:not(.smaller) .block-content.contact .block-content-left, .ground:not(.smaller) .block-content.contact .block-content-right {
     display: inline-block; }
-  .ground:not(.smaller) .block-content.contact > .block-content-left {
+  .ground:not(.smaller) .block-content.contact .block-content-left {
     width: 47%; }
-  .ground:not(.smaller) .block-content.contact > .block-content-right {
+  .ground:not(.smaller) .block-content.contact .block-content-right {
     position: absolute;
     top: 30px;
     right: 30px;
@@ -1517,18 +1530,18 @@ img {
 @media (min-width: 1000px) {
   #GROUND {
     margin-left: 250px; }
-  .ground:not(.smaller) .block-content.contact > .block-content-left {
+  .ground:not(.smaller) .block-content.contact .block-content-left {
     width: 400px; }
-  .ground:not(.smaller) .block-content.contact > .block-content-right {
+  .ground:not(.smaller) .block-content.contact .block-content-right {
     width: auto;
     left: 450px; } }
 
 @media (min-width: 1200px) {
-  .ground:not(.smaller) .block-content.contact > .block-content-right {
+  .ground:not(.smaller) .block-content.contact .block-content-right {
     height: 500px; } }
 
 @media (min-width: 1600px) {
-  .ground.smaller .block-content.contact > .block-content-right {
+  .ground.smaller .block-content.contact .block-content-right {
     position: absolute;
     left: 415px;
     top: 30px;

@@ -16,141 +16,234 @@
 
     <div class="block-content product_details">
 
-        <div class="block-content-left">
+        <div>
 
-            <div class="product_details-image">
-                <div class="fill-abs">
-                    <img data-src="{{ product.image }}" src="{% static 'img/pixel.png' %}" alt="{{ product.name }}">
+            <div class="block-content-left">
+
+                <div class="product_details-image">
+                    <div class="fill-abs">
+                        <img data-src="{{ product.image }}" src="{% static 'img/pixel.png' %}" alt="{{ product.name }}">
+                    </div>
                 </div>
-            </div>
 
-        </div><!-- block-content-left -->
-
-
-        <div class="block-content-right">
-
-            <div class="product_details-section title">
-                <h1>{{ product.name }}</h1>
-            </div>
+            </div><!-- block-content-left -->
 
 
-            {% if request.session.user_login or request.session.root_login %}
+            <div class="block-content-right">
 
-                <div class="product_details-section action_panel">
+                <form method="post" action="" id="form_{{ form_name }}" data-name="{{ form_name }}" data-type="{{ form_name }}">
 
-                    <div class="product_details-action_panel-prices">
-                        {% if request.session.user_login %}
-                            Product price: {{ product }}
-                        {% else %}
-                            If you want buy a product you must login.
-                            <a href="{% redirect 'user.sign_in' %}">Sign in!</a>
-                        {% endif %}
+                <div class="product_details-section title">
+                        <h1>{{ product.name }}</h1>
                     </div>
 
-                    <div class="product_details-action_panel-buttons field_shell">
 
-                        {% if request.session.user_login %}
-                            <button class="post_button" type="button"
-                                    data-name="Cart_{{ product.pk }}"
-                                    data-action="append"
-                                    data-value="{{ product.pk }}"
-                                    data-reload="cart"
-                                    data-event="plugins.open_cart"
-                                    data-url="/cart/">
-                                Add to cart
-                            </button>
+                    {% if request.session.user_login or request.session.root_login %}
 
+                    <div class="product_details-section action_panel">
 
-                            {% if is_favorite %}
-                                <button class="post_button" type="button"
-                                        data-name="Favorite_{{ product.pk }}"
-                                        data-action="delete"
-                                        data-value="{{ product.pk }}"
-                                        data-reload="ground"
-                                        data-url="/product/favorite/">
-                                    Remove from favorite
-                                </button>
+                        <div class="product_details-action_panel-prices">
+                            {% if request.session.user_login %}
+                            Product price: {{ product }}
                             {% else %}
-                                <button class="post_button" type="button"
-                                        data-name="Favorite_{{ product.pk }}"
-                                        data-action="append"
-                                        data-value="{{ product.pk }}"
-                                        data-reload="ground"
-                                        data-url="/product/favorite/">
-                                    Add to favorite
+                            If you want buy a product you must login.
+                            <a href="{% redirect 'user.sign_in' %}">Sign in!</a>
+                            {% endif %}
+                        </div>
+
+                        <div class="product_details-action_panel-buttons field_shell">
+
+                            {% if request.session.user_login %}
+                                <button class="event_button" type="submit"
+                                        data-name="Cart_{{ product.pk }}"
+                                        data-reload="cart"
+                                        data-event="plugins.open_cart">
+                                    Add to cart
                                 </button>
+                                <!--<button class="post_button" type="button"-->
+                                        <!--data-name="Cart_{{ product.pk }}"-->
+                                        <!--data-action="append"-->
+                                        <!--data-value="{{ product.pk }}"-->
+                                        <!--data-reload="cart"-->
+                                        <!--data-event="plugins.open_cart"-->
+                                        <!--data-url="/cart/">-->
+                                    <!--Add to cart-->
+                                <!--</button>-->
+
+
+                                {% if is_favorite %}
+                                    <button class="post_button" type="button"
+                                            data-name="Favorite_{{ product.pk }}"
+                                            data-action="delete"
+                                            data-value="{{ product.pk }}"
+                                            data-reload="ground"
+                                            data-url="/product/favorite/">
+                                        Remove from favorite
+                                    </button>
+                                {% else %}
+                                    <button class="post_button" type="button"
+                                            data-name="Favorite_{{ product.pk }}"
+                                            data-action="append"
+                                            data-value="{{ product.pk }}"
+                                            data-reload="ground"
+                                            data-url="/product/favorite/">
+                                        Add to favorite
+                                    </button>
+                                {% endif %}
+
+
+                                <a href="/payment/buy/{{ product.pk }}/"><button type="button">Buy</button></a>
                             {% endif %}
 
+                            <br>
 
-                            <a href="/payment/buy/{{ product.pk }}/"><button type="button">Buy</button></a>
-                        {% endif %}
-
-                        <br>
-
-                        {% if request.session.root_login %}
-                            <button class="dialog_button" type="button"
-                                    data-type="confirm"
-                                    data-name="delete_product"
-                                    data-dialog-name="Delete_{{ product.pk }}"
-                                    data-dialog-action="delete"
-                                    data-dialog-value="{{ product.pk }}"
-                                    data-dialog-redirect="/products/"
-                                    data-dialog-url="/product/delete/">
-                                Delete
-                            </button>
-
-
-                            {% if is_recommended %}
-                                <button class="post_button" type="button"
-                                        data-name="Recommend_{{ product.pk }}"
-                                        data-action="delete"
-                                        data-value="{{ product.pk }}"
-                                        data-reload="ground"
-                                        data-url="/product/recommended/">
-                                    Remove form recommended
+                            {% if request.session.root_login %}
+                                <button class="dialog_button" type="button"
+                                        data-type="confirm"
+                                        data-name="delete_product"
+                                        data-dialog-name="Delete_{{ product.pk }}"
+                                        data-dialog-action="delete"
+                                        data-dialog-value="{{ product.pk }}"
+                                        data-dialog-redirect="/products/"
+                                        data-dialog-url="/product/delete/">
+                                    Delete
                                 </button>
-                            {% else %}
-                                <button class="post_button" type="button"
-                                        data-name="Recommend_{{ product.pk }}"
-                                        data-action="append"
-                                        data-value="{{ product.pk }}"
-                                        data-reload="ground"
-                                        data-url="/product/recommended/">
-                                    Add to recommended
-                                </button>
+
+
+                                {% if is_recommended %}
+                                    <button class="post_button" type="button"
+                                            data-name="Recommend_{{ product.pk }}"
+                                            data-action="delete"
+                                            data-value="{{ product.pk }}"
+                                            data-reload="ground"
+                                            data-url="/product/recommended/">
+                                        Remove form recommended
+                                    </button>
+                                {% else %}
+                                    <button class="post_button" type="button"
+                                            data-name="Recommend_{{ product.pk }}"
+                                            data-action="append"
+                                            data-value="{{ product.pk }}"
+                                            data-reload="ground"
+                                            data-url="/product/recommended/">
+                                        Add to recommended
+                                    </button>
+                                {% endif %}
+
+
+                                <a href="/product/edit/{{ product.pk }}/"><button type="button">Edit</button></a>
                             {% endif %}
 
+                        </div><!-- product_details-action_panel-buttons -->
 
-                            <a href="/product/edit/{{ product.pk }}/"><button type="button">Edit</button></a>
-                        {% endif %}
+                    </div><!-- product_details-section action_panel -->
 
-                    </div><!-- product_details-action_panel-buttons -->
+                    {% else %}
 
-                </div><!-- product_details-section action_panel -->
+                    <div class="product_details-section">
+                        If you want buy a product you must login.
+                        <a href="{% redirect 'user.sign_in' %}">Sign in!</a>
+                    </div>
 
-            {% else %}
-
-                <div class="product_details-section">
-                    If you want buy a product you must login.
-                    <a href="{% redirect 'user.sign_in' %}">Sign in!</a>
-                </div>
-
-            {% endif %}
+                    {% endif %}
 
 
-            <div class="product_details-section payment">
-                Payments: Paypal, Dotpay
-            </div>
+                    <div class="product_details-section payment">
+                        Payments: Paypal, Dotpay
+                    </div>
 
-            <div class="product_details-section transport">
-                Delivery: DHL, FedEx, Inpost
-            </div>
+                    <div class="product_details-section transport">
+                        Delivery: DHL, FedEx, Inpost
+                    </div>
 
-            <div class="product_details-section details">
-                {{ product.description }}
-            </div>
 
-        </div><!-- block-content-right -->
+
+                    <div class="product_details-section title">
+                        <h3>Selection options</h3>
+                    </div>
+
+                    <div class="product_details-section subproduct_widgets field_shell">
+
+                        <div class="widget">
+                            <div class="widget-title">Choose something</div>
+
+                            <div class="selecter checkbox">
+                                <input id="id__purpose_1" name="_purpose_1" type="checkbox">
+                                <label for="id__purpose_1" class="selecter-field"></label>
+                                <label for="id__purpose_1" class="selecter-text">Eggs</label>
+                            </div>
+                            <div class="selecter checkbox">
+                                <input id="id__purpose_2" name="_purpose_1" type="checkbox">
+                                <label for="id__purpose_2" class="selecter-field"></label>
+                                <label for="id__purpose_2" class="selecter-text">Cars</label>
+                            </div>
+                            <div class="selecter checkbox">
+                                <input id="id__purpose_3" name="_purpose_1" type="checkbox">
+                                <label for="id__purpose_3" class="selecter-field"></label>
+                                <label for="id__purpose_3" class="selecter-text">Heads</label>
+                            </div>
+                        </div>
+
+                        <div class="widget">
+                            <div class="widget-title">Choose something</div>
+
+                            <div class="selecter radio">
+                                <input id="id_brands_1" name="brands" type="radio" value="1">
+                                <label for="id_brands_1" class="selecter-field"></label>
+                                <label for="id_brands_1" class="selecter-text">Emervel</label>
+                            </div>
+                            <div class="selecter radio">
+                                <input id="id_brands_2" name="brands" type="radio" value="1">
+                                <label for="id_brands_2" class="selecter-field"></label>
+                                <label for="id_brands_2" class="selecter-text">Emervel</label>
+                            </div>
+                            <div class="selecter radio">
+                                <input id="id_brands_3" name="brands" type="radio" value="1">
+                                <label for="id_brands_3" class="selecter-field"></label>
+                                <label for="id_brands_3" class="selecter-text">Emervel</label>
+                            </div>
+                        </div>
+
+                        <div class="widget">
+                            <div class="widget-title">Choose something</div>
+
+                            <select id="id_country" name="country" required="">
+                                <option value="AF">Afghanistan</option>
+                                <option value="AX">Åland Islands</option>
+                                <option value="AL">Albania</option>
+                                <option value="DZ">Algeria</option>
+                                <option value="AS">American Samoa</option>
+                                <option value="AD">Andorra</option>
+                                <option value="AO">Angola</option>
+                                <option value="AI">Anguilla</option>
+                                <option value="AQ">Antarctica</option>
+                                <option value="AG">Antigua and Barbuda</option>
+                                <option value="AR">Argentina</option>
+                                <option value="AM">Armenia</option>
+                                <option value="AW">Aruba</option>
+                                <option value="AU">Australia</option>
+                                <option value="AT">Austria</option>
+                                <option value="AZ">Azerbaijan</option>
+                                <option value="BS">Bahamas</option>
+                                <option value="BH">Bahrain</option>
+                                <option value="BD">Bangladesh</option>
+                                <option value="BB">Barbados</option>
+                            </select>
+                        </div>
+
+                    </div><!-- product_details-section subproduct_widgets -->
+
+
+
+                    <div class="product_details-section details">
+                        {{ product.description }}
+                    </div>
+
+                </form>
+
+            </div><!-- block-content-right -->
+
+        </div>
 
     </div><!-- block-content -->
 

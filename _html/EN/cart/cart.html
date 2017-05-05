@@ -18,13 +18,13 @@
             <li class="cart-list-product">
                 <div class="cart-list-name">
                     <a href="/product/{{ selected.product.pk }}/{% product_name_url selected.product %}/">
-                        {% product_name selected.product %}
+                        {{ selected.product.name }}
                     </a>
                 </div>
                 <div class="cart-list-actions field_shell">
                     <form class="auto_form" action="/cart/" data-origin="little">
                         <input class="auto_field only_number_3 always" type="text" value="{{ selected.number }}" data-name="{{ selected.pk }}">
-                        <span> x {% get_price selected.product %}</span>
+                        <span> x {{ selected.product.price }}</span>
                         <button class="post_button icon" type="button"
                                 data-name="Delete_{{ selected.product.pk }}"
                                 data-action="delete"
