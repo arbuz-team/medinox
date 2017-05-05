@@ -78,16 +78,16 @@ class New_Catalog(Dynamic_Event_Manager):
 
         if self.content['form'].is_valid():
 
-            catalog = Catalog()
-            catalog.name = self.content['form'].cleaned_data['name']
-            catalog.url_name = self.content['form'].cleaned_data['name']
-            catalog.parent = self.request.session['catalog_parent']
-            catalog.save()
+                catalog = Catalog()
+                catalog.name = self.content['form'].cleaned_data['name']
+                catalog.url_name = self.content['form'].cleaned_data['name']
+                catalog.parent = self.request.session['catalog_parent']
+                catalog.save()
 
-            catalog.Save_Image(self.content['form'].cleaned_data['image'])
+                catalog.Save_Image(self.content['form'].cleaned_data['image'])
 
-            self.content['form'] = None
-            return self.Render_HTML('catalog/new.html')
+                self.content['form'] = None
+                return self.Render_HTML('catalog/new.html')
 
         return self.Render_HTML('catalog/new.html', 'new_catalog')
 
