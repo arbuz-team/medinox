@@ -754,26 +754,34 @@ div:hover > .buttons_to_action {
   .tile > a, .tile > div {
     display: block;
     height: 100%; }
-    .tile > a > .tile-img, .tile > div > .tile-img {
-      padding: 10px 15px;
-      margin: 0;
-        margin-bottom: 10px;
-      color: #1a1a1a;
-      font-size: 16px;
-      background: #ffffff;
-      position: relative;
-      width: 100%;
-      padding: 0;
-        padding-top: 80%;
-      overflow: hidden; }
-      .tile > a > .tile-img > div, .tile > div > .tile-img > div {
-        text-align: center; }
-        .tile > a > .tile-img > div > img, .tile > div > .tile-img > div > img {
-          max-width: 100%;
-          max-height: 100%;
-          vertical-align: middle; }
-    .tile > a > .tile-title, .tile > div > .tile-title {
-      font-weight: bold; }
+  .tile .icon {
+    opacity: 0; }
+  .tile:hover .icon {
+    opacity: 1; }
+
+.tile-img {
+  padding: 10px 15px;
+  margin: 0;
+    margin-bottom: 10px;
+  color: #1a1a1a;
+  font-size: 16px;
+  background: #ffffff;
+  position: relative;
+  width: 100%;
+  padding: 0;
+    padding-top: 80%;
+  overflow: hidden; }
+  .tile-img > div {
+    text-align: center; }
+    .tile-img > div > img {
+      max-width: 100%;
+      max-height: 100%;
+      vertical-align: middle; }
+
+.tile-title {
+  font-weight: bold; }
+  .tile-title > button.icon {
+    float: right; }
 
 .products.tiles > ul > .tile.new > a > .tile-img.mini_image, .products.tiles > ul > .tile.new > div > .tile-img.mini_image {
   background-image: url(/_static/img/icons/128/dark/add.png);
@@ -853,7 +861,8 @@ div:hover > .buttons_to_action {
       width: 285px;
       max-width: none;
       margin: 0;
-      font-size: 16px; }
+      font-size: 16px;
+      text-align: left; }
       .products.tiles > ul .tile > a > .tile-img {
         height: 200px;
         overflow: hidden; }
