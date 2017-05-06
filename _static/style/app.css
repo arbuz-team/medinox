@@ -755,6 +755,9 @@ div:hover > .buttons_to_action {
     display: block;
     height: 100%; }
   .tile .icon {
+    position: relative;
+    bottom: 35px;
+    float: right;
     opacity: 0; }
   .tile:hover .icon {
     opacity: 1; }
@@ -780,8 +783,6 @@ div:hover > .buttons_to_action {
 
 .tile-title {
   font-weight: bold; }
-  .tile-title > button.icon {
-    float: right; }
 
 .products.tiles > ul > .tile.new > a > .tile-img.mini_image, .products.tiles > ul > .tile.new > div > .tile-img.mini_image {
   background-image: url(/_static/img/icons/128/dark/add.png);

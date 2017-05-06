@@ -10,14 +10,19 @@
             </div>
         </div>
 
-        <h3 class="tile-title field_shell">
+        <h3 class="tile-title">
             {{ catalog.name }}
-            <button type="button" class="dialog_button icon" data-type="prompt" data-name="catalog" data-value="{{ catalog.pk }}"> <i style="background-image: url(/_static/img/icons/32/dark/edit.png)"> &nbsp; </i> </button>
         </h3>
     </a>
 
     <div class="tile-content field_shell">
-        &nbsp;
+        <button class="dialog_button icon"
+                type="button"
+                data-type="prompt"
+                data-name="catalog"
+                data-value="{{ catalog.pk }}">
+            <i style="background-image: url(/_static/img/icons/32/dark/edit.png)"> &nbsp; </i>
+        </button>
     </div>
 </li>
 
