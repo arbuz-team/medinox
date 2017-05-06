@@ -75,12 +75,20 @@ class Session_Controller:
         Translator.Set_Currency(self.request)
 
     def Check_Session_Product(self):
-        pass
+
+        if 'product_last_selected' not in self.request.session:
+            self.request.session['product_last_selected'] = None
+
+        if 'product_editing_widget' not in self.request.session:
+            self.request.session['product_editing_widget'] = None
 
     def Check_Session_Catalog(self):
 
         if 'catalog_parent' not in self.request.session:
             self.request.session['catalog_parent'] = None
+
+        if 'catalog_editing' not in self.request.session:
+            self.request.session['catalog_editing'] = None
 
     def Check_Session_Searcher(self):
 

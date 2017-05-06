@@ -57,6 +57,11 @@ class Change_Catalog(Dynamic_Event_Manager):
 
     @staticmethod
     def Change(request, cat_1=None, cat_2=None, cat_3=None):
+
+        if '__form__' in request.POST:
+            if request.POST['__form__'] == 'catalog':
+                return Catalog_Manager(request, only_root=True).HTML
+
         return Change_Catalog(request, other_value=[cat_1, cat_2, cat_3]).HTML
 
     @staticmethod
@@ -65,11 +70,10 @@ class Change_Catalog(Dynamic_Event_Manager):
 
 
 
-class New_Catalog(Dynamic_Event_Manager):
+class Catalog_Manager(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
-        self.content['form'] = Form_Catalog(self.request)
-        return self.Render_HTML('catalog/new.html', 'new_catalog')
+        pass
 
     def Manage_Form_New_Catalog(self):
 
@@ -78,46 +82,18 @@ class New_Catalog(Dynamic_Event_Manager):
 
         if self.content['form'].is_valid():
 
-                catalog = Catalog()
-                catalog.name = self.content['form'].cleaned_data['name']
-                catalog.url_name = self.content['form'].cleaned_data['name']
-                catalog.parent = self.request.session['catalog_parent']
-                catalog.save()
+            catalog = Catalog()
+            catalog.name = self.content['form'].cleaned_data['name']
+            catalog.url_name = self.To_URL(self.content['form'].cleaned_data['name'])
+            catalog.parent = self.request.session['catalog_parent']
+            catalog.save()
 
-                catalog.Save_Image(self.content['form'].cleaned_data['image'])
+            catalog.Save_Image(self.content['form'].cleaned_data['image'])
 
-                self.content['form'] = None
-                return self.Render_HTML('catalog/new.html')
+            self.content['form'] = None
+            return self.Render_HTML('catalog/new.html')
 
         return self.Render_HTML('catalog/new.html', 'new_catalog')
-
-    def Manage_Form(self):
-
-        if 'new_catalog' in self.request.POST['__form__']:
-            return self.Manage_Form_New_Catalog()
-
-    @staticmethod
-    def Redirect(request, url):
-        other_value = {'redirect': url}
-        return New_Catalog(request, other_value=other_value,
-                           length_navigation=2, only_root=True).HTML
-
-    @staticmethod
-    def Launch(request):
-        return New_Catalog(request, only_root=True).HTML
-
-
-
-class Edit_Catalog(Dynamic_Event_Manager):
-
-    def Manage_Content_Ground(self):
-
-        catalog = Catalog.objects.get(pk=self.other_value['pk'])
-        self.content['form'] = Form_Catalog(self.request,
-            initial={'name': catalog.name})
-
-        self.content['image'] = catalog.image
-        return self.Render_HTML('catalog/edit.html', 'edit_catalog')
 
     def Manage_Form_Edit_Catalog(self):
 
@@ -125,7 +101,7 @@ class Edit_Catalog(Dynamic_Event_Manager):
             self.request, self.request.POST)
 
         if self.content['form'].is_valid():
-            catalog = Catalog.objects.get(pk=self.other_value['pk'])
+            catalog = self.request.session['catalog_editing']
             catalog.name = self.content['form'].cleaned_data['name']
             catalog.url_name = self.To_URL(self.content['form'].cleaned_data['name'])
             catalog.parent = self.request.session['catalog_parent']
@@ -140,20 +116,11 @@ class Edit_Catalog(Dynamic_Event_Manager):
 
     def Manage_Form(self):
 
-        if 'edit_catalog' in self.request.POST['__form__']:
+        if self.request.session['catalog_editing']:
             return self.Manage_Form_Edit_Catalog()
 
-    @staticmethod
-    def Redirect(request, pk, url):
-        other_value = {'redirect': url, 'pk': pk}
-        return Edit_Catalog(request, other_value=other_value,
-                            length_navigation=3, only_root=True).HTML
-
-    @staticmethod
-    def Edit(request, pk):
-        return Edit_Catalog(request, other_value={'pk': pk},
-                            only_root=True).HTML
+        return self.Manage_Form_New_Catalog()
 
     @staticmethod
     def Launch(request):
-        pass
+        return Catalog_Manager(request, only_root=True).HTML

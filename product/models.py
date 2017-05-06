@@ -11,27 +11,6 @@ class Brand(Abstract_Model):
 
 
 
-class Widget(Abstract_Model):
-
-    name = models.CharField(max_length=50)
-    type = models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.name
-
-
-
-class Values(Abstract_Model):
-
-    name = models.CharField(max_length=50)
-    super_price = models.IntegerField(default=0)
-    widget = models.ForeignKey(Widget)
-
-    def __str__(self):
-        return self.name
-
-
-
 class Product(Abstract_Model):
 
     url_name = models.CharField(max_length=100)
@@ -43,6 +22,28 @@ class Product(Abstract_Model):
 
     def Set_Variables(self):
         self.image_dir = '/_static/img/product/'
+
+    def __str__(self):
+        return self.name
+
+
+
+class Widget(Abstract_Model):
+
+    name = models.CharField(max_length=50)
+    type = models.CharField(max_length=20)
+    product = models.ForeignKey(Product)
+
+    def __str__(self):
+        return self.name
+
+
+
+class Values(Abstract_Model):
+
+    name = models.CharField(max_length=50)
+    super_price = models.IntegerField(default=0)
+    widget = models.ForeignKey(Widget)
 
     def __str__(self):
         return self.name

@@ -1,0 +1,81 @@
+{% load tags %}
+
+<div class="dialog-header">
+    {{ title }}
+</div>
+
+
+<div class="dialog-content">
+
+    <!--data-type="{{ form_name }}" data-test="yes"-->
+    <form method="post" data-name="{{ form_name }}">
+
+        {{ form.non_field_errors }}
+
+        <div class="dialog-content-part field_shell">
+            <!--fields of form-->
+            {% for field in form %}
+
+
+                {% if field|is_checkbox %}
+
+                    <div class="selecter checkbox">
+                        {{ field }}
+                        <label for="id_{{ field.name }}" class="selecter-field"></label>
+                        <label for="id_{{ field.name }}" class="selecter-text">{{ field.label }}</label>
+                    </div>
+
+
+                {% elif field|is_radio %}
+
+                    <div class="selecter radio">
+                        {{ field }}
+                        <label for="id_{{ field.name }}" class="selecter-field"></label>
+                        <label for="id_{{ field.name }}" class="selecter-text">{{ field.label }}</label>
+                    </div>
+
+                {% else %}
+
+                        {% if field|is_fileinput %}
+
+                            <div class="file_shell">
+
+                                {{ field }}
+                                <button type="button">Select file</button>
+                                {{ field.errors }}
+
+                                <div class="status"></div>
+                            </div>
+
+                        {% else %}
+
+                            <div>
+
+                                {{ field }}
+                                {{ field.errors }}
+
+                                <div class="status"></div>
+                            </div>
+
+                        {% endif %}
+
+                {% endif %}
+
+
+            {% endfor %}
+
+            {% if image %}
+                <img data-src="{{ image }}" src="/_static/img/pixel.png" alt="image">
+            {% endif %}
+
+        </div><!-- dialog-content-part -->
+
+        <div class="dialog-content-part field_shell">
+            <!--buttons-->
+            <button type="button" class="dialog-content-button" data-dialog-button="cancel"> Cancel </button>
+            <button type="button" class="dialog-content-button" data-dialog-button="send"> Accept </button>
+        </div><!-- dialog-content-part -->
+
+    </form>
+
+</div><!-- dialog-content -->

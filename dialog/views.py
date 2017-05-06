@@ -1,4 +1,5 @@
 from product.forms import *
+from catalog.forms import *
 from user.account.forms import *
 from main.forms import *
 from payment.models import *
@@ -171,67 +172,42 @@ class Dialog_Prompt(Dialog):
         }
 
 
-    def Manage_Brand(self):
-        initial = self.Get_Session_Variable()
-        self.content['title'] = Text(self.request, 1)
-        self.content['form'] = Form_Brand(self.request,
-            self.Get_POST(), initial={'brands': initial})
+    def Manage_Widget(self):
+        self.content['title'] = Text(self.request, 156)
+        self.content['form'] = Form_Widget(
+            self.request, self.Get_POST())
 
-        return self.Render_Dialog('dialog/create_or_select.html',
-                                  'brand', only_root=True)
+        widget = self.request.session['product_editing_widget']
+        product = self.request.session['product_last_selected']
 
-    def Manage_Purpose(self):
-        initial = self.Get_Session_Variable()
-        self.content['title'] = Text(self.request, 2)
-        self.content['form'] = Form_Purpose(self.request,
+        if not widget:
+            widget = Widget(name='', type='', product=product)
+            widget.save()
+
+            self.request.session['product_editing_widget'] = widget
+        self.content['widgets'] = Values.objects.filter(widget=widget)
+
+        return self.Render_Dialog('dialog/widget.html',
+                                  'widget', only_root=True)
+
+    def Manage_Catalog(self):
+        initial = None
+
+        if 'dialog_value' in self.request.POST:
+            catalog = Catalog.objects.get(pk=self.request.POST['dialog_value'])
+
+            self.request.session['catalog_editing'] = catalog
+            self.content['image'] = catalog.image
+            initial = {'name': catalog.name}
+
+        else: self.request.session['catalog_editing'] = None
+
+        self.content['title'] = Text(self.request, 157)
+        self.content['form'] = Form_Catalog(self.request,
             self.Get_POST(), initial=initial)
 
-        return self.Render_Dialog('dialog/create_or_select.html',
-                                  'purpose', only_root=True)
-
-    def Manage_Details_EN(self):
-        self.content['title'] = Text(self.request, 3)
-        self.content['form'] = Form_Details_EN(self.request,
-            self.Get_POST(), instance=self.Get_Session_Variable())
-
-        return self.Render_Dialog('dialog/prompt.html',
-                                  'details_en', only_root=True)
-
-    def Manage_Details_PL(self):
-        self.content['title'] = Text(self.request, 4)
-        self.content['form'] = Form_Details_PL(self.request,
-            self.Get_POST(), instance=self.Get_Session_Variable())
-
-        return self.Render_Dialog('dialog/prompt.html',
-                                  'details_pl', only_root=True)
-
-    def Manage_Details_DE(self):
-        self.content['title'] = Text(self.request, 5)
-        self.content['form'] = Form_Details_EN(self.request,
-            self.Get_POST(), instance=self.Get_Session_Variable())
-
-        return self.Render_Dialog('dialog/prompt.html',
-                                  'details_de', only_root=True)
-
-    def Manage_Where_Display(self):
-        self.content['title'] = Text(self.request, 6)
-        self.content['form'] = Form_Where_Display(self.request,
-            self.Get_POST(), instance=self.Get_Session_Variable())
-
-        return self.Render_Dialog('dialog/prompt.html',
-                                  'where_display', only_root=True)
-
-    def Manage_Image(self):
-        initial = self.Get_Session_Variable()
-        url = self.request.session['product_image_url']
-
-        self.content['title'] = Text(self.request, 7)
-        self.content['image'] = initial
-        self.content['form'] = Form_Image(self.request,
-            self.Get_POST(), initial={'url': url})
-
-        return self.Render_Dialog('dialog/prompt.html',
-                                  'image', only_root=True)
+        return self.Render_Dialog('dialog/widget.html',
+                                  'catalog', only_root=True)
 
 
     def Manage_Edit_Email(self):

@@ -168,6 +168,22 @@
                             <button type="button" class="dialog_button" data-type="prompt" data-name="widget"> Add </button>
                         </div>
 
+                        <!-- NASZE WIDGETY -->
+
+                        {% for item in widgets %}
+
+                            <div class="widget">
+                                <div class="widget-title">{{ item.widget.name }}</div>
+                                <button type="button" class="dialog_button" data-type="prompt" data-name="widget" data-value="{{ item.widget.pk }}"> Edit </button>
+
+                                {{ item.values }}
+
+                            </div>
+
+                        {% endfor %}
+
+                        <!-- /NASZE WIDGETY -->
+
                         <div class="widget">
                             <div class="widget-title">Choose something</div>
                             <button type="button" class="dialog_button" data-type="prompt" data-name="widget" data-value="0"> Edit </button>

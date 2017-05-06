@@ -18,9 +18,9 @@ class Other_Manager(Base_Tag_Manager):
             return self.Get_Path(name, kwargs, current_language=True)
 
     def Create_Redirect_URL(self):
-        url_name = self.values['url_name']
-        url_name = self.Get_Path(url_name, current_language=True)
         kwargs = self.values['kwargs']
+        url_name = self.values['url_name']
+        url_name = self.Get_Path(url_name, kwargs, current_language=True)
 
         redirect_url = self.values['redirect_url']
         redirect_url = self.Get_Path(redirect_url, kwargs, current_language=True)
