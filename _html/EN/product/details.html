@@ -166,7 +166,7 @@
 
                         {% if request.session.root_login %}
                             <div class="widget widget-add">
-                                <button type="button" class="dialog_button" data-type="prompt" data-name="widget"> Add new widget </button>
+                                <button type="button" class="dialog_button" data-type="prompt" data-name="widget" data-dialog-reload="ground"> Add new widget </button>
                             </div>
                         {% endif %}
 
@@ -182,7 +182,8 @@
                                             type="button"
                                             data-type="prompt"
                                             data-name="widget"
-                                            data-value="{{ item.widget.pk }}">
+                                            data-value="{{ item.widget.pk }}"
+                                            data-dialog-reload="ground">
                                         <i style="background-image: url(/_static/img/icons/32/dark/edit.png)"> &nbsp; </i>
                                     </button>
                                 {% endif %}

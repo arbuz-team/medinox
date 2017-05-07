@@ -49,7 +49,18 @@
                     {% endfor %}
                 </div>
 
-                <button type="submit">Create</button>
+                <input type="hidden" name="additional_reload" value="{{ additional.reload }}">
+                <input type="hidden" name="additional_redirect" value="{{ additional.redirect }}">
+                <input type="hidden" name="additional_event" value="{{ additional.event }}">
+
+                <button class="event_button"
+                        type="submit"
+                        data-name="{{ additional.name }}"
+                        data-reload="{{ additional.reload }}"
+                        data-redirect="{{ additional.redirect }}"
+                        data-event="{{ additional.event }}">
+                    Create
+                </button>
             </div>
         </form>
 
@@ -71,7 +82,7 @@
     <div class="dialog-content-part field_shell">
         <!--buttons-->
         {% if edit %}
-            <button type="button" class="post_button dialog-content-button" data-dialog-button="cancel"
+            <button class="post_button dialog-content-button" type="button" data-dialog-button="cancel"
                     data-name="widget"
                     data-action="delete"
                     data-reload="ground"
@@ -79,9 +90,15 @@
             </button>
         {% endif %}
 
-        <button type="button" class="dialog-content-button" data-dialog-button="cancel"> Cancel </button>
+        <button class="dialog-content-button" type="button" data-dialog-button="cancel"> Cancel </button>
 
-        <button type="button" class="dialog-content-button" data-dialog-button="send">
+        <button class="event_button dialog-content-button"
+                type="button"
+                data-dialog-button="send"
+                data-name="{{ additional.name }}"
+                data-reload="{{ additional.reload }}"
+                data-redirect="{{ additional.redirect }}"
+                data-event="{{ additional.event }}">
             {% if additional_form %}
                 Save
             {% else %}
