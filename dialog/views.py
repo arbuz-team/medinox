@@ -180,12 +180,12 @@ class Dialog_Prompt(Dialog):
 
         if 'dialog_value' in self.request.POST:
             widget = Widget.objects.get(pk=self.request.POST['dialog_value'])
-
-            self.request.session['product_editing_widget'] = widget
             self.content['edit'] = {'url': '/product/widget/manage/'}
 
-        else: self.request.session['product_editing_widget'] = None
+        elif self.other_value:
+            widget = self.other_value
 
+        self.request.session['product_editing_widget'] = widget
         self.content['values'] = Values.objects.filter(widget=widget)
         self.content['title'] = Text(self.request, 156)
         self.content['form'] = Form_Widget(self.request,
@@ -197,6 +197,9 @@ class Dialog_Prompt(Dialog):
 
         return self.Render_Dialog('dialog/widget.html',
                                   'widget', 'values', only_root=True)
+
+    def Manage_Values(self):
+        return self.Manage_Widget()
 
     def Manage_Catalog(self):
         initial = None
@@ -318,7 +321,8 @@ class Dialog_Prompt(Dialog):
 
         return self.request.POST['dialog_name']
 
-    def __init__(self, request, app_name, apply=False, not_valid=False):
+    def __init__(self, request, app_name, apply=False, not_valid=False, other_value=None):
         Dialog.__init__(self, request, app_name, apply)
         self.not_valid = not_valid
+        self.other_value = other_value
         self.HTML = self.Manage()

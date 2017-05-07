@@ -5,14 +5,10 @@ from product.models import *
 class Form_Widget(Abstract_Model_Form):
 
     choices = (
-        (0, 'Select'),
-        (1, 'Checkbox'),
-        (2, 'Radio'),
+        ('Select', 'Select'),
+        ('Checkbox', 'Checkbox'),
+        ('Radio', 'Radio'),
     )
-
-    def clean_type(self):
-        number = int(self.data['type'])
-        return self.choices[number][1]
 
     def Create_Fields(self):
         self.fields['type'] = forms.ChoiceField(self.choices)
@@ -31,11 +27,9 @@ class Form_Values(Abstract_Model_Form):
 
     def clean_super_price(self):
 
-        price = float(self.data['super_price'])
-        if price:
-            return int(price * 100)
-
-        return 0
+        try: return int(float(self.data['super_price']) * 100)
+        except ValueError:
+            return 0
 
     def Create_Fields(self):
         self.fields['super_price'] = forms.FloatField(required=False)
@@ -54,11 +48,9 @@ class Form_Product(Abstract_Image_Form):
 
     def clean_price(self):
 
-        price = float(self.data['price'])
-        if price:
-            return int(price * 100)
-
-        return 0
+        try: return int(float(self.data['price']) * 100)
+        except ValueError:
+            return 0
 
     def clean(self):
 

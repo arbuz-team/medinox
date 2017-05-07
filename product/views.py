@@ -62,7 +62,7 @@ class Widget_Manager(Dynamic_Event_Manager):
             widget.type = self.content['form'].cleaned_data['type']
             widget.save()
 
-            return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
+            return Dialog_Prompt(self.request, self.app_name, other_value=widget).HTML
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
 
     def Manage_Form_Edit_Widget(self):
@@ -115,7 +115,7 @@ class Values_Manager(Dynamic_Event_Manager):
             values.widget = widget
             values.save()
 
-            return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
+            return Dialog_Prompt(self.request, self.app_name, other_value=widget).HTML
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
 
     def Manage_Button(self):
