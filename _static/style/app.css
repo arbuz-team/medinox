@@ -443,6 +443,8 @@ div:hover > .buttons_to_action {
   padding: 12px;
   font-size: 14px;
   line-height: 18px; }
+  .dialog-content > .dialog-content-part:last-child {
+    text-align: right; }
 
 .dialog-content-part > div {
   padding-bottom: 5px; }
@@ -450,9 +452,6 @@ div:hover > .buttons_to_action {
 .dialog-content-part > input {
   width: 95%;
   box-sizing: border-box; }
-
-.dialog-content-part:last-child {
-  text-align: right; }
 
 @media (min-width: 500px) {
   .dialog {

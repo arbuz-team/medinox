@@ -3424,7 +3424,7 @@
 	      break;
 	
 	    case 'send':
-	      $('form', selectors.container).submit();
+	      $('form.dialog_form', selectors.container).submit();
 	      break;
 	
 	    default:

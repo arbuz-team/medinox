@@ -8,7 +8,7 @@
 <div class="dialog-content">
 
     <!--data-type="{{ form_name }}" data-test="yes"-->
-    <form method="post" data-name="{{ form_name }}">
+    <form class="dialog_form" method="post" data-name="{{ form_name }}">
 
         {{ form.non_field_errors }}
 
@@ -69,22 +69,21 @@
             {% endif %}
 
         </div><!-- dialog-content-part -->
-
-        <div class="dialog-content-part field_shell">
-            <!--buttons-->
-            {% if edit %}
-                <button type="button" class="post_button dialog-content-button" data-dialog-button="cancel"
-                        data-name="{{ form_name }}"
-                        data-action="delete"
-                        data-value="{{ edit.pk }}"
-                        data-reload="ground"
-                        data-url="{{ edit.url }}"> Delete
-                </button>
-            {% endif %}
-            <button type="button" class="dialog-content-button" data-dialog-button="cancel"> Cancel </button>
-            <button type="button" class="dialog-content-button" data-dialog-button="send"> Accept </button>
-        </div><!-- dialog-content-part -->
-
     </form>
+
+    <div class="dialog-content-part field_shell">
+        <!--buttons-->
+        {% if edit %}
+            <button type="button" class="post_button dialog-content-button" data-dialog-button="cancel"
+                    data-name="{{ form_name }}"
+                    data-action="delete"
+                    data-reload="ground"
+                    data-url="{{ edit.url }}"> Delete
+            </button>
+        {% endif %}
+        <button type="button" class="dialog-content-button" data-dialog-button="cancel"> Cancel </button>
+        <button type="button" class="dialog-content-button" data-dialog-button="send"> Accept </button>
+    </div><!-- dialog-content-part -->
+
 
 </div><!-- dialog-content -->
