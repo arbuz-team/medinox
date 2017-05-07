@@ -72,6 +72,14 @@
 
         <div class="dialog-content-part field_shell">
             <!--buttons-->
+            {% if edit %}
+                <button type="button" class="post_button dialog-content-button" data-dialog-button="cancel"
+                        data-name="delete_widget"
+                        data-value="{{ edit.pk }}"
+                        data-reload="ground"
+                        data-url="{{ edit.url }}"> Delete
+                </button>
+            {% endif %}
             <button type="button" class="dialog-content-button" data-dialog-button="cancel"> Cancel </button>
             <button type="button" class="dialog-content-button" data-dialog-button="send"> Accept </button>
         </div><!-- dialog-content-part -->

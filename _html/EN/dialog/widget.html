@@ -70,8 +70,35 @@
 
         </div><!-- dialog-content-part -->
 
+
+        <div class="dialog-content-part field_shell">
+
+            <div class="little_form" data-origin="little" data-reload="dialog searcher">
+                <input type="text" data-name="{{ form_name }}_option" placeholder="Name for new option"><button type="button">Create</button>
+            </div>
+
+        </div>
+
+
+        <div class="dialog-content-part field_shell">
+
+            <div class="scroll">
+                No options found
+            </div>
+
+        </div>
+
+
         <div class="dialog-content-part field_shell">
             <!--buttons-->
+            {% if edit %}
+                <button type="button" class="post_button dialog-content-button" data-dialog-button="cancel"
+                        data-name="delete_widget"
+                        data-value="{{ edit.pk }}"
+                        data-reload="ground"
+                        data-url="{{ edit.url }}"> Delete
+                </button>
+            {% endif %}
             <button type="button" class="dialog-content-button" data-dialog-button="cancel"> Cancel </button>
             <button type="button" class="dialog-content-button" data-dialog-button="send"> Accept </button>
         </div><!-- dialog-content-part -->
