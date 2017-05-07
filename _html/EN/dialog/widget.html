@@ -73,42 +73,46 @@
     </form>
 
 
-    <form method="post" data-name="{{ additional_form_name }}" data-reload="dialog">
+    {% if additional_form %}
+
+        <form method="post" data-name="{{ additional_form_name }}" data-reload="dialog">
+            <div class="dialog-content-part field_shell">
+
+
+                {% for field in additional_form %}
+
+                    <div>
+
+                        {{ field }}
+                        {{ field.errors }}
+
+                        <div class="status"></div>
+                    </div>
+
+                {% endfor %}
+
+                <button type="submit">Create</button>
+
+            </div>
+        </form>
+
+
         <div class="dialog-content-part field_shell">
 
+            <div class="scroll">
 
-            {% for field in form %}
+                {% for value in values %}
 
-                <div>
+                    <div>
+                        {{ value.name }} - Dopłata: {{ value.super_price }}
+                    </div>
 
-                    {{ field }}
-                    {{ field.errors }}
-
-                    <div class="status"></div>
-                </div>
-
-            {% endfor %}
-
-            <button type="submit">Create</button>
+                {% endfor %}
+            </div>
 
         </div>
-    </form>
 
-
-    <div class="dialog-content-part field_shell">
-
-        <div class="scroll">
-
-            {% for value in values %}
-
-                <div>
-                    {{ value.name }} - Dopłata: {{ value.super_price }}
-                </div>
-
-            {% endfor %}
-        </div>
-
-    </div>
+    {% endif %}
 
 
     <div class="dialog-content-part field_shell">
@@ -121,8 +125,16 @@
                     data-url="{{ edit.url }}"> Delete
             </button>
         {% endif %}
+
         <button type="button" class="dialog-content-button" data-dialog-button="cancel"> Cancel </button>
-        <button type="button" class="dialog-content-button" data-dialog-button="send"> Accept </button>
+
+        <button type="button" class="dialog-content-button" data-dialog-button="send">
+            {% if additional_form %}
+                Save
+            {% elif %}
+                Create
+            {% endif %}
+        </button>
     </div><!-- dialog-content-part -->
 
 </div><!-- dialog-content -->
