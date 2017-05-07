@@ -93,7 +93,8 @@
             <!--buttons-->
             {% if edit %}
                 <button type="button" class="post_button dialog-content-button" data-dialog-button="cancel"
-                        data-name="delete_widget"
+                        data-name="widget"
+                        data-action="delete"
                         data-value="{{ edit.pk }}"
                         data-reload="ground"
                         data-url="{{ edit.url }}"> Delete
