@@ -37,7 +37,7 @@
 
     {% if additional_form %}
 
-        <form method="post" data-name="{{ additional_form_name }}" data-reload="dialog">
+        <form method="post" data-name="{{ additional_form_name }}" data-reload="dialog ground">
             <div class="dialog-content-part field_shell">
 
                 <div>
@@ -53,12 +53,7 @@
                 <input type="hidden" name="additional_redirect" value="{{ additional.redirect }}">
                 <input type="hidden" name="additional_event" value="{{ additional.event }}">
 
-                <button class="event_button"
-                        type="submit"
-                        data-name="submit_additional"
-                        data-reload="dialog ground">
-                    Create
-                </button>
+                <button type="submit"> Create </button>
             </div>
         </form>
 
