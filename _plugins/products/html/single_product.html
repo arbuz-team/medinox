@@ -16,14 +16,24 @@
     <div class="tile-content field_shell">
 
         <div class="tile-content-details">
-            <a href="/product/{{ product.pk }}/{{ product.url_name }}/"><button type="button">Details...</button></a>
-        </div>
+            &nbsp;<br>&nbsp;
 
-        <div class="tile-content-price">
-            {% if request.session.user_login %}
-                {{ product.price }}
+            {% if request.session.root_login %}
+                <button class="dialog_button icon"
+                        type="button"
+                        data-type="prompt"
+                        data-name="product"
+                        data-value="{{ catalog.pk }}">
+                    <i style="background-image: url(/_static/img/icons/32/dark/edit.png)"> &nbsp; </i>
+                </button>
             {% endif %}
         </div>
+
+        <!--<div class="tile-content-price">-->
+            <!--{% if request.session.user_login %}-->
+                <!--{{ product.price }}-->
+            <!--{% endif %}-->
+        <!--</div>-->
     </div>
 </li>
 

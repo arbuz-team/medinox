@@ -164,8 +164,8 @@
 
                     <div class="product_details-section subproduct_widgets field_shell">
 
-                        <div class="widget">
-                            <button type="button" class="dialog_button" data-type="prompt" data-name="widget"> Add </button>
+                        <div class="widget widget-add">
+                            <button type="button" class="dialog_button" data-type="prompt" data-name="widget"> Add new widget </button>
                         </div>
 
                         <!-- NASZE WIDGETY -->
@@ -174,7 +174,16 @@
 
                             <div class="widget">
                                 <div class="widget-title">{{ item.widget.name }}</div>
-                                <button type="button" class="dialog_button" data-type="prompt" data-name="widget" data-value="{{ item.widget.pk }}"> Edit </button>
+
+                                {% if request.session.root_login %}
+                                    <button class="dialog_button icon"
+                                            type="button"
+                                            data-type="prompt"
+                                            data-name="widget"
+                                            data-value="{{ item.widget.pk }}">
+                                        <i style="background-image: url(/_static/img/icons/32/dark/edit.png)"> &nbsp; </i>
+                                    </button>
+                                {% endif %}
 
                                 {{ item.values }}
 
@@ -182,11 +191,20 @@
 
                         {% endfor %}
 
-                        <!-- /NASZE WIDGETY -->
+                        <!-- NASZE WIDGETY -->
 
                         <div class="widget">
                             <div class="widget-title">Choose something</div>
-                            <button type="button" class="dialog_button" data-type="prompt" data-name="widget" data-value="0"> Edit </button>
+
+                            {% if request.session.root_login %}
+                                <button class="dialog_button icon"
+                                        type="button"
+                                        data-type="prompt"
+                                        data-name="widget"
+                                        data-value="1">
+                                    <i style="background-image: url(/_static/img/icons/32/dark/edit.png)"> &nbsp; </i>
+                                </button>
+                            {% endif %}
 
                             <div class="selecter checkbox">
                                 <input id="id__purpose_1" name="_purpose_1" type="checkbox">
@@ -207,7 +225,16 @@
 
                         <div class="widget">
                             <div class="widget-title">Choose something</div>
-                            <button type="button" class="dialog_button" data-type="prompt" data-name="widget" data-value="1"> Edit </button>
+
+                            {% if request.session.root_login %}
+                                <button class="dialog_button icon"
+                                        type="button"
+                                        data-type="prompt"
+                                        data-name="widget"
+                                        data-value="0">
+                                    <i style="background-image: url(/_static/img/icons/32/dark/edit.png)"> &nbsp; </i>
+                                </button>
+                            {% endif %}
 
                             <div class="selecter radio">
                                 <input id="id_brands_1" name="brands" type="radio" value="1">
@@ -228,7 +255,16 @@
 
                         <div class="widget">
                             <div class="widget-title">Choose something</div>
-                            <button type="button" class="dialog_button" data-type="prompt" data-name="widget" data-value="3"> Edit </button>
+
+                            {% if request.session.root_login %}
+                                <button class="dialog_button icon"
+                                        type="button"
+                                        data-type="prompt"
+                                        data-name="widget"
+                                        data-value="0">
+                                    <i style="background-image: url(/_static/img/icons/32/dark/edit.png)"> &nbsp; </i>
+                                </button>
+                            {% endif %}
 
                             <select id="id_country" name="country" required="">
                                 <option value="AF">Afghanistan</option>
