@@ -16,13 +16,14 @@ import base64, imghdr, os, string, random, time
 
 class Dynamic_Base:
 
-    def Render_HTML(self, file_name, form_name = ''):
+    def Render_HTML(self, file_name, form_name = '', additional_form_name=''):
 
         # example: EN/user/sign_in.html
         template = self.request.session['translator_language'] \
                    + '/' + file_name
 
         self.content['form_name'] = form_name
+        self.content['additional_form_name'] = additional_form_name
         return render(self.request, template, self.content)
 
     def Get_Urls(self, name=None, kwargs=None,

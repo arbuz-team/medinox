@@ -14,6 +14,18 @@ class Form_Widget(Abstract_Model_Form):
 
 
 
+class Form_Values(Abstract_Model_Form):
+
+    class Meta:
+
+        model = Values
+        fields = (
+            'name',
+            'super_price',
+        )
+
+
+
 class Form_Product(Abstract_Image_Form):
 
     def clean_price(self):

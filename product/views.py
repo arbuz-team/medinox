@@ -83,6 +83,22 @@ class Widget_Manager(Dynamic_Event_Manager):
 
 
 
+class Values_Manager(Dynamic_Event_Manager):
+
+    def Manage_Button(self):
+
+        if 'delete' in self.request.POST['__button__']:
+            Values.objects.get(pk=self.request.POST['value']).delete()
+            return JsonResponse({'__button__': 'true'})
+
+        return JsonResponse({'__button__': 'false'})
+
+    @staticmethod
+    def Launch(request):
+        return Product_Manager(request, only_root=True).HTML
+
+
+
 class Product_Manager(Dynamic_Event_Manager):
 
     def Manage_Form_New_Product(self):

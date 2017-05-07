@@ -29,19 +29,22 @@ class Dialog(Dynamic_Base):
             'event':    self.Get_POST_Variable('additional_event'),
         }
 
-    def Render_Dialog(self, file_name, form_name = '',
+    def Render_Dialog(self, file_name, form_name='', additional_form_name='',
                       authorization=False, only_root=False):
 
         if not authorization and not only_root:
-            return self.Render_HTML(file_name, form_name)
+            return self.Render_HTML(file_name, form_name,
+                                    additional_form_name)
 
         if authorization:
             if self.request.session['user_login']:
-                return self.Render_HTML(file_name, form_name)
+                return self.Render_HTML(file_name, form_name,
+                                        additional_form_name)
 
         if only_root:
             if self.request.session['root_login']:
-                return self.Render_HTML(file_name, form_name)
+                return self.Render_HTML(file_name, form_name,
+                                        additional_form_name)
 
         return self.Unauthorized_Access()
 
@@ -186,10 +189,13 @@ class Dialog_Prompt(Dialog):
         self.content['values'] = Values.objects.filter(widget=widget)
         self.content['title'] = Text(self.request, 156)
         self.content['form'] = Form_Widget(self.request,
-           self.Get_POST(), instance=widget)
+            self.Get_POST(), instance=widget)
+
+        self.content['additional_form'] = Form_Values(
+            self.request, self.Get_POST())
 
         return self.Render_Dialog('dialog/widget.html',
-                                  'widget', only_root=True)
+                                  'widget', 'values', only_root=True)
 
     def Manage_Catalog(self):
         initial = None
