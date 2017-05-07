@@ -179,7 +179,7 @@ class Dialog_Prompt(Dialog):
         widget = None
 
         if 'dialog_value' in self.request.POST:
-            widget = Widget.objects.get(product=self.request.POST['dialog_value'])
+            widget = Widget.objects.get(pk=self.request.POST['dialog_value'])
 
             self.request.session['product_editing_widget'] = widget
             self.content['edit'] = {'url': '/product/widget/manage/'}
@@ -191,8 +191,9 @@ class Dialog_Prompt(Dialog):
         self.content['form'] = Form_Widget(self.request,
             self.Get_POST(), instance=widget)
 
-        self.content['additional_form'] = Form_Values(
-            self.request, self.Get_POST())
+        if widget:
+            self.content['additional_form'] = Form_Values(
+                self.request, self.Get_POST())
 
         return self.Render_Dialog('dialog/widget.html',
                                   'widget', 'values', only_root=True)

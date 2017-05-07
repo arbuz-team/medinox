@@ -32,6 +32,15 @@ class Details(Dynamic_Event_Manager):
 
     @staticmethod
     def Details(request, pk):
+
+        if '__form__' in request.POST:
+
+            if request.POST['__form__'] == 'widget':
+                return Widget_Manager(request, only_root=True).HTML
+
+            if request.POST['__form__'] == 'values':
+                return Values_Manager(request, only_root=True).HTML
+
         return Details(request, other_value=pk).HTML
 
     @staticmethod
@@ -77,6 +86,15 @@ class Widget_Manager(Dynamic_Event_Manager):
 
         return self.Manage_Form_New_Widget()
 
+    def Manage_Button(self):
+
+        if 'delete' in self.request.POST['__button__']:
+            self.request.session['product_editing_widget'].delete()
+            self.request.session['product_editing_widget'] = None
+            return JsonResponse({'__button__': 'true'})
+
+        return JsonResponse({'__button__': 'false'})
+
     @staticmethod
     def Launch(request):
         return Widget_Manager(request, only_root=True).HTML
@@ -84,6 +102,21 @@ class Widget_Manager(Dynamic_Event_Manager):
 
 
 class Values_Manager(Dynamic_Event_Manager):
+
+    def Manage_Form(self):
+
+        self.content['form'] = Form_Values(
+            self.request, self.request.POST)
+
+        if self.content['form'].is_valid():
+            widget = self.request.session['product_editing_widget']
+
+            values = self.content['form'].save(commit=False)
+            values.widget = widget
+            values.save()
+
+            return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
+        return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
 
     def Manage_Button(self):
 
