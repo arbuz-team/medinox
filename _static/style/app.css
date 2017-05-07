@@ -796,7 +796,7 @@ div:hover > .buttons_to_action {
 
 @media (min-width: 675px) {
   .products.tiles > ul > .tile.new > a > .tile-title, .products.tiles > ul > .tile.new > div > .tile-title {
-    min-height: 60px; } }
+    min-height: 23px; } }
 
 @media (min-width: 1000px) {
   .products.tiles > ul > .tile.new > a > .tile-img.mini_image, .products.tiles > ul > .tile.new > div > .tile-img.mini_image {

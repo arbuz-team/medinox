@@ -14,26 +14,15 @@
     </a>
 
     <div class="tile-content field_shell">
-
-        <div class="tile-content-details">
-            {% if request.session.root_login %}
-                <button class="dialog_button icon"
-                        type="button"
-                        data-type="prompt"
-                        data-name="product"
-                        data-value="{{ catalog.pk }}">
-                    <i style="background-image: url(/_static/img/icons/32/dark/edit.png)"> &nbsp; </i>
-                </button>
-            {% endif %}
-
-            &nbsp;<br>&nbsp;
-        </div>
-
-        <!--<div class="tile-content-price">-->
-            <!--{% if request.session.user_login %}-->
-                <!--{{ product.price }}-->
-            <!--{% endif %}-->
-        <!--</div>-->
+        {% if request.session.root_login %}
+            <button class="dialog_button icon"
+                    type="button"
+                    data-type="prompt"
+                    data-name="product"
+                    data-value="{{ product.pk }}">
+                <i style="background-image: url(/_static/img/icons/32/dark/edit.png)"> &nbsp; </i>
+            </button>
+        {% endif %}
     </div>
 </li>
 
