@@ -187,110 +187,39 @@
                                     </button>
                                 {% endif %}
 
-                                {{ item.values }}
+                                {% if item.widget.type == 'Checkbox' %}
+
+                                    {% for field in item.values %}
+                                        <div class="selecter checkbox">
+                                            <input id="id_checkbox_{{ field.name }}" name="wymyśl" type="checkbox">
+                                            <label for="id_checkbox_{{ field.name }}" class="selecter-field"></label>
+                                            <label for="id_checkbox_{{ field.name }}" class="selecter-text">{{ field.name }} (+ {{ field.super_price }} zł)</label>
+                                        </div>
+                                    {% endfor %}
+
+                                {% elif item.widget.type == 'Radio' %}
+
+                                    {% for field in item.values %}
+                                        <div class="selecter radio">
+                                            <input id="id_radio_{{ field.name }}" name="wymyśl" type="radio" value="1">
+                                            <label for="id_radio_{{ field.name }}" class="selecter-field"></label>
+                                            <label for="id_radio_{{ field.name }}" class="selecter-text">{{ field.name }} (+ {{ field.super_price }} zł)</label>
+                                        </div>
+                                    {% endfor %}
+
+                                {% elif item.widget.type == 'Select' %}
+
+                                    <select id="id_select_{{ field.name }}" name="wymyśl" required="">
+                                        {% for field in item.values %}
+                                            <option value="{{ field.name }}">{{ field.name }} (+ {{ field.super_price }} zł)</option>
+                                        {% endfor %}
+                                    </select>
+
+                                {% endif %}
 
                             </div>
 
                         {% endfor %}
-
-                        <!-- NASZE WIDGETY -->
-
-                        <div class="widget">
-                            <div class="widget-title">Choose something</div>
-
-                            {% if request.session.root_login %}
-                                <button class="dialog_button icon"
-                                        type="button"
-                                        data-type="prompt"
-                                        data-name="widget"
-                                        data-value="1">
-                                    <i style="background-image: url(/_static/img/icons/32/dark/edit.png)"> &nbsp; </i>
-                                </button>
-                            {% endif %}
-
-                            <div class="selecter checkbox">
-                                <input id="id__purpose_1" name="_purpose_1" type="checkbox">
-                                <label for="id__purpose_1" class="selecter-field"></label>
-                                <label for="id__purpose_1" class="selecter-text">Eggs</label>
-                            </div>
-                            <div class="selecter checkbox">
-                                <input id="id__purpose_2" name="_purpose_1" type="checkbox">
-                                <label for="id__purpose_2" class="selecter-field"></label>
-                                <label for="id__purpose_2" class="selecter-text">Cars</label>
-                            </div>
-                            <div class="selecter checkbox">
-                                <input id="id__purpose_3" name="_purpose_1" type="checkbox">
-                                <label for="id__purpose_3" class="selecter-field"></label>
-                                <label for="id__purpose_3" class="selecter-text">Heads</label>
-                            </div>
-                        </div>
-
-                        <div class="widget">
-                            <div class="widget-title">Choose something</div>
-
-                            {% if request.session.root_login %}
-                                <button class="dialog_button icon"
-                                        type="button"
-                                        data-type="prompt"
-                                        data-name="widget"
-                                        data-value="0">
-                                    <i style="background-image: url(/_static/img/icons/32/dark/edit.png)"> &nbsp; </i>
-                                </button>
-                            {% endif %}
-
-                            <div class="selecter radio">
-                                <input id="id_brands_1" name="brands" type="radio" value="1">
-                                <label for="id_brands_1" class="selecter-field"></label>
-                                <label for="id_brands_1" class="selecter-text">Emervel</label>
-                            </div>
-                            <div class="selecter radio">
-                                <input id="id_brands_2" name="brands" type="radio" value="1">
-                                <label for="id_brands_2" class="selecter-field"></label>
-                                <label for="id_brands_2" class="selecter-text">Emervel</label>
-                            </div>
-                            <div class="selecter radio">
-                                <input id="id_brands_3" name="brands" type="radio" value="1">
-                                <label for="id_brands_3" class="selecter-field"></label>
-                                <label for="id_brands_3" class="selecter-text">Emervel</label>
-                            </div>
-                        </div>
-
-                        <div class="widget">
-                            <div class="widget-title">Choose something</div>
-
-                            {% if request.session.root_login %}
-                                <button class="dialog_button icon"
-                                        type="button"
-                                        data-type="prompt"
-                                        data-name="widget"
-                                        data-value="0">
-                                    <i style="background-image: url(/_static/img/icons/32/dark/edit.png)"> &nbsp; </i>
-                                </button>
-                            {% endif %}
-
-                            <select id="id_country" name="country" required="">
-                                <option value="AF">Afghanistan</option>
-                                <option value="AX">Åland Islands</option>
-                                <option value="AL">Albania</option>
-                                <option value="DZ">Algeria</option>
-                                <option value="AS">American Samoa</option>
-                                <option value="AD">Andorra</option>
-                                <option value="AO">Angola</option>
-                                <option value="AI">Anguilla</option>
-                                <option value="AQ">Antarctica</option>
-                                <option value="AG">Antigua and Barbuda</option>
-                                <option value="AR">Argentina</option>
-                                <option value="AM">Armenia</option>
-                                <option value="AW">Aruba</option>
-                                <option value="AU">Australia</option>
-                                <option value="AT">Austria</option>
-                                <option value="AZ">Azerbaijan</option>
-                                <option value="BS">Bahamas</option>
-                                <option value="BH">Bahrain</option>
-                                <option value="BD">Bangladesh</option>
-                                <option value="BB">Barbados</option>
-                            </select>
-                        </div>
 
                     </div><!-- product_details-section subproduct_widgets -->
 
