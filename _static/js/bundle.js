@@ -2486,6 +2486,8 @@
 	    event.preventDefault();
 	    event.stopPropagation();
 	
+	    console.log('siema');
+	
 	    var button_name = $(this).data('name');
 	
 	    if (buttons_views[button_name]) buttons_views[button_name].start();else console.error('Button "' + button_name + '" doesn\'t exsist');
@@ -3393,23 +3395,29 @@
 	
 	var _controllers3 = __webpack_require__(35);
 	
-	var _controllers4 = __webpack_require__(50);
+	var _controllers4 = __webpack_require__(39);
+	
+	var _controllers5 = __webpack_require__(50);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	/////////////////////////////
 	
+	/**
+	 * Created by mrskull on 21.01.17.
+	 */
+	
 	var load = exports.load = interior_dialog_views.load,
-	    reload = exports.reload = interior_dialog_views.reload; /**
-	                                                             * Created by mrskull on 21.01.17.
-	                                                             */
+	    reload = exports.reload = interior_dialog_views.reload;
 	
 	var selectors = interior_dialog_views.models.selectors,
-	    variables = interior_dialog_views.models.variables,
 	    post_button_controllers = new _controllers3.Post_Button_Controllers({
 	  container: '#DIALOG > .dialog'
 	}),
-	    little_form_controllers = new _controllers4.Little_Form_Controllers({
+	    event_button_controllers = new _controllers4.Event_Button_Controllers({
+	  container: '#DIALOG > .dialog'
+	}),
+	    little_form_controllers = new _controllers5.Little_Form_Controllers({
 	  container: '#DIALOG > .dialog'
 	}),
 	    dialog_form_controllers = new _controllers2.Form_Controllers(interior_dialog_views);
@@ -3435,6 +3443,7 @@
 	  $(selectors.buttons).click(recognize_button);
 	
 	  post_button_controllers.define();
+	  event_button_controllers.define();
 	  little_form_controllers.define();
 	  dialog_form_controllers.define();
 	};

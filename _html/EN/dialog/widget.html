@@ -16,55 +16,17 @@
             <!--fields of form-->
             {% for field in form %}
 
-                {% if field|is_checkbox %}
-
-                    <div class="selecter checkbox">
-                        {{ field }}
-                        <label for="id_{{ field.name }}" class="selecter-field"></label>
-                        <label for="id_{{ field.name }}" class="selecter-text">{{ field.label }}</label>
-                    </div>
-
-
-                {% elif field|is_radio %}
-
-                    <div class="selecter radio">
-                        {{ field }}
-                        <label for="id_{{ field.name }}" class="selecter-field"></label>
-                        <label for="id_{{ field.name }}" class="selecter-text">{{ field.label }}</label>
-                    </div>
-
-                {% else %}
-
-                        {% if field|is_fileinput %}
-
-                            <div class="file_shell">
-
-                                {{ field }}
-                                <button type="button">Select file</button>
-                                {{ field.errors }}
-
-                                <div class="status"></div>
-                            </div>
-
-                        {% else %}
-
-                            <div>
-
-                                {{ field }}
-                                {{ field.errors }}
-
-                                <div class="status"></div>
-                            </div>
-
-                        {% endif %}
-
-                {% endif %}
+                {% include "forms/html/manage_filed.html" %}
 
             {% endfor %}
 
             {% if image %}
                 <img data-src="{{ image }}" src="/_static/img/pixel.png" alt="image">
             {% endif %}
+
+            <input type="hidden" name="additional_reload" value="{{ additional.reload }}">
+            <input type="hidden" name="additional_redirect" value="{{ additional.redirect }}">
+            <input type="hidden" name="additional_event" value="{{ additional.event }}">
 
         </div><!-- dialog-content-part -->
 
@@ -76,14 +38,14 @@
         <form method="post" data-name="{{ additional_form_name }}" data-reload="dialog">
             <div class="dialog-content-part field_shell">
 
-                {% for field in additional_form %}
-                    <div>
-                        {{ field }}
-                        {{ field.errors }}
+                <div>
+                    {% for field in additional_form %}
+                            {{ field }}
+                            {{ field.errors }}
 
-                        <div class="status"></div>
-                    </div>
-                {% endfor %}
+                            <div class="status"></div>
+                    {% endfor %}
+                </div>
 
                 <button type="submit">Create</button>
             </div>
