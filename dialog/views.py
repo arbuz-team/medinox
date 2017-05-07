@@ -173,19 +173,20 @@ class Dialog_Prompt(Dialog):
 
 
     def Manage_Widget(self):
-        self.content['title'] = Text(self.request, 156)
-        self.content['form'] = Form_Widget(
-            self.request, self.Get_POST())
+        widget = None
 
-        widget = self.request.session['product_editing_widget']
-        product = self.request.session['product_last_selected']
-
-        if not widget:
-            widget = Widget(name='', type='', product=product)
-            widget.save()
+        if 'dialog_value' in self.request.POST:
+            widget = Widget.objects.get(product=self.request.POST['dialog_value'])
 
             self.request.session['product_editing_widget'] = widget
-        self.content['widgets'] = Values.objects.filter(widget=widget)
+            self.content['edit'] = {'url': '/product/widget/manage/'}
+
+        else: self.request.session['product_editing_widget'] = None
+
+        self.content['values'] = Values.objects.filter(widget=widget)
+        self.content['title'] = Text(self.request, 156)
+        self.content['form'] = Form_Widget(self.request,
+           self.Get_POST(), instance=widget)
 
         return self.Render_Dialog('dialog/widget.html',
                                   'widget', only_root=True)
@@ -197,6 +198,7 @@ class Dialog_Prompt(Dialog):
             catalog = Catalog.objects.get(pk=self.request.POST['dialog_value'])
 
             self.request.session['catalog_editing'] = catalog
+            self.content['edit'] = {'url': '/catalog/manage/'}
             self.content['image'] = catalog.image
             initial = {'name': catalog.name}
 
@@ -206,8 +208,29 @@ class Dialog_Prompt(Dialog):
         self.content['form'] = Form_Catalog(self.request,
             self.Get_POST(), initial=initial)
 
-        return self.Render_Dialog('dialog/widget.html',
+        return self.Render_Dialog('dialog/prompt.html',
                                   'catalog', only_root=True)
+
+    def Manage_Product(self):
+        initial = None
+
+        if 'dialog_value' in self.request.POST:
+            product = Product.objects.get(pk=self.request.POST['dialog_value'])
+
+            self.request.session['product_editing'] = product
+            self.content['edit'] = {'url': '/product/manage/'}
+            self.content['image'] = product.image
+            initial = {'name': product.name}
+
+        else:
+            self.request.session['product_editing'] = None
+
+        self.content['title'] = Text(self.request, 158)
+        self.content['form'] = Form_Product(self.request,
+            self.Get_POST(), initial=initial)
+
+        return self.Render_Dialog('dialog/prompt.html',
+                                  'product', only_root=True)
 
 
     def Manage_Edit_Email(self):

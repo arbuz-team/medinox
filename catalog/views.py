@@ -1,5 +1,5 @@
 from statement.views import *
-from catalog.forms import *
+from product.views import *
 
 
 class Start_App(Dynamic_Event_Manager):
@@ -10,6 +10,27 @@ class Start_App(Dynamic_Event_Manager):
     @staticmethod
     def Launch(request):
         return Start_App(request).HTML
+
+
+
+class Catalog_Service(Dynamic_Event_Manager):
+
+    @staticmethod
+    def Service(request, cat_1=None, cat_2=None, cat_3=None):
+
+        if '__form__' in request.POST:
+
+            if request.POST['__form__'] == 'catalog':
+                return Catalog_Manager(request, only_root=True).HTML
+
+            if request.POST['__form__'] == 'product':
+                return Product_Manager(request, only_root=True).HTML
+
+        return Change_Catalog(request, other_value=[cat_1, cat_2, cat_3]).HTML
+
+    @staticmethod
+    def Launch(request):
+        pass
 
 
 
@@ -56,15 +77,6 @@ class Change_Catalog(Dynamic_Event_Manager):
         return self.Render_HTML('main/products.html')
 
     @staticmethod
-    def Change(request, cat_1=None, cat_2=None, cat_3=None):
-
-        if '__form__' in request.POST:
-            if request.POST['__form__'] == 'catalog':
-                return Catalog_Manager(request, only_root=True).HTML
-
-        return Change_Catalog(request, other_value=[cat_1, cat_2, cat_3]).HTML
-
-    @staticmethod
     def Launch(request):
         pass
 
@@ -89,11 +101,10 @@ class Catalog_Manager(Dynamic_Event_Manager):
             catalog.save()
 
             catalog.Save_Image(self.content['form'].cleaned_data['image'])
-
             self.content['form'] = None
-            return self.Render_HTML('catalog/new.html')
 
-        return self.Render_HTML('catalog/new.html', 'new_catalog')
+            return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
+        return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
 
     def Manage_Form_Edit_Catalog(self):
 
@@ -108,11 +119,10 @@ class Catalog_Manager(Dynamic_Event_Manager):
             catalog.save()
 
             catalog.Save_Image(self.content['form'].cleaned_data['image'])
-
             self.content['form'] = None
-            return self.Render_HTML('catalog/new.html')
 
-        return self.Render_HTML('catalog/new.html', 'new_catalog')
+            return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
+        return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
 
     def Manage_Form(self):
 
@@ -120,6 +130,15 @@ class Catalog_Manager(Dynamic_Event_Manager):
             return self.Manage_Form_Edit_Catalog()
 
         return self.Manage_Form_New_Catalog()
+
+    def Manage_Button(self):
+
+        if 'delete' in self.request.POST['__button__']:
+            self.request.session['catalog_editing'].delete()
+            self.request.session['catalog_editing'] = None
+            return JsonResponse({'__button__': 'true'})
+
+        return JsonResponse({'__button__': 'false'})
 
     @staticmethod
     def Launch(request):

@@ -18,7 +18,7 @@ class Product(Abstract_Model):
     price = models.IntegerField(blank=True)
     image = models.ImageField(blank=True)
     brand = models.ForeignKey(Brand, null=True, on_delete=models.SET_NULL)
-    parent = models.ForeignKey(Catalog)
+    parent = models.ForeignKey(Catalog, null=True, on_delete=models.SET_NULL)
 
     def Set_Variables(self):
         self.image_dir = '/_static/img/product/'

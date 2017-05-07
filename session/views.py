@@ -42,7 +42,7 @@ class Session_Controller:
     def Check_Session_Root(self):
 
         if 'root_login' not in self.request.session:
-            self.request.session['root_login'] = False
+            self.request.session['root_login'] = True
 
         if 'root_payments_approved' not in self.request.session:
             self.request.session['root_payments_approved'] = True
@@ -81,6 +81,9 @@ class Session_Controller:
 
         if 'product_editing_widget' not in self.request.session:
             self.request.session['product_editing_widget'] = None
+
+        if 'catalog_editing' not in self.request.session:
+            self.request.session['catalog_editing'] = None
 
     def Check_Session_Catalog(self):
 
