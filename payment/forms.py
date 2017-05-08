@@ -27,7 +27,7 @@ class Form_Dotpay(Abstract_Form):
         self.fields['URL'] = forms.CharField(widget=forms.HiddenInput())
         self.fields['URLC'] = forms.CharField(widget=forms.HiddenInput())
 
-# Details about dotpay POST
+# Dotpay
 # Page: 8/44
 # https://ssl.dotpay.pl/s2/login/cloudfs1/magellan_media/common_file/dotpay_instrukcja_techniczna_implementacji_platnosci.pdf
 
@@ -55,3 +55,14 @@ class Form_PayPal(Abstract_Form):
         self.fields['notify_url'] = forms.CharField(widget=forms.HiddenInput())
         self.fields['cancel_return'] = forms.CharField(widget=forms.HiddenInput())
         self.fields['return'] = forms.CharField(widget=forms.HiddenInput())
+
+
+
+# PayU
+# http://developers.payu.com/pl/restapi.html#references_form_parameters
+
+
+
+# przelewy24
+# Page: 5/15
+# https://www.przelewy24.pl/storage/app/media/pobierz/Instalacja/przelewy24_specyfikacja_3_2.pdf

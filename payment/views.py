@@ -30,8 +30,6 @@ class Payment_System(Dynamic_Base):
 
 
 
-# from paypal.standard.ipn.views import *
-
 class PayPal(Payment_System):
 
     def Valid_PayPal(self):

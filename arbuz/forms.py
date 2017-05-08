@@ -88,7 +88,7 @@ class Abstract_Image_Form(Abstract_Form):
         return image_base64
 
     def clean_url(self):
-        image_url = self.data['url']
+        image_url = self.data['image_url']
 
         if image_url:
             image_url = Dynamic_Base.\
@@ -101,8 +101,8 @@ class Abstract_Image_Form(Abstract_Form):
 
     def clean_image(self):
 
-        if self.data['url']:
-            return 'url'
+        if self.data['image_url']:
+            return 'image_url'
 
         if self.data['image_base64']:
             return 'image_base64'
@@ -120,7 +120,7 @@ class Abstract_Image_Form(Abstract_Form):
     def Create_Fields(self):
         self.fields['image'] = forms.ImageField(required=False)
         self.fields['image_base64'] = forms.CharField(required=False)
-        self.fields['url'] = forms.URLField(required=False)
+        self.fields['image_url'] = forms.URLField(required=False)
 
     def Set_Widgets(self):
 
@@ -128,12 +128,12 @@ class Abstract_Image_Form(Abstract_Form):
             'hidden': 'true'
         }
 
-        url_attrs = {
+        image_url_attrs = {
             'placeholder': Text(self.request, 97)
         }
 
         self.fields['image_base64'].widget = forms.TextInput(attrs=image_base64_attr)
-        self.fields['url'].widget = forms.TextInput(attrs=url_attrs)
+        self.fields['image_url'].widget = forms.TextInput(attrs=image_url_attrs)
 
 
 
