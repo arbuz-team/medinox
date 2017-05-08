@@ -23,8 +23,6 @@ export let Post_Button_Controllers = function(config)
       event.preventDefault();
       event.stopPropagation();
 
-      console.log('siema');
-
       let
         button_name = $(this).data('name');
 
