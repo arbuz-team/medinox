@@ -17,15 +17,32 @@
 		<label for="id_{{ field.name }}" class="selecter-text">{{ field.label }}</label>
 	</div>
 
+
+<!-- Image inputs -->
+
 {% elif field|is_fileinput %}
 
 	<div class="file_shell">
 		{{ field }}
 		<button type="button">Select file</button>
 		{{ field.errors }}
+		<div class="status"></div>
 
+
+{% elif field.name == 'image_base64' %}
+
+		{{ field }}
+		{{ field.errors }}
+
+{% elif field.name == 'image_url' %}
+		&nbsp;or&nbsp;
+		{{ field }}
+		{{ field.errors }}
 		<div class="status"></div>
 	</div>
+
+<!-- End image inputs -->
+
 
 {% else %}
 
