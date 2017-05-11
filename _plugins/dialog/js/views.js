@@ -28,13 +28,18 @@ let
 
   hide = function()
   {
+    console.log('hide');
     $(selectors.container)
-      .fadeOut(200);
+      .animate({opacity: 0}, 200, function()
+      {
+		  $(selectors.container).hide();
+	  });
   },
 
 
   dim = function(callback)
   {
+    console.log('dim');
     $(selectors.container)
       .animate({ opacity: .8 }, 200, callback);
   },

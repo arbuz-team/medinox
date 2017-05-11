@@ -1088,6 +1088,10 @@ button {
   width: 145px;
   padding-right: 0; }
 
+.field_shell input[type=number] {
+  max-width: 100px;
+  width: 100px; }
+
 .field_shell .status {
   display: none;
   margin: 2px 3px;

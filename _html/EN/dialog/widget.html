@@ -8,15 +8,15 @@
 <div class="dialog-content">
 
     <!--data-type="{{ form_name }}" data-test="yes"-->
-    <form class="dialog_form" method="post" data-name="{{ form_name }}">
+    <form class="dialog_form field_shell" method="post" data-name="{{ form_name }}">
 
         {{ form.non_field_errors }}
 
-        <div class="dialog-content-part field_shell">
+        <div class="dialog-content-part">
             <!--fields of form-->
             {% for field in form %}
 
-                {% include "forms/html/manage_filed.html" %}
+                {% include "forms/html/manage_filed_multiple_in_line.html" %}
 
             {% endfor %}
 
@@ -45,13 +45,14 @@
 
                             <div class="status"></div>
                     {% endfor %}
+
+                    <button type="submit"> Create </button>
                 </div>
 
                 <input type="hidden" name="additional_reload" value="{{ additional.reload }}">
                 <input type="hidden" name="additional_redirect" value="{{ additional.redirect }}">
                 <input type="hidden" name="additional_event" value="{{ additional.event }}">
 
-                <button type="submit"> Create </button>
             </div>
         </form>
 

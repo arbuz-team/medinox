@@ -614,7 +614,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.Plugins_Loader_Views = undefined;
 	
@@ -631,101 +631,114 @@
 	 */
 	
 	var Plugins_Loader_Views = exports.Plugins_Loader_Views = function Plugins_Loader_Views(config) {
-	  var models = new _models.Plugins_Loader_Models(config),
-	      external_callback = void 0,
-	      data_controller = models.data_controller;
+		var models = new _models.Plugins_Loader_Models(config),
+		    external_callback = void 0,
+		    data_controller = models.data_controller;
 	
-	  this.models = models;
+		this.models = models;
 	
-	  /**
-	   *    Defining showing functions
-	   */
+		/**
+	  *    Defining showing functions
+	  */
 	
-	  var load_header_page = function load_header_page(object) {
-	    data_controller.change_much({
-	      title: object.title,
-	      description: object.description
-	    });
+		var load_header_page = function load_header_page(object) {
+			data_controller.change_much({
+				title: object.title,
+				description: object.description
+			});
 	
-	    $('title').html(data_controller.get('title'));
-	    $('meta[ name="description" ]').attr('content', data_controller.get('description'));
-	  },
-	      check_for_errors = function check_for_errors(status, code) {
-	    var container = models.settings.container,
-	        error = models.variables.error;
+			$('title').html(data_controller.get('title'));
+			$('meta[ name="description" ]').attr('content', data_controller.get('description'));
+		},
+		    check_for_errors = function check_for_errors(status, code) {
+			var container = models.settings.container,
+			    error = models.variables.error;
 	
-	    if (status !== 'success') if (error === true) $(container).html('An error has occurred while connecting to server. Please, refresh website or check your connect with network.');else {
-	      models.variables.error = true;
+			if (status !== 'success') if (error === true) $(container).html('An error has occurred while connecting to server. Please, refresh website or check your connect with network.');else {
+				models.variables.error = true;
 	
-	      models.prepare_post_data({ __content__: 'ground' });
-	      models.download_content('/statement/' + code + '/', show_content);
+				models.prepare_post_data({ __content__: 'ground' });
+				models.download_content('/statement/' + code + '/', show_content);
 	
-	      return true;
-	    }
-	    return false;
-	  },
-	      prepare_content_to_show = function prepare_content_to_show(html, status, code) {
-	    var container = models.settings.container,
-	        $container = $(container),
-	        url = models.variables.url,
-	        error = models.variables.error;
+				return true;
+			}
+			return false;
+		},
+		    close_dialog_if_json = function close_dialog_if_json(response, status) {
+			if (status !== 'success') return false;
 	
-	    $container.scrollTop(0);
+			if (response === '{"__form__": "true"}') {
+				window.APP.DATA.delay = 0;
+				window.APP.throw_event(window.EVENTS.plugins.close_dialog);
+				return true;
+			}
 	
-	    if (check_for_errors(status, code)) return false;
+			return false;
+		},
+		    prepare_content_to_show = function prepare_content_to_show(html, status, code) {
+			var container = models.settings.container,
+			    $container = $(container),
+			    url = models.variables.url,
+			    error = models.variables.error;
 	
-	    if (error !== true || status === 'success') $container.html(html).add_data('url', url);
+			$container.scrollTop(0);
 	
-	    models.variables.error = false;
-	    models.variables.url = '';
+			if (check_for_errors(status, code)) return false;
 	
-	    models.refresh_events();
-	    models.refresh_scroll();
-	    img_loader.define();
-	  },
-	      show_content = function show_content(response, status, code) {
-	    prepare_content_to_show(response, status, code);
+			if (error !== true || status === 'success') $container.html(html).add_data('url', url);
 	
-	    var container = models.settings.container,
-	        opacity = models.settings.opacity.show,
-	        duration = models.settings.duration.show;
+			models.variables.error = false;
+			models.variables.url = '';
 	
-	    $(container).animate({ opacity: opacity }, duration, function () {
-	      if (external_callback) external_callback(response, status, code);
+			models.refresh_events();
+			models.refresh_scroll();
+			img_loader.define();
+		},
+		    show_content = function show_content(response, status, code) {
+			if (close_dialog_if_json(response, status) === false) {
+				prepare_content_to_show(response, status, code);
 	
-	      if (models.settings.load_with_page && window.APP.DATA) load_header_page(window.APP.DATA);
-	    });
-	  };
+				var container = models.settings.container,
+				    opacity = models.settings.opacity.show,
+				    duration = models.settings.duration.show;
 	
-	  /**
-	   *    Defining hidding functions
-	   */
+				$(container).animate({ opacity: opacity }, duration, function () {
+					if (external_callback) external_callback(response, status, code);
 	
-	  var prepare_content_to_hide = function prepare_content_to_hide(url, post_data) {
-	    models.variables.can_do_redirect = false;
+					if (models.settings.load_with_page && window.APP.DATA) load_header_page(window.APP.DATA);
+				});
+			}
+		};
 	
-	    models.refresh_data();
-	    models.prepare_url(url);
-	    models.prepare_post_data(post_data);
-	  },
-	      hide_content = function hide_content(url, post_data, callback) {
-	    external_callback = callback;
-	    prepare_content_to_hide(url, post_data);
+		/**
+	  *    Defining hidding functions
+	  */
 	
-	    var container = models.settings.container,
-	        opacity = models.settings.opacity.hide,
-	        duration = models.settings.duration.hide;
+		var prepare_content_to_hide = function prepare_content_to_hide(url, post_data) {
+			models.variables.can_do_redirect = false;
 	
-	    $(container).animate({ opacity: opacity }, duration, function () {
-	      models.download_content(models.variables.url, show_content);
-	    });
-	  };
+			models.refresh_data();
+			models.prepare_url(url);
+			models.prepare_post_data(post_data);
+		},
+		    hide_content = function hide_content(url, post_data, callback) {
+			external_callback = callback;
+			prepare_content_to_hide(url, post_data);
 	
-	  /**
-	   *    Defining public functions
-	   */
+			var container = models.settings.container,
+			    opacity = models.settings.opacity.hide,
+			    duration = models.settings.duration.hide;
 	
-	  this.change_content = hide_content;
+			$(container).animate({ opacity: opacity }, duration, function () {
+				models.download_content(models.variables.url, show_content);
+			});
+		};
+	
+		/**
+	  *    Defining public functions
+	  */
+	
+		this.change_content = hide_content;
 	};
 
 /***/ },
@@ -3333,9 +3346,13 @@
 	  $(selectors.container).css('opacity', '').fadeIn(200);
 	},
 	    hide = function hide() {
-	  $(selectors.container).fadeOut(200);
+	  console.log('hide');
+	  $(selectors.container).animate({ opacity: 0 }, 200, function () {
+	    $(selectors.container).hide();
+	  });
 	},
 	    dim = function dim(callback) {
+	  console.log('dim');
 	  $(selectors.container).animate({ opacity: .8 }, 200, callback);
 	},
 	    lighten = function lighten() {
