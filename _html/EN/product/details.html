@@ -224,17 +224,104 @@
 
                     </div><!-- product_details-section subproduct_widgets -->
 
-
-
-                    <div class="product_details-section details">
-                        {{ product.description }}
-                    </div>
-
                 </form>
 
             </div><!-- block-content-right -->
 
         </div>
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+
+
+<div class="ground-block block-1 about">
+
+    <div class="block-background fill-abs"></div>
+
+    <div class="block-content">
+
+
+        {% if request.session.root_login %}
+
+            <div class="block-content-paragraph new">
+
+                <div class="dialog_button" data-type="alert" data-name="recommended">
+
+                    <div class="block-content-paragraph-new-image"></div>
+
+                    <div class="block-content-paragraph-new-title"> Add new paragraph </div>
+
+                </div>
+
+            </div><!-- block-content-paragraph new -->
+
+        {% endif %}
+
+        {% for element in descriptions %}
+
+            <div class="block-content-paragraph field_shell">
+
+                {% if element.header %}
+                    <div class="title">
+                        {{ element.header | safe }}
+                    </div>
+                {% endif %}
+
+
+                {% if request.session.root_login %}
+                <div class="buttons_to_action">
+                    <button class="dialog_button"
+                            type="button"
+                            data-type="confirm"
+                            data-name="delete_description"
+                            data-dialog-name="About_{{ element.pk }}"
+                            data-dialog-value="{{ element.pk }}"
+                            data-dialog-action="delete"
+                            data-dialog-reload="ground"
+                            data-dialog-url="/product/description/manage/">
+                        Delete
+                    </button>
+
+                    <button type="button" class="dialog_button submit"
+                            data-type="prompt"
+                            data-name="description"
+                            data-value="{{ element.pk }}">
+                        Edit
+                    </button>
+                </div>
+                {% endif %}
+
+
+                {% if element.image %}
+                    <div class="paragraph with_image">
+                        {{ element.paragraph | safe }}
+                    </div>
+                {% else %}
+                    <div class="paragraph">
+                        {{ element.paragraph | safe }}
+                    </div>
+                {% endif %}
+
+
+                {% if element.image and element.header %}
+                    <div class="block-content-paragraph-image">
+                        <img data-src="{{ element.image }}"
+                             alt="{{ element.header }}"
+                             src="{% static 'img/pixel.png' %}"/>
+                    </div>
+                {% elif element.image %}
+                    <div class="block-content-paragraph-image">
+                        <img data-src="{{ element.image }}"
+                             alt="Example image"
+                             src="{% static 'img/pixel.png' %}"/>
+                    </div>
+                {% endif %}
+
+            </div><!-- block-content-paragraph -->
+
+        {% endfor %}
 
     </div><!-- block-content -->
 
