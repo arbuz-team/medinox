@@ -49,6 +49,9 @@ class Details(Dynamic_Event_Manager):
             if request.POST['__form__'] == 'values':
                 return Values_Manager(request, only_root=True).HTML
 
+            if request.POST['__form__'] == 'description':
+                return Description_Manager(request, only_root=True).HTML
+
         return Details(request, other_value=pk).HTML
 
     @staticmethod
@@ -206,7 +209,7 @@ class Description_Manager(Dynamic_Event_Manager):
 
     def Manage_Form_Description(self):
 
-        description = Description(
+        description = Form_Description(
             self.request, self.request.POST)
 
         if description.is_valid():
@@ -214,7 +217,7 @@ class Description_Manager(Dynamic_Event_Manager):
             if self.request.session['product_description']:
                 product_desc = self.request.session['product_description']
 
-            else: product_desc = Content_Tab()
+            else: product_desc = Description()
 
             product_desc.header = description.cleaned_data['header']
             product_desc.paragraph = description.cleaned_data['paragraph']
@@ -235,11 +238,11 @@ class Description_Manager(Dynamic_Event_Manager):
     def Manage_Button(self):
 
         if self.request.POST['__button__'] == 'delete':
-            Content_Tab.objects.get(pk=self.request.POST['value']).delete()
+            Description.objects.get(pk=self.request.POST['value']).delete()
 
         return JsonResponse({'__button__': 'true'})
 
     @staticmethod
     def Launch(request):
-        return Product_Manager(request, only_root=True).HTML
+        return Description_Manager(request, only_root=True).HTML
 
