@@ -3346,13 +3346,11 @@
 	  $(selectors.container).css('opacity', '').fadeIn(200);
 	},
 	    hide = function hide() {
-	  console.log('hide');
 	  $(selectors.container).animate({ opacity: 0 }, 200, function () {
 	    $(selectors.container).hide();
 	  });
 	},
 	    dim = function dim(callback) {
-	  console.log('dim');
 	  $(selectors.container).animate({ opacity: .8 }, 200, callback);
 	},
 	    lighten = function lighten() {

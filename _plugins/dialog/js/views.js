@@ -28,7 +28,6 @@ let
 
   hide = function()
   {
-    console.log('hide');
     $(selectors.container)
       .animate({opacity: 0}, 200, function()
       {
@@ -39,7 +38,6 @@ let
 
   dim = function(callback)
   {
-    console.log('dim');
     $(selectors.container)
       .animate({ opacity: .8 }, 200, callback);
   },
