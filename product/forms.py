@@ -67,3 +67,31 @@ class Form_Product(Abstract_Image_Form):
         self.fields['name'] = forms.CharField(max_length=100)
         self.fields['price'] = forms.FloatField(required=False)
         Abstract_Image_Form.Create_Fields(self)
+
+
+
+class Form_Description(Abstract_Image_Form):
+
+    def clean(self):
+        return Abstract_Image_Form.clean(self)
+
+    def Create_Fields(self):
+        self.fields['header'] = forms.CharField(required=False)
+        self.fields['paragraph'] = forms.CharField(required=False)
+        Abstract_Image_Form.Create_Fields(self)
+
+    def Set_Widgets(self):
+
+        header_attr = {
+            'placeholder': Text(self.request, 95),
+            'class': 'test',
+        }
+
+        paragraph_attr = {
+            'placeholder': Text(self.request, 96),
+            'class': 'test',
+        }
+
+        self.fields['header'].widget = forms.TextInput(attrs=header_attr)
+        self.fields['paragraph'].widget = forms.Textarea(attrs=paragraph_attr)
+        Abstract_Image_Form.Set_Widgets(self)

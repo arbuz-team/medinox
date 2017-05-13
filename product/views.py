@@ -17,8 +17,16 @@ class Start_App(Dynamic_Event_Manager):
 class Details(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
+
+        # get product
         self.content['product'] = Product.objects.get(pk=self.other_value)
         widgets = Widget.objects.filter(product=self.content['product'])
+
+        # get descriptions
+        self.content['descriptions'] = Description.objects\
+            .filter(product=self.content['product'])
+
+        # get widgets
         self.content['widgets'] = [
             {
                 'widget': widget,

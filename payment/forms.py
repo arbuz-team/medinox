@@ -59,7 +59,7 @@ class Form_PayPal(Abstract_Form):
 
 
 # PayU
-# http://developers.payu.com/pl/restapi.html#references_form_parameters
+# http://developers.payu.com/pl/restapi.html#references_form_pimage_urlarameters
 
 
 

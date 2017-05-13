@@ -28,6 +28,21 @@ class Product(Abstract_Model):
 
 
 
+class Description(Abstract_Model):
+
+    header = models.CharField(max_length=200)
+    paragraph = models.TextField()
+    image = models.ImageField()
+    product = models.ForeignKey(Product)
+
+    def Set_Variables(self):
+        self.image_dir = '/_static/img/product/description/'
+
+    def __str__(self):
+        return self.header
+
+
+
 class Widget(Abstract_Model):
 
     name = models.CharField(max_length=50)
@@ -47,17 +62,6 @@ class Values(Abstract_Model):
 
     def __str__(self):
         return self.name
-
-
-
-class Subproduct(Abstract_Model):
-
-    unique = models.CharField(max_length=20)
-    produkt = models.ForeignKey(Product)
-    values = models.ManyToManyField(Values)
-
-    def __str__(self):
-        return self.unique
 
 
 
