@@ -204,28 +204,40 @@ class Product_Manager(Dynamic_Event_Manager):
 
 class Description_Manager(Dynamic_Event_Manager):
 
-    def Manage_Form(self):
+    def Manage_Form_Description(self):
 
-        self.content['form'] = Form_Values(
+        description = Description(
             self.request, self.request.POST)
 
-        if self.content['form'].is_valid():
-            widget = self.request.session['product_editing_widget']
+        if description.is_valid():
 
-            values = self.content['form'].save(commit=False)
-            values.widget = widget
-            values.save()
+            if self.request.session['product_description']:
+                product_desc = self.request.session['product_description']
 
-            return Dialog_Prompt(self.request, self.app_name, other_value=widget).HTML
+            else: product_desc = Content_Tab()
+
+            product_desc.header = description.cleaned_data['header']
+            product_desc.paragraph = description.cleaned_data['paragraph']
+            product_desc.save()
+
+            product_desc.Save_Image(description.cleaned_data['image'])
+
+            return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
+
+    def Manage_Form(self):
+
+        if self.request.POST['__form__'] == 'description':
+            return self.Manage_Form_Description()
+
+        return Dynamic_Event_Manager.Manage_Form(self)
 
     def Manage_Button(self):
 
-        if 'delete' in self.request.POST['__button__']:
-            Values.objects.get(pk=self.request.POST['value']).delete()
-            return JsonResponse({'__button__': 'true'})
+        if self.request.POST['__button__'] == 'delete':
+            Content_Tab.objects.get(pk=self.request.POST['value']).delete()
 
-        return JsonResponse({'__button__': 'false'})
+        return JsonResponse({'__button__': 'true'})
 
     @staticmethod
     def Launch(request):

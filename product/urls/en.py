@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^manage/$', views.Product_Manager.Launch, name='product.manage'),
     url(r'^widget/manage/$', views.Widget_Manager.Launch, name='product.widget.manage'),
     url(r'^values/manage/$', views.Values_Manager.Launch, name='product.values.manage'),
+    url(r'^description/manage/$', views.Description_Manager.Launch, name='product.description.manage'),
 ]

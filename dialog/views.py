@@ -143,6 +143,11 @@ class Dialog_Confirm(Dialog):
         self.content['text'] = Text(self.request, 154)
         return self.Render_Dialog('dialog/confirm.html', only_root=True)
 
+    def Manage_Delete_Description(self):
+        self.content['title'] = Text(self.request, 160)
+        self.content['text'] = Text(self.request, 161)
+        return self.Render_Dialog('dialog/confirm.html', only_root=True)
+
     def Manage_Delete_Purpose(self):
         self.content['title'] = Text(self.request, 111)
         description = Text(self.request, 112)
@@ -232,8 +237,7 @@ class Dialog_Prompt(Dialog):
             self.content['image'] = product.image
             initial = {'name': product.name}
 
-        else:
-            self.request.session['product_editing'] = None
+        else: self.request.session['product_editing'] = None
 
         self.content['title'] = Text(self.request, 158)
         self.content['form'] = Form_Product(self.request,
@@ -241,6 +245,30 @@ class Dialog_Prompt(Dialog):
 
         return self.Render_Dialog('dialog/prompt.html',
                                   'product', only_root=True)
+
+    def Manage_Description(self):
+        initial = None
+
+        if 'dialog_value' in self.request.POST:
+            description = Description.objects.get(
+                pk=self.request.POST['dialog_value'])
+
+            self.request.session['product_description'] = description
+            self.content['edit'] = {'url': '/product/description/manage/'}
+            self.content['image'] = description.image
+            initial = {
+                'header':       description.header,
+                'paragraph':    description.paragraph,
+            }
+
+        else: self.request.session['product_description'] = None
+
+        self.content['title'] = Text(self.request, 93)
+        self.content['form'] = Form_Content_Tab(self.request,
+            self.Get_POST(), initial=initial)
+
+        return self.Render_Dialog('dialog/prompt.html',
+                                  'description', only_root=True)
 
 
     def Manage_Edit_Email(self):
