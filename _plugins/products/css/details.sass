@@ -1,89 +1,100 @@
 
-.product_details
-  position: relative
-  padding:
-    top: 15px !important
-    bottom: 50px !important
+.ground-block.product_details
+  padding-bottom: 0 !important
+  min-height: 0
 
-  >div
+  .block-content
     position: relative
-    max-width: 1100px
-    margin: 0 auto
-
-  .block-content-left, .block-content-right
-    display: block
-    width: auto
-    height: auto
-
-  .block-content-right
-    max-width: 800px
-
-  .product_details-image
-    +my-box()
-
-    position: relative
-    width: 100%
-    padding: 0
-      top: 100%
+    padding:
+      top: 15px !important
+      bottom: 0 !important
 
     >div
+      position: relative
+      max-width: 1100px
+      margin: 0 auto
+
+
+
+.block-content-left, .block-content-right
+  display: block
+  width: auto
+  height: auto
+
+.block-content-right
+  max-width: 800px
+
+.product_details-image
+  +my-box()
+
+  position: relative
+  width: 100%
+  padding: 0
+    top: 100%
+
+  >div
+    text-align: center
+
+    >img
+      max-width: 100%
+      max-height: 100%
+
+      vertical-align: middle
+
+.product_details-section
+  +my-box()
+  border-bottom: $G-STYLE-BORDER
+  margin: 0
+
+.product_details-section:last-child
+  border-bottom: none
+
+
+
+.subproduct_widgets
+
+  .widget
+    position: relative
+    display: inline-block
+    vertical-align: top
+
+    max-width: 350px
+    width: 100%
+    min-width: 280px
+
+    margin-bottom: 20px
+
+    &:hover
+      .icon
+        display: block
+
+    &.widget-add
+      height: 60px
       text-align: center
 
-      >img
-        max-width: 100%
-        max-height: 100%
-
-        vertical-align: middle
-
-  .product_details-section
-    +my-box()
-    border-bottom: $G-STYLE-BORDER
-    margin: 0
-
-  .product_details-section:last-child
-    border-bottom: none
-
-
-
-  .subproduct_widgets
-
-    .widget
-      position: relative
-      display: inline-block
-      vertical-align: top
-
-      max-width: 350px
-      width: 100%
-      min-width: 280px
-
-      margin-bottom: 20px
-
-      &:hover
-        .icon
-          display: block
-
-      &.widget-add
+      >button
+        width: 100%
         height: 60px
-        text-align: center
+        font-size: 18px
+        border: $G-STYLE-DARK-BORDER-DASHED
+        opacity: 0.8
 
-        >button
-          width: 90%
-          height: 60px
-          font-size: 18px
-          border: $G-STYLE-DARK-BORDER-DASHED
+    &.widget-add:hover
+      >button
+        opacity: 1
 
 
-    .widget-title
-      padding-left: 5px
-      margin-bottom: 5px
-      opacity: .4
-      font-weight: bold
+  .widget-title
+    padding-left: 5px
+    margin-bottom: 5px
+    opacity: .4
+    font-weight: bold
 
-    .icon
-      display: none
-      position: absolute
-      top: 0
-      right: 15px
+  .icon
+    display: none
+    position: absolute
+    top: 0
+    right: 15px
 
 
 
