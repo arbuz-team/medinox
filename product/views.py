@@ -221,6 +221,7 @@ class Description_Manager(Dynamic_Event_Manager):
 
             product_desc.header = description.cleaned_data['header']
             product_desc.paragraph = description.cleaned_data['paragraph']
+            product_desc.product = self.request.session['product_last_selected']
             product_desc.save()
 
             product_desc.Save_Image(description.cleaned_data['image'])
