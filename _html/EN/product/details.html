@@ -31,9 +31,9 @@
 
             <div class="block-content-right">
 
-                <form method="post" action="" id="form_{{ form_name }}" data-name="{{ form_name }}" data-type="{{ form_name }}">
+                <form method="post" action="/payment/buy/{{ product.pk }}/" id="form_{{ form_name }}" data-name="{{ form_name }}" data-type="{{ form_name }}">
 
-                <div class="product_details-section title">
+                    <div class="product_details-section title">
                         <h1>{{ product.name }}</h1>
                     </div>
 
@@ -54,12 +54,13 @@
                         <div class="product_details-action_panel-buttons field_shell">
 
                             {% if request.session.user_login %}
-                                <button class="event_button" type="submit"
-                                        data-name="Cart_{{ product.pk }}"
-                                        data-reload="cart"
-                                        data-event="plugins.open_cart">
-                                    Add to cart
-                                </button>
+                                <button type="submit" name="redirect_for_buy" value="tak">Add to cart</button>
+                                <!--<button class="event_button" type="submit"-->
+                                        <!--data-name="Cart_{{ product.pk }}"-->
+                                        <!--data-reload="cart"-->
+                                        <!--data-event="plugins.open_cart">-->
+
+                                <!--</button>-->
 
 
                                 {% if is_favorite %}
@@ -83,7 +84,7 @@
                                 {% endif %}
 
 
-                                <a href="/payment/buy/{{ product.pk }}/"><button type="button">Buy</button></a>
+                                <button type="submit" name="redirect_for_buy" value="tak">Buy</button>
                             {% endif %}
 
                             <br>
