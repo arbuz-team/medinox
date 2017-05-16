@@ -31,7 +31,7 @@
 
             <div class="block-content-right">
 
-                <form method="post" action="/payment/buy/{{ product.pk }}/" id="form_{{ form_name }}" data-name="{{ form_name }}" data-type="{{ form_name }}">
+                <form method="post" action="/payment/buy/{{ product.pk }}/" id="form_buy" data-name="buy" data-type="buy">
 
                     <div class="product_details-section title">
                         <h1>{{ product.name }}</h1>
@@ -184,7 +184,7 @@
 
                                     {% for field in item.values %}
                                         <div class="selecter checkbox">
-                                            <input id="id_checkbox_{{ field.name }}" name="wymyśl" type="checkbox">
+                                            <input id="id_checkbox_{{ field.name }}" name="widget_{{ item.widget.pk }}_{{ field.pk }}" type="checkbox" value="{{ field.pk }}">
                                             <label for="id_checkbox_{{ field.name }}" class="selecter-field"></label>
                                             <label for="id_checkbox_{{ field.name }}" class="selecter-text">{{ field.name }} (+ {{ field.super_price }} zł)</label>
                                         </div>
@@ -194,7 +194,7 @@
 
                                     {% for field in item.values %}
                                         <div class="selecter radio">
-                                            <input id="id_radio_{{ field.name }}" name="wymyśl" type="radio" value="1">
+                                            <input id="id_radio_{{ field.name }}" name="widget_{{ item.widget.pk }}_0" type="radio" value="{{ field.pk }}">
                                             <label for="id_radio_{{ field.name }}" class="selecter-field"></label>
                                             <label for="id_radio_{{ field.name }}" class="selecter-text">{{ field.name }} (+ {{ field.super_price }} zł)</label>
                                         </div>
@@ -202,9 +202,9 @@
 
                                 {% elif item.widget.type == 'Select' %}
 
-                                    <select id="id_select_{{ field.name }}" name="wymyśl" required="">
+                                    <select id="id_select" name="widget_{{ item.widget.pk }}_0" required="">
                                         {% for field in item.values %}
-                                            <option value="{{ field.name }}">{{ field.name }} (+ {{ field.super_price }} zł)</option>
+                                            <option value="{{ field.pk }}">{{ field.name }} (+ {{ field.super_price }} zł)</option>
                                         {% endfor %}
                                     </select>
 

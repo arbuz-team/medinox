@@ -896,11 +896,6 @@ div:hover > .buttons_to_action {
       position: relative;
       max-width: 1100px;
       margin: 0 auto; }
-  .ground-block.product_details .block-title:not(:first-child) {
-    margin-bottom: 20px; }
-    .ground-block.product_details .block-title:not(:first-child) > div {
-      top: 0;
-      border: none; }
 
 .block-content-left, .block-content-right {
   display: block;
