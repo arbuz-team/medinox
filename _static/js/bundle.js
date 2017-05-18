@@ -681,7 +681,7 @@
 			    url = models.variables.url,
 			    error = models.variables.error;
 	
-			$container.scrollTop(0);
+			if (models.variables.reload === false) $container.scrollTop(0);
 	
 			if (check_for_errors(status, code)) return false;
 	
@@ -691,7 +691,6 @@
 			models.variables.url = '';
 	
 			models.refresh_events();
-			models.refresh_scroll();
 			img_loader.define();
 		},
 		    show_content = function show_content(response, status, code) {
@@ -716,6 +715,7 @@
 	
 		var prepare_content_to_hide = function prepare_content_to_hide(url, post_data) {
 			models.variables.can_do_redirect = false;
+			models.variables.reload = models.if_reload(url);
 	
 			models.refresh_data();
 			models.prepare_url(url);
@@ -748,138 +748,142 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.Plugins_Loader_Models = undefined;
 	
 	var _structure = __webpack_require__(9);
 	
 	var Plugins_Loader_Models = exports.Plugins_Loader_Models = function Plugins_Loader_Models(config) {
-	  var that = this;
+		var that = this;
 	
-	  this.data_controller = _structure.data_controller;
+		this.data_controller = _structure.data_controller;
 	
-	  /**
-	   *    Plugin settings
-	   */
+		/**
+	  *    Plugin settings
+	  */
 	
-	  this.settings = {
-	    name: undefined,
-	    url: undefined,
+		this.settings = {
+			name: undefined,
+			url: undefined,
 	
-	    container: undefined,
-	    first_element: '*',
+			container: undefined,
+			first_element: '*',
 	
-	    auto_first_loading: false,
-	    load_with_page: false,
+			auto_first_loading: false,
+			load_with_page: false,
 	
-	    duration: {
-	      show: 150,
-	      hide: 100
-	    },
+			duration: {
+				show: 150,
+				hide: 100
+			},
 	
-	    opacity: {
-	      show: 1,
-	      hide: 0.4
-	    }
-	  };
+			opacity: {
+				show: 1,
+				hide: 0.4
+			}
+		};
 	
-	  // -- Load settings
-	  (function () {
-	    if (typeof config !== 'undefined') {
-	      // -- Name
-	      if (typeof config.name !== 'undefined') that.settings.name = config.name;
+		// -- Load settings
+		(function () {
+			if (typeof config !== 'undefined') {
+				// -- Name
+				if (typeof config.name !== 'undefined') that.settings.name = config.name;
 	
-	      // -- URL
-	      if (typeof config.url !== 'undefined') that.settings.url = window.APP.dictionary.get_word(config.url);
+				// -- URL
+				if (typeof config.url !== 'undefined') that.settings.url = window.APP.dictionary.get_word(config.url);
 	
-	      // -- Container
-	      if (typeof config.load_with_page !== 'undefined') that.settings.load_with_page = config.load_with_page;
+				// -- Container
+				if (typeof config.load_with_page !== 'undefined') that.settings.load_with_page = config.load_with_page;
 	
-	      // -- Container
-	      if (typeof config.auto_first_loading !== 'undefined') that.settings.auto_first_loading = config.auto_first_loading;
+				// -- Container
+				if (typeof config.auto_first_loading !== 'undefined') that.settings.auto_first_loading = config.auto_first_loading;
 	
-	      // -- Load with page
-	      if (typeof config.container !== 'undefined') that.settings.container = config.container;
+				// -- Load with page
+				if (typeof config.container !== 'undefined') that.settings.container = config.container;
 	
-	      // -- Duration
-	      if (typeof config.duration !== 'undefined') {
-	        var duration = config.duration;
+				// -- Duration
+				if (typeof config.duration !== 'undefined') {
+					var duration = config.duration;
 	
-	        if (typeof duration.show !== 'undefined') that.settings.duration.show = duration.show;
+					if (typeof duration.show !== 'undefined') that.settings.duration.show = duration.show;
 	
-	        if (typeof duration.hide !== 'undefined') that.settings.duration.hide = duration.hide;
-	      }
+					if (typeof duration.hide !== 'undefined') that.settings.duration.hide = duration.hide;
+				}
 	
-	      // -- Opacity
-	      if (typeof config.opacity !== 'undefined') {
-	        var opacity = config.opacity;
+				// -- Opacity
+				if (typeof config.opacity !== 'undefined') {
+					var opacity = config.opacity;
 	
-	        if (typeof opacity.show !== 'undefined') that.settings.opacity.show = opacity.show;
+					if (typeof opacity.show !== 'undefined') that.settings.opacity.show = opacity.show;
 	
-	        if (typeof opacity.hide !== 'undefined') that.settings.opacity.hide = opacity.hide;
-	      }
-	    }
-	  })();
+					if (typeof opacity.hide !== 'undefined') that.settings.opacity.hide = opacity.hide;
+				}
+			}
+		})();
 	
-	  /**
-	   *    Plugin variables
-	   */
+		/**
+	  *    Plugin variables
+	  */
 	
-	  this.variables = {
-	    url: undefined,
-	    post_data: undefined,
+		this.variables = {
+			url: undefined,
+			post_data: undefined,
+			reload: false,
 	
-	    error: undefined,
-	    external_callback: undefined,
+			error: undefined,
+			external_callback: undefined,
 	
-	    can_do_load: true,
-	    can_do_redirect: true,
-	    redirect_time_out: undefined
-	  };
+			can_do_load: true,
+			can_do_redirect: true,
+			redirect_time_out: undefined
+		};
 	
-	  /**
-	   *    Defining prepare functions
-	   */
+		/**
+	  *    Defining prepare functions
+	  */
 	
-	  this.prepare_url = function (response_url) {
-	    if (!response_url) if (typeof this.settings.url !== 'undefined') response_url = this.settings.url;else response_url = _structure.data_controller.get('path');
+		this.prepare_url = function (response_url) {
+			if (!response_url) if (typeof this.settings.url !== 'undefined') response_url = this.settings.url;else response_url = _structure.data_controller.get('path');
 	
-	    this.variables.url = response_url;
-	  };
+			this.variables.url = response_url;
+		};
 	
-	  this.prepare_post_data = function (post_data) {
-	    if (!post_data) post_data = {};
+		this.prepare_post_data = function (post_data) {
+			if (!post_data) post_data = {};
 	
-	    if (typeof post_data.__form__ === 'undefined') if (typeof post_data.__content__ === 'undefined') post_data['__content__'] = this.settings.name;
+			if (typeof post_data.__form__ === 'undefined') if (typeof post_data.__content__ === 'undefined') post_data['__content__'] = this.settings.name;
 	
-	    this.variables.post_data = post_data;
-	  };
+			this.variables.post_data = post_data;
+		};
 	
-	  /**
-	   *    Defining refresh functions
-	   */
+		/**
+	  *    Defining refresh functions
+	  */
 	
-	  this.refresh_data = function () {
-	    _structure.data_controller.reset();
-	  };
+		this.refresh_data = function () {
+			_structure.data_controller.reset();
+		};
 	
-	  this.refresh_events = function () {
-	    APP.throw_event(window.EVENTS.define);
-	  };
+		this.refresh_events = function () {
+			APP.throw_event(window.EVENTS.define);
+		};
 	
-	  this.refresh_scroll = function () {
-	    $(this.settings.container).parent().scrollTop(0);
-	  };
+		this.if_reload = function (url) {
+			var old_url = _structure.data_controller.get('path'),
+			    new_url = url;
 	
-	  /**
-	   *    Defining download functions
-	   */
+			return old_url === new_url || !new_url;
+		};
 	
-	  this.download_content = function (url, callback) {
-	    this.prepare_url(url);
-	    window.APP.http_request(this.variables.url, this.variables.post_data, callback);
-	  };
+		/**
+	  *    Defining download functions
+	  */
+	
+		this.download_content = function (url, callback) {
+			this.prepare_url(url);
+			window.APP.http_request(this.variables.url, this.variables.post_data, callback);
+		};
 	}; /**
 	    * Created by mrskull on 26.12.16.
 	    */

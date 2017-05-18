@@ -81,7 +81,8 @@ export let Plugins_Loader_Views = function(config)
 				url = models.variables.url,
 				error = models.variables.error;
 
-			$container.scrollTop(0);
+			if(models.variables.reload === false)
+				$container.scrollTop(0);
 
 			if(check_for_errors(status, code))
 				return false;
@@ -93,7 +94,6 @@ export let Plugins_Loader_Views = function(config)
 			models.variables.url = '';
 
 			models.refresh_events();
-			models.refresh_scroll();
 			img_loader.define();
 		},
 
@@ -131,6 +131,8 @@ export let Plugins_Loader_Views = function(config)
 		prepare_content_to_hide = function(url, post_data)
 		{
 			models.variables.can_do_redirect = false;
+			models.variables.reload = models.if_reload(url);
+
 
 			models.refresh_data();
 			models.prepare_url(url);
