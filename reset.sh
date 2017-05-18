@@ -1,6 +1,16 @@
 #! /bin/bash
 
+rm -rf $(dirname $0)/cart/migrations
+rm -rf $(dirname $0)/main/migrations
+rm -rf $(dirname $0)/payment/migrations
+rm -rf $(dirname $0)/catalog/migrations
 rm -rf $(dirname $0)/product/migrations
+rm -rf $(dirname $0)/root/migrations
+rm -rf $(dirname $0)/sender/migrations
+rm -rf $(dirname $0)/session/migrations
+rm -rf $(dirname $0)/statement/migrations
+rm -rf $(dirname $0)/translator/migrations
+rm -rf $(dirname $0)/user/migrations
 
 python3 $(dirname $0)/manage.py makemigrations cart
 python3 $(dirname $0)/manage.py makemigrations main

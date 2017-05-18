@@ -107,11 +107,22 @@ class Payment_Models_Manager(Dynamic_Base):
         # append new product
         if not selected_product:
 
-            Selected_Product(
+            # get widgets with values
+            values = []
+            for key in self.request.POST.keys():
+                if 'widget_' in key:
+                    values.append(self.request.POST[key])
+
+            # create selected product
+            selected_product = Selected_Product(
                 payment=self.payment,
                 product=product,
                 number=1
-            ).save()
+            )
+
+            # add values
+            selected_product.save()
+            selected_product.values.add(*values)
 
     def Delete_Selected_Product(self, product):
         selected_product = Selected_Product.objects.get(

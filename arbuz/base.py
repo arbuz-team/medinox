@@ -205,7 +205,7 @@ class Dynamic_Base:
 
         # file with the name exists
         if os.path.exists(image_details['path_root']):
-            Dynamic_Base.Save_Image_From_URL(image)
+            Dynamic_Base.Save_Image_From_URL(url)
 
         image.save(image_details['path_root'])
 

@@ -264,7 +264,7 @@ class Dialog_Prompt(Dialog):
         else: self.request.session['product_description'] = None
 
         self.content['title'] = Text(self.request, 93)
-        self.content['form'] = Form_Content_Tab(self.request,
+        self.content['form'] = Form_Description(self.request,
             self.Get_POST(), initial=initial)
 
         return self.Render_Dialog('dialog/prompt.html',

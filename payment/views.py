@@ -284,7 +284,7 @@ class Cancel_Payment(Dynamic_Event_Manager):
 
 class Buy(Dynamic_Event_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Form(self):
         product = Product.objects.get(pk=self.other_value)
         self.payment_models_manager.Append_Selected_Product(product)
         return self.Render_HTML('payment/buy.html')

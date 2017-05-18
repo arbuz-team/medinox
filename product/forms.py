@@ -72,9 +72,6 @@ class Form_Product(Abstract_Image_Form):
 
 class Form_Description(Abstract_Image_Form):
 
-    def clean(self):
-        return Abstract_Image_Form.clean(self)
-
     def Create_Fields(self):
         self.fields['header'] = forms.CharField(required=False)
         self.fields['paragraph'] = forms.CharField(required=False)

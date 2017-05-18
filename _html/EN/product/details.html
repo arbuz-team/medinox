@@ -184,7 +184,7 @@
 
                                     {% for field in item.values %}
                                         <div class="selecter checkbox">
-                                            <input id="id_checkbox_{{ field.name }}" name="widget_{{ item.widget.pk }}_{{ field.pk }}" type="checkbox" value="{{ field.pk }}">
+                                            <input id="id_checkbox_{{ field.name }}" name="widget_{{ item.widget.pk }}_{{ forloop.counter0 }}" type="checkbox" value="{{ field.pk }}">
                                             <label for="id_checkbox_{{ field.name }}" class="selecter-field"></label>
                                             <label for="id_checkbox_{{ field.name }}" class="selecter-text">{{ field.name }} (+ {{ field.super_price }} zł)</label>
                                         </div>

@@ -1,6 +1,4 @@
-from django.db import models
-from user.models import User, Abstract_Address
-from product.models import Product
+from product.models import *
 from root.models import Delivery
 
 
@@ -33,7 +31,8 @@ class Selected_Product(models.Model):
 
     payment = models.ForeignKey(Payment)
     product = models.ForeignKey(Product)
+    values = models.ManyToManyField(Values)
     number = models.IntegerField()
 
     def __str__(self):
-        return self.product.details_en.name
+        return self.product.name

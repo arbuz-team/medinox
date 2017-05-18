@@ -87,7 +87,7 @@ class Abstract_Image_Form(Abstract_Form):
 
         return image_base64
 
-    def clean_url(self):
+    def clean_image_url(self):
         image_url = self.data['image_url']
 
         if image_url:
