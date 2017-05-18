@@ -1,0 +1,19 @@
+
+<div class="ground-block about">
+
+	<div class="block-background fill-abs"></div>
+
+	<div class="block-content">
+		{% if request.session.root_login %}
+			<div class="block-content-paragraph new field_shell">
+				<button class="dialog_button"
+						data-type="prompt"
+						data-name="description"
+						data-dialog-reload="ground">
+					Add new element
+				</button>
+			</div><!-- block-content-paragraph new -->
+		{% endif %}
+	</div><!-- block-content -->
+
+</div><!-- ground-block -->

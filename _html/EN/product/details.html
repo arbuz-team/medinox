@@ -228,114 +228,13 @@
 
 
 
-
-<div class="ground-block block-2 about">
-
-    <div class="block-background fill-abs"></div>
-
-    <div class="block-content">
-        {% if request.session.root_login %}
-        <div class="block-content-paragraph new field_shell">
-            <button class="dialog_button"
-                    data-type="prompt"
-                    data-name="description"
-                    data-dialog-reload="ground">
-                Add new element
-            </button>
-        </div><!-- block-content-paragraph new -->
-        {% endif %}
-    </div>
-</div>
-
+{% include "ground/html/paragraph_new.html" %}
 
 {% for element in descriptions %}
-    <div class="ground-block about">
-
-        <div class="block-background fill-abs"></div>
-
-        {% if element.header %}
-            <div class="block-title"><div> {{ element.header | safe }} </div></div>
-        {% endif %}
-
-        <div class="block-content">
-
-            <div class="block-content-paragraph field_shell">
-
-                {% if request.session.root_login %}
-                    <div class="buttons_to_action">
-                        <button class="dialog_button"
-                                type="button"
-                                data-type="confirm"
-                                data-name="delete_description"
-                                data-dialog-name="About_{{ element.pk }}"
-                                data-dialog-value="{{ element.pk }}"
-                                data-dialog-action="delete"
-                                data-dialog-reload="ground"
-                                data-dialog-url="/product/description/manage/">
-                            Delete
-                        </button>
-
-                        <button type="button" class="dialog_button submit"
-                                data-type="prompt"
-                                data-name="description"
-                                data-value="{{ element.pk }}"
-                                data-dialog-reload="ground">
-                            Edit
-                        </button>
-                    </div><!-- buttons_to_action -->
-                {% endif %}
-
-
-                {% if element.image and element.paragraph %}
-                    <div class="paragraph with_image">
-                        {{ element.paragraph | safe }}
-                    </div>
-                {% elif element.paragraph %}
-                    <div class="paragraph">
-                        {{ element.paragraph | safe }}
-                    </div>
-                {% endif %}
-
-
-                {% if element.image and element.header %}
-                    <div class="block-content-paragraph-image">
-                        <img data-src="{{ element.image }}"
-                             alt="{{ element.header }}"
-                             src="{% static 'img/pixel.png' %}"/>
-                    </div>
-                {% elif element.image %}
-                    <div class="block-content-paragraph-image">
-                        <img data-src="{{ element.image }}"
-                             alt="Example image"
-                             src="{% static 'img/pixel.png' %}"/>
-                    </div>
-                {% endif %}
-
-            </div><!-- block-content-paragraph -->
-
-        </div><!-- block-content -->
-
-    </div><!-- ground-block -->
+    {% include "ground/html/paragraph.html" %}
 {% endfor %}
 
-
-<div class="ground-block block-3 about">
-
-    <div class="block-background fill-abs"></div>
-
-    <div class="block-content">
-        {% if request.session.root_login %}
-        <div class="block-content-paragraph new field_shell">
-            <button class="dialog_button"
-                    data-type="prompt"
-                    data-name="description"
-                    data-dialog-reload="ground">
-                Add new element
-            </button>
-        </div><!-- block-content-paragraph new -->
-        {% endif %}
-    </div><!-- block-content -->
-</div><!-- ground-block -->
+{% include "ground/html/paragraph_new.html" %}
 
 
 {% include "EN/footer/standard.html" %}

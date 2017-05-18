@@ -1,0 +1,90 @@
+{% load staticfiles %}
+
+<!--
+	variables: element
+		element: header, image, paragraph
+-->
+
+<div class="ground-block about field_shell">
+
+	<div class="block-background fill-abs"></div>
+
+	{% if element.header %}
+		<div class="block-title"><div> {{ element.header | safe }}</div></div>
+	{% endif %}
+
+	<div class="block-content">
+
+		<div class="block-content-paragraph">
+
+			{% if element.image and element.paragraph %}
+			<div class="paragraph with_image">
+				{{ element.paragraph | safe }}
+			</div>
+			{% elif element.paragraph %}
+			<div class="paragraph">
+				{{ element.paragraph | safe }}
+			</div>
+			{% endif %}
+
+
+			{% if element.image and element.header %}
+			<div class="block-content-paragraph-image">
+				<img data-src="{{ element.image }}"
+					 alt="{{ element.header }}"
+					 src="{% static 'img/pixel.png' %}"/>
+			</div>
+			{% elif element.image %}
+			<div class="block-content-paragraph-image">
+				<img data-src="{{ element.image }}"
+					 alt="Example image"
+					 src="{% static 'img/pixel.png' %}"/>
+			</div>
+			{% endif %}
+
+		</div><!-- block-content-paragraph -->
+
+	</div><!-- block-content -->
+
+	{% if request.session.root_login %}
+		<div class="buttons_to_action">
+			<button class="post_button"
+					type="button"
+					data-name="About_move_up_{{ element.pk }}"
+					data-value="{{ element.pk }}"
+					data-action="move_up"
+					data-reload="ground"
+					data-url="/product/description/manage/">
+				Move up
+			</button>
+			<button class="post_button"
+					type="button"
+					data-name="About_move_down_{{ element.pk }}"
+					data-value="{{ element.pk }}"
+					data-action="move_down"
+					data-reload="ground"
+					data-url="/product/description/manage/">
+				Move down
+			</button>
+			<button class="dialog_button"
+					type="button"
+					data-type="confirm"
+					data-name="description"
+					data-dialog-name="About_delete_{{ element.pk }}"
+					data-dialog-value="{{ element.pk }}"
+					data-dialog-action="delete"
+					data-dialog-reload="ground"
+					data-dialog-url="/product/description/manage/">
+				Delete
+			</button>
+			<button type="button" class="dialog_button submit"
+					data-type="prompt"
+					data-name="description"
+					data-value="{{ element.pk }}"
+					data-dialog-reload="ground">
+				Edit
+			</button>
+		</div><!-- buttons_to_action -->
+	{% endif %}
+
+</div><!-- ground-block -->

@@ -1,0 +1,239 @@
+{% load staticfiles %}
+{% load tags %}
+
+<script>
+	window.APP.DATA = {
+		title : '{{ title }}',
+		description : 'This page is about {{ product.name }}.',
+	};
+</script>
+
+
+<div class="ground-block block-1 product_details">
+
+	<div class="block-background fill-abs"></div>
+	{% include "ground/html/navigation.html" %}
+
+	<div class="block-content">
+
+		<div>
+
+			<div class="block-content-left">
+
+				<div class="product_details-image">
+					<div class="fill-abs">
+						<img data-src="{{ product.image }}" src="{% static 'img/pixel.png' %}" alt="{{ product.name }}">
+					</div>
+				</div>
+
+			</div><!-- block-content-left -->
+
+
+			<div class="block-content-right">
+
+				<form method="post" action="/payment/buy/{{ product.pk }}/" id="form_buy" data-name="buy" data-type="buy">
+
+					<div class="product_details-section title">
+						<h1>{{ product.name }}</h1>
+					</div>
+
+
+					{% if request.session.user_login or request.session.root_login %}
+
+					<div class="product_details-section action_panel">
+
+						<div class="product_details-action_panel-prices">
+							{% if request.session.user_login %}
+							Product price: {{ product }}
+							{% else %}
+							If you want buy a product you must login.
+							<a href="{% redirect 'user.sign_in' %}">Sign in!</a>
+							{% endif %}
+						</div>
+
+						<div class="product_details-action_panel-buttons field_shell">
+
+							{% if request.session.user_login %}
+							<button type="submit" name="redirect_for_buy" value="tak">Add to cart</button>
+							<!--<button class="event_button" type="submit"-->
+							<!--data-name="Cart_{{ product.pk }}"-->
+							<!--data-reload="cart"-->
+							<!--data-event="plugins.open_cart">-->
+
+							<!--</button>-->
+
+
+							{% if is_favorite %}
+							<button class="post_button" type="button"
+									data-name="Favorite_{{ product.pk }}"
+									data-action="delete"
+									data-value="{{ product.pk }}"
+									data-reload="ground"
+									data-url="/product/favorite/">
+								Remove from favorite
+							</button>
+							{% else %}
+							<button class="post_button" type="button"
+									data-name="Favorite_{{ product.pk }}"
+									data-action="append"
+									data-value="{{ product.pk }}"
+									data-reload="ground"
+									data-url="/product/favorite/">
+								Add to favorite
+							</button>
+							{% endif %}
+
+
+							<button type="submit" name="redirect_for_buy" value="tak">Buy</button>
+							{% endif %}
+
+							<br>
+
+							{% if request.session.root_login %}
+							<button class="dialog_button" type="button"
+									data-type="confirm"
+									data-name="delete_product"
+									data-dialog-name="Delete_{{ product.pk }}"
+									data-dialog-action="delete"
+									data-dialog-value="{{ product.pk }}"
+									data-dialog-redirect="/products/"
+									data-dialog-url="/product/delete/">
+								Delete
+							</button>
+
+
+							{% if is_recommended %}
+							<button class="post_button" type="button"
+									data-name="Recommend_{{ product.pk }}"
+									data-action="delete"
+									data-value="{{ product.pk }}"
+									data-reload="ground"
+									data-url="/product/recommended/">
+								Remove form recommended
+							</button>
+							{% else %}
+							<button class="post_button" type="button"
+									data-name="Recommend_{{ product.pk }}"
+									data-action="append"
+									data-value="{{ product.pk }}"
+									data-reload="ground"
+									data-url="/product/recommended/">
+								Add to recommended
+							</button>
+							{% endif %}
+
+
+							<a href="/product/edit/{{ product.pk }}/"><button type="button">Edit</button></a>
+							{% endif %}
+
+						</div><!-- product_details-action_panel-buttons -->
+
+					</div><!-- product_details-section action_panel -->
+
+					{% else %}
+
+					<div class="product_details-section">
+						If you want buy a product you must login.
+						<a href="{% redirect 'user.sign_in' %}">Sign in!</a>
+					</div>
+
+					{% endif %}
+
+
+					<div class="product_details-section payment">
+						Payments: Paypal, Dotpay
+					</div>
+
+					<div class="product_details-section transport">
+						Delivery: DHL, FedEx, Inpost
+					</div>
+
+
+
+					<div class="product_details-section title">
+						<h3>Selection options</h3>
+					</div>
+
+					<div class="product_details-section subproduct_widgets field_shell">
+
+						{% if request.session.root_login %}
+						<div class="widget widget-add">
+							<button type="button" class="dialog_button" data-type="prompt" data-name="widget" data-dialog-reload="ground"> Add new widget </button>
+						</div>
+						{% endif %}
+
+						<!-- NASZE WIDGETY -->
+
+						{% for item in widgets %}
+
+						<div class="widget">
+							<div class="widget-title">{{ item.widget.name }}</div>
+
+							{% if request.session.root_login %}
+							<button class="dialog_button icon"
+									type="button"
+									data-type="prompt"
+									data-name="widget"
+									data-value="{{ item.widget.pk }}"
+									data-dialog-reload="ground">
+								<i style="background-image: url(/_static/img/icons/32/dark/edit.png)"> &nbsp; </i>
+							</button>
+							{% endif %}
+
+							{% if item.widget.type == 'Checkbox' %}
+
+							{% for field in item.values %}
+							<div class="selecter checkbox">
+								<input id="id_checkbox_{{ field.name }}" name="widget_{{ item.widget.pk }}_{{ field.pk }}" type="checkbox" value="{{ field.pk }}">
+								<label for="id_checkbox_{{ field.name }}" class="selecter-field"></label>
+								<label for="id_checkbox_{{ field.name }}" class="selecter-text">{{ field.name }} (+ {{ field.super_price }} zł)</label>
+							</div>
+							{% endfor %}
+
+							{% elif item.widget.type == 'Radio' %}
+
+							{% for field in item.values %}
+							<div class="selecter radio">
+								<input id="id_radio_{{ field.name }}" name="widget_{{ item.widget.pk }}_0" type="radio" value="{{ field.pk }}">
+								<label for="id_radio_{{ field.name }}" class="selecter-field"></label>
+								<label for="id_radio_{{ field.name }}" class="selecter-text">{{ field.name }} (+ {{ field.super_price }} zł)</label>
+							</div>
+							{% endfor %}
+
+							{% elif item.widget.type == 'Select' %}
+
+							<select id="id_select" name="widget_{{ item.widget.pk }}_0" required="">
+								{% for field in item.values %}
+								<option value="{{ field.pk }}">{{ field.name }} (+ {{ field.super_price }} zł)</option>
+								{% endfor %}
+							</select>
+
+							{% endif %}
+
+						</div>
+
+						{% endfor %}
+
+					</div><!-- product_details-section subproduct_widgets -->
+
+				</form>
+
+			</div><!-- block-content-right -->
+
+		</div>
+
+	</div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+
+{% include "ground/html/paragraph_new.html" %}
+
+{% for element in descriptions %}
+{% include "ground/html/paragraph.html" %}
+{% endfor %}
+
+{% include "ground/html/paragraph_new.html" %}
+
+
+{% include "EN/footer/standard.html" %}

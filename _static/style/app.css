@@ -88,14 +88,20 @@ strong {
   background-color: #ffffff; }
 
 div > .buttons_to_action {
-  display: none;
   position: absolute;
-  top: -20px;
+  top: -10px;
   right: 10px;
-  text-align: right; }
+  z-index: 20;
+  text-align: right;
+  opacity: 0;
+  -webkit-transition: opacity 150ms;
+  -moz-transition: opacity 150ms;
+  -ms-transition: opacity 150ms;
+  -o-transition: opacity 150ms;
+  transition: opacity 150ms; }
 
 div:hover > .buttons_to_action {
-  display: block; }
+  opacity: 1; }
 
 .container-part {
   z-index: 5;
