@@ -88,19 +88,21 @@ strong {
   background-color: #ffffff; }
 
 div > .buttons_to_action {
+  display: none;
   position: absolute;
   top: -10px;
   right: 10px;
   z-index: 20;
   text-align: right;
   opacity: 0;
-  -webkit-transition: opacity 150ms;
-  -moz-transition: opacity 150ms;
-  -ms-transition: opacity 150ms;
-  -o-transition: opacity 150ms;
-  transition: opacity 150ms; }
+  -webkit-transition: opacity 150ms, color 0s, color 0s, color 0s, color 0s;
+  -moz-transition: opacity 150ms, color 0s, color 0s, color 0s, color 0s;
+  -ms-transition: opacity 150ms, color 0s, color 0s, color 0s, color 0s;
+  -o-transition: opacity 150ms, color 0s, color 0s, color 0s, color 0s;
+  transition: opacity 150ms, color 0s, color 0s, color 0s, color 0s; }
 
 div:hover > .buttons_to_action {
+  display: block;
   opacity: 1; }
 
 .container-part {
@@ -1304,11 +1306,11 @@ button {
   display: block;
   max-height: 100px;
   overflow: hidden;
-  -webkit-transition: max-height 500ms ease;
-  -moz-transition: max-height 500ms ease;
-  -ms-transition: max-height 500ms ease;
-  -o-transition: max-height 500ms ease;
-  transition: max-height 500ms ease;
+  -webkit-transition: max-height 500ms ease, color 0s, color 0s, color 0s, color 0s;
+  -moz-transition: max-height 500ms ease, color 0s, color 0s, color 0s, color 0s;
+  -ms-transition: max-height 500ms ease, color 0s, color 0s, color 0s, color 0s;
+  -o-transition: max-height 500ms ease, color 0s, color 0s, color 0s, color 0s;
+  transition: max-height 500ms ease, color 0s, color 0s, color 0s, color 0s;
   cursor: pointer;
   vertical-align: top; }
   .ground-block.BIG .form_block .shell_form {
@@ -1318,11 +1320,11 @@ button {
     bottom: 0;
     height: 50px;
     background-image: linear-gradient(transparent, white);
-    -webkit-transition: height 500ms ease;
-    -moz-transition: height 500ms ease;
-    -ms-transition: height 500ms ease;
-    -o-transition: height 500ms ease;
-    transition: height 500ms ease; }
+    -webkit-transition: height 500ms ease, color 0s, color 0s, color 0s, color 0s;
+    -moz-transition: height 500ms ease, color 0s, color 0s, color 0s, color 0s;
+    -ms-transition: height 500ms ease, color 0s, color 0s, color 0s, color 0s;
+    -o-transition: height 500ms ease, color 0s, color 0s, color 0s, color 0s;
+    transition: height 500ms ease, color 0s, color 0s, color 0s, color 0s; }
   .ground-block.BIG .form_block .title {
     margin-top: 0;
     padding-bottom: 5px;
@@ -1874,6 +1876,7 @@ img {
     padding-top: 50px; } }
 
 .ground-block.about {
+  padding-top: 15px;
   padding-bottom: 0;
   min-height: 0; }
   .ground-block.about .block-content {
@@ -1920,15 +1923,34 @@ img {
       .ground-block.about .block-content-paragraph > .block-content-paragraph-image > img {
         height: auto;
         vertical-align: bottom; }
-  .ground-block.about .block-content-paragraph.new {
+  .ground-block.about .block-new {
+    position: relative;
+    display: block;
+    height: 0;
+    margin: 0;
+    z-index: 100;
+    opacity: 0;
     text-align: center;
-    margin: 50px 0; }
-    .ground-block.about .block-content-paragraph.new > button {
-      width: 90%;
-      height: 60px;
+    -webkit-transition: height 100ms, opacity 150ms, color 0s, color 0s, color 0s;
+    -moz-transition: height 100ms, opacity 150ms, color 0s, color 0s, color 0s;
+    -ms-transition: height 100ms, opacity 150ms, color 0s, color 0s, color 0s;
+    -o-transition: height 100ms, opacity 150ms, color 0s, color 0s, color 0s;
+    transition: height 100ms, opacity 150ms, color 0s, color 0s, color 0s; }
+    .ground-block.about .block-new > button {
+      position: relative;
+      display: block;
+      width: 80%;
+      height: 100%;
       font-size: 18px;
-      border: 3px dashed #d1d1d1;
-      opacity: 0.8; }
+      border: 3px dashed #e8e8e8; }
+      .ground-block.about .block-new > button > i {
+        background-image: url(/_static/img/icons/64/dark/add.png);
+        background-size: 100% auto;
+        background-position: center;
+        background-repeat: no-repeat; }
+  .ground-block.about:hover .block-new {
+    height: 60px;
+    opacity: 0.8; }
   .ground-block.about .block-content-paragraph.new:hover > button {
     opacity: 1; }
 

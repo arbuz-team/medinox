@@ -1,6 +1,8 @@
 
 .ground-block.about
-  padding-bottom: 0
+  padding:
+    top: 15px
+    bottom: 0
   min-height: 0
 
   .block-content
@@ -69,16 +71,38 @@
         vertical-align: bottom
 
 
-  .block-content-paragraph.new
+  .block-new
+    position: relative
+    display: block
+    height: 0
+    margin: 0
+
+    z-index: 100
+
+    opacity: 0
     text-align: center
-    margin: 50px 0
+
+    +transition(height 100ms, opacity 150ms)
 
     >button
-      width: 90%
-      height: 60px
+      position: relative
+      display: block
+      width: 80%
+      height: 100%
+
       font-size: 18px
-      border: $G-STYLE-DARK-BORDER-DASHED
-      opacity: 0.8
+      border: $G-STYLE-BORDER-DASHED
+
+      >i
+        +background-img(url(/_static/img/icons/64/dark/add.png), 100% auto, center)
+
+  &:hover .block-new
+    height: 60px
+    opacity: 0.8
+
+    //>button
+      display: block
+
 
   .block-content-paragraph.new:hover
     >button
