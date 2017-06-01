@@ -10,55 +10,55 @@ import * as interior_dialog_controllers from './interior/controllers'
  *    Defining public functions
  */
 
-  export let
+export let
 
-    define = function()
-    {
-      let
-        selectors = dialog_views.selectors;
+	define = function()
+	{
+		let
+			selectors = dialog_views.selectors;
 
-      $(selectors.container).click(close_with_cancel_event);
-      $(selectors.window).click(cancel_event);
+		$(selectors.container).click(close_with_cancel_event);
+		$(selectors.window).click(cancel_event);
 
-      $(selectors.external_buttons).click(open);
+		$(selectors.external_buttons).click(open);
 
-      window.APP.add_own_event('dialog_close', close_with_delay);
-      window.APP.add_own_event('dialog_reload', reload);
+		window.APP.add_own_event('dialog_close', close_with_delay);
+		window.APP.add_own_event('dialog_reload', reload);
 
-      interior_dialog_controllers.define();
-    };
+		interior_dialog_controllers.define();
+	};
 
 
 /**
  *    Defining events functions
  */
 
-  let
+let
 
-    close_with_cancel_event = function(event)
-    {
-      cancel_event(event);
-      close();
-    },
-
-
-    close_with_delay = function()
-    {
-      let delay;
-
-      if(window.APP.DATA.delay >= 0)
-        delay = window.APP.DATA.delay;
-      else
-        delay = 2000;
-
-      setTimeout(close, delay);
-    },
+	close_with_cancel_event = function(event)
+	{
+		cancel_event(event);
+		close();
+	},
 
 
-    cancel_event = function(event)
-    {
-      event.stopPropagation();
-    };
+	close_with_delay = function()
+	{
+		let delay;
+
+		if(window.APP.DATA.delay >= 0)
+			delay = window.APP.DATA.delay;
+		else
+			delay = 2000;
+
+		setTimeout(close, delay);
+	},
+
+
+	cancel_event = function(event)
+	{
+		event.stopPropagation();
+	};
 
 
 /**
@@ -67,35 +67,38 @@ import * as interior_dialog_controllers from './interior/controllers'
 
 export let
 
-  open = function()
-  {
-    let
-      $button = $(this),
+	open = function()
+	{
+		let
+			$button = $(this),
 
-      dialog_data = {
-        type:     $button.data('type'),
-        name:     $button.data('name'),
-        value:    $button.data('value'),
-      },
+			dialog_data = {
+				type:     $button.data('type'),
+				name:     $button.data('name'),
+				value:    $button.data('value'),
+				other_1:    $button.data('other_1'),
+				other_2:    $button.data('other_2'),
+				other_3:    $button.data('other_3'),
+			},
 
-      additional_data = {
-        additional_name:       $button.data('dialog-name'),
-        additional_action:     $button.data('dialog-action'),
-        additional_value:      $button.data('dialog-value'),
-        additional_reload:     $button.data('dialog-reload'),
-        additional_redirect:   $button.data('dialog-redirect'),
-        additional_event:      $button.data('dialog-event'),
-        additional_url:        $button.data('dialog-url'),
-      };
+			additional_data = {
+				additional_name:       $button.data('dialog-name'),
+				additional_action:     $button.data('dialog-action'),
+				additional_value:      $button.data('dialog-value'),
+				additional_reload:     $button.data('dialog-reload'),
+				additional_redirect:   $button.data('dialog-redirect'),
+				additional_event:      $button.data('dialog-event'),
+				additional_url:        $button.data('dialog-url'),
+			};
 
-    dialog_views.open(dialog_data, additional_data)
-  },
-
-
-  reload = function()
-  {
-    dialog_views.reload();
-  },
+		dialog_views.open(dialog_data, additional_data)
+	},
 
 
-  close = dialog_views.close;
+	reload = function()
+	{
+		dialog_views.reload();
+	},
+
+
+	close = dialog_views.close;

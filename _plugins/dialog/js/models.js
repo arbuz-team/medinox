@@ -8,70 +8,76 @@ import * as interior_dialog_models          from './interior/models'
 
 export let
 
-  selectors = interior_dialog_models.selectors,
+	selectors = interior_dialog_models.selectors,
 
 
-  save_type_and_name = function(dialog_data)
-  {
-    let
-      type = dialog_data.type,
-      name = dialog_data.name,
-      value = dialog_data.value;
+	save_type_and_name = function(dialog_data)
+	{
+		let
+			type = dialog_data.type,
+			name = dialog_data.name,
+			value = dialog_data.value,
+			other_1 = dialog_data.other_1,
+			other_2 = dialog_data.other_2,
+			other_3 = dialog_data.other_3;
 
-    if(!type || !name)
-    {
-      console.error('Dialog error: Type or name is invalid.');
-      return false;
-    }
+		if(!type || !name)
+		{
+			console.error('Dialog error: Type or name is invalid.');
+			return false;
+		}
 
-    interior_dialog_models.reset_variables();
+		interior_dialog_models.reset_variables();
 
-    interior_dialog_models.variables.type = type;
-    interior_dialog_models.variables.name = name;
-    interior_dialog_models.variables.value = value;
-  },
-
-
-  prepare_post_data = function(additional_data)
-  {
-    let
-      post_data = {},
-      isset = 0;
-
-    for(let data in additional_data)
-    {
-      if(additional_data.hasOwnProperty(data))
-        if(additional_data[data])
-          post_data[data] = additional_data[data];
-        else
-          post_data[data] = '';
-
-      ++isset;
-    }
-
-    if(isset > 0)
-      interior_dialog_models.variables.post_data = post_data;
-    else
-      interior_dialog_models.variables.post_data = undefined;
-  },
+		interior_dialog_models.variables.type = type;
+		interior_dialog_models.variables.name = name;
+		interior_dialog_models.variables.value = value;
+		interior_dialog_models.variables.other_1 = other_1;
+		interior_dialog_models.variables.other_2 = other_2;
+		interior_dialog_models.variables.other_3 = other_3;
+	},
 
 
-  open = function(dialog_data, additional_data, callback)
-  {
-    if(save_type_and_name(dialog_data) === false)
-      return false;
+	prepare_post_data = function(additional_data)
+	{
+		let
+			post_data = {},
+			isset = 0;
 
-    if(prepare_post_data(additional_data) === false)
-      return false;
+		for(let data in additional_data)
+		{
+			if(additional_data.hasOwnProperty(data))
+				if(additional_data[data])
+					post_data[data] = additional_data[data];
+				else
+					post_data[data] = '';
 
-    interior_dialog_controllers.load(undefined, undefined, callback);
-  },
+			++isset;
+		}
+
+		if(isset > 0)
+			interior_dialog_models.variables.post_data = post_data;
+		else
+			interior_dialog_models.variables.post_data = undefined;
+	},
 
 
-  reload = function(callback)
-  {
-      interior_dialog_controllers.reload(callback);
-  };
+	open = function(dialog_data, additional_data, callback)
+	{
+		if(save_type_and_name(dialog_data) === false)
+			return false;
+
+		if(prepare_post_data(additional_data) === false)
+			return false;
+
+		interior_dialog_controllers.load(undefined, undefined, callback);
+	},
+
+
+	reload = function(callback)
+	{
+		interior_dialog_controllers.reload(callback);
+	};
 
 
 selectors.window =              selectors.container +   ' > .dialog';

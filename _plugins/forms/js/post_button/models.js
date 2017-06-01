@@ -16,6 +16,9 @@ export let Post_Button_Models = function(config)
 		button_name:        undefined,
 		button_action:      undefined,
 		button_value:       undefined,
+		button_other_1:     undefined,
+		button_other_2:     undefined,
+		button_other_3:     undefined,
 		button_reload:      undefined,
 		button_redirect:    undefined,
 		button_event:       undefined,
@@ -46,6 +49,9 @@ export let Post_Button_Models = function(config)
 			window.APP.add_if_isset(config, that.settings, 'button_name');
 			window.APP.add_if_isset(config, that.settings, 'button_action');
 			window.APP.add_if_isset(config, that.settings, 'button_value');
+			window.APP.add_if_isset(config, that.settings, 'button_other_1');
+			window.APP.add_if_isset(config, that.settings, 'button_other_2');
+			window.APP.add_if_isset(config, that.settings, 'button_other_3');
 			window.APP.add_if_isset(config, that.settings, 'button_reload');
 			window.APP.add_if_isset(config, that.settings, 'button_redirect');
 			window.APP.add_if_isset(config, that.settings, 'button_event');
@@ -73,12 +79,23 @@ export let Post_Button_Models = function(config)
 
 	/////////////////////////
 
-	let prepare_post_data = function(action, value)
+	let prepare_post_data = function()
 	{
-		let obj = {__button__: action};
+		let
+			obj = {__button__: that.settings.button_action},
+			value = that.settings.button_value,
+			other_1 = that.settings.button_other_1,
+			other_2 = that.settings.button_other_2,
+			other_3 = that.settings.button_other_3;
 
 		if(value)
 			obj.value = value;
+		if(other_1)
+			obj.other_1 = value;
+		if(other_2)
+			obj.other_2 = value;
+		if(other_3)
+			obj.other_3 = value;
 
 		return obj;
 	};
@@ -90,9 +107,7 @@ export let Post_Button_Models = function(config)
 		{
 			let
 				url = that.settings.button_url,
-				action = that.settings.button_action,
-				value = that.settings.button_value,
-				post_data = prepare_post_data(action, value);
+				post_data = prepare_post_data();
 
 			window.APP.http_request(url, post_data, callback);
 		}, 200);
