@@ -82,7 +82,7 @@ class Widget_Manager(Dynamic_Event_Manager):
             self.request, self.request.POST)
 
         if self.content['form'].is_valid():
-            widget = self.request.session['product_editing_widget']
+            widget = self.request.session['product_widget']
             widget.name = self.content['form'].cleaned_data['name']
             widget.type = self.content['form'].cleaned_data['type']
             widget.save()
@@ -92,7 +92,7 @@ class Widget_Manager(Dynamic_Event_Manager):
 
     def Manage_Form(self):
 
-        if self.request.session['product_editing_widget']:
+        if self.request.session['product_widget']:
             return self.Manage_Form_Edit_Widget()
 
         return self.Manage_Form_New_Widget()
@@ -100,8 +100,8 @@ class Widget_Manager(Dynamic_Event_Manager):
     def Manage_Button(self):
 
         if 'delete' in self.request.POST['__button__']:
-            self.request.session['product_editing_widget'].delete()
-            self.request.session['product_editing_widget'] = None
+            self.request.session['product_widget'].delete()
+            self.request.session['product_widget'] = None
             return JsonResponse({'__button__': 'true'})
 
         return JsonResponse({'__button__': 'false'})
@@ -120,7 +120,7 @@ class Values_Manager(Dynamic_Event_Manager):
             self.request, self.request.POST)
 
         if self.content['form'].is_valid():
-            widget = self.request.session['product_editing_widget']
+            widget = self.request.session['product_widget']
 
             values = self.content['form'].save(commit=False)
             values.widget = widget
@@ -145,33 +145,14 @@ class Values_Manager(Dynamic_Event_Manager):
 
 class Product_Manager(Dynamic_Event_Manager):
 
-    def Manage_Form_New_Product(self):
+    def Manage_Form_Product(self):
 
         self.content['form'] = Form_Product(
             self.request, self.request.POST)
 
         if self.content['form'].is_valid():
 
-            product = Product()
-            product.name = self.content['form'].cleaned_data['name']
-            product.url_name = self.To_URL(self.content['form'].cleaned_data['name'])
-            product.price = self.content['form'].cleaned_data['price']
-            product.parent = self.request.session['catalog_parent']
-            product.save()
-
-            product.Save_Image(self.content['form'].cleaned_data['image'])
-
-            return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
-        return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
-
-    def Manage_Form_Edit_Product(self):
-
-        self.content['form'] = Form_Product(
-            self.request, self.request.POST)
-
-        if self.content['form'].is_valid():
-
-            product = self.request.session['product_editing']
+            product = self.request.session['product_product']
             product.name = self.content['form'].cleaned_data['name']
             product.url_name = self.To_URL(self.content['form'].cleaned_data['name'])
             product.price = self.content['form'].cleaned_data['price']
@@ -185,16 +166,16 @@ class Product_Manager(Dynamic_Event_Manager):
 
     def Manage_Form(self):
 
-        if self.request.session['product_editing']:
-            return self.Manage_Form_Edit_Product()
+        if self.request.POST['__form__'] == 'product':
+            return self.Manage_Form_Product()
 
-        return self.Manage_Form_New_Product()
+        return Dynamic_Event_Manager.Manage_Form(self)
 
     def Manage_Button(self):
 
         if 'delete' in self.request.POST['__button__']:
-            self.request.session['product_editing'].delete()
-            self.request.session['product_editing'] = None
+            self.request.session['product_product'].delete()
+            self.request.session['product_product'] = None
             return JsonResponse({'__button__': 'true'})
 
         return JsonResponse({'__button__': 'false'})
@@ -214,11 +195,7 @@ class Description_Manager(Dynamic_Event_Manager):
 
         if description.is_valid():
 
-            if self.request.session['product_description']:
-                product_desc = self.request.session['product_description']
-
-            else: product_desc = Description()
-
+            product_desc = self.request.session['product_description']
             product_desc.header = description.cleaned_data['header']
             product_desc.paragraph = description.cleaned_data['paragraph']
             product_desc.product = self.request.session['product_last_selected']
