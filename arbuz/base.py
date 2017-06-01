@@ -12,6 +12,17 @@ from io import BytesIO
 from urllib.request import urlopen
 from datetime import date
 import base64, imghdr, os, string, random, time
+from enum import Enum
+
+
+class Direction(Enum):
+
+    LEFT = 0
+    RIGHT = 1
+    UP = 2
+    DOWN = 4
+    NONE = 8
+
 
 
 class Dynamic_Base:
@@ -81,6 +92,21 @@ class Dynamic_Base:
 
         return urls
 
+    def Get_Post_Value(self, name):
+
+        for key in self.request.POST.keys():
+
+            # only other values
+            if 'other_value_' in key:
+                value = self.request.POST[key]
+
+                # name:value
+                if value.split(':')[0] == name:
+                    return value.split(':')[1]
+
+        # not found
+        return ''
+
     def Validate_Period(self, session_name_date_from, session_name_date_to):
 
         date_from = self.request.session[session_name_date_from]
@@ -109,6 +135,55 @@ class Dynamic_Base:
         for key in keys:
             if key_contain in key:
                 del self.request.session[key]
+
+    @staticmethod
+    def Change_Model_Order(model, position, move=Direction.NONE):
+
+        # get current object
+        object_index = model.objects.get(position=position)
+
+        # change with up element
+        if move == Direction.UP:
+
+            object_up = model.objects.get(position=position-1)
+            object_up.position += 1
+            object_index.position -= 1
+
+            object_up.save()
+            object_index.save()
+
+        # change with down element
+        if move == Direction.DOWN:
+
+            object_down = model.objects.get(position=position+1)
+            object_down.position -= 1
+            object_index.position += 1
+
+            object_down.save()
+            object_index.save()
+
+    @staticmethod
+    def Add_Model_Order(model, new_object, position, direction=Direction.NONE):
+
+        if direction == Direction.UP:
+
+            # change greater elements positions
+            greater_objects = model.objects.filter(position__gte=position)
+            for greater_object in greater_objects:
+                greater_object.position += 1
+
+            # set position for new object
+            new_object.position = position
+
+        if direction == Direction.DOWN:
+
+            # change greater elements positions
+            greater_objects = model.objects.filter(position__gt=position)
+            for greater_object in greater_objects:
+                greater_object.position += 1
+
+            # set position for new object
+            new_object.position = position + 1
 
     @staticmethod
     def To_URL(text):

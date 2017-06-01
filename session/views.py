@@ -79,17 +79,14 @@ class Session_Controller:
         if 'product_last_selected' not in self.request.session:
             self.request.session['product_last_selected'] = None
 
-        if 'product_editing' not in self.request.session:
-            self.request.session['product_editing'] = None
+        if 'product_product' not in self.request.session:
+            self.request.session['product_product'] = None
 
-        if 'product_editing_widget' not in self.request.session:
-            self.request.session['product_editing_widget'] = None
+        if 'product_widget' not in self.request.session:
+            self.request.session['product_widget'] = None
 
         if 'product_description' not in self.request.session:
             self.request.session['product_description'] = None
-
-        if 'catalog_editing' not in self.request.session:
-            self.request.session['catalog_editing'] = None
 
     def Check_Session_Catalog(self):
 

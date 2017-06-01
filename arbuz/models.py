@@ -16,6 +16,7 @@ class Base_Model:
 
 
 class Abstract_Model(Base_Model, models.Model):
+    position = models.IntegerField(unique=True, blank=True, null=True)
 
     def Save_Image(self, name):
 

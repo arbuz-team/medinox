@@ -183,14 +183,16 @@ class Dialog_Prompt(Dialog):
     def Manage_Widget(self):
         widget = None
 
+        # edit widget
         if 'dialog_value' in self.request.POST:
             widget = Widget.objects.get(pk=self.request.POST['dialog_value'])
             self.content['edit'] = {'url': '/product/widget/manage/'}
 
+        #
         elif self.other_value:
             widget = self.other_value
 
-        self.request.session['product_editing_widget'] = widget
+        self.request.session['product_widget'] = widget
         self.content['values'] = Values.objects.filter(widget=widget)
         self.content['title'] = Text(self.request, 156)
         self.content['form'] = Form_Widget(self.request,
@@ -217,7 +219,7 @@ class Dialog_Prompt(Dialog):
             self.content['image'] = catalog.image
             initial = {'name': catalog.name}
 
-        else: self.request.session['catalog_editing'] = None
+        else: self.request.session['catalog_editing'] = Catalog()
 
         self.content['title'] = Text(self.request, 157)
         self.content['form'] = Form_Catalog(self.request,
@@ -232,12 +234,12 @@ class Dialog_Prompt(Dialog):
         if 'dialog_value' in self.request.POST:
             product = Product.objects.get(pk=self.request.POST['dialog_value'])
 
-            self.request.session['product_editing'] = product
+            self.request.session['product_product'] = product
             self.content['edit'] = {'url': '/product/manage/'}
             self.content['image'] = product.image
             initial = {'name': product.name}
 
-        else: self.request.session['product_editing'] = None
+        else: self.request.session['product_product'] = Product()
 
         self.content['title'] = Text(self.request, 158)
         self.content['form'] = Form_Product(self.request,
@@ -247,9 +249,19 @@ class Dialog_Prompt(Dialog):
                                   'product', only_root=True)
 
     def Manage_Description(self):
+
+        position = self.Get_Post_Value('position')
         initial = None
 
-        if 'dialog_value' in self.request.POST:
+        # add new description with position
+        if position:
+
+            self.Get_Post_Value()
+
+            self.request.session['product_description'] = Description()
+
+        # edit description with pk in dialog_value
+        elif 'dialog_value' in self.request.POST:
             description = Description.objects.get(
                 pk=self.request.POST['dialog_value'])
 
@@ -260,8 +272,6 @@ class Dialog_Prompt(Dialog):
                 'header':       description.header,
                 'paragraph':    description.paragraph,
             }
-
-        else: self.request.session['product_description'] = None
 
         self.content['title'] = Text(self.request, 93)
         self.content['form'] = Form_Description(self.request,

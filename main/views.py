@@ -71,6 +71,7 @@ class Editable_Tab(Dynamic_Event_Manager):
 class Start(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
+        self.Get_Post_Value('')
         self.content['recommended'] = Product.objects.filter(
             pk__in=Recommended_Product.objects.all().values('product__pk'))
 
