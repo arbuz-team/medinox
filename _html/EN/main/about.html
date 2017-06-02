@@ -8,9 +8,13 @@
 </script>
 
 
-{% for element in content %}
+{% if content %}
+    {% for element in content %}
+        {% include "ground/html/paragraph.html" %}
+    {% endfor %}
+{% else %}
     {% include "ground/html/paragraph.html" %}
-{% endfor %}
+{% endif %}
 
 
 {% include "EN/footer/standard.html" %}

@@ -232,10 +232,12 @@
 
 </div><!-- ground-block -->
 
-
-{% for element in descriptions %}
+{% if descriptions %}
+    {% for element in descriptions %}
+        {% include "ground/html/paragraph.html" %}
+    {% endfor %}
+{% else %}
     {% include "ground/html/paragraph.html" %}
-{% endfor %}
-
+{% endif %}
 
 {% include "EN/footer/standard.html" %}

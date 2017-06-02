@@ -1,13 +1,17 @@
 
-{% if request.session.root_login %}
-	<div class="block-content block-new field_shell">
-		<button class="dialog_button icon"
-				data-type="prompt"
-				data-name="description"
-				data-other_1="index:{{ element.pk }}"
-				data-other_2="direction:up"
-				data-dialog-reload="ground">
-			<i>&nbsp;</i>
-		</button>
-	</div><!-- block-content-paragraph new -->
-{% endif %}
+<div class="ground-block about field_shell">
+
+	{% if request.session.root_login %}
+		<div class="block-content block-new field_shell">
+			<button class="dialog_button icon"
+					data-type="prompt"
+					data-name="description"
+					data-other_1="index:{{ element.pk }}"
+					data-other_2="direction:up"
+					data-dialog-reload="ground">
+				<i>&nbsp;</i>
+			</button>
+		</div><!-- block-content-paragraph new -->
+	{% endif %}
+
+	<div class="block-background fill-abs"></div>
