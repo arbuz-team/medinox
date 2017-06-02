@@ -24,7 +24,7 @@ class Details(Dynamic_Event_Manager):
 
         # get descriptions
         self.content['descriptions'] = Description.objects\
-            .filter(product=self.content['product'])
+            .filter(product=self.content['product']).order_by('position')
 
         # get widgets
         self.content['widgets'] = [
@@ -217,6 +217,14 @@ class Description_Manager(Dynamic_Event_Manager):
 
         if self.request.POST['__button__'] == 'delete':
             Description.objects.get(pk=self.request.POST['value']).delete()
+
+        if self.request.POST['__button__'] == 'move_up':
+            desc = Description.objects.get(pk=self.request.POST['value'])
+            self.Change_Model_Order(Description, desc.position, Direction.UP)
+
+        if self.request.POST['__button__'] == 'move_down':
+            desc = Description.objects.get(pk=self.request.POST['value'])
+            self.Change_Model_Order(Description, desc.position, Direction.DOWN)
 
         return JsonResponse({'__button__': 'true'})
 

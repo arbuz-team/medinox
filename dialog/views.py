@@ -250,15 +250,18 @@ class Dialog_Prompt(Dialog):
 
     def Manage_Description(self):
 
-        position = self.Get_Post_Value('position')
+        direction = self.Get_Post_Value('direction')
         initial = None
 
         # add new description with position
-        if position:
+        if direction:
 
-            self.Get_Post_Value()
+            index = self.Get_Post_Value('index')
+            position = Description.objects.get(pk=index).position
 
             self.request.session['product_description'] = Description()
+            self.Add_Model_Order(Description, self.request.session['product_description'],
+                                 position, Direction.UP)
 
         # edit description with pk in dialog_value
         elif 'dialog_value' in self.request.POST:

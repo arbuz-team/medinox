@@ -97,7 +97,7 @@ class Dynamic_Base:
         for key in self.request.POST.keys():
 
             # only other values
-            if 'other_value_' in key:
+            if 'other_' in key:
                 value = self.request.POST[key]
 
                 # name:value
@@ -145,25 +145,38 @@ class Dynamic_Base:
         # change with up element
         if move == Direction.UP:
 
+            # swap - object up position 0
             object_up = model.objects.get(position=position-1)
-            object_up.position += 1
+            object_up_position = object_up.position + 1
+            object_up.position = 0
+            object_up.save()
+
+            # save position
+            object_up.position = object_up_position
             object_index.position -= 1
 
-            object_up.save()
             object_index.save()
+            object_up.save()
 
         # change with down element
         if move == Direction.DOWN:
 
+            # swap - object down position 0
             object_down = model.objects.get(position=position+1)
-            object_down.position -= 1
+            object_down_position = object_down.position - 1
+            object_down.position = 0
+            object_down.save()
+
+            # save position
+            object_down.position = object_down_position
             object_index.position += 1
 
-            object_down.save()
             object_index.save()
+            object_down.save()
 
     @staticmethod
     def Add_Model_Order(model, new_object, position, direction=Direction.NONE):
+        greater_objects = None
 
         if direction == Direction.UP:
 
@@ -184,6 +197,9 @@ class Dynamic_Base:
 
             # set position for new object
             new_object.position = position + 1
+
+        for greater_object in greater_objects:
+            greater_object.save()
 
     @staticmethod
     def To_URL(text):
