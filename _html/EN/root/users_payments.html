@@ -21,41 +21,49 @@
 
             <input name="date_to" type="date" class="auto_field" data-name="date_to" value="{{ date_to }}"/>
 
-
-            {% if request.session.root_payments_approved %}
-                <button class="post_button submit" type="button"
-                        data-name="approved"
-                        data-action="change"
-                        data-value="approved"
-                        data-reload="ground">
-                    Approved
-                </button>
-                &nbsp;
-                <button class="post_button" type="button"
-                        data-name="not_approved"
-                        data-action="change"
-                        data-value="not_approved"
-                        data-reload="ground">
-                    Not approved
-                </button>
-            {% else %}
-                <button class="post_button" type="button"
-                        data-name="approved"
-                        data-action="change"
-                        data-value="approved"
-                        data-reload="ground">
-                    Approved
-                </button>
-                &nbsp;
-                <button class="post_button submit" type="button"
-                        data-name="not_approved"
-                        data-action="change"
-                        data-value="not_approved"
-                        data-reload="ground">
-                    Not approved
-                </button>
-            {% endif %}
-
+            <button class="post_button {% if request.session.root_payment_status == 'accepted' %} submit {% endif %}"
+                    data-name="not_approved"
+                    data-action="change"
+                    data-value="accepted"
+                    data-reload="ground">
+                Accepted
+            </button>
+            &nbsp;
+            <button class="post_button {% if request.session.root_payment_status == 'pending' %} submit {% endif %}"
+                    type="button"
+                    data-name="pending"
+                    data-action="change"
+                    data-value="pending"
+                    data-reload="ground">
+                Pending
+            </button>
+            &nbsp;
+            <button class="post_button {% if request.session.root_payment_status == 'in_progress' %} submit {% endif %}"
+                    type="button"
+                    data-name="in_progress"
+                    data-action="change"
+                    data-value="in_progress"
+                    data-reload="ground">
+                In progress
+            </button>
+            &nbsp;
+            <button class="post_button {% if request.session.root_payment_status == 'redirect' %} submit {% endif %}"
+                    type="button"
+                    data-name="redirect"
+                    data-action="change"
+                    data-value="redirect"
+                    data-reload="ground">
+                Redirect
+            </button>
+            &nbsp;
+            <button class="post_button {% if request.session.root_payment_status == 'completed' %} submit {% endif %}"
+                    type="button"
+                    data-name="completed"
+                    data-action="change"
+                    data-value="completed"
+                    data-reload="ground">
+                Completed
+            </button>
         </form>
 
 
