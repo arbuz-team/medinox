@@ -13,7 +13,7 @@ let
 
   send_post_preprocess_url = function( response_url )
   {
-    if( response_url.substring(0, 1) === '/' )
+    if( response_url && response_url.substring && response_url.substring(0, 1) === '/' )
       return response_url;
     else
       return data_controller.get( 'path' );

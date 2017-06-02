@@ -83,19 +83,14 @@ export let Post_Button_Models = function(config)
 	{
 		let
 			obj = {__button__: that.settings.button_action},
-			value = that.settings.button_value,
-			other_1 = that.settings.button_other_1,
-			other_2 = that.settings.button_other_2,
-			other_3 = that.settings.button_other_3;
+			value = that.settings.button_value;
 
 		if(value)
 			obj.value = value;
-		if(other_1)
-			obj.other_1 = value;
-		if(other_2)
-			obj.other_2 = value;
-		if(other_3)
-			obj.other_3 = value;
+
+		obj.other_1 = that.settings.button_other_1 || '';
+		obj.other_2 = that.settings.button_other_2 || '';
+		obj.other_3 = that.settings.button_other_3 || '';
 
 		return obj;
 	};

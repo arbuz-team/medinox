@@ -233,7 +233,7 @@
 	 */
 	
 	var send_post_preprocess_url = function send_post_preprocess_url(response_url) {
-	  if (response_url.substring(0, 1) === '/') return response_url;else return _structure.data_controller.get('path');
+	  if (response_url && response_url.substring && response_url.substring(0, 1) === '/') return response_url;else return _structure.data_controller.get('path');
 	},
 	    send_post_prepare = function send_post_prepare(post_data) {
 	  if (!post_data) post_data = {};
@@ -2835,15 +2835,13 @@
 	
 		var prepare_post_data = function prepare_post_data() {
 			var obj = { __button__: that.settings.button_action },
-			    value = that.settings.button_value,
-			    other_1 = that.settings.button_other_1,
-			    other_2 = that.settings.button_other_2,
-			    other_3 = that.settings.button_other_3;
+			    value = that.settings.button_value;
 	
 			if (value) obj.value = value;
-			if (other_1) obj.other_1 = value;
-			if (other_2) obj.other_2 = value;
-			if (other_3) obj.other_3 = value;
+	
+			obj.other_1 = that.settings.button_other_1 || '';
+			obj.other_2 = that.settings.button_other_2 || '';
+			obj.other_3 = that.settings.button_other_3 || '';
 	
 			return obj;
 		};
