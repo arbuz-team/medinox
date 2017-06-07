@@ -47,7 +47,7 @@
 
     >.block-content-paragraph-actions
       position: absolute
-      top: -30px
+      top: 0
       right: 0
       text-align: right
 
@@ -71,11 +71,13 @@
         vertical-align: bottom
 
 
-  .block-new
-    position: relative
+  //.block-new
+    position: absolute
+    left: 0
+    top: 0
+    right: 0
     display: block
     height: 0
-    margin: 0
 
     opacity: 0
     text-align: center
@@ -88,9 +90,11 @@
 
       >i
         display: none
+        width: 40px
+        height: 40px
         +background-img(url(/_static/img/icons/64/dark/add.png), 100% auto, center)
 
-  &:hover .block-new
+  //&:hover .block-new
     height: 75px
     opacity: 0.8
 

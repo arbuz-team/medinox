@@ -90,7 +90,7 @@ strong {
 div > .buttons_to_action {
   display: none;
   position: absolute;
-  top: 70px;
+  top: 0;
   right: 10px;
   z-index: 20;
   text-align: right;
@@ -1908,7 +1908,7 @@ img {
       position: relative; }
     .ground-block.about .block-content-paragraph > .block-content-paragraph-actions {
       position: absolute;
-      top: -30px;
+      top: 0;
       right: 0;
       text-align: right;
       z-index: 100; }
@@ -1923,39 +1923,6 @@ img {
       .ground-block.about .block-content-paragraph > .block-content-paragraph-image > img {
         height: auto;
         vertical-align: bottom; }
-  .ground-block.about .block-new {
-    position: relative;
-    display: block;
-    height: 0;
-    margin: 0;
-    opacity: 0;
-    text-align: center;
-    -webkit-transition: height 100ms, opacity 150ms, color 0s, color 0s, color 0s;
-    -moz-transition: height 100ms, opacity 150ms, color 0s, color 0s, color 0s;
-    -ms-transition: height 100ms, opacity 150ms, color 0s, color 0s, color 0s;
-    -o-transition: height 100ms, opacity 150ms, color 0s, color 0s, color 0s;
-    transition: height 100ms, opacity 150ms, color 0s, color 0s, color 0s; }
-    .ground-block.about .block-new > button {
-      position: relative;
-      display: none; }
-      .ground-block.about .block-new > button > i {
-        display: none;
-        background-image: url(/_static/img/icons/64/dark/add.png);
-        background-size: 100% auto;
-        background-position: center;
-        background-repeat: no-repeat; }
-  .ground-block.about:hover .block-new {
-    height: 75px;
-    opacity: 0.8; }
-    .ground-block.about:hover .block-new > button {
-      display: block;
-      font-size: 18px;
-      width: 80%;
-      height: 60px;
-      margin: 0 10%;
-      border: 3px dashed #e8e8e8; }
-      .ground-block.about:hover .block-new > button > i {
-        display: inline-block; }
   .ground-block.about .block-content-paragraph.new:hover > button {
     opacity: 1; }
 

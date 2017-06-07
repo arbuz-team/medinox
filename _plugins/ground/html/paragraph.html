@@ -7,7 +7,7 @@
 
 <div class="ground-block about field_shell">
 
-	{% include "ground/html/paragraph_new_up.html" %}
+	<!--{ include "ground/html/paragraph_new_up.html" %}-->
 
 	<div class="block-background fill-abs"></div>
 
@@ -50,15 +50,31 @@
 
 	{% if request.session.root_login %}
 		<div class="buttons_to_action">
-			<button class="post_button"
-					type="button"
-					data-name="About_move_up_{{ element.pk }}"
-					data-value="{{ element.pk }}"
-					data-action="move_up"
-					data-reload="ground"
-					data-url="/product/description/manage/">
-				Move up
-			</button>
+            <button class="dialog_button"
+                    data-type="prompt"
+                    data-name="description"
+                    data-other_1="index:{{ element.pk }}"
+                    data-other_2="direction:up"
+                    data-dialog-reload="ground">
+                Prepend element
+            </button>
+            <button class="dialog_button"
+                    data-type="prompt"
+                    data-name="description"
+                    data-other_1="index:{{ element.pk }}"
+                    data-other_2="direction:down"
+                    data-dialog-reload="ground">
+                Append element
+            </button>
+            <button class="post_button"
+                    type="button"
+                    data-name="About_move_up_{{ element.pk }}"
+                    data-value="{{ element.pk }}"
+                    data-action="move_up"
+                    data-reload="ground"
+                    data-url="/product/description/manage/">
+                Move up
+            </button>
 			<button class="post_button"
 					type="button"
 					data-name="About_move_down_{{ element.pk }}"
@@ -89,6 +105,6 @@
 		</div><!-- buttons_to_action -->
 	{% endif %}
 
-	{% include "ground/html/paragraph_new_down.html" %}
+	<!--{ include "ground/html/paragraph_new_down.html" %}-->
 
 </div><!-- ground-block -->
