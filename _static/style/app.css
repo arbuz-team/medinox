@@ -2036,18 +2036,25 @@ img {
       height: 0; } }
 
 .field_shell .tooltip {
-  position: relative; }
+  position: relative;
+  display: inline-block; }
   .field_shell .tooltip:hover .tooltip-options {
     display: block; }
+  .field_shell .tooltip.align-left .tooltip-options {
+    left: 0; }
+  .field_shell .tooltip.align-right .tooltip-options {
+    right: 0; }
+  .field_shell .tooltip.align-top .tooltip-options {
+    top: 100%; }
+  .field_shell .tooltip.align-bottom .tooltip-options {
+    bottom: 100%; }
 
 .field_shell .tooltip-options {
   display: none;
   position: absolute;
-  left: 0;
-  top: 100%;
   width: 150px;
-  background-color: #eee;
-  border: 1px solid #DDD;
+  background-color: #f0f0f0;
+  border: 1px solid #e8e8e8;
     border-radius: 1px; }
   .field_shell .tooltip-options > button {
     display: block;
@@ -2056,10 +2063,13 @@ img {
     background-color: transparent;
     background-image: none;
     border: none;
-      border-bottom: 1px solid #DDD;
+      border-bottom: 1px solid #e8e8e8;
       border-radius: 0;
-    text-align: left; }
+    text-align: left;
+    color: #1a1a1a; }
     .field_shell .tooltip-options > button:last-child {
       border-bottom: none; }
+    .field_shell .tooltip-options > button:hover {
+      background-color: #f5f5f5; }
 
 /*# sourceMappingURL=app.css.map*/

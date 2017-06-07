@@ -50,7 +50,7 @@
 
 	{% if request.session.root_login %}
 		<div class="buttons_to_action">
-            <span class="tooltip">
+            <div class="tooltip align-left align-top">
                 <button class="tooltip_button"
                         data-name="description">
                     Add element
@@ -74,15 +74,16 @@
                         After
                     </button>
                 </div>
-            </span>
+            </div>
 
-            <span class="tooltip">
+            <div class="tooltip align-right align-top">
                 <button class="tooltip_button"
                         data-name="description">
                     Move
                 </button>
 
                 <div class="tooltip-options">
+                    {% if forloop.counter > 1%}
                     <button class="post_button"
                             type="button"
                             data-name="About_move_up_{{ element.pk }}"
@@ -92,6 +93,7 @@
                             data-url="/product/description/manage/">
                         Move up
                     </button>
+                    {% endif %}
                     <button class="post_button"
                             type="button"
                             data-name="About_move_down_{{ element.pk }}"
@@ -102,26 +104,35 @@
                         Move down
                     </button>
                 </div>
-            </span>
+            </div>
 
-			<button class="dialog_button"
-					type="button"
-					data-type="confirm"
-					data-name="description"
-					data-dialog-name="About_delete_{{ element.pk }}"
-					data-dialog-value="{{ element.pk }}"
-					data-dialog-action="delete"
-					data-dialog-reload="ground"
-					data-dialog-url="/product/description/manage/">
-				Delete
-			</button>
-			<button type="button" class="dialog_button submit"
-					data-type="prompt"
-					data-name="description"
-					data-value="{{ element.pk }}"
-					data-dialog-reload="ground">
-				Edit
-			</button>
+            <div class="tooltip align-right align-top">
+                <button class="tooltip_button"
+                        data-name="description">
+                    ...
+                </button>
+
+                <div class="tooltip-options">
+                    <button class="dialog_button"
+                            type="button"
+                            data-type="confirm"
+                            data-name="description"
+                            data-dialog-name="About_delete_{{ element.pk }}"
+                            data-dialog-value="{{ element.pk }}"
+                            data-dialog-action="delete"
+                            data-dialog-reload="ground"
+                            data-dialog-url="/product/description/manage/">
+                        Delete
+                    </button>
+                    <button type="button" class="dialog_button submit"
+                            data-type="prompt"
+                            data-name="description"
+                            data-value="{{ element.pk }}"
+                            data-dialog-reload="ground">
+                        Edit
+                    </button>
+                </div>
+            </div>
 		</div><!-- buttons_to_action -->
 	{% endif %}
 
