@@ -50,40 +50,60 @@
 
 	{% if request.session.root_login %}
 		<div class="buttons_to_action">
-            <button class="dialog_button"
-                    data-type="prompt"
-                    data-name="description"
-                    data-other_1="index:{{ element.pk }}"
-                    data-other_2="direction:up"
-                    data-dialog-reload="ground">
-                Prepend element
-            </button>
-            <button class="dialog_button"
-                    data-type="prompt"
-                    data-name="description"
-                    data-other_1="index:{{ element.pk }}"
-                    data-other_2="direction:down"
-                    data-dialog-reload="ground">
-                Append element
-            </button>
-            <button class="post_button"
-                    type="button"
-                    data-name="About_move_up_{{ element.pk }}"
-                    data-value="{{ element.pk }}"
-                    data-action="move_up"
-                    data-reload="ground"
-                    data-url="/product/description/manage/">
-                Move up
-            </button>
-			<button class="post_button"
-					type="button"
-					data-name="About_move_down_{{ element.pk }}"
-					data-value="{{ element.pk }}"
-					data-action="move_down"
-					data-reload="ground"
-					data-url="/product/description/manage/">
-				Move down
-			</button>
+            <span class="tooltip">
+                <button class="tooltip_button"
+                        data-name="description">
+                    Add element
+                </button>
+
+                <div class="tooltip-options">
+                    <button class="dialog_button"
+                            data-type="prompt"
+                            data-name="description"
+                            data-other_1="index:{{ element.pk }}"
+                            data-other_2="direction:up"
+                            data-dialog-reload="ground">
+                        Before
+                    </button>
+                    <button class="dialog_button"
+                            data-type="prompt"
+                            data-name="description"
+                            data-other_1="index:{{ element.pk }}"
+                            data-other_2="direction:down"
+                            data-dialog-reload="ground">
+                        After
+                    </button>
+                </div>
+            </span>
+
+            <span class="tooltip">
+                <button class="tooltip_button"
+                        data-name="description">
+                    Move
+                </button>
+
+                <div class="tooltip-options">
+                    <button class="post_button"
+                            type="button"
+                            data-name="About_move_up_{{ element.pk }}"
+                            data-value="{{ element.pk }}"
+                            data-action="move_up"
+                            data-reload="ground"
+                            data-url="/product/description/manage/">
+                        Move up
+                    </button>
+                    <button class="post_button"
+                            type="button"
+                            data-name="About_move_down_{{ element.pk }}"
+                            data-value="{{ element.pk }}"
+                            data-action="move_down"
+                            data-reload="ground"
+                            data-url="/product/description/manage/">
+                        Move down
+                    </button>
+                </div>
+            </span>
+
 			<button class="dialog_button"
 					type="button"
 					data-type="confirm"
