@@ -152,8 +152,8 @@ class Users_Payments(Dynamic_Event_Manager):
         self.content['shopping'] = []
 
         date_from, date_to = self.Get_Date()
-        approved = self.request.session['root_payments_approved']
-        payments = Payment.objects.filter(approved=approved,
+        status = self.request.session['root_payment_status']
+        payments = Payment.objects.filter(status=status,
                       date__gte=date_from, date__lte=date_to)
 
         for payment in payments:
@@ -174,11 +174,9 @@ class Users_Payments(Dynamic_Event_Manager):
 
     def Manage_Button(self):
 
-        if self.request.POST['value'] == 'approved':
-            self.request.session['root_payments_approved'] = True
-
-        if self.request.POST['value'] == 'not_approved':
-            self.request.session['root_payments_approved'] = False
+        if 'value' in self.request.POST:
+            self.request.session['root_payment_status'] = \
+                self.request.POST['value']
 
         return JsonResponse({'__button__': 'true'})
 

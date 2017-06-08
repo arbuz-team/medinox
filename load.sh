@@ -8,3 +8,4 @@ python3 $(dirname $0)/manage.py loaddata $(dirname $0)/setting/data/catalog.json
 python3 $(dirname $0)/manage.py loaddata $(dirname $0)/setting/data/product.json
 python3 $(dirname $0)/manage.py loaddata $(dirname $0)/setting/data/translator.json
 python3 $(dirname $0)/manage.py loaddata $(dirname $0)/setting/data/user.json
+python3 $(dirname $0)/manage.py loaddata $(dirname $0)/setting/data/payment.json

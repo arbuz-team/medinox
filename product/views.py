@@ -39,7 +39,7 @@ class Details(Dynamic_Event_Manager):
         return self.Render_HTML('product/details.html')
 
     @staticmethod
-    def Details(request, pk):
+    def Details(request, pk, name):
 
         if '__form__' in request.POST:
 

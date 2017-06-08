@@ -10,7 +10,7 @@ class Payment(models.Model):
     delivery_price = models.ForeignKey(Delivery)
     currency = models.CharField(max_length=3)
     service = models.CharField(max_length=10)
-    approved = models.BooleanField(default=False)
+    status = models.CharField(max_length=20)
 
     def __str__(self):
         return self.user.username

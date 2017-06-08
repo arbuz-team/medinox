@@ -234,12 +234,17 @@ class Dialog_Prompt(Dialog):
         if 'dialog_value' in self.request.POST:
             product = Product.objects.get(pk=self.request.POST['dialog_value'])
 
+            self.request.session['product_is_editing'] = True
             self.request.session['product_product'] = product
+
             self.content['edit'] = {'url': '/product/manage/'}
             self.content['image'] = product.image
             initial = {'name': product.name}
 
-        else: self.request.session['product_product'] = Product()
+        else:
+
+            self.request.session['product_product'] = Product()
+            self.request.session['product_is_editing'] = False
 
         self.content['title'] = Text(self.request, 158)
         self.content['form'] = Form_Product(self.request,
@@ -259,9 +264,13 @@ class Dialog_Prompt(Dialog):
             index = self.Get_Post_Value('index')
             position = Description.objects.get(pk=index).position
 
+            # get direction
+            direction = Direction.UP if direction == 'up' \
+                else Direction.DOWN
+
             self.request.session['product_description'] = Description()
             self.Add_Model_Order(Description, self.request.session['product_description'],
-                                 position, Direction.UP)
+                                 position, direction)
 
         # edit description with pk in dialog_value
         elif 'dialog_value' in self.request.POST:

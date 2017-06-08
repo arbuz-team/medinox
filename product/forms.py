@@ -54,6 +54,9 @@ class Form_Product(Abstract_Image_Form):
 
     def clean(self):
 
+        if self.request.session['product_is_editing']:
+            return Abstract_Image_Form.clean(self)
+
         name = self.data['name']
         parent = self.request.session['catalog_parent']
         children = Product.objects.filter(parent=parent)

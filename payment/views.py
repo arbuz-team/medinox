@@ -50,7 +50,7 @@ class PayPal(Payment_System):
             if post['mc_currency'] != self.payment.currency:
                 return
 
-            self.payment.approved = True
+            self.payment.status = 'pending'
             self.payment.service = 'PayPal'
             self.payment.save()
 
@@ -105,7 +105,7 @@ class DotPay(Payment_System):
             if post['operation_amount'] != self.payment.total_price:
                 return
 
-            self.payment.approved = True
+            self.payment.status = 'pending'
             self.payment.service = 'DotPay'
             self.payment.save()
 
@@ -152,7 +152,7 @@ class Payment_Manager(Dynamic_Event_Manager, PayPal, DotPay):
     def Update_Payment(self):
 
         payment = Payment.objects.get(
-            user=self.content['user'], approved=False)
+            user=self.content['user'], status='card')
 
         self.content['payment'] = payment.pk
         payment.date = date.today()
@@ -181,7 +181,7 @@ class Payment_Manager(Dynamic_Event_Manager, PayPal, DotPay):
 
         unique = self.request.session['user_unique']
         user = User.objects.get(unique=unique)
-        payment = Payment.objects.get(user=user, approved=False)
+        payment = Payment.objects.get(user=user, status='card')
 
         if model == 'delivery_address':
             address = Delivery_Address.objects.get(payment=payment)
@@ -227,7 +227,7 @@ class Payment_Manager(Dynamic_Event_Manager, PayPal, DotPay):
         address = User_Address.objects.get(pk=self.request.POST['value'])
         delivery = Delivery.objects.get(country=address.country)
         user = User.objects.get(unique=self.request.session['user_unique'])
-        payment = Payment.objects.get(user=user, approved=False)
+        payment = Payment.objects.get(user=user, status='card')
 
         payment.delivery_price = delivery
         payment.save()

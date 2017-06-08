@@ -70,7 +70,7 @@ class Payment_Models_Manager(Dynamic_Base):
         unique = self.request.session['user_unique']
         self.user = User.objects.get(unique=unique)
 
-        payments = Payment.objects.filter(user=self.user, approved=False)
+        payments = Payment.objects.filter(user=self.user, status='card')
         if payments.count() > 1:
             payments.delete()
 
@@ -86,11 +86,12 @@ class Payment_Models_Manager(Dynamic_Base):
                 total_price='0.00',
                 delivery_price=delivery,
                 service='None',
-                currency=self.request.session['translator_currency']
+                currency=self.request.session['translator_currency'],
+                status='card'
             )
             payment.save()
 
-        self.payment = Payment.objects.get(user=self.user, approved=False)
+        self.payment = Payment.objects.get(user=self.user, status='card')
         self.Check_Delivery_Address()
         self.Check_Invoice_Address()
 
@@ -98,7 +99,7 @@ class Payment_Models_Manager(Dynamic_Base):
         return Selected_Product.objects.filter(payment=self.payment)
 
     def Get_Payment(self):
-        return Payment.objects.get(user=self.user, approved=False)
+        return Payment.objects.get(user=self.user, status='card')
 
     def Append_Selected_Product(self, product):
         selected_product = Selected_Product.objects.filter(
