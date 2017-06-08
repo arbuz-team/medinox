@@ -1,5 +1,4 @@
 {% load staticfiles %}
-{% load tags %}
 
 <script>
   window.APP.DATA = {
@@ -13,9 +12,8 @@
     {% for element in content %}
         {% include "ground/html/paragraph.html" %}
     {% endfor %}
-    {{ content|length }}
 {% else %}
-    {% include "ground/html/paragraph.html" %}
+    {% include "ground/html/paragraph_new.html" %}
 {% endif %}
 
 

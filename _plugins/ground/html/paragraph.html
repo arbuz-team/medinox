@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load tags %}
 
 <!--
 	variables: element
@@ -81,26 +82,28 @@
                 </button>
 
                 <div class="tooltip-options">
-                    {% if forloop.counter > 1%}
-                    <button class="post_button"
-                            type="button"
-                            data-name="About_move_up_{{ element.pk }}"
-                            data-value="{{ element.pk }}"
-                            data-action="move_up"
-                            data-reload="ground"
-                            data-url="/product/description/manage/">
-                        Move up
-                    </button>
+                    {% if forloop.counter > 1 %}
+						<button class="post_button"
+								type="button"
+								data-name="About_move_up_{{ element.pk }}"
+								data-value="{{ element.pk }}"
+								data-action="move_up"
+								data-reload="ground"
+								data-url="/product/description/manage/">
+							Move up
+						</button>
                     {% endif %}
-                    <button class="post_button"
-                            type="button"
-                            data-name="About_move_down_{{ element.pk }}"
-                            data-value="{{ element.pk }}"
-                            data-action="move_down"
-                            data-reload="ground"
-                            data-url="/product/description/manage/">
-                        Move down
-                    </button>
+					{% if not forloop.counter == content|length and not forloop.counter == descriptions|length %}
+						<button class="post_button"
+								type="button"
+								data-name="About_move_down_{{ element.pk }}"
+								data-value="{{ element.pk }}"
+								data-action="move_down"
+								data-reload="ground"
+								data-url="/product/description/manage/">
+							Move down
+						</button>
+					{% endif %}
                 </div>
             </div>
 
