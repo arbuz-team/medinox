@@ -45,6 +45,9 @@
   -webkit-box-shadow: $param
   box-shadow: $param
 
+=box-shadow-standard()
+  +box-shadow($G-STANDARD-SHADOW)
+
 
 =linear-gradient($param1, $param2, $param3)
   background:
@@ -68,12 +71,47 @@
   -ms-flex-order: $number
   order: $number
 
-=transition($p1, $p2: color 0s, $p3: color 0s, $p4: color 0s, $p5: color 0s)
+
+
+
+
+=transition($p1)
+  -webkit-transition: $p1
+  -moz-transition:    $p1
+  -ms-transition:     $p1
+  -o-transition:      $p1
+  transition:         $p1
+
+=transition_2($p1, $p2)
+  -webkit-transition: $p1, $p2
+  -moz-transition:    $p1, $p2
+  -ms-transition:     $p1, $p2
+  -o-transition:      $p1, $p2
+  transition:         $p1, $p2
+
+=transition_3($p1, $p2, $p3)
+  -webkit-transition: $p1, $p2, $p3
+  -moz-transition:    $p1, $p2, $p3
+  -ms-transition:     $p1, $p2, $p3
+  -o-transition:      $p1, $p2, $p3
+  transition:         $p1, $p2, $p3
+
+=transition_4($p1, $p2, $p3, $p4)
+  -webkit-transition: $p1, $p2, $p3, $p4
+  -moz-transition:    $p1, $p2, $p3, $p4
+  -ms-transition:     $p1, $p2, $p3, $p4
+  -o-transition:      $p1, $p2, $p3, $p4
+  transition:         $p1, $p2, $p3, $p4
+
+=transition_5($p1, $p2, $p3, $p4, $p5)
   -webkit-transition: $p1, $p2, $p3, $p4, $p5
   -moz-transition:    $p1, $p2, $p3, $p4, $p5
   -ms-transition:     $p1, $p2, $p3, $p4, $p5
   -o-transition:      $p1, $p2, $p3, $p4, $p5
   transition:         $p1, $p2, $p3, $p4, $p5
+
+
+
 
 
 
