@@ -58,12 +58,7 @@ body, html {
 
 body {
   position: absolute;
-  overflow: hidden;
-  -webkit-user-select: none !important; }
-
-@media (min-width: 1000px) {
-  body {
-    -webkit-user-select: text !important; } }
+  overflow: hidden; }
 
 a, a:hover, a:active, a:visited {
   color: inherit;
@@ -88,22 +83,33 @@ strong {
   background-color: #ffffff; }
 
 div > .buttons_to_action {
-  display: none;
   position: absolute;
-  top: 0;
-  right: 10px;
+  top: 10px;
+  right: 0;
   z-index: 20;
+  padding: 0 10px;
+    padding-top: 5px;
+  background-color: #f5f5f5;
+  border: 1px solid #e8e8e8;
+    border-right: none;
+  -moz-box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
+  -webkit-box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
+  box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
   text-align: right;
-  opacity: 0;
-  -webkit-transition: opacity 150ms, color 0s, color 0s, color 0s, color 0s;
-  -moz-transition: opacity 150ms, color 0s, color 0s, color 0s, color 0s;
-  -ms-transition: opacity 150ms, color 0s, color 0s, color 0s, color 0s;
-  -o-transition: opacity 150ms, color 0s, color 0s, color 0s, color 0s;
-  transition: opacity 150ms, color 0s, color 0s, color 0s, color 0s; }
-
-div:hover > .buttons_to_action {
-  display: block;
   opacity: 1; }
+  div > .buttons_to_action > button, div > .buttons_to_action > div > button {
+    line-height: 20px; }
+
+@media (min-width: 1000px) {
+  div > .buttons_to_action {
+    opacity: 0;
+    -webkit-transition: opacity 150ms;
+    -moz-transition: opacity 150ms;
+    -ms-transition: opacity 150ms;
+    -o-transition: opacity 150ms;
+    transition: opacity 150ms; }
+  div:hover > .buttons_to_action {
+    opacity: 1; } }
 
 .container-part {
   z-index: 5;
@@ -1306,11 +1312,11 @@ button {
   display: block;
   max-height: 100px;
   overflow: hidden;
-  -webkit-transition: max-height 500ms ease, color 0s, color 0s, color 0s, color 0s;
-  -moz-transition: max-height 500ms ease, color 0s, color 0s, color 0s, color 0s;
-  -ms-transition: max-height 500ms ease, color 0s, color 0s, color 0s, color 0s;
-  -o-transition: max-height 500ms ease, color 0s, color 0s, color 0s, color 0s;
-  transition: max-height 500ms ease, color 0s, color 0s, color 0s, color 0s;
+  -webkit-transition: max-height 500ms ease;
+  -moz-transition: max-height 500ms ease;
+  -ms-transition: max-height 500ms ease;
+  -o-transition: max-height 500ms ease;
+  transition: max-height 500ms ease;
   cursor: pointer;
   vertical-align: top; }
   .ground-block.BIG .form_block .shell_form {
@@ -1320,11 +1326,11 @@ button {
     bottom: 0;
     height: 50px;
     background-image: linear-gradient(transparent, white);
-    -webkit-transition: height 500ms ease, color 0s, color 0s, color 0s, color 0s;
-    -moz-transition: height 500ms ease, color 0s, color 0s, color 0s, color 0s;
-    -ms-transition: height 500ms ease, color 0s, color 0s, color 0s, color 0s;
-    -o-transition: height 500ms ease, color 0s, color 0s, color 0s, color 0s;
-    transition: height 500ms ease, color 0s, color 0s, color 0s, color 0s; }
+    -webkit-transition: height 500ms ease;
+    -moz-transition: height 500ms ease;
+    -ms-transition: height 500ms ease;
+    -o-transition: height 500ms ease;
+    transition: height 500ms ease; }
   .ground-block.BIG .form_block .title {
     margin-top: 0;
     padding-bottom: 5px;
@@ -2057,7 +2063,10 @@ img {
   width: 150px;
   background-color: #f0f0f0;
   border: 1px solid #e8e8e8;
-    border-radius: 1px; }
+    border-radius: 1px;
+  -moz-box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
+  -webkit-box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
+  box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15); }
   .field_shell .tooltip-options > button {
     display: block;
     width: 100%;
