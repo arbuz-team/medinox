@@ -85,3 +85,7 @@ def get_app_name(context):
     request = context['request']
 
     return Other_Manager(task, {}, request).OUT
+
+@register.filter
+def length(tab):
+    return len(tab)
