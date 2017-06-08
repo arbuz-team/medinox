@@ -382,7 +382,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.start = undefined;
 	
@@ -419,49 +419,49 @@
 	 */
 	
 	var reload_sign_in = function reload_sign_in(permissions) {
-	  return function () {
-	    var delay = window.APP.DATA.delay,
-	        reload = function reload() {
-	      window.APP.throw_event(window.EVENTS.plugins.reload_navigation);
+		return function () {
+			var delay = window.APP.DATA.delay,
+			    reload = function reload() {
+				window.APP.throw_event(window.EVENTS.plugins.reload_navigation);
 	
-	      if (permissions === 'root') window.APP.throw_event(window.EVENTS.plugins.reload_searcher);
+				if (permissions === 'root') window.APP.throw_event(window.EVENTS.plugins.reload_searcher);
 	
-	      if (permissions === 'user') window.APP.throw_event(window.EVENTS.plugins.reload_cart);
-	    };
+				if (permissions === 'user') window.APP.throw_event(window.EVENTS.plugins.reload_cart);
+			};
 	
-	    if (delay) setTimeout(reload, delay);else reload();
-	  };
+			if (delay) setTimeout(reload, delay);else reload();
+		};
 	},
 	    reload_website = function reload_website() {
-	  if (!window.APP.DATA.delay) window.APP.DATA.delay = 0;
+		if (!window.APP.DATA.delay) window.APP.DATA.delay = 0;
 	
-	  setTimeout(window.location.reload, window.APP.DATA.delay);
+		setTimeout(window.location.reload, window.APP.DATA.delay);
 	},
 	    define = function define() {
-	  // Usuń wszystkie wydarzenia ze wszystkich elementów
-	  $('*').off();
+		// Usuń wszystkie wydarzenia ze wszystkich elementów
+		$('*').off();
 	
-	  searcher_controllers.define();
-	  cart_controllers.define();
-	  navigation_controllers.define();
-	  header_controllers.define();
-	  dialog_controllers.define();
-	  ground_controllers.define();
+		searcher_controllers.define();
+		cart_controllers.define();
+		navigation_controllers.define();
+		header_controllers.define();
+		dialog_controllers.define();
+		ground_controllers.define();
 	};
 	
 	var start = exports.start = function start() {
-	  window.addEventListener('define', define, false);
-	  window.APP.add_own_event('reload_website', reload_website);
-	  window.APP.add_own_event('reload_user_sign_in', reload_sign_in('user'));
-	  window.APP.add_own_event('reload_root_sign_in', reload_sign_in('root'));
+		window.addEventListener('define', define, false);
+		window.APP.add_own_event('reload_website', reload_website);
+		window.APP.add_own_event('reload_user_sign_in', reload_sign_in('user'));
+		window.APP.add_own_event('reload_root_sign_in', reload_sign_in('root'));
 	
-	  searcher_controllers.start();
-	  cart_controllers.start();
-	  navigation_controllers.start();
-	  header_controllers.start();
-	  ground_controllers.start();
+		searcher_controllers.start();
+		cart_controllers.start();
+		navigation_controllers.start();
+		header_controllers.start();
+		ground_controllers.start();
 	
-	  define();
+		define();
 	};
 
 /***/ },
