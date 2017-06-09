@@ -30,7 +30,55 @@
             <div>
                 <span>{{ item.payment.service }}</span> <span>{{ item.payment.total_price }} {{ item.payment.currency }}</span>
             </div>
-            <div>
+            <div style="text-align: right">
+
+                <div class="tooltip align-left align-top">
+                    <button class="tooltip_button"
+                            data-name="description">
+                        Assign
+                    </button>
+
+                    <div class="tooltip-options">
+
+                        <button class="post_button"
+                                data-name="set_card_status_pending"
+                                data-action="assign"
+                                data-value="pending"
+                                data-other_1="index:{{ item.payment.pk }}"
+                                data-reload="ground">
+                            Pending
+                        </button>
+                        <button class="post_button"
+                                type="button"
+                                data-name="set_card_status_internal"
+                                data-action="assign"
+                                data-value="internal"
+                                data-other_1="index:{{ item.payment.pk }}"
+                                data-reload="ground">
+                            Internal
+                        </button>
+                        <button class="post_button"
+                                type="button"
+                                data-name="set_card_status_external"
+                                data-action="assign"
+                                data-value="external"
+                                data-other_1="index:{{ item.payment.pk }}"
+                                data-reload="ground">
+                            External
+                        </button>
+                        <button class="post_button"
+                                type="button"
+                                data-name="set_card_status_completed"
+                                data-action="assign"
+                                data-value="completed"
+                                data-other_1="index:{{ item.payment.pk }}"
+                                data-reload="ground">
+                            Completed
+                        </button>
+
+                    </div>
+                </div>
+
                 <div class="tooltip align-left align-top">
                     <button class="tooltip_button"
                             data-name="description">
@@ -49,6 +97,7 @@
                         </a>
                     </div>
                 </div>
+
             </div>
         </div>
 
