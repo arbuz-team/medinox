@@ -201,7 +201,7 @@ class Manager:
 
             # image = Dynamic_Base.Save_Image_From_URL(product['image'])
             # new_product.Save_Image(image)
-            new_product.image = '/_static/img/product/{0}.jpeg'.format(new_product.pk)
+            new_product.image = '/static/img/product/{0}.jpeg'.format(new_product.pk)
             new_product.save()
 
     @staticmethod

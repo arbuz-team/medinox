@@ -11,27 +11,27 @@ class Start_App(Dynamic_Event_Manager):
             {
                 'name': Text(self.request, 24),
                 'url': self.Get_Path('root.sign_out', current_language=True),
-                'icon': '/_static/img/icons/128/dark/logout.png',
+                'icon': '/static/img/icons/128/dark/logout.png',
             },
             {
                 'name': Text(self.request, 25),
                 'url': self.Get_Path('root.company_details', current_language=True),
-                'icon': '/_static/img/icons/128/dark/moustache.png',
+                'icon': '/static/img/icons/128/dark/moustache.png',
             },
             {
                 'name': Text(self.request, 27),
                 'url': self.Get_Path('root.users_payments', current_language=True),
-                'icon': '/_static/img/icons/128/dark/money.png',
+                'icon': '/static/img/icons/128/dark/money.png',
             },
             {
                 'name': Text(self.request, 135),
                 'url': self.Get_Path('root.social_media', current_language=True),
-                'icon': '/_static/img/icons/128/dark/social_group.png',
+                'icon': '/static/img/icons/128/dark/social_group.png',
             },
             {
                 'name': Text(self.request, 136),
                 'url': self.Get_Path('root.delivery_settings', current_language=True),
-                'icon': '/_static/img/icons/128/dark/transport.png',
+                'icon': '/static/img/icons/128/dark/transport.png',
             },
         ]
 
