@@ -12,7 +12,7 @@
 
     <div class="block-content">
 
-        <div class="title">Users payments</div>
+        <div class="title">Users payments - {{ request.session.root_payment_status | title }}</div>
 
 
         <form class="users_payments-filters auto_form field_shell" action="" data-origin="filter" data-reload="ground" data-delay="100">
@@ -23,7 +23,8 @@
 
 
             <div class="tooltip align-left align-top">
-                <button class="tooltip_button submit"
+                <button type="button"
+                        class="tooltip_button"
                         data-name="description">
                     Category
                 </button>
