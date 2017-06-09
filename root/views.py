@@ -175,7 +175,13 @@ class Users_Payments(Dynamic_Event_Manager):
 
     def Manage_Button(self):
 
-        if 'value' in self.request.POST:
+        if self.request.POST['__button__'] == 'assign':
+            index = self.Get_Post_Value('index')
+            payment = Payment.objects.get(pk=index)
+            payment.status = self.request.POST['value']
+            payment.save()
+
+        if self.request.POST['__button__'] == 'change':
             self.request.session['root_payment_status'] = \
                 self.request.POST['value']
 
