@@ -910,7 +910,7 @@
 	
 	var define = exports.define = function define() {
 	  var $images = $query('img'),
-	      default_src = '/_static/img/puzzle_256.png',
+	      default_src = '/static/img/puzzle_256.png',
 	      image = new Image();
 	
 	  function download_img($imgs, i) {

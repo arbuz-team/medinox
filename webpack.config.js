@@ -3,10 +3,10 @@
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-  entry: './_plugins/_sandbox.js',
+  entry: './client/plugins/_sandbox.js',
   output: { 
     path: __dirname, 
-    filename: './_static/js/bundle.js'
+    filename: './client/static/js/bundle.js'
   },
   devtool: "source-map",
   module: {
@@ -30,6 +30,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("./_static/style/app.css")
+    new ExtractTextPlugin("./client/static/style/app.css")
   ]
 };
