@@ -1276,7 +1276,12 @@ button {
   margin: 30px auto; }
 
 .ground-block.BIG .form_block.visible, .ground-block.BIG .form_block.visible.fields {
-  max-height: 700px;
+  -webkit-transition: max-height 300ms easy-out;
+  -moz-transition: max-height 300ms easy-out;
+  -ms-transition: max-height 300ms easy-out;
+  -o-transition: max-height 300ms easy-out;
+  transition: max-height 300ms easy-out;
+  max-height: 600px;
   cursor: auto; }
   .ground-block.BIG .form_block.visible .shell_form, .ground-block.BIG .form_block.visible.fields .shell_form {
     height: 0; }
@@ -1312,11 +1317,11 @@ button {
   display: block;
   max-height: 100px;
   overflow: hidden;
-  -webkit-transition: max-height 500ms ease;
-  -moz-transition: max-height 500ms ease;
-  -ms-transition: max-height 500ms ease;
-  -o-transition: max-height 500ms ease;
-  transition: max-height 500ms ease;
+  -webkit-transition: max-height 500ms ease-in;
+  -moz-transition: max-height 500ms ease-in;
+  -ms-transition: max-height 500ms ease-in;
+  -o-transition: max-height 500ms ease-in;
+  transition: max-height 500ms ease-in;
   cursor: pointer;
   vertical-align: top; }
   .ground-block.BIG .form_block .shell_form {
@@ -1326,11 +1331,11 @@ button {
     bottom: 0;
     height: 50px;
     background-image: linear-gradient(transparent, white);
-    -webkit-transition: height 500ms ease;
-    -moz-transition: height 500ms ease;
-    -ms-transition: height 500ms ease;
-    -o-transition: height 500ms ease;
-    transition: height 500ms ease; }
+    -webkit-transition: height 500ms ease-in;
+    -moz-transition: height 500ms ease-in;
+    -ms-transition: height 500ms ease-in;
+    -o-transition: height 500ms ease-in;
+    transition: height 500ms ease-in; }
   .ground-block.BIG .form_block .title {
     margin-top: 0;
     padding-bottom: 5px;
@@ -1349,7 +1354,7 @@ button {
   .ground:not(.smaller) .ground-block.BIG .form_block {
     display: inline-block;
     width: 203.66667px;
-    max-height: 700px;
+    max-height: 600px;
     margin-right: 10px;
     cursor: auto; }
     .ground:not(.smaller) .ground-block.BIG .form_block .shell_form {
@@ -1372,7 +1377,7 @@ button {
   .ground.smaller .ground-block.BIG .form_block {
     display: inline-block;
     width: 203.66667px;
-    max-height: 700px;
+    max-height: 600px;
     margin-right: 10px;
     cursor: auto; }
     .ground.smaller .ground-block.BIG .form_block .shell_form {
@@ -2012,7 +2017,7 @@ img {
 
 @media (min-width: 675px) {
   .ground:not(.smaller) .ground-block.BIG.users_payments .form_block.fields {
-    max-height: 70px;
+    max-height: 65px;
     cursor: pointer; }
     .ground:not(.smaller) .ground-block.BIG.users_payments .form_block.fields .shell_form {
       height: 50px;
@@ -2022,7 +2027,8 @@ img {
       color: #774D34;
       cursor: pointer; }
   .ground:not(.smaller) .ground-block.BIG.users_payments .form_block.visible.fields {
-    max-height: 700px;
+    overflow: visible;
+    max-height: 600px;
     cursor: auto; }
     .ground:not(.smaller) .ground-block.BIG.users_payments .form_block.visible.fields .shell_form {
       height: 0; } }
@@ -2038,7 +2044,8 @@ img {
       color: #774D34;
       cursor: pointer; }
   .ground.smaller .ground-block.BIG.users_payments .form_block.visible.fields {
-    max-height: 700px;
+    overflow: visible;
+    max-height: 600px;
     cursor: auto; }
     .ground.smaller .ground-block.BIG.users_payments .form_block.visible.fields .shell_form {
       height: 0; } }

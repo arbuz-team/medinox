@@ -61,6 +61,7 @@
 
 
   .form_block.visible, .form_block.visible.fields
+    +transition(max-height 300ms easy-out)
     max-height: $ALL_blocks--max-height-visible
     cursor: auto
 
@@ -108,7 +109,7 @@
     max-height: $form_blocks--max-height
     overflow: hidden
 
-    +transition(max-height 500ms ease)
+    +transition(max-height 500ms ease-in)
     cursor: pointer
     vertical-align: top
 
@@ -120,7 +121,7 @@
       
       height: 50px
       background-image: linear-gradient(transparent, white)
-      +transition(height 500ms ease)
+      +transition(height 500ms ease-in)
 
     .title
       margin-top: 0
