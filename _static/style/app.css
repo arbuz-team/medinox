@@ -2049,7 +2049,7 @@ img {
   z-index: 20; }
   .field_shell .tooltip:hover .tooltip-options, .field_shell .tooltip:focus .tooltip-options {
     display: block; }
-    .field_shell .tooltip:hover .tooltip-options > button, .field_shell .tooltip:focus .tooltip-options > button {
+    .field_shell .tooltip:hover .tooltip-options > *, .field_shell .tooltip:focus .tooltip-options > * {
       background-color: #f5f5f5; }
   .field_shell .tooltip.align-left .tooltip-options {
     left: 0; }
@@ -2071,7 +2071,7 @@ img {
   -moz-box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
   -webkit-box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
   box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15); }
-  .field_shell .tooltip-options > button {
+  .field_shell .tooltip-options > * {
     display: block;
     width: 100%;
     margin: 0;
@@ -2082,7 +2082,10 @@ img {
       border-radius: 0;
     text-align: left;
     color: #1a1a1a; }
-    .field_shell .tooltip-options > button:last-child {
+    .field_shell .tooltip-options > *:last-child {
       border-bottom: none; }
+    .field_shell .tooltip-options > *:hover {
+      border: none;
+        border-bottom: 1px solid #e8e8e8; }
 
 /*# sourceMappingURL=app.css.map*/
