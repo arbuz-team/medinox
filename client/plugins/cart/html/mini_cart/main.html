@@ -1,5 +1,7 @@
 {% load tags %}
 
+<!-- TODO Napraw guziki w tooltipach (wtf tekst) -->
+
 <div class="form_block fields">
     <div>
 
@@ -21,9 +23,9 @@
         </div>
 
         {% for selected in item.products %}
-            <div class="field">
-                <span>{{ selected.product }}</span> <span>x {{ selected.number }}</span>
-            </div>
+        <div class="field">
+            <span>{{ selected.product }}</span> <span>x {{ selected.number }}</span>
+        </div>
         {% endfor %}
 
         <div class="field_shell">
@@ -47,6 +49,9 @@
                                 data-other_1="index:{{ item.payment.pk }}"
                                 data-reload="ground">
                             Pending
+                            <span style="float: right; font-size: 24px">
+                                {% if request.session.root_payment_status == 'pending' %} &#10004; {% endif %}
+                            </span>
                         </button>
                         <button class="post_button"
                                 type="button"
@@ -56,6 +61,9 @@
                                 data-other_1="index:{{ item.payment.pk }}"
                                 data-reload="ground">
                             Internal
+                            <span style="float: right; font-size: 24px">
+                                {% if request.session.root_payment_status == 'internal' %} &#10004; {% endif %}
+                            </span>
                         </button>
                         <button class="post_button"
                                 type="button"
@@ -65,6 +73,9 @@
                                 data-other_1="index:{{ item.payment.pk }}"
                                 data-reload="ground">
                             External
+                            <span style="float: right; font-size: 24px">
+                                {% if request.session.root_payment_status == 'external' %} &#10004; {% endif %}
+                            </span>
                         </button>
                         <button class="post_button"
                                 type="button"
@@ -74,6 +85,9 @@
                                 data-other_1="index:{{ item.payment.pk }}"
                                 data-reload="ground">
                             Completed
+                            <span style="float: right; font-size: 24px">
+                                {% if request.session.root_payment_status == 'completed' %} &#10004; {% endif %}
+                            </span>
                         </button>
 
                     </div>
@@ -86,6 +100,18 @@
                     </button>
 
                     <div class="tooltip-options">
+                        <button class="dialog_button" type="button"
+                                data-type="prompt"
+                                data-name="deadline"
+                                data-value="{{ item.payment.pk }}">
+                            Deadline/Reminder
+                        </button>
+                        <button class="dialog_button" type="button"
+                                data-type="prompt"
+                                data-name="note"
+                                data-value="{{ item.payment.pk }}">
+                            Note
+                        </button>
                         <button class="dialog_button" type="button"
                                 data-type="alert"
                                 data-name="{{ button_address_name }}"
