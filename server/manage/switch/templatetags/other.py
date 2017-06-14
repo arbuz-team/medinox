@@ -34,7 +34,7 @@ class Other_Manager(Base_Tag_Manager):
         return Text(self.request, pk, language)
 
     def Get_App_Name(self):
-        app_name = self.request.session['arbuz_app']
+        app_name = self.request.session['arbuz_app'].split('.')[-1]
         pk = Language_EN.objects.get(value=app_name).pk
         return Text(self.request, pk).replace('.', ' ').title()
 
