@@ -1,0 +1,131 @@
+{% load tags %}
+
+<!-- TODO Napraw guziki w tooltipach (wtf tekst) -->
+
+<div class="form_block fields">
+    <div>
+
+        <div class="shell_form"></div>
+
+        <div class="title field_shell">
+            <button class="icon" type="button">
+                <i style="background-image: url(/static/img/icons/32/dark/shopping_cart.png)"> &nbsp; </i>
+            </button>
+
+            {{ item.payment.date }}     &nbsp;<br>
+
+            {% if button_address_name == 'root_address' and item.fullname %}
+                {{ item.fullname }}    &nbsp;
+            {% else %}
+                {{ item.payment.user }}    &nbsp;
+            {% endif %}
+
+        </div>
+
+        {% for selected in item.products %}
+            <div class="field">
+                <span>{{ selected.product }}</span> <span>x {{ selected.number }}</span>
+            </div>
+        {% endfor %}
+
+        <div class="field_shell">
+            <div>
+                <span>{{ item.payment.service }}</span> <span>{{ item.payment.total_price }} {{ item.payment.currency }}</span>
+            </div>
+            <div style="text-align: right">
+
+                <div class="tooltip align-left align-top">
+                    <button class="tooltip_button"
+                            data-name="description">
+                        Assign
+                    </button>
+
+                    <div class="tooltip-options">
+
+                        <button class="post_button"
+                                data-name="set_card_status_pending"
+                                data-action="assign"
+                                data-value="pending"
+                                data-other_1="index:{{ item.payment.pk }}"
+                                data-reload="ground">
+                            Pending
+                            <span style="float: right; font-size: 24px">
+                                {% if request.session.root_payment_status == 'pending' %} &#10004; {% endif %}
+                            </span>
+                        </button>
+                        <button class="post_button"
+                                type="button"
+                                data-name="set_card_status_internal"
+                                data-action="assign"
+                                data-value="internal"
+                                data-other_1="index:{{ item.payment.pk }}"
+                                data-reload="ground">
+                            Internal
+                            <span style="float: right; font-size: 24px">
+                                {% if request.session.root_payment_status == 'internal' %} &#10004; {% endif %}
+                            </span>
+                        </button>
+                        <button class="post_button"
+                                type="button"
+                                data-name="set_card_status_external"
+                                data-action="assign"
+                                data-value="external"
+                                data-other_1="index:{{ item.payment.pk }}"
+                                data-reload="ground">
+                            External
+                            <span style="float: right; font-size: 24px">
+                                {% if request.session.root_payment_status == 'external' %} &#10004; {% endif %}
+                            </span>
+                        </button>
+                        <button class="post_button"
+                                type="button"
+                                data-name="set_card_status_completed"
+                                data-action="assign"
+                                data-value="completed"
+                                data-other_1="index:{{ item.payment.pk }}"
+                                data-reload="ground">
+                            Completed
+                            <span style="float: right; font-size: 24px">
+                                {% if request.session.root_payment_status == 'completed' %} &#10004; {% endif %}
+                            </span>
+                        </button>
+
+                    </div>
+                </div>
+
+                <div class="tooltip align-left align-top">
+                    <button class="tooltip_button"
+                            data-name="description">
+                        More
+                    </button>
+
+                    <div class="tooltip-options">
+                        <button class="dialog_button" type="button"
+                                data-type="prompt"
+                                data-name="deadline"
+                                data-value="{{ item.payment.pk }}">
+                            Deadline/Reminder
+                        </button>
+                        <button class="dialog_button" type="button"
+                                data-type="prompt"
+                                data-name="note"
+                                data-value="{{ item.payment.pk }}">
+                            Note
+                        </button>
+                        <button class="dialog_button" type="button"
+                                data-type="alert"
+                                data-name="{{ button_address_name }}"
+                                data-value="{{ item.payment.pk }}">
+                            Show addresses
+                        </button>
+                        <a class="button" href="{% url 'pdf.invoice' full=True pk=item.payment.pk %}">
+                            Get invoice
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div><!-- form_block fields -->

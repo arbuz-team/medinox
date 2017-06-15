@@ -9,10 +9,10 @@
 
     <div class="block-background fill-abs"></div>
 
-    {% include "ground/html/navigation.html" %}
+    {% include "part/ground/html/navigation.html" %}
 
     {% if products or catalogs or request.session.root_login %}
-        {% include 'products/html/tiles.html' %}
+        {% include 'part/ground/plugin/product/html/tile.html' %}
     {% endif %}
 
     {% if not products and not catalogs %}

@@ -9,14 +9,14 @@
 
     <div class="block-background fill-abs"></div>
 
-    {% include "ground/html/navigation.html" %}
+    {% include "part/ground/html/navigation.html" %}
 
     {% if products %}
-        {% include 'products/html/tiles.html' %}
+        {% include 'part/ground/plugin/product/html/tile.html' %}
     {% else %}
         <div class="block-content-message">Products not found</div>
     {% endif %}
 
 </div><!-- ground-block -->
 
-{% include "ground/html/footer.html" %}
+{% include "part/ground/html/footer.html" %}
