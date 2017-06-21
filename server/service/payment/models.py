@@ -36,3 +36,20 @@ class Selected_Product(models.Model):
 
     def __str__(self):
         return self.product.name
+
+
+
+class Order_Deadline(Abstract_Model):
+
+    payment = models.OneToOneField(Payment)
+    name = models.CharField(max_length=20)
+    deadline = models.DateField(null=True)
+    send_to_buyer = models.BooleanField()
+    send_to_root = models.BooleanField()
+    reminder = models.DateField(null=True)
+
+
+class Order_Note(Abstract_Model):
+
+    payment = models.OneToOneField(Payment)
+    note = models.TextField()

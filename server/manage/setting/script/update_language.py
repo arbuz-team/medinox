@@ -2,11 +2,12 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(os.path.dirname(BASE_DIR))
+SERVER_DIR = os.path.dirname(BASE_DIR)
 
 
 def Convert_To_Json(file_path, model_name):
 
-    file = open(BASE_DIR + file_path, encoding='utf-8')
+    file = open(SERVER_DIR + file_path, encoding='utf-8')
     lines = file.read().splitlines()
     file.close()
     json = []
@@ -34,7 +35,7 @@ def Save_Result(json_list):
 
 
 
-json_en = Convert_To_Json('/translator/language/EN', 'translator.language_en')
-json_pl = Convert_To_Json('/translator/language/PL', 'translator.language_pl')
-# json_de = Convert_To_Json('/translator/language/DE', 'translator.language_de')
+json_en = Convert_To_Json('/service/translator/language/EN', 'translator.language_en')
+json_pl = Convert_To_Json('/service/translator/language/PL', 'translator.language_pl')
+# json_de = Convert_To_Json('/service/translator/language/DE', 'translator.language_de')
 Save_Result([json_en, json_pl])

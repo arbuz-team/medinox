@@ -2,7 +2,7 @@ from server.content.product.forms import *
 from server.content.catalog.forms import *
 from server.manage.user.account.forms import *
 from server.content.main.forms import *
-from server.service.payment.models import *
+from server.service.payment.forms import *
 from server.content.main.models import *
 from server.service.translator.views import *
 from inspect import getmembers, ismethod
@@ -291,6 +291,37 @@ class Dialog_Prompt(Dialog):
 
         return self.Render_Dialog('dialog/prompt.html',
                                   'description', only_root=True)
+
+
+    def Manage_Deadline(self):
+
+        if 'dialog_value' in self.request.POST:
+            payment = self.request.POST['dialog_value']
+            deadline = Order_Deadline.objects.get(payment=payment)
+
+        else: deadline = self.request.session['root_deadline']
+
+        self.request.session['root_deadline'] = deadline
+        self.content['form'] = Form_Order_Deadline(
+            self.request, instance=deadline)
+
+        return self.Render_Dialog('dialog/prompt.html',
+                                  'deadline', only_root=True)
+
+    def Manage_Note(self):
+
+        if 'dialog_value' in self.request.POST:
+            payment = self.request.POST['dialog_value']
+            note = Order_Note.objects.get(payment=payment)
+
+        else: note = self.request.session['root_note']
+
+        self.request.session['root_note'] = note
+        self.content['form'] = Form_Order_Note(
+            self.request, instance=note)
+
+        return self.Render_Dialog('dialog/prompt.html',
+                                  'note', only_root=True)
 
 
     def Manage_Edit_Email(self):

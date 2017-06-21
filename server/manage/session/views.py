@@ -63,6 +63,12 @@ class Session_Controller:
             self.request.session['root_social_media'] = \
                 Social_Media.objects.all()
 
+        if 'root_note' not in self.request.session:
+            self.request.session['root_note'] = None
+
+        if 'root_deadline' not in self.request.session:
+            self.request.session['root_deadline'] = None
+
     def Check_Session_Translator(self):
 
         if 'translator_language' not in self.request.session:

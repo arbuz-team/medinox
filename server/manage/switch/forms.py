@@ -54,6 +54,11 @@ class Abstract_Model_Form(Base_Form, forms.ModelForm):
     def Edit_Instance(self):
         pass
 
+    def Exclude_Fields(self):
+
+        if 'position' in self.fields:
+            del self.fields['position']
+
     def __init__(self, request, *args, **kwargs):
 
         if 'instance' in kwargs:
@@ -183,8 +188,11 @@ class Abstract_Address_Form(Abstract_Model_Form):
         self.fields['postcode'].widget = forms.TextInput(attrs=postcode_attr)
 
     def Exclude_Fields(self):
+
         if self.request.session['translator_language'] != 'PL':
             del self.fields['doctor_number']
+
+        Abstract_Model_Form.Exclude_Fields(self)
 
     class Meta:
         exclude = '__all__'

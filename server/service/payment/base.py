@@ -62,6 +62,36 @@ class Payment_Models_Manager(Dynamic_Base):
                 payment=self.payment
             ).save()
 
+    def Check_Order_Note(self):
+
+        order_notes = Order_Note.objects.filter(
+            payment=self.payment)
+
+        if order_notes.count() > 1:
+            order_notes.delete()
+
+        if not order_notes:
+            Order_Note(
+                note='',
+                payment=self.payment
+            ).save()
+
+    def Check_Order_Deadline(self):
+
+        order_deadline = Order_Deadline.objects.filter(
+            payment=self.payment)
+
+        if order_deadline.count() > 1:
+            order_deadline.delete()
+
+        if not order_deadline:
+            Order_Deadline(
+                name='',
+                send_to_buyer=False,
+                send_to_root=False,
+                payment=self.payment
+            ).save()
+
     def Check_Payment(self):
 
         if not self.request.session['user_unique']:
@@ -94,6 +124,8 @@ class Payment_Models_Manager(Dynamic_Base):
         self.payment = Payment.objects.get(user=self.user, status='card')
         self.Check_Delivery_Address()
         self.Check_Invoice_Address()
+        self.Check_Order_Deadline()
+        self.Check_Order_Note()
 
     def Get_Selected_Products(self):
         return Selected_Product.objects.filter(payment=self.payment)

@@ -1,4 +1,6 @@
 from server.manage.switch.forms import *
+from server.service.payment.models import *
+from django.contrib.admin import widgets
 
 
 class Form_Dotpay(Abstract_Form):
@@ -66,3 +68,33 @@ class Form_PayPal(Abstract_Form):
 # przelewy24
 # Page: 5/15
 # https://www.przelewy24.pl/storage/app/media/pobierz/Instalacja/przelewy24_specyfikacja_3_2.pdf
+
+
+
+class Form_Order_Deadline(Abstract_Model_Form):
+
+    def Create_Fields(self):
+        self.fields['deadline'] = forms.DateField(required=False)
+
+    def Set_Widgets(self):
+        self.fields['deadline'].widget = widgets.AdminDateWidget()
+
+    class Meta:
+        model = Order_Deadline
+        fields = ('name', 'deadline', 'send_to_buyer',
+                  'send_to_root', 'reminder')
+
+
+
+class Form_Order_Note(Abstract_Model_Form):
+
+    def Create_Fields(self):
+        self.fields['note'] = forms.CharField(required=False)
+
+    def Set_Widgets(self):
+        self.fields['note'].widget = forms.Textarea()
+
+    class Meta:
+        model = Order_Note
+        fields = ('note',)
+

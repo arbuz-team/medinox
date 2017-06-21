@@ -200,6 +200,40 @@ class Users_Payments(Dynamic_Event_Manager):
         self.Validate_Period('root_users_payments_date_from', 'root_users_payments_date_to')
         return JsonResponse({'__filter__': 'true'})
 
+    def Manage_Form_Note(self):
+
+        note = self.request.session['root_note']
+        form_note = Form_Order_Note(self.request,
+            self.request.POST, instance=note)
+
+        if form_note.is_valid():
+            form_note.save()
+
+            return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
+        return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
+
+    def Manage_Form_Deadline(self):
+
+        note = self.request.session['root_deadline']
+        form_deadline = Form_Order_Deadline(self.request,
+            self.request.POST, instance=note)
+
+        if form_deadline.is_valid():
+            form_deadline.save()
+
+            return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
+        return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
+
+    def Manage_Form(self):
+
+        if self.request.POST['__form__'] == 'note':
+            return self.Manage_Form_Note()
+
+        if self.request.POST['__form__'] == 'deadline':
+            return self.Manage_Form_Deadline()
+
+        return Dynamic_Event_Manager.Manage_Form(self)
+
     @staticmethod
     def Launch(request):
         return Users_Payments(request, only_root=True).HTML
