@@ -11,7 +11,9 @@
 //////////////////////////////////////////////////////////////
 
 .button_icon
-  padding: 0
+  @extend .filed_without_styles
+  @extend .std_button
+
   margin: 0 3px
   line-height: 25px
   height: 20px
@@ -19,19 +21,18 @@
   background:
     color: transparent
     image: none
-  border: none
-  cursor: pointer
 
-  >.button_icon-img
-    display: inline-block
-    width: 20px
-    height: 20px
 
-    opacity: .8
-    +background-img( '', 100%, center)
+.button_icon-img
+  display: inline-block
+  width: 20px
+  height: 20px
 
-    &:hover
-      opacity: 1
+  opacity: .8
+  +background-img( '', 100%, center)
+
+  &:hover
+    opacity: 1
 
 //////////////////////////////////////////////////////////////
 
