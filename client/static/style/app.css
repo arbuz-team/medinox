@@ -162,6 +162,24 @@ div > .buttons_to_action {
 *:not(#DIALOG) > div > .dialog-header, *:not(#DIALOG) > div > .dialog-content {
   display: none; }
 
+.is-right {
+  position: absolute;
+  top: 0;
+  right: 0; }
+
+.is-mobile-visible {
+  display: block; }
+
+@media (min-width: 1000px) {
+  .is-mobile-visible {
+    display: none; } }
+
+.img-edit {
+  background-image: url(/static/img/icons/32/dark/edit.png);
+  background-size: auto auto;
+  background-position: 0 0;
+  background-repeat: no-repeat; }
+
 .std_field {
   margin: 2px 3px;
     margin-bottom: 8px;
@@ -173,60 +191,54 @@ div > .buttons_to_action {
   padding: 5px 10px;
   font-size: 14px;
   font-family: 'OS_Regular', sans-serif; }
+  .std_field:disabled {
+    background-color: #efefef;
+    border: 1px solid #d9d9d9; }
+  .std_field:focus {
+    border: 1px solid #b9b9b9;
+      border-top: 1px solid #a0a0a0;
+    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); }
 
-.std_field:disabled {
-  background-color: #efefef;
-  border: 1px solid #d9d9d9; }
-
-.std_field:focus {
-  border: 1px solid #b9b9b9;
-    border-top: 1px solid #a0a0a0;
-  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); }
-
-.std_button {
+.button {
   cursor: pointer;
   display: inline-block;
   text-align: center;
   background-image: -webkit-linear-gradient(top, #f5f5f5, #f1f1f1);
   background-color: #f2f2f2;
   border: 1px solid #f2f2f2; }
+  .button:hover {
+    background-image: -webkit-linear-gradient(top, #f8f8f8, #f1f1f1);
+    background-color: #f8f8f8;
+    border: 1px solid #c6c6c6; }
+  .button:focus {
+    background-image: -webkit-linear-gradient(top, #f5f5f5, #f1f1f1);
+    border: 1px solid #726229; }
+  .button.is-brown {
+    background-color: #4d90fe;
+    background-image: -webkit-linear-gradient(top, #554721, #4a3c1f);
+    background-image: -moz-linear-gradient(top, #554721, #4a3c1f);
+    background-image: -ms-linear-gradient(top, #554721, #4a3c1f);
+    background-image: -o-linear-gradient(top, #554721, #4a3c1f);
+    background-image: linear-gradient(top, #554721, #4a3c1f);
+    border: 1px solid #4a3c1f;
+    color: #fff; }
+  .button:disabled, .button.is-disabled {
+    background-color: #efefef;
+    background-image: none;
+    border: 1px solid #d9d9d9;
+    color: #333; }
 
-.std_button:hover {
-  background-image: -webkit-linear-gradient(top, #f8f8f8, #f1f1f1);
-  background-color: #f8f8f8;
-  border: 1px solid #c6c6c6; }
-
-.std_button:focus {
-  background-image: -webkit-linear-gradient(top, #f5f5f5, #f1f1f1);
-  border: 1px solid #726229; }
-
-.std_button.brown {
-  background-color: #4d90fe;
-  background-image: -webkit-linear-gradient(top, #554721, #4a3c1f);
-  background-image: -moz-linear-gradient(top, #554721, #4a3c1f);
-  background-image: -ms-linear-gradient(top, #554721, #4a3c1f);
-  background-image: -o-linear-gradient(top, #554721, #4a3c1f);
-  background-image: linear-gradient(top, #554721, #4a3c1f);
-  border: 1px solid #4a3c1f;
-  color: #fff; }
-
-.std_button.disabled {
-  background-color: #efefef;
-  background-image: none;
-  border: 1px solid #d9d9d9;
-  color: #333; }
-
-.std_textarea {
+.textarea {
   max-width: 100%; }
 
-.std_input[type=date] {
+.input[type=date] {
   min-width: 145px;
   width: 145px;
   padding-right: 0; }
 
-.std_input[type=number] {
+.input[type=number] {
   max-width: 100px;
   width: 100px; }
 
@@ -238,23 +250,24 @@ div > .buttons_to_action {
 .form_error {
   border: 1px solid #dd4b39 !important; }
 
-.field_shell .field {
+.field {
   border: 1px solid transparent; }
 
-.field_shell .form_block .field {
+.form_block .field {
   margin: 0;
   padding: 0;
     padding-left: 5px; }
 
-.field_shell button.icon {
-  background-color: transparent;
-  background-image: none;
-  border: none;
+.button_icon {
   padding: 0;
   margin: 0 3px;
   line-height: 25px;
-  height: 20px; }
-  .field_shell button.icon > i {
+  height: 20px;
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  cursor: pointer; }
+  .button_icon > .button_icon-img {
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -263,18 +276,18 @@ div > .buttons_to_action {
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat; }
-  .field_shell button.icon > i:hover {
-    opacity: 1; }
+    .button_icon > .button_icon-img:hover {
+      opacity: 1; }
 
-.field_shell .selecter {
+.selecter {
   width: 100%;
   position: relative;
   min-height: 27px;
   line-height: 27px;
   padding: 0; }
-  .field_shell .selecter label {
+  .selecter label {
     cursor: pointer; }
-  .field_shell .selecter label.selecter-field {
+  .selecter label.selecter-field {
     width: 20px;
     height: 20px;
     cursor: pointer;
@@ -285,42 +298,42 @@ div > .buttons_to_action {
     border: 1px solid #d1d1d1;
       border-radius: 2px;
     font-size: 19px; }
-  .field_shell .selecter label.selecter-text {
+  .selecter label.selecter-text {
     position: relative;
     left: 2px;
     font-size: 16px;
     opacity: .8; }
-  .field_shell .selecter label.selecter-field:after {
+  .selecter label.selecter-field:after {
     position: absolute;
     border: none;
     background: transparent;
     opacity: 0; }
-  .field_shell .selecter label.selecter-field:hover::after {
+  .selecter label.selecter-field:hover::after {
     opacity: .3; }
-  .field_shell .selecter label.selecter-field:hover {
+  .selecter label.selecter-field:hover {
     border-color: #aaa; }
-  .field_shell .selecter label.selecter-field:hover + label.selecter-text, .field_shell .selecter label.selecter-field + label.selecter-text:hover {
+  .selecter label.selecter-field:hover + label.selecter-text, .selecter label.selecter-field + label.selecter-text:hover {
     opacity: 1; }
-  .field_shell .selecter input[type=checkbox], .field_shell .selecter input[type=radio] {
+  .selecter input[type=checkbox], .selecter input[type=radio] {
     visibility: hidden; }
-    .field_shell .selecter input[type=checkbox]:checked + label.selecter-field, .field_shell .selecter input[type=radio]:checked + label.selecter-field {
+    .selecter input[type=checkbox]:checked + label.selecter-field, .selecter input[type=radio]:checked + label.selecter-field {
       border-color: #aaa; }
-      .field_shell .selecter input[type=checkbox]:checked + label.selecter-field:after, .field_shell .selecter input[type=checkbox]:checked + label.selecter-field + label.selecter-text, .field_shell .selecter input[type=radio]:checked + label.selecter-field:after, .field_shell .selecter input[type=radio]:checked + label.selecter-field + label.selecter-text {
+      .selecter input[type=checkbox]:checked + label.selecter-field:after, .selecter input[type=checkbox]:checked + label.selecter-field + label.selecter-text, .selecter input[type=radio]:checked + label.selecter-field:after, .selecter input[type=radio]:checked + label.selecter-field + label.selecter-text {
         opacity: 1;
         color: #555555; }
 
-.field_shell .checkbox label.selecter-field {
+.checkbox label.selecter-field {
   border-radius: 2px; }
-  .field_shell .checkbox label.selecter-field:after {
+  .checkbox label.selecter-field:after {
     content: '\2714';
     width: 9px;
     height: 5px;
     top: -4px;
     left: 2px; }
 
-.field_shell .radio label.selecter-field {
+.radio label.selecter-field {
   border-radius: 50%; }
-  .field_shell .radio label.selecter-field:after {
+  .radio label.selecter-field:after {
     content: '';
     width: 12px;
     height: 12px;
@@ -329,7 +342,7 @@ div > .buttons_to_action {
     background-color: #555;
     border-radius: 50%; }
 
-.field_shell select {
+select {
   background-image: url("/static/img/icons/32/dark/sort_down.png");
   background-size: 15px;
   background-position: right 10px center;
@@ -343,11 +356,10 @@ div > .buttons_to_action {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none; }
-  .field_shell select > option {
+  select > option {
     line-height: inherit; }
-
-.field_shell select:hover, .field_shell select:focus {
-  opacity: .9; }
+  select:hover, select:focus {
+    opacity: .9; }
 
 .ground-block .field_shell, .ground-block form > div {
   position: relative; }
@@ -519,43 +531,19 @@ div > .buttons_to_action {
 .field_shell input[type=file] {
   display: none; }
 
-.field_shell .edit_field-label {
+.edit_field-label {
   opacity: .6;
   font-size: 15px;
   font-weight: bold; }
 
-.field_shell .edit_field-content {
+.edit_field-content {
   position: relative;
   padding: 5px 10px;
   opacity: .85;
   font-weight: bold; }
-  .field_shell .edit_field-content > button {
-    position: absolute;
-    top: -5px;
-    right: 5px;
-    padding: 5px;
-    line-height: 17px; }
-    .field_shell .edit_field-content > button > i {
-      display: inline-block;
-      width: 17px;
-      height: 17px;
-      opacity: .8;
-      background-image: url(/static/img/icons/32/dark/edit.png);
-      background-size: 100%;
-      background-position: center;
-      background-repeat: no-repeat; }
-    .field_shell .edit_field-content > button > i:hover {
-      opacity: 1; }
 
-@media (min-width: 1000px) {
-  .field_shell .edit_field-label {
-    display: block; }
-  .field_shell .edit_field-content > button {
-    display: none; }
-  .field_shell .edit_field:hover .edit_field-content {
-    opacity: 1; }
-    .field_shell .edit_field:hover .edit_field-content > button {
-      display: block; } }
+.edit_field:hover .button_icon {
+  display: block; }
 
 .fields_with_label label {
   display: inline-block;

@@ -15,21 +15,21 @@
     family: 'OS_Regular', sans-serif
 
 
-.std_field:disabled
-  background-color: #efefef
-  border: 1px solid #d9d9d9
+  &:disabled
+    background-color: #efefef
+    border: 1px solid #d9d9d9
 
 
-.std_field:focus
-  border: 1px solid #b9b9b9
-    top: 1px solid #a0a0a0
-  +box-shadow(inset 0 1px 2px rgba(0,0,0,0.1))
+  &:focus
+    border: 1px solid #b9b9b9
+      top: 1px solid #a0a0a0
+    +box-shadow(inset 0 1px 2px rgba(0,0,0,0.1))
 
 
 
 // -- BUTTONS
 
-.std_button
+.button
   cursor: pointer
   display: inline-block
   text-align: center
@@ -39,51 +39,51 @@
   border: 1px solid #f2f2f2
 
 
-.std_button:hover
-  background:
-    image: -webkit-linear-gradient(top,#f8f8f8,#f1f1f1)
-    color: #f8f8f8
-  border: 1px solid #c6c6c6
+  &:hover
+    background:
+      image: -webkit-linear-gradient(top,#f8f8f8,#f1f1f1)
+      color: #f8f8f8
+    border: 1px solid #c6c6c6
 
 
-.std_button:focus
-  background-image: -webkit-linear-gradient(top,#f5f5f5,#f1f1f1)
-  border: 1px solid #726229
+  &:focus
+    background-image: -webkit-linear-gradient(top,#f5f5f5,#f1f1f1)
+    border: 1px solid #726229
 
 
-.std_button.brown
-  background:
-    color: #4d90fe
-  //+linear-gradient(top, #4d90fe, #4787ed)
-  +linear-gradient(top, #554721, #4a3c1f)
-  border: 1px solid #4a3c1f //#3079ed
-  color: #fff
+  &.is-brown
+    background:
+      color: #4d90fe
+    //+linear-gradient(top, #4d90fe, #4787ed)
+    +linear-gradient(top, #554721, #4a3c1f)
+    border: 1px solid #4a3c1f //#3079ed
+    color: #fff
 
 
-.std_button.disabled
-  background:
-    color: #efefef
-    image: none
-  border: 1px solid #d9d9d9
-  color: #333
+  &:disabled, &.is-disabled
+    background:
+      color: #efefef
+      image: none
+    border: 1px solid #d9d9d9
+    color: #333
 
 
 
 // -- OTHERS
 
-.std_textarea
+.textarea
   max-width: 100%
 
+.input
+  &[type=date]
+    min-width: 145px
+    width: 145px
+    padding-right: 0
 
-.std_input[type=date]
-  min-width: 145px
-  width: 145px
-  padding-right: 0
 
-
-.std_input[type=number]
-  max-width: 100px
-  width: 100px
+  &[type=number]
+    max-width: 100px
+    width: 100px
 
 
 .status

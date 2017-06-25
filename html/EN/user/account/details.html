@@ -15,28 +15,61 @@
 
         <div class="title"> User details: </div>
 
+
+
         <div class="edit_field">
+
             <div class="edit_field-label"> Email: </div>
+
             <div class="edit_field-content">
-                <div> {{ user.email }} </div>
-                <button type="button" class="dialog_button" data-type="prompt" data-name="edit_email"> <i> &nbsp; </i> </button>
+                <div class="edit_field-text"> {{ user.email }} </div>
+
+                <button class="button_icon is-right is-mobile-visible dialog_button"
+                        type="button"
+                        data-type="prompt"
+                        data-name="edit_email">
+                    <span class="button_icon-img img-edit"> &nbsp; </span>
+                </button>
             </div>
+
         </div><!-- edit_field -->
 
+
+
         <div class="edit_field">
+
             <div class="edit_field-label"> Username: </div>
+
             <div class="edit_field-content">
-                <div> {{ user.username }} </div>
-                <button type="button" class="dialog_button" data-type="prompt" data-name="edit_username"> <i> &nbsp; </i> </button>
+                <div class="edit_field-text"> {{ user.username }} </div>
+
+                <button class="button_icon is-right is-mobile-visible dialog_button"
+                        type="button"
+                        data-type="prompt"
+                        data-name="edit_username">
+                    <span class="button_icon-img img-edit"> &nbsp; </span>
+                </button>
             </div>
+
         </div><!-- edit_field -->
 
+
+
         <div class="edit_field">
+
             <div class="edit_field-label"> Password: </div>
+
             <div class="edit_field-content">
-                <div> ******** </div>
-                <button type="button" class="dialog_button" data-type="prompt" data-name="edit_password"> <i> &nbsp; </i> </button>
+                <div class="edit_field-text"> ******** </div>
+
+                <button class="button_icon is-right is-mobile-visible dialog_button"
+                        type="button"
+                        data-type="prompt"
+                        data-name="edit_password">
+                    <span class="button_icon-img img-edit"> &nbsp; </span>
+                </button>
             </div>
+
         </div><!-- edit_field -->
 
     </div><!-- block-content -->
