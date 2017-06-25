@@ -1,3 +1,12 @@
+.std-img
+  +background-img('')
+
 
 .img-edit
-  +background-img(url(/static/img/icons/32/dark/edit.png))
+  @extend .std-img
+  background-image: url(/static/img/icons/32/dark/edit.png)
+
+
+.img-shopping_cart
+  @extend .std-img
+  background-image: url(/static/img/icons/32/dark/shopping_cart.png)

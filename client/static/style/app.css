@@ -174,11 +174,17 @@ div > .buttons_to_action {
   .is-mobile-visible {
     display: none; } }
 
-.img-edit {
-  background-image: url(/static/img/icons/32/dark/edit.png);
+.std-img, .img-edit, .img-shopping_cart {
+  background-image: "";
   background-size: auto auto;
   background-position: 0 0;
   background-repeat: no-repeat; }
+
+.img-edit {
+  background-image: url(/static/img/icons/32/dark/edit.png); }
+
+.img-shopping_cart {
+  background-image: url(/static/img/icons/32/dark/shopping_cart.png); }
 
 .filed_without_styles, .std_field, .button, .textarea, .input, .button_icon {
   margin: 0;
@@ -208,7 +214,7 @@ div > .buttons_to_action {
     -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); }
 
-.std_button, .button, .button_icon {
+.std_button, .button, .button_icon, .tooltip {
   cursor: pointer;
   text-align: center; }
 
@@ -578,24 +584,25 @@ select {
   .fields_with_label.full input {
     width: 60%; } }
 
-.field_shell .tooltip {
+.tooltip {
   position: relative;
   display: inline-block;
   z-index: 20; }
-  .field_shell .tooltip .tooltip_button:focus + .tooltip-options, .field_shell .tooltip .tooltip-options:hover {
-    display: block; }
-    .field_shell .tooltip .tooltip_button:focus + .tooltip-options > *, .field_shell .tooltip .tooltip-options:hover > * {
-      background-color: #f5f5f5; }
-  .field_shell .tooltip.align-left .tooltip-options {
+  .tooltip.align-left .tooltip-options {
     left: 0; }
-  .field_shell .tooltip.align-right .tooltip-options {
+  .tooltip.align-right .tooltip-options {
     right: 0; }
-  .field_shell .tooltip.align-top .tooltip-options {
+  .tooltip.align-top .tooltip-options {
     top: 100%; }
-  .field_shell .tooltip.align-bottom .tooltip-options {
+  .tooltip.align-bottom .tooltip-options {
     bottom: 100%; }
 
-.field_shell .tooltip-options {
+.tooltip_button:focus + .tooltip-options, .tooltip-options:hover {
+  display: block; }
+  .tooltip_button:focus + .tooltip-options > *, .tooltip-options:hover > * {
+    background-color: #f5f5f5; }
+
+.tooltip-options {
   display: none;
   position: absolute;
   width: 150px;
@@ -606,7 +613,7 @@ select {
   -moz-box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
   -webkit-box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
   box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15); }
-  .field_shell .tooltip-options > * {
+  .tooltip-options > * {
     display: block;
     width: 100%;
     margin: 0;
@@ -617,9 +624,9 @@ select {
       border-radius: 0;
     text-align: left;
     color: #1a1a1a; }
-    .field_shell .tooltip-options > *:last-child {
+    .tooltip-options > *:last-child {
       border-bottom: none; }
-    .field_shell .tooltip-options > *:hover {
+    .tooltip-options > *:hover {
       border: none;
         border-bottom: 1px solid #e8e8e8; }
 

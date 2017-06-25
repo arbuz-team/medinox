@@ -8,8 +8,8 @@
         <div class="shell_form"></div>
 
         <div class="title">
-            <button class="icon" type="button">
-                <i style="background-image: url(/static/img/icons/32/dark/shopping_cart.png)"> &nbsp; </i>
+            <button class="button_icon" type="button">
+                <span class="button_icon-img img-shopping_cart"> &nbsp; </span>
             </button>
 
             {{ item.payment.date }}     &nbsp;<br>
@@ -35,14 +35,14 @@
             <div style="text-align: right">
 
                 <div class="tooltip align-left align-top">
-                    <button class="tooltip_button"
+                    <button class="button tooltip_button"
                             data-name="description">
                         Assign
                     </button>
 
                     <div class="tooltip-options">
 
-                        <button class="post_button"
+                        <button class="button post_button"
                                 data-name="set_card_status_pending"
                                 data-action="assign"
                                 data-value="pending"
@@ -53,7 +53,7 @@
                                 {% if request.session.root_payment_status == 'pending' %} &#10004; {% endif %}
                             </span>
                         </button>
-                        <button class="post_button"
+                        <button class="button post_button"
                                 type="button"
                                 data-name="set_card_status_internal"
                                 data-action="assign"
@@ -65,7 +65,7 @@
                                 {% if request.session.root_payment_status == 'internal' %} &#10004; {% endif %}
                             </span>
                         </button>
-                        <button class="post_button"
+                        <button class="button post_button"
                                 type="button"
                                 data-name="set_card_status_external"
                                 data-action="assign"
@@ -77,7 +77,7 @@
                                 {% if request.session.root_payment_status == 'external' %} &#10004; {% endif %}
                             </span>
                         </button>
-                        <button class="post_button"
+                        <button class="button post_button"
                                 type="button"
                                 data-name="set_card_status_completed"
                                 data-action="assign"
@@ -94,25 +94,28 @@
                 </div>
 
                 <div class="tooltip align-left align-top">
-                    <button class="tooltip_button"
+                    <button class="button tooltip_button"
                             data-name="description">
                         More
                     </button>
 
                     <div class="tooltip-options">
-                        <button class="dialog_button" type="button"
+                        <button class="button dialog_button"
+                                type="button"
                                 data-type="prompt"
                                 data-name="deadline"
                                 data-value="{{ item.payment.pk }}">
                             Deadline/Reminder
                         </button>
-                        <button class="dialog_button" type="button"
+                        <button class="button dialog_button"
+                                type="button"
                                 data-type="prompt"
                                 data-name="note"
                                 data-value="{{ item.payment.pk }}">
                             Note
                         </button>
-                        <button class="dialog_button" type="button"
+                        <button class="button dialog_button"
+                                type="button"
                                 data-type="alert"
                                 data-name="{{ button_address_name }}"
                                 data-value="{{ item.payment.pk }}">
