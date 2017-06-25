@@ -50,24 +50,30 @@
                     <div class="product_details-action_panel-buttons">
 
                         {% if request.session.user_login %}
-                            <button class="post_button" type="button"
+                            <button class="button post_button"
+									type="button"
                                     data-name="Append_{{ product.pk }}"
                                     data-action="append"
                                     data-value="{{ product.pk }}"
                                     data-reload="cart"
                                     data-url="/cart/">Add to cart</button>
 
-                            <a href="/payment/buy/{{ product.pk }}/"><button type="button">Buy</button></a>
+                            <a href="/payment/buy/{{ product.pk }}/">
+								<button class="button" type="button"> Buy </button>
+							</a>
                         {% endif %}
 
                         {% if request.session.root_login %}
-                            <button class="post_button" type="button"
+                            <button class="button post_button"
+									type="button"
                                     data-name="Delete_{{ product.pk }}"
                                     data-action="delete"
                                     data-value="{{ product.pk }}"
-                                    data-url="/product/delete/">Delete</button>
+                                    data-url="/product/delete/"> Delete </button>
 
-                            <a href="/product/edit/{{ product.pk }}/"><button type="button">Edit</button></a>
+                            <a href="/product/edit/{{ product.pk }}/">
+								<button class="button" type="button"> Edit </button>
+							</a>
                         {% endif %}
 
                     </div>

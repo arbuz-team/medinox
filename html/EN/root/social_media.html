@@ -20,10 +20,11 @@
 
                 <div class="fields_with_label full">
                     <label for="edit_{{ item.name }}">{{ item.name }}:&nbsp;</label>
-                    <input name="{{ item.name }}" type="url"
+                    <input class="input auto_field"
+						   type="url"
+						   name="{{ item.name }}"
                            placeholder="{{ item.name }} account..."
                            id="edit_{{ item.name }}"
-                           class="auto_field"
                            data-name="{{ item.pk }}"
                            value="{{ item.url }}" />
                 </div>
@@ -32,7 +33,7 @@
 
             <div class="fields_with_label full">
                 <label for="button_refresh">&nbsp;</label>
-                <button class="event_button is-brown"
+                <button class="button event_button is-brown"
 						type="button"
                         id="button_refresh"
                         data-name="button_refresh"

@@ -39,8 +39,14 @@
                     {% endfor %}
 
                     <div class="form_buttons short">
-                        <button disabled type="submit"> Update </button>
-                        <button class="dialog_button" type="button"
+                        <button class="button"
+								disabled
+								type="submit">
+							Update
+						</button>
+
+                        <button class="button dialog_button"
+								type="button"
                                 data-type="confirm"
                                 data-name="delete_address"
                                 data-dialog-name="delete_address_{{ id_address }}"
@@ -71,7 +77,13 @@
 
                 {% endfor %}
 
-                <div class="form_buttons short"><button disabled type="submit"> Add address </button></div>
+                <div class="form_buttons short">
+					<button class="button"
+							disabled
+							type="submit">
+						Add address
+					</button>
+				</div>
 
             </form>
         </div><!-- form_block -->

@@ -7,7 +7,8 @@
         <form class="numbers_pages-filters auto_form" action="" data-origin="button" data-reload="ground">
 
             <div class="numbers_pages-one_step">
-                <button class="post_button" type="button"
+                <button class="button post_button"
+						type="button"
                         data-name="prev_page"
                         data-action="change"
                         data-value="{{ prev_page }}"
@@ -19,9 +20,10 @@
 
             {% if number_of_pages > 20 %}
 
-                <input name="number_input" placeholder="Number"
-                       type="text"
-                       class="auto_field only_number_3"
+                <input class="input auto_field only_number_3"
+					   type="text"
+					   name="number_input"
+					   placeholder="Number"
                        data-name="number_page"
                        value="{{ request.session.main_page }}" />
 
@@ -43,7 +45,8 @@
 
 
             <div class="numbers_pages-one_step">
-                <button class="post_button" type="button"
+                <button class="button post_button"
+						type="button"
                         data-name="next_page"
                         data-action="change"
                         data-value="{{ next_page }}"
@@ -70,7 +73,8 @@
                 {% for button in list_buttons %}
 
                     {% if button == request.session.main_page %}
-                        <button class="post_button is-brown" type="button"
+                        <button class="button post_button is-brown"
+								type="button"
                                 data-name="change_page_{{ button }}"
                                 data-action="change"
                                 data-value="{{ button }}"
@@ -78,7 +82,8 @@
                             {{ button }}
                         </button>
                     {% else %}
-                        <button class="post_button" type="button"
+                        <button class="button post_button"
+								type="button"
                                 data-name="change_page_{{ button }}"
                                 data-action="change"
                                 data-value="{{ button }}"

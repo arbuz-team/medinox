@@ -31,13 +31,16 @@
                                 </a>
                             </div>
                             <div class="cart-list-actions">
+
                                 <span>{{ selected.number }} x {% get_price selected.product %}</span>
-                                <button class="post_button icon" type="button"
-                                      data-name="Delete_{{ selected.product.pk }}"
-                                      data-action="delete"
-                                      data-value="{{ selected.product.pk }}"
-                                      data-reload="cart ground"
-                                      data-url="/cart/">
+
+                                <button class="button post_button icon"
+										type="button"
+										data-name="Delete_{{ selected.product.pk }}"
+										data-action="delete"
+										data-value="{{ selected.product.pk }}"
+										data-reload="cart ground"
+										data-url="/cart/">
                                     <i style="background-image: url(/static/img/icons/32/dark/waste_bin.png)"> &nbsp; </i>
                                 </button>
 
@@ -66,7 +69,11 @@
 
                     <div class="form-accept">
                         <div>Please select your address of below list <wbr>for shipment and invoice.</div>
-                        <button type="submit">Next</button>
+
+                        <button class="button is-brown"
+								type="submit">
+							Next
+						</button>
                     </div>
 
                     {% for item in address %}
@@ -88,7 +95,8 @@
                                 <div>
                                     <span>Select address to</span>
                                     <div class="selecter radio">
-                                        <input type="radio"
+                                        <input class="input"
+											   type="radio"
                                                id="id_shipment_{{ forloop.counter0 }}"
                                                name="shipment"
                                                value="{{ item.pk }}"
@@ -100,7 +108,8 @@
                                         <label for="id_shipment_{{ forloop.counter0 }}" class="selecter-text">shipment</label>
                                     </div>
                                     <div class="selecter radio">
-                                        <input type="radio"
+                                        <input class="input"
+											   type="radio"
                                                id="id_invoice_{{ forloop.counter0 }}"
                                                name="invoice"
                                                value="{{ item.pk }}"
@@ -138,14 +147,14 @@
                     <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
                         OPIS DLA PAYPAL <br>
                         {{ paypal.as_p }}
-                        <input class="button" type="submit" value="PayPal" />
+						<button class="button is-brown" type="submit"> PayPal </button>
                     </form>
                 </div>
                 <div class="cart-list-button">
                     <form action="https://ssl.dotpay.pl/test_payment/" method="post">
                         OPIS DLA DOTPAY <br>
                         {{ dotpay.as_p }}
-                        <input class="button" type="submit" value="Dotpay" />
+						<button class="button is-brown" type="submit"> Dotpay </button>
                     </form>
                 </div>
 

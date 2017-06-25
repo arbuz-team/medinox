@@ -40,7 +40,8 @@ description : ''
 
                         <div>
                             {{ i }}
-                            <input type="checkbox" class="show_password" />
+                            <input class="input show_password"
+								   type="checkbox" />
                             {{ i.errors }}
                             <div class="status"></div>
                         </div>
@@ -60,7 +61,13 @@ description : ''
                 By sign up, you agree that you've read and accepted our
                 <a href="{% url 'user.agreement' full=True %}" target="_blank">User Agreement</a>.
 
-                <div class="form_buttons long"><button disabled type="submit"> Done </button></div>
+                <div class="form_buttons long">
+					<button class="button"
+							disabled
+							type="submit">
+						Done
+					</button>
+				</div>
 
             </form>
 

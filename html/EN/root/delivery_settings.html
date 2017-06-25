@@ -23,14 +23,16 @@
                 <div class="fields_with_label price">
                     <label for="{{ item.country }}_EUR">{{ item.country }}:&nbsp;</label>
 
-                    <input name="{{ item.country }}_EUR" type="text"
-                           id="{{ item.country }}_EUR"
-                           class="auto_field"
+                    <input class="input auto_field"
+						   type="text"
+						   name="{{ item.country }}_EUR"
+						   id="{{ item.country }}_EUR"
                            data-name="{{ item.pk }} EUR"
                            value="{{ item.price_eur|to_price }}" />&nbsp;EUR&nbsp;
-                    <input name="{{ item.country }}_PLN" type="text"
-                           id="{{ item.country }}_PLN"
-                           class="auto_field"
+                    <input class="input auto_field"
+						   type="text"
+						   name="{{ item.country }}_PLN"
+						   id="{{ item.country }}_PLN"
                            data-name="{{ item.pk }} PLN"
                            value="{{ item.price_pln|to_price }}" />&nbsp;PLN&nbsp;
                 </div>

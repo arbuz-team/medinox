@@ -20,7 +20,7 @@
                     {% if field|fieldtype == 'ClearableFileInput'%}
 
                         {{ field }}
-                        <button type="button">Select file</button>
+                        <button class="button" type="button"> Select file </button>
                         {{ field.errors }}
 
                     {% else %}
@@ -42,8 +42,17 @@
 
         <div class="dialog-content-part">
             <!--buttons-->
-            <button type="button" class="dialog-content-button" data-dialog-button="cancel"> Cancel </button>
-            <button type="button" class="dialog-content-button" data-dialog-button="send"> Accept </button>
+            <button class="button dialog-content-button"
+					type="button"
+					data-dialog-button="cancel">
+				Cancel
+			</button>
+
+            <button class="button dialog-content-button"
+					type="button"
+					data-dialog-button="send">
+				Accept
+			</button>
         </div><!-- dialog-content-part -->
 
     </form>

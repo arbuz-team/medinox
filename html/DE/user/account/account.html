@@ -19,8 +19,18 @@
       <div class="hide_form-label"> Email: </div>
       <div class="hide_form-field">
         <div> {{ user.email }} </div>
-        <input name="email" id="id_email" value="{{ user.email }}" type="text" />
-        <button data-type="edit" type="button"> Edit </button>
+
+        <input class="input"
+			   type="text"
+			   name="email"
+			   id="id_email"
+			   value="{{ user.email }}" />
+
+        <button class="button"
+				data-type="edit"
+				type="button">
+			Edit
+		</button>
       </div>
     </div>
 
@@ -28,8 +38,14 @@
       <div class="hide_form-label"> Username: </div>
         <div class="hide_form-field">
         <div> {{ user.username }} </div>
-        <input name="username" id="id_username" value="{{ user.username }}" type="text" />
-        <button data-type="edit" type="button"> Edit </button>
+
+        <input class="input"
+			   type="text"
+			   name="username"
+			   id="id_username"
+			   value="{{ user.username }}" />
+
+        <button class="button" type="button" data-type="edit"> Edit </button>
       </div>
     </div>
 
@@ -51,10 +67,14 @@
                 {% endfor %}
 
                 <div>
-                    <button disabled type="submit"> Update </button>
-                    <button class="post_button" type="button"
+                    <button class="button is-brown" disabled type="submit"> Update </button>
+
+                    <button class="button post_button"
+							type="button"
                             data-name="delete_address"
-                            data-value="{{ id_address }}"> Delete </button>
+                            data-value="{{ id_address }}">
+						Delete
+					</button>
                 </div>
 
             </form>
@@ -76,7 +96,7 @@
             {% endfor %}
 
             <div>
-                <button disabled type="submit"> Add address </button>
+                <button class="button is-brown" disabled type="submit"> Add address </button>
             </div>
 
         </form>

@@ -32,8 +32,13 @@
                     {% endfor %}
 
                     <div class="form_buttons short">
-                        <button disabled type="submit"> Update </button>
-                        <button class="post_button" type="button"
+                        <button class="button"
+								disabled
+								type="submit">
+							Update
+						</button>
+                        <button class="button post_button"
+								type="button"
                                 data-name="delete_address_{{ id_address }}"
                                 data-action="delete"
                                 data-reload="ground"
@@ -60,7 +65,9 @@
 
                 {% endfor %}
 
-                <div class="form_buttons short"><button disabled type="submit"> Add address </button></div>
+                <div class="form_buttons short">
+					<button class="button" disabled type="submit"> Add address </button>
+				</div>
 
             </form>
         </div><!-- form_block -->

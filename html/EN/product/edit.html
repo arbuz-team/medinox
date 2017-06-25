@@ -32,21 +32,21 @@
 
         <div>
             Create:
-            <button type="button" class="dialog_button" data-type="prompt" data-name="brand"> brand </button>
-            <button type="button" class="dialog_button" data-type="prompt" data-name="purpose"> purpose </button>
+            <button class="button dialog_button" type="button" data-type="prompt" data-name="brand"> brand </button>
+            <button class="button dialog_button" type="button" data-type="prompt" data-name="purpose"> purpose </button>
         </div>
 
         <div>
             New details:
-            <button type="button" class="dialog_button" data-type="prompt" data-name="details_en"> in english </button>
-            <button type="button" class="dialog_button" data-type="prompt" data-name="details_pl"> in polish </button>
-            <button type="button" class="dialog_button" data-type="prompt" data-name="details_de"> in germany </button>
+            <button class="button dialog_button" type="button" data-type="prompt" data-name="details_en"> in english </button>
+            <button class="button dialog_button" type="button" data-type="prompt" data-name="details_pl"> in polish </button>
+            <button class="button dialog_button" type="button" data-type="prompt" data-name="details_de"> in germany </button>
         </div>
 
         <div>
             Additions:
-            <button type="button" class="dialog_button" data-type="prompt" data-name="where_display"> where display </button>
-            <button type="button" class="dialog_button" data-type="prompt" data-name="image"> new image </button>
+            <button class="button dialog_button" type="button" data-type="prompt" data-name="where_display"> where display </button>
+            <button class="button dialog_button" type="button" data-type="prompt" data-name="image"> new image </button>
         </div>
 
         {% for i in form %}
@@ -59,7 +59,7 @@
         {% endfor %}
 
         <div>
-          <button type="submit"> Insert </button>
+          <button class="button" type="submit"> Insert </button>
         </div>
 
       </form>
