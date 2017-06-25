@@ -12,7 +12,7 @@
 
         {{ form.non_field_errors }}
 
-        <div class="dialog-content-part field_shell">
+        <div class="dialog-content-part">
             <!--fields of form-->
             {% for field in form %}
 
@@ -31,7 +31,7 @@
         </div><!-- dialog-content-part -->
     </form>
 
-    <div class="dialog-content-part field_shell">
+    <div class="dialog-content-part">
         <!--buttons-->
         {% if edit %}
             <button type="button" class="post_button dialog-content-button" data-dialog-button="cancel"

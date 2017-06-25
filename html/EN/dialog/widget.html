@@ -8,7 +8,7 @@
 <div class="dialog-content">
 
     <!--data-type="{{ form_name }}" data-test="yes"-->
-    <form class="dialog_form field_shell" method="post" data-name="{{ form_name }}">
+    <form class="dialog_form" method="post" data-name="{{ form_name }}">
 
         {{ form.non_field_errors }}
 
@@ -36,7 +36,7 @@
     {% if additional_form %}
 
         <form method="post" data-name="{{ additional_form_name }}" data-reload="ground">
-            <div class="dialog-content-part field_shell">
+            <div class="dialog-content-part">
 
                 <div>
                     {% for field in additional_form %}
@@ -57,7 +57,7 @@
         </form>
 
 
-        <div class="dialog-content-part field_shell">
+        <div class="dialog-content-part">
             <div class="scroll">
 
                 {% for value in values %}
@@ -71,7 +71,7 @@
     {% endif %}
 
 
-    <div class="dialog-content-part field_shell">
+    <div class="dialog-content-part">
         <!--buttons-->
         {% if edit %}
             <button class="post_button dialog-content-button" type="button" data-dialog-button="cancel"

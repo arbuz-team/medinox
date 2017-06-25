@@ -7,7 +7,7 @@
 
 <div class="dialog-content">
 
-    <div class="dialog-content-part field_shell">
+    <div class="dialog-content-part">
 
         <div class="little_form" data-origin="little" data-reload="dialog searcher">
             <input type="text" data-name="{{ form_name }}" placeholder="Name for new {{ form_name }}"><button type="button">Create</button>
@@ -18,7 +18,7 @@
     <!--data-type="{{ form_name }}" data-test="yes"-->
     <form class="dialog_form" method="post" data-name="{{ form_name }}">
 
-        <div class="dialog-content-part field_shell">
+        <div class="dialog-content-part">
             <!--fields of form-->
 
             {{ form.non_field_errors }}
@@ -53,7 +53,7 @@
 
         </div><!-- dialog-content-part -->
 
-        <div class="dialog-content-part field_shell">
+        <div class="dialog-content-part">
             <!--buttons-->
             <button type="button" class="dialog-content-button" data-dialog-button="cancel"> Cancel </button>
             <button type="button" class="dialog-content-button" data-dialog-button="send"> Accept </button>
