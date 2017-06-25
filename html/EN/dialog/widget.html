@@ -46,7 +46,7 @@
                             <div class="status"></div>
                     {% endfor %}
 
-                    <button type="submit"> Create </button>
+                    <button class="button" type="submit"> Create </button>
                 </div>
 
                 <input type="hidden" name="additional_reload" value="{{ additional.reload }}">
@@ -74,17 +74,24 @@
     <div class="dialog-content-part">
         <!--buttons-->
         {% if edit %}
-            <button class="post_button dialog-content-button" type="button" data-dialog-button="cancel"
+            <button class="button post_button dialog-content-button"
+                    type="button"
+                    data-dialog-button="cancel"
                     data-name="widget"
                     data-action="delete"
                     data-reload="ground"
-                    data-url="{{ edit.url }}"> Delete
+                    data-url="{{ edit.url }}">
+                Delete
             </button>
         {% endif %}
 
-        <button class="dialog-content-button" type="button" data-dialog-button="cancel"> Cancel </button>
+        <button class="button dialog-content-button"
+                type="button"
+                data-dialog-button="cancel">
+            Cancel
+        </button>
 
-        <button class="event_button dialog-content-button"
+        <button class="button event_button dialog-content-button"
                 type="button"
                 data-dialog-button="send"
                 data-name="{{ additional.name }}"

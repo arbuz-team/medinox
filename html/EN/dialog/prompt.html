@@ -33,22 +33,34 @@
 
     <div class="dialog-content-part">
         <!--buttons-->
+
         {% if edit %}
-            <button type="button" class="post_button dialog-content-button" data-dialog-button="cancel"
+            <button class="button post_button dialog-content-button"
+                    type="button"
+                    data-dialog-button="cancel"
                     data-name="{{ form_name }}"
                     data-action="delete"
                     data-reload="ground"
                     data-url="{{ edit.url }}"> Delete
             </button>
         {% endif %}
-        <button type="button" class="dialog-content-button" data-dialog-button="cancel"> Cancel </button>
-        <button class="dialog-content-button event_button"
+
+        <button class="button dialog-content-button"
+                type="button"
+                data-dialog-button="cancel">
+            Cancel
+        </button>
+
+        <button class="button dialog-content-button event_button"
                 type="button"
                 data-dialog-button="send"
                 data-name="{{ additional.name }}"
                 data-reload="{{ additional.reload }}"
                 data-redirect="{{ additional.redirect }}"
-                data-event="{{ additional.event }}"> Accept </button>
+                data-event="{{ additional.event }}">
+            Accept
+        </button>
+
     </div><!-- dialog-content-part -->
 
 
