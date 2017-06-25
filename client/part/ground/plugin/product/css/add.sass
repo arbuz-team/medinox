@@ -3,8 +3,7 @@
 
   >.tile.new
 
-    >a, >div
-      height:
+    >a, >div:not(.tooltip-options)
 
       >.tile-img.mini_image
         +background-img(url(/static/img/icons/128/dark/add.png), 40%, center)
@@ -12,6 +11,10 @@
 
       >.tile-title
         min-height: 20px
+
+    .tooltip-options
+      left: 50% !important
+      top: 50% !important
 
 
 @media (min-width: $G-SIZE-2)

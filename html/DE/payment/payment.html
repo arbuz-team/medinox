@@ -40,7 +40,7 @@
 
                     {% endfor %}
 
-                    <li class="field_shell">
+                    <li>
                         <br />
                         Total price: {{ total_price }} {{ request.session.translator_currency }}<br />
                     </li>
@@ -49,7 +49,7 @@
                     <br><br>Select address: <br>
                     {% for item in address %}
 
-                        <li class="field_shell">
+                        <li>
                             {{ item.full_name }}
                             {{ item.address_line }}
                             {{ item.city }}
@@ -60,7 +60,7 @@
 
                     {% endfor %}
 
-                    <li class="field_shell">
+                    <li>
                         <div class="form_address">
                             <form method="post" action="" data-name="{{ form_name }}" data-type="payment_address" data-test="yes">
 
@@ -85,7 +85,7 @@
 
                 {% else %}
 
-                    <li class="field_shell">
+                    <li>
                         <div class="cart-list-button">
                             <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
                                 OPIS DLA PAYPAL <br>

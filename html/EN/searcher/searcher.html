@@ -14,7 +14,7 @@
 
 
 <div class="searcher-searcher auto_form">
-    <form class="field_shell" action="/searcher/" data-origin="filter" data-redirect="/products/" data-delay="100">
+    <form action="/searcher/" data-origin="filter" data-redirect="/products/" data-delay="100">
         <input name="search" placeholder="Search" type="text" class="auto_field only_enter" data-name="phrase" />
     </form>
 </div>
@@ -23,7 +23,7 @@
 <form class="searcher-filters auto_form" action="/searcher/" data-origin="filter" data-redirect="/products/" data-delay="1000">
 
     <div class="searcher-sort">
-        <div class="field_shell">
+        <div>
             <select name="sort_by" class="auto_field" data-name="order_name">
                 <option value="search_accuracy" selected> search accuracy </option>
                 <option value="price"> price </option>
@@ -34,7 +34,7 @@
 
 
     <div class="searcher-order">
-        <div class="field_shell">
+        <div>
             <select name="order_by" class="auto_field" data-name="order_direction">
                 <option value="descending" selected> descending </option>
                 <option value="ascending"> ascending </option>
@@ -46,7 +46,7 @@
     <div class="searcher-filters-title">Brand</div>
 
     <div class="searcher-filters-content">
-        <ul class="field_shell">
+        <ul>
             {% for brand in brands %}
 
                 <li class="selecter checkbox">
@@ -79,7 +79,7 @@
     <div class="searcher-filters-title">Purpose</div>
 
     <div class="searcher-filters-content">
-        <ul class="field_shell">
+        <ul>
             {% for purpose in purposes %}
 
                 <li class="selecter checkbox">
