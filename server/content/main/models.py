@@ -10,7 +10,7 @@ class Content_Tab(Abstract_Model):
     language = models.CharField(max_length=2)
 
     def Set_Variables(self):
-        self.image_dir = '/static/img/content_tab/'
+        self.image_dir = '/client/static/img/content_tab/'
 
     def __str__(self):
         return self.header

@@ -1,16 +1,16 @@
 #! /bin/bash
 
-rm -rf $(dirname $0)/server/cart/migrations
-rm -rf $(dirname $0)/server/main/migrations
-rm -rf $(dirname $0)/server/payment/migrations
-rm -rf $(dirname $0)/server/catalog/migrations
-rm -rf $(dirname $0)/server/product/migrations
-rm -rf $(dirname $0)/server/root/migrations
-rm -rf $(dirname $0)/server/sender/migrations
-rm -rf $(dirname $0)/server/session/migrations
-rm -rf $(dirname $0)/server/statement/migrations
-rm -rf $(dirname $0)/server/translator/migrations
-rm -rf $(dirname $0)/server/user/migrations
+rm -rf $(dirname $0)/server/manage/root/migrations
+rm -rf $(dirname $0)/server/manage/session/migrations
+rm -rf $(dirname $0)/server/manage/user/migrations
+rm -rf $(dirname $0)/server/content/catalog/migrations
+rm -rf $(dirname $0)/server/content/main/migrations
+rm -rf $(dirname $0)/server/content/product/migrations
+rm -rf $(dirname $0)/server/content/statement/migrations
+rm -rf $(dirname $0)/server/page/cart/migrations
+rm -rf $(dirname $0)/server/service/payment/migrations
+rm -rf $(dirname $0)/server/service/sender/migrations
+rm -rf $(dirname $0)/server/service/translator/migrations
 
 python3 $(dirname $0)/manage.py makemigrations cart
 python3 $(dirname $0)/manage.py makemigrations main

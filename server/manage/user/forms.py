@@ -35,16 +35,8 @@ class Form_Login(Abstract_Form):
 
     def Set_Widgets(self):
 
-        email_attrs = {
-            'placeholder': Text(self.request, 39),
-            'class': 'test',
-            'autofocus': 'true',
-        }
-
-        password_attrs = {
-            'placeholder': Text(self.request, 40),
-            'class': 'test',
-        }
+        email_attrs = self.Attr(Text(self.request, 39), classes='test', autofocus=True)
+        password_attrs = self.Attr(Text(self.request, 40), classes='test')
 
         self.fields['email'].widget = forms.TextInput(attrs=email_attrs)
         self.fields['password'].widget = forms.PasswordInput(attrs=password_attrs)
@@ -73,21 +65,9 @@ class Form_Register(Abstract_Model_Form):
 
     def Set_Widgets(self):
 
-        username_attr = {
-            'placeholder': Text(self.request, 44),
-            'class': 'test',
-        }
-
-        password_attr = {
-            'placeholder': Text(self.request, 45),
-            'class': 'test',
-        }
-
-        email_attr = {
-            'placeholder': Text(self.request, 46),
-            'class': 'test',
-            'autofocus': 'true',
-        }
+        username_attr = self.Attr(Text(self.request, 44), classes='test')
+        password_attr = self.Attr(Text(self.request, 45), classes='test', field=Field.PASSWORD)
+        email_attr = self.Attr(Text(self.request, 46), classes='test', autofocus=True)
 
         self.fields['username'].widget = forms.TextInput(attrs=username_attr)
         self.fields['password'].widget = forms.PasswordInput(attrs=password_attr)
@@ -130,13 +110,7 @@ class Form_Forgot_Password(Abstract_Form):
         self.fields['email'] = forms.CharField(max_length=50)
 
     def Set_Widgets(self):
-
-        widget_attr = {
-            'placeholder': Text(self.request, 56),
-            'class': 'test',
-            'autofocus': 'true',
-        }
-
+        widget_attr = self.Attr(Text(self.request, 56), classes='test', autofocus=True)
         self.fields['email'].widget = forms.TextInput(attrs=widget_attr)
 
 
@@ -150,11 +124,5 @@ class Form_Change_Password(Abstract_Form):
         self.fields['password'] = forms.CharField(max_length=100)
 
     def Set_Widgets(self):
-
-        password_attr = {
-            'placeholder': Text(self.request, 57),
-            'class': 'test',
-            'autofocus': 'true',
-        }
-
+        password_attr = self.Attr(Text(self.request, 57), classes='test', autofocus=True)
         self.fields['password'].widget = forms.PasswordInput(attrs=password_attr)

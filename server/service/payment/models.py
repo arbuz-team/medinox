@@ -53,3 +53,7 @@ class Order_Note(Abstract_Model):
 
     payment = models.OneToOneField(Payment)
     note = models.TextField()
+    file = models.FileField()
+
+    def Set_Variables(self):
+        self.file_dir = '/client/static/files/orders/'

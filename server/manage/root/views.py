@@ -204,10 +204,13 @@ class Users_Payments(Dynamic_Event_Manager):
 
         note = self.request.session['root_note']
         form_note = Form_Order_Note(self.request,
-            self.request.POST, instance=note)
+            self.request.POST)
 
         if form_note.is_valid():
-            form_note.save()
+            note.note = form_note.cleaned_data['note']
+            note.save()
+
+            note.Save_Image(form_note.cleaned_data['file'])
 
             return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
