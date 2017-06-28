@@ -5,12 +5,13 @@
 
 export let
 
-  settings = {
-    form: 'form',
-    input_file: 'input[type=file]',
-    button_shell: '.file_shell button',
-    input_base64: {
-      start: 'input[name=',
-      end: '_base64]',
-    },
-  };
+	settings = {
+		form: 'form',
+		input_file: 'input[type=file]',
+		button_shell: '.file_shell button',
+		input_hidden: {
+			start: 'input[name=',
+			end_base64: '_base64]',
+			end_name: '_name]',
+		},
+	};

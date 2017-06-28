@@ -2493,7 +2493,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.Callback_Functions = exports.get_base64 = exports.settings = exports.models = undefined;
 	
@@ -2506,42 +2506,44 @@
 	var models = exports.models = image_convert_models,
 	    settings = exports.settings = models.settings,
 	    get_base64 = exports.get_base64 = function get_base64(file, callback) {
-	  callback.loading();
+		callback.loading();
 	
-	  var reader = new FileReader();
-	  reader.readAsDataURL(file);
+		var reader = new FileReader();
+		reader.readAsDataURL(file);
 	
-	  reader.onload = function () {
-	    callback.done(file.name, reader.result);
-	  };
+		reader.onload = function () {
+			callback.done(file.name, reader.result);
+		};
 	
-	  reader.onerror = function (error) {
-	    callback.error(error);
-	  };
+		reader.onerror = function (error) {
+			callback.error(error);
+		};
 	},
 	    Callback_Functions = exports.Callback_Functions = function Callback_Functions(field) {
-	  var $field = $(field),
-	      $parent_field = $field.parent(),
-	      $button_shell = $parent_field.children(settings.button_shell);
+		var $field = $(field),
+		    $parent_field = $field.parent(),
+		    $button_shell = $parent_field.children(settings.button_shell);
 	
-	  this.loading = function () {
-	    $button_shell.html('Coverting...');
-	  };
+		this.loading = function () {
+			$button_shell.html('Coverting...');
+		};
 	
-	  this.done = function (name, result) {
-	    var hidden_input = settings.input_base64.start + field.name + settings.input_base64.end;
+		this.done = function (name, result) {
+			var hidden_input_base64 = settings.input_hidden.start + field.name + settings.input_hidden.end_base64,
+			    hidden_input_name = settings.input_hidden.start + field.name + settings.input_hidden.end_name;
 	
-	    $(hidden_input).val(name + '|' + result);
-	    setTimeout(function () {
-	      $button_shell.html('Is ready / change');
-	    }, 500);
-	  };
+			$(hidden_input_base64).val(result);
+			$(hidden_input_name).val(name);
+			setTimeout(function () {
+				$button_shell.html('Is ready / change');
+			}, 500);
+		};
 	
-	  this.error = function () {
-	    setTimeout(function () {
-	      $button_shell.html('Error / select again');
-	    }, 500);
-	  };
+		this.error = function () {
+			setTimeout(function () {
+				$button_shell.html('Error / select again');
+			}, 500);
+		};
 	}; /**
 	    * Created by mrskull on 23.01.17.
 	    */
@@ -2553,20 +2555,21 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	/**
 	 * Created by mrskull on 23.01.17.
 	 */
 	
 	var settings = exports.settings = {
-	  form: 'form',
-	  input_file: 'input[type=file]',
-	  button_shell: '.file_shell button',
-	  input_base64: {
-	    start: 'input[name=',
-	    end: '_base64]'
-	  }
+		form: 'form',
+		input_file: 'input[type=file]',
+		button_shell: '.file_shell button',
+		input_hidden: {
+			start: 'input[name=',
+			end_base64: '_base64]',
+			end_name: '_name]'
+		}
 	};
 
 /***/ },

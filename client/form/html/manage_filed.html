@@ -18,7 +18,7 @@
 	</div>
 
 
-<!-- Image inputs -->
+<!-- File inputs -->
 
 {% elif field|is_fileinput %}
 
@@ -28,11 +28,9 @@
 		{{ field.errors }}
 		<div class="status"></div>
 
-
-{% elif field.name == 'image_base64' or  field.name == 'file_base64' %}
+{% elif field.name == 'image_name' or field.name == 'image_name' or field.name == 'image_base64' or field.name == 'file_base64' %}
 
 		{{ field }}
-		{{ field.errors }}
 
 {% elif field.name == 'image_url' or field.name == 'file_url' %}
 		&nbsp;or&nbsp;
@@ -41,7 +39,7 @@
 		<div class="status"></div>
 	</div>
 
-<!-- End image inputs -->
+<!-- End file inputs -->
 
 
 {% else %}
