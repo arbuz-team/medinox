@@ -107,15 +107,26 @@ class Abstract_Form(Base_Form, forms.Form):
 
 class Abstract_Image_Form(Abstract_Form):
 
+    def clean_image_name(self):
+        image_base64 = self.data['image_base64']
+        image_name = self.data['image_name']
+
+        if image_base64:
+            if not image_name:
+                raise forms.ValidationError(Text(self.request, 166))
+
+        return image_name
+
     def clean_image_base64(self):
         image_base64 = self.data['image_base64']
+        image_name = self.data['image_name']
 
         if image_base64:
 
             # save temp image
             manager = File_Manager()
             image_base64 = manager.Save_From_Base64(
-                image_base64, File.IMAGE)
+                image_base64, image_name, File.IMAGE)
 
             if not image_base64:
                 raise forms.ValidationError(Text(self.request, 66))
@@ -159,30 +170,44 @@ class Abstract_Image_Form(Abstract_Form):
         self.fields['image'] = forms.ImageField(required=False)
         self.fields['image_base64'] = forms.CharField(required=False)
         self.fields['image_url'] = forms.URLField(required=False)
+        self.fields['image_name'] = forms.CharField(required=False)
 
     def Set_Widgets(self):
 
+        image_attr = self.Attr()
         image_base64_attr = self.Attr(hidden=True)
         image_url_attrs = self.Attr(Text(self.request, 97))
-        image_attr = self.Attr()
+        name_attrs = self.Attr(hidden=True)
 
+        self.fields['image'].widget = forms.FileInput(attrs=image_attr)
         self.fields['image_base64'].widget = forms.TextInput(attrs=image_base64_attr)
         self.fields['image_url'].widget = forms.TextInput(attrs=image_url_attrs)
-        self.fields['image'].widget = forms.FileInput(attrs=image_attr)
+        self.fields['image_name'].widget = forms.TextInput(attrs=name_attrs)
 
 
 
 class Abstract_File_Form(Abstract_Form):
 
+    def clean_file_name(self):
+        file_base64 = self.data['file_base64']
+        file_name = self.data['file_name']
+
+        if file_base64:
+            if not file_name:
+                raise forms.ValidationError(Text(self.request, 165))
+
+        return file_name
+
     def clean_file_base64(self):
         file_base64 = self.data['file_base64']
+        file_name = self.data['file_name']
 
         if file_base64:
 
             # save temp file
             manager = File_Manager()
             file_base64 = manager.Save_From_Base64(
-                file_base64, File.FILE)
+                file_base64, file_name, File.FILE)
 
             if not file_base64:
                 raise forms.ValidationError(Text(self.request, 163))
@@ -223,19 +248,22 @@ class Abstract_File_Form(Abstract_Form):
         return self.cleaned_data
 
     def Create_Fields(self):
-        self.fields['file'] = forms.ImageField(required=False)
+        self.fields['file'] = forms.FileField(required=False)
         self.fields['file_base64'] = forms.CharField(required=False)
         self.fields['file_url'] = forms.URLField(required=False)
+        self.fields['file_name'] = forms.CharField(required=False)
 
     def Set_Widgets(self):
 
+        file_attr = self.Attr()
         file_base64_attr = self.Attr(hidden=True)
         file_url_attrs = self.Attr(Text(self.request, 97))
-        file_attr = self.Attr()
+        name_attrs = self.Attr(hidden=True)
 
+        self.fields['file'].widget = forms.FileInput(attrs=file_attr)
         self.fields['file_base64'].widget = forms.TextInput(attrs=file_base64_attr)
         self.fields['file_url'].widget = forms.TextInput(attrs=file_url_attrs)
-        self.fields['file'].widget = forms.FileInput(attrs=file_attr)
+        self.fields['file_name'].widget = forms.TextInput(attrs=name_attrs)
 
 
 

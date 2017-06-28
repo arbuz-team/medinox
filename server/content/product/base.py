@@ -39,18 +39,6 @@ class Product_Models_Manager(Dynamic_Base):
         #     return purpose.name_de
         return ''
 
-    def Get_Purposes_Names(self, product):
-
-        # if self.request.session['translator_language'] == 'EN':
-        #     return ' '.join(product.purpose.all().values_list('name_en', flat=True))
-        #
-        # if self.request.session['translator_language'] == 'PL':
-        #     return ' '.join(product.purpose.all().values_list('name_pl', flat=True))
-        #
-        # if self.request.session['translator_language'] == 'DE':
-        #     return ' '.join(product.purpose.all().values_list('name_de', flat=True))
-        return ''
-
     def Get_Product_Price(self, product, currency=None,
                           current_currency=False):
 

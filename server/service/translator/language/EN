@@ -155,3 +155,5 @@
 162:Error
 163:Error
 164:Name
+165:Error - file name is required
+166:Error - image name is required

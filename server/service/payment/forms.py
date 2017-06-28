@@ -100,6 +100,3 @@ class Form_Order_Note(Abstract_File_Form):
     def Set_Widgets(self):
         self.fields['note'].widget = forms.Textarea()
         Abstract_File_Form.Set_Widgets(self)
-
-
-

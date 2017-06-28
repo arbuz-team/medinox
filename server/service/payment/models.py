@@ -49,11 +49,19 @@ class Order_Deadline(Abstract_Model):
     reminder = models.DateField(null=True)
 
 
+
 class Order_Note(Abstract_Model):
 
     payment = models.OneToOneField(Payment)
     note = models.TextField()
+
+
+
+class Note_File(Abstract_Model):
+
+    name = models.CharField(max_length=50)
     file = models.FileField()
+    note = models.ForeignKey(Order_Note)
 
     def Set_Variables(self):
         self.file_dir = 'files/orders/'

@@ -94,7 +94,7 @@ class Search_Engine:
                 Search_Priorities(
                     name=self.product_models_manager.Get_Product_Name(product),
                     content=self.product_models_manager.Get_Product_Description(product),
-                    filters=self.product_models_manager.Get_Purposes_Names(product) + product.brand.name,
+                    filters=product.brand.name,
                     keywords=product.keywords
                 )
             )
@@ -152,37 +152,17 @@ class Search_Engine:
         self.result = Product.objects.filter(
             pk__in=self.result).order_by(order_by)
 
-    @staticmethod
-    def Any_Purposes_Contain_In_Product(purposes, product):
-
-        for purpose in product.purpose.all().values('name_en'):
-            if purpose['name_en'] in purposes:
-                return True
-
-        for purpose in product.purpose.all().values('name_pl'):
-            if purpose['name_pl'] in purposes:
-                return True
-
-        for purpose in product.purpose.all().values('name_de'):
-            if purpose['name_de'] in purposes:
-                return True
-
-        return False
-
     def Sort_Result_Filters(self):
 
         brands = self.request.session['searcher_filter_brand']
-        purposes = self.request.session['searcher_filter_purpose']
-
-        if not brands and not purposes:
+        if not brands:
             return
 
-        get_brands = lambda pks: pks if pks else Brand.objects.values('pk')
-        get_purposes = lambda pks: pks if pks else Purpose.objects.values('pk')
+        get_brands = lambda pks: pks \
+            if pks else Brand.objects.values('pk')
 
         self.result = Product.objects.filter(
             Q(brand__in=get_brands(brands))         &
-            Q(purpose__in=get_purposes(purposes))   &
             Q(pk__in=self.result.values('pk'))
         ).distinct()
 
@@ -240,7 +220,6 @@ class Searcher(Dynamic_Event_Manager):
 
     def Manage_Content_Searcher(self):
         self.content['brands'] = Brand.objects.all()
-        self.content['purposes'] = Purpose.objects.all()
         return self.Render_HTML('searcher/searcher.html')
 
     def Manage_Content(self):
@@ -262,21 +241,6 @@ class Searcher(Dynamic_Event_Manager):
             if self.request.POST['name'] in filters:
                 filters.remove(self.request.POST['name'])
                 self.request.session['searcher_filter_brand'] = filters
-
-        return JsonResponse({'__filter__': 'true'})
-
-    def Manage_Filter_Purpose(self):
-        filters = self.request.session['searcher_filter_purpose']
-
-        if self.request.POST['action'] == 'append':
-            if self.request.POST['name'] not in filters:
-                filters.append(self.request.POST['name'])
-                self.request.session['searcher_filter_purpose'] = filters
-
-        if self.request.POST['action'] == 'delete':
-            if self.request.POST['name'] in filters:
-                filters.remove(self.request.POST['name'])
-                self.request.session['searcher_filter_purpose'] = filters
 
         return JsonResponse({'__filter__': 'true'})
 
@@ -303,21 +267,8 @@ class Searcher(Dynamic_Event_Manager):
         if self.request.POST['__filter__'] == 'brand':
             return self.Manage_Filter_Brand()
 
-        if self.request.POST['__filter__'] == 'purpose':
-            return self.Manage_Filter_Purpose()
-
-        if self.request.POST['__filter__'] == 'phrase':
-            return self.Manage_Filter_Phrase()
-
-        if 'order' in self.request.POST['__filter__']:
-            return self.Manage_Filter_Order()
-
-        return JsonResponse({'__filter__': 'false'})
-
     @staticmethod
     def Launch(request):
-        # searcher = Searcher(request, clear_session=True)
+        searcher = Searcher(request, clear_session=True)
         # Search_Engine.Filter_Products(request)
-        # return searcher.HTML
-        request.session['searcher_result'] = Product.objects.all()
-        return HttpResponse('')
+        return searcher.HTML
