@@ -210,7 +210,18 @@ class Users_Payments(Dynamic_Event_Manager):
             note.note = form_note.cleaned_data['note']
             note.save()
 
-            note.Save_File(form_note.cleaned_data['file'])
+            # save send files
+            file = form_note.cleaned_data['file']
+            file_name = form_note.cleaned_data['file_name']
+
+            if file: # save if file was sent
+
+                note_file = Note_File()
+                note_file.note = note
+                note_file.name = file_name
+                note_file.save()
+
+                note_file.Save_File(file)
 
             return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML

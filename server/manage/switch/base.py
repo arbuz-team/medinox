@@ -88,13 +88,11 @@ class File_Manager:
 
         return name
 
-    def Save_From_Base64(self, _base64, file_type):
-        self.base64_file = _base64.split(',', 1)[1]
+    def Save_From_Base64(self, _base64, file_name, file_type):
 
-        # details
-        name = _base64.split('|', 1)[0]
-        self.format = name.split('.', 1)[1] \
-            if len(name.split('.', 1)) == 2 else ''
+        self.base64_file = _base64.split(',', 1)[1]
+        self.format = file_name.split('.', 1)[1] \
+            if len(file_name.split('.', 1)) == 2 else ''
 
         if file_type == File.FILE:
             return self.Save_From_Base64_File()
