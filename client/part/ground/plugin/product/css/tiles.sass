@@ -4,48 +4,36 @@
     top: 0
     bottom: 0
 
-  >ul
-    width: auto
+.tile
+  width: auto
+  max-width: 300px
+  min-height: 220px
+  margin: 0
+    left: auto
+    right: auto
 
-    .tile
-      width: auto
-      max-width: 300px
-      min-height: 220px
-      margin: 0
-        left: auto
-        right: auto
+  border-bottom: $G-STYLE-BORDER
 
-      border-bottom: $G-STYLE-BORDER
+.tile-content
+  position: relative
+  max-width: 300px
+  margin: 0
+  padding: 0
 
-      >.tile-content
-        >.tile-img
-          position: relative
-          width: 100%
-          height: 200px
-          overflow: hidden
-          text-align: center
+  .button
+    top: -100%
 
-        >.tile-title
-          margin:
-            top: 10px
-            bottom: 10px
-          font-weight: bold
 
-      .tile-content
-        max-width: 300px
-        margin: 0
-        padding: 0
+.tile-content-details > a > .button
+  margin-bottom: 0
 
-        >.tile-content-details > a > button
-          margin-bottom: 0
+.tile-content-price
+  position: absolute
+  right: 0
+  bottom: 0
 
-        >.tile-content-price
-          position: absolute
-          right: 0
-          bottom: 0
-
-          height: 38px
-          line-height: 38px
+  height: 38px
+  line-height: 38px
 
 
 .products.tiles.recommended
@@ -68,47 +56,31 @@
 
 @media (min-width: $G-SIZE-2)
 
-  .products.tiles > ul
+  .tiles-list
     font-size: 0
     text-align: center
 
-    .tile
-      display: inline-block
-      width: 285px
-      max-width: none
-      margin: 0
-      font-size: 16px
-      text-align: left
+  .tile
+    display: inline-block
+    width: 285px
+    max-width: none
+    margin: 0
+    font-size: 16px
+    text-align: left
 
-      >a
-        >.tile-img
-          height: 200px
-          overflow: hidden
+  .tile-img
+    height: 200px
+    overflow: hidden
 
-        >.tile-title
-          text-align: left
+  .tile-title
+    position: relative
+    text-align: left
 
-      >.tile-content
-
-        >.tile-content-details
-          text-align: left
+  .tile-content-details
+    text-align: left
 
 
   .products.tiles.recommended
     .tile
       margin-right: 10px
 
-
-@media (min-width: 870px)
-  .products.tiles .tile
-    width: 285px
-
-
-@media (min-width: 992px)
-  .products.tiles .tile
-      width: 360px
-
-
-@media (min-width: $G-SIZE-4)
-  .products.tiles .tile
-      width: 445px

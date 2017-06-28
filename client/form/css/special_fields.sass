@@ -10,20 +10,16 @@
 
 //////////////////////////////////////////////////////////////
 
-.button_icon
-  @extend .filed_without_styles
-  @extend .std_button
+.button.is-icon
+  &, &:hover, &:focus, &:disabled
+    @extend .filed_without_styles
 
-  margin: 0 3px
-  line-height: 25px
-  height: 20px
-
-  background:
-    color: transparent
-    image: none
+    margin: 0 3px
+    line-height: 25px
+    height: 20px
 
 
-.button_icon-img
+.button-img
   display: inline-block
   width: 20px
   height: 20px
