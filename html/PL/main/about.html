@@ -20,20 +20,17 @@
 
                 {% if request.session.root_login %}
                     <div class="block-content-paragraph-actions">
-                        <button type="button" class="post_button is-brown"
-                                data-name="About_{{ element.pk }}"
+                        <button class="button post_button is-brown"
+								type="button"
+								data-name="About_{{ element.pk }}"
                                 data-action="delete"
                                 data-value="{{ element.pk }}"
                                 data-reload="ground"
                                 data-url="/about/delete/">Delete</button>
-                        <!--<button type="button" class="post_button is-brown"-->
-                                <!--data-type="confirm"-->
-                                <!--data-name="delete_about">-->
-                            <!--Delete-->
-                        <!--</button>-->
 
-                        <button type="button" class="dialog_button is-brown"
-                                data-type="prompt"
+                        <button class="button dialog_button is-brown"
+								type="button"
+								data-type="prompt"
                                 data-name="content_tab"
                                 data-url="/about/edit/{{ element.pk }}/">
                             Edit
