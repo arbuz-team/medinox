@@ -21,7 +21,7 @@ class Product(Abstract_Model):
     parent = models.ForeignKey(Catalog, null=True, on_delete=models.SET_NULL)
 
     def Set_Variables(self):
-        self.image_dir = '/static/img/product/'
+        self.image_dir = '/client/static/img/product/'
 
     def __str__(self):
         return self.name
@@ -36,7 +36,7 @@ class Description(Abstract_Model):
     product = models.ForeignKey(Product)
 
     def Set_Variables(self):
-        self.image_dir = '/static/img/product/description/'
+        self.image_dir = '/client/static/img/product/description/'
 
     def __str__(self):
         return self.header

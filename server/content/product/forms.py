@@ -82,15 +82,8 @@ class Form_Description(Abstract_Image_Form):
 
     def Set_Widgets(self):
 
-        header_attr = {
-            'placeholder': Text(self.request, 95),
-            'class': 'test',
-        }
-
-        paragraph_attr = {
-            'placeholder': Text(self.request, 96),
-            'class': 'test',
-        }
+        header_attr = self.Attr(Text(self.request, 95), classes='test')
+        paragraph_attr = self.Attr(Text(self.request, 96), classes='test', field=Field.TEXTAREA)
 
         self.fields['header'].widget = forms.TextInput(attrs=header_attr)
         self.fields['paragraph'].widget = forms.Textarea(attrs=paragraph_attr)

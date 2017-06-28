@@ -1,6 +1,5 @@
 from server.manage.switch.forms import *
 from server.service.payment.models import *
-from django.contrib.admin import widgets
 
 
 class Form_Dotpay(Abstract_Form):
@@ -75,9 +74,15 @@ class Form_Order_Deadline(Abstract_Model_Form):
 
     def Create_Fields(self):
         self.fields['deadline'] = forms.DateField(required=False)
+        self.fields['reminder'] = forms.DateField(required=False)
 
     def Set_Widgets(self):
-        self.fields['deadline'].widget = widgets.AdminDateWidget()
+
+        attr_deadline = self.Attr(other={'type': 'date'})
+        attr_reminder = self.Attr(other={'type': 'date'})
+
+        self.fields['deadline'].widget = forms.DateInput(attrs=attr_deadline)
+        self.fields['reminder'].widget = forms.DateInput(attrs=attr_reminder)
 
     class Meta:
         model = Order_Deadline
@@ -86,15 +91,13 @@ class Form_Order_Deadline(Abstract_Model_Form):
 
 
 
-class Form_Order_Note(Abstract_Model_Form):
+class Form_Order_Note(Abstract_File_Form):
 
     def Create_Fields(self):
         self.fields['note'] = forms.CharField(required=False)
+        Abstract_File_Form.Create_Fields(self)
 
     def Set_Widgets(self):
         self.fields['note'].widget = forms.Textarea()
-
-    class Meta:
-        model = Order_Note
-        fields = ('note',)
+        Abstract_File_Form.Set_Widgets(self)
 

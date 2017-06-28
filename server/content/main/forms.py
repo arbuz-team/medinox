@@ -16,35 +16,12 @@ class Form_Email_Contact(Abstract_Form):
 
     def Set_Widgets(self):
 
-        title_attr = {
-            'placeholder': Text(self.request, 71),
-            'hidden': 'true',
-        }
-
-        client_attr = {
-            'placeholder': Text(self.request, 72),
-            'class': 'test',
-        }
-
-        email_attr = {
-            'placeholder': Text(self.request, 73),
-            'class': 'test',
-        }
-
-        message_attr = {
-            'placeholder': Text(self.request, 74),
-            'class': 'test',
-        }
-
-        product_attr = {
-            'placeholder': Text(self.request, 79),
-            'hidden': 'true',
-        }
-
-        url_attr = {
-            'placeholder': Text(self.request, 80),
-            'hidden': 'true',
-        }
+        title_attr = self.Attr(Text(self.request, 71), hidden=True)
+        client_attr = self.Attr(Text(self.request, 72), classes='test')
+        email_attr = self.Attr(Text(self.request, 73), classes='test', field=Field.EMAIL)
+        message_attr = self.Attr(Text(self.request, 74), classes='test', field=Field.TEXTAREA)
+        product_attr = self.Attr(Text(self.request, 79), hidden=True)
+        url_attr = self.Attr(Text(self.request, 80), hidden=True)
 
         self.fields['title'].widget = forms.TextInput(attrs=title_attr)
         self.fields['client'].widget = forms.TextInput(attrs=client_attr)

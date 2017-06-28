@@ -18,3 +18,8 @@ class Form_Catalog(Abstract_Image_Form):
     def Create_Fields(self):
         self.fields['name'] = forms.CharField(max_length=100)
         Abstract_Image_Form.Create_Fields(self)
+
+    def Set_Widgets(self):
+
+        name_attr = self.Attr(Text(self.request, 164), autofocus=True)
+        self.fields['name'].widget = forms.TextInput(attrs=name_attr)

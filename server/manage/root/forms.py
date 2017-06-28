@@ -24,12 +24,7 @@ class Form_Root_Login(Abstract_Form):
 
     def Set_Widgets(self):
 
-        password_attr = {
-            'placeholder': Text(self.request, 31),
-            'class': 'test',
-            'autofocus': 'true',
-        }
-
+        password_attr = self.Attr(Text(self.request, 31), classes='test', autofocus=True, field=Field.PASSWORD)
         self.fields['password'].widget = forms.PasswordInput(attrs=password_attr)
 
 
@@ -38,14 +33,8 @@ class Form_Root_Address(Abstract_Address_Form):
 
     def Set_Widgets(self):
 
-        phone_attr = {
-            'placeholder': Text(self.request, 139),
-        }
-
-        email_attr = {
-            'placeholder': Text(self.request, 140),
-            'class': 'test',
-        }
+        phone_attr = self.Attr(Text(self.request, 139))
+        email_attr = self.Attr(Text(self.request, 140), classes='test')
 
         self.fields['phone'].widget = forms.TextInput(attrs=phone_attr)
         self.fields['email'].widget = forms.TextInput(attrs=email_attr)

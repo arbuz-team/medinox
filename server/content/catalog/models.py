@@ -9,7 +9,7 @@ class Catalog(Abstract_Model):
     parent = models.ForeignKey('Catalog', null=True)
 
     def Set_Variables(self):
-        self.image_dir = '/static/img/catalog/'
+        self.image_dir = 'img/catalog/'
 
     def __str__(self):
         return self.name
