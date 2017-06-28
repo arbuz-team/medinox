@@ -2512,7 +2512,7 @@
 	  reader.readAsDataURL(file);
 	
 	  reader.onload = function () {
-	    callback.done(reader.result);
+	    callback.done(file.name, reader.result);
 	  };
 	
 	  reader.onerror = function (error) {
@@ -2528,10 +2528,10 @@
 	    $button_shell.html('Coverting...');
 	  };
 	
-	  this.done = function (result) {
+	  this.done = function (name, result) {
 	    var hidden_input = settings.input_base64.start + field.name + settings.input_base64.end;
 	
-	    $(hidden_input).val(result);
+	    $(hidden_input).val(name + '/' + result);
 	    setTimeout(function () {
 	      $button_shell.html('Is ready / change');
 	    }, 500);

@@ -19,7 +19,7 @@ export let
     reader.readAsDataURL(file);
 
     reader.onload = function(){
-      callback.done(reader.result);
+      callback.done(file.name, reader.result);
     };
 
     reader.onerror = function(error){
@@ -42,11 +42,11 @@ export let
     };
 
 
-    this.done = function(result)
+    this.done = function(name, result)
     {
       let hidden_input = settings.input_base64.start + field.name + settings.input_base64.end;
 
-      $(hidden_input).val(result);
+      $(hidden_input).val(name +'|'+ result);
       setTimeout(() => {
         $button_shell.html('Is ready / change');
       }, 500);

@@ -13,6 +13,7 @@ export let define = function($container)
     $forms = $(settings.form, $container),
     $file_fields = $(settings.input_file, $forms);
 
+
   $file_fields.each(function(i, field)
   {
     $(field).change(function()
