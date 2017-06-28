@@ -541,7 +541,7 @@ select {
   border: 3px dashed #d1d1d1;
     border-color: #aaa; }
 
-.field_shell input[type=file] {
+.input[type=file] {
   display: none; }
 
 .edit_field-label {

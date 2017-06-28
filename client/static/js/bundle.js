@@ -2531,7 +2531,7 @@
 	  this.done = function (name, result) {
 	    var hidden_input = settings.input_base64.start + field.name + settings.input_base64.end;
 	
-	    $(hidden_input).val(name + '/' + result);
+	    $(hidden_input).val(name + '|' + result);
 	    setTimeout(function () {
 	      $button_shell.html('Is ready / change');
 	    }, 500);
