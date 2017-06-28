@@ -16,7 +16,8 @@ class Check_Manager(Base_Tag_Manager):
     def If_Field_Is_FileInput(self):
         field = self.values['field']
         name = field.field.widget.__class__.__name__
-        return name == 'ClearableFileInput'
+        print(name)
+        return name == 'FileInput'
 
 
 

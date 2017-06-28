@@ -164,9 +164,11 @@ class Abstract_Image_Form(Abstract_Form):
 
         image_base64_attr = self.Attr(hidden=True)
         image_url_attrs = self.Attr(Text(self.request, 97))
+        image_attr = self.Attr()
 
         self.fields['image_base64'].widget = forms.TextInput(attrs=image_base64_attr)
         self.fields['image_url'].widget = forms.TextInput(attrs=image_url_attrs)
+        self.fields['image'].widget = forms.FileInput(attrs=image_attr)
 
 
 
@@ -229,9 +231,11 @@ class Abstract_File_Form(Abstract_Form):
 
         file_base64_attr = self.Attr(hidden=True)
         file_url_attrs = self.Attr(Text(self.request, 97))
+        file_attr = self.Attr()
 
         self.fields['file_base64'].widget = forms.TextInput(attrs=file_base64_attr)
         self.fields['file_url'].widget = forms.TextInput(attrs=file_url_attrs)
+        self.fields['file'].widget = forms.FileInput(attrs=file_attr)
 
 
 

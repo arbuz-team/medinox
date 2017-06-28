@@ -23,3 +23,4 @@ class Form_Catalog(Abstract_Image_Form):
 
         name_attr = self.Attr(Text(self.request, 164), autofocus=True)
         self.fields['name'].widget = forms.TextInput(attrs=name_attr)
+        Abstract_Image_Form.Set_Widgets(self)
