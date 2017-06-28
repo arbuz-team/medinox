@@ -56,4 +56,4 @@ class Order_Note(Abstract_Model):
     file = models.FileField()
 
     def Set_Variables(self):
-        self.file_dir = '/client/static/files/orders/'
+        self.file_dir = 'files/orders/'

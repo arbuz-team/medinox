@@ -305,8 +305,6 @@ class Dialog_Prompt(Dialog):
         self.content['form'] = Form_Order_Deadline(
             self.request, instance=deadline)
 
-        print(self.content['form'].as_p())
-
         return self.Render_Dialog('dialog/prompt.html',
                                   'deadline', only_root=True)
 

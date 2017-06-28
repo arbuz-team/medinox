@@ -92,8 +92,9 @@ class File_Manager:
         self.base64_file = _base64.split(',', 1)[1]
 
         # details
-        base64_data = _base64.split(';', 1)[0]
-        self.format = base64_data.split('/')[1]
+        name = _base64.split('|', 1)[0]
+        self.format = name.split('.', 1)[1] \
+            if len(name.split('.', 1)) == 2 else ''
 
         if file_type == File.FILE:
             return self.Save_From_Base64_File()

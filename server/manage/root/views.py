@@ -210,7 +210,7 @@ class Users_Payments(Dynamic_Event_Manager):
             note.note = form_note.cleaned_data['note']
             note.save()
 
-            note.Save_Image(form_note.cleaned_data['file'])
+            note.Save_File(form_note.cleaned_data['file'])
 
             return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
