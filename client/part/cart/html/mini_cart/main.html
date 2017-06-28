@@ -9,7 +9,7 @@
 
         <div class="title">
             <button class="button is-icon" type="button">
-                <span class="button-img img-shopping_cart"> &nbsp; </span>
+                <span class="button-icon img-shopping_cart"> &nbsp; </span>
             </button>
 
             {{ item.payment.date }}     &nbsp;<br>
@@ -42,51 +42,70 @@
 
                     <div class="tooltip-options">
 
-                        <button class="button post_button"
+                        <button class="button is-text_icon post_button"
                                 data-name="set_card_status_pending"
                                 data-action="assign"
                                 data-value="pending"
                                 data-other_1="index:{{ item.payment.pk }}"
                                 data-reload="ground">
-                            Pending
-                            <span style="float: right; font-size: 24px">
-                                {% if request.session.root_payment_status == 'pending' %} &#10004; {% endif %}
+                            <span class="button-text">
+                                Pending
+                            </span>
+                            <span class="button-icon">
+                                {% if request.session.root_payment_status == 'pending' %}
+                                    &#10004;
+                                {% endif %}
                             </span>
                         </button>
-                        <button class="button post_button"
+
+                        <button class="button is-text_icon post_button"
                                 type="button"
                                 data-name="set_card_status_internal"
                                 data-action="assign"
                                 data-value="internal"
                                 data-other_1="index:{{ item.payment.pk }}"
                                 data-reload="ground">
-                            Internal
-                            <span style="float: right; font-size: 24px">
-                                {% if request.session.root_payment_status == 'internal' %} &#10004; {% endif %}
+                            <span class="button-text">
+                                Internal
+                            </span>
+                            <span class="button-icon">
+                                {% if request.session.root_payment_status == 'internal' %}
+                                    &#10004;
+                                {% endif %}
                             </span>
                         </button>
-                        <button class="button post_button"
+
+                        <button class="button is-text_icon post_button"
                                 type="button"
                                 data-name="set_card_status_external"
                                 data-action="assign"
                                 data-value="external"
                                 data-other_1="index:{{ item.payment.pk }}"
                                 data-reload="ground">
-                            External
-                            <span style="float: right; font-size: 24px">
-                                {% if request.session.root_payment_status == 'external' %} &#10004; {% endif %}
+                            <span class="button-text">
+                                External
+                            </span>
+                            <span class="button-icon">
+                                {% if request.session.root_payment_status == 'external' %}
+                                    &#10004;
+                                {% endif %}
                             </span>
                         </button>
-                        <button class="button post_button"
+
+                        <button class="button is-text_icon post_button"
                                 type="button"
                                 data-name="set_card_status_completed"
                                 data-action="assign"
                                 data-value="completed"
                                 data-other_1="index:{{ item.payment.pk }}"
                                 data-reload="ground">
-                            Completed
-                            <span style="float: right; font-size: 24px">
-                                {% if request.session.root_payment_status == 'completed' %} &#10004; {% endif %}
+                            <span class="button-text">
+                                Completed
+                            </span>
+                            <span class="button-icon">
+                                {% if request.session.root_payment_status == 'completed' %}
+                                    &#10004;
+                                {% endif %}
                             </span>
                         </button>
 

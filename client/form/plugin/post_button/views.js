@@ -16,18 +16,20 @@ export let Post_Button_Views = function(config)
 
 			insert: function(text)
 			{
+				let $button = $(models.settings.button);
+
 				if(set_text.if_is_not_text())
 					return false;
 
-				if($(models.settings.button).children('span').length > 0)
-					$(models.settings.button).children('span').html(text);
+				if($button.hasClass('is-text_icon'))
+					$button.find('.button-text').html(text);
 				else
-					$(models.settings.button).html(text);
+					$button.html(text);
 			},
 
 			if_is_not_text: function()
 			{
-				return $(models.settings.button).children('i').length > 0;
+				return $(models.settings.button).hasClass('is-icon');
 			},
 
 

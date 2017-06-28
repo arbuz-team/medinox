@@ -50,8 +50,8 @@ export let Post_Button_Controllers = function(config)
 			config.button_event = $(this).data('event');
 			config.button_url = $(this).data('url');
 
-			if($(this).find('span, i').length)
-				config.button_html = $(this).find('span').html();
+			if($(this).hasClass('is-text_icon'))
+				config.button_html = $(this).find('.button-text').html();
 			else
 				config.button_html = $(this).html();
 

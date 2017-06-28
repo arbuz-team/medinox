@@ -21,14 +21,7 @@
                         {% product_name selected.product %}
                     </a>
                 </div>
-                <div class="cart-list-actions"> {{ selected.number }} x {% get_price selected.product %}
-                    <!--<button class="post_button" type="button"-->
-                           <!--data-name="Delete_{{ product.pk }}"-->
-                           <!--data-action=""-->
-                           <!--data-value="{{ product.pk }}"-->
-                           <!--data-reload="cart"-->
-                           <!--data-url="/cart/">X</button>-->
-                </div>
+                <div class="cart-list-actions"> {{ selected.number }} x {% get_price selected.product %} </div>
             </li>
 
             {% endfor %}
@@ -39,7 +32,9 @@
                             data-name="Clear_cart"
                             data-action="clear"
                             data-reload="cart"
-                            data-url="/cart/">Clear cart</button>
+                            data-url="/cart/">
+						Clear cart
+					</button>
                 </div>
                 <a class="cart-list-button" href="/payment/">
                     <button class="submit" type="button">Go to paymants</button>

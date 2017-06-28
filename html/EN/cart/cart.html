@@ -25,6 +25,9 @@
                     <form class="auto_form" action="/cart/" data-origin="little">
                         <input class="auto_field only_number_3 always" type="text" value="{{ selected.number }}" data-name="{{ selected.pk }}">
                         <span> x {{ selected.product.price }}</span>
+
+                        <!-- TODO button icon? -->
+
                         <button class="post_button icon" type="button"
                                 data-name="Delete_{{ selected.product.pk }}"
                                 data-action="delete"

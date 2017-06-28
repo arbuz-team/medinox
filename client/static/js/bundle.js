@@ -2615,7 +2615,7 @@
 			config.button_event = $(this).data('event');
 			config.button_url = $(this).data('url');
 	
-			if ($(this).find('span, i').length) config.button_html = $(this).find('span').html();else config.button_html = $(this).html();
+			if ($(this).hasClass('is-text_icon')) config.button_html = $(this).find('.button-text').html();else config.button_html = $(this).html();
 	
 			buttons_views[button_name] = new _views.Post_Button_Views(config);
 		};
@@ -2659,13 +2659,15 @@
 		    set_text = {
 	
 			insert: function insert(text) {
+				var $button = $(models.settings.button);
+	
 				if (set_text.if_is_not_text()) return false;
 	
-				if ($(models.settings.button).children('span').length > 0) $(models.settings.button).children('span').html(text);else $(models.settings.button).html(text);
+				if ($button.hasClass('is-text_icon')) $button.find('.button-text').html(text);else $button.html(text);
 			},
 	
 			if_is_not_text: function if_is_not_text() {
-				return $(models.settings.button).children('i').length > 0;
+				return $(models.settings.button).hasClass('is-icon');
 			},
 	
 			sending: function sending() {
