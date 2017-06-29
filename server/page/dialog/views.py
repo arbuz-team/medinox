@@ -305,6 +305,7 @@ class Dialog_Prompt(Dialog):
         self.content['form'] = Form_Order_Deadline(
             self.request, instance=deadline)
 
+        self.content['title'] = Text(self.request, 171)
         return self.Render_Dialog('dialog/prompt.html',
                                   'deadline', only_root=True)
 
@@ -320,6 +321,7 @@ class Dialog_Prompt(Dialog):
         self.content['form'] = Form_Order_Note(
             self.request, initial={'note': note.note})
 
+        self.content['title'] = Text(self.request, 172)
         return self.Render_Dialog('dialog/prompt.html',
                                   'note', only_root=True)
 

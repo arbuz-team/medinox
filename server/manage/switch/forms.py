@@ -16,6 +16,7 @@ class Field:
     EMAIL = 'input'
     URL = 'input'
     PASSWORD = 'input'
+    DATE = 'input'
 
 
 

@@ -69,7 +69,20 @@ class Form_Product(Abstract_Image_Form):
     def Create_Fields(self):
         self.fields['name'] = forms.CharField(max_length=100)
         self.fields['price'] = forms.FloatField(required=False)
+        self.fields['brand'] = forms.ModelChoiceField(queryset=Brand.objects.all())
         Abstract_Image_Form.Create_Fields(self)
+
+    def Set_Widgets(self):
+
+        name_attr = self.Attr(Text(self.request, 167))
+        price_attr = self.Attr(Text(self.request, 168), field=Field.NUMBER)
+        brand_attr = self.Attr(field=Field.SELECT)
+
+        self.fields['name'].widget = forms.TextInput(attrs=name_attr)
+        self.fields['price'].widget = forms.TextInput(attrs=price_attr)
+        self.fields['brand'].widget = forms.Select(attrs=brand_attr)
+
+        Abstract_Image_Form.Set_Widgets(self)
 
 
 

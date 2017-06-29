@@ -73,21 +73,31 @@ class Form_PayPal(Abstract_Form):
 class Form_Order_Deadline(Abstract_Model_Form):
 
     def Create_Fields(self):
+
+        self.fields['name'] = forms.CharField()
         self.fields['deadline'] = forms.DateField(required=False)
         self.fields['reminder'] = forms.DateField(required=False)
+        self.fields['send_to_buyer'] = forms.BooleanField(required=False)
+        self.fields['send_to_root'] = forms.BooleanField(required=False)
 
     def Set_Widgets(self):
 
-        attr_deadline = self.Attr(other={'type': 'date'})
-        attr_reminder = self.Attr(other={'type': 'date'})
+        name_attr = self.Attr(Text(self.request, 170))
+        deadline_attr = self.Attr(other={'type': 'date'}, field=Field.DATE)
+        reminder_attr = self.Attr(other={'type': 'date'}, field=Field.DATE)
+        stb_attr = self.Attr(field=Field.CHECKBOX)
+        str_attr = self.Attr(field=Field.CHECKBOX)
 
-        self.fields['deadline'].widget = forms.DateInput(attrs=attr_deadline)
-        self.fields['reminder'].widget = forms.DateInput(attrs=attr_reminder)
+        self.fields['name'].widget = forms.TextInput(attrs=name_attr)
+        self.fields['deadline'].widget = forms.DateInput(attrs=deadline_attr)
+        self.fields['reminder'].widget = forms.DateInput(attrs=reminder_attr)
+        self.fields['send_to_buyer'].widget = forms.CheckboxInput(attrs=stb_attr)
+        self.fields['send_to_root'].widget = forms.CheckboxInput(attrs=str_attr)
 
     class Meta:
         model = Order_Deadline
-        fields = ('name', 'deadline', 'send_to_buyer',
-                  'send_to_root', 'reminder')
+        fields = ('name', 'deadline', 'reminder',
+                  'send_to_buyer', 'send_to_root')
 
 
 
@@ -98,5 +108,6 @@ class Form_Order_Note(Abstract_File_Form):
         Abstract_File_Form.Create_Fields(self)
 
     def Set_Widgets(self):
-        self.fields['note'].widget = forms.Textarea()
+        note_attr = self.Attr(Text(self.request, 169), field=Field.TEXTAREA)
+        self.fields['note'].widget = forms.Textarea(attrs=note_attr)
         Abstract_File_Form.Set_Widgets(self)
