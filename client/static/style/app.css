@@ -174,7 +174,7 @@ div > .buttons_to_action {
   .is-mobile-visible {
     display: none; } }
 
-.std-img, .img-edit, .img-shopping_cart, .img-waste_bin {
+.std-img, .img-edit, .img-shopping_cart, .img-waste_bin, .img-waste_bin-64 {
   background-image: "";
   background-size: auto auto;
   background-position: 0 0;
@@ -188,6 +188,9 @@ div > .buttons_to_action {
 
 .img-waste_bin {
   background-image: url(/static/img/icons/32/dark/waste_bin.png); }
+
+.img-waste_bin-64 {
+  background-image: url(/static/img/icons/64/dark/waste_bin.png); }
 
 .filed_without_styles, .std_field, .button, .textarea, .input, select, .button.is-icon, .button.is-icon:hover, .button.is-icon:focus, .button.is-icon:disabled {
   line-height: inherit;
@@ -282,6 +285,9 @@ div > .buttons_to_action {
   line-height: 25px;
   height: 20px; }
 
+.button.is-icon:hover .button-icon {
+  opacity: 1; }
+
 .button.is-icon .button-icon {
   display: inline-block;
   width: 20px;
@@ -291,8 +297,6 @@ div > .buttons_to_action {
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat; }
-  .button.is-icon .button-icon:hover {
-    opacity: 1; }
 
 .button.is-text_icon .button-icon {
   float: right;
@@ -547,8 +551,52 @@ select {
   border: 3px dashed #d1d1d1;
     border-color: #aaa; }
 
-.input[type=file] {
+.file_shell .input[type=file] {
   display: none; }
+
+.file-tile {
+  display: inline-block;
+  width: 100px;
+  height: 120px; }
+
+.file-tile-content {
+  position: relative;
+  height: 100px;
+  background: #f2f2f2;
+  border: 3px dashed #d1d1d1;
+  overflow: hidden;
+  text-align: center; }
+  .file-tile-content:hover .file-tile-remove {
+    display: block; }
+
+.file-tile-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto; }
+
+.file-tile-remove {
+  display: none;
+  line-height: 100%;
+  background: rgba(242, 242, 242, 0.6);
+  text-align: center;
+  z-index: 10; }
+  .file-tile-remove .button, .file-tile-remove .button:hover, .file-tile-remove .button:focus {
+    line-height: 100%;
+    width: 100%;
+    height: 100%; }
+    .file-tile-remove .button .button-icon, .file-tile-remove .button:hover .button-icon, .file-tile-remove .button:focus .button-icon {
+      width: 30px;
+      height: 30px;
+      opacity: 0.9; }
+
+.file-tile-title {
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  font-size: 10px;
+  font-weight: bold;
+  opacity: 0.7; }
 
 .edit_field-label {
   opacity: .6;

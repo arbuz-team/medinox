@@ -27,8 +27,7 @@
 	<div class="file_shell">
 		{{ field }}
 		<button class="button" type="button">Select file</button>
-		{{ field.errors }}
-		<div class="status"></div>
+		<div class="status">{{ field.errors }}</div>
 
 {% elif field.name == 'image_name' or field.name == 'image_name' or field.name == 'image_base64' or field.name == 'file_base64' %}
 
@@ -37,8 +36,26 @@
 {% elif field.name == 'image_url' or field.name == 'file_url' %}
 		&nbsp;or&nbsp;
 		{{ field }}
-		{{ field.errors }}
-		<div class="status"></div>
+		<div class="status">{{ field.errors }}</div>
+
+		{% if image %}
+			<div class="file-list">
+
+				<div class="file-tile">
+					<div class="file-tile-content">
+						<img class="file-tile-image" data-src="{{ image }}" src="/static/img/pixel.png" alt="image">
+
+						<div class="file-tile-remove fill-abs">
+							<button class="button is-icon" type="button">
+								<span class="button-icon img-waste_bin-64"> &nbsp; </span>
+							</button>
+						</div>
+					</div>
+					<div class="file-tile-title">File_name.png</div>
+				</div>
+
+			</div>
+		{% endif %}
 	</div>
 
 <!-- End file inputs -->

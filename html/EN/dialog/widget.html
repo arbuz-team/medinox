@@ -20,10 +20,6 @@
 
             {% endfor %}
 
-            {% if image %}
-                <img data-src="{{ image }}" src="/static/img/pixel.png" alt="image">
-            {% endif %}
-
             <input type="hidden" name="additional_reload" value="{{ additional.reload }}">
             <input type="hidden" name="additional_redirect" value="{{ additional.redirect }}">
             <input type="hidden" name="additional_event" value="{{ additional.event }}">
