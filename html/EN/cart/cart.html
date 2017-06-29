@@ -23,18 +23,17 @@
                 </div>
                 <div class="cart-list-actions">
                     <form class="auto_form" action="/cart/" data-origin="little">
-                        <input class="auto_field only_number_3 always" type="text" value="{{ selected.number }}" data-name="{{ selected.pk }}">
+                        <input class="input auto_field only_number_3 always" type="text" value="{{ selected.number }}" data-name="{{ selected.pk }}">
                         <span> x {{ selected.product.price }}</span>
 
-                        <!-- TODO button icon? -->
-
-                        <button class="post_button icon" type="button"
+                        <button class="button is-icon post_button"
+                                type="button"
                                 data-name="Delete_{{ selected.product.pk }}"
                                 data-action="delete"
                                 data-value="{{ selected.product.pk }}"
                                 data-reload="cart ground"
                                 data-url="/cart/">
-                            <i style="background-image: url(/static/img/icons/32/dark/waste_bin.png)"> &nbsp; </i>
+                            <span class="button-icon img-waste_bin"> &nbsp; </span>
                         </button>
                     </form>
                 </div>
@@ -49,7 +48,8 @@
 
             <li>
                 <div class="cart-list-button">
-                    <button class="dialog_button" type="button"
+                    <button class="button dialog_button"
+                            type="button"
                             data-type="confirm"
                             data-name="clear_cart"
                             data-dialog-name="Clear_cart"
@@ -61,7 +61,7 @@
                     </button>
                 </div>
                 <a class="cart-list-button" href="/payment/">
-                    <button class="submit" type="button">Go to paymants</button>
+                    <button class="button is-brown" type="button">Go to paymants</button>
                 </a>
             </li>
 

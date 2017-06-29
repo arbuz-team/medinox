@@ -34,14 +34,14 @@
 
                                 <span>{{ selected.number }} x {% get_price selected.product %}</span>
 
-                                <button class="button post_button icon"
+                                <button class="button is-icon post_button"
 										type="button"
 										data-name="Delete_{{ selected.product.pk }}"
 										data-action="delete"
 										data-value="{{ selected.product.pk }}"
 										data-reload="cart ground"
 										data-url="/cart/">
-                                    <i style="background-image: url(/static/img/icons/32/dark/waste_bin.png)"> &nbsp; </i>
+                                    <span class="button-icon img-waste_bin"> &nbsp; </span>
                                 </button>
 
                             </div><!-- cart-list-name -->

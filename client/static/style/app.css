@@ -174,7 +174,7 @@ div > .buttons_to_action {
   .is-mobile-visible {
     display: none; } }
 
-.std-img, .img-edit, .img-shopping_cart {
+.std-img, .img-edit, .img-shopping_cart, .img-waste_bin {
   background-image: "";
   background-size: auto auto;
   background-position: 0 0;
@@ -185,6 +185,9 @@ div > .buttons_to_action {
 
 .img-shopping_cart {
   background-image: url(/static/img/icons/32/dark/shopping_cart.png); }
+
+.img-waste_bin {
+  background-image: url(/static/img/icons/32/dark/waste_bin.png); }
 
 .filed_without_styles, .std_field, .button, .textarea, .input, select, .button.is-icon, .button.is-icon:hover, .button.is-icon:focus, .button.is-icon:disabled {
   line-height: inherit;
@@ -1763,7 +1766,7 @@ img {
     font-size: 14px;
     text-align: right;
     color: #1a1a1a; }
-    .cart-list > li > .cart-list-actions input {
+    .cart-list > li > .cart-list-actions .input {
       min-width: 30px;
       width: 30px;
       padding: 2px 2px;
@@ -1771,10 +1774,7 @@ img {
       line-height: 20px;
       border: 1px solid #cfcfcf;
         border-top: 1px solid #b9b9b9; }
-    .cart-list > li > .cart-list-actions button {
-      margin-left: 3px;
-      margin-right: 0; }
-    .cart-list > li > .cart-list-actions button, .cart-list > li > .cart-list-actions span {
+    .cart-list > li > .cart-list-actions .button, .cart-list > li > .cart-list-actions span {
       opacity: .7; }
   .cart-list > li > .cart-list-empty {
     opacity: .6;
@@ -1785,7 +1785,7 @@ img {
   .cart-list > li > .cart-list-button {
     margin-top: 30px;
     width: 49%; }
-    .cart-list > li > .cart-list-button button {
+    .cart-list > li > .cart-list-button .button {
       display: block;
       width: 98%; }
   .cart-list > li.cart-list-total_price {
@@ -1977,12 +1977,11 @@ img {
   font-size: 16px;
   font-weight: bold;
   text-align: center; }
-  .searcher-clear span {
+  .searcher-clear .button-text {
     line-height: 50px;
     opacity: .7; }
-
-.searcher-clear:hover span {
-  opacity: .9; }
+  .searcher-clear:hover .button-text {
+    opacity: .9; }
 
 .searcher {
   width: 248px;
