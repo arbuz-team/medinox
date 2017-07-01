@@ -144,9 +144,8 @@ div > .buttons_to_action {
   bottom: 0;
   left: 0;
   right: -15px;
-  overflow: visible;
-    overflow-x: visible;
-    overflow-y: scroll; }
+  overflow-x: visible;
+  overflow-y: scroll; }
   .container-part-scroll-content > div {
     position: relative; }
 
@@ -192,7 +191,7 @@ div > .buttons_to_action {
 .img-waste_bin-64 {
   background-image: url(/static/img/icons/64/dark/waste_bin.png); }
 
-.filed_without_styles, .std_field, .button, .textarea, .input, select, .button.is-icon, .button.is-icon:hover, .button.is-icon:focus, .button.is-icon:disabled {
+.field_without_styles, .std_field, .button, .textarea, .input, select, .button.is-icon, .button.is-icon:hover, .button.is-icon:focus, .button.is-icon:disabled, .searcher-phrase-field {
   line-height: inherit;
   margin: 0;
   padding: 0;
@@ -842,7 +841,7 @@ select {
 @media (min-width: 675px) {
   #HEADER > .header > .navigation-secondary {
     position: absolute;
-    left: -3px;
+    left: 0;
     top: 0;
     right: 0;
     display: block;
@@ -1991,12 +1990,11 @@ img {
   top: 0;
   left: -250px;
   bottom: 0;
+  z-index: 75;
   min-width: 250px;
   width: 250px;
   background-color: #ffffff;
-  color: #1a1a1a;
-  border-right: 2px solid #e8e8e8;
-  z-index: 75; }
+  color: #1a1a1a; }
   #SEARCHER .part-hide {
     left: 100%;
     top: 0;
@@ -2013,6 +2011,26 @@ img {
     background-image: -o-linear-gradient(right, transparent, rgba(100, 100, 100, 0.1));
     background-image: linear-gradient(right, transparent, rgba(100, 100, 100, 0.1)); }
 
+.searcher {
+  width: 250px;
+  min-height: 100%;
+  padding-bottom: 70px;
+  border-right: 2px solid #e8e8e8; }
+  .searcher .searcher-field {
+    display: block;
+    width: 220px;
+    height: 40px;
+    margin: 5px 15px;
+    padding: 0;
+    background-color: transparent;
+    color: inherit;
+    border: none; }
+    .searcher .searcher-field:focus {
+      box-shadow: none; }
+    .searcher .searcher-field option {
+      background-color: #ffffff;
+      color: #1a1a1a; }
+
 .searcher-clear {
   position: absolute;
   left: 0;
@@ -2021,6 +2039,7 @@ img {
   height: 50px;
   background-color: #ffffff;
   border-top: 2px solid #e8e8e8;
+  border-right: 2px solid #e8e8e8;
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
@@ -2031,65 +2050,30 @@ img {
   .searcher-clear:hover .button-text {
     opacity: .9; }
 
-.searcher {
-  width: 248px;
-  padding-bottom: 70px; }
-  .searcher > .logo_text {
-    opacity: 1 !important;
-    display: block;
-    height: 100px;
-    line-height: 100px;
-    text-align: center;
-    font-size: 20px;
-    font-weight: bold; }
-  .searcher .field_shell input {
-    padding-left: 5px; }
-  .searcher .field_shell select, .searcher .field_shell input[type=text] {
-    display: block;
-    width: 220px;
-    height: 40px;
-    margin: 10px 15px;
-    padding: 0;
-    background-color: transparent;
-    color: inherit;
-    border: none; }
-    .searcher .field_shell select > option, .searcher .field_shell input[type=text] > option {
-      background-color: #ffffff;
-      color: #1a1a1a; }
-
-.searcher-searcher {
+.searcher-phrase {
   border-top: 1px solid #e8e8e8;
   border-bottom: 1px solid #e8e8e8; }
-  .searcher-searcher > form > input[type=text] {
-    height: 30px;
-    margin-left: 10px;
-    padding: 3px 0;
-      padding-left: 5px;
-    vertical-align: top;
-    box-shadow: none !important;
-    background-color: #ffffff;
-    color: #1a1a1a;
-    font-size: 16px;
-    font-weight: bold; }
+
+.searcher-phrase-field {
+  height: 40px;
+  margin-left: 10px;
+  padding: 3px 0;
+    padding-left: 5px;
+  vertical-align: top;
+  box-shadow: none !important;
+  background-color: #ffffff;
+  color: #1a1a1a;
+  font-size: 16px;
+  font-weight: bold; }
 
 .searcher-header {
-  opacity: 1 !important;
+  position: relative;
+  z-index: 10;
   display: block;
+  width: 253px;
   height: 30px;
-  background-color: #1a1a1a; }
-
-.searcher-logo {
-  opacity: 1 !important;
-  display: block;
-  height: 100px;
-  text-align: center; }
-  .searcher-logo a {
-    position: relative;
-    top: 30px;
-    display: inline-block; }
-  .searcher-logo img {
-    width: 200px;
-    height: auto; }
+  background-color: #1a1a1a;
+  opacity: 1 !important; }
 
 .searcher-filters {
   display: block;
@@ -2105,6 +2089,7 @@ img {
   font-weight: bold;
   text-align: center;
   background-color: transparent;
+  opacity: .9;
   border-top: 1px solid #e8e8e8; }
 
 .searcher-filters-content {
@@ -2113,19 +2098,76 @@ img {
   padding: 10px 15px;
     padding-top: 3px;
   background-color: transparent; }
-  .searcher-filters-content button.icon {
-    float: right;
-    opacity: .6; }
-  .searcher-filters-content button.icon:hover {
+
+.searcher-filters-remove {
+  float: right;
+  opacity: .6; }
+  .searcher-filters-remove:hover {
     opacity: .8; }
 
 @media (min-width: 1000px) {
   #SEARCHER {
     left: 0 !important;
-    z-index: 60; }
+    z-index: 60; } }
+
+.searcher-logo {
+  opacity: 1 !important;
+  display: block;
+  height: 100px;
+  text-align: center; }
+
+.searcher-logo-link {
+  position: relative;
+  top: 30px;
+  display: inline-block; }
+
+.searcher-logo-image {
+  width: 200px;
+  height: auto; }
+
+.searcher-logo_text {
+  opacity: 1 !important;
+  display: block;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold; }
+
+@media (min-width: 1000px) {
   .searcher-logo {
     height: 130px; }
-    .searcher-logo a {
-      top: 45px; } }
+  .searcher-logo-link {
+    top: 45px; } }
+
+.searcher-filters {
+  display: block;
+  width: 100%; }
+
+.searcher-filters-title {
+  display: block;
+  height: 40px;
+  margin-top: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  line-height: 40px;
+  font-weight: bold;
+  text-align: center;
+  background-color: transparent;
+  opacity: .9;
+  border-top: 1px solid #e8e8e8; }
+
+.searcher-filters-content {
+  display: block;
+  min-height: 40px;
+  padding: 10px 15px;
+    padding-top: 3px;
+  background-color: transparent; }
+
+.searcher-filters-remove {
+  float: right;
+  opacity: .6; }
+  .searcher-filters-remove:hover {
+    opacity: .8; }
 
 /*# sourceMappingURL=app.css.map*/

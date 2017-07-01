@@ -4,18 +4,20 @@
 <div class="searcher-header"></div>
 
 <div class="searcher-logo">
-  <a href="/"><img data-src="{% static 'img/logo.png' %}" src="{% static 'img/pixel.png' %}" alt="SPA Sungate" title="Home page"></a>
+  <a class="searcher-logo-link" href="/">
+      <img class="searcher-logo-image" data-src="{% static 'img/logo.png' %}" src="{% static 'img/pixel.png' %}" alt="SPA Sungate" title="Home page">
+  </a>
 </div>
 
 
-<!--<h1 class="logo_text">-->
+<!--<h1 class="searcher-logo_text">-->
     <!--<a href="/">Shop - fillers</a>-->
 <!--</h1>-->
 
 
-<div class="searcher-searcher auto_form">
+<div class="searcher-phrase auto_form">
     <form action="/searcher/" data-origin="filter" data-redirect="/products/" data-delay="100">
-        <input class="input auto_field only_enter"
+        <input class="searcher-field searcher-phrase-field auto_field only_enter"
 			   type="text"
 			   name="search"
 			   placeholder="Search"
@@ -28,7 +30,9 @@
 
     <div class="searcher-sort">
         <div>
-            <select name="sort_by" class="auto_field" data-name="order_name">
+            <select class="searcher-field select auto_field"
+                    name="sort_by"
+                    data-name="order_name">
                 <option value="search_accuracy" selected> search accuracy </option>
                 <option value="price"> price </option>
                 <option value="name_of_product"> name of product </option>
@@ -39,7 +43,9 @@
 
     <div class="searcher-order">
         <div>
-            <select name="order_by" class="auto_field" data-name="order_direction">
+            <select class="searcher-field select auto_field"
+                    name="order_by"
+                    data-name="order_direction">
                 <option value="descending" selected> descending </option>
                 <option value="ascending"> ascending </option>
             </select>
@@ -62,7 +68,8 @@
                     <label for="id_{{ brand.name }}" class="selecter-text">{{ brand.name }}</label>
 
                     {% if request.session.root_login %}
-                        <button class="dialog_button icon" type="button"
+                        <button class="button is-icon searcher-filters-remove dialog_button"
+                                type="button"
                                 data-type="confirm"
                                 data-name="delete_brand"
                                 data-dialog-name="delete_brand_{{ brand.pk }}"
@@ -70,7 +77,7 @@
                                 data-dialog-action="delete"
                                 data-dialog-reload="searcher"
                                 data-dialog-url="/product/brand/">
-                            <i style="background-image: url(/static/img/icons/32/dark/waste_bin.png)"> &nbsp; </i>
+                            <span class="button-icon img-waste_bin"> &nbsp; </span>
                         </button>
                     {% endif %}
                 </li>
@@ -95,7 +102,8 @@
                     <label for="id_purpose_{{ purpose.pk }}" class="selecter-text">{% purpose_name purpose %}</label>
 
                     {% if request.session.root_login %}
-                        <button class="dialog_button icon" type="button"
+                        <button class="button is-icon searcher-filters-remove dialog_button"
+                                type="button"
                                 data-type="confirm"
                                 data-name="delete_purpose"
                                 data-dialog-name="delete_purpose_{{ purpose.pk }}"
@@ -103,11 +111,10 @@
                                 data-dialog-action="delete"
                                 data-dialog-reload="searcher"
                                 data-dialog-url="/product/purpose/">
-                            <i style="background-image: url(/static/img/icons/32/dark/waste_bin.png)"> &nbsp; </i>
+                            <span class="button-icon img-waste_bin"> &nbsp; </span>
                         </button>
                     {% endif %}
                 </li>
-            <!--<li> <input name="{% purpose_name purpose %}" type="checkbox" class="auto_field" data-name="purpose" /> <label for>{% purpose_name purpose %}</label> </li>-->
 
             {% endfor %}
         </ul>
