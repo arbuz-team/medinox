@@ -12,7 +12,7 @@ export let Plugins_Motion_Models = function(config)
   this.settings = {
     container: undefined,
     content: undefined,
-    hide: '.hide',
+    hide: '.part-hide',
 
     width: undefined,
     height: undefined,

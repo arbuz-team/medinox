@@ -123,11 +123,11 @@ div > .buttons_to_action {
   z-index: 60;
   display: block;
   overflow: visible; }
-  .container-motion > .hide {
+  .container-motion .part-hide {
     position: absolute;
     display: none; }
-    .container-motion > .hide > div {
-      position: absolute; }
+  .container-motion .part-hide-shadow {
+    position: absolute; }
 
 .container-part-scroll {
   position: absolute;
@@ -1883,7 +1883,7 @@ img {
   height: 100%;
   background-color: #1a1a1a;
   z-index: 80; }
-  #NAVIGATION > .hide {
+  #NAVIGATION .part-hide {
     bottom: 0;
     left: 0;
     right: 0;
@@ -1895,9 +1895,9 @@ img {
     -webkit-box-shadow: 0px -5px 5px 0px rgba(85, 85, 85, 0.4);
     box-shadow: 0px -5px 5px 0px rgba(85, 85, 85, 0.4);
     opacity: .8; }
-    #NAVIGATION > .hide > span {
-      line-height: 50px;
-      color: #ffffff; }
+  #NAVIGATION .part-hide-text {
+    line-height: 50px;
+    color: #ffffff; }
 
 .navigation {
   margin-bottom: 100px;
@@ -1997,21 +1997,21 @@ img {
   color: #1a1a1a;
   border-right: 2px solid #e8e8e8;
   z-index: 75; }
-  #SEARCHER > .hide {
+  #SEARCHER .part-hide {
     left: 100%;
     top: 0;
     bottom: 0;
     width: 1000px; }
-    #SEARCHER > .hide > div {
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 500px;
-      background-image: -webkit-linear-gradient(right, transparent, rgba(100, 100, 100, 0.1));
-      background-image: -moz-linear-gradient(right, transparent, rgba(100, 100, 100, 0.1));
-      background-image: -ms-linear-gradient(right, transparent, rgba(100, 100, 100, 0.1));
-      background-image: -o-linear-gradient(right, transparent, rgba(100, 100, 100, 0.1));
-      background-image: linear-gradient(right, transparent, rgba(100, 100, 100, 0.1)); }
+  #SEARCHER .part-hide-shadow {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 500px;
+    background-image: -webkit-linear-gradient(right, transparent, rgba(100, 100, 100, 0.1));
+    background-image: -moz-linear-gradient(right, transparent, rgba(100, 100, 100, 0.1));
+    background-image: -ms-linear-gradient(right, transparent, rgba(100, 100, 100, 0.1));
+    background-image: -o-linear-gradient(right, transparent, rgba(100, 100, 100, 0.1));
+    background-image: linear-gradient(right, transparent, rgba(100, 100, 100, 0.1)); }
 
 .searcher-clear {
   position: absolute;
