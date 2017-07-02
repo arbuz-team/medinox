@@ -1,7 +1,7 @@
 from server.page.dialog.service.base import *
 
 
-class Service_Product_Recommended(Base_Service):
+class Service_Recommended(Base_Service):
 
     def Manage(self):
         self.content['title'] = Text(self.request, 9)

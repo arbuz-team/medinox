@@ -1,15 +1,4 @@
-from server.manage.switch.base import *
-from server.content.product.forms import *
-from server.content.catalog.forms import *
-from server.manage.user.account.forms import *
-from server.content.main.forms import *
-from server.service.payment.forms import *
-from server.content.main.models import *
-
-
-
 from server.service.translator.views import *
-from inspect import getmembers, ismethod
 import importlib
 
 
