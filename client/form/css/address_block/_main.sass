@@ -1,0 +1,126 @@
+
+@import '../../../part/ground/css/type_block/definition.sass'
+
+$address_block--height-invisible: 100px
+$address_block--height-visible: 360px
+
+$address_block--margin-right: 10px
+$address_block--padding: 10px + 10px
+
+$address_block-big--width-mobile: $ground-block-small--width - $address_block--padding
+$address_block-big--width-normal: ($ground-block-big--width - $address_block--padding) / 3 - 13px
+
+
+
+.address_block
+  position: relative
+  display: block
+
+  height: $address_block--height-invisible
+  margin-top: 15px
+
+  overflow: hidden
+  vertical-align: top
+
+  cursor: pointer
+  +transition(height 200ms)
+
+  &.is-long
+    height: $address_block--height-visible
+
+    .address_block-shell
+      height: 0
+
+
+.address_block-shell
+  @extend .fill-abs
+
+  top: auto
+  height: 50px
+
+  background-image: linear-gradient(transparent, white)
+  +transition(height 200ms)
+
+
+.address_block-title
+  margin-top: 0
+  padding-bottom: 5px
+
+  font-weight: bold
+  text-align: left
+
+  color: $G-COLOR-0
+  opacity: .6
+
+
+.address_block-fields
+  display: block
+  margin-right: 5px
+
+  >*
+    width: 100%
+
+
+
+
+=address_block-triple()
+
+  .address_block
+    display: inline-block
+    width: $address_block-big--width-normal
+    height: $address_block--height-visible
+    margin-right: $address_block--margin-right
+
+    cursor: auto
+
+    &:nth-child(3n + 4)
+      margin-right: 0
+
+
+  .address_block-shell
+    height: 0
+
+
+  .address_block-title
+    cursor: auto
+
+
+  .address_block-fields
+    width: 200px
+    margin-right: 0
+
+
+
+=address_block-multiple()
+
+  .address_block:nth-child(3n + 4)
+    margin-right: $address_block--margin-right
+
+
+
+
+
+
+
+@media (min-width: $G-SIZE-2)
+  .ground:not(.smaller)
+    .ground-block.BIG
+      +address_block-triple()
+
+
+@media (min-width: $G-SIZE-4)
+  .ground:not(.smaller)
+    .ground-block.BIG
+      +address_block-multiple()
+
+
+@media (min-width: 1300px)
+  .ground.smaller
+    .ground-block.BIG
+      +address_block-triple()
+
+
+@media (min-width: 1500px)
+  .ground.smaller
+    .ground-block.BIG
+      +address_block-multiple()

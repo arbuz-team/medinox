@@ -51,21 +51,23 @@ export let Form_Controllers = function(content_loader_controllers)
 
 		show_hide_form_address = function(event)
 		{
-			let $element = $(this).parents('.form_block');
+			console.log('cos');
+			let $element = $(this).parents('.address_block');
 			event.stopPropagation();
 
-			if($element.hasClass('visible'))
-				$element.removeClass('visible');
+			if($element.hasClass('is-long'))
+				$element.removeClass('is-long');
 			else
-				$element.addClass('visible');
+				$element.addClass('is-long');
 		},
 
 
 		show_form_address = function(event)
 		{
+			console.log('cos2');
 			event.stopPropagation();
 
-			$(this).addClass('visible');
+			$(this).addClass('is-long');
 		};
 
 
@@ -79,9 +81,9 @@ export let Form_Controllers = function(content_loader_controllers)
 
 		$('form', $container).submit(prepare_form_to_send);
 
-		$('.form_block', $container).click(show_form_address);
+		$('.address_block', $container).click(show_form_address);
 
-		$('.form_block .title', $container).click(show_hide_form_address);
+		$('.address_block .address_block-title', $container).click(show_hide_form_address);
 
 		validator.define($container);
 		hide_form.define($container);

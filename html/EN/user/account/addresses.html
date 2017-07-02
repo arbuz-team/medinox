@@ -24,21 +24,23 @@
 
         {% for id_address, edit_form_address in edit_forms_address.items %}
 
-            <div class="form_block">
+            <div class="address_block">
                 <form method="post" action="" data-name="{{ form_name_edit }}_{{ id_address }}" data-type="user_address" data-test="yes">
 
-                    <div class="shell_form"></div>
+                    <div class="address_block-shell"></div>
 
-                    <div class="title"> Address {{ id_address }} </div>
+                    <div class="address_block-title"> Address {{ id_address }} </div>
 
-                    {% for address in edit_form_address %}
+					<div class="address_block-fields">
+						{% for address in edit_form_address %}
 
-                        {{ address }}
-                        {{ address.errors }}
+							{{ address }}
+							{{ address.errors }}
 
-                    {% endfor %}
+						{% endfor %}
+					</div>
 
-                    <div class="form_buttons short">
+                    <div class="address_block-buttons short">
                         <button class="button"
 								disabled
 								type="submit">
@@ -63,21 +65,23 @@
         {% endfor %}
 
 
-        <div class="form_block">
+        <div class="address_block">
             <form method="post" action="" data-name="{{ form_name_new }}" data-type="user_address" data-test="yes">
 
-                <div class="shell_form"></div>
+                <div class="address_block-shell"></div>
 
-                <div class="title"> Add new address </div>
+                <div class="address_block-title"> Add new address </div>
 
-                {% for address in new_form_address %}
+				<div class="address_block-fields">
+					{% for address in new_form_address %}
 
-                    {{ address }}
-                    {{ address.errors }}
+						{{ address }}
+						{{ address.errors }}
 
-                {% endfor %}
+					{% endfor %}
+				</div>
 
-                <div class="form_buttons short">
+                <div class="address_block-buttons is-short">
 					<button class="button"
 							disabled
 							type="submit">

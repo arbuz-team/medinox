@@ -1,0 +1,60 @@
+
+@import 'definition'
+
+.ground-block.SMALL
+
+  .block-content
+    width: $ground-block-small--width
+    margin: $ground-block--margin
+
+
+
+.ground-block.BIG
+
+  .block-content
+    width: $ground-block-small--width
+    margin: $ground-block--margin
+
+
+
+
+=block-content-bigger()
+
+  .block-content
+    width: $ground-block-big--width
+
+
+
+=block-content-the_biggest()
+  .block-content
+    width: auto
+    margin:
+      left: 80px
+      right: 80px
+
+
+
+
+
+@media (min-width: $G-SIZE-2)
+  .ground:not(.smaller)
+    .ground-block.BIG
+      +block-content-bigger()
+
+
+@media (min-width: $G-SIZE-4)
+  .ground:not(.smaller)
+    .ground-block.BIG
+      +block-content-the_biggest()
+
+
+@media (min-width: 1300px)
+  .ground.smaller
+    .ground-block.BIG
+        +block-content-bigger()
+
+
+@media (min-width: 1500px)
+  .ground.smaller
+    .ground-block.BIG
+      +block-content-the_biggest()

@@ -1373,15 +1373,17 @@
 			}
 		},
 		    show_hide_form_address = function show_hide_form_address(event) {
-			var $element = $(this).parents('.form_block');
+			console.log('cos');
+			var $element = $(this).parents('.address_block');
 			event.stopPropagation();
 	
-			if ($element.hasClass('visible')) $element.removeClass('visible');else $element.addClass('visible');
+			if ($element.hasClass('is-long')) $element.removeClass('is-long');else $element.addClass('is-long');
 		},
 		    show_form_address = function show_form_address(event) {
+			console.log('cos2');
 			event.stopPropagation();
 	
-			$(this).addClass('visible');
+			$(this).addClass('is-long');
 		};
 	
 		/**
@@ -1393,9 +1395,9 @@
 	
 			$('form', $container).submit(prepare_form_to_send);
 	
-			$('.form_block', $container).click(show_form_address);
+			$('.address_block', $container).click(show_form_address);
 	
-			$('.form_block .title', $container).click(show_hide_form_address);
+			$('.address_block .address_block-title', $container).click(show_hide_form_address);
 	
 			validator.define($container);
 			hide_form.define($container);

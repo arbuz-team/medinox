@@ -1,6 +1,6 @@
 {% load tags %}
 
-<div class="form_block fields">
+<div class="mini_cart fields">
     <div>
 
         <div class="shell_form"></div>
@@ -22,13 +22,15 @@
 
         {% for selected in item.products %}
             <div class="field">
-                <span>{{ selected.product }}</span> <span>x {{ selected.number }}</span>
+                <span>{{ selected.product }}</span>
+                <span>x {{ selected.number }}</span>
             </div>
         {% endfor %}
 
         <div>
             <div>
-                <span>{{ item.payment.service }}</span> <span>{{ item.payment.total_price }} {{ item.payment.currency }}</span>
+                <span>{{ item.payment.service }}</span>
+                <span>{{ item.payment.total_price }} {{ item.payment.currency }}</span>
             </div>
             <div style="text-align: right">
 
