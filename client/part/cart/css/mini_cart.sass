@@ -1,0 +1,148 @@
+
+@import '../../ground/css/type_block/definition.sass'
+
+$mini_cart--width: 300px
+
+$mini_cart-short--height: 50px
+$mini_cart-long--height: 280px
+
+
+.mini_cart
+  @extend .address_block
+
+  width: $mini_cart--width
+  height: $mini_cart-short--height
+
+  margin: 10px auto
+  padding: 5px 10px
+
+  background-color: #f8f8f8
+  border: $G-STYLE-BORDER
+    radius: 3px
+
+  &:nth-child(3n + 4)
+    margin-right: auto
+
+  &.is-long
+    height: $mini_cart-long--height
+    overflow: visible
+
+    .mini_cart-shell
+      height: 0
+
+
+
+.mini_cart-title
+  position: relative
+  padding: 10px 5px
+  font-weight: bold
+
+.mini_cart-title-date
+  color: $G-COLOR-0
+
+.mini_cart-title-name
+  color: $G-COLOR-1
+
+
+.mini_cart-icon
+  top: 10px
+  right: 5px
+
+
+.mini_cart-shell
+  @extend .address_block-shell
+
+  background-image: none
+
+
+
+.mini_cart-field_list
+  display: block
+  height: 150px
+
+  margin-bottom: 5px
+  padding: 5px 10px
+
+  overflow:
+    x: hidden
+    y: scroll
+
+  border:
+    top: $G-STYLE-BORDER
+    bottom: $G-STYLE-BORDER
+
+.mini_cart-product
+  font-size: 14px
+
+
+
+.mini_cart-additional_info
+  font:
+    size: 14px
+    weight: bold
+  color: $G-COLOR-0
+  opacity: .8
+
+
+
+
+
+
+=mini_cart-double()
+
+  .mini_cart
+    display: inline-block
+    width: $mini_cart--width
+    height: $mini_cart-long--height
+    margin:
+      left: 10px
+      right: 10px
+
+    cursor: auto
+
+    &:nth-child(2n + 3)
+      margin-right: 10px
+
+
+  .mini_cart-shell
+    height: 0
+
+
+  .mini_cart-title
+    cursor: auto
+
+
+
+
+//=mini_cart-multiple()
+
+  //.address_block:nth-child(2n + 3)
+    //margin-right: $multiple_block--margin-right
+
+
+
+
+
+
+@media (min-width: $G-SIZE-2)
+  .ground:not(.smaller)
+    .ground-block.BIG
+      +mini_cart-double()
+
+
+//@media (min-width: $G-SIZE-4)
+  .ground:not(.smaller)
+    .ground-block.BIG
+      +mini_cart-multiple()
+
+
+@media (min-width: 1300px)
+  .ground.smaller
+    .ground-block.BIG
+      +mini_cart-double()
+
+
+//@media (min-width: 1500px)
+  .ground.smaller
+    .ground-block.BIG
+      +mini_cart-multiple()

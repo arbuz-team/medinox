@@ -1,38 +1,45 @@
 {% load tags %}
 
-<div class="mini_cart fields">
+<div class="mini_cart change_length">
     <div>
 
-        <div class="shell_form"></div>
+        <div class="mini_cart-shell"></div>
 
-        <div class="title">
-            <button class="button is-icon" type="button">
+        <div class="mini_cart-title change_length-button">
+            <button class="mini_cart-icon button is-icon is-right" type="button">
                 <span class="button-icon img-shopping_cart"> &nbsp; </span>
             </button>
 
-            {{ item.payment.date }}     &nbsp;<br>
+            <span class="mini_cart-title-date">
+                {{ item.payment.date }}&nbsp;-&nbsp;
+            </span>
 
-            {% if button_address_name == 'root_address' and item.fullname %}
-                {{ item.fullname }}    &nbsp;
-            {% else %}
-                {{ item.payment.user }}    &nbsp;
-            {% endif %}
+            <span class="mini_cart-title-name">
+                {% if button_address_name == 'root_address' and item.fullname %}
+                    {{ item.fullname }}
+                {% else %}
+                    {{ item.payment.user }}
+                {% endif %}
+            </span>
 
         </div>
 
-        {% for selected in item.products %}
-            <div class="field">
-                <span>{{ selected.product }}</span>
-                <span>x {{ selected.number }}</span>
-            </div>
-        {% endfor %}
+        <div class="mini_cart-field_list">
+            {% for selected in item.products %}
+                <div class="mini_cart-product">
+                    <span>{{ selected.product }}</span>
+                    <span>x {{ selected.number }}</span>
+                </div>
+            {% endfor %}
+        </div>
 
         <div>
-            <div>
-                <span>{{ item.payment.service }}</span>
-                <span>{{ item.payment.total_price }} {{ item.payment.currency }}</span>
+            <div class="mini_cart-additional_info">
+                <span> {{ item.payment.service }} </span>
+                <span class="is-float-right"> {{ item.payment.total_price }} {{ item.payment.currency }} </span>
             </div>
-            <div style="text-align: right">
+
+            <div class="is-right-inside">
 
                 <div class="tooltip align-left align-top">
                     <button class="button tooltip_button"
