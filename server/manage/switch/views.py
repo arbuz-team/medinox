@@ -2,8 +2,6 @@ from server.manage.session.views import *
 from server.service.payment.base import *
 from server.page.dialog.views import *
 
-from abc import ABCMeta, abstractmethod
-
 
 class Manager(Dynamic_Base):
 

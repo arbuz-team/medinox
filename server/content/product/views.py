@@ -35,7 +35,13 @@ class Details(Dynamic_Event_Manager):
             for widget in widgets
         ]
 
-        self.request.session['product_last_selected'] = self.content['product']
+        self.content['paragraph_name'] = 'description'
+        self.content['paragraph_url'] = self.Get_Path(
+            'product.description.manage', current_language=True)
+
+        self.request.session['product_last_selected'] = \
+            self.content['product']
+
         return self.Render_HTML('product/details.html')
 
     @staticmethod
@@ -73,6 +79,7 @@ class Widget_Manager(Dynamic_Event_Manager):
             widget.type = self.content['form'].cleaned_data['type']
             widget.save()
 
+            # other value get widget to edit
             return Dialog_Prompt(self.request, self.app_name, other_value=widget).HTML
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
 

@@ -51,14 +51,14 @@
 		<div class="buttons_to_action">
             <div class="tooltip align-left align-top">
                 <button class="button tooltip_button is-brown"
-                        data-name="description">
+                        data-name="{{ paragraph_name }}">
                     Add element
                 </button>
 
                 <div class="tooltip-options">
                     <button class="button dialog_button"
                             data-type="prompt"
-                            data-name="description"
+                            data-name="{{ paragraph_name }}"
                             data-other_1="index:{{ element.pk }}"
                             data-other_2="direction:up"
                             data-dialog-reload="ground">
@@ -66,7 +66,7 @@
                     </button>
                     <button class="button dialog_button"
                             data-type="prompt"
-                            data-name="description"
+                            data-name="{{ paragraph_name }}"
                             data-other_1="index:{{ element.pk }}"
                             data-other_2="direction:down"
                             data-dialog-reload="ground">
@@ -77,7 +77,7 @@
 
             <div class="tooltip align-right align-top">
                 <button class="button tooltip_button is-brown"
-                        data-name="description">
+                        data-name="{{ paragraph_name }}">
                     Move
                 </button>
 
@@ -89,7 +89,7 @@
 								data-value="{{ element.pk }}"
 								data-action="move_up"
 								data-reload="ground"
-								data-url="/product/description/manage/">
+								data-url="{{ paragraph_url }}">
 							Move up
 						</button>
                     {% endif %}
@@ -100,7 +100,7 @@
 								data-value="{{ element.pk }}"
 								data-action="move_down"
 								data-reload="ground"
-								data-url="/product/description/manage/">
+								data-url="{{ paragraph_url }}">
 							Move down
 						</button>
 					{% endif %}
@@ -109,7 +109,7 @@
 
             <div class="tooltip align-right align-top">
                 <button class="button tooltip_button is-brown"
-                        data-name="description">
+                        data-name="{{ paragraph_name }}">
                     ...
                 </button>
 
@@ -117,18 +117,18 @@
                     <button class="button dialog_button"
                             type="button"
                             data-type="confirm"
-                            data-name="description"
+                            data-name="delete_{{ paragraph_name }}"
                             data-dialog-name="About_delete_{{ element.pk }}"
                             data-dialog-value="{{ element.pk }}"
                             data-dialog-action="delete"
                             data-dialog-reload="ground"
-                            data-dialog-url="/product/description/manage/">
+                            data-dialog-url="{{ paragraph_url }}">
                         Delete
                     </button>
                     <button class="button dialog_button"
 							type="button"
 							data-type="prompt"
-                            data-name="description"
+                            data-name="{{ paragraph_name }}"
                             data-value="{{ element.pk }}"
                             data-dialog-reload="ground">
                         Edit

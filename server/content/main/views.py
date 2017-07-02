@@ -147,6 +147,11 @@ class About(Editable_Tab):
 
     def Manage_Content_Ground(self):
         language = self.request.session['translator_language']
+
+        self.content['paragraph_name'] = 'about'
+        self.content['paragraph_url'] = self.Get_Path(
+            'main.delete_about', current_language=True)
+
         self.content['content'] = Content_Tab.objects.filter(
             tab_name='about', language=language)
 

@@ -95,13 +95,13 @@ class Account_Details(Dynamic_Event_Manager):
 
     def Manage_Form(self):
 
-        if self.request.POST['__form__'] == 'edit_email':
+        if self.request.POST['__form__'] == 'email':
             return self.Manage_Form_Edit_Email()
 
-        if self.request.POST['__form__'] == 'edit_username':
+        if self.request.POST['__form__'] == 'username':
             return self.Manage_Form_Edit_Username()
 
-        if self.request.POST['__form__'] == 'edit_password':
+        if self.request.POST['__form__'] == 'password':
             return self.Manage_Form_Edit_Password()
 
         return Dynamic_Event_Manager.Manage_Form(self)

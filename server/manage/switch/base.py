@@ -13,6 +13,7 @@ from urllib.request import urlopen
 from datetime import date
 import base64, imghdr, os, string, random, time
 from enum import Enum
+from abc import ABCMeta, abstractmethod
 
 
 class Direction(Enum):
@@ -210,13 +211,26 @@ class Dynamic_Base:
 
             # 'de': secure + 'de.' + domain +
             #      reverse(name, urlconf='server.manage.switch.urls.de', kwargs=kwargs),
+
+            'local_en': secure + domain +
+                  reverse(name, urlconf='server.manage.switch.urls.en', kwargs=kwargs),
+
+            # 'local_pl': secure + domain +
+            #       reverse(name, urlconf='server.manage.switch.urls.pl', kwargs=kwargs),
+
+            # 'local_de': secure + domain +
+            #       reverse(name, urlconf='server.manage.switch.urls.de', kwargs=kwargs),
         }
 
-        if language:
-            return urls[language.lower()]
-
         if current_language:
-            return urls[self.request.session['translator_language'].lower()]
+            language = self.request.session['translator_language']
+
+        if language:
+
+            if '127.0.0.1' in domain:
+                return urls['local_' + language.lower()]
+
+            return urls[language.lower()]
 
         return urls
 
@@ -443,13 +457,13 @@ class Dynamic_Base:
                 status += separator.join(variables) + '\n'
 
             keys = self.request.session.keys()
-            if any(key.startswith(self.app_name) for key in keys):
+            if any(key.startswith(self.short_app_name) for key in keys):
 
                 variables = []
                 status += self.Get_Text_Cell('Session: ', margin=2)
 
                 for key in keys:
-                    if key.startswith(self.app_name):
+                    if key.startswith(self.short_app_name):
 
                         variables.append(
                             self.Get_Text_Cell(key, 30) +
@@ -468,5 +482,5 @@ class Dynamic_Base:
         self.start_time = 0
         self.content = {}
 
-        last_dot = self.__module__.rfind('.')
-        self.app_name = self.__module__[:last_dot]
+        self.app_name = self.__module__.rsplit('.', 1)[0]
+        self.short_app_name = self.app_name.rsplit('.', 1)[1]
