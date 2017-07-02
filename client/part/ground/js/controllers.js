@@ -14,26 +14,26 @@ import {Event_Button_Controllers}        from '../../../form/plugin/event_button
 
 let
 
-  config_loader = {
-    name: 'ground',
+	config_loader = {
+		name: 'ground',
 
-    container: '#GROUND > .ground',
-    first_element: '.block_1',
+		container: '#GROUND > .ground',
+		first_element: '.block_1',
 
-    auto_first_loading: true,
-    load_with_page: true,
-  },
-  ground_loader_controllers = new Plugins_Loader_Controllers(config_loader),
+		auto_first_loading: true,
+		load_with_page: true,
+	},
+	ground_loader_controllers = new Plugins_Loader_Controllers(config_loader),
 
-  post_button_controllers = new Post_Button_Controllers({
-    container: '#GROUND .ground'
-  }),
+	post_button_controllers = new Post_Button_Controllers({
+		container: '#GROUND .ground'
+	}),
 
-  event_button_controllers = new Event_Button_Controllers({
-    container: '#GROUND .ground'
-  }),
+	event_button_controllers = new Event_Button_Controllers({
+		container: '#GROUND .ground'
+	}),
 
-  ground_form_controllers = new Form_Controllers(ground_loader_controllers);
+	ground_form_controllers = new Form_Controllers(ground_loader_controllers);
 
 
 /**
@@ -42,80 +42,100 @@ let
 
 let
 
-  change_url = function(url)
-  {
-    history.pushState('', url, url);
-  },
+	change_url = function(url)
+	{
+		history.pushState('', url, url);
+	},
 
 
-  go_to_link = function(event)
-  {
-    let
-      url = $(this).attr('href'),
-      protocol = url.substring(0, 4);
+	go_to_link = function(event)
+	{
+		let
+			url = $(this).attr('href'),
+			protocol = url.substring(0, 4);
 
-    if(protocol !== 'http')
-      if(event.which === 1)
-      {
-        event.preventDefault();
-        window.APP.throw_event(window.EVENTS.plugins.close);
+		if(protocol !== 'http')
+			if(event.which === 1)
+			{
+				event.preventDefault();
+				window.APP.throw_event(window.EVENTS.plugins.close);
 
-        change_url(url);
+				change_url(url);
 
-        ground_loader_controllers.load(url);
-      }
-  },
+				ground_loader_controllers.load(url);
+			}
+	},
 
-  redirect = function(event)
-  {
-    change_url(window.APP.DATA.redirect);
-    ground_loader_controllers.redirect(event);
-  },
-
-
-  back_url = function()
-  {
-    event.preventDefault();
-    ground_loader_controllers.load();
-  },
+	redirect = function(event)
+	{
+		change_url(window.APP.DATA.redirect);
+		ground_loader_controllers.redirect(event);
+	},
 
 
-  change_height_content = function()
-  {
-    let
-      $container = $(config_loader.container),
-      height = {
-        window: $('#CONTAINTER').innerHeight(),
-        header: $('#HEADER').outerHeight(),
-        ground_top: $container.position().top,
-      },
-      height_container = height.window - height.header - height.ground_top;
-
-    $container.height(height_container);
-    change_height_start_banner($container, height_container)
-  },
+	back_url = function()
+	{
+		event.preventDefault();
+		ground_loader_controllers.load();
+	},
 
 
-  change_height_start_banner = function($container, height_container)
-  {
-    let
-      width_website = $('#CONTAINTER').innerWidth(),
-      height_start_banner = 0;
+	change_height_content = function()
+	{
+		let
+			$container = $(config_loader.container),
+			height = {
+				window: $('#CONTAINTER').innerHeight(),
+				header: $('#HEADER').outerHeight(),
+				ground_top: $container.position().top,
+			},
+			height_container = height.window - height.header - height.ground_top;
 
-    if(height_container > 768)
-      height_start_banner = height_container - 386;
+		$container.height(height_container);
+		change_height_start_banner($container, height_container)
+	},
 
-    if(height_start_banner === 0 || width_website < 1000)
-    {
-      $('.ground-block.start .block-content-image', $container).hide();
-      $('.ground-block.start .block-content-recommended-title', $container).show();
-    }
-    else
-    {
-      $('.ground-block.start .block-content-image', $container).show().height(height_start_banner);
-      $('.ground-block.start .block-content-recommended-title', $container).hide();
-    }
-  };
+
+	change_height_start_banner = function($container, height_container)
+	{
+		let
+			width_website = $('#CONTAINTER').innerWidth(),
+			height_start_banner = 0;
+
+		if(height_container > 768)
+			height_start_banner = height_container - 386;
+
+		if(height_start_banner === 0 || width_website < 1000)
+		{
+			$('.ground-block.start .block-content-image', $container).hide();
+			$('.ground-block.start .block-content-recommended-title', $container).show();
+		}
+		else
+		{
+			$('.ground-block.start .block-content-image', $container).show().height(height_start_banner);
+			$('.ground-block.start .block-content-recommended-title', $container).hide();
+		}
+	},
+
+
+	change_to_long_or_short = function(event)
+	{
+		let $element = $(this).parents('.change_length');
+		event.stopPropagation();
+
+		if($element.hasClass('is-long'))
+			$element.removeClass('is-long');
+		else
+			$element.addClass('is-long');
+	},
+
+
+	change_to_long = function(event)
+	{
+		event.stopPropagation();
+
+		$(this).addClass('is-long');
+	};
 
 
 /**
@@ -124,28 +144,34 @@ let
 
 export let
 
-  define = function()
-  {
-    change_height_content();
+	define = function()
+	{
+		change_height_content();
 
-    $('a').click(go_to_link);
-    window.APP.add_own_event('redirect', redirect);
-    window.APP.add_own_event('popstate', back_url);
-    $(window).resize(change_height_content);
-
-    ground_form_controllers.define();
-    post_button_controllers.define();
-    event_button_controllers.define();
-  },
+		$('a').click(go_to_link);
+		window.APP.add_own_event('redirect', redirect);
+		window.APP.add_own_event('popstate', back_url);
+		$(window).resize(change_height_content);
 
 
-  start = function()
-  {
-    ground_loader_controllers.define();
-  },
+		let $container = $(config_loader.container);
+
+		$('.change_length', $container).click(change_to_long);
+		$('.change_length .change_length-button', $container).click(change_to_long_or_short);
+
+		ground_form_controllers.define();
+		post_button_controllers.define();
+		event_button_controllers.define();
+	},
 
 
-  change_content = function(url, post_data)
-  {
-    ground_loader_controllers.load(url, post_data);
-  };
+	start = function()
+	{
+		ground_loader_controllers.define();
+	},
+
+
+	change_content = function(url, post_data)
+	{
+		ground_loader_controllers.load(url, post_data);
+	};

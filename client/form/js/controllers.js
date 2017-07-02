@@ -46,28 +46,6 @@ export let Form_Controllers = function(content_loader_controllers)
 
 				form_models.send(form_name, url, form_object);
 			}
-		},
-
-
-		show_hide_form_address = function(event)
-		{
-			console.log('cos');
-			let $element = $(this).parents('.address_block');
-			event.stopPropagation();
-
-			if($element.hasClass('is-long'))
-				$element.removeClass('is-long');
-			else
-				$element.addClass('is-long');
-		},
-
-
-		show_form_address = function(event)
-		{
-			console.log('cos2');
-			event.stopPropagation();
-
-			$(this).addClass('is-long');
 		};
 
 
@@ -80,10 +58,6 @@ export let Form_Controllers = function(content_loader_controllers)
 		let $container = $(content_loader_controllers.container);
 
 		$('form', $container).submit(prepare_form_to_send);
-
-		$('.address_block', $container).click(show_form_address);
-
-		$('.address_block .address_block-title', $container).click(show_hide_form_address);
 
 		validator.define($container);
 		hide_form.define($container);
