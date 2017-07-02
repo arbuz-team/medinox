@@ -271,7 +271,7 @@ class Abstract_File_Form(Abstract_Form):
 class Abstract_Address_Form(Abstract_Model_Form):
 
     def Create_Fields(self):
-        self.fields['country'] = LazyTypedChoiceField(choices=countries)
+        self.fields['country'] = forms.ChoiceField(choices=countries)
 
     def Set_Widgets(self):
 
@@ -281,6 +281,7 @@ class Abstract_Address_Form(Abstract_Model_Form):
         city_attr = self.Attr(Text(self.request, 50), classes='test')
         region_attr = self.Attr(Text(self.request, 51), classes='test')
         postcode_attr = self.Attr(Text(self.request, 52), classes='test')
+        country_attr = self.Attr(field=Field.SELECT)
 
         self.fields['full_name'].widget = forms.TextInput(attrs=full_name_attr)
         self.fields['doctor_number'].widget = forms.TextInput(attrs=doctor_number_attr)
@@ -288,6 +289,7 @@ class Abstract_Address_Form(Abstract_Model_Form):
         self.fields['city'].widget = forms.TextInput(attrs=city_attr)
         self.fields['region'].widget = forms.TextInput(attrs=region_attr)
         self.fields['postcode'].widget = forms.TextInput(attrs=postcode_attr)
+        self.fields['country'].widget.attrs = country_attr
 
     def Exclude_Fields(self):
 
