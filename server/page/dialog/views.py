@@ -148,16 +148,6 @@ class Dialog_Confirm(Dialog):
         self.content['text'] = Text(self.request, 161)
         return self.Render_Dialog('dialog/confirm.html', only_root=True)
 
-    def Manage_Delete_Purpose(self):
-        self.content['title'] = Text(self.request, 111)
-        description = Text(self.request, 112)
-
-        purpose = Purpose.objects.get(pk=self.request.POST['additional_value'])
-        products = Product.objects.filter(purpose=purpose)
-        self.content['text'] = description.format(len(products))
-
-        return self.Render_Dialog('dialog/confirm.html', only_root=True)
-
     def Manage_Clear_Cart(self):
         self.content['title'] = Text(self.request, 100)
         self.content['text'] = Text(self.request, 101)
@@ -250,7 +240,7 @@ class Dialog_Prompt(Dialog):
         self.content['form'] = Form_Product(self.request,
             self.Get_POST(), initial=initial)
 
-        return self.Render_Dialog('dialog/prompt.html',
+        return self.Render_Dialog('dialog/product.html',
                                   'product', only_root=True)
 
     def Manage_Description(self):

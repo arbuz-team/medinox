@@ -22,7 +22,7 @@ class Product(Abstract_Model):
     # TODO language as one column
 
     def Set_Variables(self):
-        self.image_dir = '/client/static/img/product/'
+        self.image_dir = 'img/product/'
 
     def __str__(self):
         return self.name
