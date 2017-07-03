@@ -31,5 +31,5 @@ class Service_Product(Base_Service):
         self.content['form'] = self.Prepare_Form(
             Form_Product, instance=self.instance)
 
-        return self.dialog.Render_Dialog(
-            'dialog/product.html', 'product', only_root=True)
+        return self.Render_Dialog(
+            'product.html', 'product', only_root=True)

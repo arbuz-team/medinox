@@ -18,5 +18,5 @@ class Service_Content_Tab(Base_Service):
         self.content['form'] = self.Prepare_Form(
             Form_Content_Tab, initial=initial)
 
-        return self.dialog.Render_Dialog(
-            'dialog/prompt.html', 'content_tab', only_root=True)
+        return self.Render_Dialog(
+            'prompt.html', 'content_tab', only_root=True)

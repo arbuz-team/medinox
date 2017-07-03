@@ -13,5 +13,4 @@ class Service_Delete_Brand(Base_Service):
         self.content['text'] = description.format(len(products))
         self.content['title'] = Text(self.request, 109)
 
-        return self.dialog.Render_Dialog(
-            'dialog/confirm.html', only_root=True)
+        return self.Render_Dialog('confirm.html', only_root=True)

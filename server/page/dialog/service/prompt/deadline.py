@@ -24,6 +24,6 @@ class Service_Deadline(Base_Service):
             self.request, instance=self.instance)
 
         self.content['title'] = Text(self.request, 171)
-        return self.dialog.Render_Dialog(
-            'dialog/prompt.html', 'deadline', only_root=True)
+        return self.Render_Dialog(
+            'prompt.html', 'deadline', only_root=True)
 

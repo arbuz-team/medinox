@@ -57,6 +57,6 @@ class Service_Description(Base_Service):
         self.content['form'] = self.Prepare_Form(
             Form_Description, initial=self.instance)
 
-        return self.dialog.Render_Dialog(
-            'dialog/prompt.html', 'description', only_root=True)
+        return self.Render_Dialog(
+            'prompt.html', 'description', only_root=True)
 

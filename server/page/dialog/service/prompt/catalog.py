@@ -27,5 +27,5 @@ class Service_Catalog(Base_Service):
         self.content['form'] = self.Prepare_Form(
             Form_Catalog, initial=self.instance)
 
-        return self.dialog.Render_Dialog(
-            'dialog/prompt.html', 'catalog', only_root=True)
+        return self.Render_Dialog(
+            'prompt.html', 'catalog', only_root=True)

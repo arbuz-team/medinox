@@ -36,33 +36,9 @@ class Dialog(Dynamic_Base):
             'event':    self.Get_POST_Variable('additional_event'),
         }
 
-    def Render_Dialog(self, file_name, form_name='', additional_form_name='',
-                      authorization=False, only_root=False):
-
-        if not authorization and not only_root:
-            return self.Render_HTML(file_name, form_name,
-                                    additional_form_name)
-
-        if authorization:
-            if self.request.session['user_login']:
-                return self.Render_HTML(file_name, form_name,
-                                        additional_form_name)
-
-        if only_root:
-            if self.request.session['root_login']:
-                return self.Render_HTML(file_name, form_name,
-                                        additional_form_name)
-
-        return self.Unauthorized_Access()
-
     @staticmethod
     def Apply_Message():
         return JsonResponse({'__form__': 'true'})
-
-    def Unauthorized_Access(self):
-        self.content['title'] = Text(self.request, 69)
-        self.content['text'] = Text(self.request, 70)
-        return self.Render_HTML('dialog/alert.html')
 
     def Manage(self):
 

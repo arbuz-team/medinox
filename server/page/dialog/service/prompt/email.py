@@ -11,6 +11,6 @@ class Service_Email(Base_Service):
         self.content['form'].Set_Hidden('new_username')
         self.content['form'].Set_Hidden('new_password')
 
-        return self.dialog.Render_Dialog(
-            'dialog/prompt.html', 'email', authorization=True)
+        return self.Render_Dialog(
+            'prompt.html', 'email', authorization=True)
 

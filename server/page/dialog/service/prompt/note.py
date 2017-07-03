@@ -24,5 +24,5 @@ class Service_Note(Base_Service):
             self.request, initial={'note': self.instance.note})
 
         self.content['title'] = Text(self.request, 172)
-        return self.dialog.Render_Dialog(
-            'dialog/prompt.html', 'note', only_root=True)
+        return self.Render_Dialog(
+            'prompt.html', 'note', only_root=True)

@@ -13,6 +13,34 @@ class Base_Service(metaclass=ABCMeta):
     def Manage(self):
         pass
 
+    def Unauthorized_Access(self):
+        self.content['title'] = Text(self.request, 69)
+        self.content['text'] = Text(self.request, 70)
+        return self.dialog.Render_HTML('alert.html')
+
+    def Render_Dialog(self, file_name, form_name='', additional_form_name='',
+                      authorization=False, only_root=False):
+
+        # example: dialog/prompt/catalog.html
+        file_name = 'dialog/{0}/{1}'.format(
+            self.dialog.Get_Dialog_Type(), file_name)
+
+        if not authorization and not only_root:
+            return self.dialog.Render_HTML(
+                file_name, form_name, additional_form_name)
+
+        if authorization:
+            if self.request.session['user_login']:
+                return self.dialog.Render_HTML(
+                    file_name, form_name, additional_form_name)
+
+        if only_root:
+            if self.request.session['root_login']:
+                return self.dialog.Render_HTML(
+                    file_name, form_name, additional_form_name)
+
+        return self.dialog.Unauthorized_Access()
+
     def Prepare_Form(self, _class, initial=None, instance=None):
 
         # form class is only form, not form model

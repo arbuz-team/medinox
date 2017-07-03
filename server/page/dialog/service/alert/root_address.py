@@ -11,5 +11,4 @@ class Service_Root_Address(Base_Service):
         self.content['invoice'] = Invoice_Address.objects.get(payment=payment)
         self.content['delivery'] = Delivery_Address.objects.get(payment=payment)
 
-        return self.dialog.Render_Dialog(
-            'dialog/address.html', only_root=True)
+        return self.Render_Dialog('address.html', only_root=True)

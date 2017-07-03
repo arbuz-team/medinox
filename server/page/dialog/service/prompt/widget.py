@@ -37,5 +37,5 @@ class Service_Widget(Base_Service):
         self.content['form'] = self.Prepare_Form(
             Form_Widget, instance=self.instance)
 
-        return self.dialog.Render_Dialog(
-            'dialog/widget.html', 'widget', 'values', only_root=True)
+        return self.Render_Dialog(
+            'widget.html', 'widget', 'values', only_root=True)
