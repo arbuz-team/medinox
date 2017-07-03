@@ -89,3 +89,8 @@ def get_app_name(context):
 @register.filter
 def length(tab):
     return len(tab)
+
+@register.simple_tag(takes_context=True)
+def var(context, name, value):
+    context[name] = value
+    return ''
