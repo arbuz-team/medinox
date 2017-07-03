@@ -21,27 +21,27 @@ class Service_About(Base_Service):
 
     def New(self):
 
-        # get position parent description
+        # get position parent
         index = self.dialog.Get_Post_Value('index')
-        position = Content_Tab.objects\
+        position = About_Content.objects\
             .get(pk=index).position
 
-        # create new description
-        content_tab = Content_Tab(position=position)
-        content_tab.direction = self.direction
-        self.request.session['main_about'] = content_tab
+        # create new
+        about = About_Content(position=position)
+        about.direction = self.direction
+        self.request.session['main_about'] = about
 
     def Edit(self):
 
-        content_tab = Content_Tab.objects.get(
+        about = About_Content.objects.get(
             pk=self.request.POST['dialog_value'])
 
-        self.request.session['main_about'] = content_tab
+        self.request.session['main_about'] = about
         self.content['edit'] = {'url': '/product/description/manage/'}
-        self.content['image'] = content_tab.image
+        self.content['image'] = about.image
         self.initial = {
-            'header': content_tab.header,
-            'paragraph': content_tab.paragraph,
+            'header': about.header,
+            'paragraph': about.paragraph,
         }
 
     def Manage(self):
@@ -54,7 +54,7 @@ class Service_About(Base_Service):
 
         self.content['title'] = Text(self.request, 93)
         self.content['form'] = self.Prepare_Form(
-            Form_About, initial=self.initial)
+            Form_About_Content, initial=self.initial)
 
         return self.Render_Dialog(
             'prompt.html', 'about', only_root=True)

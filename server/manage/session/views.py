@@ -127,8 +127,8 @@ class Session_Controller:
 
     def Check_Session_Main(self):
 
-        if 'main_content_tab' not in self.request.session:
-            self.request.session['main_content_tab'] = ''
+        if 'main_about' not in self.request.session:
+            self.request.session['main_about'] = ''
 
         if 'main_page' not in self.request.session:
             self.request.session['main_page'] = 1

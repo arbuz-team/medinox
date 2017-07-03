@@ -32,24 +32,9 @@ class Form_Email_Contact(Abstract_Form):
 
 
 
-class Form_Content_Tab(Abstract_Image_Form):
-
-    def clean_tab_name(self):
-        tab_name = resolve(self.request.path_info).url_name
-
-        if 'about' in tab_name:
-            return 'about'
-
-        if 'contact' in tab_name:
-            return 'contact'
-
-        raise forms.ValidationError(Text(self.request, 94))
-
-    def clean(self):
-        return Abstract_Image_Form.clean(self)
+class Form_About_Content(Abstract_Image_Form):
 
     def Create_Fields(self):
-        self.fields['tab_name'] = forms.CharField(required=False)
         self.fields['header'] = forms.CharField(required=False)
         self.fields['paragraph'] = forms.CharField(required=False)
         Abstract_Image_Form.Create_Fields(self)
@@ -68,5 +53,4 @@ class Form_Content_Tab(Abstract_Image_Form):
 
         self.fields['header'].widget = forms.TextInput(attrs=header_attr)
         self.fields['paragraph'].widget = forms.Textarea(attrs=paragraph_attr)
-        self.fields['tab_name'].widget.attrs = {'hidden': 'true'}
         Abstract_Image_Form.Set_Widgets(self)

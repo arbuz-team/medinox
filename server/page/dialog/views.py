@@ -27,7 +27,6 @@ class Dialog_Prompt(Dialog):
 
         aliases = {
             'values':   'widget',
-            'about':    'content_tab',
         }
 
         if dialog_name in aliases.keys():

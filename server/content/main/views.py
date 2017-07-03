@@ -5,57 +5,6 @@ from server.content.main.models import *
 from server.content.main.forms import *
 
 
-class Editable_Tab(Dynamic_Event_Manager):
-
-    def Manage_Form_Content_Tab(self):
-
-        content_tab = Form_Content_Tab(
-            self.request, self.request.POST)
-
-        if content_tab.is_valid():
-
-            content = self.request.session['main_content_tab']
-            self.Add_Model_Order(Content_Tab, content)
-
-            content.tab_name = content_tab.cleaned_data['tab_name']
-            content.header = content_tab.cleaned_data['header']
-            content.paragraph = content_tab.cleaned_data['paragraph']
-            content.language = self.request.session['translator_language']
-            content.save()
-
-            content.Save_Image(content_tab.cleaned_data['image'])
-
-            return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
-        return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
-
-    def Manage_Form(self):
-
-        if self.request.POST['__form__'] == 'content_tab':
-            return self.Manage_Form_Content_Tab()
-
-        return Dynamic_Event_Manager.Manage_Form(self)
-
-    def Manage_Button(self):
-
-        if self.request.POST['__button__'] == 'delete':
-            Content_Tab.objects.get(pk=self.request.POST['value']).delete()
-
-        if self.request.POST['__button__'] == 'move_up':
-            desc = Content_Tab.objects.get(pk=self.request.POST['value'])
-            self.Change_Model_Order(Content_Tab, desc.position, Direction.UP)
-
-        if self.request.POST['__button__'] == 'move_down':
-            desc = Content_Tab.objects.get(pk=self.request.POST['value'])
-            self.Change_Model_Order(Content_Tab, desc.position, Direction.DOWN)
-
-        return JsonResponse({'__button__': 'true'})
-
-    @staticmethod
-    def Launch(request):
-        pass
-
-
-
 class Start(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
@@ -131,7 +80,7 @@ class Products(Dynamic_Event_Manager):
 
 
 
-class About(Editable_Tab):
+class About(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
         language = self.request.session['translator_language']
@@ -140,10 +89,45 @@ class About(Editable_Tab):
         self.content['paragraph_url'] = self.Get_Path(
             'main.about.manage', current_language=True)
 
-        self.content['content'] = Content_Tab.objects.filter(
-            tab_name='about', language=language).order_by('position')
+        self.content['content'] = About_Content.objects.filter(
+            language=language).order_by('position')
 
         return self.Render_HTML('main/about.html')
+
+    def Manage_Form(self):
+
+        form_about = Form_About_Content(
+            self.request, self.request.POST)
+
+        if form_about.is_valid():
+
+            about = self.request.session['main_about']
+            self.Add_Model_Order(About_Content, about)
+
+            about.header = form_about.cleaned_data['header']
+            about.paragraph = form_about.cleaned_data['paragraph']
+            about.language = self.request.session['translator_language']
+            about.save()
+
+            about.Save_Image(form_about.cleaned_data['image'])
+
+            return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
+        return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
+
+    def Manage_Button(self):
+
+        if self.request.POST['__button__'] == 'delete':
+            About_Content.objects.get(pk=self.request.POST['value']).delete()
+
+        if self.request.POST['__button__'] == 'move_up':
+            desc = About_Content.objects.get(pk=self.request.POST['value'])
+            self.Change_Model_Order(About_Content, desc.position, Direction.UP)
+
+        if self.request.POST['__button__'] == 'move_down':
+            desc = About_Content.objects.get(pk=self.request.POST['value'])
+            self.Change_Model_Order(About_Content, desc.position, Direction.DOWN)
+
+        return JsonResponse({'__button__': 'true'})
 
     @staticmethod
     def Launch(request):
@@ -151,7 +135,7 @@ class About(Editable_Tab):
 
 
 
-class Contact(Editable_Tab):
+class Contact(Dynamic_Event_Manager):
 
     def Create_Titles(self):
 
