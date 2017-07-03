@@ -339,31 +339,33 @@ class Dynamic_Base:
             object_down.save()
 
     @staticmethod
-    def Add_Model_Order(model, new_object, position, direction=Direction.NONE):
-        greater_objects = None
+    def Add_Model_Order(model, new_object):
+
+        position = new_object.position
+        direction = new_object.direction
 
         if direction == Direction.UP:
 
             # change greater elements positions
-            greater_objects = model.objects.filter(position__gte=position)
+            greater_objects = model.objects.filter(
+                position__gte=position).order_by('-position')
+
             for greater_object in greater_objects:
                 greater_object.position += 1
-
-            # set position for new object
-            new_object.position = position
+                greater_object.save()
 
         if direction == Direction.DOWN:
 
             # change greater elements positions
-            greater_objects = model.objects.filter(position__gt=position)
+            greater_objects = model.objects.filter(
+                position__gt=position).order_by('-position')
+
             for greater_object in greater_objects:
                 greater_object.position += 1
+                greater_object.save()
 
             # set position for new object
             new_object.position = position + 1
-
-        for greater_object in greater_objects:
-            greater_object.save()
 
     @staticmethod
     def To_URL(text):

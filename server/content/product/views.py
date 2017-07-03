@@ -203,6 +203,8 @@ class Description_Manager(Dynamic_Event_Manager):
         if description.is_valid():
 
             product_desc = self.request.session['product_description']
+            self.Add_Model_Order(Description, product_desc)
+
             product_desc.header = description.cleaned_data['header']
             product_desc.paragraph = description.cleaned_data['paragraph']
             product_desc.product = self.request.session['product_last_selected']

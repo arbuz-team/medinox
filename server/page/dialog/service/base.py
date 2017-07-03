@@ -69,5 +69,6 @@ class Base_Service(metaclass=ABCMeta):
         self.request = dialog.request
         self.content = dialog.content
         self.instance = None
+        self.initial = None
 
         self.HTML = self.Manage()

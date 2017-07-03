@@ -27,10 +27,9 @@ class Service_Description(Base_Service):
             .get(pk=index).position
 
         # create new description
-        description = Description()
+        description = Description(position=position)
+        description.direction = self.direction
         self.request.session['product_description'] = description
-        self.dialog.Add_Model_Order(Description, description,
-                                    position, self.direction)
 
     def Edit(self):
 
@@ -40,7 +39,7 @@ class Service_Description(Base_Service):
         self.request.session['product_description'] = description
         self.content['edit'] = {'url': '/product/description/manage/'}
         self.content['image'] = description.image
-        self.instance = {
+        self.initial = {
             'header': description.header,
             'paragraph': description.paragraph,
         }
@@ -55,7 +54,7 @@ class Service_Description(Base_Service):
 
         self.content['title'] = Text(self.request, 93)
         self.content['form'] = self.Prepare_Form(
-            Form_Description, initial=self.instance)
+            Form_Description, initial=self.initial)
 
         return self.Render_Dialog(
             'prompt.html', 'description', only_root=True)

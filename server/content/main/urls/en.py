@@ -8,11 +8,6 @@ urlpatterns = [
     url(r'^products/$', views.Products.Launch, name='main.products'),
     url(r'^contact/$', views.Contact.Launch, name='main.contact'),
 
-    url(r'^about/new/$', views.About.New, name='main.new_about'),
-    url(r'^about/edit/(?P<pk>\d+)/$', views.About.Edit, name='main.edit_about'),
-    url(r'^about/delete/$', views.About.Delete, name='main.delete_about'),
-
-    url(r'^contact/new/$', views.Contact.New, name='main.new_contact'),
-    url(r'^contact/edit/(?P<pk>\d+)/$', views.Contact.Edit, name='main.edit_contact'),
-    url(r'^contact/delete/$', views.Contact.Delete, name='main.delete_contact'),
+    url(r'^about/manage/$', views.About.Launch, name='main.about.manage'),
+    url(r'^contact/manage/$', views.Contact.Launch, name='main.contact.manage'),
 ]

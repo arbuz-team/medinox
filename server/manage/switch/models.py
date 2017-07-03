@@ -12,6 +12,7 @@ class Base_Model:
     def __init__(self):
         self.image_dir = None
         self.file_dir = None
+        self.direction = Direction.NONE
         self.Set_Variables()
 
 

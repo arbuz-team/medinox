@@ -7,9 +7,6 @@ from server.content.main.forms import *
 
 class Editable_Tab(Dynamic_Event_Manager):
 
-    def Manage_Content_Ground(self):
-        pass
-
     def Manage_Form_Content_Tab(self):
 
         content_tab = Form_Content_Tab(
@@ -17,10 +14,8 @@ class Editable_Tab(Dynamic_Event_Manager):
 
         if content_tab.is_valid():
 
-            if self.request.session['main_content_tab']:
-                content = self.request.session['main_content_tab']
-
-            else: content = Content_Tab()
+            content = self.request.session['main_content_tab']
+            self.Add_Model_Order(Content_Tab, content)
 
             content.tab_name = content_tab.cleaned_data['tab_name']
             content.header = content_tab.cleaned_data['header']
@@ -45,22 +40,15 @@ class Editable_Tab(Dynamic_Event_Manager):
         if self.request.POST['__button__'] == 'delete':
             Content_Tab.objects.get(pk=self.request.POST['value']).delete()
 
+        if self.request.POST['__button__'] == 'move_up':
+            desc = Content_Tab.objects.get(pk=self.request.POST['value'])
+            self.Change_Model_Order(Content_Tab, desc.position, Direction.UP)
+
+        if self.request.POST['__button__'] == 'move_down':
+            desc = Content_Tab.objects.get(pk=self.request.POST['value'])
+            self.Change_Model_Order(Content_Tab, desc.position, Direction.DOWN)
+
         return JsonResponse({'__button__': 'true'})
-
-    @staticmethod
-    def New(request):
-        return Editable_Tab(request, only_root=True).HTML
-
-    @staticmethod
-    def Edit(request, pk):
-        request.session['main_content_tab'] = \
-            Content_Tab.objects.get(pk=pk)
-
-        return Editable_Tab(request, only_root=True).HTML
-
-    @staticmethod
-    def Delete(request):
-        return Editable_Tab(request, only_root=True).HTML
 
     @staticmethod
     def Launch(request):
@@ -150,10 +138,10 @@ class About(Editable_Tab):
 
         self.content['paragraph_name'] = 'about'
         self.content['paragraph_url'] = self.Get_Path(
-            'main.delete_about', current_language=True)
+            'main.about.manage', current_language=True)
 
         self.content['content'] = Content_Tab.objects.filter(
-            tab_name='about', language=language)
+            tab_name='about', language=language).order_by('position')
 
         return self.Render_HTML('main/about.html')
 

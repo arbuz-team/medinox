@@ -27,6 +27,7 @@ class Dialog_Prompt(Dialog):
 
         aliases = {
             'values':   'widget',
+            'about':    'content_tab',
         }
 
         if dialog_name in aliases.keys():
@@ -44,6 +45,7 @@ class Dialog_Prompt(Dialog):
 
     def Get_Dialog_Name(self):
 
+        # when not valid or get dialog after send form
         if '__form__' in self.request.POST:
             dialog_name = self.request.POST['__form__']
 
@@ -52,7 +54,12 @@ class Dialog_Prompt(Dialog):
 
             return dialog_name
 
-        return self.request.POST['dialog_name']
+        # when standard ask about dialog
+        dialog_name = self.request.POST['dialog_name']
+        if self.Get_Alias(dialog_name):
+            return self.Get_Alias(dialog_name)
+
+        return dialog_name
 
     def __init__(self, request, app_name, apply=False,
                  not_valid=False, other_value=None):
