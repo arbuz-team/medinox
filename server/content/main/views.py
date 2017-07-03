@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from server.service.sender.views import *
 from server.page.searcher.views import *
-from server.content.main.models import *
 from server.content.main.forms import *
+from server.manage.switch.module.position import *
 
 
 class Start(Dynamic_Event_Manager):
@@ -102,7 +102,8 @@ class About(Dynamic_Event_Manager):
         if form_about.is_valid():
 
             about = self.request.session['main_about']
-            self.Add_Model_Order(About_Content, about)
+            position_manager = Position_Manager(self)
+            position_manager.Insert_Element(About_Content, about)
 
             about.header = form_about.cleaned_data['header']
             about.paragraph = form_about.cleaned_data['paragraph']
@@ -115,18 +116,8 @@ class About(Dynamic_Event_Manager):
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
 
     def Manage_Button(self):
-
-        if self.request.POST['__button__'] == 'delete':
-            About_Content.objects.get(pk=self.request.POST['value']).delete()
-
-        if self.request.POST['__button__'] == 'move_up':
-            desc = About_Content.objects.get(pk=self.request.POST['value'])
-            self.Change_Model_Order(About_Content, desc.position, Direction.UP)
-
-        if self.request.POST['__button__'] == 'move_down':
-            desc = About_Content.objects.get(pk=self.request.POST['value'])
-            self.Change_Model_Order(About_Content, desc.position, Direction.DOWN)
-
+        position_manager = Position_Manager(self)
+        position_manager.Button_Service(About_Content)
         return JsonResponse({'__button__': 'true'})
 
     @staticmethod

@@ -1,25 +1,10 @@
 from server.page.dialog.service.base import *
+from server.manage.switch.module.position import *
 
 
 class Service_About(Base_Service):
 
-    def Validate_Direction(self):
-        direction = self.dialog\
-            .Get_Post_Value('direction')
-
-        switch = {
-            'up':   Direction.UP,
-            'down': Direction.DOWN,
-            '':     None
-        }
-
-        self.direction = switch[direction]
-        if self.direction:
-            return True
-
-        return False
-
-    def New(self):
+    def New(self, direction):
 
         # get position parent
         index = self.dialog.Get_Post_Value('index')
@@ -28,7 +13,7 @@ class Service_About(Base_Service):
 
         # create new
         about = About_Content(position=position)
-        about.direction = self.direction
+        about.direction = direction
         self.request.session['main_about'] = about
 
     def Edit(self):
@@ -46,8 +31,11 @@ class Service_About(Base_Service):
 
     def Manage(self):
 
-        if self.Validate_Direction():
-            self.New()
+        position_manager = Position_Manager(self)
+        direction = position_manager.Get_Direction()
+
+        if direction:
+            self.New(direction)
 
         elif 'dialog_value' in self.request.POST:
             self.Edit()

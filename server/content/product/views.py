@@ -1,6 +1,7 @@
 from server.manage.switch.views import *
 from server.page.searcher.views import Search_Engine
 from server.content.product.forms import *
+from server.manage.switch.module.position import *
 
 
 class Start_App(Dynamic_Event_Manager):
@@ -203,7 +204,8 @@ class Description_Manager(Dynamic_Event_Manager):
         if description.is_valid():
 
             product_desc = self.request.session['product_description']
-            self.Add_Model_Order(Description, product_desc)
+            position_manager = Position_Manager(self)
+            position_manager.Insert_Element(Description, product_desc)
 
             product_desc.header = description.cleaned_data['header']
             product_desc.paragraph = description.cleaned_data['paragraph']
@@ -223,18 +225,8 @@ class Description_Manager(Dynamic_Event_Manager):
         return Dynamic_Event_Manager.Manage_Form(self)
 
     def Manage_Button(self):
-
-        if self.request.POST['__button__'] == 'delete':
-            Description.objects.get(pk=self.request.POST['value']).delete()
-
-        if self.request.POST['__button__'] == 'move_up':
-            desc = Description.objects.get(pk=self.request.POST['value'])
-            self.Change_Model_Order(Description, desc.position, Direction.UP)
-
-        if self.request.POST['__button__'] == 'move_down':
-            desc = Description.objects.get(pk=self.request.POST['value'])
-            self.Change_Model_Order(Description, desc.position, Direction.DOWN)
-
+        position_manager = Position_Manager(self)
+        position_manager.Button_Service(Description)
         return JsonResponse({'__button__': 'true'})
 
     @staticmethod
