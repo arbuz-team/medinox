@@ -2,9 +2,9 @@
 
 {% if request.session.user_login %}
 
-    <div class="cart-close event_button" data-name="cart-close_cart" data-event="plugins.close_cart">
-        <i>&nbsp;</i>
-        <span>esc</span>
+    <div class="cart-close button is-icon event_button" data-name="cart-close_cart" data-event="plugins.close_cart">
+        <span class="button-icon img-close">&nbsp;</span>
+        <span class="button-text">esc</span>
     </div>
 
     <div class="cart-title"> Shopping cart </div>
@@ -15,18 +15,27 @@
 
             {% for selected in cart %}
 
-            <li class="cart-list-product">
-                <div class="cart-list-name">
+            <li class="cart-list-product is-inline-inside">
+
+                <!-- TODO correct address to product -->
+                <div class="cart-list-product-name">
                     <a href="/product/{{ selected.product.pk }}/{% product_name_url selected.product %}/">
                         {{ selected.product.name }}
                     </a>
                 </div>
-                <div class="cart-list-actions">
-                    <form class="auto_form" action="/cart/" data-origin="little">
-                        <input class="input auto_field only_number_3 always" type="text" value="{{ selected.number }}" data-name="{{ selected.pk }}">
-                        <span> x {{ selected.product.price }}</span>
 
-                        <button class="button is-icon post_button"
+                <div class="cart-list-product-actions">
+                    <form class="auto_form" action="/cart/" data-origin="little">
+
+                        <input class="cart-list-product-number input auto_field only_number_3 always"
+                               type="text"
+                               title="Number of products"
+                               value="{{ selected.number }}"
+                               data-name="{{ selected.pk }}" />
+
+                        <span class="cart-list-product-price"> x {{ selected.product.price }}</span>
+
+                        <button class="cart-list-product-remove button is-icon post_button"
                                 type="button"
                                 data-name="Delete_{{ selected.product.pk }}"
                                 data-action="delete"
@@ -35,18 +44,20 @@
                                 data-url="/cart/">
                             <span class="button-icon img-waste_bin"> &nbsp; </span>
                         </button>
+
                     </form>
                 </div>
+
             </li>
 
             {% endfor %}
 
-            <li class="cart-list-total_price">
-                <div>Total price:</div>
-                <div>{{ payment.total_price }} {{ request.session.translator_currency }}</div>
+            <li class="cart-list-total_price is-inline-inside">
+                <div class="cart-list-total_price-title">Total price:</div>
+                <div class="cart-list-total_price-price">{{ payment.total_price }} {{ request.session.translator_currency }}</div>
             </li>
 
-            <li>
+            <li class="is-inline-inside">
                 <div class="cart-list-button">
                     <button class="button dialog_button"
                             type="button"
@@ -61,11 +72,9 @@
                     </button>
                 </div>
                 <a class="cart-list-button" href="/payment/">
-                    <button class="button is-brown" type="button">Go to paymants</button>
+                    <button class="button is-brown" type="button">Go to payments</button>
                 </a>
             </li>
-
-            <!--{{ suma }}-->
 
         {% else %}
 
