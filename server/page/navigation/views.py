@@ -3,11 +3,8 @@ from server.manage.switch.views import *
 
 class Navigation(Dynamic_Event_Manager):
 
-    def Manage_Content_Ground(self):
-        pass
-
     def Manage_Content_Header(self):
-        return self.Render_HTML('navigation/header.html')
+        return self.Render_HTML('header/header.html')
 
     def Manage_Content_Navigation(self):
         return self.Render_HTML('navigation/navigation.html')
