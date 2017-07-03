@@ -3204,7 +3204,7 @@
 	
 	var header_loader_events = void 0,
 	    config_loader = {
-	  name: 'navigation',
+	  name: 'header',
 	  url: '/navigation/',
 	
 	  container: '#HEADER > .header',

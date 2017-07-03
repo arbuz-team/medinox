@@ -1,0 +1,27 @@
+
+<li class="header-field navigation-secondary-searcher" title="CTRL+SHIFT+S">
+	<div class="button is-icon fill-abs event_button" data-name="secondary-open_searcher" data-event="plugins.open_searcher">
+		<span class="button-icon img-searcher-light"> &nbsp; </span>
+		<span class="button-text">Search </span>
+	</div>
+</li>
+
+{% if request.session.root_login %}
+
+	<li class="header-field header-field-space for-searcher"> | </li>
+
+	<li class="navigation-field">
+		<a class="fill-abs" href="/root/">
+			Root settings
+		</a>
+	</li>
+
+	<li class="header-field header-field-space"> | </li>
+
+	<li class="navigation-field">
+		<a class="fill-abs" href="/root/sign_out/">
+			Root sign out
+		</a>
+	</li>
+
+{% endif %}

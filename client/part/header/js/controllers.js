@@ -13,7 +13,7 @@ import {Event_Button_Controllers}       from '../../../form/plugin/event_button/
 let
   header_loader_events,
   config_loader = {
-    name: 'navigation',
+    name: 'header',
     url: '/navigation/',
 
     container: '#HEADER > .header',

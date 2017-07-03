@@ -3,27 +3,31 @@
 //         Mobile navigation
 //--------------------------------------
 
-#HEADER >.header >.navigation-mobile
+$header-navigation-mobile-field: $header--height_mobile - 22px
+
+.header-navigation-mobile
   display: block
   position: relative
   height: inherit
   text-align: center
 
 
-  >li
-    display: inline-block
-    position: relative
-    z-index: 38
+.header-navigation-mobile-field
+  display: inline-block
+  position: relative
+  z-index: 38
 
-    height: $header--height_mobile - 22px
-    width: $header--height_mobile - 22px
-    margin:
-      top: 15px
-      left: 15px
-      right: 15px
+  width: $header-navigation-mobile-field
+  height: $header-navigation-mobile-field
 
-    >button, >a
-      display: inline-block
+  margin:
+    top: 15px
+    left: 15px
+    right: 15px
+
+  .button
+    &, &:hover, &:focus
+      display: block
       width: inherit
       height: inherit
 
@@ -31,36 +35,16 @@
       margin: 0
 
       line-height: 100%
-      border: none
-      background: none
 
-  ////////////////////////////////////////
-
-  >li.navigation-mobile-filter
-    float: left
-    text-align: left
-
-    >button, >a
-      +background-img( url('/static/img/icons/64/dark/searcher.png'), 100% 100% )
+      .button-icon
+        height: inherit
+        width: inherit
 
 
-  >li.navigation-mobile-navigation
-    text-align: center
-
-    >button, >a
-      +background-img( url('/static/img/icons/64/dark/lines_menu.png'), 100% 100% )
-
-
-  >li.navigation-mobile-cart
-    float: right
-    text-align: right
-
-    >button, >a
-      +background-img( url('/static/img/icons/64/dark/shopping_cart.png'), 100% 100% )
 
 ////////////////////////////////////////
 
 @media (min-width: $G-SIZE-2)
 
-  #HEADER >.header >.navigation-mobile
+  .header-navigation-mobile
     display: none

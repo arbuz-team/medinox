@@ -1,10 +1,9 @@
 
 $navigation--height: 100%
-$navigation-primery_secondery--height: 45px
+$navigation-field--height: 45px
 
 $navigation--color: $G-COLOR-4
 $navigation--background-color: $G-COLOR-0
-$navigation-focus--background-color: $G-COLOR-1
 
 
 //--------------------------------------
@@ -34,6 +33,7 @@ $navigation-focus--background-color: $G-COLOR-1
 
     opacity: .8
 
+
   .part-hide-text
     line-height: 50px
     color: $G-COLOR-4
@@ -46,47 +46,28 @@ $navigation-focus--background-color: $G-COLOR-1
   background-color: inherit
 
 
-  >.navigation-mobile
+.navigation-list
+
+  li:not(.navigation-field)
     display: none
 
+  .navigation-field
+    position: relative
+    height: $navigation-field--height
 
-  >.navigation-primary, >.navigation-secondary
+    border-bottom: solid #666 1px
+    background-color: $navigation--background-color
 
-    .navigation-secondary-space
-      display: none
+    >*
+      padding: 0 15px
+      line-height: $navigation-field--height
 
-    li
-      position: relative
-      height: $navigation-primery_secondery--height
-
-      border-bottom: solid #666 1px
-      background-color: $navigation-focus--background-color
-
-      >.link
-        padding: 0 15px
-        line-height: $navigation-primery_secondery--height
-
-        background-color: $navigation--background-color
+      cursor: pointer
 
 
-    li.navigation-primary-language
-      display: none
+  .navigation-secondary-cart
+    font-weight: bold
 
-      button
-        background: transparent
-        border: none
-        margin: 0
-        padding: 0
-
-        color: $navigation--color
-        font-size: 19px
-        font-weight: bold
-
-    li.navigation-secondary-cart
-      font-weight: bold
-
-    li.navigation-secondary-searcher
-      display: none
 
 //--------------------------------------
 //            EKRAN KOMPUTERA

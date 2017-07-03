@@ -7,13 +7,13 @@ $header-navigation-secondary--background-color: $G-COLOR-0
 //         Navigation secondary
 //--------------------------------------
 
-#HEADER >.header >.navigation-secondary
+.header-navigation-secondary
   display: none
 
 
 @media (min-width: $G-SIZE-2)
 
-  #HEADER >.header >.navigation-secondary
+  .header-navigation-secondary
     position: absolute
     left: 0
     top: 0
@@ -30,32 +30,43 @@ $header-navigation-secondary--background-color: $G-COLOR-0
 
     z-index: 70
 
-    >.navigation-secondary-left
-      float: left
-      text-align: left
-
-    >.navigation-secondary-right
-      float: right
-      text-align: right
-
-    >ul
+    .navigation-field, .header-field
+      position: relative
       display: inline-block
+      width: auto
+      font:
+        size: 14px
+        weight: normal
 
-      >li
-        display: inline-block
-        width: auto
-        font:
-          size: 14px
-          weight: normal
+      >*
+        position: relative
 
-        >.link
-          position: relative
+        font-weight: bold
+        cursor: pointer
 
-          font-weight: bold
-          cursor: pointer
 
-    .navigation-secondary-searcher
-      >div >i
+  .header-navigation-secondary-root
+    display: inline-block
+    float: left
+    text-align: left
+
+
+  .header-navigation-secondary-user
+    display: inline-block
+    float: right
+    text-align: right
+
+
+  .navigation-secondary-searcher
+    line-height: 20px
+
+    .button
+      line-height: inherit
+
+      &:focus
+        line-height: inherit
+
+      .button-icon
         display: inline-block
         position: relative
         top: 2px
@@ -64,12 +75,10 @@ $header-navigation-secondary--background-color: $G-COLOR-0
         height: 15px
         margin-right: 3px
 
-        +background-img( url(/static/img/icons/32/light/searcher.png), 100%, center)
-
 
 @media (min-width: $G-SIZE-3)
 
-  #HEADER >.header >.navigation-secondary
+  .header-navigation-secondary
 
-    .navigation-secondary-searcher, .navigation-secondary-space.for_searcher
+    .navigation-secondary-searcher, .header-field-space.for-searcher
       display: none

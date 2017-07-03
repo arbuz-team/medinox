@@ -1,0 +1,50 @@
+
+
+<li class="navigation-field">
+	<a class="fill-abs" href="/">
+		Home
+	</a>
+</li>
+
+<li class="navigation-field">
+	<a class="fill-abs" href="/catalog/:/">
+		Products
+	</a>
+</li>
+
+<li class="navigation-field">
+	<a class="fill-abs" href="/about/">
+		About
+	</a>
+</li>
+
+
+{% if request.session.user_login %}
+
+	<li class="navigation-field">
+		<a class="fill-abs" href="/user/account/">
+			Account
+		</a>
+	</li>
+
+{% else %}
+
+	<li class="navigation-field">
+		<a class="fill-abs" href="/user/sign_in/">
+			Sign in
+		</a>
+	</li>
+
+{% endif %}
+
+
+<li class="header-field navigation-primary-language">
+	<div class="fill-abs">
+		<button class="button is-icon dialog_button"
+				type="button"
+				data-type="alert"
+				data-name="language">
+			<span class="button-icon img-flag-{{ request.session.translator_language }}"> &nbsp; </span>
+		</button>
+	</div>
+</li>

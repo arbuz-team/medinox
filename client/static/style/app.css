@@ -169,13 +169,19 @@ div > .buttons_to_action {
 .is-float-right {
   float: right; }
 
+.is-float-left {
+  float: left; }
+
 .is-inline-inside > * {
   display: inline-block; }
+
+.is-left-inside {
+  text-align: left; }
 
 .is-right-inside {
   text-align: right; }
 
-.is-centered-inside {
+.is-center-inside {
   text-align: center; }
 
 .is-mobile-visible {
@@ -185,7 +191,7 @@ div > .buttons_to_action {
   .is-mobile-visible {
     display: none; } }
 
-.std-img, .img-edit, .img-shopping_cart, .img-waste_bin, .img-waste_bin-64, .img-close {
+.std-img, .img-edit, .img-shopping_cart, .img-waste_bin, .img-waste_bin-64, .img-close, .img-searcher, .img-searcher-light, .img-lines_menu, .img-flag-EN, .img-flag-PL, .img-flag-DE {
   background-image: "";
   background-size: auto auto;
   background-position: 0 0;
@@ -205,6 +211,24 @@ div > .buttons_to_action {
 
 .img-close {
   background-image: url(/static/img/icons/32/dark/close.png); }
+
+.img-searcher {
+  background-image: url(/static/img/icons/32/dark/searcher.png); }
+
+.img-searcher-light {
+  background-image: url(/static/img/icons/32/light/searcher.png); }
+
+.img-lines_menu {
+  background-image: url(/static/img/icons/32/dark/lines_menu.png); }
+
+.img-flag-EN {
+  background-image: url(/static/img/flags/EN.png); }
+
+.img-flag-PL {
+  background-image: url(/static/img/flags/PL.png); }
+
+.img-flag-DE {
+  background-image: url(/static/img/flags/DE.png); }
 
 .field_without_styles, .std_field, .button, .textarea, .input, .select, .button.is-icon, .button.is-icon:hover, .button.is-icon:focus, .button.is-icon:disabled, .searcher-phrase-field {
   line-height: inherit;
@@ -297,8 +321,10 @@ div > .buttons_to_action {
 
 .button.is-icon, .button.is-icon:hover, .button.is-icon:focus, .button.is-icon:disabled {
   margin: 0 3px;
-  line-height: 25px;
-  height: 20px; }
+  height: 20px;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none; }
 
 .button.is-icon:hover .button-icon {
   opacity: 1; }
@@ -539,14 +565,11 @@ div > .buttons_to_action {
   background-color: transparent;
   overflow: visible;
   z-index: 70; }
-  #HEADER > .header {
-    position: relative;
-    height: inherit;
-    background-color: #ffffff; }
-  #HEADER > div {
-    height: inherit; }
-  #HEADER .navigation-close_navigation {
-    display: none; }
+
+.header {
+  position: relative;
+  height: inherit;
+  background-color: #ffffff; }
 
 @media screen and (min-width: 675px) {
   #HEADER {
@@ -557,66 +580,45 @@ div > .buttons_to_action {
     height: 82px;
     margin-left: 250px; } }
 
-#HEADER > .header > .navigation-mobile {
+.header-navigation-mobile {
   display: block;
   position: relative;
   height: inherit;
   text-align: center; }
-  #HEADER > .header > .navigation-mobile > li {
-    display: inline-block;
-    position: relative;
-    z-index: 38;
-    height: 30px;
-    width: 30px;
-    margin-top: 15px;
-    margin-left: 15px;
-    margin-right: 15px; }
-    #HEADER > .header > .navigation-mobile > li > button, #HEADER > .header > .navigation-mobile > li > a {
-      display: inline-block;
-      width: inherit;
+
+.header-navigation-mobile-field {
+  display: inline-block;
+  position: relative;
+  z-index: 38;
+  width: 30px;
+  height: 30px;
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-right: 15px; }
+  .header-navigation-mobile-field .button, .header-navigation-mobile-field .button:hover, .header-navigation-mobile-field .button:focus {
+    display: block;
+    width: inherit;
+    height: inherit;
+    padding: 0;
+    margin: 0;
+    line-height: 100%; }
+    .header-navigation-mobile-field .button .button-icon, .header-navigation-mobile-field .button:hover .button-icon, .header-navigation-mobile-field .button:focus .button-icon {
       height: inherit;
-      padding: 0;
-      margin: 0;
-      line-height: 100%;
-      border: none;
-      background: none; }
-  #HEADER > .header > .navigation-mobile > li.navigation-mobile-filter {
-    float: left;
-    text-align: left; }
-    #HEADER > .header > .navigation-mobile > li.navigation-mobile-filter > button, #HEADER > .header > .navigation-mobile > li.navigation-mobile-filter > a {
-      background-image: url("/static/img/icons/64/dark/searcher.png");
-      background-size: 100% 100%;
-      background-position: 0 0;
-      background-repeat: no-repeat; }
-  #HEADER > .header > .navigation-mobile > li.navigation-mobile-navigation {
-    text-align: center; }
-    #HEADER > .header > .navigation-mobile > li.navigation-mobile-navigation > button, #HEADER > .header > .navigation-mobile > li.navigation-mobile-navigation > a {
-      background-image: url("/static/img/icons/64/dark/lines_menu.png");
-      background-size: 100% 100%;
-      background-position: 0 0;
-      background-repeat: no-repeat; }
-  #HEADER > .header > .navigation-mobile > li.navigation-mobile-cart {
-    float: right;
-    text-align: right; }
-    #HEADER > .header > .navigation-mobile > li.navigation-mobile-cart > button, #HEADER > .header > .navigation-mobile > li.navigation-mobile-cart > a {
-      background-image: url("/static/img/icons/64/dark/shopping_cart.png");
-      background-size: 100% 100%;
-      background-position: 0 0;
-      background-repeat: no-repeat; }
+      width: inherit; }
 
 @media (min-width: 675px) {
-  #HEADER > .header > .navigation-mobile {
+  .header-navigation-mobile {
     display: none; } }
 
-#HEADER > .header > .navigation-primary {
+.header-navigation-primary {
   display: none; }
 
 @media (min-width: 675px) {
-  #HEADER > .header > .navigation-primary {
+  .header-navigation-primary {
     display: block;
     position: relative;
     height: inherit; }
-    #HEADER > .header > .navigation-primary > li {
+    .header-navigation-primary .navigation-field, .header-navigation-primary .header-field {
       display: inline-block;
       position: relative;
       z-index: 38;
@@ -625,70 +627,55 @@ div > .buttons_to_action {
       min-width: 150px;
       line-height: 40px;
       border-radius: 2px; }
-      #HEADER > .header > .navigation-primary > li > a {
+      .header-navigation-primary .navigation-field:not(.navigation-primary-language):hover, .header-navigation-primary .header-field:not(.navigation-primary-language):hover {
+        background-color: #fafafa; }
+      .header-navigation-primary .navigation-field > *, .header-navigation-primary .header-field > * {
         display: block;
         height: 100%;
         padding: 0 15px;
         font-size: 20px;
         text-align: center;
         color: #1a1a1a; }
-    #HEADER > .header > .navigation-primary > li.wybrany,
-    #HEADER > .header > .navigation-primary > li:hover {
-      background-color: #fafafa; }
-      #HEADER > .header > .navigation-primary > li.wybrany > a,
-      #HEADER > .header > .navigation-primary > li:hover > a {
-        color: #1a1a1a; }
-    #HEADER > .header > .navigation-primary > li.navigation-primary-language {
-      float: right;
-      display: block;
-      position: relative;
-      min-width: 40px !important;
-      width: 40px !important;
-      height: 40px !important;
+  .navigation-primary-language {
+    float: right;
+    display: block;
+    position: relative;
+    min-width: 40px !important;
+    width: 40px !important;
+    height: 40px !important;
+    margin: 0;
+      margin-top: 35px;
+      margin-right: 10px; }
+    .navigation-primary-language .button, .navigation-primary-language .button:hover, .navigation-primary-language .button:focus {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0; }
+    .navigation-primary-language .button .button-icon {
+      width: 100%;
+      height: 100%;
       margin: 0;
-        margin-top: 35px;
-        margin-right: 10px; }
-      #HEADER > .header > .navigation-primary > li.navigation-primary-language button {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        border: none;
-        background-color: transparent; }
-        #HEADER > .header > .navigation-primary > li.navigation-primary-language button * {
-          display: none; }
-      #HEADER > .header > .navigation-primary > li.navigation-primary-language button.EN {
-        background-image: url("/static/img/flags/uk_UK.png");
-        background-size: 100% 100%;
-        background-position: center bottom;
-        background-repeat: no-repeat; }
-      #HEADER > .header > .navigation-primary > li.navigation-primary-language button.PL {
-        background-image: url("/static/img/flags/pl_PL.png");
-        background-size: 100% 100%;
-        background-position: center bottom;
-        background-repeat: no-repeat; }
-      #HEADER > .header > .navigation-primary > li.navigation-primary-language button.DE {
-        background-image: url("/static/img/flags/de_DE.png");
-        background-size: 100% 100%;
-        background-position: center bottom;
-        background-repeat: no-repeat; } }
+      background-image: "";
+      background-size: 100% 100%;
+      background-position: center bottom;
+      background-repeat: no-repeat; } }
 
 @media (min-width: 1000px) {
-  #HEADER > .header > .navigation-primary > li {
+  .header-navigation-primary .navigation-field, .header-navigation-primary .header-field {
     height: 55px;
     margin-top: 30px;
     line-height: 55px; }
-  #HEADER > .header > .navigation-primary > li.navigation-primary-language {
+  .header-navigation-primary .navigation-primary-language {
     margin-top: 40px;
     margin-right: 15px; } }
 
-#HEADER > .header > .navigation-secondary {
+.header-navigation-secondary {
   display: none; }
 
 @media (min-width: 675px) {
-  #HEADER > .header > .navigation-secondary {
+  .header-navigation-secondary {
     position: absolute;
     left: 0;
     top: 0;
@@ -700,37 +687,40 @@ div > .buttons_to_action {
     background-color: #1a1a1a;
     color: #ffffff;
     z-index: 70; }
-    #HEADER > .header > .navigation-secondary > .navigation-secondary-left {
-      float: left;
-      text-align: left; }
-    #HEADER > .header > .navigation-secondary > .navigation-secondary-right {
-      float: right;
-      text-align: right; }
-    #HEADER > .header > .navigation-secondary > ul {
-      display: inline-block; }
-      #HEADER > .header > .navigation-secondary > ul > li {
-        display: inline-block;
-        width: auto;
-        font-size: 14px;
-        font-weight: normal; }
-        #HEADER > .header > .navigation-secondary > ul > li > .link {
-          position: relative;
-          font-weight: bold;
-          cursor: pointer; }
-    #HEADER > .header > .navigation-secondary .navigation-secondary-searcher > div > i {
-      display: inline-block;
+    .header-navigation-secondary .navigation-field, .header-navigation-secondary .header-field {
       position: relative;
-      top: 2px;
-      width: 15px;
-      height: 15px;
-      margin-right: 3px;
-      background-image: url(/static/img/icons/32/light/searcher.png);
-      background-size: 100%;
-      background-position: center;
-      background-repeat: no-repeat; } }
+      display: inline-block;
+      width: auto;
+      font-size: 14px;
+      font-weight: normal; }
+      .header-navigation-secondary .navigation-field > *, .header-navigation-secondary .header-field > * {
+        position: relative;
+        font-weight: bold;
+        cursor: pointer; }
+  .header-navigation-secondary-root {
+    display: inline-block;
+    float: left;
+    text-align: left; }
+  .header-navigation-secondary-user {
+    display: inline-block;
+    float: right;
+    text-align: right; }
+  .navigation-secondary-searcher {
+    line-height: 20px; }
+    .navigation-secondary-searcher .button {
+      line-height: inherit; }
+      .navigation-secondary-searcher .button:focus {
+        line-height: inherit; }
+      .navigation-secondary-searcher .button .button-icon {
+        display: inline-block;
+        position: relative;
+        top: 2px;
+        width: 15px;
+        height: 15px;
+        margin-right: 3px; } }
 
 @media (min-width: 1000px) {
-  #HEADER > .header > .navigation-secondary .navigation-secondary-searcher, #HEADER > .header > .navigation-secondary .navigation-secondary-space.for_searcher {
+  .header-navigation-secondary .navigation-secondary-searcher, .header-navigation-secondary .header-field-space.for-searcher {
     display: none; } }
 
 img {
@@ -1876,33 +1866,22 @@ img {
   margin-bottom: 100px;
   color: #ffffff;
   background-color: inherit; }
-  .navigation > .navigation-mobile {
-    display: none; }
-  .navigation > .navigation-primary .navigation-secondary-space, .navigation > .navigation-secondary .navigation-secondary-space {
-    display: none; }
-  .navigation > .navigation-primary li, .navigation > .navigation-secondary li {
-    position: relative;
-    height: 45px;
-    border-bottom: solid #666 1px;
-    background-color: #a20000; }
-    .navigation > .navigation-primary li > .link, .navigation > .navigation-secondary li > .link {
-      padding: 0 15px;
-      line-height: 45px;
-      background-color: #1a1a1a; }
-  .navigation > .navigation-primary li.navigation-primary-language, .navigation > .navigation-secondary li.navigation-primary-language {
-    display: none; }
-    .navigation > .navigation-primary li.navigation-primary-language button, .navigation > .navigation-secondary li.navigation-primary-language button {
-      background: transparent;
-      border: none;
-      margin: 0;
-      padding: 0;
-      color: #ffffff;
-      font-size: 19px;
-      font-weight: bold; }
-  .navigation > .navigation-primary li.navigation-secondary-cart, .navigation > .navigation-secondary li.navigation-secondary-cart {
-    font-weight: bold; }
-  .navigation > .navigation-primary li.navigation-secondary-searcher, .navigation > .navigation-secondary li.navigation-secondary-searcher {
-    display: none; }
+
+.navigation-list li:not(.navigation-field) {
+  display: none; }
+
+.navigation-list .navigation-field {
+  position: relative;
+  height: 45px;
+  border-bottom: solid #666 1px;
+  background-color: #1a1a1a; }
+  .navigation-list .navigation-field > * {
+    padding: 0 15px;
+    line-height: 45px;
+    cursor: pointer; }
+
+.navigation-list .navigation-secondary-cart {
+  font-weight: bold; }
 
 @media (min-width: 675px) {
   #NAVIGATION {

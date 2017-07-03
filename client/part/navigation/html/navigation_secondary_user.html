@@ -1,0 +1,48 @@
+
+{% if request.session.user_login %}
+
+	<li class="navigation-field">
+		<a class="fill-abs" href="/user/sign_out/">
+			Sign out
+		</a>
+	</li>
+
+{% else %}
+
+	<li class="navigation-field">
+		<a class="fill-abs" href="/user/sign_up/">
+			Sign up
+		</a>
+	</li>
+
+{% endif %}
+
+
+<li class="header-field header-field-space"> | </li>
+
+<li class="navigation-field">
+	<a class="fill-abs" href="/contact/">
+		Contact
+	</a>
+</li>
+
+<li class="header-field header-field-space"> | </li>
+
+
+{% if request.session.user_login %}
+
+	<li class="navigation-secondary-cart navigation-field" title="CTRL+SHIFT+X">
+		<div class="fill-abs event_button" data-name="navigation-open_or_close_cart" data-event="plugins.open_or_close_cart">
+			Cart
+		</div>
+	</li>
+
+{% else %}
+
+	<li class="navigation-field">
+		<a class="fill-abs" href="/user/sign_in/">
+			Cart
+		</a>
+	</li>
+
+{% endif %}

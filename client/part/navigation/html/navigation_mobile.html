@@ -1,0 +1,42 @@
+
+
+<li class="header-navigation-mobile-field is-float-left">
+	<button class="button is-icon event_button"
+			type="button"
+			data-name="mobile-open_searcher"
+			data-event="plugins.open_searcher">
+		<span class="button-icon img-searcher"> &nbsp; </span>
+	</button>
+</li>
+
+<li class="header-navigation-mobile-field">
+	<button class="button is-icon event_button"
+			type="button"
+			data-name="mobile-open_navigation"
+			data-event="plugins.open_navigation">
+		<span class="button-icon img-lines_menu"> &nbsp; </span>
+	</button>
+</li>
+
+
+{% if request.session.user_login %}
+
+	<li class="header-navigation-mobile-field is-float-right">
+		<button class="button is-icon event_button"
+				type="button"
+				data-name="mobile-open_or_close_cart"
+				data-event="plugins.open_or_close_cart">
+			<span class="button-icon img-shopping_cart"> &nbsp; </span>
+		</button>
+	</li>
+
+{% else %}
+
+	<li class="header-navigation-mobile-field is-float-right">
+		<a class="button is-icon event_button"
+		   href="/user/sign_in/">
+			<span class="button-icon img-shopping_cart"> &nbsp; </span>
+		</a>
+	</li>
+
+{% endif %}
