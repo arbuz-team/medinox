@@ -1238,6 +1238,8 @@ img {
 .ground-block.SMALL .block-content {
   width: 340px;
   margin: 30px auto; }
+  .ground-block.SMALL .block-content .input, .ground-block.SMALL .block-content .button {
+    width: 100%; }
 
 .ground-block.BIG .block-content {
   width: 340px;
