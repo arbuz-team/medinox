@@ -1,7 +1,7 @@
 from server.page.dialog.service.base import *
 
 
-class Service_Content_Tab(Base_Service):
+class Service_About(Base_Service):
 
     def Validate_Direction(self):
         direction = self.dialog\
@@ -29,14 +29,14 @@ class Service_Content_Tab(Base_Service):
         # create new description
         content_tab = Content_Tab(position=position)
         content_tab.direction = self.direction
-        self.request.session['main_content_tab'] = content_tab
+        self.request.session['main_about'] = content_tab
 
     def Edit(self):
 
         content_tab = Content_Tab.objects.get(
             pk=self.request.POST['dialog_value'])
 
-        self.request.session['main_content_tab'] = content_tab
+        self.request.session['main_about'] = content_tab
         self.content['edit'] = {'url': '/product/description/manage/'}
         self.content['image'] = content_tab.image
         self.initial = {
@@ -54,7 +54,7 @@ class Service_Content_Tab(Base_Service):
 
         self.content['title'] = Text(self.request, 93)
         self.content['form'] = self.Prepare_Form(
-            Form_Content_Tab, initial=self.initial)
+            Form_About, initial=self.initial)
 
         return self.Render_Dialog(
-            'prompt.html', 'content_tab', only_root=True)
+            'prompt.html', 'about', only_root=True)
