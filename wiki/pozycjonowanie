@@ -1,0 +1,21 @@
+Rozwiązanie problemu językowego i pozycjonowania jednocześnie:
+
+    Wstęp:
+
+        Pozycjonowanie odbywa się poprzez nadanie rekordowi unikalnej wartości liczbowej w kolumnie `position` tak, aby nie było przerw między elementami (... 2 3 4 ...). Dodawanie kolejnego elementu następuje poprzez dodanie go przed lub po wybranym elemencie. 
+
+        Wersję językową elementu ustawiamy poprzez uzupełnienie kolumny `language` w modelu bazy danych.
+
+    Problem:
+        
+        Ustawianie jednocześnie unikalnych wartości dla pozycjonowania i języka, powoduje problem dziur między wartościami pozycjonowania, ponieważ elementy mogą posiadać przeplatanie nadaną wartość językową w kolumnach `language` i `position`.
+
+    Rozwiązanie:
+
+        Na stronie wyświetlane są jedynie elementy z tylko jednego wybranego języka. Ograniczenie do dodawania nowego elementu jako poprzedzającego lub następnego od elementu wybranego nie pozwala na tworzenie elementów poza granicami pierwszego elementu językowego - inaczej: elementy są grupowane w/g języka np:
+
+        {
+            1: 'en', 2: 'en', 3: 'en', 
+            4: 'pl', 5: 'pl', 
+            6: 'de'
+        }
