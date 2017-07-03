@@ -157,8 +157,8 @@ class Contact(Dynamic_Event_Manager):
     def Manage_Content_Ground(self):
         language = self.request.session['translator_language']
         self.content['form'] = Form_Email_Contact(self.request)
-        self.content['content'] = Content_Tab.objects.filter(
-            tab_name='contact', language=language)
+        self.content['content'] = Contact_Content.objects.filter(
+            language=language).order_by('position')
 
         self.Create_Titles()
         return self.Render_HTML('main/contact.html', 'email_contact')

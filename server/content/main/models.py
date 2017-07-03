@@ -20,3 +20,10 @@ class About_Content(Content_Tab):
 
     def Set_Variables(self):
         self.image_dir = 'img/about/'
+
+
+
+class Contact_Content(Content_Tab):
+
+    def Set_Variables(self):
+        self.image_dir = 'img/contact/'
