@@ -230,7 +230,7 @@ class My_Shopping(Dynamic_Event_Manager):
 
         date_from, date_to = self.Get_Date()
         user = User.objects.get(unique=self.request.session['user_unique'])
-        payments = Payment.objects.filter(user=user, status='card',
+        payments = Payment.objects.filter(user=user, status='cart',
                               date__gte=date_from, date__lte=date_to)
 
         for payment in payments:

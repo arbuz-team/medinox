@@ -45,7 +45,7 @@ class Session_Controller:
             self.request.session['root_login'] = True
 
         if 'root_payment_status' not in self.request.session:
-            self.request.session['root_payment_status'] = True
+            self.request.session['root_payment_status'] = 'cart'
 
         if 'root_users_payments_date_from' not in self.request.session:
             self.request.session['root_users_payments_date_from'] = \
