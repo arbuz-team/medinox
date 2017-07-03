@@ -1,5 +1,9 @@
 #! /bin/bash
 
+echo yes | python3 $(dirname $0)/manage.py flush
+echo ''
+echo ''
+
 python3 $(dirname $0)/server/manage/setting/script/update_language.py
 python3 $(dirname $0)/manage.py loaddata $(dirname $0)/server/manage/setting/data/main.json
 python3 $(dirname $0)/manage.py loaddata $(dirname $0)/server/manage/setting/data/root.json
