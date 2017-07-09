@@ -4,7 +4,7 @@ from server.manage.switch.base import *
 from server.service.translator.models import *
 
 
-class Translator:
+class Translator(Base):
 
     @staticmethod
     def Translate_EN(pk):
@@ -71,9 +71,6 @@ class Translator:
                 return redirect(path_manager.Get_Urls(language='DE'))
 
         return None
-
-    def __init__(self, _object):
-        self.request = _object.request
 
 
 def Text(request, pk, language=None):

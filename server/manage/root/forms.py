@@ -39,5 +39,7 @@ class Form_Root_Address(Abstract_Address_Form):
         self.fields['phone'].widget = forms.TextInput(attrs=phone_attr)
         self.fields['email'].widget = forms.TextInput(attrs=email_attr)
 
+        Abstract_Address_Form.Set_Widgets(self)
+
     class Meta(Abstract_Address_Form.Meta):
         model = Root_Address

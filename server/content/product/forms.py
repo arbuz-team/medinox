@@ -11,7 +11,18 @@ class Form_Widget(Abstract_Model_Form):
     )
 
     def Create_Fields(self):
+        self.fields['name'] = forms.CharField(required=True)
         self.fields['type'] = forms.ChoiceField(self.choices)
+        Abstract_Model_Form.Create_Fields(self)
+
+    def Set_Widgets(self):
+
+        name_attr = self.Attr(Text(self.request, 173), field=Field.INPUT)
+        type_attr = self.Attr(field=Field.SELECT)
+
+        self.fields['name'].widget.attrs = name_attr
+        self.fields['type'].widget.attrs = type_attr
+        Abstract_Model_Form.Set_Widgets(self)
 
     class Meta:
 
@@ -33,6 +44,16 @@ class Form_Values(Abstract_Model_Form):
 
     def Create_Fields(self):
         self.fields['super_price'] = forms.FloatField(required=False)
+        Abstract_Model_Form.Create_Fields(self)
+
+    def Set_Widgets(self):
+
+        name_attr = self.Attr(Text(self.request, 175), field=Field.INPUT)
+        super_price_attr = self.Attr(Text(self.request, 174), field=Field.NUMBER)
+
+        self.fields['name'].widget.attrs = name_attr
+        self.fields['super_price'].widget.attrs = super_price_attr
+        Abstract_Model_Form.Set_Widgets(self)
 
     class Meta:
 
