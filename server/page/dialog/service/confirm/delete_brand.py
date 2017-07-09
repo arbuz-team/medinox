@@ -9,8 +9,8 @@ class Service_Delete_Brand(Base_Service):
         brand = Brand.objects.get(pk=pk)
         products = Product.objects.filter(brand=brand)
 
-        description = Text(self.request, 110)
+        description = Text(self, 110)
         self.content['text'] = description.format(len(products))
-        self.content['title'] = Text(self.request, 109)
+        self.content['title'] = Text(self, 109)
 
         return self.Render_Dialog('confirm.html', only_root=True)

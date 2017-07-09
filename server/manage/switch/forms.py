@@ -32,7 +32,7 @@ class Base_Form:
             if Dynamic_Base.Encrypt(password) == user.password:
                 return True
 
-        raise forms.ValidationError(Text(self.request, 85))
+        raise forms.ValidationError(Text(self, 85))
 
 
     def Create_Fields(self):
@@ -63,7 +63,7 @@ class Base_Form:
 
     def Set_Secure_Form(self):
 
-        secure_attrs = self.Attr(Text(self.request, 84), classes='test')
+        secure_attrs = self.Attr(Text(self, 84), classes='test')
 
         self.fields['secure'] = forms.CharField(max_length=100)
         self.fields['secure'].widget = forms.PasswordInput(attrs=secure_attrs)
@@ -114,7 +114,7 @@ class Abstract_Image_Form(Abstract_Form):
 
         if image_base64:
             if not image_name:
-                raise forms.ValidationError(Text(self.request, 166))
+                raise forms.ValidationError(Text(self, 166))
 
         return image_name
 
@@ -130,7 +130,7 @@ class Abstract_Image_Form(Abstract_Form):
                 image_base64, image_name, File.IMAGE)
 
             if not image_base64:
-                raise forms.ValidationError(Text(self.request, 66))
+                raise forms.ValidationError(Text(self, 66))
 
         return image_base64
 
@@ -145,7 +145,7 @@ class Abstract_Image_Form(Abstract_Form):
                 image_url, File.IMAGE)
 
             if not image_url:
-                raise forms.ValidationError(Text(self.request, 67))
+                raise forms.ValidationError(Text(self, 67))
 
         return image_url
 
@@ -177,7 +177,7 @@ class Abstract_Image_Form(Abstract_Form):
 
         image_attr = self.Attr()
         image_base64_attr = self.Attr(hidden=True)
-        image_url_attrs = self.Attr(Text(self.request, 97))
+        image_url_attrs = self.Attr(Text(self, 97))
         name_attrs = self.Attr(hidden=True)
 
         self.fields['image'].widget = forms.FileInput(attrs=image_attr)
@@ -195,7 +195,7 @@ class Abstract_File_Form(Abstract_Form):
 
         if file_base64:
             if not file_name:
-                raise forms.ValidationError(Text(self.request, 165))
+                raise forms.ValidationError(Text(self, 165))
 
         return file_name
 
@@ -211,7 +211,7 @@ class Abstract_File_Form(Abstract_Form):
                 file_base64, file_name, File.FILE)
 
             if not file_base64:
-                raise forms.ValidationError(Text(self.request, 163))
+                raise forms.ValidationError(Text(self, 163))
 
         return file_base64
 
@@ -226,7 +226,7 @@ class Abstract_File_Form(Abstract_Form):
                 file_url, File.FILE)
 
             if not file_url:
-                raise forms.ValidationError(Text(self.request, 162))
+                raise forms.ValidationError(Text(self, 162))
 
         return file_url
 
@@ -258,7 +258,7 @@ class Abstract_File_Form(Abstract_Form):
 
         file_attr = self.Attr()
         file_base64_attr = self.Attr(hidden=True)
-        file_url_attrs = self.Attr(Text(self.request, 97))
+        file_url_attrs = self.Attr(Text(self, 97))
         name_attrs = self.Attr(hidden=True)
 
         self.fields['file'].widget = forms.FileInput(attrs=file_attr)
@@ -275,12 +275,12 @@ class Abstract_Address_Form(Abstract_Model_Form):
 
     def Set_Widgets(self):
 
-        full_name_attr = self.Attr(Text(self.request, 47), classes='test', autofocus=True)
-        doctor_number_attr = self.Attr(Text(self.request, 63), classes='test')
-        address_line_attr = self.Attr(Text(self.request, 48), classes='test')
-        city_attr = self.Attr(Text(self.request, 50), classes='test')
-        region_attr = self.Attr(Text(self.request, 51), classes='test')
-        postcode_attr = self.Attr(Text(self.request, 52), classes='test')
+        full_name_attr = self.Attr(Text(self, 47), classes='test', autofocus=True)
+        doctor_number_attr = self.Attr(Text(self, 63), classes='test')
+        address_line_attr = self.Attr(Text(self, 48), classes='test')
+        city_attr = self.Attr(Text(self, 50), classes='test')
+        region_attr = self.Attr(Text(self, 51), classes='test')
+        postcode_attr = self.Attr(Text(self, 52), classes='test')
         country_attr = self.Attr(field=Field.SELECT)
 
         self.fields['full_name'].widget = forms.TextInput(attrs=full_name_attr)

@@ -27,7 +27,7 @@ class Service_Product(Base_Service):
 
         else: self.New()
 
-        self.content['title'] = Text(self.request, 158)
+        self.content['title'] = Text(self, 158)
         self.content['form'] = self.Prepare_Form(
             Form_Product, instance=self.instance)
 

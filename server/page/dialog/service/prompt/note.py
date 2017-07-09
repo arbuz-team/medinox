@@ -23,6 +23,6 @@ class Service_Note(Base_Service):
         self.content['form'] = Form_Order_Note(
             self.request, initial={'note': self.instance.note})
 
-        self.content['title'] = Text(self.request, 172)
+        self.content['title'] = Text(self, 172)
         return self.Render_Dialog(
             'prompt.html', 'note', only_root=True)

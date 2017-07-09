@@ -133,15 +133,15 @@ class Contact(Dynamic_Event_Manager):
 
         self.content['form_detail'] = [
             {
-                'title':    Text(self.request, 81),
+                'title':    Text(self, 81),
                 'hidden':   'url',
             },
             {
-                'title':    Text(self.request, 82),
+                'title':    Text(self, 82),
                 'hidden':   'product',
             },
             {
-                'title':    Text(self.request, 83),
+                'title':    Text(self, 83),
                 'hidden':   'url product',
             },
         ]

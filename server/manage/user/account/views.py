@@ -11,27 +11,27 @@ class Start_App(Dynamic_Event_Manager):
         path_manager = Path_Manager(self)
         self.content['apps'] = [
             {
-                'name': Text(self.request, 58),
+                'name': Text(self, 58),
                 'url':  path_manager.Get_Path('user.account.details', current_language=True),
                 'icon': '/static/img/icons/128/dark/user_details.png',
             },
             {
-                'name': Text(self.request, 59),
+                'name': Text(self, 59),
                 'url': path_manager.Get_Path('user.account.addresses', current_language=True),
                 'icon': '/static/img/icons/128/dark/id_card.png',
             },
             {
-                'name': Text(self.request, 60),
+                'name': Text(self, 60),
                 'url': path_manager.Get_Path('user.account.my_shopping', current_language=True),
                 'icon': '/static/img/icons/128/dark/list_check.png',
             },
             {
-                'name': Text(self.request, 61),
+                'name': Text(self, 61),
                 'url': path_manager.Get_Path('user.account.favorite', current_language=True),
                 'icon': '/static/img/icons/128/dark/badge.png',
             },
             {
-                'name': Text(self.request, 62),
+                'name': Text(self, 62),
                 'url': path_manager.Get_Path('payment', current_language=True),
                 'icon': '/static/img/icons/128/dark/shopping_cart.png',
             },

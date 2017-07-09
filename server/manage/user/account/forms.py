@@ -13,7 +13,7 @@ class Form_User_Details(Abstract_Form):
         new_password = self.data['new_password']
 
         if not (new_email or new_username or new_password):
-            raise forms.ValidationError(Text(self.request, 92))
+            raise forms.ValidationError(Text(self, 92))
 
     def Create_Fields(self):
         self.fields['new_email'] = forms.CharField(max_length=50, required=False)
@@ -24,17 +24,17 @@ class Form_User_Details(Abstract_Form):
     def Set_Widgets(self):
 
         new_username_attr = {
-            'placeholder': Text(self.request, 90),
+            'placeholder': Text(self, 90),
             'class': 'test',
         }
 
         new_password_attr = {
-            'placeholder': Text(self.request, 91),
+            'placeholder': Text(self, 91),
             'class': 'test',
         }
 
         new_email_attr = {
-            'placeholder': Text(self.request, 89),
+            'placeholder': Text(self, 89),
             'class': 'test',
             'autofocus': 'true',
         }

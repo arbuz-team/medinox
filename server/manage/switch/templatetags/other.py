@@ -41,12 +41,12 @@ class Other_Manager(Base_Tag_Manager):
     def Get_Text_In_Current_Language(self):
         pk = self.values['pk']
         language = self.values['language']
-        return Text(self.request, pk, language)
+        return Text(self, pk, language)
 
     def Get_App_Name(self):
         app_name = self.request.session['arbuz_app'].split('.')[-1]
         pk = Language_EN.objects.get(value=app_name).pk
-        return Text(self.request, pk).replace('.', ' ').title()
+        return Text(self, pk).replace('.', ' ').title()
 
 
 

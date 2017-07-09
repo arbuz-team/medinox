@@ -23,7 +23,7 @@ class Service_Deadline(Base_Service):
         self.content['form'] = Form_Order_Deadline(
             self.request, instance=self.instance)
 
-        self.content['title'] = Text(self.request, 171)
+        self.content['title'] = Text(self, 171)
         return self.Render_Dialog(
             'prompt.html', 'deadline', only_root=True)
 

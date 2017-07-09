@@ -11,7 +11,7 @@ class Form_Catalog(Abstract_Image_Form):
         children = Catalog.objects.filter(parent=parent)
 
         if children.filter(name=name):
-            raise forms.ValidationError(Text(self.request, 155))
+            raise forms.ValidationError(Text(self, 155))
 
         return Abstract_Image_Form.clean(self)
 
@@ -21,6 +21,6 @@ class Form_Catalog(Abstract_Image_Form):
 
     def Set_Widgets(self):
 
-        name_attr = self.Attr(Text(self.request, 164), autofocus=True)
+        name_attr = self.Attr(Text(self, 164), autofocus=True)
         self.fields['name'].widget = forms.TextInput(attrs=name_attr)
         Abstract_Image_Form.Set_Widgets(self)

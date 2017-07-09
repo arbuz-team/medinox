@@ -122,7 +122,7 @@ class DotPay(Payment_System):
             'id':           DOTPAY_RECEIVER_ID,
             'amount':       self.content['total_price'],
             'currency':     self.request.session['translator_currency'],
-            'description':  Text(self.request, 152),
+            'description':  Text(self, 152),
 
             'control':      self.content['payment'],
             'firstname':    address.full_name.split(' ')[0],

@@ -17,7 +17,7 @@ class Form_Widget(Abstract_Model_Form):
 
     def Set_Widgets(self):
 
-        name_attr = self.Attr(Text(self.request, 173), field=Field.INPUT)
+        name_attr = self.Attr(Text(self, 173), field=Field.INPUT)
         type_attr = self.Attr(field=Field.SELECT)
 
         self.fields['name'].widget.attrs = name_attr
@@ -48,8 +48,8 @@ class Form_Values(Abstract_Model_Form):
 
     def Set_Widgets(self):
 
-        name_attr = self.Attr(Text(self.request, 175), field=Field.INPUT)
-        super_price_attr = self.Attr(Text(self.request, 174), field=Field.NUMBER)
+        name_attr = self.Attr(Text(self, 175), field=Field.INPUT)
+        super_price_attr = self.Attr(Text(self, 174), field=Field.NUMBER)
 
         self.fields['name'].widget.attrs = name_attr
         self.fields['super_price'].widget.attrs = super_price_attr
@@ -83,7 +83,7 @@ class Form_Product(Abstract_Image_Form):
         children = Product.objects.filter(parent=parent)
 
         if children.filter(name=name):
-            raise forms.ValidationError(Text(self.request, 159))
+            raise forms.ValidationError(Text(self, 159))
 
         return Abstract_Image_Form.clean(self)
 
@@ -95,8 +95,8 @@ class Form_Product(Abstract_Image_Form):
 
     def Set_Widgets(self):
 
-        name_attr = self.Attr(Text(self.request, 167))
-        price_attr = self.Attr(Text(self.request, 168), field=Field.NUMBER)
+        name_attr = self.Attr(Text(self, 167))
+        price_attr = self.Attr(Text(self, 168), field=Field.NUMBER)
         brand_attr = self.Attr(field=Field.SELECT)
 
         self.fields['name'].widget = forms.TextInput(attrs=name_attr)
@@ -116,8 +116,8 @@ class Form_Description(Abstract_Image_Form):
 
     def Set_Widgets(self):
 
-        header_attr = self.Attr(Text(self.request, 95), classes='test')
-        paragraph_attr = self.Attr(Text(self.request, 96), classes='test', field=Field.TEXTAREA)
+        header_attr = self.Attr(Text(self, 95), classes='test')
+        paragraph_attr = self.Attr(Text(self, 96), classes='test', field=Field.TEXTAREA)
 
         self.fields['header'].widget = forms.TextInput(attrs=header_attr)
         self.fields['paragraph'].widget = forms.Textarea(attrs=paragraph_attr)

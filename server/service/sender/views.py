@@ -17,31 +17,31 @@ class Sender(Dynamic_Base):
         self.email.attach(img)
 
     def Send_Forgot_Password_Link(self, content, recipient):
-        title = Text(self.request, 32)
+        title = Text(self, 32)
         html_file = 'forgot_password.html'
         recipient = [recipient]
         self.Send_Email(title, content, recipient, html_file)
 
     def Send_Register_Approved_Link(self, content, recipient):
-        title = Text(self.request, 33)
+        title = Text(self, 33)
         html_file = 'register_approved.html'
         recipient = [recipient]
         self.Send_Email(title, content, recipient, html_file)
 
     def Send_Payment_Approved(self, content, recipient, pdf):
-        title = Text(self.request, 34)
+        title = Text(self, 34)
         html_file = 'payment_approved.html'
         recipient = [recipient, ROOT_EMAIL]
 
         pdf = {
-            'name': Text(self.request, 106),
+            'name': Text(self, 106),
             'file': pdf.content,
         }
 
         self.Send_Email(title, content, recipient, html_file, pdf=pdf)
 
     def Send_Payment_Failure(self, content, recipient):
-        title = Text(self.request, 151)
+        title = Text(self, 151)
         html_file = 'payment_failure.html'
         recipient = [recipient, ROOT_EMAIL]
         self.Send_Email(title, content, recipient, html_file)

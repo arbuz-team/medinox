@@ -23,7 +23,7 @@ class Service_Catalog(Base_Service):
 
         else: self.New()
 
-        self.content['title'] = Text(self.request, 157)
+        self.content['title'] = Text(self, 157)
         self.content['form'] = self.Prepare_Form(
             Form_Catalog, initial=self.instance)
 

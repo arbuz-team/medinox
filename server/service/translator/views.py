@@ -73,9 +73,9 @@ class Translator(Base):
         return None
 
 
-def Text(request, pk, language=None):
+def Text(_object, pk, language=None):
 
     if not language:
-        language = request.session['translator_language']
+        language = _object.request.session['translator_language']
 
     return Translator.Translate(language, pk)

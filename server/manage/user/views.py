@@ -11,22 +11,22 @@ class Start_App(Dynamic_Event_Manager):
         path_manager = Path_Manager(self)
         self.content['apps'] = [
             {
-                'name': Text(self.request, 35),
+                'name': Text(self, 35),
                 'url':  path_manager.Get_Path('user.sign_in', current_language=True),
                 'icon': '/static/img/icons/128/dark/padlock_open.png',
             },
             {
-                'name': Text(self.request, 36),
+                'name': Text(self, 36),
                 'url': path_manager.Get_Path('user.sign_up', current_language=True),
                 'icon': '/static/img/icons/128/dark/moustache.png',
             },
             {
-                'name': Text(self.request, 37),
+                'name': Text(self, 37),
                 'url': path_manager.Get_Path('user.sign_out', current_language=True),
                 'icon': '/static/img/icons/128/dark/logout.png',
             },
             {
-                'name': Text(self.request, 38),
+                'name': Text(self, 38),
                 'url': path_manager.Get_Path('user.account', current_language=True),
                 'icon': '/static/img/icons/128/dark/settings.png',
             },

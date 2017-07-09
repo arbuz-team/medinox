@@ -36,7 +36,7 @@ class Generator_PDF(Dynamic_Event_Manager):
 
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="{0}"'\
-            .format(Text(self.request, 130))
+            .format(Text(self, 130))
 
         return response
 

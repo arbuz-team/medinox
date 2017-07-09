@@ -6,7 +6,7 @@ from nocaptcha_recaptcha.fields import NoReCaptchaField
 class Form_Email_Contact(Abstract_Form):
 
     def Create_Fields(self):
-        self.fields['title'] = forms.CharField(max_length=100, initial=Text(self.request, 83))
+        self.fields['title'] = forms.CharField(max_length=100, initial=Text(self, 83))
         self.fields['client'] = forms.CharField(max_length=50)
         self.fields['email'] = forms.EmailField(max_length=50)
         self.fields['product'] = forms.CharField(max_length=50, required=False)
@@ -16,12 +16,12 @@ class Form_Email_Contact(Abstract_Form):
 
     def Set_Widgets(self):
 
-        title_attr = self.Attr(Text(self.request, 71), hidden=True)
-        client_attr = self.Attr(Text(self.request, 72), classes='test')
-        email_attr = self.Attr(Text(self.request, 73), classes='test', field=Field.EMAIL)
-        message_attr = self.Attr(Text(self.request, 74), classes='test', field=Field.TEXTAREA)
-        product_attr = self.Attr(Text(self.request, 79), hidden=True)
-        url_attr = self.Attr(Text(self.request, 80), hidden=True)
+        title_attr = self.Attr(Text(self, 71), hidden=True)
+        client_attr = self.Attr(Text(self, 72), classes='test')
+        email_attr = self.Attr(Text(self, 73), classes='test', field=Field.EMAIL)
+        message_attr = self.Attr(Text(self, 74), classes='test', field=Field.TEXTAREA)
+        product_attr = self.Attr(Text(self, 79), hidden=True)
+        url_attr = self.Attr(Text(self, 80), hidden=True)
 
         self.fields['title'].widget = forms.TextInput(attrs=title_attr)
         self.fields['client'].widget = forms.TextInput(attrs=client_attr)
@@ -42,12 +42,12 @@ class Form_About_Content(Abstract_Image_Form):
     def Set_Widgets(self):
 
         header_attr = {
-            'placeholder': Text(self.request, 95),
+            'placeholder': Text(self, 95),
             'class': 'test',
         }
 
         paragraph_attr = {
-            'placeholder': Text(self.request, 96),
+            'placeholder': Text(self, 96),
             'class': 'test',
         }
 

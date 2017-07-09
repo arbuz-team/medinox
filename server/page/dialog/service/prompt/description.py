@@ -40,7 +40,7 @@ class Service_Description(Base_Service):
         elif 'dialog_value' in self.request.POST:
             self.Edit()
 
-        self.content['title'] = Text(self.request, 93)
+        self.content['title'] = Text(self, 93)
         self.content['form'] = self.Prepare_Form(
             Form_Description, initial=self.initial)
 

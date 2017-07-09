@@ -33,7 +33,7 @@ class Service_Widget(Base_Service):
         # code for each widget
         self.request.session['product_widget'] = self.instance
         self.content['values'] = Values.objects.filter(widget=self.instance)
-        self.content['title'] = Text(self.request, 156)
+        self.content['title'] = Text(self, 156)
         self.content['form'] = self.Prepare_Form(
             Form_Widget, instance=self.instance)
 

@@ -82,7 +82,7 @@ class Form_Order_Deadline(Abstract_Model_Form):
 
     def Set_Widgets(self):
 
-        name_attr = self.Attr(Text(self.request, 170))
+        name_attr = self.Attr(Text(self, 170))
         deadline_attr = self.Attr(other={'type': 'date'}, field=Field.DATE)
         reminder_attr = self.Attr(other={'type': 'date'}, field=Field.DATE)
         stb_attr = self.Attr(field=Field.CHECKBOX)
@@ -108,6 +108,6 @@ class Form_Order_Note(Abstract_File_Form):
         Abstract_File_Form.Create_Fields(self)
 
     def Set_Widgets(self):
-        note_attr = self.Attr(Text(self.request, 169), field=Field.TEXTAREA)
+        note_attr = self.Attr(Text(self, 169), field=Field.TEXTAREA)
         self.fields['note'].widget = forms.Textarea(attrs=note_attr)
         Abstract_File_Form.Set_Widgets(self)

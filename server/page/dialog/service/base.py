@@ -14,8 +14,8 @@ class Base_Service(metaclass=ABCMeta):
         pass
 
     def Unauthorized_Access(self):
-        self.content['title'] = Text(self.request, 69)
-        self.content['text'] = Text(self.request, 70)
+        self.content['title'] = Text(self, 69)
+        self.content['text'] = Text(self, 70)
         return self.dialog.Render_HTML('alert.html')
 
     def Render_Dialog(self, file_name, form_name='', additional_form_name='',
