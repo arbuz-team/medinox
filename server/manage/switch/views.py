@@ -306,6 +306,5 @@ class Dynamic_Event_Manager(Manager, Checker, Updater, metaclass=ABCMeta):
                 raise exception
 
     @staticmethod
-    @abstractmethod
-    def Launch(request):
+    def Launch(request, *args, **kwargs):
         return Dynamic_Event_Manager(request)

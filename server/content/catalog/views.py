@@ -14,10 +14,10 @@ class Start_App(Dynamic_Event_Manager):
 
 
 
-class Catalog_Service(Dynamic_Event_Manager):
+class Catalog_Switcher(Dynamic_Event_Manager):
 
     @staticmethod
-    def Service(request, cat_1=None, cat_2=None, cat_3=None):
+    def Launch(request, catalog_path=''):
 
         if '__form__' in request.POST:
 
@@ -27,12 +27,7 @@ class Catalog_Service(Dynamic_Event_Manager):
             if request.POST['__form__'] == 'product':
                 return Product_Manager(request, only_root=True).HTML
 
-        print(cat_1)
-        return Catalog_Changer(request, other_value=[cat_1, cat_2, cat_3]).HTML
-
-    @staticmethod
-    def Launch(request):
-        pass
+        return Catalog_Changer(request, catalog_path).HTML
 
 
 
@@ -51,26 +46,24 @@ class Catalog_Changer(Dynamic_Event_Manager):
 
         return None
 
-    def Get_Last_Catalog(self):
+    def Get_Selected_Catalog(self):
 
-        if not self.other_value[0]:
+        catalogs = self.catalog_path.split('/')[:-1]
+        parent = None
+        selected = None
+
+        if not catalogs:
             return None
 
-        cat_1 = self.Get_Catalog(self.other_value[0], None)
-        cat_2 = self.Get_Catalog(self.other_value[1], cat_1)
-        cat_3 = self.Get_Catalog(self.other_value[2], cat_2)
+        for catalog in catalogs:
+            selected = self.Get_Catalog(catalog, parent)
+            parent = selected
 
-        if cat_3:
-            return cat_3
-
-        if cat_2:
-            return cat_2
-
-        return cat_1
+        return selected
 
     def Manage_Content_Ground(self):
 
-        try: catalog = self.Get_Last_Catalog()
+        try: catalog = self.Get_Selected_Catalog()
         except: return Statement_404.Launch(self.request)
 
         self.request.session['catalog_parent'] = catalog
@@ -78,9 +71,9 @@ class Catalog_Changer(Dynamic_Event_Manager):
         self.content['products'] = Product.objects.filter(parent=catalog)
         return self.Render_HTML('main/products.html')
 
-    @staticmethod
-    def Launch(request):
-        pass
+    def __init__(self, request, catalog_path):
+        self.catalog_path = catalog_path
+        Dynamic_Event_Manager.__init__(self, request)
 
 
 
