@@ -10,6 +10,7 @@
       top: 0
       bottom: 0
 
+
   .block-title
     position: relative
     z-index: 12
@@ -20,19 +21,20 @@
     text-align: center
     opacity: 0.8
 
-    >div
-      display: inline-block
-      position: relative
-      top: 22px
 
-      background-color: $G-COLOR-4
-      color: $ground--color
-      font-size: 18px
-      font-weight: bold
+  .block-title-box
+    display: inline-block
+    position: relative
+    top: 22px
 
-      padding: 8px 15px
-      border: 1px solid #CCC
-        radius: 5px
+    background-color: $G-COLOR-4
+    color: $ground--color
+    font-size: 18px
+    font-weight: bold
+
+    padding: 8px 15px
+    border: 1px solid #CCC
+      radius: 5px
 
 
   .block-content-paragraph
@@ -40,40 +42,36 @@
 
     line-height: 30px
 
+    &.new:hover
 
-    .title
-      position: relative
-
-
-    >.block-content-paragraph-actions
-      position: absolute
-      top: 0
-      right: 0
-      text-align: right
-
-      z-index: 100
-
-      >button
-        padding:
-          top: 2px
-          bottom: 2px
+      >.button
+        opacity: 1
 
 
-    >.block-content-paragraph-image
-      max-width: 650px
-      margin: 20px auto
-        bottom: 0
+  .block-content-paragraph-actions
+    position: absolute
+    top: 0
+    right: 0
+    text-align: right
 
-      text-align: center
+    z-index: 100
 
-      >img
-        height: auto
-        vertical-align: bottom
+    .button
+      padding:
+        top: 2px
+        bottom: 2px
 
 
-  .block-content-paragraph.new:hover
-    >button
-      opacity: 1
+  .block-content-paragraph-image
+    max-width: 650px
+    margin: 20px auto
+      bottom: 0
+
+    text-align: center
+
+    img
+      height: auto
+      vertical-align: bottom
 
 
 @media (min-width: $G-SIZE-3)
@@ -86,7 +84,8 @@
         top: -20px
         display: none
 
-    .block-content-paragraph:hover
+
+    &:hover
 
       .block-content-paragraph-actions
         display: block
@@ -102,12 +101,13 @@
         left: auto
         right: auto
 
-    .block-content-paragraph
 
-      >.paragraph.with_image, >.block-content-paragraph-image
-        display: inline-block
-        width: 48%
-        vertical-align: top
+    .paragraph.with_image,
+    .block-content-paragraph-image
+      display: inline-block
+      width: 48%
+      vertical-align: top
 
-      >.block-content-paragraph-image
-        margin-left: 20px
+
+    .block-content-paragraph-image
+      margin-left: 20px

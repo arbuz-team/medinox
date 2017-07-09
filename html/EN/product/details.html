@@ -54,7 +54,7 @@
                         <div class="product_details-action_panel-buttons">
 
                             {% if request.session.user_login %}
-                                <!-- TODO(frontend) Don't redirect to payment. -->
+                                <!-- Frontend: Don't redirect to payment. -->
                                 <button class="button"
 										type="submit"
 										name="redirect_for_buy"
@@ -63,7 +63,7 @@
 								</button>
 
 
-                                <!-- TODO(backend) Add functionally for adding to favorite. -->
+                                <!-- Backend: Add functionally for adding to favorite. -->
                                 {% if is_favorite %}
                                     <button class="button post_button" type="button"
                                             data-name="Favorite_{{ product.pk }}"
@@ -85,7 +85,7 @@
                                 {% endif %}
 
 
-                                <!-- TODO(frontend) Don't open cart. -->
+                                <!-- Frontend: Don't open cart. -->
                                 <button class="button"
 										type="submit"
 										name="redirect_for_buy"
@@ -97,7 +97,7 @@
                             <br>
 
                             {% if request.session.root_login %}
-                                <!-- TODO(backend) Add functionally for deleting product. -->
+                                <!-- Backend: Add functionally for deleting product. -->
                                 <button class="button dialog_button"
 										type="button"
                                         data-type="confirm"
@@ -111,7 +111,7 @@
                                 </button>
 
 
-                                <!-- TODO(backend) Add functionally for adding to recommended. -->
+                                <!-- Backend: Add functionally for adding to recommended. -->
                                 {% if is_recommended %}
                                     <button class="button post_button"
 											type="button"
@@ -135,7 +135,7 @@
                                 {% endif %}
 
 
-                                <!-- TODO(backend) Add functionally for editing product. -->
+                                <!-- Backend: Add functionally for editing product. -->
                                 <a href="/product/edit/{{ product.pk }}/">
 									<button class="button" type="button">Edit</button>
 								</a>

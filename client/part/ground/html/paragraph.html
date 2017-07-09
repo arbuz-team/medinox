@@ -11,7 +11,11 @@
 	<div class="block-background fill-abs"></div>
 
 	{% if element.header %}
-		<div class="block-title"><div> {{ element.header | safe }}</div></div>
+		<div class="block-title">
+			<div class="block-title-box">
+				{{ element.header | safe }}
+			</div>
+		</div>
 	{% endif %}
 
 	<div class="block-content">

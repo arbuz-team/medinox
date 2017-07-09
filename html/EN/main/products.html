@@ -12,7 +12,7 @@
     {% include "part/ground/html/navigation.html" %}
 
     {% if products or catalogs or request.session.root_login %}
-        {% include 'part/ground/plugin/product/html/tile.html' %}
+        {% include 'part/ground/plugin/product/html/tiles_list/products.html' %}
     {% endif %}
 
     {% if not products and not catalogs %}

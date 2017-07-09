@@ -1,53 +1,40 @@
 
-.products.tiles
-  padding:
-    top: 0
-    bottom: 0
-
-.tile
-  width: auto
-  max-width: 300px
-  min-height: 220px
-  margin: 0
-    left: auto
-    right: auto
-
-  border-bottom: $G-STYLE-BORDER
-
-.tile-content
-  position: relative
-  max-width: 300px
-  margin: 0
-  padding: 0
-
-  .button
-    top: -100%
-
-
-.tile-content-details > a > .button
-  margin-bottom: 0
-
-.tile-content-price
-  position: absolute
-  right: 0
-  bottom: 0
-
-  height: 38px
-  line-height: 38px
-
-
-.products.tiles.recommended
-  padding:
-    top: 15px
-    bottom: 15px
+.products
+  &.tiles
+    padding:
+      top: 0
+      bottom: 0
 
   .tile
-    margin: 0 auto
-      bottom: 10px
-    background-color: $G-COLOR-4
-    +box-shadow(0px 0px 1px 1px #e8e8e8)
-    border: $G-STYLE-BORDER
-      radius: 1px
+    width: auto
+    max-width: 300px
+    min-height: 220px
+    margin: 0
+      left: auto
+      right: auto
+
+    border-bottom: $G-STYLE-BORDER
+
+  .tile-content
+    position: relative
+    max-width: 300px
+    margin: 0
+    padding: 0
+
+    .button
+      top: -100%
+
+
+  .tile-content-details > a > .button
+    margin-bottom: 0
+
+  .tile-content-price
+    position: absolute
+    right: 0
+    bottom: 0
+
+    height: 38px
+    line-height: 38px
 
 
 //-----------------------------------------
@@ -56,31 +43,26 @@
 
 @media (min-width: $G-SIZE-2)
 
-  .tiles-list
-    font-size: 0
-    text-align: center
+  .products
+    .tiles-list
+      font-size: 0
+      text-align: center
 
-  .tile
-    display: inline-block
-    width: 285px
-    max-width: none
-    margin: 0
-    font-size: 16px
-    text-align: left
-
-  .tile-img
-    height: 200px
-    overflow: hidden
-
-  .tile-title
-    position: relative
-    text-align: left
-
-  .tile-content-details
-    text-align: left
-
-
-  .products.tiles.recommended
     .tile
-      margin-right: 10px
+      display: inline-block
+      width: 285px
+      max-width: none
+      margin: 0
+      font-size: 16px
+      text-align: left
 
+    .tile-img
+      height: 200px
+      overflow: hidden
+
+    .tile-title
+      position: relative
+      text-align: left
+
+    .tile-content-details
+      text-align: left

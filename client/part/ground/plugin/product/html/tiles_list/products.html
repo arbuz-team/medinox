@@ -1,0 +1,25 @@
+<div class="block-content products tiles">
+
+    <ul class="tiles-list">
+        {% if request.session.root_login %}
+            {% include 'part/ground/plugin/product/html/tile/adding_catalog.html' %}
+        {% endif %}
+
+        {% for catalog in catalogs %}
+            {% include 'part/ground/plugin/product/html/tile/catalog.html' %}
+        {% endfor %}
+
+
+
+        {% if request.session.root_login %}
+            {% include 'part/ground/plugin/product/html/tile/adding_product.html'%}
+        {% endif %}
+
+        {% for product in products %}
+            {% include 'part/ground/plugin/product/html/tile/product.html' %}
+        {% endfor %}
+    </ul>
+
+    {% include 'part/ground/html/page_numbers.html' %}
+
+</div>
