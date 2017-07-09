@@ -67,6 +67,7 @@ class Catalog_Changer(Dynamic_Event_Manager):
         except: return Statement_404.Launch(self.request)
 
         self.request.session['catalog_parent'] = catalog
+        self.request.session['catalog_path'] = self.catalog_path
         self.content['catalogs'] = Catalog.objects.filter(parent=catalog)
         self.content['products'] = Product.objects.filter(parent=catalog)
         return self.Render_HTML('main/products.html')

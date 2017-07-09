@@ -106,6 +106,9 @@ class Session_Controller:
         if 'catalog_editing' not in self.request.session:
             self.request.session['catalog_editing'] = None
 
+        if 'catalog_path' not in self.request.session:
+            self.request.session['catalog_path'] = ''
+
     def Check_Session_Searcher(self):
 
         if 'searcher_filter_brand' not in self.request.session:

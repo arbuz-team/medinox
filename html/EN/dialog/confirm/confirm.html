@@ -20,15 +20,14 @@
             Cancel
         </button>
 
-        <button class="button dialog-content-button post_button"
+        <button class="button post_button"
                 type="button"
-                data-dialog-button="cancel"
                 data-name="{{ additional.name }}"
                 data-action="{{ additional.action }}"
                 data-value="{{ additional.value }}"
                 data-reload="{{ additional.reload }}"
                 data-redirect="{{ additional.redirect }}"
-                data-event="{{ additional.event }}"
+                data-event="plugins.close_dialog"
                 data-url="{{ additional.url}}">
             Delete
         </button>

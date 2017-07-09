@@ -20,7 +20,7 @@ class Start(Dynamic_Event_Manager):
 
 
 
-class Products(Dynamic_Event_Manager): # TODO(backend): generate pages move to abstract
+class Products(Dynamic_Event_Manager): # Backend: generate pages move to abstract
 
     def Get_Current_Page(self, number_product_on_page):
 

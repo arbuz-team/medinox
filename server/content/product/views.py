@@ -178,6 +178,7 @@ class Product_Manager(Dynamic_Event_Manager):
         if 'delete' in self.request.POST['__button__']:
             self.request.session['product_product'].delete()
             self.request.session['product_product'] = None
+            self.Clear_Session('searcher_result')
             return JsonResponse({'__button__': 'true'})
 
         return JsonResponse({'__button__': 'false'})
