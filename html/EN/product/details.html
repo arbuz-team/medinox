@@ -70,7 +70,7 @@
                                             data-action="delete"
                                             data-value="{{ product.pk }}"
                                             data-reload="ground"
-                                            data-url="/product/favorite/">
+                                            data-url="/product/manage/">
                                         Remove from favorite
                                     </button>
                                 {% else %}
@@ -79,7 +79,7 @@
                                             data-action="append"
                                             data-value="{{ product.pk }}"
                                             data-reload="ground"
-                                            data-url="/product/favorite/">
+                                            data-url="/product/manage/">
                                         Add to favorite
                                     </button>
                                 {% endif %}
@@ -105,7 +105,7 @@
                                         data-dialog-name="Delete_{{ product.pk }}"
                                         data-dialog-action="delete"
                                         data-dialog-value="{{ product.pk }}"
-                                        data-dialog-redirect="/products/"
+                                        data-dialog-redirect="/catalog/"
                                         data-dialog-url="/product/manage/">
                                     Delete
                                 </button>
@@ -119,7 +119,7 @@
                                             data-action="delete"
                                             data-value="{{ product.pk }}"
                                             data-reload="ground"
-                                            data-url="/product/recommended/">
+                                            data-url="/product/manage/">
                                         Remove form recommended
                                     </button>
                                 {% else %}
@@ -129,7 +129,7 @@
                                             data-action="append"
                                             data-value="{{ product.pk }}"
                                             data-reload="ground"
-                                            data-url="/product/recommended/">
+                                            data-url="/product/manage/">
                                         Add to recommended
                                     </button>
                                 {% endif %}
