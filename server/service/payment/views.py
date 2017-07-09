@@ -72,7 +72,7 @@ class PayPal(Payment_System):
             'cancel_return':    path_manager.Get_Urls('payment.cancel', current_language=True),
         }
 
-        return Form_PayPal(self.request, initial=paypal_dict)
+        return Form_PayPal(self, initial=paypal_dict)
 
     @staticmethod
     @csrf_exempt
@@ -135,7 +135,7 @@ class DotPay(Payment_System):
             'URLC':         path_manager.Get_Urls('payment.dotpay', current_language=True),
         }
 
-        return Form_Dotpay(self.request, initial=dotpay_dict)
+        return Form_Dotpay(self, initial=dotpay_dict)
 
     @staticmethod
     @csrf_exempt

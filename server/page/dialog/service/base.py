@@ -47,21 +47,18 @@ class Base_Service(metaclass=ABCMeta):
         if 'Model' not in _class.__bases__[0].__name__:
 
             if self.dialog.not_valid:
-                return _class(self.request,
-                      initial=self.request.POST)
+                return _class(self, post=True)
 
-            return _class(self.request, initial=initial)
+            return _class(self, initial=initial)
 
         else: # form model
 
             if self.dialog.not_valid:
-                return _class(self.request,
-                      initial=self.request.POST,
-                      instance=instance)
+                return _class(self, post=True,
+                              instance=instance)
 
-            return _class(self.request,
-                      initial=initial,
-                      instance=instance)
+            return _class(self, initial=initial,
+                          instance=instance)
 
     def __init__(self, dialog):
 

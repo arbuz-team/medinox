@@ -21,7 +21,7 @@ class Service_Deadline(Base_Service):
 
         self.request.session['root_deadline'] = self.instance
         self.content['form'] = Form_Order_Deadline(
-            self.request, instance=self.instance)
+            self, instance=self.instance)
 
         self.content['title'] = Text(self, 171)
         return self.Render_Dialog(

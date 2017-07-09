@@ -20,7 +20,7 @@ class Field:
 
 
 
-class Base_Form:
+class Base_Form(Base):
 
     def clean_secure(self):
         password = self.data['secure']
@@ -68,8 +68,8 @@ class Base_Form:
         self.fields['secure'] = forms.CharField(max_length=100)
         self.fields['secure'].widget = forms.PasswordInput(attrs=secure_attrs)
 
-    def __init__(self, request):
-        self.request = request
+    def __init__(self, _object):
+        Base.__init__(self, _object)
 
         self.Create_Fields()
         self.Set_Widgets()
@@ -87,22 +87,28 @@ class Abstract_Model_Form(Base_Form, forms.ModelForm):
         if 'position' in self.fields:
             del self.fields['position']
 
-    def __init__(self, request, *args, **kwargs):
+    def __init__(self, _object, post=False, *args, **kwargs):
 
         if 'instance' in kwargs:
             self.instance = kwargs['instance']
             self.Edit_Instance()
 
-        forms.ModelForm.__init__(self, *args, **kwargs)
-        Base_Form.__init__(self, request)
+        if post: forms.ModelForm.__init__(self,
+              _object.request.POST, *args, **kwargs)
 
+        else: forms.ModelForm.__init__(self, *args, **kwargs)
+        Base_Form.__init__(self, _object)
 
 
 class Abstract_Form(Base_Form, forms.Form):
 
-    def __init__(self, request, *args, **kwargs):
-        forms.Form.__init__(self, *args, **kwargs)
-        Base_Form.__init__(self, request)
+    def __init__(self, _object, post=False, *args, **kwargs):
+
+        if post: forms.Form.__init__(self,
+             _object.request.POST, *args, **kwargs)
+
+        else: forms.Form.__init__(self, *args, **kwargs)
+        Base_Form.__init__(self, _object)
 
 
 

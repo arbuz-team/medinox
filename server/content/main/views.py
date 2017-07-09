@@ -20,7 +20,7 @@ class Start(Dynamic_Event_Manager):
 
 
 
-class Products(Dynamic_Event_Manager):
+class Products(Dynamic_Event_Manager): # TODO(backend): generate pages move to abstract
 
     def Get_Current_Page(self, number_product_on_page):
 
@@ -96,9 +96,7 @@ class About(Dynamic_Event_Manager):
         return self.Render_HTML('main/about.html')
 
     def Manage_Form(self):
-
-        form_about = Form_About_Content(
-            self.request, self.request.POST)
+        form_about = Form_About_Content(self, post=True)
 
         if form_about.is_valid():
 
@@ -148,7 +146,7 @@ class Contact(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
         language = self.request.session['translator_language']
-        self.content['form'] = Form_Email_Contact(self.request)
+        self.content['form'] = Form_Email_Contact(self)
         self.content['content'] = Contact_Content.objects.filter(
             language=language).order_by('position')
 
@@ -158,8 +156,7 @@ class Contact(Dynamic_Event_Manager):
     def Manage_Form(self):
 
         self.Create_Titles()
-        self.content['form'] = Form_Email_Contact(
-            self.request, self.request.POST)
+        self.content['form'] = Form_Email_Contact(self, post=True)
 
         if self.content['form'].is_valid():
 

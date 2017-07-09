@@ -19,8 +19,9 @@ class Details(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
 
-        # get product
+        # get product and save to session
         self.content['product'] = Product.objects.get(pk=self.other_value)
+        self.request.session['product_product'] = self.content['product']
         widgets = Widget.objects.filter(product=self.content['product'])
 
         # get descriptions
@@ -71,9 +72,7 @@ class Details(Dynamic_Event_Manager):
 class Widget_Manager(Dynamic_Event_Manager):
 
     def Manage_Form_New_Widget(self):
-
-        self.content['form'] = Form_Widget(
-            self.request, self.request.POST)
+        self.content['form'] = Form_Widget(self, post=True)
 
         if self.content['form'].is_valid():
             widget = Widget(product=self.request.session['product_last_selected'])
@@ -86,9 +85,7 @@ class Widget_Manager(Dynamic_Event_Manager):
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
 
     def Manage_Form_Edit_Widget(self):
-
-        self.content['form'] = Form_Widget(
-            self.request, self.request.POST)
+        self.content['form'] = Form_Widget(self, post=True)
 
         if self.content['form'].is_valid():
             widget = self.request.session['product_widget']
@@ -124,9 +121,7 @@ class Widget_Manager(Dynamic_Event_Manager):
 class Values_Manager(Dynamic_Event_Manager):
 
     def Manage_Form(self):
-
-        self.content['form'] = Form_Values(
-            self.request, self.request.POST)
+        self.content['form'] = Form_Values(self, post=True)
 
         if self.content['form'].is_valid():
             widget = self.request.session['product_widget']
@@ -155,9 +150,7 @@ class Values_Manager(Dynamic_Event_Manager):
 class Product_Manager(Dynamic_Event_Manager):
 
     def Manage_Form_Product(self):
-
-        self.content['form'] = Form_Product(
-            self.request, self.request.POST)
+        self.content['form'] = Form_Product(self, post=True)
 
         if self.content['form'].is_valid():
 
@@ -198,9 +191,7 @@ class Product_Manager(Dynamic_Event_Manager):
 class Description_Manager(Dynamic_Event_Manager):
 
     def Manage_Form_Description(self):
-
-        description = Form_Description(
-            self.request, self.request.POST)
+        description = Form_Description(self, post=True)
 
         if description.is_valid():
 

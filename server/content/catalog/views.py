@@ -1,5 +1,6 @@
 from server.content.statement.views import *
 from server.content.product.views import *
+from server.content.catalog.forms import *
 
 
 class Start_App(Dynamic_Event_Manager):
@@ -26,7 +27,8 @@ class Catalog_Service(Dynamic_Event_Manager):
             if request.POST['__form__'] == 'product':
                 return Product_Manager(request, only_root=True).HTML
 
-        return Change_Catalog(request, other_value=[cat_1, cat_2, cat_3]).HTML
+        print(cat_1)
+        return Catalog_Changer(request, other_value=[cat_1, cat_2, cat_3]).HTML
 
     @staticmethod
     def Launch(request):
@@ -34,7 +36,7 @@ class Catalog_Service(Dynamic_Event_Manager):
 
 
 
-class Change_Catalog(Dynamic_Event_Manager):
+class Catalog_Changer(Dynamic_Event_Manager):
 
     @staticmethod
     def Get_Catalog(url_name, parent):
@@ -88,9 +90,7 @@ class Catalog_Manager(Dynamic_Event_Manager):
         pass
 
     def Manage_Form_New_Catalog(self):
-
-        self.content['form'] = Form_Catalog(
-            self.request, self.request.POST)
+        self.content['form'] = Form_Catalog(self, post=True)
 
         if self.content['form'].is_valid():
 
@@ -107,9 +107,7 @@ class Catalog_Manager(Dynamic_Event_Manager):
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
 
     def Manage_Form_Edit_Catalog(self):
-
-        self.content['form'] = Form_Catalog(
-            self.request, self.request.POST)
+        self.content['form'] = Form_Catalog(self, post=True)
 
         if self.content['form'].is_valid():
             catalog = self.request.session['catalog_editing']

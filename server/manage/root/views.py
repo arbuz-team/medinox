@@ -47,13 +47,11 @@ class Start_App(Dynamic_Event_Manager):
 class Sign_In(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
-        self.content['form'] = Form_Root_Login(self.request)
+        self.content['form'] = Form_Root_Login(self)
         return self.Render_HTML('root/sign_in.html', 'login')
 
     def Manage_Form_Login(self):
-
-        self.content['form'] = \
-            Form_Root_Login(self.request, self.request.POST)
+        self.content['form'] = Form_Root_Login(self, post=True)
 
         if self.content['form'].is_valid():
             self.request.session['root_login'] = True
@@ -109,14 +107,14 @@ class Company_Details_Manager(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
         address = Root_Address.objects.first()
-        self.content['form'] = Form_Root_Address(self.request, instance=address)
+        self.content['form'] = Form_Root_Address(self, instance=address)
         return self.Render_HTML('root/company_details.html', 'root_address')
 
     def Manage_Form_Root_Address(self):
 
         address = Root_Address.objects.first()
-        self.content['form'] = Form_Root_Address(self.request,
-             self.request.POST, instance=address)
+        self.content['form'] = Form_Root_Address(
+            self, post=True, instance=address)
 
         if self.content['form'].is_valid():
             self.content['form'].save() # save change of address_user
@@ -204,8 +202,7 @@ class Users_Payments(Dynamic_Event_Manager):
     def Manage_Form_Note(self):
 
         note = self.request.session['root_note']
-        form_note = Form_Order_Note(self.request,
-            self.request.POST)
+        form_note = Form_Order_Note(self, post=True)
 
         if form_note.is_valid():
             note.note = form_note.cleaned_data['note']

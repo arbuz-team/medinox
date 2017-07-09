@@ -43,13 +43,11 @@ class Start_App(Dynamic_Event_Manager):
 class Sign_In(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
-        self.content['form'] = Form_Login(self.request)
+        self.content['form'] = Form_Login(self)
         return self.Render_HTML('user/sign_in.html', 'login')
 
     def Manage_Form_Login(self):
-
-        self.content['form'] = \
-            Form_Login(self.request, self.request.POST)
+        self.content['form'] = Form_Login(self, post=True)
 
         if self.content['form'].is_valid():
             email = self.content['form'].cleaned_data['email']
@@ -87,13 +85,11 @@ class Sign_In(Dynamic_Event_Manager):
 class Sign_Up(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
-        self.content['form'] = Form_Register(self.request)
+        self.content['form'] = Form_Register(self)
         return self.Render_HTML('user/sign_up.html', 'register')
 
     def Manage_Form_Register(self):
-
-        self.content['form'] = Form_Register(
-            self.request, self.request.POST)
+        self.content['form'] = Form_Register(self, post=True)
 
         if self.content['form'].is_valid():
             user = self.content['form'].save(commit=False)
@@ -104,15 +100,13 @@ class Sign_Up(Dynamic_Event_Manager):
             self.Create_No_Approved_User()
             self.Send_Activate_Link()
 
-            self.content['form'] = Form_User_Address(self.request)
+            self.content['form'] = Form_User_Address(self)
             return self.Render_HTML('user/sign_up.html', 'user_address')
 
         return self.Render_HTML('user/sign_up.html', 'register')
 
     def Manage_Form_User_Address(self):
-
-        self.content['form'] = Form_User_Address(
-            self.request, self.request.POST)
+        self.content['form'] = Form_User_Address(self, post=True)
 
         if self.content['form'].is_valid():
             unique = self.request.session['user_unique']
@@ -219,13 +213,11 @@ class Approved_Register(Dynamic_Event_Manager):
 class Forgot_Password(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
-        self.content['form'] = Form_Forgot_Password(self.request)
+        self.content['form'] = Form_Forgot_Password(self)
         return self.Render_HTML('user/forgot.html', 'forgot_password')
 
     def Manage_Form_Forgot_Password(self):
-
-        self.content['form'] = \
-            Form_Forgot_Password(self.request, self.request.POST)
+        self.content['form'] = Form_Forgot_Password(self, post=True)
 
         if self.content['form'].is_valid():
             self.content['email'] = self.content['form'].cleaned_data['email']
@@ -292,13 +284,11 @@ class Forgot_Password(Dynamic_Event_Manager):
 class Change_Password(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
-        self.content['form'] = Form_Change_Password(self.request)
+        self.content['form'] = Form_Change_Password(self)
         return self.Render_HTML('user/change_password.html', 'change_password')
 
     def Manage_Form_Change_Password(self):
-
-        self.content['form'] = \
-            Form_Change_Password(self.request, self.request.POST)
+        self.content['form'] = Form_Change_Password(self, post=True)
 
         if self.content['form'].is_valid():
 

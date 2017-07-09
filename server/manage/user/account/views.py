@@ -123,7 +123,7 @@ class User_Addresses(Dynamic_Event_Manager):
 
         for address in User_Address.objects.filter(user=unique):
             self.content['edit_forms_address'][address.pk] = \
-                Form_User_Address(self.request, instance=address)
+                Form_User_Address(self, instance=address)
 
     def Get_User_Address_ID(self):
         form_name = self.request.POST['__form__']
@@ -147,12 +147,11 @@ class User_Addresses(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
         self.Get_User_Details()
-        self.content['new_form_address'] = Form_User_Address(self.request)
+        self.content['new_form_address'] = Form_User_Address(self)
         return self.Render_HTML('user/account/addresses.html')
 
     def Manage_Form_New_User_Address(self):
-
-        self.content['form'] = Form_User_Address(self.request, self.request.POST)
+        self.content['form'] = Form_User_Address(self, post=True)
 
         if self.content['form'].is_valid():
             unique = self.request.session['user_unique']
@@ -160,7 +159,7 @@ class User_Addresses(Dynamic_Event_Manager):
             address_user.user = User.objects.get(unique=unique)
             address_user.save()  # create address_user
 
-            self.content['new_form_address'] = Form_User_Address(self.request)
+            self.content['new_form_address'] = Form_User_Address(self)
 
         self.Get_User_Details()
         return self.Render_HTML('user/account/addresses.html')
@@ -169,14 +168,14 @@ class User_Addresses(Dynamic_Event_Manager):
 
         id_address = self.Get_User_Address_ID()
         address = User_Address.objects.get(id=id_address)
-        self.content['form'] = Form_User_Address(self.request,
-             self.request.POST, instance=address)
+        self.content['form'] = Form_User_Address(
+            self, post=True, instance=address)
 
         if self.content['form'].is_valid():
             self.content['form'].save() # save change of address_user
 
         self.Get_User_Details()
-        self.content['new_form_address'] = Form_User_Address(self.request)
+        self.content['new_form_address'] = Form_User_Address(self)
         return self.Render_HTML('user/account/addresses.html')
 
     def Manage_Form(self):
