@@ -8,25 +8,26 @@ class Start_App(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
 
+        path_manager = Path_Manager(self)
         self.content['apps'] = [
             {
                 'name': Text(self.request, 35),
-                'url':  self.Get_Path('user.sign_in', current_language=True),
+                'url':  path_manager.Get_Path('user.sign_in', current_language=True),
                 'icon': '/static/img/icons/128/dark/padlock_open.png',
             },
             {
                 'name': Text(self.request, 36),
-                'url': self.Get_Path('user.sign_up', current_language=True),
+                'url': path_manager.Get_Path('user.sign_up', current_language=True),
                 'icon': '/static/img/icons/128/dark/moustache.png',
             },
             {
                 'name': Text(self.request, 37),
-                'url': self.Get_Path('user.sign_out', current_language=True),
+                'url': path_manager.Get_Path('user.sign_out', current_language=True),
                 'icon': '/static/img/icons/128/dark/logout.png',
             },
             {
                 'name': Text(self.request, 38),
-                'url': self.Get_Path('user.account', current_language=True),
+                'url': path_manager.Get_Path('user.account', current_language=True),
                 'icon': '/static/img/icons/128/dark/settings.png',
             },
         ]
@@ -160,7 +161,9 @@ class Sign_Up(Dynamic_Event_Manager):
         email = self.content['form'].cleaned_data['email']
         activate_key = self.content['key'].decode("utf-8")
         user_unique = self.request.session['user_unique']
-        activate_url = self.Get_Urls('user.approved',
+
+        path_manager = Path_Manager(self)
+        activate_url = path_manager.Get_Urls('user.approved',
                  {'key': activate_key}, current_language=True)
 
         content = {
@@ -258,8 +261,9 @@ class Forgot_Password(Dynamic_Event_Manager):
 
     def Send_Secure_Link(self):
 
+        path_manager = Path_Manager(self)
         activate_key = self.content['key'].decode("utf-8")
-        activate_url = self.Get_Urls('user.change_password',
+        activate_url = path_manager.Get_Urls('user.change_password',
              kwargs={'key': activate_key}, current_language=True)
 
         email = self.content['email']

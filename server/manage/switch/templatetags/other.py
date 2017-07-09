@@ -7,23 +7,33 @@ from server.manage.switch.templatetags.base import *
 class Other_Manager(Base_Tag_Manager):
 
     def Get_Path_Or_Url(self):
+
         name = self.values['name']
         full = self.values['full']
         kwargs = self.values['kwargs']
+        path_manager = Path_Manager(self)
 
         if full:
-            return self.Get_Urls(name, kwargs, current_language=True)
+            return path_manager.Get_Urls(
+                name, kwargs, current_language=True)
 
         if not full:
-            return self.Get_Path(name, kwargs, current_language=True)
+            return path_manager.Get_Path(
+                name, kwargs, current_language=True)
 
     def Create_Redirect_URL(self):
+
         kwargs = self.values['kwargs']
         url_name = self.values['url_name']
-        url_name = self.Get_Path(url_name, kwargs, current_language=True)
+        path_manager = Path_Manager(self)
+
+        url_name = path_manager.Get_Path(
+            url_name, kwargs, current_language=True)
 
         redirect_url = self.values['redirect_url']
-        redirect_url = self.Get_Path(redirect_url, kwargs, current_language=True)
+        redirect_url = path_manager.Get_Path(
+            redirect_url, kwargs, current_language=True)
+
         redirect_url = b64encode(bytes(redirect_url, 'utf-8'))
         redirect_url = redirect_url.decode('utf-8')
         return '{0}redirect/{1}/'.format(url_name, redirect_url)

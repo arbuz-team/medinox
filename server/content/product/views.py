@@ -36,8 +36,9 @@ class Details(Dynamic_Event_Manager):
             for widget in widgets
         ]
 
+        path_manager = Path_Manager(self)
         self.content['paragraph_name'] = 'description'
-        self.content['paragraph_url'] = self.Get_Path(
+        self.content['paragraph_url'] = path_manager.Get_Path(
             'product.description.manage', current_language=True)
 
         self.request.session['product_last_selected'] = \

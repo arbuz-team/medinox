@@ -72,7 +72,8 @@ class Manager(Dynamic_Base):
         self.Index_Clear_Session()
 
         # change website to other language
-        lang_redirect = Translator.Get_Language_Redirect(self.request)
+        translator = Translator(self)
+        lang_redirect = translator.Get_Language_Redirect()
         if lang_redirect:
             return lang_redirect
 
@@ -148,7 +149,9 @@ class Updater(Dynamic_Base):
         self.request.session['arbuz_navigation'] = navigation
 
     def Update_Current_Url(self):
-        self.request.session['arbuz_url'] = self.Get_Urls()
+        path_manager = Path_Manager(self)
+        self.request.session['arbuz_url'] = \
+            path_manager.Get_Urls()
 
     def Update_Website_Permissions(self):
 

@@ -7,30 +7,31 @@ class Start_App(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
 
+        path_manager = Path_Manager(self)
         self.content['apps'] = [
             {
                 'name': Text(self.request, 24),
-                'url': self.Get_Path('root.sign_out', current_language=True),
+                'url': path_manager.Get_Path('root.sign_out', current_language=True),
                 'icon': '/static/img/icons/128/dark/logout.png',
             },
             {
                 'name': Text(self.request, 25),
-                'url': self.Get_Path('root.company_details', current_language=True),
+                'url': path_manager.Get_Path('root.company_details', current_language=True),
                 'icon': '/static/img/icons/128/dark/moustache.png',
             },
             {
                 'name': Text(self.request, 27),
-                'url': self.Get_Path('root.users_payments', current_language=True),
+                'url': path_manager.Get_Path('root.users_payments', current_language=True),
                 'icon': '/static/img/icons/128/dark/money.png',
             },
             {
                 'name': Text(self.request, 135),
-                'url': self.Get_Path('root.social_media', current_language=True),
+                'url': path_manager.Get_Path('root.social_media', current_language=True),
                 'icon': '/static/img/icons/128/dark/social_group.png',
             },
             {
                 'name': Text(self.request, 136),
-                'url': self.Get_Path('root.delivery_settings', current_language=True),
+                'url': path_manager.Get_Path('root.delivery_settings', current_language=True),
                 'icon': '/static/img/icons/128/dark/transport.png',
             },
         ]

@@ -112,7 +112,7 @@ class Payment_Models_Manager(Dynamic_Base):
 
             payment = Payment(
                 user=self.user,
-                date=date.today(),
+                date=datetime.today().date(),
                 total_price='0.00',
                 delivery_price=delivery,
                 service='None',

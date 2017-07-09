@@ -84,9 +84,10 @@ class About(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
         language = self.request.session['translator_language']
+        path_manager = Path_Manager(self)
 
         self.content['paragraph_name'] = 'about'
-        self.content['paragraph_url'] = self.Get_Path(
+        self.content['paragraph_url'] = path_manager.Get_Path(
             'main.about.manage', current_language=True)
 
         self.content['content'] = About_Content.objects.filter(

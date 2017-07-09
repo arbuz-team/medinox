@@ -8,30 +8,31 @@ class Start_App(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
 
+        path_manager = Path_Manager(self)
         self.content['apps'] = [
             {
                 'name': Text(self.request, 58),
-                'url':  self.Get_Path('user.account.details', current_language=True),
+                'url':  path_manager.Get_Path('user.account.details', current_language=True),
                 'icon': '/static/img/icons/128/dark/user_details.png',
             },
             {
                 'name': Text(self.request, 59),
-                'url': self.Get_Path('user.account.addresses', current_language=True),
+                'url': path_manager.Get_Path('user.account.addresses', current_language=True),
                 'icon': '/static/img/icons/128/dark/id_card.png',
             },
             {
                 'name': Text(self.request, 60),
-                'url': self.Get_Path('user.account.my_shopping', current_language=True),
+                'url': path_manager.Get_Path('user.account.my_shopping', current_language=True),
                 'icon': '/static/img/icons/128/dark/list_check.png',
             },
             {
                 'name': Text(self.request, 61),
-                'url': self.Get_Path('user.account.favorite', current_language=True),
+                'url': path_manager.Get_Path('user.account.favorite', current_language=True),
                 'icon': '/static/img/icons/128/dark/badge.png',
             },
             {
                 'name': Text(self.request, 62),
-                'url': self.Get_Path('payment', current_language=True),
+                'url': path_manager.Get_Path('payment', current_language=True),
                 'icon': '/static/img/icons/128/dark/shopping_cart.png',
             },
         ]

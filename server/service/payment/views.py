@@ -57,6 +57,7 @@ class PayPal(Payment_System):
             self.valid = True
 
     def Create_PayPal_From(self):
+        path_manager = Path_Manager(self)
 
         paypal_dict = \
         {
@@ -66,9 +67,9 @@ class PayPal(Payment_System):
             'custom':           self.content['payment'],
             'currency_code':    self.request.session['translator_currency'],
 
-            'notify_url':       self.Get_Urls('payment.paypal', current_language=True),
-            'return':           self.Get_Urls('payment.apply', current_language=True),
-            'cancel_return':    self.Get_Urls('payment.cancel', current_language=True),
+            'notify_url':       path_manager.Get_Urls('payment.paypal', current_language=True),
+            'return':           path_manager.Get_Urls('payment.apply', current_language=True),
+            'cancel_return':    path_manager.Get_Urls('payment.cancel', current_language=True),
         }
 
         return Form_PayPal(self.request, initial=paypal_dict)
@@ -114,6 +115,7 @@ class DotPay(Payment_System):
     def Create_DotPay_From(self):
         payment = Payment.objects.get(pk=self.content['payment'])
         address = User_Address.objects.filter(user=payment.user)[0]
+        path_manager = Path_Manager(self)
 
         dotpay_dict = \
         {
@@ -129,8 +131,8 @@ class DotPay(Payment_System):
 
             'lang':         self.request.session['translator_language'].lower(),
 
-            'URL':          self.Get_Urls('payment.apply', current_language=True),
-            'URLC':         self.Get_Urls('payment.dotpay', current_language=True),
+            'URL':          path_manager.Get_Urls('payment.apply', current_language=True),
+            'URLC':         path_manager.Get_Urls('payment.dotpay', current_language=True),
         }
 
         return Form_Dotpay(self.request, initial=dotpay_dict)
@@ -155,7 +157,7 @@ class Payment_Manager(Dynamic_Event_Manager, PayPal, DotPay):
             user=self.content['user'], status='cart')
 
         self.content['payment'] = payment.pk
-        payment.date = date.today()
+        payment.date = datetime.today().date()
         payment.total_price = self.content['total_price']
         payment.currency = self.request.session['translator_currency']
         payment.save()

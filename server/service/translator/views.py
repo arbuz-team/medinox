@@ -28,51 +28,52 @@ class Translator:
         method = 'Translate_' + language
         return getattr(Translator, method)(pk)
 
-    @staticmethod
-    def Set_Subdomain_Language(request):
+    def Set_Subdomain_Language(self):
 
-        url = request.get_host()
+        url = self.request.get_host()
         subdomain = url.split('.')[0]
 
         if subdomain in ['pl', 'de', 'en']:
-            request.session['translator_language'] = subdomain.upper()
+            self.request.session['translator_language'] = \
+                subdomain.upper()
 
-    @staticmethod
-    def Set_Currency(request):
+    def Set_Currency(self):
 
         geo = GeoIP()
-        client_ip = request.META.get('REMOTE_ADDR', None)
+        client_ip = self.request.META.get('REMOTE_ADDR', None)
         country = geo.country_code(client_ip)
 
         if country == 'PL':
-            request.session['translator_currency'] = 'PLN'
+            self.request.session['translator_currency'] = 'PLN'
 
         if country == 'DE':
-            request.session['translator_currency'] = 'EUR'
+            self.request.session['translator_currency'] = 'EUR'
 
         if country == 'GB': # united kingdom
-            request.session['translator_currency'] = 'GBP'
+            self.request.session['translator_currency'] = 'GBP'
 
-    @staticmethod
-    def Get_Language_Redirect(request):
+    def Get_Language_Redirect(self):
 
-        url = request.get_host()
+        url = self.request.get_host()
         subdomain = url.split('.')[0]
 
         if subdomain not in ['pl', 'de', 'en']:
-            client_ip = request.META.get('REMOTE_ADDR', None)
+            client_ip = self.request.META.get('REMOTE_ADDR', None)
 
             geo = GeoIP()
             country = geo.country_code(client_ip)
-            dynamic_base = Dynamic_Base(request)
+            path_manager = Path_Manager(self)
 
             if country == 'PL':
-                return redirect(dynamic_base.Get_Urls(language='PL'))
+                return redirect(path_manager.Get_Urls(language='PL'))
 
             if country == 'DE':
-                return redirect(dynamic_base.Get_Urls(language='DE'))
+                return redirect(path_manager.Get_Urls(language='DE'))
 
         return None
+
+    def __init__(self, _object):
+        self.request = _object.request
 
 
 def Text(request, pk, language=None):
