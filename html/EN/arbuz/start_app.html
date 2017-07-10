@@ -7,19 +7,23 @@
     };
 </script>
 
-<div class="ground-block block-1">
+
+<!-- Backend: Rename start_app -> panel_app -->
+<div class="ground-block block-1 panel_app">
 
     <div class="block-background fill-abs"></div>
     {% include "part/ground/html/navigation.html" %}
 
-    <ul class="block-content block-link_tiles">
+    <ul class="block-content panel_app-list">
 
         {% for app in apps %}
 
-            <li>
-                <a href="{{ app.url }}">
-                    <div class="block-link_tiles-icon"><i style="background-image: url('{{ app.icon }}');">&nbsp;</i></div>
-                    <div class="block-link_tiles-text">{{ app.name }}</div>
+            <li class="panel_app-tile">
+                <a class="panel_app-tile-link" href="{{ app.url }}">
+                    <div class="panel_app-tile-icon">
+                        <span class="panel_app-tile-icon-img" style="background-image: url('{{ app.icon }}');">&nbsp;</span>
+                    </div>
+                    <div class="panel_app-tile-text">{{ app.name }}</div>
                 </a>
             </li>
 
