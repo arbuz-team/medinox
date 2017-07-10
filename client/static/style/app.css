@@ -495,32 +495,6 @@ div > .buttons_to_action {
 .edit_field:hover .button_icon {
   display: block; }
 
-.fields_with_label label {
-  display: inline-block;
-  width: 100%; }
-
-.fields_with_label.price input {
-  min-width: 50px;
-  width: 50px;
-  padding: 2px 2px;
-  margin: 0;
-    margin-bottom: 10px;
-  line-height: 20px;
-  border: 1px solid #cfcfcf;
-  border-top: 1px solid #b9b9b9; }
-
-.fields_with_label.full input {
-  width: 100%; }
-
-@media (min-width: 680px) {
-  .fields_with_label label {
-    width: 35%; }
-  .fields_with_label.full label {
-    width: 25%;
-    text-align: right; }
-  .fields_with_label.full input {
-    width: 60%; } }
-
 .tooltip {
   position: relative;
   display: inline-block;
@@ -1199,33 +1173,33 @@ img {
   .ground-block.about .block-content-paragraph-image {
     margin-left: 20px; } }
 
-.payment .cart-list {
+.ground-block.payment .cart-list {
   margin: 0; }
 
-.payment .form_submit {
+.ground-block.payment .form_submit {
   margin-top: 30px;
   padding-right: 10px;
   text-align: right; }
 
-.payment .form_submit-description {
+.ground-block.payment .form_submit-description {
   font-weight: bold; }
 
-.payment .form_submit-button {
+.ground-block.payment .form_submit-button {
   margin-left: 15px !important;
   min-width: 150px; }
 
-.payment .radio {
+.ground-block.payment .radio {
   font-weight: bold; }
 
-.payment .address_block, .payment .mini_cart {
+.ground-block.payment .address_block, .ground-block.payment .mini_cart {
   height: 44px;
   padding: 10px 5px;
   border: 3px dashed #e8e8e8; }
-  .payment .address_block.is-long, .payment .is-long.mini_cart {
+  .ground-block.payment .address_block.is-long, .ground-block.payment .is-long.mini_cart {
     height: 295px; }
-  .payment .address_block.new, .payment .new.mini_cart {
+  .ground-block.payment .address_block.new, .ground-block.payment .new.mini_cart {
     height: 295px; }
-    .payment .address_block.new .address_block-image, .payment .new.mini_cart .address_block-image {
+    .ground-block.payment .address_block.new .address_block-image, .ground-block.payment .new.mini_cart .address_block-image {
       display: block;
       height: 220px;
       margin: 10px 0;
@@ -1235,38 +1209,70 @@ img {
       background-position: center;
       background-repeat: no-repeat; }
 
-.payment .address_block-title {
+.ground-block.payment .address_block-title {
   padding-left: 5px;
   border-bottom: 2px solid #e8e8e8;
   opacity: .9; }
 
-.payment .address_block-field_list {
+.ground-block.payment .address_block-field_list {
   margin-left: 10px;
   padding: 10px 0;
   opacity: .8; }
 
-.payment .address_block-buttons {
+.ground-block.payment .address_block-buttons {
   border-top: 2px solid #e8e8e8;
   padding: 5px 5px; }
 
 @media (min-width: 680px) {
-  .ground:not(.smaller) .ground-block.MEDIUM .payment .address_block, .ground:not(.smaller) .ground-block.MEDIUM .payment .mini_cart, .ground:not(.smaller) .ground-block.BIG .payment .address_block, .ground:not(.smaller) .ground-block.BIG .payment .mini_cart {
+  .ground:not(.smaller) .ground-block.payment.MEDIUM .address_block, .ground:not(.smaller) .ground-block.payment.MEDIUM .mini_cart, .ground:not(.smaller) .ground-block.payment.BIG .address_block, .ground:not(.smaller) .ground-block.payment.BIG .mini_cart {
     height: 295px; }
-  .ground:not(.smaller) .ground-block.MEDIUM .payment .address_block-field_list, .ground:not(.smaller) .ground-block.BIG .payment .address_block-field_list {
+  .ground:not(.smaller) .ground-block.payment.MEDIUM .address_block-field_list, .ground:not(.smaller) .ground-block.payment.BIG .address_block-field_list {
     width: 180px;
     margin-right: 0; }
-  .payment .form_submit-description {
+  .ground-block.payment .form_submit-description {
     display: inline-block;
     width: 60%; }
-  .payment .form_submit-description, .payment .form_submit-button {
+  .ground-block.payment .form_submit-description, .ground-block.payment .form_submit-button {
     vertical-align: top; } }
 
 @media (min-width: 1300px) {
-  .ground.smaller .ground-block.MEDIUM .payment .address_block, .ground.smaller .ground-block.MEDIUM .payment .mini_cart, .ground.smaller .ground-block.BIG .payment .address_block, .ground.smaller .ground-block.BIG .payment .mini_cart {
+  .ground.smaller .ground-block.payment.MEDIUM .address_block, .ground.smaller .ground-block.payment.MEDIUM .mini_cart, .ground.smaller .ground-block.payment.BIG .address_block, .ground.smaller .ground-block.payment.BIG .mini_cart {
     height: 295px; }
-  .ground.smaller .ground-block.MEDIUM .payment .address_block-field_list, .ground.smaller .ground-block.BIG .payment .address_block-field_list {
+  .ground.smaller .ground-block.payment.MEDIUM .address_block-field_list, .ground.smaller .ground-block.payment.BIG .address_block-field_list {
     width: 180px;
     margin-right: 0; } }
+
+.deliver_settings-row-label {
+  display: inline-block;
+  width: 50px;
+  margin-right: 5px;
+  text-align: right; }
+
+.deliver_settings-row-input {
+  min-width: 65px;
+  max-width: 65px;
+  padding: 2px 4px;
+  margin: 0;
+    margin-left: 10px;
+    margin-right: 3px;
+    margin-bottom: 10px;
+  line-height: 20px;
+  border: 1px solid #cfcfcf;
+  border-top: 1px solid #b9b9b9; }
+
+.social_media-row-label {
+  display: inline-block;
+  width: 100%; }
+
+.social_media-row-input {
+  width: 100%; }
+
+@media (min-width: 680px) {
+  .social_media-row-label {
+    width: 25%;
+    text-align: right; }
+  .social_media-row-input {
+    width: 60%; } }
 
 .block-content.contact .block-content-right, .contact.block-content-message .block-content-right {
   margin-top: 15px; }

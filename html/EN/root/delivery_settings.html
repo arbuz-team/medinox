@@ -7,9 +7,9 @@
   };
 </script>
 
-<!-- Frontend: Correct width of page. -->
+<!-- Frontend: Correct design of page. -->
 
-<div class="ground-block block-1 BIG">
+<div class="ground-block block-1 SMALL deliver_settings">
 
     <div class="block-background fill-abs"></div>
     {% include "part/ground/html/navigation.html" %}
@@ -22,21 +22,30 @@
 
             {% for item in options %}
 
-                <div class="fields_with_label price">
-                    <label for="{{ item.country }}_EUR">{{ item.country }}:&nbsp;</label>
+                <div class="deliver_settings-row">
 
-                    <input class="input auto_field"
+                    <label class="deliver_settings-row-label" for="{{ item.country }}_EUR">
+						{{ item.country }}:&nbsp;
+					</label>
+
+                    <input class="deliver_settings-row-input input auto_field"
 						   type="text"
 						   name="{{ item.country }}_EUR"
 						   id="{{ item.country }}_EUR"
                            data-name="{{ item.pk }} EUR"
-                           value="{{ item.price_eur|to_price }}" />&nbsp;EUR&nbsp;
-                    <input class="input auto_field"
+                           value="{{ item.price_eur|to_price }}" />
+
+					<span>EUR</span>
+
+                    <input class="deliver_settings-row-input input auto_field"
 						   type="text"
 						   name="{{ item.country }}_PLN"
 						   id="{{ item.country }}_PLN"
                            data-name="{{ item.pk }} PLN"
-                           value="{{ item.price_pln|to_price }}" />&nbsp;PLN&nbsp;
+                           value="{{ item.price_pln|to_price }}" />
+
+					<span>PLN</span>
+
                 </div>
 
             {% endfor %}

@@ -5,7 +5,7 @@
   };
 </script>
 
-<div class="ground-block block-1 BIG">
+<div class="ground-block block-1 MEDIUM">
 
     <div class="block-background fill-abs"></div>
     {% include "part/ground/html/navigation.html" %}
@@ -18,9 +18,13 @@
 
             {% for item in social_media %}
 
-                <div class="fields_with_label full">
-                    <label for="edit_{{ item.name }}">{{ item.name }}:&nbsp;</label>
-                    <input class="input auto_field"
+                <div class="social_media-row">
+
+                    <label class="social_media-row-label" for="edit_{{ item.name }}">
+                        {{ item.name }}:&nbsp;
+                    </label>
+
+                    <input class="social_media-row-input input auto_field"
 						   type="url"
 						   name="{{ item.name }}"
                            placeholder="{{ item.name }} account..."
@@ -31,8 +35,8 @@
 
             {% endfor %}
 
-            <div class="fields_with_label full">
-                <label for="button_refresh">&nbsp;</label>
+            <div class="social_media-row">
+                <label class="social_media-row-label" for="button_refresh">&nbsp;</label>
                 <button class="button event_button is-brown"
 						type="button"
                         id="button_refresh"

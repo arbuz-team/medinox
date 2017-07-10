@@ -3,7 +3,7 @@ $payment-address_block-short-height: 44px
 $payment-address_block-long-height: 295px
 
 
-.payment
+.ground-block.payment
 
   .cart-list
     margin: 0
@@ -74,9 +74,8 @@ $payment-address_block-long-height: 295px
 
 =address_block-triple()
 
-  .ground-block
+  .ground-block.payment
     &.MEDIUM, &.BIG
-      .payment
 
         .address_block
           height: $payment-address_block-long-height
@@ -96,7 +95,7 @@ $payment-address_block-long-height: 295px
     +address_block-triple()
 
 
-  .payment
+  .ground-block.payment
 
     .form_submit-description
       display: inline-block
