@@ -805,7 +805,7 @@ img {
     height: 500px;
     margin-top: 0; } }
 
-#GROUND .ground-navigation {
+.ground-navigation {
   position: relative;
   z-index: 12;
   min-height: 45px;
@@ -817,25 +817,29 @@ img {
   line-height: 25px;
   font-size: 16px;
   cursor: default; }
-  #GROUND .ground-navigation > a, #GROUND .ground-navigation > span {
-    opacity: .6; }
-  #GROUND .ground-navigation > a:first-child, #GROUND .ground-navigation > a:last-child {
+
+.ground-navigation-text {
+  display: inline-block;
+  height: 25px;
+  margin: auto 3px;
+  line-height: 25px;
+  opacity: .6; }
+  .ground-navigation-text:last-child {
     opacity: .8; }
-  #GROUND .ground-navigation > a:hover {
+  .ground-navigation-text:hover {
     opacity: 1; }
-  #GROUND .ground-navigation > * {
-    display: inline-block;
-    height: 25px;
-    margin: auto 3px;
-    line-height: 25px; }
-    #GROUND .ground-navigation > * > i {
-      display: inline-block;
-      width: 25px;
-      line-height: 25px;
-      background-image: url(/static/img/icons/32/dark/home.png);
-      background-position: center;
-      background-size: 100%;
-      background-repeat: no-repeat; }
+
+.ground-navigation-home {
+  opacity: .8; }
+
+.ground-navigation-home-img {
+  display: inline-block;
+  width: 25px;
+  line-height: 25px;
+  background-image: url(/static/img/icons/32/dark/home.png);
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat; }
 
 .footer .footer-content {
   position: relative;

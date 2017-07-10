@@ -1,7 +1,18 @@
 
 <nav class="ground-navigation">
-  <a href="/"> <i> &nbsp; </i> </a>
-  {% for element in request.session.arbuz_navigation %}
-  <span> / </span> <a href="{{ element.1 }}">{{ element.0 }}</a>
-  {% endfor %}
+
+	<a class="ground-navigation-home ground-navigation-text" href="/">
+		<i class="ground-navigation-home-img"> &nbsp; </i>
+	</a>
+
+
+	{% for element in request.session.arbuz_navigation %}
+
+		<span class="ground-navigation-text"> / </span>
+		<a class="ground-navigation-text" href="{{ element.1 }}">
+			{{ element.0 }}
+		</a>
+
+	{% endfor %}
+
 </nav>
