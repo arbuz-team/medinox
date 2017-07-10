@@ -2,7 +2,7 @@ from server.content.product.models import *
 from server.manage.root.models import Delivery
 
 
-class Payment(models.Model):
+class Payment(Abstract_Model):
 
     user = models.ForeignKey(User)
     date = models.DateField()
@@ -27,7 +27,7 @@ class Invoice_Address(Abstract_Address):
 
 
 
-class Selected_Product(models.Model):
+class Selected_Product(Abstract_Model):
 
     payment = models.ForeignKey(Payment)
     product = models.ForeignKey(Product)

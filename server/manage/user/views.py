@@ -4,7 +4,7 @@ from server.manage.user.forms import *
 import os, binascii
 
 
-class Start_App(Dynamic_Event_Manager):
+class Panel_App(Website_Manager):
 
     def Manage_Content_Ground(self):
 
@@ -32,15 +32,15 @@ class Start_App(Dynamic_Event_Manager):
             },
         ]
 
-        return self.Render_HTML('arbuz/start_app.html')
+        return self.Render_HTML('arbuz/panel_app.html')
 
     @staticmethod
     def Launch(request):
-        return Start_App(request).HTML
+        return Panel_App(request).HTML
 
 
 
-class Sign_In(Dynamic_Event_Manager):
+class Sign_In(Website_Manager):
 
     def Manage_Content_Ground(self):
         self.content['form'] = Form_Login(self)
@@ -51,11 +51,11 @@ class Sign_In(Dynamic_Event_Manager):
 
         if self.content['form'].is_valid():
             email = self.content['form'].cleaned_data['email']
-            unique = User.objects.get(email=email).unique
+            unique = SQL.Get(User, email=email).unique
 
             self.request.session['user_login'] = True
             self.request.session['user_user'] = \
-                User.objects.get(unique=unique)
+                SQL.Get(User, unique=unique)
 
             self.content['form'] = None  # message of correct
             return self.Render_HTML('user/sign_in.html')
@@ -67,7 +67,7 @@ class Sign_In(Dynamic_Event_Manager):
         if self.request.POST['__form__'] == 'login':
             return self.Manage_Form_Login()
 
-        return Dynamic_Event_Manager.Manage_Form(self)
+        return Website_Manager.Manage_Form(self)
 
     @staticmethod
     def Redirect(request, url):
@@ -81,7 +81,7 @@ class Sign_In(Dynamic_Event_Manager):
 
 
 
-class Sign_Up(Dynamic_Event_Manager):
+class Sign_Up(Website_Manager):
 
     def Manage_Content_Ground(self):
         self.content['form'] = Form_Register(self)
@@ -93,7 +93,7 @@ class Sign_Up(Dynamic_Event_Manager):
         if self.content['form'].is_valid():
             user = self.content['form'].save(commit=False)
             user.unique = User.Generate_User_Unique()
-            user.save()
+            SQL.Save(data=user)
 
             self.Create_No_Approved_User()
             self.Send_Activate_Link()
@@ -109,7 +109,7 @@ class Sign_Up(Dynamic_Event_Manager):
         if self.content['form'].is_valid():
             address_user = self.content['form'].save(commit=False)
             address_user.user = self.request.session['user_user']
-            address_user.save()  # create address_user
+            SQL.Save(data=address_user)  # create address_user
 
             self.content['form'] = None  # message of correct
             return self.Render_HTML('user/sign_up.html')
@@ -124,12 +124,12 @@ class Sign_Up(Dynamic_Event_Manager):
         if self.request.POST['__form__'] == 'user_address':
             return self.Manage_Form_User_Address()
 
-        return Dynamic_Event_Manager.Manage_Form(self)
+        return Website_Manager.Manage_Form(self)
 
     def Manage_Exist(self):
 
         if self.request.POST['__exist__'] == 'email':
-            if User.objects.filter(email=self.request.POST['value']):
+            if SQL.Filter(User, email=self.request.POST['value']):
                 return JsonResponse({'__exist__': 'true'})
 
         return JsonResponse({'__exist__': 'false'})
@@ -138,12 +138,11 @@ class Sign_Up(Dynamic_Event_Manager):
         self.content['key'] = binascii.hexlify(os.urandom(20))
         form = self.content['form']
 
-        if not No_Approved_User.objects.filter(approved_key=self.content['key']):
-            No_Approved_User\
-            (
-                user=User.objects.get(email=form.cleaned_data['email']),
+        if not SQL.Filter(No_Approved_User, approved_key=self.content['key']):
+            SQL.Save(No_Approved_User,
+                user=SQL.Get(User, email=form.cleaned_data['email']),
                 approved_key=self.content['key']
-            ).save()
+            )
 
         else: self.Create_No_Approved_User()
 
@@ -169,7 +168,7 @@ class Sign_Up(Dynamic_Event_Manager):
 
 
 
-class Sign_Out(Dynamic_Event_Manager):
+class Sign_Out(Website_Manager):
 
     def Manage_Content_Ground(self):
         self.Clear_Session('user_')
@@ -181,7 +180,7 @@ class Sign_Out(Dynamic_Event_Manager):
 
 
 
-class Approved_Register(Dynamic_Event_Manager):
+class Approved_Register(Website_Manager):
 
     def Manage_Content_Ground(self):
         return self.Render_HTML('user/approved.html')
@@ -191,10 +190,11 @@ class Approved_Register(Dynamic_Event_Manager):
         all_keys = No_Approved_User.objects.values('approved_key')
 
         if {'approved_key': key} in all_keys:
-            record = No_Approved_User.objects.get(approved_key=key)
+            record = SQL.Get(No_Approved_User, approved_key=key)
             record.user.approved = True
-            record.user.save()
-            record.delete()
+            SQL.Save(data=record.user)
+
+            SQL.Delete(data=record)
 
         return Approved_Register(request, length_navigation=2).HTML
 
@@ -204,7 +204,7 @@ class Approved_Register(Dynamic_Event_Manager):
 
 
 
-class Forgot_Password(Dynamic_Event_Manager):
+class Forgot_Password(Website_Manager):
 
     def Manage_Content_Ground(self):
         self.content['form'] = Form_Forgot_Password(self)
@@ -216,7 +216,7 @@ class Forgot_Password(Dynamic_Event_Manager):
         if self.content['form'].is_valid():
             self.content['email'] = self.content['form'].cleaned_data['email']
 
-            if User.objects.filter(email=self.content['email']):
+            if SQL.Filter(User, email=self.content['email']):
                 self.Create_Forgot_Password_User()
                 self.Send_Secure_Link()
 
@@ -231,17 +231,16 @@ class Forgot_Password(Dynamic_Event_Manager):
         if self.request.POST['__form__'] == 'forgot_password':
             return self.Manage_Form_Forgot_Password()
 
-        return Dynamic_Event_Manager.Manage_Form(self)
+        return Website_Manager.Manage_Form(self)
 
     def Create_Forgot_Password_User(self):
         self.content['key'] = binascii.hexlify(os.urandom(20))
 
-        if not Forgot_Password_User.objects.filter(approved_key=self.content['key']):
-            Forgot_Password_User\
-            (
-                user=User.objects.get(email=self.content['email']),
+        if not SQL.Filter(Forgot_Password_User, approved_key=self.content['key']):
+            SQL.Save(Forgot_Password_User,
+                user=SQL.Get(User, email=self.content['email']),
                 approved_key=self.content['key']
-            ).save()
+            )
 
         else: self.Create_Forgot_Password_User()
 
@@ -256,7 +255,7 @@ class Forgot_Password(Dynamic_Event_Manager):
 
         content = {
             'activate_url': activate_url,
-            'user':         User.objects.get(email=email)
+            'user':         SQL.Get(User, email=email)
         }
 
         Sender(self.request).Send_Forgot_Password_Link(content, email)
@@ -264,7 +263,7 @@ class Forgot_Password(Dynamic_Event_Manager):
     def Manage_Exist(self):
 
         if self.request.POST['__exist__'] == 'email':
-            if User.objects.filter(email=self.request.POST['value']):
+            if SQL.Filter(User, email=self.request.POST['value']):
                 return JsonResponse({'__exist__': 'true'})
 
         return JsonResponse({'__exist__': 'false'})
@@ -275,7 +274,7 @@ class Forgot_Password(Dynamic_Event_Manager):
 
 
 
-class Change_Password(Dynamic_Event_Manager):
+class Change_Password(Website_Manager):
 
     def Manage_Content_Ground(self):
         self.content['form'] = Form_Change_Password(self)
@@ -287,11 +286,11 @@ class Change_Password(Dynamic_Event_Manager):
         if self.content['form'].is_valid():
 
             key = self.other_value['key']
-            record = Forgot_Password_User.objects.get(approved_key=key)
+            record = SQL.Get(Forgot_Password_User, approved_key=key)
             record.user.password = self.content['form'].cleaned_data['password']
-            record.user.save()
-            record.delete()
+            SQL.Save(data=record.user)
 
+            SQL.Delete(data=record, force=True)
             self.content['form'] = None  # message of correct
 
             return self.Render_HTML('user/change_password.html')
@@ -303,7 +302,7 @@ class Change_Password(Dynamic_Event_Manager):
         if self.request.POST['__form__'] == 'change_password':
             return self.Manage_Form_Change_Password()
 
-        return Dynamic_Event_Manager.Manage_Form(self)
+        return Website_Manager.Manage_Form(self)
 
     @staticmethod
     def Secure(request, key):
@@ -321,7 +320,7 @@ class Change_Password(Dynamic_Event_Manager):
 
 
 
-class User_Agreement(Dynamic_Event_Manager):
+class User_Agreement(Website_Manager):
 
     def Manage_Content_Ground(self):
         return self.Render_HTML('user/agreement.html')

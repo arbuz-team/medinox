@@ -34,7 +34,7 @@ class Search_Engine:
 
     def Search_Products_EN(self):
 
-        self.result = Product.objects.filter(
+        self.result = SQL.Filter(Product,
             reduce(operator.or_, (Q(details_en__name__icontains=s)          for s in self.phrase)) |
             reduce(operator.or_, (Q(details_en__description__icontains=s)   for s in self.phrase)) |
             reduce(operator.or_, (Q(keywords__icontains=s)                  for s in self.phrase)) |
@@ -44,7 +44,7 @@ class Search_Engine:
 
     def Search_Products_PL(self):
 
-        self.result = Product.objects.filter(
+        self.result = SQL.Filter(Product,
             reduce(operator.or_, (Q(details_pl__name__icontains=s)          for s in self.phrase)) |
             reduce(operator.or_, (Q(details_pl__description__icontains=s)   for s in self.phrase)) |
             reduce(operator.or_, (Q(keywords__icontains=s)                  for s in self.phrase)) |
@@ -54,7 +54,7 @@ class Search_Engine:
 
     def Search_Products_DE(self):
 
-        self.result = Product.objects.filter(
+        self.result = SQL.Filter(Product,
             reduce(operator.or_, (Q(details_de__name__icontains=s)          for s in self.phrase)) |
             reduce(operator.or_, (Q(details_de__description__icontains=s)   for s in self.phrase)) |
             reduce(operator.or_, (Q(keywords__icontains=s)                  for s in self.phrase)) |
@@ -65,7 +65,7 @@ class Search_Engine:
     def Search_Products(self):
 
         if not self.phrase: # phrase is empty
-            self.result = Product.objects.all()
+            self.result = SQL.All(Product)
 
         else:
 
@@ -126,7 +126,7 @@ class Search_Engine:
             ordering += 'WHEN id={0} THEN {1} '.format(from_pk, to_pk)
 
         ordering = 'CASE {0} END'.format(ordering)
-        self.result = Product.objects.filter(pk__in=self.result).extra(
+        self.result = SQL.Filter(Product, pk__in=self.result).extra(
             select={'ordering': ordering}, order_by=['ordering'])
 
     def Sort_Result_Order_By_Price(self):
@@ -137,7 +137,7 @@ class Search_Engine:
         if direction == 'descending':
             order_by = '-' + order_by
 
-        self.result = Product.objects.filter(
+        self.result = SQL.Filter(Product,
             pk__in=self.result).order_by(order_by)
 
     def Sort_Result_Order_By_Name(self):
@@ -149,7 +149,7 @@ class Search_Engine:
         if direction == 'descending':
             order_by = '-' + order_by
 
-        self.result = Product.objects.filter(
+        self.result = SQL.Filter(Product,
             pk__in=self.result).order_by(order_by)
 
     def Sort_Result_Filters(self):
@@ -161,7 +161,7 @@ class Search_Engine:
         get_brands = lambda pks: pks \
             if pks else Brand.objects.values('pk')
 
-        self.result = Product.objects.filter(
+        self.result = SQL.Filter(Product,
             Q(brand__in=get_brands(brands))         &
             Q(pk__in=self.result.values('pk'))
         ).distinct()
@@ -213,13 +213,13 @@ class Search_Engine:
 
 
 
-class Searcher(Dynamic_Event_Manager):
+class Searcher(Website_Manager):
 
     def Manage_Content_Ground(self):
         pass
 
     def Manage_Content_Searcher(self):
-        self.content['brands'] = Brand.objects.all()
+        self.content['brands'] = SQL.All(Brand)
         return self.Render_HTML('searcher/searcher.html')
 
     def Manage_Content(self):
@@ -227,7 +227,7 @@ class Searcher(Dynamic_Event_Manager):
         if self.request.POST['__content__'] == 'searcher':
             return self.Manage_Content_Searcher()
 
-        return Dynamic_Event_Manager.Manage_Content(self)
+        return Website_Manager.Manage_Content(self)
 
     def Manage_Filter_Brand(self):
         filters = self.request.session['searcher_filter_brand']

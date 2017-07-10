@@ -8,20 +8,20 @@ class Translator(Base):
 
     @staticmethod
     def Translate_EN(pk):
-        return Language_EN.objects.get(id=pk).value
+        return SQL.Get(Language_EN, id=pk).value
 
     @staticmethod
     def Translate_PL(pk):
-        return Language_PL.objects.get(id=pk).value
+        return SQL.Get(Language_PL, id=pk).value
 
     @staticmethod
     def Translate_DE(pk):
-        return Language_DE.objects.get(id=pk).value
+        return SQL.Get(Language_DE, id=pk).value
 
     @staticmethod
     def Translate(language, pk):
 
-        if not Language_EN.objects.filter(id=pk):
+        if not SQL.Filter(Language_EN, id=pk):
             raise Exception('This value does not exist. '
                             '<translator.Translator.Translate>')
 

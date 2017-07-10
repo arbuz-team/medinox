@@ -2,7 +2,7 @@ from server.manage.switch.views import *
 from server.service.payment.base import *
 
 
-class Cart_Manager(Dynamic_Event_Manager):
+class Cart_Manager(Website_Manager):
 
     def Manage_Content_Ground(self):
         pass
@@ -22,15 +22,15 @@ class Cart_Manager(Dynamic_Event_Manager):
         if self.request.POST['__content__'] == 'cart':
             return self.Manage_Content_Cart()
 
-        return Dynamic_Event_Manager.Manage_Content(self)
+        return Website_Manager.Manage_Content(self)
 
     def Manage_Button_Append(self):
-        product = Product.objects.get(pk=self.request.POST['value'])
+        product = SQL.Get(Product, pk=self.request.POST['value'])
         self.payment_models_manager.Append_Selected_Product(product)
         return JsonResponse({'__button__': 'true'})
 
     def Manage_Button_Delete(self):
-        product = Product.objects.get(pk=self.request.POST['value'])
+        product = SQL.Get(Product, pk=self.request.POST['value'])
         self.payment_models_manager.Delete_Selected_Product(product)
         return JsonResponse({'__button__': 'true'})
 

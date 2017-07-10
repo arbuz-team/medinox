@@ -7,13 +7,13 @@ class Form_Root_Login(Abstract_Form):
     def clean_password(self):
         password = self.data['password']
 
-        if not Root.objects.all():
+        if not SQL.All(Root):
             raise forms.ValidationError(Text(self, 28))
 
-        if not Root.objects.filter(password=Dynamic_Base.Encrypt(password)):
+        if not SQL.Filter(Root, password=Dynamic_Base.Encrypt(password)):
             raise forms.ValidationError(Text(self, 29))
 
-        root = Root.objects.get(password=Dynamic_Base.Encrypt(password))
+        root = SQL.Get(Root, password=Dynamic_Base.Encrypt(password))
         if root.password != Dynamic_Base.Encrypt(password):
             raise forms.ValidationError(Text(self, 30))
 

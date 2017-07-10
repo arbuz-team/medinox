@@ -142,7 +142,7 @@ class Manager:
     @staticmethod
     def Create_Brand(name):
         name = name.title()
-        brand = Brand.objects.filter(name=name).first()
+        brand = SQL.First(Brand, name=name)
 
         if not brand:
             brand = Brand(name=name)
@@ -191,7 +191,7 @@ class Manager:
                 price_pln=product['price'],
                 keywords='',
                 stock=0,
-                where_display=Where_Display.objects.get(display_en=True, display_pl=True, display_de=True),
+                where_display=SQL.Get(Where_Display, display_en=True, display_pl=True, display_de=True),
                 brand=filters['brand']
             )
             new_product.save()
@@ -206,7 +206,7 @@ class Manager:
 
     @staticmethod
     def Delete_Problematic_Data():
-        product = Product.objects.get(details_en__name='NEAUVIA ORGANIC STIMULATE'.title())
+        product = SQL.Get(Product, details_en__name='NEAUVIA ORGANIC STIMULATE'.title())
         product.purpose.all().delete()
 
     def Launch(self):

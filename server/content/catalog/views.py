@@ -3,18 +3,18 @@ from server.content.product.views import *
 from server.content.catalog.forms import *
 
 
-class Start_App(Dynamic_Event_Manager):
+class Panel_App(Website_Manager):
 
     def Manage_Content_Ground(self):
         return self.Render_HTML('catalog/start.html')
 
     @staticmethod
     def Launch(request):
-        return Start_App(request).HTML
+        return Panel_App(request).HTML
 
 
 
-class Catalog_Switcher(Dynamic_Event_Manager):
+class Catalog_Switcher(Website_Manager):
 
     @staticmethod
     def Launch(request, catalog_path=''):
@@ -31,14 +31,14 @@ class Catalog_Switcher(Dynamic_Event_Manager):
 
 
 
-class Catalog_Changer(Dynamic_Event_Manager):
+class Catalog_Changer(Website_Manager):
 
     @staticmethod
     def Get_Catalog(url_name, parent):
 
         if url_name:
 
-            cat = Catalog.objects.filter(
+            cat = SQL.Filter(Catalog,
                 url_name=url_name, parent=parent)
 
             if cat: return cat[0]
@@ -68,17 +68,17 @@ class Catalog_Changer(Dynamic_Event_Manager):
 
         self.request.session['catalog_parent'] = catalog
         self.request.session['catalog_path'] = self.catalog_path
-        self.content['catalogs'] = Catalog.objects.filter(parent=catalog)
-        self.content['products'] = Product.objects.filter(parent=catalog)
+        self.content['catalogs'] = SQL.Filter(Catalog, parent=catalog)
+        self.content['products'] = SQL.Filter(Product, parent=catalog)
         return self.Render_HTML('main/products.html')
 
     def __init__(self, request, catalog_path):
         self.catalog_path = catalog_path
-        Dynamic_Event_Manager.__init__(self, request)
+        Website_Manager.__init__(self, request)
 
 
 
-class Catalog_Manager(Dynamic_Event_Manager):
+class Catalog_Manager(Website_Manager):
 
     def Manage_Content_Ground(self):
         pass
@@ -92,7 +92,7 @@ class Catalog_Manager(Dynamic_Event_Manager):
             catalog.name = self.content['form'].cleaned_data['name']
             catalog.url_name = self.To_URL(self.content['form'].cleaned_data['name'])
             catalog.parent = self.request.session['catalog_parent']
-            catalog.save()
+            SQL.Save(data=catalog)
 
             catalog.Save_Image(self.content['form'].cleaned_data['image'])
             self.content['form'] = None
@@ -108,7 +108,7 @@ class Catalog_Manager(Dynamic_Event_Manager):
             catalog.name = self.content['form'].cleaned_data['name']
             catalog.url_name = self.To_URL(self.content['form'].cleaned_data['name'])
             catalog.parent = self.request.session['catalog_parent']
-            catalog.save()
+            SQL.Save(data=catalog)
 
             catalog.Save_Image(self.content['form'].cleaned_data['image'])
             self.content['form'] = None
@@ -126,7 +126,8 @@ class Catalog_Manager(Dynamic_Event_Manager):
     def Manage_Button(self):
 
         if 'delete' in self.request.POST['__button__']:
-            self.request.session['catalog_editing'].delete()
+            SQL.Delete(data=self.request.session['catalog_editing'])
+
             self.request.session['catalog_editing'] = None
             return JsonResponse({'__button__': 'true'})
 

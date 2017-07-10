@@ -8,10 +8,10 @@ class Form_Login(Abstract_Form):
     def clean_email(self):
         email = self.data['email']
 
-        if not User.objects.filter(email=email):
+        if not SQL.Filter(User, email=email):
             raise forms.ValidationError(Text(self, 41))
 
-        if not User.objects.get(email=email).approved:
+        if not SQL.Get(User, email=email).approved:
             raise forms.ValidationError(Text(self, 42))
 
         return email
@@ -20,10 +20,10 @@ class Form_Login(Abstract_Form):
         email = self.data['email']
         password = self.data['password']
 
-        if not User.objects.filter(email=email):
+        if not SQL.Filter(User, email=email):
             return ''
 
-        user = User.objects.get(email=email)
+        user = SQL.Get(User, email=email)
         if user.password != Dynamic_Base.Encrypt(password):
             raise forms.ValidationError(Text(self, 43))
 
@@ -98,10 +98,10 @@ class Form_Forgot_Password(Abstract_Form):
     def clean_email(self):
         email = self.data['email']
 
-        if not User.objects.filter(email=email):
+        if not SQL.Filter(User, email=email):
             raise forms.ValidationError(Text(self, 54))
 
-        if not User.objects.get(email=email).approved:
+        if not SQL.Get(User, email=email).approved:
             raise forms.ValidationError(Text(self, 55))
 
         return email

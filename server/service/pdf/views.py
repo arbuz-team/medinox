@@ -5,14 +5,14 @@ from server.service.translator.views import *
 from weasyprint import HTML
 
 
-class Generator_PDF(Dynamic_Event_Manager):
+class Generator_PDF(Website_Manager):
 
     def Invoice(self, pk):
 
-        payment = Payment.objects.get(pk=pk)
-        address = Invoice_Address.objects.get(payment=payment)
-        products = Selected_Product.objects.filter(payment=payment)
-        seller = Root_Address.objects.first()
+        payment = SQL.Get(Payment, pk=pk)
+        address = SQL.Get(Invoice_Address, payment=payment)
+        products = SQL.Filter(Selected_Product, payment=payment)
+        seller = SQL.First(Root_Address)
 
         self.content['invoice'] = {
             'unique':           payment.pk,
@@ -51,7 +51,7 @@ class Generator_PDF(Dynamic_Event_Manager):
         if not self.request.session['user_login']:
             return False
 
-        payment = Payment.objects.get(pk=self.other_value)
+        payment = SQL.Get(Payment, pk=self.other_value)
         if self.request.session['user_user'] == payment.user:
             return True
 

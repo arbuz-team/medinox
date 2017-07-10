@@ -3,7 +3,7 @@ from server.manage.root.forms import *
 from server.service.payment.models import *
 
 
-class Start_App(Dynamic_Event_Manager):
+class Panel_App(Website_Manager):
 
     def Manage_Content_Ground(self):
 
@@ -36,15 +36,15 @@ class Start_App(Dynamic_Event_Manager):
             },
         ]
 
-        return self.Render_HTML('arbuz/start_app.html')
+        return self.Render_HTML('arbuz/panel_app.html')
 
     @staticmethod
     def Launch(request):
-        return Start_App(request, only_root=True).HTML
+        return Panel_App(request, only_root=True).HTML
 
 
 
-class Sign_In(Dynamic_Event_Manager):
+class Sign_In(Website_Manager):
 
     def Manage_Content_Ground(self):
         self.content['form'] = Form_Root_Login(self)
@@ -67,7 +67,7 @@ class Sign_In(Dynamic_Event_Manager):
         if self.request.POST['__form__'] == 'login':
             return self.Manage_Form_Login()
 
-        return Dynamic_Event_Manager.Manage_Form(self)
+        return Website_Manager.Manage_Form(self)
 
     @staticmethod
     def Redirect(request, url):
@@ -81,7 +81,7 @@ class Sign_In(Dynamic_Event_Manager):
 
 
 
-class Sign_Out(Dynamic_Event_Manager):
+class Sign_Out(Website_Manager):
 
     def Manage_Content_Ground(self):
         self.request.session['root_login'] = False
@@ -103,21 +103,22 @@ class Sign_Out(Dynamic_Event_Manager):
 
 
 
-class Company_Details_Manager(Dynamic_Event_Manager):
+class Company_Details_Manager(Website_Manager):
 
     def Manage_Content_Ground(self):
-        address = Root_Address.objects.first()
+        address = SQL.First(Root_Address)
         self.content['form'] = Form_Root_Address(self, instance=address)
         return self.Render_HTML('root/company_details.html', 'root_address')
 
     def Manage_Form_Root_Address(self):
 
-        address = Root_Address.objects.first()
+        address = SQL.First(Root_Address)
         self.content['form'] = Form_Root_Address(
             self, post=True, instance=address)
 
         if self.content['form'].is_valid():
-            self.content['form'].save() # save change of address_user
+            address = self.content['form'].save(commit=False) # save change of address_user
+            SQL.Save(data=address)
 
             return self.Render_HTML('root/company_details.html', 'root_address')
         return self.Render_HTML('root/company_details.html', 'root_address')
@@ -127,7 +128,7 @@ class Company_Details_Manager(Dynamic_Event_Manager):
         if self.request.POST['__form__'] == 'root_address':
             return self.Manage_Form_Root_Address()
 
-        return Dynamic_Event_Manager.Manage_Form(self)
+        return Website_Manager.Manage_Form(self)
 
     @staticmethod
     def Launch(request):
@@ -135,7 +136,7 @@ class Company_Details_Manager(Dynamic_Event_Manager):
 
 
 
-class Users_Payments(Dynamic_Event_Manager):
+class Users_Payments(Website_Manager):
 
     def Get_Date(self):
 
@@ -152,15 +153,15 @@ class Users_Payments(Dynamic_Event_Manager):
 
         date_from, date_to = self.Get_Date()
         status = self.request.session['root_payment_status']
-        payments = Payment.objects.filter(status=status,
+        payments = SQL.Filter(Payment, status=status,
                       date__gte=date_from, date__lte=date_to)
 
         for payment in payments:
 
             details = {
-                'fullname': Invoice_Address.objects.get(payment=payment).full_name,
+                'fullname': SQL.Get(Invoice_Address, payment=payment).full_name,
                 'payment':  payment,
-                'products': Selected_Product.objects.filter(payment=payment)
+                'products': SQL.Filter(Selected_Product, payment=payment)
             }
 
             self.content['shopping'].append(details)
@@ -176,9 +177,9 @@ class Users_Payments(Dynamic_Event_Manager):
 
         if self.request.POST['__button__'] == 'assign':
             index = self.Get_Post_Value('index')
-            payment = Payment.objects.get(pk=index)
+            payment = SQL.Get(Payment, pk=index)
             payment.status = self.request.POST['value']
-            payment.save()
+            SQL.Save(data=payment)
 
         if self.request.POST['__button__'] == 'change':
             self.request.session['root_payment_status'] = \
@@ -206,7 +207,7 @@ class Users_Payments(Dynamic_Event_Manager):
 
         if form_note.is_valid():
             note.note = form_note.cleaned_data['note']
-            note.save()
+            SQL.Save(data=note)
 
             # save send files
             file = form_note.cleaned_data['file']
@@ -217,7 +218,7 @@ class Users_Payments(Dynamic_Event_Manager):
                 note_file = Note_File()
                 note_file.note = note
                 note_file.name = file_name
-                note_file.save()
+                SQL.Save(data=note_file)
 
                 note_file.Save_File(file)
 
@@ -231,7 +232,7 @@ class Users_Payments(Dynamic_Event_Manager):
             self.request.POST, instance=note)
 
         if form_deadline.is_valid():
-            form_deadline.save()
+            SQL.Save(data=form_deadline)
 
             return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
@@ -244,7 +245,7 @@ class Users_Payments(Dynamic_Event_Manager):
         if self.request.POST['__form__'] == 'deadline':
             return self.Manage_Form_Deadline()
 
-        return Dynamic_Event_Manager.Manage_Form(self)
+        return Website_Manager.Manage_Form(self)
 
     @staticmethod
     def Launch(request):
@@ -252,10 +253,10 @@ class Users_Payments(Dynamic_Event_Manager):
 
 
 
-class Social_Media_Manager(Dynamic_Event_Manager):
+class Social_Media_Manager(Website_Manager):
 
     def Manage_Content_Ground(self):
-        self.content['social_media'] = Social_Media.objects.all()
+        self.content['social_media'] = SQL.All(Social_Media)
         return self.Render_HTML('root/social_media.html')
 
     def Manage_Form(self):
@@ -263,9 +264,9 @@ class Social_Media_Manager(Dynamic_Event_Manager):
         pk = self.request.POST['__form__']
         url = self.request.POST['value']
 
-        social = Social_Media.objects.get(pk=pk)
+        social = SQL.Get(Social_Media, pk=pk)
         social.url = url
-        social.save()
+        SQL.Save(data=social)
 
         return JsonResponse({'__form__': 'true'})
 
@@ -275,17 +276,17 @@ class Social_Media_Manager(Dynamic_Event_Manager):
 
 
 
-class Delivery_Settings(Dynamic_Event_Manager):
+class Delivery_Settings(Website_Manager):
 
     def Manage_Content_Ground(self):
-        self.content['options'] = Delivery.objects.all()
+        self.content['options'] = SQL.All(Delivery)
         return self.Render_HTML('root/delivery_settings.html')
 
     def Manage_Form(self):
 
         pk, currency = self.request.POST['__form__'].split(' ')
         price = float(self.request.POST['value']) * 100
-        delivery = Delivery.objects.get(pk=pk)
+        delivery = SQL.Get(Delivery, pk=pk)
 
         if currency == 'PLN':
             delivery.price_pln = price
@@ -293,7 +294,7 @@ class Delivery_Settings(Dynamic_Event_Manager):
         if currency == 'EUR':
             delivery.price_eur = price
 
-        delivery.save()
+        SQL.Save(data=delivery)
         return JsonResponse({'__form__': 'true'})
 
     @staticmethod

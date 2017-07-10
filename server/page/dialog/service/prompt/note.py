@@ -8,7 +8,7 @@ class Service_Note(Base_Service):
         # open edit note
         if 'dialog_value' in self.request.POST:
             payment = self.request.POST['dialog_value']
-            self.instance = Order_Note.objects.get(payment=payment)
+            self.instance = SQL.Get(Order_Note, payment=payment)
 
         # when form not valid
         else: self.instance = \

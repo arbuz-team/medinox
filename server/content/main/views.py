@@ -5,12 +5,12 @@ from server.content.main.forms import *
 from server.manage.switch.module.position import *
 
 
-class Start(Dynamic_Event_Manager):
+class Start(Website_Manager):
 
     def Manage_Content_Ground(self):
         self.Get_Post_Value('')
-        self.content['recommended'] = Product.objects.filter(
-            pk__in=Recommended_Product.objects.all().values('product__pk'))
+        self.content['recommended'] = SQL.Filter(Product,
+            pk__in=SQL.All(Recommended_Product).values('product__pk'))
 
         return self.Render_HTML('main/start.html')
 
@@ -20,7 +20,7 @@ class Start(Dynamic_Event_Manager):
 
 
 
-class Products(Dynamic_Event_Manager): # Backend: generate pages move to abstract
+class Products(Website_Manager): # Backend: generate pages move to abstract
 
     def Get_Current_Page(self, number_product_on_page):
 
@@ -80,7 +80,7 @@ class Products(Dynamic_Event_Manager): # Backend: generate pages move to abstrac
 
 
 
-class About(Dynamic_Event_Manager):
+class About(Website_Manager):
 
     def Manage_Content_Ground(self):
         language = self.request.session['translator_language']
@@ -90,7 +90,7 @@ class About(Dynamic_Event_Manager):
         self.content['paragraph_url'] = path_manager.Get_Path(
             'main.about.manage', current_language=True)
 
-        self.content['content'] = About_Content.objects.filter(
+        self.content['content'] = SQL.Filter(About_Content,
             language=language).order_by('position')
 
         return self.Render_HTML('main/about.html')
@@ -107,7 +107,7 @@ class About(Dynamic_Event_Manager):
             about.header = form_about.cleaned_data['header']
             about.paragraph = form_about.cleaned_data['paragraph']
             about.language = self.request.session['translator_language']
-            about.save()
+            SQL.Save(data=about)
 
             about.Save_Image(form_about.cleaned_data['image'])
 
@@ -125,7 +125,7 @@ class About(Dynamic_Event_Manager):
 
 
 
-class Contact(Dynamic_Event_Manager):
+class Contact(Website_Manager):
 
     def Create_Titles(self):
 
@@ -147,7 +147,7 @@ class Contact(Dynamic_Event_Manager):
     def Manage_Content_Ground(self):
         language = self.request.session['translator_language']
         self.content['form'] = Form_Email_Contact(self)
-        self.content['content'] = Contact_Content.objects.filter(
+        self.content['content'] = SQL.Filter(Contact_Content,
             language=language).order_by('position')
 
         self.Create_Titles()

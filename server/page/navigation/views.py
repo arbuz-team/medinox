@@ -1,7 +1,7 @@
 from server.manage.switch.views import *
 
 
-class Navigation(Dynamic_Event_Manager):
+class Navigation(Website_Manager):
 
     def Manage_Content_Header(self):
         return self.Render_HTML('header/header.html')

@@ -8,7 +8,7 @@ class Form_Catalog(Abstract_Image_Form):
 
         name = self.data['name']
         parent = self.request.session['catalog_parent']
-        children = Catalog.objects.filter(parent=parent)
+        children = SQL.Filter(Catalog, parent=parent)
 
         if children.filter(name=name):
             raise forms.ValidationError(Text(self, 155))

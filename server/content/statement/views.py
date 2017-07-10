@@ -1,7 +1,7 @@
 from server.manage.switch.views import *
 
 
-class Statement_403(Dynamic_Event_Manager):
+class Statement_403(Website_Manager):
 
     def Manage_Content_Ground(self):
         self.content['title'] = '403'
@@ -13,7 +13,7 @@ class Statement_403(Dynamic_Event_Manager):
 
 
 
-class Statement_404(Dynamic_Event_Manager):
+class Statement_404(Website_Manager):
 
     def Manage_Content_Ground(self):
         self.content['title'] = '404'
@@ -25,7 +25,7 @@ class Statement_404(Dynamic_Event_Manager):
 
 
 
-class Statement_500(Dynamic_Event_Manager):
+class Statement_500(Website_Manager):
 
     def Manage_Content_Ground(self):
         self.content['title'] = '500'
