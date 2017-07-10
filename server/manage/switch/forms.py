@@ -28,7 +28,7 @@ class Base_Form(Base):
         if self.request.session['user_user']:
             user = self.request.session['user_user']
 
-            if Dynamic_Base.Encrypt(password) == user.password:
+            if Base_Website.Encrypt(password) == user.password:
                 return True
 
         raise forms.ValidationError(Text(self, 85))

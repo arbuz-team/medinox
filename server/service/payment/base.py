@@ -3,7 +3,7 @@ from server.manage.user.models import *
 from server.content.product.base import *
 
 
-class Payment_Models_Manager(Dynamic_Base):
+class Payment_Models_Manager(Base_Website):
 
     def Count_Total_Price(self):
 
@@ -173,7 +173,7 @@ class Payment_Models_Manager(Dynamic_Base):
         SQL.Save(data=selected_product)
 
     def __init__(self, request):
-        Dynamic_Base.__init__(self, request)
+        Base_Website.__init__(self, request)
 
         self.user = None
         self.payment = None

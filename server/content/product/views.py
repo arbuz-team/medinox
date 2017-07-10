@@ -1,7 +1,7 @@
-from server.manage.switch.views import *
+from server.manage.switch.website.manager import *
 from server.page.searcher.views import Search_Engine
 from server.content.product.forms import *
-from server.manage.switch.module.position import *
+from server.manage.switch.position import *
 
 
 class Panel_App(Website_Manager):

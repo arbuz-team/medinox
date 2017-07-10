@@ -5,7 +5,7 @@ class Form_User_Details(Abstract_Form):
 
     def clean_new_password(self):
         password = self.data['new_password']
-        return Dynamic_Base.Encrypt(password)
+        return Base_Website.Encrypt(password)
 
     def clean(self):
         new_email = self.data['new_email']

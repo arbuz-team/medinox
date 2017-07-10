@@ -1,4 +1,4 @@
-from server.manage.switch.views import *
+from server.manage.switch.website.manager import *
 from django.http.response import HttpResponse
 from server.content.product.base import *
 from server.content.product.models import *

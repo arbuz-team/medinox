@@ -10,14 +10,14 @@ class Form_Root_Login(Abstract_Form):
         if not SQL.All(Root):
             raise forms.ValidationError(Text(self, 28))
 
-        if not SQL.Filter(Root, password=Dynamic_Base.Encrypt(password)):
+        if not SQL.Filter(Root, password=Base_Website.Encrypt(password)):
             raise forms.ValidationError(Text(self, 29))
 
-        root = SQL.Get(Root, password=Dynamic_Base.Encrypt(password))
-        if root.password != Dynamic_Base.Encrypt(password):
+        root = SQL.Get(Root, password=Base_Website.Encrypt(password))
+        if root.password != Base_Website.Encrypt(password):
             raise forms.ValidationError(Text(self, 30))
 
-        return Dynamic_Base.Encrypt(password)
+        return Base_Website.Encrypt(password)
 
     def Create_Fields(self):
         self.fields['password'] = forms.CharField(max_length=100)

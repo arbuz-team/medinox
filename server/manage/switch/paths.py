@@ -1,5 +1,5 @@
-from server.manage.switch.module.base import *
 from django.core.urlresolvers import reverse, resolve
+from server.manage.switch.base import *
 
 
 class Path_Manager(Base):

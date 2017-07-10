@@ -1,4 +1,4 @@
-from server.manage.switch.base import *
+from server.manage.switch.website.base import *
 from server.content.product.forms import *
 from server.content.catalog.forms import *
 from server.manage.user.account.forms import *

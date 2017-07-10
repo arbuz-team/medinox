@@ -1,7 +1,9 @@
-from server.manage.switch.base import *
+from server.manage.switch.website.base import *
+from server.manage.switch.enum import *
+from server.service.sql.views import *
 
 
-class Position_Manager(Dynamic_Base):
+class Position_Manager(Base_Website):
 
     @staticmethod
     def Change_Position(model, position, move=Direction.NONE):
@@ -48,7 +50,7 @@ class Position_Manager(Dynamic_Base):
         if direction == Direction.UP:
 
             # change greater elements positions
-            greater_objects = SQL(model,
+            greater_objects = SQL.Filter(model,
                 position__gte=position).order_by('-position')
 
             for greater_object in greater_objects:
@@ -58,7 +60,7 @@ class Position_Manager(Dynamic_Base):
         if direction == Direction.DOWN:
 
             # change greater elements positions
-            greater_objects = SQL(model,
+            greater_objects = SQL.Filter(model,
                 position__gt=position).order_by('-position')
 
             for greater_object in greater_objects:
@@ -93,5 +95,5 @@ class Position_Manager(Dynamic_Base):
             self.Change_Position(model, desc.position, Direction.DOWN)
 
     def __init__(self, _object):
-        Dynamic_Base.__init__(self, _object.request)
+        Base_Website.__init__(self, _object.request)
 

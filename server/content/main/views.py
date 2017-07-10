@@ -2,7 +2,7 @@
 from server.service.sender.views import *
 from server.page.searcher.views import *
 from server.content.main.forms import *
-from server.manage.switch.module.position import *
+from server.manage.switch.position import *
 
 
 class Start(Website_Manager):
