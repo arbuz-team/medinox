@@ -31,6 +31,10 @@ class Form_Root_Login(Abstract_Form):
 
 class Form_Root_Address(Abstract_Address_Form):
 
+    def Create_Fields(self):
+        for key in self.fields:
+            self.fields[key].required = False
+
     def Set_Widgets(self):
 
         phone_attr = self.Attr(Text(self, 139))
