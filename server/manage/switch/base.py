@@ -73,16 +73,24 @@ class Dynamic_Base(metaclass=ABCMeta):
         return Dynamic_Base.Convert_Polish_To_Ascii(text)
 
     @staticmethod
-    def Generate_Passwrod(length):
-        password = ''
-        permitted_chars = string.ascii_letters + \
-                          string.digits + \
-                          string.punctuation
+    def Generate_Random_Chars(length, letters=True,
+                              digits=True, punctuation=True):
+
+        permitted_chars = ''
+        result = ''
+
+        permitted_chars += string.ascii_letters if letters else ''
+        permitted_chars += string.digits if digits else ''
+        permitted_chars += string.punctuation if punctuation else ''
 
         for char_number in range(0, length):
-            password += random.choice(permitted_chars)
+            result += random.choice(permitted_chars)
 
-        return password
+        return result
+
+    @staticmethod
+    def Generate_Passwrod(length):
+        return Dynamic_Base.Generate_Random_Chars(length)
 
     @staticmethod
     def Convert_Polish_To_Ascii(text):

@@ -105,7 +105,7 @@ def var(context, name, value):
     context[name] = value
     return ''
 
-@register.simple_tag(takes_context=True)
-def random(context, _len):
-    db = Dynamic_Base(context['request'])
-    return db.Generate_Passwrod(_len)
+@register.simple_tag
+def random(_len):
+    return Dynamic_Base.Generate_Random_Chars(
+        _len, punctuation=False)
