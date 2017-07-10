@@ -1,31 +1,113 @@
+
+$payment-address_block-short-height: 44px
+$payment-address_block-long-height: 295px
+
+
 .payment
 
   .cart-list
     margin: 0
 
-  form .form-accept
+
+  .form_submit
     margin-top: 30px
     padding-right: 10px
     text-align: right
 
-    >div
-      font-weight: bold
 
-    >button
-      margin-left: 15px !important
-      min-width: 200px
+  .form_submit-description
+    font-weight: bold
+
+
+  .form_submit-button
+    margin-left: 15px !important
+    min-width: 150px
+
 
   .radio
     font-weight: bold
 
+
+  // ADDRESS BLOCK FOR PAYMENT
+
+  .address_block
+    height: $payment-address_block-short-height
+    padding: 10px 5px
+
+    border: $G-STYLE-BORDER-DASHED
+
+    &.is-long
+      height: $payment-address_block-long-height
+
+
+    &.new
+      height: $payment-address_block-long-height
+      .address_block-image
+        display: block
+        height: 220px
+        margin: 10px 0
+        opacity: .6
+        +background-img(url(/static/img/icons/128/dark/add.png), 75px, center)
+
+
+  .address_block-title
+    padding-left: 5px
+
+    border-bottom: $G-STYLE-BORDER-BOLD
+    opacity: .9
+
+
+  .address_block-field_list
+    margin-left: 10px
+    padding: 10px 0
+
+    opacity: .8
+
+
+
+  .address_block-buttons
+    border-top: $G-STYLE-BORDER-BOLD
+    padding: 5px 5px
+
+
+
+
+=address_block-triple()
+
+  .ground-block
+    &.MEDIUM, &.BIG
+      .payment
+
+        .address_block
+          height: $payment-address_block-long-height
+
+
+        .address_block-field_list
+          width: 180px
+          margin-right: 0
+
+
+
+
+
 @media (min-width: $G-SIZE-2)
 
+  .ground:not(.smaller)
+    +address_block-triple()
+
+
   .payment
-    form .form-accept
 
-      >div
-        display: inline-block
-        width: 60%
+    .form_submit-description
+      display: inline-block
+      width: 60%
 
-      >*
-        vertical-align: top
+
+    .form_submit-description, .form_submit-button
+      vertical-align: top
+
+
+
+@media (min-width: 1300px)
+  .ground.smaller
+    +address_block-triple()

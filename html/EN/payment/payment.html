@@ -12,94 +12,124 @@
 
 <!-- Frontend: Correct design of page. -->
 
-<div class="ground-block block-1 BIG" id="PAYMENT">
+<div class="ground-block block-1 MEDIUM">
 
     <div class="block-background fill-abs"></div>
     {% include "part/ground/html/navigation.html" %}
 
     <div class="block-content payment">
 
-        {% if cart %}
+        {% if not address_is_validate %}
 
-            {% if not address_is_validate %}
+            {% if not cart %}
+
+                <ul class="cart-list">
+                    <li>
+                        <div class="cart-list-empty">
+                            Payment is empty
+                        </div>
+                    </li>
+                </ul><!-- cart-list -->
+
+            {% else %}
 
                 <ul class="cart-list">
 
                     {% for selected in cart %}
 
-                        <li class="cart-list-product">
-                            <div class="cart-list-name">
+                        <li class="cart-list-product is-inline-inside">
+
+                            <div class="cart-list-product-name">
                                 <a href="/product/{{ selected.product.pk }}/{{ selected.product.url_name }}/">
                                     {{ selected.product.name }}
                                 </a>
                             </div>
-                            <div class="cart-list-actions">
 
-                                <span>{{ selected.number }} x {% get_price selected.product %}</span>
 
-                                <button class="button is-icon post_button"
-										type="button"
-										data-name="Delete_{{ selected.product.pk }}"
-										data-action="delete"
-										data-value="{{ selected.product.pk }}"
-										data-reload="cart ground"
-										data-url="/cart/">
-                                    <span class="button-icon img-waste_bin"> &nbsp; </span>
-                                </button>
+                            <div class="cart-list-product-actions">
 
-                            </div><!-- cart-list-name -->
-                        </li>
+                                <form class="auto_form" action="/cart/" data-origin="little">
+
+                                    <input class="cart-list-product-number input auto_field only_number_3 always"
+                                           type="text"
+                                           title="Number of products"
+                                           value="{{ selected.number }}"
+                                           data-name="{{ selected.pk }}" />
+
+                                    <span class="cart-list-product-price"> x {% get_price selected.product %}</span>
+
+                                    <button class="cart-list-product-remove button is-icon post_button"
+                                            type="button"
+                                            data-name="Delete_{{ selected.product.pk }}"
+                                            data-action="delete"
+                                            data-value="{{ selected.product.pk }}"
+                                            data-reload="cart ground"
+                                            data-url="/cart/">
+                                        <span class="button-icon img-waste_bin"> &nbsp; </span>
+                                    </button>
+
+                                </form><!-- auto_form -->
+
+                            </div><!-- cart-list-product-actions -->
+
+                        </li><!-- cart-list-product -->
 
                     {% endfor %}
 
-                    <li class="cart-list-total_price">
-                        <div>Cost of delivery:</div>
-                        <div>{% delivery_price delivery %}</div>
+
+                    <li class="cart-list-total_price is-inline-inside">
+                        <div class="cart-list-total_price-title">Cost of delivery:</div>
+                        <div class="cart-list-total_price-price">{% delivery_price delivery %}</div>
                     </li>
 
-                    <li class="cart-list-total_price">
-                        <div>Total price:</div>
-                        <div>{{ total_price }} {{ request.session.translator_currency }}</div>
+
+                    <li class="cart-list-total_price is-inline-inside">
+                        <div class="cart-list-total_price-title">Total price:</div>
+                        <div class="cart-list-total_price-price">{{ payment.total_price }} {{ request.session.translator_currency }}</div>
                     </li>
 
                 </ul><!-- cart-list -->
 
 
-<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-                <form method="post" action="" id="form_address" data-name="address" data-type="address">
 
-                    <div class="form-accept">
-                        <div>Please select your address of below list <wbr>for shipment and invoice.</div>
+                <!-- //////////////////////  CHOOSE ADDRESS  ////////////////////// -->
 
-                        <button class="button is-brown"
-								type="submit">
-							Next
-						</button>
+                <form method="post" action="" data-name="address" data-type="address">
+
+                    <div class="form_submit">
+                        <div class="form_submit-description">Please select your address of below list <wbr>for shipment and invoice.</div>
+
+                        <button class="form_submit-button button is-brown"
+                                type="submit">
+                            Next
+                        </button>
                     </div>
 
                     {% for item in address %}
 
-                        <div class="form_block fields">
+                        <div class="address_block change_length">
                             <div>
 
-                                <div class="shell_form"></div>
+                                <div class="address_block-shell"></div>
 
-                                <div class="title"> Address {{ forloop.counter0 }} </div>
+                                <div class="address_block-title change_length-button"> {{ item.full_name }} </div>
 
-                                <div class="field">{{ item.full_name }} &nbsp;</div>
-                                <div class="field">{{ item.address_line }} &nbsp;</div>
-                                <div class="field">{{ item.city }} &nbsp;</div>
-                                <div class="field">{{ item.region }} &nbsp;</div>
-                                <div class="field">{{ item.postcode }} &nbsp;</div>
-                                <div class="field">{{ item.country }} &nbsp;</div>
+                                <div class="address_block-field_list">
+                                    <div class="is-nowrap">{{ item.full_name }} &nbsp; </div>
+                                    <div class="is-nowrap">{{ item.address_line }} &nbsp; </div>
+                                    <div class="is-nowrap">{{ item.city }} &nbsp; </div>
+                                    <div class="is-nowrap">{{ item.region }} &nbsp; </div>
+                                    <div class="is-nowrap">{{ item.postcode }} &nbsp; </div>
+                                    <div class="is-nowrap">{{ item.country }} &nbsp; </div>
+                                </div>
 
-                                <div>
+                                <div class="address_block-buttons">
                                     <span>Select address to</span>
+
                                     <div class="selecter radio">
                                         <input class="input"
-											   type="radio"
+                                               type="radio"
                                                id="id_shipment_{{ forloop.counter0 }}"
                                                name="shipment"
                                                value="{{ item.pk }}"
@@ -110,9 +140,10 @@
                                         <label for="id_shipment_{{ forloop.counter0 }}" class="selecter-field"></label>
                                         <label for="id_shipment_{{ forloop.counter0 }}" class="selecter-text">shipment</label>
                                     </div>
+
                                     <div class="selecter radio">
                                         <input class="input"
-											   type="radio"
+                                               type="radio"
                                                id="id_invoice_{{ forloop.counter0 }}"
                                                name="invoice"
                                                value="{{ item.pk }}"
@@ -126,55 +157,47 @@
                                 </div>
 
                             </div>
-                        </div><!-- form_block fields -->
+                        </div><!-- address_block change_length -->
 
                     {% endfor %}
 
-                    <div class="form_block fields new">
+                    <div class="address_block new">
                         <div>
 
-                            <div class="shell_form"></div>
+                            <div class="address_block-shell"></div>
 
-                            <div class="title"> Add new address </div>
+                            <div class="address_block-title"> Add new address </div>
 
-                            <a href="{% redirect 'user.account.addresses' 'payment' %}" class="form_block-image"></a>
+                            <a class="address_block-image" href="{% redirect 'user.account.addresses' 'payment' %}"></a>
 
                         </div>
-                    </div><!-- form_block fields new -->
+                    </div><!-- address_block new -->
 
                 </form>
 
-            {% else %}<!-- form address -->
-
-                <div class="cart-list-button">
-                    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-                        OPIS DLA PAYPAL <br>
-                        {{ paypal.as_p }}
-						<button class="button is-brown" type="submit"> PayPal </button>
-                    </form>
-                </div>
-                <div class="cart-list-button">
-                    <form action="https://ssl.dotpay.pl/test_payment/" method="post">
-                        OPIS DLA DOTPAY <br>
-                        {{ dotpay.as_p }}
-						<button class="button is-brown" type="submit"> Dotpay </button>
-                    </form>
-                </div>
-
-            {% endif %}<!-- form payment -->
+            {% endif %}
 
 
-        {% else %}<!-- cart full -->
 
-            <ul class="cart-list">
-                <li>
-                    <div class="cart-list-empty">
-                      Payment is empty
-                    </div>
-                </li>
-            </ul><!-- cart-list -->
+        {% else %} <!-- //////////////////////  ADDRESS IS VALIDATE  ////////////////////// -->
 
-        {% endif %}<!-- cart empty -->
+            <div class="cart-list-button">
+                <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                    OPIS DLA PAYPAL <br>
+                    {{ paypal.as_p }}
+                    <button class="button is-brown" type="submit"> PayPal </button>
+                </form>
+            </div>
+
+            <div class="cart-list-button">
+                <form action="https://ssl.dotpay.pl/test_payment/" method="post">
+                    OPIS DLA DOTPAY <br>
+                    {{ dotpay.as_p }}
+                    <button class="button is-brown" type="submit"> Dotpay </button>
+                </form>
+            </div>
+
+        {% endif %}
 
 
     </div><!-- block-content -->

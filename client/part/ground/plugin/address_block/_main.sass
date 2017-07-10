@@ -55,36 +55,41 @@
 
 =address_block-triple()
 
-  .address_block
-    display: inline-block
-    width: $multiple_block-big--width-normal
-    height: $multiple_block-long--height
-    margin-right: $multiple_block--margin-right
+  .ground-block
+    &.MEDIUM, &.BIG
 
-    cursor: auto
+      .address_block
+        display: inline-block
+        width: $multiple_block-big--width-normal
+        height: $multiple_block-long--height
+        margin-right: $multiple_block--margin-right
 
-    &:nth-child(3n + 4)
-      margin-right: 0
+        cursor: auto
 
-
-  .address_block-shell
-    height: 0
-
-
-  .address_block-title
-    cursor: auto
+        &:nth-child(3n + 4)
+          margin-right: 0
 
 
-  .address_block-field_list
-    width: 200px
-    margin-right: 0
+      .address_block-shell
+        height: 0
+
+
+      .address_block-title
+        cursor: auto
+
+
+      .address_block-field_list
+        width: 200px
+        margin-right: 0
 
 
 
 =address_block-multiple()
 
-  .address_block:nth-child(3n + 4)
-    margin-right: $multiple_block--margin-right
+  .ground-block
+    &.MEDIUM, &.BIG
+      .address_block:nth-child(3n + 4)
+        margin-right: $multiple_block--margin-right
 
 
 
@@ -94,23 +99,19 @@
 
 @media (min-width: $G-SIZE-2)
   .ground:not(.smaller)
-    .ground-block.BIG
-      +address_block-triple()
+    +address_block-triple()
 
 
 @media (min-width: $G-SIZE-4)
   .ground:not(.smaller)
-    .ground-block.BIG
-      +address_block-multiple()
+    +address_block-multiple()
 
 
 @media (min-width: 1300px)
   .ground.smaller
-    .ground-block.BIG
-      +address_block-triple()
+    +address_block-triple()
 
 
 @media (min-width: 1500px)
   .ground.smaller
-    .ground-block.BIG
-      +address_block-multiple()
+    +address_block-multiple()

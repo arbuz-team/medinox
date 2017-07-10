@@ -15,48 +15,52 @@
 
             {% for selected in cart %}
 
-            <li class="cart-list-product is-inline-inside">
+                <li class="cart-list-product is-inline-inside">
 
-                <div class="cart-list-product-name">
-                    <a href="/product/{{ selected.product.pk }}/{{ selected.product.url_name }}/">
-                        {{ selected.product.name }}
-                    </a>
-                </div>
+                    <div class="cart-list-product-name">
+                        <a href="/product/{{ selected.product.pk }}/{{ selected.product.url_name }}/">
+                            {{ selected.product.name }}
+                        </a>
+                    </div>
 
-                <div class="cart-list-product-actions">
-                    <form class="auto_form" action="/cart/" data-origin="little">
 
-                        <input class="cart-list-product-number input auto_field only_number_3 always"
-                               type="text"
-                               title="Number of products"
-                               value="{{ selected.number }}"
-                               data-name="{{ selected.pk }}" />
+                    <div class="cart-list-product-actions">
+                        <form class="auto_form" action="/cart/" data-origin="little">
 
-                        <span class="cart-list-product-price"> x {{ selected.product.price }}</span>
+                            <input class="cart-list-product-number input auto_field only_number_3 always"
+                                   type="text"
+                                   title="Number of products"
+                                   value="{{ selected.number }}"
+                                   data-name="{{ selected.pk }}" />
 
-                        <button class="cart-list-product-remove button is-icon post_button"
-                                type="button"
-                                data-name="Delete_{{ selected.product.pk }}"
-                                data-action="delete"
-                                data-value="{{ selected.product.pk }}"
-                                data-reload="cart ground"
-                                data-url="/cart/">
-                            <span class="button-icon img-waste_bin"> &nbsp; </span>
-                        </button>
+                            <span class="cart-list-product-price"> x {{ selected.product.price }}</span>
 
-                    </form>
-                </div>
+                            <button class="cart-list-product-remove button is-icon post_button"
+                                    type="button"
+                                    data-name="Delete_{{ selected.product.pk }}"
+                                    data-action="delete"
+                                    data-value="{{ selected.product.pk }}"
+                                    data-reload="cart ground"
+                                    data-url="/cart/">
+                                <span class="button-icon img-waste_bin"> &nbsp; </span>
+                            </button>
 
-            </li>
+                        </form>
+                    </div>
+
+                </li>
 
             {% endfor %}
+
 
             <li class="cart-list-total_price is-inline-inside">
                 <div class="cart-list-total_price-title">Total price:</div>
                 <div class="cart-list-total_price-price">{{ payment.total_price }} {{ request.session.translator_currency }}</div>
             </li>
 
+
             <li class="is-inline-inside">
+
                 <div class="cart-list-button">
                     <button class="button dialog_button"
                             type="button"
@@ -70,9 +74,11 @@
                         Clear cart
                     </button>
                 </div>
+
                 <a class="cart-list-button" href="/payment/">
                     <button class="button is-brown" type="button">Go to payments</button>
                 </a>
+
             </li>
 
         {% else %}

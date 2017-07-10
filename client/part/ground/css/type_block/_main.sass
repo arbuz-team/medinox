@@ -1,39 +1,44 @@
 
 @import 'definition'
 
-.ground-block.SMALL
 
-  .block-content
-    width: $ground-block-small--width
-    margin: $ground-block--margin
+.ground-block
 
-    .input, .button
-      width: 100%
+  &.SMALL
+    .block-content
+      width: $ground-block-small--width
+      margin: $ground-block--margin
+
+      .input, .button
+        width: 100%
 
 
-
-.ground-block.BIG
-
-  .block-content
-    width: $ground-block-small--width
-    margin: $ground-block--margin
+  &.MEDIUM, &.BIG
+    .block-content
+      width: $ground-block-small--width
+      margin: $ground-block--margin
 
 
 
 
 =block-content-bigger()
 
-  .block-content
-    width: $ground-block-big--width
+  .ground-block
+    &.MEDIUM, &.BIG
+      .block-content
+        width: $ground-block-big--width
 
 
 
 =block-content-the_biggest()
-  .block-content
-    width: auto
-    margin:
-      left: 80px
-      right: 80px
+
+  .ground-block
+    &.BIG
+      .block-content
+        width: auto
+        margin:
+          left: 80px
+          right: 80px
 
 
 
@@ -41,23 +46,19 @@
 
 @media (min-width: $G-SIZE-2)
   .ground:not(.smaller)
-    .ground-block.BIG
-      +block-content-bigger()
+    +block-content-bigger()
 
 
 @media (min-width: $G-SIZE-4)
   .ground:not(.smaller)
-    .ground-block.BIG
-      +block-content-the_biggest()
+    +block-content-the_biggest()
 
 
 @media (min-width: 1300px)
   .ground.smaller
-    .ground-block.BIG
-        +block-content-bigger()
+      +block-content-bigger()
 
 
 @media (min-width: 1500px)
   .ground.smaller
-    .ground-block.BIG
-      +block-content-the_biggest()
+    +block-content-the_biggest()
