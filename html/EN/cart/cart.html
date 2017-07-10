@@ -17,10 +17,8 @@
 
             <li class="cart-list-product is-inline-inside">
 
-                <!-- Both: correct address to product -->
-
                 <div class="cart-list-product-name">
-                    <a href="/product/{{ selected.product.pk }}/{% product_name_url selected.product %}/">
+                    <a href="/product/{{ selected.product.pk }}/{{ selected.product.url_name }}/">
                         {{ selected.product.name }}
                     </a>
                 </div>

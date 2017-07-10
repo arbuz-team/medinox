@@ -29,7 +29,7 @@
 
                         <li class="cart-list-product">
                             <div class="cart-list-name">
-                                <a href="/product/{{ selected.product.pk }}/{% product_name_url selected.product %}/">
+                                <a href="/product/{{ selected.product.pk }}/{{ selected.product.url_name }}/">
                                     {% product_name selected.product %}
                                 </a>
                             </div>

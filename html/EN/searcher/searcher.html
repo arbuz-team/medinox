@@ -87,37 +87,37 @@
     </div><!-- searcher-filters-content -->
 
 
-    <div class="searcher-filters-title">Purpose</div>
+    <!--<div class="searcher-filters-title">Purpose</div>-->
 
-    <div class="searcher-filters-content">
-        <ul>
-            {% for purpose in purposes %}
+    <!--<div class="searcher-filters-content">-->
+        <!--<ul>-->
+            <!--{ for purpose in purposes %}-->
 
-                <li class="selecter checkbox">
-                    <input type="checkbox" class="auto_field"
-                           data-name="purpose"
-                           id="id_purpose_{{ purpose.pk }}"
-                           name="{{ purpose.pk }}" />
-                    <label for="id_purpose_{{ purpose.pk }}" class="selecter-field"></label>
-                    <label for="id_purpose_{{ purpose.pk }}" class="selecter-text">{% purpose_name purpose %}</label>
+                <!--<li class="selecter checkbox">-->
+                    <!--<input type="checkbox" class="auto_field"-->
+                           <!--data-name="purpose"-->
+                           <!--id="id_purpose_{{ purpose.pk }}"-->
+                           <!--name="{{ purpose.pk }}" />-->
+                    <!--<label for="id_purpose_{{ purpose.pk }}" class="selecter-field"></label>-->
+                    <!--<label for="id_purpose_{{ purpose.pk }}" class="selecter-text"></label>-->
 
-                    {% if request.session.root_login %}
-                        <button class="button is-icon searcher-filters-remove dialog_button"
-                                type="button"
-                                data-type="confirm"
-                                data-name="delete_purpose"
-                                data-dialog-name="delete_purpose_{{ purpose.pk }}"
-                                data-dialog-value="{{ purpose.pk }}"
-                                data-dialog-action="delete"
-                                data-dialog-reload="searcher"
-                                data-dialog-url="/product/purpose/">
-                            <span class="button-icon img-waste_bin"> &nbsp; </span>
-                        </button>
-                    {% endif %}
-                </li>
+                    <!--{ if request.session.root_login %}-->
+                        <!--<button class="button is-icon searcher-filters-remove dialog_button"-->
+                                <!--type="button"-->
+                                <!--data-type="confirm"-->
+                                <!--data-name="delete_purpose"-->
+                                <!--data-dialog-name="delete_purpose_{{ purpose.pk }}"-->
+                                <!--data-dialog-value="{{ purpose.pk }}"-->
+                                <!--data-dialog-action="delete"-->
+                                <!--data-dialog-reload="searcher"-->
+                                <!--data-dialog-url="/product/purpose/">-->
+                            <!--<span class="button-icon img-waste_bin"> &nbsp; </span>-->
+                        <!--</button>-->
+                    <!--{ endif %}-->
+                <!--</li>-->
 
-            {% endfor %}
-        </ul>
-    </div><!-- searcher-filters-content -->
+            <!--{ endfor %}-->
+        <!--</ul>-->
+    <!--</div>&lt;!&ndash; searcher-filters-content &ndash;&gt;-->
 
 </form><!-- searcher-filters -->
