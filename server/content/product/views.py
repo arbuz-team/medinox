@@ -173,13 +173,51 @@ class Product_Manager(Dynamic_Event_Manager):
 
         return Dynamic_Event_Manager.Manage_Form(self)
 
+    def Manage_Button_Delete(self):
+        self.request.session['product_product'].delete()
+        self.request.session['product_product'] = None
+        self.Clear_Session('searcher_result')
+        return JsonResponse({'__button__': 'true'})
+
+    def Manage_Button_Recommended(self):
+        action = self.Get_Post_Value('action')
+        pk = self.request.POST['value']
+        product = Product.objects.get(pk=pk)
+
+        if action == 'delete':
+            Recommended_Product.objects.get(
+                product=product).delete()
+
+        if action == 'append':
+            Recommended_Product(product=product).save()
+
+        return JsonResponse({'__button__': 'true'})
+
+    def Manage_Button_Favorite(self):
+        action = self.Get_Post_Value('action')
+        pk = self.request.POST['value']
+        product = Product.objects.get(pk=pk)
+        user = self.request.session['user_user']
+
+        if action == 'delete':
+            Favorite_Product.objects.get(
+                product=product, user=user).delete()
+
+        if action == 'append':
+            Favorite_Product(product=product, user=user).save()
+
+        return JsonResponse({'__button__': 'true'})
+
     def Manage_Button(self):
 
         if 'delete' in self.request.POST['__button__']:
-            self.request.session['product_product'].delete()
-            self.request.session['product_product'] = None
-            self.Clear_Session('searcher_result')
-            return JsonResponse({'__button__': 'true'})
+            return self.Manage_Button_Delete()
+
+        if 'recommended' in self.request.POST['__button__']:
+            return self.Manage_Button_Recommended()
+
+        if 'favorite' in self.request.POST['__button__']:
+            return self.Manage_Button_Favorite()
 
         return JsonResponse({'__button__': 'false'})
 

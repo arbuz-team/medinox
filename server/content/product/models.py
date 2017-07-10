@@ -68,7 +68,7 @@ class Values(Abstract_Model):
 
 class Recommended_Product(Abstract_Model):
 
-    product = models.ForeignKey(Product)
+    product = models.OneToOneField(Product)
 
     def __str__(self):
         return self.product.details_en.name
@@ -79,6 +79,9 @@ class Favorite_Product(Abstract_Model):
 
     product = models.ForeignKey(Product)
     user = models.ForeignKey(User)
+
+    class Meta:
+        unique_together = ('product', 'user')
 
     def __str__(self):
         return self.product.details_en.name

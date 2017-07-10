@@ -1,6 +1,8 @@
 {% load staticfiles %}
 {% load tags %}
 
+<!-- Frontend: TemplateDoesNotExist: part/ground/plugin/product/html/tiles_favorite_list.html -->
+
 <script>
     window.APP.DATA = {
         title : '{{ title }}',
@@ -67,8 +69,9 @@
                                 {% if is_favorite %}
                                     <button class="button post_button" type="button"
                                             data-name="Favorite_{{ product.pk }}"
-                                            data-action="delete"
+                                            data-action="favorite"
                                             data-value="{{ product.pk }}"
+                                            data-other_1="action:delete"
                                             data-reload="ground"
                                             data-url="/product/manage/">
                                         Remove from favorite
@@ -76,8 +79,9 @@
                                 {% else %}
                                     <button class="button post_button" type="button"
                                             data-name="Favorite_{{ product.pk }}"
-                                            data-action="append"
+                                            data-action="favorite"
                                             data-value="{{ product.pk }}"
+                                            data-other_1="action:append"
                                             data-reload="ground"
                                             data-url="/product/manage/">
                                         Add to favorite
@@ -116,8 +120,9 @@
                                     <button class="button post_button"
 											type="button"
                                             data-name="Recommend_{{ product.pk }}"
-                                            data-action="delete"
+                                            data-action="recommended"
                                             data-value="{{ product.pk }}"
+                                            data-other_1="action:delete"
                                             data-reload="ground"
                                             data-url="/product/manage/">
                                         Remove form recommended
@@ -126,8 +131,9 @@
                                     <button class="button post_button"
 											type="button"
                                             data-name="Recommend_{{ product.pk }}"
-                                            data-action="append"
+                                            data-action="recommended"
                                             data-value="{{ product.pk }}"
+                                            data-other_1="action:append"
                                             data-reload="ground"
                                             data-url="/product/manage/">
                                         Add to recommended
