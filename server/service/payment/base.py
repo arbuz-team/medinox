@@ -94,13 +94,12 @@ class Payment_Models_Manager(Dynamic_Base):
 
     def Check_Payment(self):
 
-        if not self.request.session['user_unique']:
+        if not self.request.session['user_user']:
             return
 
-        unique = self.request.session['user_unique']
-        self.user = User.objects.get(unique=unique)
-
+        self.user = self.request.session['user_user']
         payments = Payment.objects.filter(user=self.user, status='cart')
+
         if payments.count() > 1:
             payments.delete()
 

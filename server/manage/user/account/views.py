@@ -48,8 +48,7 @@ class Start_App(Dynamic_Event_Manager):
 class Account_Details(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
-        unique = self.request.session['user_unique']
-        self.content['user'] = User.objects.get(unique=unique)
+        self.content['user'] = self.request.session['user_user']
         return self.Render_HTML('user/account/details.html')
 
     def Manage_Form_Edit_Email(self):
@@ -58,8 +57,7 @@ class Account_Details(Dynamic_Event_Manager):
             self.request, self.request.POST)
 
         if details.is_valid():
-            unique = self.request.session['user_unique']
-            user = User.objects.get(unique=unique)
+            user = self.request.session['user_user']
             user.email = details.cleaned_data['new_email']
             user.save()
 
@@ -72,8 +70,7 @@ class Account_Details(Dynamic_Event_Manager):
             self.request, self.request.POST)
 
         if details.is_valid():
-            unique = self.request.session['user_unique']
-            user = User.objects.get(unique=unique)
+            user = self.request.session['user_user']
             user.username = details.cleaned_data['new_username']
             user.save()
 
@@ -86,8 +83,7 @@ class Account_Details(Dynamic_Event_Manager):
             self.request, self.request.POST)
 
         if details.is_valid():
-            unique = self.request.session['user_unique']
-            user = User.objects.get(unique=unique)
+            user = self.request.session['user_user']
             user.password = details.cleaned_data['new_password']
             user.save()
 
@@ -116,7 +112,7 @@ class Account_Details(Dynamic_Event_Manager):
 class User_Addresses(Dynamic_Event_Manager):
 
     def Get_User_Details(self):
-        unique = self.request.session['user_unique']
+        unique = self.request.session['user_user'].unique
         self.content['form_name_new'] = 'new_user_address'
         self.content['form_name_edit'] = 'edit_user_address'
         self.content['edit_forms_address'] = {}
@@ -136,7 +132,7 @@ class User_Addresses(Dynamic_Event_Manager):
                         '<user.Account.Get_User_Address_ID>')
 
     def Check_ID_Address(self, id_address):
-        user = User.objects.get(unique=self.request.session['user_unique'])
+        user = self.request.session['user_user']
         ids_address = User_Address.objects.filter(user=user).\
             values_list('id', flat=True)
 
@@ -154,9 +150,8 @@ class User_Addresses(Dynamic_Event_Manager):
         self.content['form'] = Form_User_Address(self, post=True)
 
         if self.content['form'].is_valid():
-            unique = self.request.session['user_unique']
             address_user = self.content['form'].save(commit=False)
-            address_user.user = User.objects.get(unique=unique)
+            address_user.user = self.request.session['user_user']
             address_user.save()  # create address_user
 
             self.content['new_form_address'] = Form_User_Address(self)
@@ -229,7 +224,7 @@ class My_Shopping(Dynamic_Event_Manager):
         self.content['shopping'] = []
 
         date_from, date_to = self.Get_Date()
-        user = User.objects.get(unique=self.request.session['user_unique'])
+        user = self.request.session['user_user']
         payments = Payment.objects.filter(user=user, status='cart',
                               date__gte=date_from, date__lte=date_to)
 
@@ -272,7 +267,7 @@ class My_Shopping(Dynamic_Event_Manager):
 class Favorite(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
-        user = User.objects.get(unique=self.request.session['user_unique'])
+        user = self.request.session['user_user']
         self.content['favorites'] = Product.objects.filter(
             pk__in=Favorite_Product.objects.filter(user=user).values('product__pk'))
 

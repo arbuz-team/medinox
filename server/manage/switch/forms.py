@@ -25,9 +25,8 @@ class Base_Form(Base):
     def clean_secure(self):
         password = self.data['secure']
 
-        if self.request.session['user_unique']:
-            unique = self.request.session['user_unique']
-            user = User.objects.get(unique=unique)
+        if self.request.session['user_user']:
+            user = self.request.session['user_user']
 
             if Dynamic_Base.Encrypt(password) == user.password:
                 return True

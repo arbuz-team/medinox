@@ -52,7 +52,7 @@ class Generator_PDF(Dynamic_Event_Manager):
             return False
 
         payment = Payment.objects.get(pk=self.other_value)
-        if self.request.session['user_unique'] == payment.user.unique:
+        if self.request.session['user_user'] == payment.user:
             return True
 
         return False

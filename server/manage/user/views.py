@@ -54,9 +54,8 @@ class Sign_In(Dynamic_Event_Manager):
             unique = User.objects.get(email=email).unique
 
             self.request.session['user_login'] = True
-            self.request.session['user_unique'] = unique
-            self.request.session['user_username'] = \
-                User.objects.get(unique=unique).username
+            self.request.session['user_user'] = \
+                User.objects.get(unique=unique)
 
             self.content['form'] = None  # message of correct
             return self.Render_HTML('user/sign_in.html')
@@ -94,7 +93,6 @@ class Sign_Up(Dynamic_Event_Manager):
         if self.content['form'].is_valid():
             user = self.content['form'].save(commit=False)
             user.unique = User.Generate_User_Unique()
-            self.request.session['user_unique'] = user.unique
             user.save()
 
             self.Create_No_Approved_User()
@@ -109,9 +107,8 @@ class Sign_Up(Dynamic_Event_Manager):
         self.content['form'] = Form_User_Address(self, post=True)
 
         if self.content['form'].is_valid():
-            unique = self.request.session['user_unique']
             address_user = self.content['form'].save(commit=False)
-            address_user.user = User.objects.get(unique=unique)
+            address_user.user = self.request.session['user_user']
             address_user.save()  # create address_user
 
             self.content['form'] = None  # message of correct
@@ -154,7 +151,6 @@ class Sign_Up(Dynamic_Event_Manager):
 
         email = self.content['form'].cleaned_data['email']
         activate_key = self.content['key'].decode("utf-8")
-        user_unique = self.request.session['user_unique']
 
         path_manager = Path_Manager(self)
         activate_url = path_manager.Get_Urls('user.approved',
@@ -162,7 +158,7 @@ class Sign_Up(Dynamic_Event_Manager):
 
         content = {
             'activate_url': activate_url,
-            'user':         User.objects.get(unique=user_unique)
+            'user':         self.request.session['user_user']
         }
 
         Sender(self.request).Send_Register_Approved_Link(content, email)
@@ -176,9 +172,7 @@ class Sign_Up(Dynamic_Event_Manager):
 class Sign_Out(Dynamic_Event_Manager):
 
     def Manage_Content_Ground(self):
-        self.request.session['user_login'] = False
-        self.request.session['user_unique'] = ''
-        self.request.session['user_username'] = ''
+        self.Clear_Session('user_')
         return self.Render_HTML('user/sign_out.html')
 
     @staticmethod

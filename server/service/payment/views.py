@@ -164,9 +164,8 @@ class Payment_Manager(Dynamic_Event_Manager, PayPal, DotPay):
 
     def Load_Payment_Details(self):
 
-        unique = self.request.session['user_unique']
         model_manager = Payment_Models_Manager(self.request)
-        self.content['user'] = User.objects.get(unique=unique)
+        self.content['user'] = self.request.session['user_user']
         self.content['cart'] = model_manager.Get_Selected_Products()
         self.content['total_price'] = model_manager.Count_Total_Price()
         self.content['delivery'] = model_manager.Get_Payment().delivery_price
@@ -181,8 +180,7 @@ class Payment_Manager(Dynamic_Event_Manager, PayPal, DotPay):
         user_address = User_Address.objects.get(pk=pk)
         address = None
 
-        unique = self.request.session['user_unique']
-        user = User.objects.get(unique=unique)
+        user = self.request.session['user_user']
         payment = Payment.objects.get(user=user, status='cart')
 
         if model == 'delivery_address':
@@ -228,7 +226,7 @@ class Payment_Manager(Dynamic_Event_Manager, PayPal, DotPay):
 
         address = User_Address.objects.get(pk=self.request.POST['value'])
         delivery = Delivery.objects.get(country=address.country)
-        user = User.objects.get(unique=self.request.session['user_unique'])
+        user = self.request.session['user_user']
         payment = Payment.objects.get(user=user, status='cart')
 
         payment.delivery_price = delivery

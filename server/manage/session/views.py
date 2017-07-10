@@ -25,11 +25,8 @@ class Session_Controller:
         if 'user_login' not in self.request.session:
             self.request.session['user_login'] = False
 
-        if 'user_unique' not in self.request.session:
-            self.request.session['user_unique'] = 0
-
-        if 'user_username' not in self.request.session:
-            self.request.session['user_username'] = ''
+        if 'user_user' not in self.request.session:
+            self.request.session['user_user'] = None
 
         if 'user_my_shopping_date_from' not in self.request.session:
             self.request.session['user_my_shopping_date_from'] = \
