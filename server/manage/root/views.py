@@ -1,4 +1,4 @@
-from server.manage.switch.views import *
+from server.manage.switch.website.manager import *
 from server.manage.root.forms import *
 from server.service.payment.models import *
 

@@ -3,10 +3,10 @@ from server.content.product.base import *
 from django import template
 register = template.Library()
 
-class Base_Tag_Manager(Dynamic_Base):
+class Base_Tag_Manager(Base_Website):
 
     def __init__(self, task, values, request=None):
-        Dynamic_Base.__init__(self, request)
+        Base_Website.__init__(self, request)
         self.values = values
 
         methods = getmembers(self, predicate=ismethod)

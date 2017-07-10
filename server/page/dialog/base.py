@@ -2,7 +2,7 @@ from server.service.translator.views import *
 import importlib
 
 
-class Dialog(Dynamic_Base):
+class Dialog(Base_Website):
 
     def Get_POST_Variable(self, name):
 
@@ -62,7 +62,7 @@ class Dialog(Dynamic_Base):
         return getattr(module, class_name)(self).HTML
 
     def __init__(self, request, app_name, apply=False):
-        Dynamic_Base.__init__(self, request)
+        Base_Website.__init__(self, request)
         self.parent_app_name= app_name
         self.apply = apply
 

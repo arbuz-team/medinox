@@ -1,5 +1,5 @@
-from server.manage.switch.module.enum import *
-from server.manage.switch.module.base import *
+from server.manage.switch.enum import *
+from server.manage.switch.paths import *
 
 from PIL import Image
 from io import BytesIO

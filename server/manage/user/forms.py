@@ -24,10 +24,10 @@ class Form_Login(Abstract_Form):
             return ''
 
         user = SQL.Get(User, email=email)
-        if user.password != Dynamic_Base.Encrypt(password):
+        if user.password != Base_Website.Encrypt(password):
             raise forms.ValidationError(Text(self, 43))
 
-        return Dynamic_Base.Encrypt(password)
+        return Base_Website.Encrypt(password)
 
     def Create_Fields(self):
         self.fields['email'] = forms.CharField(max_length=50)
@@ -58,7 +58,7 @@ class Form_Register(Abstract_Model_Form):
 
     def clean_password(self):
         password = self.data['new_password']
-        return Dynamic_Base.Encrypt(password)
+        return Base_Website.Encrypt(password)
 
     def Create_Fields(self):
         self.fields['captcha'] = NoReCaptchaField()
@@ -118,7 +118,7 @@ class Form_Forgot_Password(Abstract_Form):
 class Form_Change_Password(Abstract_Form):
 
     def clean_password(self):
-        return Dynamic_Base.Encrypt(self.data['password'])
+        return Base_Website.Encrypt(self.data['password'])
 
     def Create_Fields(self):
         self.fields['password'] = forms.CharField(max_length=100)

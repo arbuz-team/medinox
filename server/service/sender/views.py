@@ -4,7 +4,7 @@ from email.mime.image import MIMEImage
 from server.service.pdf.views import *
 
 
-class Sender(Dynamic_Base):
+class Sender(Base_Website):
 
     def Attach_Image(self, image_path, image_name):
 
@@ -72,5 +72,5 @@ class Sender(Dynamic_Base):
         self.email.send()
 
     def __init__(self, request):
-        Dynamic_Base.__init__(self, request)
+        Base_Website.__init__(self, request)
         self.email = None

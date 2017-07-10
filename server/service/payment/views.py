@@ -2,7 +2,7 @@ from server.service.payment.forms import *
 from server.service.sender.views import *
 
 
-class Payment_System(Dynamic_Base):
+class Payment_System(Base_Website):
 
     def Send_Confirm(self):
 
@@ -22,7 +22,7 @@ class Payment_System(Dynamic_Base):
         else: Sender(self.request).Send_Payment_Failure(content, email)
 
     def __init__(self, request):
-        Dynamic_Base.__init__(self, request)
+        Base_Website.__init__(self, request)
         Check_Session(request)
 
         self.payment = None

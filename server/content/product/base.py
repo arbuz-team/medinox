@@ -1,7 +1,7 @@
-from server.manage.switch.base import *
+from server.manage.switch.website.base import *
 
 
-class Product_Models_Manager(Dynamic_Base):
+class Product_Models_Manager(Base_Website):
 
     def Get_Product_Price(self, product, currency=None,
                           current_currency=False):
@@ -40,4 +40,4 @@ class Product_Models_Manager(Dynamic_Base):
         return 0
 
     def __init__(self, request):
-        Dynamic_Base.__init__(self, request)
+        Base_Website.__init__(self, request)

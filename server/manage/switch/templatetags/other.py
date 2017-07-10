@@ -107,5 +107,5 @@ def var(context, name, value):
 
 @register.simple_tag
 def random(_len):
-    return Dynamic_Base.Generate_Random_Chars(
+    return Base_Website.Generate_Random_Chars(
         _len, punctuation=False)
