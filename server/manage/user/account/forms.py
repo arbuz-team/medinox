@@ -1,4 +1,4 @@
-from server.manage.switch.forms import *
+from server.manage.switch.forms.standard import *
 
 
 class Form_User_Details(Abstract_Form):

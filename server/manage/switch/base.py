@@ -1,3 +1,5 @@
+from server.manage.switch.settings import *
+
 
 class Base:
 

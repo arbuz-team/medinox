@@ -1,4 +1,4 @@
-from server.manage.switch.forms import *
+from server.manage.switch.forms.address import *
 from server.manage.root.models import *
 
 

@@ -1,4 +1,4 @@
-from server.manage.switch.forms import *
+from server.manage.switch.forms.media import *
 from server.content.main.models import *
 from nocaptcha_recaptcha.fields import NoReCaptchaField
 

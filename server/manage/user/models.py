@@ -1,4 +1,4 @@
-from server.manage.switch.models import *
+from server.manage.switch.models.address import *
 import string, random
 
 

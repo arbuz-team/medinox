@@ -1,4 +1,4 @@
-from server.manage.switch.forms import *
+from server.manage.switch.forms.media import *
 from server.content.product.models import *
 
 

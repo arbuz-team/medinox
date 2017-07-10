@@ -1,4 +1,4 @@
-from server.manage.switch.models import *
+from server.manage.switch.models.standard import *
 
 
 class Catalog(Abstract_Model):

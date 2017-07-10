@@ -1,6 +1,6 @@
 from server.manage.switch.website.manager import *
 from server.manage.root.forms import *
-from server.service.payment.models import *
+from server.service.payment.forms import *
 
 
 class Panel_App(Website_Manager):
@@ -228,8 +228,8 @@ class Users_Payments(Website_Manager):
     def Manage_Form_Deadline(self):
 
         note = self.request.session['root_deadline']
-        form_deadline = Form_Order_Deadline(self.request,
-            self.request.POST, instance=note)
+        form_deadline = Form_Order_Deadline(
+            self, post=True, instance=note)
 
         if form_deadline.is_valid():
             SQL.Save(data=form_deadline)
