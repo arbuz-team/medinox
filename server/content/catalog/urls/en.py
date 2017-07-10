@@ -3,7 +3,7 @@ from server.content.catalog import views
 
 urlpatterns = [
 
-    url(r'^$', views.Start_App.Launch, name='catalog.start'),
+    url(r'^$', views.Panel_App.Launch, name='catalog.start'),
     url(r'^manage/$', views.Catalog_Manager.Launch, name='catalog.manager'),
 
     # change catalog

@@ -4,14 +4,14 @@ from server.content.product.forms import *
 from server.manage.switch.module.position import *
 
 
-class Start_App(Website_Manager):
+class Panel_App(Website_Manager):
 
     def Manage_Content_Ground(self):
         return self.Render_HTML('product/start.html')
 
     @staticmethod
     def Launch(request):
-        return Start_App(request).HTML
+        return Panel_App(request).HTML
 
 
 

@@ -3,14 +3,14 @@ from server.content.product.views import *
 from server.content.catalog.forms import *
 
 
-class Start_App(Website_Manager):
+class Panel_App(Website_Manager):
 
     def Manage_Content_Ground(self):
         return self.Render_HTML('catalog/start.html')
 
     @staticmethod
     def Launch(request):
-        return Start_App(request).HTML
+        return Panel_App(request).HTML
 
 
 

@@ -3,7 +3,7 @@ from server.manage.root.forms import *
 from server.service.payment.models import *
 
 
-class Start_App(Website_Manager):
+class Panel_App(Website_Manager):
 
     def Manage_Content_Ground(self):
 
@@ -36,11 +36,11 @@ class Start_App(Website_Manager):
             },
         ]
 
-        return self.Render_HTML('arbuz/start_app.html')
+        return self.Render_HTML('arbuz/panel_app.html')
 
     @staticmethod
     def Launch(request):
-        return Start_App(request, only_root=True).HTML
+        return Panel_App(request, only_root=True).HTML
 
 
 
