@@ -24,6 +24,7 @@ let
 
 				reload = function()
 				{
+					window.APP.throw_event(window.EVENTS.plugins.reload_header);
 					window.APP.throw_event(window.EVENTS.plugins.reload_navigation);
 
 					if(permissions === 'root')
