@@ -10,7 +10,7 @@ class Service_Product(Base_Service):
 
     def Edit(self):
 
-        product = Product.objects.get(
+        product = SQL.Get(Product,
             pk=self.request.POST['dialog_value'])
 
         self.request.session['product_is_editing'] = True

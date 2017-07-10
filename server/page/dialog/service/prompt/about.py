@@ -18,7 +18,7 @@ class Service_About(Base_Service):
 
     def Edit(self):
 
-        about = About_Content.objects.get(
+        about = SQL.Get(About_Content,
             pk=self.request.POST['dialog_value'])
 
         self.request.session['main_about'] = about

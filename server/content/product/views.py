@@ -4,7 +4,7 @@ from server.content.product.forms import *
 from server.manage.switch.module.position import *
 
 
-class Start_App(Dynamic_Event_Manager):
+class Start_App(Website_Manager):
 
     def Manage_Content_Ground(self):
         return self.Render_HTML('product/start.html')
@@ -15,17 +15,17 @@ class Start_App(Dynamic_Event_Manager):
 
 
 
-class Details(Dynamic_Event_Manager):
+class Details(Website_Manager):
 
     def Status_Buttons(self):
 
         user = self.request.session['user_user']
         product = self.content['product']
 
-        if Favorite_Product.objects.filter(product=product, user=user):
+        if SQL.Filter(Favorite_Product, product=product, user=user):
             self.content['is_favorite'] = True
 
-        if Recommended_Product.objects.filter(product=product):
+        if SQL.Filter(Recommended_Product, product=product):
             self.content['is_recommended'] = True
 
     def Descriptions(self):
@@ -44,13 +44,13 @@ class Details(Dynamic_Event_Manager):
     def Widgets(self):
 
         # get widgets
-        widgets = Widget.objects.filter(
+        widgets = SQL.Filter(Widget,
             product=self.content['product'])
 
         self.content['widgets'] = [
             {
                 'widget': widget,
-                'values': Values.objects.filter(widget=widget)
+                'values': SQL.Filter(Values, widget=widget)
             }
             for widget in widgets
         ]
@@ -58,7 +58,7 @@ class Details(Dynamic_Event_Manager):
     def Manage_Content_Ground(self):
 
         # get product and save to session
-        self.content['product'] = Product.objects.get(pk=self.other_value)
+        self.content['product'] = SQL.Get(Product, pk=self.other_value)
         self.request.session['product_product'] = self.content['product']
         self.request.session['product_last_selected'] = \
             self.content['product']
@@ -90,7 +90,7 @@ class Details(Dynamic_Event_Manager):
 
 
 
-class Widget_Manager(Dynamic_Event_Manager):
+class Widget_Manager(Website_Manager):
 
     def Manage_Form_New_Widget(self):
         self.content['form'] = Form_Widget(self, post=True)
@@ -99,7 +99,7 @@ class Widget_Manager(Dynamic_Event_Manager):
             widget = Widget(product=self.request.session['product_last_selected'])
             widget.name = self.content['form'].cleaned_data['name']
             widget.type = self.content['form'].cleaned_data['type']
-            widget.save()
+            SQL.Save(data=widget)
 
             # other value get widget to edit
             return Dialog_Prompt(self.request, self.app_name, other_value=widget).HTML
@@ -112,7 +112,7 @@ class Widget_Manager(Dynamic_Event_Manager):
             widget = self.request.session['product_widget']
             widget.name = self.content['form'].cleaned_data['name']
             widget.type = self.content['form'].cleaned_data['type']
-            widget.save()
+            SQL.Save(data=widget)
 
             return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
@@ -139,7 +139,7 @@ class Widget_Manager(Dynamic_Event_Manager):
 
 
 
-class Values_Manager(Dynamic_Event_Manager):
+class Values_Manager(Website_Manager):
 
     def Manage_Form(self):
         self.content['form'] = Form_Values(self, post=True)
@@ -149,7 +149,7 @@ class Values_Manager(Dynamic_Event_Manager):
 
             values = self.content['form'].save(commit=False)
             values.widget = widget
-            values.save()
+            SQL.Save(data=values)
 
             return Dialog_Prompt(self.request, self.app_name, other_value=widget).HTML
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
@@ -157,7 +157,7 @@ class Values_Manager(Dynamic_Event_Manager):
     def Manage_Button(self):
 
         if 'delete' in self.request.POST['__button__']:
-            Values.objects.get(pk=self.request.POST['value']).delete()
+            SQL.Delete(Values, pk=self.request.POST['value'])
             return JsonResponse({'__button__': 'true'})
 
         return JsonResponse({'__button__': 'false'})
@@ -168,7 +168,7 @@ class Values_Manager(Dynamic_Event_Manager):
 
 
 
-class Product_Manager(Dynamic_Event_Manager):
+class Product_Manager(Website_Manager):
 
     def Manage_Form_Product(self):
         self.content['form'] = Form_Product(self, post=True)
@@ -180,7 +180,7 @@ class Product_Manager(Dynamic_Event_Manager):
             product.url_name = self.To_URL(self.content['form'].cleaned_data['name'])
             product.price = self.content['form'].cleaned_data['price']
             product.parent = self.request.session['catalog_parent']
-            product.save()
+            SQL.Save(data=product)
 
             product.Save_Image(self.content['form'].cleaned_data['image'])
 
@@ -192,7 +192,7 @@ class Product_Manager(Dynamic_Event_Manager):
         if self.request.POST['__form__'] == 'product':
             return self.Manage_Form_Product()
 
-        return Dynamic_Event_Manager.Manage_Form(self)
+        return Website_Manager.Manage_Form(self)
 
     def Manage_Button_Delete(self):
         self.request.session['product_product'].delete()
@@ -203,29 +203,29 @@ class Product_Manager(Dynamic_Event_Manager):
     def Manage_Button_Recommended(self):
         action = self.Get_Post_Value('action')
         pk = self.request.POST['value']
-        product = Product.objects.get(pk=pk)
+        product = SQL.Get(Product, pk=pk)
 
         if action == 'delete':
-            Recommended_Product.objects.get(
+            SQL.Get(Recommended_Product,
                 product=product).delete()
 
         if action == 'append':
-            Recommended_Product(product=product).save()
+            SQL.Save(Recommended_Product, product=product)
 
         return JsonResponse({'__button__': 'true'})
 
     def Manage_Button_Favorite(self):
         action = self.Get_Post_Value('action')
         pk = self.request.POST['value']
-        product = Product.objects.get(pk=pk)
+        product = SQL.Get(Product, pk=pk)
         user = self.request.session['user_user']
 
         if action == 'delete':
-            Favorite_Product.objects.get(
+            SQL.Get(Favorite_Product,
                 product=product, user=user).delete()
 
         if action == 'append':
-            Favorite_Product(product=product, user=user).save()
+            SQL.Save(Favorite_Product, product=product, user=user)
 
         return JsonResponse({'__button__': 'true'})
 
@@ -248,7 +248,7 @@ class Product_Manager(Dynamic_Event_Manager):
 
 
 
-class Description_Manager(Dynamic_Event_Manager):
+class Description_Manager(Website_Manager):
 
     def Manage_Form_Description(self):
         description = Form_Description(self, post=True)
@@ -262,7 +262,7 @@ class Description_Manager(Dynamic_Event_Manager):
             product_desc.header = description.cleaned_data['header']
             product_desc.paragraph = description.cleaned_data['paragraph']
             product_desc.product = self.request.session['product_last_selected']
-            product_desc.save()
+            SQL.Save(data=product_desc)
 
             product_desc.Save_Image(description.cleaned_data['image'])
 
@@ -274,7 +274,7 @@ class Description_Manager(Dynamic_Event_Manager):
         if self.request.POST['__form__'] == 'description':
             return self.Manage_Form_Description()
 
-        return Dynamic_Event_Manager.Manage_Form(self)
+        return Website_Manager.Manage_Form(self)
 
     def Manage_Button(self):
         position_manager = Position_Manager(self)

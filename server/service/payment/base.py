@@ -22,18 +22,18 @@ class Payment_Models_Manager(Dynamic_Base):
 
     def Update_Total_Price(self):
         self.payment.total_price = self.Count_Total_Price()
-        self.payment.save()
+        SQL.Save(data=self.payment)
 
     def Check_Delivery_Address(self):
 
-        payments_address = Delivery_Address.objects.filter(
-            payment=self.payment)
+        payments_address = SQL.Filter(
+            Delivery_Address, payment=self.payment)
 
         if payments_address.count() > 1:
             payments_address.delete()
 
         if not payments_address:
-            Delivery_Address(
+            SQL.Save(Delivery_Address,
                 full_name='',
                 address_line='',
                 city='',
@@ -41,18 +41,18 @@ class Payment_Models_Manager(Dynamic_Base):
                 postcode='',
                 country='',
                 payment=self.payment
-            ).save()
+            )
 
     def Check_Invoice_Address(self):
 
-        invoice_address = Invoice_Address.objects.filter(
-            payment=self.payment)
+        invoice_address = SQL.Filter(
+            Invoice_Address, payment=self.payment)
 
         if invoice_address.count() > 1:
             invoice_address.delete()
 
         if not invoice_address:
-            Invoice_Address(
+            SQL.Save(Invoice_Address,
                 full_name='',
                 address_line='',
                 city='',
@@ -60,37 +60,37 @@ class Payment_Models_Manager(Dynamic_Base):
                 postcode='',
                 country='',
                 payment=self.payment
-            ).save()
+            )
 
     def Check_Order_Note(self):
 
-        order_notes = Order_Note.objects.filter(
-            payment=self.payment)
+        order_notes = SQL.Filter(
+            Order_Note, payment=self.payment)
 
         if order_notes.count() > 1:
             order_notes.delete()
 
         if not order_notes:
-            Order_Note(
+            SQL.Save(Order_Note,
                 note='',
                 payment=self.payment
-            ).save()
+            )
 
     def Check_Order_Deadline(self):
 
-        order_deadline = Order_Deadline.objects.filter(
-            payment=self.payment)
+        order_deadline = SQL.Filter(
+            Order_Deadline, payment=self.payment)
 
         if order_deadline.count() > 1:
             order_deadline.delete()
 
         if not order_deadline:
-            Order_Deadline(
+            SQL.Save(Order_Deadline,
                 name='',
                 send_to_buyer=False,
                 send_to_root=False,
                 payment=self.payment
-            ).save()
+            )
 
     def Check_Payment(self):
 
@@ -98,7 +98,7 @@ class Payment_Models_Manager(Dynamic_Base):
             return
 
         self.user = self.request.session['user_user']
-        payments = Payment.objects.filter(user=self.user, status='cart')
+        payments = SQL.Filter(Payment, user=self.user, status='cart')
 
         if payments.count() > 1:
             payments.delete()
@@ -106,8 +106,8 @@ class Payment_Models_Manager(Dynamic_Base):
         if not payments:
 
             # delivery prices for first user address
-            address = User_Address.objects.first()
-            delivery = Delivery.objects.get(country=address.country)
+            address = SQL.First(User_Address)
+            delivery = SQL.Get(Delivery, country=address.country)
 
             payment = Payment(
                 user=self.user,
@@ -118,22 +118,22 @@ class Payment_Models_Manager(Dynamic_Base):
                 currency=self.request.session['translator_currency'],
                 status='cart'
             )
-            payment.save()
+            SQL.Save(data=payment)
 
-        self.payment = Payment.objects.get(user=self.user, status='cart')
+        self.payment = SQL.Get(Payment, user=self.user, status='cart')
         self.Check_Delivery_Address()
         self.Check_Invoice_Address()
         self.Check_Order_Deadline()
         self.Check_Order_Note()
 
     def Get_Selected_Products(self):
-        return Selected_Product.objects.filter(payment=self.payment)
+        return SQL.Filter(Selected_Product, payment=self.payment)
 
     def Get_Payment(self):
-        return Payment.objects.get(user=self.user, status='cart')
+        return SQL.Get(Payment, user=self.user, status='cart')
 
     def Append_Selected_Product(self, product):
-        selected_product = Selected_Product.objects.filter(
+        selected_product = SQL.Filter(Selected_Product,
             payment=self.payment, product=product)
 
         # append new product
@@ -153,24 +153,24 @@ class Payment_Models_Manager(Dynamic_Base):
             )
 
             # add values
-            selected_product.save()
+            SQL.Save(data=selected_product)
             selected_product.values.add(*values)
 
     def Delete_Selected_Product(self, product):
-        selected_product = Selected_Product.objects.get(
+        selected_product = SQL.Get(Selected_Product,
             payment=self.payment, product=product)
 
         selected_product.delete()
 
     def Clear_Selected_Product(self):
-        Selected_Product.objects.filter(payment=self.payment).delete()
+        SQL.Filter(Selected_Product, payment=self.payment).delete()
 
     def Edit_Number_Of_Products(self, selected_pk, number):
-        selected_product = Selected_Product.objects.get(
-            pk=selected_pk)
+        selected_product = SQL.Get(
+            Selected_Product, pk=selected_pk)
 
         selected_product.number = number
-        selected_product.save()
+        SQL.Save(data=selected_product)
 
     def __init__(self, request):
         Dynamic_Base.__init__(self, request)

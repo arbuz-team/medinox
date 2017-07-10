@@ -3,7 +3,7 @@ from server.service.payment.base import *
 from server.page.dialog.views import *
 
 
-class Manager(Dynamic_Base):
+class Endpoints(Dynamic_Base):
 
     def Manage_Content_Ground(self):
         pass
@@ -85,7 +85,7 @@ class Manager(Dynamic_Base):
 
 
 
-class Checker(Dynamic_Base):
+class Inspector(Dynamic_Base):
 
     def Error_No_Event(self):
         self.content['error'] = 'no_event'
@@ -130,7 +130,7 @@ class Checker(Dynamic_Base):
 
 
 
-class Updater(Dynamic_Base):
+class Refresh(Dynamic_Base):
 
     def Update_Navigation(self):
 
@@ -154,6 +154,7 @@ class Updater(Dynamic_Base):
             path_manager.Get_Urls()
 
     def Update_Website_Permissions(self):
+        # the method update permissions for HTML
 
         self.request.session['arbuz_permissions'] = ''
         if '__content__' not in self.request.POST:
@@ -186,7 +187,7 @@ class Updater(Dynamic_Base):
 
 
 
-class Dynamic_Event_Manager(Manager, Checker, Updater, metaclass=ABCMeta):
+class Website_Manager(Endpoints, Inspector, Refresh, metaclass=ABCMeta):
 
     def Check(self):
 
@@ -194,7 +195,7 @@ class Dynamic_Event_Manager(Manager, Checker, Updater, metaclass=ABCMeta):
             self.ERROR_HTML = self.Error()
             return False
 
-        methods = getmembers(Checker(self.request), predicate=ismethod)
+        methods = getmembers(Inspector(self.request), predicate=ismethod)
         methods = [method[0] for method in methods]
 
         # call all of methods Check_*
@@ -202,11 +203,11 @@ class Dynamic_Event_Manager(Manager, Checker, Updater, metaclass=ABCMeta):
             if 'Check_' in method:
 
                 # Check_* returned False
-                if not getattr(Dynamic_Event_Manager, method)(self):
+                if not getattr(Website_Manager, method)(self):
 
                     # render error HTML
                     method = method.replace('Check', 'Error')
-                    self.ERROR_HTML = getattr(Dynamic_Event_Manager, method)(self)
+                    self.ERROR_HTML = getattr(Website_Manager, method)(self)
 
                     return False
 
@@ -214,15 +215,15 @@ class Dynamic_Event_Manager(Manager, Checker, Updater, metaclass=ABCMeta):
 
     def Update(self):
 
-        methods = getmembers(Updater(self.request), predicate=ismethod)
+        methods = getmembers(Refresh(self.request), predicate=ismethod)
         methods = [method[0] for method in methods]
 
         for method in methods:
             if 'Update_' in method:
-                getattr(Dynamic_Event_Manager, method)(self)
+                getattr(Website_Manager, method)(self)
 
     def Error(self):
-        return getattr(Dynamic_Event_Manager, self.error_method)(self)
+        return getattr(Website_Manager, self.error_method)(self)
 
     def Manage(self):
 
@@ -278,9 +279,9 @@ class Dynamic_Event_Manager(Manager, Checker, Updater, metaclass=ABCMeta):
                  clear_session=False,
                  length_navigation=None):
 
-        Manager.__init__(self, request)
-        Checker.__init__(self, request)
-        Updater.__init__(self, request)
+        Endpoints.__init__(self, request)
+        Inspector.__init__(self, request)
+        Refresh.__init__(self, request)
 
         self.authorization = authorization
         self.error_method = error_method
@@ -307,4 +308,4 @@ class Dynamic_Event_Manager(Manager, Checker, Updater, metaclass=ABCMeta):
 
     @staticmethod
     def Launch(request, *args, **kwargs):
-        return Dynamic_Event_Manager(request)
+        return Website_Manager(request)

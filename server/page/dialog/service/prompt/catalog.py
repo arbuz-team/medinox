@@ -8,7 +8,7 @@ class Service_Catalog(Base_Service):
 
     def Edit(self):
 
-        catalog = Catalog.objects.get(
+        catalog = SQL.Get(Catalog,
             pk=self.request.POST['dialog_value'])
 
         self.request.session['catalog_editing'] = catalog

@@ -6,8 +6,8 @@ class Service_Delete_Brand(Base_Service):
     def Manage(self):
 
         pk = self.request.POST['additional_value']
-        brand = Brand.objects.get(pk=pk)
-        products = Product.objects.filter(brand=brand)
+        brand = SQL.Get(Brand, pk=pk)
+        products = SQL.Filter(Product, brand=brand)
 
         description = Text(self, 110)
         self.content['text'] = description.format(len(products))

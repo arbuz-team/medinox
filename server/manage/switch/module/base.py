@@ -1,3 +1,4 @@
+from server.manage.switch.module.model import *
 from server.manage.switch.settings import *
 from abc import ABCMeta, abstractmethod
 

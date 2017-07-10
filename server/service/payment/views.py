@@ -36,7 +36,7 @@ class PayPal(Payment_System):
         post = self.request.POST
 
         if post['payment_status'] == 'Completed':
-            self.payment = Payment.objects.get(pk=post['custom'])
+            self.payment = SQL.Get(Payment, pk=post['custom'])
 
             # check receiver
             if post['receiver_email'] != PAYPAL_RECEIVER_EMAIL:
@@ -52,7 +52,7 @@ class PayPal(Payment_System):
 
             self.payment.status = 'pending'
             self.payment.service = 'PayPal'
-            self.payment.save()
+            SQL.Save(data=self.payment)
 
             self.valid = True
 
@@ -92,7 +92,7 @@ class DotPay(Payment_System):
         post = self.request.POST
 
         if post['operation_status'] == 'completed':
-            self.payment = Payment.objects.get(pk=post['control'])
+            self.payment = SQL.Get(Payment, pk=post['control'])
 
             # check receiver
             if post['id'] != DOTPAY_RECEIVER_ID:
@@ -108,13 +108,13 @@ class DotPay(Payment_System):
 
             self.payment.status = 'pending'
             self.payment.service = 'DotPay'
-            self.payment.save()
+            SQL.Save(data=self.payment)
 
             self.valid = True
 
     def Create_DotPay_From(self):
-        payment = Payment.objects.get(pk=self.content['payment'])
-        address = User_Address.objects.filter(user=payment.user)[0]
+        payment = SQL.Get(Payment, pk=self.content['payment'])
+        address = SQL.Filter(User_Address, user=payment.user)[0]
         path_manager = Path_Manager(self)
 
         dotpay_dict = \
@@ -149,18 +149,18 @@ class DotPay(Payment_System):
 
 
 
-class Payment_Manager(Dynamic_Event_Manager, PayPal, DotPay):
+class Payment_Manager(Website_Manager, PayPal, DotPay):
 
     def Update_Payment(self):
 
-        payment = Payment.objects.get(
+        payment = SQL.Get(Payment,
             user=self.content['user'], status='cart')
 
         self.content['payment'] = payment.pk
         payment.date = datetime.today().date()
         payment.total_price = self.content['total_price']
         payment.currency = self.request.session['translator_currency']
-        payment.save()
+        SQL.Save(data=payment)
 
     def Load_Payment_Details(self):
 
@@ -169,7 +169,7 @@ class Payment_Manager(Dynamic_Event_Manager, PayPal, DotPay):
         self.content['cart'] = model_manager.Get_Selected_Products()
         self.content['total_price'] = model_manager.Count_Total_Price()
         self.content['delivery'] = model_manager.Get_Payment().delivery_price
-        self.content['address'] = User_Address.objects.filter(user=self.content['user'])
+        self.content['address'] = SQL.Filter(User_Address, user=self.content['user'])
         self.Update_Payment()
 
         self.content['paypal'] = self.Create_PayPal_From()
@@ -177,17 +177,17 @@ class Payment_Manager(Dynamic_Event_Manager, PayPal, DotPay):
 
     def Create_Address(self, pk, model):
 
-        user_address = User_Address.objects.get(pk=pk)
+        user_address = SQL.Get(User_Address, pk=pk)
         address = None
 
         user = self.request.session['user_user']
-        payment = Payment.objects.get(user=user, status='cart')
+        payment = SQL.Get(Payment, user=user, status='cart')
 
         if model == 'delivery_address':
-            address = Delivery_Address.objects.get(payment=payment)
+            address = SQL.Get(Delivery_Address, payment=payment)
 
         if model == 'invoice_address':
-            address = Invoice_Address.objects.get(payment=payment)
+            address = SQL.Get(Invoice_Address, payment=payment)
 
         address.full_name = user_address.full_name
         address.address_line = user_address.address_line
@@ -195,7 +195,7 @@ class Payment_Manager(Dynamic_Event_Manager, PayPal, DotPay):
         address.region = user_address.region
         address.postcode = user_address.postcode
         address.country = user_address.country
-        address.save()
+        SQL.Save(data=address)
 
     def Manage_Content_Ground(self):
         self.Load_Payment_Details()
@@ -219,18 +219,18 @@ class Payment_Manager(Dynamic_Event_Manager, PayPal, DotPay):
         if self.request.POST['__form__'] == 'address':
             return self.Manage_Form_Address_Payment()
 
-        return Dynamic_Event_Manager.Manage_Form(self)
+        return Website_Manager.Manage_Form(self)
 
 
     def Manage_Get_Delivery(self):
 
-        address = User_Address.objects.get(pk=self.request.POST['value'])
-        delivery = Delivery.objects.get(country=address.country)
+        address = SQL.Get(User_Address, pk=self.request.POST['value'])
+        delivery = SQL.Get(Delivery, country=address.country)
         user = self.request.session['user_user']
-        payment = Payment.objects.get(user=user, status='cart')
+        payment = SQL.Get(Payment, user=user, status='cart')
 
         payment.delivery_price = delivery
-        payment.save()
+        SQL.Save(data=payment)
 
         prices = {
             'eur': delivery.price_eur,
@@ -244,7 +244,7 @@ class Payment_Manager(Dynamic_Event_Manager, PayPal, DotPay):
         if self.request.POST['__get__'] == 'delivery':
             self.Manage_Get_Delivery()
 
-        return Dynamic_Event_Manager.Manage_Get(self)
+        return Website_Manager.Manage_Get(self)
 
     @staticmethod
     def Launch(request):
@@ -252,7 +252,7 @@ class Payment_Manager(Dynamic_Event_Manager, PayPal, DotPay):
 
 
 
-class Apply_Payment(Dynamic_Event_Manager):
+class Apply_Payment(Website_Manager):
 
     def Manage_Content_Ground(self):
         return self.Render_HTML('payment/apply.html')
@@ -267,7 +267,7 @@ class Apply_Payment(Dynamic_Event_Manager):
 
 
 
-class Cancel_Payment(Dynamic_Event_Manager):
+class Cancel_Payment(Website_Manager):
 
     def Manage_Content_Ground(self):
         return self.Render_HTML('payment/cancel.html')
@@ -282,10 +282,10 @@ class Cancel_Payment(Dynamic_Event_Manager):
 
 
 
-class Buy(Dynamic_Event_Manager):
+class Buy(Website_Manager):
 
     def Manage_Form(self):
-        product = Product.objects.get(pk=self.other_value)
+        product = SQL.Get(Product, pk=self.other_value)
         self.payment_models_manager.Append_Selected_Product(product)
         return self.Render_HTML('payment/buy.html')
 

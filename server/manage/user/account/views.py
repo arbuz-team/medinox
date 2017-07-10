@@ -4,7 +4,7 @@ from server.manage.user.account.forms import *
 from server.service.payment.models import *
 
 
-class Start_App(Dynamic_Event_Manager):
+class Start_App(Website_Manager):
 
     def Manage_Content_Ground(self):
 
@@ -45,7 +45,7 @@ class Start_App(Dynamic_Event_Manager):
 
 
 
-class Account_Details(Dynamic_Event_Manager):
+class Account_Details(Website_Manager):
 
     def Manage_Content_Ground(self):
         self.content['user'] = self.request.session['user_user']
@@ -59,7 +59,7 @@ class Account_Details(Dynamic_Event_Manager):
         if details.is_valid():
             user = self.request.session['user_user']
             user.email = details.cleaned_data['new_email']
-            user.save()
+            SQL.Save(data=user)
 
             return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
@@ -72,7 +72,7 @@ class Account_Details(Dynamic_Event_Manager):
         if details.is_valid():
             user = self.request.session['user_user']
             user.username = details.cleaned_data['new_username']
-            user.save()
+            SQL.Save(data=user)
 
             return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
@@ -85,7 +85,7 @@ class Account_Details(Dynamic_Event_Manager):
         if details.is_valid():
             user = self.request.session['user_user']
             user.password = details.cleaned_data['new_password']
-            user.save()
+            SQL.Save(data=user)
 
             return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
         return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
@@ -101,7 +101,7 @@ class Account_Details(Dynamic_Event_Manager):
         if self.request.POST['__form__'] == 'password':
             return self.Manage_Form_Edit_Password()
 
-        return Dynamic_Event_Manager.Manage_Form(self)
+        return Website_Manager.Manage_Form(self)
 
     @staticmethod
     def Launch(request):
@@ -109,7 +109,7 @@ class Account_Details(Dynamic_Event_Manager):
 
 
 
-class User_Addresses(Dynamic_Event_Manager):
+class User_Addresses(Website_Manager):
 
     def Get_User_Details(self):
         unique = self.request.session['user_user'].unique
@@ -117,7 +117,7 @@ class User_Addresses(Dynamic_Event_Manager):
         self.content['form_name_edit'] = 'edit_user_address'
         self.content['edit_forms_address'] = {}
 
-        for address in User_Address.objects.filter(user=unique):
+        for address in SQL.Filter(User_Address, user=unique):
             self.content['edit_forms_address'][address.pk] = \
                 Form_User_Address(self, instance=address)
 
@@ -133,7 +133,7 @@ class User_Addresses(Dynamic_Event_Manager):
 
     def Check_ID_Address(self, id_address):
         user = self.request.session['user_user']
-        ids_address = User_Address.objects.filter(user=user).\
+        ids_address = SQL.Filter(User_Address, user=user).\
             values_list('id', flat=True)
 
         if id_address in ids_address:
@@ -152,7 +152,7 @@ class User_Addresses(Dynamic_Event_Manager):
         if self.content['form'].is_valid():
             address_user = self.content['form'].save(commit=False)
             address_user.user = self.request.session['user_user']
-            address_user.save()  # create address_user
+            SQL.Save(data=address_user)  # create address_user
 
             self.content['new_form_address'] = Form_User_Address(self)
 
@@ -162,12 +162,13 @@ class User_Addresses(Dynamic_Event_Manager):
     def Manage_Form_Edit_User_Address(self):
 
         id_address = self.Get_User_Address_ID()
-        address = User_Address.objects.get(id=id_address)
+        address = SQL.Get(User_Address, id=id_address)
         self.content['form'] = Form_User_Address(
             self, post=True, instance=address)
 
         if self.content['form'].is_valid():
-            self.content['form'].save() # save change of address_user
+            address = self.content['form'].save(commit=False) # save change of address_user
+            SQL.Save(data=address)
 
         self.Get_User_Details()
         self.content['new_form_address'] = Form_User_Address(self)
@@ -182,7 +183,7 @@ class User_Addresses(Dynamic_Event_Manager):
         if 'edit_user_address' in self.request.POST['__form__']:
             return self.Manage_Form_Edit_User_Address()
 
-        return Dynamic_Event_Manager.Manage_Form(self)
+        return Website_Manager.Manage_Form(self)
 
     def Manage_Button(self):
 
@@ -191,7 +192,7 @@ class User_Addresses(Dynamic_Event_Manager):
             id_address = int(self.request.POST['value'])
 
             if self.Check_ID_Address(id_address):
-                User_Address.objects.get(id=id_address).delete()
+                SQL.Delete(User_Address, id=id_address)
                 return JsonResponse({'__button__': 'true'})
 
         return JsonResponse({'__button__': 'false'})
@@ -208,7 +209,7 @@ class User_Addresses(Dynamic_Event_Manager):
 
 
 
-class My_Shopping(Dynamic_Event_Manager):
+class My_Shopping(Website_Manager):
 
     def Get_Date(self):
 
@@ -225,15 +226,15 @@ class My_Shopping(Dynamic_Event_Manager):
 
         date_from, date_to = self.Get_Date()
         user = self.request.session['user_user']
-        payments = Payment.objects.filter(user=user, status='cart',
+        payments = SQL.Filter(Payment, user=user, status='cart',
                               date__gte=date_from, date__lte=date_to)
 
         for payment in payments:
 
             details = {
                 'payment': payment,
-                'full_name': Delivery_Address.objects.get(payment=payment).full_name,
-                'products': Selected_Product.objects.filter(payment=payment)
+                'full_name': SQL.Get(Delivery_Address, payment=payment).full_name,
+                'products': SQL.Filter(Selected_Product, payment=payment)
             }
 
             self.content['shopping'].append(details)
@@ -264,12 +265,12 @@ class My_Shopping(Dynamic_Event_Manager):
 
 
 
-class Favorite(Dynamic_Event_Manager):
+class Favorite(Website_Manager):
 
     def Manage_Content_Ground(self):
         user = self.request.session['user_user']
-        self.content['favorites'] = Product.objects.filter(
-            pk__in=Favorite_Product.objects.filter(user=user).values('product__pk'))
+        self.content['favorites'] = SQL.Filter(Product,
+            pk__in=SQL.Filter(Favorite_Product, user=user).values('product__pk'))
 
         return self.Render_HTML('user/account/favorite.html')
 

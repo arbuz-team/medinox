@@ -18,7 +18,9 @@ class Base_Model:
 
 
 class Abstract_Model(Base_Model, models.Model):
+
     position = models.IntegerField(unique=True, blank=True, null=True)
+    deleted = models.BooleanField(default=False)
 
     def Get_File_Data(self, name, file_dir):
 

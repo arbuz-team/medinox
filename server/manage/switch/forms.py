@@ -83,8 +83,11 @@ class Abstract_Model_Form(Base_Form, forms.ModelForm):
 
     def Exclude_Fields(self):
 
-        if 'position' in self.fields:
-            del self.fields['position']
+        keys = ['position', 'deleted']
+
+        for key in keys:
+            if key in self.fields:
+                del self.fields[key]
 
     def __init__(self, _object, post=False, *args, **kwargs):
 
@@ -97,6 +100,7 @@ class Abstract_Model_Form(Base_Form, forms.ModelForm):
 
         else: forms.ModelForm.__init__(self, *args, **kwargs)
         Base_Form.__init__(self, _object)
+
 
 
 class Abstract_Form(Base_Form, forms.Form):

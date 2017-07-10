@@ -18,7 +18,7 @@ class Service_Description(Base_Service):
 
     def Edit(self):
 
-        description = Description.objects.get(
+        description = SQL.Get(Description,
             pk=self.request.POST['dialog_value'])
 
         self.request.session['product_description'] = description
