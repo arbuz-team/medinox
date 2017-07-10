@@ -296,6 +296,7 @@ div > .buttons_to_action {
     color: #333; }
 
 .textarea {
+  display: block;
   max-width: 100%; }
 
 .input[type=date] {
@@ -428,6 +429,10 @@ div > .buttons_to_action {
     line-height: inherit; }
   .select:hover, .select:focus {
     opacity: .9; }
+
+.g-recaptcha {
+  margin-left: 3px;
+  margin-bottom: 8px; }
 
 .file_shell .input[type=file] {
   display: none; }
