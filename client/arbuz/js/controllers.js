@@ -43,10 +43,17 @@ let
 
 	reload_website = function()
 	{
-		if(!window.APP.DATA.delay)
-			window.APP.DATA.delay = 0;
+		let delay;
 
-		setTimeout(window.location.reload, window.APP.DATA.delay);
+		if(window.APP.DATA.delay)
+			delay = window.APP.DATA.delay;
+		else
+			delay = 0;
+
+		setTimeout(function()
+		{
+			window.location.reload();
+		}, delay);
 	},
 
 

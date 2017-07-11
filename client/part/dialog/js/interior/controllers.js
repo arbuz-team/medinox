@@ -45,16 +45,11 @@ export let
       $button = $(this),
       name = $button.data('dialog-button');
 
-    switch(name)
-    {
-      case 'cancel': dialog_close();
-        break;
+    if( name === 'send')
+      $('form.dialog_form', selectors.container).submit();
 
-      case 'send': $('form.dialog_form', selectors.container).submit();
-        break;
-
-      default: console.error('Dialog error: Don\'t recognize button "'+ name +'".');
-    }
+    else
+      console.error('Dialog error: Don\'t recognize button "'+ name +'".');
   },
 
 

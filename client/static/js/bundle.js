@@ -435,9 +435,13 @@
 		};
 	},
 	    reload_website = function reload_website() {
-		if (!window.APP.DATA.delay) window.APP.DATA.delay = 0;
+		var delay = void 0;
 	
-		setTimeout(window.location.reload, window.APP.DATA.delay);
+		if (window.APP.DATA.delay) delay = window.APP.DATA.delay;else delay = 0;
+	
+		setTimeout(function () {
+			window.location.reload();
+		}, delay);
 	},
 	    define = function define() {
 		// Usuń wszystkie wydarzenia ze wszystkich elementów
@@ -3001,7 +3005,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.Event_Button_Views = undefined;
 	
@@ -3009,59 +3013,66 @@
 	
 	var Event_Button_Views = exports.Event_Button_Views = function Event_Button_Views(config) {
 	
-	  var models = new _models.Event_Button_Models(config);
+		var models = new _models.Event_Button_Models(config);
 	
-	  this.models = models;
+		this.models = models;
 	
-	  var reload_plugins = function reload_plugins() {
-	    var plugins = models.settings.button_reload,
-	        plugins_array = void 0,
-	        array_length = void 0;
+		var prepare_delay = function prepare_delay() {
+			var delay = models.settings.button_delay;
 	
-	    if (!plugins || typeof plugins !== 'string') return false;
+			if (delay >= 0) window.APP.DATA.delay = delay;else window.APP.DATA.delay = 0;
+		},
+		    reload_plugins = function reload_plugins() {
+			var plugins = models.settings.button_reload,
+			    plugins_array = void 0,
+			    array_length = void 0;
 	
-	    plugins_array = plugins.split(' ');
-	    array_length = plugins_array.length;
+			if (!plugins || typeof plugins !== 'string') return false;
 	
-	    for (var i = 0; i < array_length; ++i) {
-	      if (plugins_array[i]) {
-	        window.APP.DATA.delay = 0;
-	        window.APP.throw_event(window.EVENTS.plugins['reload_' + plugins_array[i]]);
-	      }
-	    }
-	  },
-	      redirect_ground = function redirect_ground() {
-	    var url = models.settings.button_redirect;
+			plugins_array = plugins.split(' ');
+			array_length = plugins_array.length;
 	
-	    if (!url || typeof url !== 'string') return false;
+			for (var i = 0; i < array_length; ++i) {
+				if (plugins_array[i]) {
+					prepare_delay();
+					window.APP.throw_event(window.EVENTS.plugins['reload_' + plugins_array[i]]);
+				}
+			}
+		},
+		    redirect_ground = function redirect_ground() {
+			var url = models.settings.button_redirect;
 	
-	    window.APP.DATA.redirect = url;
-	    window.APP.DATA.delay = 100;
-	    window.APP.throw_event(window.EVENTS.redirect);
-	  },
-	      launch_event = function launch_event() {
-	    var event = models.settings.button_event,
-	        split_event = void 0,
-	        ready_event = window.EVENTS;
+			if (!url || typeof url !== 'string') return false;
 	
-	    if (!event || typeof event !== 'string') return false;
+			window.APP.DATA.redirect = url;
+			prepare_delay();
+			window.APP.throw_event(window.EVENTS.redirect);
+		},
 	
-	    split_event = event.split('.');
 	
-	    for (var i = 0; split_event.length > i; ++i) {
-	      ready_event = ready_event[split_event[i]];
-	    }if (ready_event.constructor === Event) {
-	      if (models.settings.button_delay >= 0) window.APP.DATA.delay = models.settings.button_delay;
+		// --- Frontend: Multi events
+		launch_event = function launch_event() {
+			var event = models.settings.button_event,
+			    split_event = void 0,
+			    ready_event = window.EVENTS;
 	
-	      window.APP.throw_event(ready_event); // example plugins.close_cart
-	    } else console.error('Event error: This event doesn\' exist');
-	  };
+			if (!event || typeof event !== 'string') return false;
 	
-	  this.start = function () {
-	    reload_plugins();
-	    redirect_ground();
-	    launch_event();
-	  };
+			split_event = event.split('.');
+	
+			for (var i = 0; split_event.length > i; ++i) {
+				ready_event = ready_event[split_event[i]];
+			}if (ready_event.constructor === Event) {
+				prepare_delay();
+				window.APP.throw_event(ready_event); // example plugins.close_cart
+			} else console.error('Event error: This event doesn\'t exist');
+		};
+	
+		this.start = function () {
+			reload_plugins();
+			redirect_ground();
+			launch_event();
+		};
 	}; /**
 	    * Created by mrskull on 18.12.16.
 	    */
@@ -3073,38 +3084,39 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	/**
 	 * Created by mrskull on 31.01.17.
 	 */
 	
 	var Event_Button_Models = exports.Event_Button_Models = function Event_Button_Models(config) {
-	  var that = this;
+		var that = this;
 	
-	  this.settings = {
-	    container: undefined,
-	    button: undefined,
+		this.settings = {
+			container: undefined,
+			button: undefined,
 	
-	    button_name: undefined,
-	    button_reload: undefined,
-	    button_redirect: undefined,
-	    button_event: undefined,
-	    button_delay: undefined
-	  };
+			button_name: undefined,
+			button_reload: undefined,
+			button_redirect: undefined,
+			button_event: undefined,
+			button_delay: undefined
+		};
 	
-	  (function load_settings() {
-	    if (typeof config !== 'undefined') {
-	      window.APP.add_if_isset(config, that.settings, 'container');
+		(function load_settings() {
+			if (typeof config !== 'undefined') {
+				window.APP.add_if_isset(config, that.settings, 'container');
 	
-	      window.APP.add_if_isset(config, that.settings, 'button');
+				window.APP.add_if_isset(config, that.settings, 'button');
 	
-	      window.APP.add_if_isset(config, that.settings, 'button_name');
-	      window.APP.add_if_isset(config, that.settings, 'button_reload');
-	      window.APP.add_if_isset(config, that.settings, 'button_redirect');
-	      window.APP.add_if_isset(config, that.settings, 'button_event');
-	    }
-	  })();
+				window.APP.add_if_isset(config, that.settings, 'button_name');
+				window.APP.add_if_isset(config, that.settings, 'button_reload');
+				window.APP.add_if_isset(config, that.settings, 'button_redirect');
+				window.APP.add_if_isset(config, that.settings, 'button_event');
+				window.APP.add_if_isset(config, that.settings, 'button_delay');
+			}
+		})();
 	};
 
 /***/ },
@@ -3512,18 +3524,7 @@
 	  var $button = $(this),
 	      name = $button.data('dialog-button');
 	
-	  switch (name) {
-	    case 'cancel':
-	      (0, _controllers.close)();
-	      break;
-	
-	    case 'send':
-	      $('form.dialog_form', selectors.container).submit();
-	      break;
-	
-	    default:
-	      console.error('Dialog error: Don\'t recognize button "' + name + '".');
-	  }
+	  if (name === 'send') $('form.dialog_form', selectors.container).submit();else console.error('Dialog error: Don\'t recognize button "' + name + '".');
 	},
 	    define = exports.define = function define() {
 	  $(selectors.buttons).click(recognize_button);
