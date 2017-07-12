@@ -31,9 +31,9 @@
         {% else %}
 
             <form method="post"
-                    data-name="{{ form_name }}"
-                    data-type="{{ form_name }}"
-                    data-test="yes">
+				  data-name="{{ form_name }}"
+				  data-type="{{ form_name }}"
+				  data-test="yes">
 
                 <div class="title"> Root login </div>
 
@@ -43,11 +43,11 @@
 						   value="root" />
 				</div>
 
-                {% for i in form %}
+                {% for field in form %}
 
                     <div>
-                        {{ i }}
-                        {{ i.errors }}
+                        {{ field }}
+                        {{ field.errors }}
                     </div>
 
                 {% endfor %}
