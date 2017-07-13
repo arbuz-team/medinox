@@ -20,66 +20,6 @@ class Start(Website_Manager):
 
 
 
-class Products(Website_Manager): # Backend: generate pages move to abstract
-
-    def Get_Current_Page(self, number_product_on_page):
-
-        page = self.request.session['main_page']
-        start = (page-1) * number_product_on_page
-        end = page * number_product_on_page
-
-        products = self.request.session['searcher_result']
-        return products[start:end]
-
-    @staticmethod
-    def Get_List_Pages(number_of_pages):
-        return list(range(1, number_of_pages + 1))
-
-    def Get_Split_Pages(self, number_of_pages):
-        page = self.request.session['main_page']
-
-        if number_of_pages < 8:  # 1 2 3 4 5 6 7
-            return [list(range(1, number_of_pages + 1))]
-
-        if page < 5:  # 1 2 3 4 5 … 9
-            return [list(range(1, 6)), [number_of_pages]]
-
-        if page > number_of_pages - 4:  # 1 … 5 6 7 8 9
-            return [[1], list(range(number_of_pages - 4, number_of_pages + 1))]
-
-        # 1 … 3 4 5 6 7 … 9
-        return [[1], list(range(page - 2, page + 3)), [number_of_pages]]
-
-    def Manage_Content_Ground(self):
-
-        products = self.request.session['searcher_result']
-        number_product_on_page = self.request.session['main_number_product_on_page']
-        number_of_pages = int(len(products) / number_product_on_page)
-        if len(products) % number_product_on_page:
-            number_of_pages += 1
-
-        self.content['products'] = self.Get_Current_Page(number_product_on_page)
-        self.content['number_of_pages'] = number_of_pages
-        self.content['list_pages'] = self.Get_List_Pages(number_of_pages)
-        self.content['split_pages'] = self.Get_Split_Pages(number_of_pages)
-        self.content['next_page'] = self.request.session['main_page'] + 1
-        self.content['prev_page'] = self.request.session['main_page'] - 1
-
-        return self.Render_HTML('main/products.html')
-
-    def Manage_Button(self):
-
-        self.request.session['main_page'] = \
-            int(self.request.POST['value'])
-
-        return JsonResponse({'__button__': 'true'})
-
-    @staticmethod
-    def Launch(request):
-        return Products(request).HTML
-
-
-
 class About(Website_Manager):
 
     def Manage_Content_Ground(self):

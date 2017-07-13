@@ -18,7 +18,11 @@ class Service_Product(Base_Service):
 
         self.content['edit'] = {'url': '/product/manage/'}
         self.content['image'] = product.image
-        self.instance = {'name': product.name}
+        self.initial = {
+            'name': product.name,
+            'price': product.price,
+            'brand': product.brand,
+        }
 
     def Manage(self):
 
@@ -29,7 +33,7 @@ class Service_Product(Base_Service):
 
         self.content['title'] = Text(self, 158)
         self.content['form'] = self.Prepare_Form(
-            Form_Product, instance=self.instance)
+            Form_Product, initial=self.initial)
 
         return self.Render_Dialog(
             'product.html', 'product', only_root=True)

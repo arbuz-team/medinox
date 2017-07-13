@@ -95,6 +95,12 @@ class Session_Controller:
         if 'product_is_editing' not in self.request.session:
             self.request.session['product_is_editing'] = False
 
+        if 'product_page' not in self.request.session:
+            self.request.session['product_page'] = 1
+
+        if 'product_number_product_on_page' not in self.request.session:
+            self.request.session['product_number_product_on_page'] = 10
+
     def Check_Session_Catalog(self):
 
         if 'catalog_parent' not in self.request.session:
@@ -130,12 +136,6 @@ class Session_Controller:
 
         if 'main_about' not in self.request.session:
             self.request.session['main_about'] = ''
-
-        if 'main_page' not in self.request.session:
-            self.request.session['main_page'] = 1
-
-        if 'main_number_product_on_page' not in self.request.session:
-            self.request.session['main_number_product_on_page'] = 10
 
     def Check_Session(self):
 

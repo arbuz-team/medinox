@@ -1,5 +1,5 @@
 from server.page.dialog.service.base import *
-from server.manage.switch.module.position import *
+from server.manage.switch.position import *
 
 
 class Service_About(Base_Service):

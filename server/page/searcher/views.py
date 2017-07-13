@@ -194,7 +194,7 @@ class Search_Engine:
 
     @staticmethod
     def Filter_Products(request):
-        request.session['main_page'] = 1
+        request.session['product_page'] = 1
         phrase = request.session['searcher_phrase']
         searcher = Search_Engine(request, phrase)
         request.session['searcher_result'] = \

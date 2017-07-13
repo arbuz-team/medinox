@@ -55,7 +55,7 @@ class Sign_In(Website_Manager):
 
         if self.content['form'].is_valid():
             self.request.session['root_login'] = True
-            self.request.session['main_number_product_on_page'] = 9
+            self.request.session['product_number_product_on_page'] = 9
 
             self.content['form'] = None  # message of correct
             return self.Render_HTML('root/sign_in.html')
@@ -85,7 +85,7 @@ class Sign_Out(Website_Manager):
 
     def Manage_Content_Ground(self):
         self.request.session['root_login'] = False
-        self.request.session['main_number_product_on_page'] = 10
+        self.request.session['product_number_product_on_page'] = 10
         return self.Render_HTML('root/sign_out.html')
 
     def Check_Authorization(self):

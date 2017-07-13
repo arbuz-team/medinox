@@ -14,7 +14,7 @@ class Panel_App(Website_Manager):
 
 
 
-class Catalog_Switcher(Website_Manager):
+class Switch(Website_Manager):
 
     @staticmethod
     def Launch(request, catalog_path=''):
@@ -70,7 +70,7 @@ class Catalog_Changer(Website_Manager):
         self.request.session['catalog_path'] = self.catalog_path
         self.content['catalogs'] = SQL.Filter(Catalog, parent=catalog)
         self.content['products'] = SQL.Filter(Product, parent=catalog)
-        return self.Render_HTML('main/products.html')
+        return self.Render_HTML('catalog/catalogs.html')
 
     def __init__(self, request, catalog_path):
         self.catalog_path = catalog_path
@@ -79,9 +79,6 @@ class Catalog_Changer(Website_Manager):
 
 
 class Catalog_Manager(Website_Manager):
-
-    def Manage_Content_Ground(self):
-        pass
 
     def Manage_Form_New_Catalog(self):
         self.content['form'] = Form_Catalog(self, post=True)

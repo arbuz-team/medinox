@@ -1,0 +1,26 @@
+<script>
+    window.APP.DATA = {
+        title : 'Products',
+        description : 'Browse the full list of Google products designed to help you become more beautiful.',
+    };
+</script>
+
+<!-- Frontend: change elements name from products to elements - abstract -->
+
+<div class="ground-block block-1">
+
+    <div class="block-background fill-abs"></div>
+
+    {% include "part/ground/html/navigation.html" %}
+
+    {% if products or catalogs or request.session.root_login %}
+        {% include 'part/ground/plugin/product/html/tiles_list/products.html' %}
+    {% endif %}
+
+    {% if not products and not catalogs %}
+        <div class="block-content-message">No products found</div>
+    {% endif %}
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}
