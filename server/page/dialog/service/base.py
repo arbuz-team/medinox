@@ -16,7 +16,7 @@ class Base_Service(metaclass=ABCMeta):
     def Unauthorized_Access(self):
         self.content['title'] = Text(self, 69)
         self.content['text'] = Text(self, 70)
-        return self.dialog.Render_HTML('alert.html')
+        return self.dialog.Render_HTML('dialog/alert/alert.html')
 
     def Render_Dialog(self, file_name, form_name='', additional_form_name='',
                       authorization=False, only_root=False):
@@ -39,7 +39,7 @@ class Base_Service(metaclass=ABCMeta):
                 return self.dialog.Render_HTML(
                     file_name, form_name, additional_form_name)
 
-        return self.dialog.Unauthorized_Access()
+        return self.Unauthorized_Access()
 
     def Prepare_Form(self, _class, initial=None, instance=None):
 

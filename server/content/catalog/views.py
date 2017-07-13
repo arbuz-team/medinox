@@ -19,6 +19,7 @@ class Switch(Website_Manager):
     @staticmethod
     def Launch(request, catalog_path=''):
 
+        # service of forms
         if '__form__' in request.POST:
 
             if request.POST['__form__'] == 'catalog':
@@ -27,7 +28,9 @@ class Switch(Website_Manager):
             if request.POST['__form__'] == 'product':
                 return Product_Manager(request, only_root=True).HTML
 
-        return Catalog_Changer(request, catalog_path).HTML
+        # change catalog and show content
+        Catalog_Changer(request, catalog_path)
+        return Catalog_Manager(request).HTML
 
 
 
@@ -61,24 +64,29 @@ class Catalog_Changer(Website_Manager):
 
         return selected
 
-    def Manage_Content_Ground(self):
+    def Change_Catalog(self):
 
         try: catalog = self.Get_Selected_Catalog()
         except: return Statement_404.Launch(self.request)
 
         self.request.session['catalog_parent'] = catalog
         self.request.session['catalog_path'] = self.catalog_path
-        self.content['catalogs'] = SQL.Filter(Catalog, parent=catalog)
-        self.content['products'] = SQL.Filter(Product, parent=catalog)
-        return self.Render_HTML('catalog/catalogs.html')
 
     def __init__(self, request, catalog_path):
-        self.catalog_path = catalog_path
         Website_Manager.__init__(self, request)
+
+        self.catalog_path = catalog_path
+        self.Change_Catalog()
 
 
 
 class Catalog_Manager(Website_Manager):
+
+    def Manage_Content_Ground(self):
+        catalog = self.request.session['catalog_parent']
+        self.content['catalogs'] = SQL.Filter(Catalog, parent=catalog)
+        self.content['products'] = SQL.Filter(Product, parent=catalog)
+        return self.Render_HTML('catalog/catalogs.html')
 
     def Manage_Form_New_Catalog(self):
         self.content['form'] = Form_Catalog(self, post=True)

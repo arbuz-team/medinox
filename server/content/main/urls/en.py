@@ -9,4 +9,6 @@ urlpatterns = [
 
     url(r'^about/manage/$', views.About.Launch, name='main.about.manage'),
     url(r'^contact/manage/$', views.Contact.Launch, name='main.contact.manage'),
+
+    url(r'^example/$', views.Json_Example.Launch, name='main.json_example'),
 ]
