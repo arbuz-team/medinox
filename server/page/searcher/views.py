@@ -215,9 +215,6 @@ class Search_Engine:
 
 class Searcher(Website_Manager):
 
-    def Manage_Content_Ground(self):
-        pass
-
     def Manage_Content_Searcher(self):
         self.content['brands'] = SQL.All(Brand)
         return self.Render_HTML('searcher/searcher.html')

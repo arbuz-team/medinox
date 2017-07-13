@@ -4,9 +4,6 @@ from server.service.payment.base import *
 
 class Cart_Manager(Website_Manager):
 
-    def Manage_Content_Ground(self):
-        pass
-
     def Manage_Content_Cart(self):
 
         self.content['payment'] = self.payment_models_manager.\

@@ -6,7 +6,8 @@ from server.page.dialog.views import *
 class Endpoints(Base_Website):
 
     def Manage_Content_Ground(self):
-        pass
+        self.content['error'] = 'no_exist'
+        return self.Render_HTML('arbuz/error.html')
 
     def Manage_Content_Dialog(self):
 
