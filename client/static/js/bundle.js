@@ -391,23 +391,23 @@
 	
 	var searcher_controllers = _interopRequireWildcard(_controllers);
 	
-	var _controllers2 = __webpack_require__(39);
+	var _controllers2 = __webpack_require__(37);
 	
 	var cart_controllers = _interopRequireWildcard(_controllers2);
 	
-	var _controllers3 = __webpack_require__(43);
+	var _controllers3 = __webpack_require__(41);
 	
 	var navigation_controllers = _interopRequireWildcard(_controllers3);
 	
-	var _controllers4 = __webpack_require__(44);
+	var _controllers4 = __webpack_require__(42);
 	
 	var header_controllers = _interopRequireWildcard(_controllers4);
 	
-	var _controllers5 = __webpack_require__(45);
+	var _controllers5 = __webpack_require__(43);
 	
 	var dialog_controllers = _interopRequireWildcard(_controllers5);
 	
-	var _controllers6 = __webpack_require__(54);
+	var _controllers6 = __webpack_require__(52);
 	
 	var ground_controllers = _interopRequireWildcard(_controllers6);
 	
@@ -487,7 +487,7 @@
 	
 	var _controllers3 = __webpack_require__(20);
 	
-	var _controllers4 = __webpack_require__(36);
+	var _controllers4 = __webpack_require__(34);
 	
 	/**
 	 *    Defining private variables
@@ -1330,25 +1330,17 @@
 	
 	var _controllers2 = __webpack_require__(27);
 	
-	var hide_form = _interopRequireWildcard(_controllers2);
+	var auto_form = _interopRequireWildcard(_controllers2);
 	
-	var _controllers3 = __webpack_require__(29);
+	var _controllers3 = __webpack_require__(30);
 	
-	var auto_form = _interopRequireWildcard(_controllers3);
+	var selected_form = _interopRequireWildcard(_controllers3);
 	
-	var _controllers4 = __webpack_require__(32);
+	var _controllers4 = __webpack_require__(31);
 	
-	var selected_form = _interopRequireWildcard(_controllers4);
-	
-	var _controllers5 = __webpack_require__(33);
-	
-	var file_converter = _interopRequireWildcard(_controllers5);
+	var file_converter = _interopRequireWildcard(_controllers4);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	/**
-	 * Created by mrskull on 24.11.16.
-	 */
 	
 	var Form_Controllers = exports.Form_Controllers = function Form_Controllers(content_loader_controllers) {
 		var form_models = new _models.Form_Models(content_loader_controllers),
@@ -1389,12 +1381,13 @@
 			$('form', $container).submit(prepare_form_to_send);
 	
 			validator.define($container);
-			hide_form.define($container);
 			auto_form.define($container);
 			selected_form.define($container);
 			file_converter.define($container);
 		};
-	};
+	}; /**
+	    * Created by mrskull on 24.11.16.
+	    */
 
 /***/ },
 /* 21 */
@@ -1969,120 +1962,6 @@
 	
 	var _views = __webpack_require__(28);
 	
-	var form = _interopRequireWildcard(_views);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	/**
-	 *    Defining events
-	 */
-	
-	var define = exports.define = function define($container) {
-	  var $otoczka_pola = $('.hide_form > .otoczka_pola', $container);
-	
-	  $otoczka_pola.children('div').click(edit_field);
-	
-	  $otoczka_pola.children('button').click(save_or_edit);
-	};
-	
-	/**
-	 *    Defining private event functions
-	 */
-	
-	/**
-	 * Created by mrskull on 17.01.17.
-	 */
-	
-	var edit_field = function edit_field() {
-	  var $div = $(this),
-	      $field = $div.parent().children('input'),
-	      $button = $div.parent().children('button');
-	
-	  // Change words to input
-	  $div.fadeOut(100, function () {
-	    $field.fadeIn(100, function () {
-	      $(this).focus();
-	    });
-	    $button.html('Save');
-	  });
-	};
-	
-	var save_or_edit = function save_or_edit() {
-	  var $button = $(this),
-	      data_button = $button.data('type'),
-	      $div = $button.parent().children('div'),
-	      $field = $button.parent().children('input');
-	
-	  var save_data = function save_data(html, status) {
-	    if (status === 'success')
-	      // Change input to words
-	      $field.fadeOut(100, function () {
-	        $div.html($field.val());
-	        $div.fadeIn(100);
-	        $button.change_data('type', 'edit').html('Edit');
-	      });else $button.html('Save: error');
-	  };
-	
-	  if (data_button === 'edit')
-	    // Change words to input
-	    $div.fadeOut(100, function () {
-	      $field.fadeIn(100, function () {
-	        $(this).focus();
-	      });
-	      $button.change_data('type', 'save').html('Save');
-	    });else if (data_button === 'save') form.send(this, save_data);
-	};
-
-/***/ },
-/* 28 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	/**
-	 * Created by mrskull on 17.01.17.
-	 */
-	
-	/**
-	 *    Defining private functions
-	 */
-	
-	var send_prepare_post = function send_prepare_post(name, value) {
-	  return {
-	    __edit__: name,
-	    value: value
-	  };
-	};
-	
-	/**
-	 *    Defining public functions
-	 */
-	
-	var send = exports.send = function send(field, callback) {
-	  var $field = $(field),
-	      field_name = $field.attr('name'),
-	      field_value = $field.val(),
-	      post_data = send_prepare_post(field_name, field_value);
-	
-	  window.APP.http_request(undefined, post_data, callback);
-	};
-
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.define = undefined;
-	
-	var _views = __webpack_require__(30);
-	
 	var add_event_on_fields = function add_event_on_fields(auto_form_views) {
 	  var settings = auto_form_views.models.settings,
 	      $field = void 0;
@@ -2125,7 +2004,7 @@
 	};
 
 /***/ },
-/* 30 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2135,7 +2014,7 @@
 	});
 	exports.Auto_Form_Views = undefined;
 	
-	var _models = __webpack_require__(31);
+	var _models = __webpack_require__(29);
 	
 	var Auto_Form_Views = exports.Auto_Form_Views = function Auto_Form_Views(config) {
 	  var models = new _models.Auto_Form_Models(config),
@@ -2312,7 +2191,7 @@
 	 */
 
 /***/ },
-/* 31 */
+/* 29 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2384,7 +2263,7 @@
 	};
 
 /***/ },
-/* 32 */
+/* 30 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2440,7 +2319,7 @@
 	};
 
 /***/ },
-/* 33 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2450,7 +2329,7 @@
 	});
 	exports.define = undefined;
 	
-	var _views = __webpack_require__(34);
+	var _views = __webpack_require__(32);
 	
 	var image_convert_views = _interopRequireWildcard(_views);
 	
@@ -2478,7 +2357,7 @@
 	    */
 
 /***/ },
-/* 34 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2488,7 +2367,7 @@
 	});
 	exports.Callback_Functions = exports.get_base64 = exports.settings = exports.models = undefined;
 	
-	var _models = __webpack_require__(35);
+	var _models = __webpack_require__(33);
 	
 	var image_convert_models = _interopRequireWildcard(_models);
 	
@@ -2540,7 +2419,7 @@
 	    */
 
 /***/ },
-/* 35 */
+/* 33 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2564,7 +2443,7 @@
 	};
 
 /***/ },
-/* 36 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2574,7 +2453,7 @@
 	});
 	exports.Post_Button_Controllers = undefined;
 	
-	var _views = __webpack_require__(37);
+	var _views = __webpack_require__(35);
 	
 	var Post_Button_Controllers = exports.Post_Button_Controllers = function Post_Button_Controllers(config) {
 		if (typeof config === 'undefined' && typeof config.container === 'undefined') {
@@ -2623,7 +2502,7 @@
 	    */
 
 /***/ },
-/* 37 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2633,7 +2512,7 @@
 	});
 	exports.Post_Button_Views = undefined;
 	
-	var _models = __webpack_require__(38);
+	var _models = __webpack_require__(36);
 	
 	var _utilities = __webpack_require__(22);
 	
@@ -2749,7 +2628,7 @@
 	};
 
 /***/ },
-/* 38 */
+/* 36 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2853,7 +2732,7 @@
 	};
 
 /***/ },
-/* 39 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2869,9 +2748,9 @@
 	
 	var _controllers3 = __webpack_require__(20);
 	
-	var _controllers4 = __webpack_require__(36);
+	var _controllers4 = __webpack_require__(34);
 	
-	var _controllers5 = __webpack_require__(40);
+	var _controllers5 = __webpack_require__(38);
 	
 	/**
 	 *    Defining private variables
@@ -2947,7 +2826,7 @@
 	};
 
 /***/ },
-/* 40 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2957,7 +2836,7 @@
 	});
 	exports.Event_Button_Controllers = undefined;
 	
-	var _views = __webpack_require__(41);
+	var _views = __webpack_require__(39);
 	
 	var Event_Button_Controllers = exports.Event_Button_Controllers = function Event_Button_Controllers(config) {
 	  if (typeof config === 'undefined' && typeof config.container === 'undefined') {
@@ -2999,7 +2878,7 @@
 	    */
 
 /***/ },
-/* 41 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3009,7 +2888,7 @@
 	});
 	exports.Event_Button_Views = undefined;
 	
-	var _models = __webpack_require__(42);
+	var _models = __webpack_require__(40);
 	
 	var Event_Button_Views = exports.Event_Button_Views = function Event_Button_Views(config) {
 	
@@ -3078,7 +2957,7 @@
 	    */
 
 /***/ },
-/* 42 */
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3120,7 +2999,7 @@
 	};
 
 /***/ },
-/* 43 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3134,7 +3013,7 @@
 	
 	var _controllers2 = __webpack_require__(17);
 	
-	var _controllers3 = __webpack_require__(40);
+	var _controllers3 = __webpack_require__(38);
 	
 	/**
 	 *    Defining private variables
@@ -3194,7 +3073,7 @@
 	};
 
 /***/ },
-/* 44 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3206,7 +3085,7 @@
 	
 	var _controllers = __webpack_require__(13);
 	
-	var _controllers2 = __webpack_require__(40);
+	var _controllers2 = __webpack_require__(38);
 	
 	/**
 	 *    Defining private variables
@@ -3242,7 +3121,7 @@
 	};
 
 /***/ },
-/* 45 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3252,11 +3131,11 @@
 	});
 	exports.close = exports.reload = exports.open = exports.define = undefined;
 	
-	var _views = __webpack_require__(46);
+	var _views = __webpack_require__(44);
 	
 	var dialog_views = _interopRequireWildcard(_views);
 	
-	var _controllers = __webpack_require__(48);
+	var _controllers = __webpack_require__(46);
 	
 	var interior_dialog_controllers = _interopRequireWildcard(_controllers);
 	
@@ -3335,7 +3214,7 @@
 	    close = exports.close = dialog_views.close;
 
 /***/ },
-/* 46 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3345,7 +3224,7 @@
 	});
 	exports.close = exports.reload = exports.open = exports.selectors = undefined;
 	
-	var _models = __webpack_require__(47);
+	var _models = __webpack_require__(45);
 	
 	var dialog_models = _interopRequireWildcard(_models);
 	
@@ -3397,7 +3276,7 @@
 	};
 
 /***/ },
-/* 47 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3407,11 +3286,11 @@
 	});
 	exports.reload = exports.open = exports.prepare_post_data = exports.save_type_and_name = exports.selectors = undefined;
 	
-	var _controllers = __webpack_require__(48);
+	var _controllers = __webpack_require__(46);
 	
 	var interior_dialog_controllers = _interopRequireWildcard(_controllers);
 	
-	var _models = __webpack_require__(50);
+	var _models = __webpack_require__(48);
 	
 	var interior_dialog_models = _interopRequireWildcard(_models);
 	
@@ -3473,7 +3352,7 @@
 	selectors.external_buttons = '.dialog_button';
 
 /***/ },
-/* 48 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3483,19 +3362,19 @@
 	});
 	exports.define = exports.recognize_button = exports.reload = exports.load = undefined;
 	
-	var _views = __webpack_require__(49);
+	var _views = __webpack_require__(47);
 	
 	var interior_dialog_views = _interopRequireWildcard(_views);
 	
-	var _controllers = __webpack_require__(45);
+	var _controllers = __webpack_require__(43);
 	
 	var _controllers2 = __webpack_require__(20);
 	
-	var _controllers3 = __webpack_require__(36);
+	var _controllers3 = __webpack_require__(34);
 	
-	var _controllers4 = __webpack_require__(40);
+	var _controllers4 = __webpack_require__(38);
 	
-	var _controllers5 = __webpack_require__(51);
+	var _controllers5 = __webpack_require__(49);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -3536,7 +3415,7 @@
 	};
 
 /***/ },
-/* 49 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3546,7 +3425,7 @@
 	});
 	exports.reload = exports.load = exports.container = exports.models = undefined;
 	
-	var _models = __webpack_require__(50);
+	var _models = __webpack_require__(48);
 	
 	var interior_dialog_models = _interopRequireWildcard(_models);
 	
@@ -3568,7 +3447,7 @@
 	    reload = exports.reload = interior_dialog_models.reload;
 
 /***/ },
-/* 50 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3651,7 +3530,7 @@
 	};
 
 /***/ },
-/* 51 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3661,7 +3540,7 @@
 	});
 	exports.Little_Form_Controllers = undefined;
 	
-	var _views = __webpack_require__(52);
+	var _views = __webpack_require__(50);
 	
 	var Little_Form_Controllers = exports.Little_Form_Controllers = function Little_Form_Controllers(form_config) {
 	  if (typeof form_config === 'undefined' && typeof form_config.container === 'undefined') {
@@ -3706,7 +3585,7 @@
 	    */
 
 /***/ },
-/* 52 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3716,7 +3595,7 @@
 	});
 	exports.Little_Form_Views = undefined;
 	
-	var _models = __webpack_require__(53);
+	var _models = __webpack_require__(51);
 	
 	var Little_Form_Views = exports.Little_Form_Views = function Little_Form_Views(form_config) {
 	  var models = new _models.Little_Form_Models(form_config);
@@ -3792,7 +3671,7 @@
 	    */
 
 /***/ },
-/* 53 */
+/* 51 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3893,7 +3772,7 @@
 	};
 
 /***/ },
-/* 54 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3907,9 +3786,9 @@
 	
 	var _controllers2 = __webpack_require__(20);
 	
-	var _controllers3 = __webpack_require__(36);
+	var _controllers3 = __webpack_require__(34);
 	
-	var _controllers4 = __webpack_require__(40);
+	var _controllers4 = __webpack_require__(38);
 	
 	/**
 	 *    Defining private variables

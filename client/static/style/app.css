@@ -1340,8 +1340,9 @@ img {
 .ground-block.SMALL .block-content, .ground-block.SMALL .block-content-message {
   width: 340px;
   margin: 30px auto; }
-  .ground-block.SMALL .block-content .input, .ground-block.SMALL .block-content-message .input, .ground-block.SMALL .block-content .button, .ground-block.SMALL .block-content-message .button {
-    width: 100%; }
+
+.ground-block.SMALL .is-fills-in-width-inside .input, .ground-block.SMALL .is-fills-in-width-inside .button {
+  width: 100%; }
 
 .ground-block.MEDIUM .block-content, .ground-block.MEDIUM .block-content-message, .ground-block.BIG .block-content, .ground-block.BIG .block-content-message {
   width: 340px;

@@ -11,7 +11,7 @@
     <div class="block-background fill-abs"></div>
     {% include "part/ground/html/navigation.html" %}
 
-    <div class="block-content">
+    <div class="block-content is-fills-in-width-inside">
 
         {% if not form or request.session.root_login %}
 
@@ -31,9 +31,9 @@
         {% else %}
 
             <form method="post"
-                    data-name="{{ form_name }}"
-                    data-type="{{ form_name }}"
-                    data-test="yes">
+				  data-name="{{ form_name }}"
+				  data-type="{{ form_name }}"
+				  data-test="yes">
 
                 <div class="title"> Root login </div>
 
@@ -43,11 +43,11 @@
 						   value="root" />
 				</div>
 
-                {% for i in form %}
+                {% for field in form %}
 
                     <div>
-                        {{ i }}
-                        {{ i.errors }}
+                        {{ field }}
+                        {{ field.errors }}
                     </div>
 
                 {% endfor %}

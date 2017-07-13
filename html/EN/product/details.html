@@ -67,7 +67,8 @@
 
                                 <!-- Frontend: Change name of __button__ field (data-action). -->
                                 {% if is_favorite %}
-                                    <button class="button post_button" type="button"
+                                    <button class="button post_button"
+                                            type="button"
                                             data-name="Favorite_{{ product.pk }}"
                                             data-action="favorite"
                                             data-value="{{ product.pk }}"
@@ -77,7 +78,8 @@
                                         Remove from favorite
                                     </button>
                                 {% else %}
-                                    <button class="button post_button" type="button"
+                                    <button class="button post_button"
+                                            type="button"
                                             data-name="Favorite_{{ product.pk }}"
                                             data-action="favorite"
                                             data-value="{{ product.pk }}"
@@ -140,10 +142,14 @@
                                 {% endif %}
 
 
-                                <!-- Frontend: Copy from edit product in /catalog/:/. -->
-                                <a href="/product/edit/{{ product.pk }}/">
-									<button class="button" type="button">Edit</button>
-								</a>
+                                <button class="button dialog_button"
+                                        type="button"
+                                        data-type="prompt"
+                                        data-name="product"
+                                        data-value="{{ product.pk }}"
+                                        data-dialog-reload="ground">
+                                    Edit
+                                </button>
                             {% endif %}
 
                         </div><!-- product_details-action_panel-buttons -->

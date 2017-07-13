@@ -4,7 +4,6 @@
 
 import {Form_Models} 		from './models'
 import * as validator 		from '../plugin/validator/controllers'
-import * as hide_form 		from '../plugin/hide_form/controllers'
 import * as auto_form 		from '../plugin/auto_form/controllers'
 import * as selected_form 	from '../plugin/selected_form/controllers'
 import * as file_converter 	from '../plugin/file_converter/controllers'
@@ -60,7 +59,6 @@ export let Form_Controllers = function(content_loader_controllers)
 		$('form', $container).submit(prepare_form_to_send);
 
 		validator.define($container);
-		hide_form.define($container);
 		auto_form.define($container);
 		selected_form.define($container);
 		file_converter.define($container);
