@@ -1,17 +1,17 @@
 {% load staticfiles %}
 {% load tags %}
 
-<li class="tile" data-id="{{ catalog.pk }}">
-    <a href="{{ catalog.url_name }}/">
+<li class="tile" data-id="{{ element.pk }}">
+    <a href="{{ element.url_name }}/">
 
         <div class="tile-img mini_image">
             <div class="fill-abs">
-                <img data-src="{{ catalog.image }}" alt="{{ catalog.name }}" src="{% static 'img/pixel.png' %}" />
+                <img data-src="{{ element.image }}" alt="{{ element.name }}" src="{% static 'img/pixel.png' %}" />
             </div>
         </div>
 
         <h3 class="tile-title">
-            {{ catalog.name }}
+            {{ element.name }}
         </h3>
     </a>
 
@@ -23,7 +23,7 @@
                     type="button"
                     data-type="prompt"
                     data-name="catalog"
-                    data-value="{{ catalog.pk }}"
+                    data-value="{{ element.pk }}"
                     data-dialog-reload="ground">
                 <span class="button-icon img-edit"> &nbsp; </span>
             </button>

@@ -16,10 +16,11 @@ export let Form_Models = function(content_loader_controllers)
 	this.loader_controllers = content_loader_controllers;
 
 	this.variables = {
-		name:               undefined,
-		list_to_reload:     undefined,
-		url_to_redirect:    undefined,
-		list_event:         undefined,
+		name:           undefined,
+		reload:     	undefined,
+		redirect:    	undefined,
+		event:         	undefined,
+		delay:         	undefined,
 	};
 
 
@@ -45,9 +46,16 @@ export let Form_Models = function(content_loader_controllers)
 			if(utilities.html_is_error(HTML_response, status))
 				return false;
 
-			utilities.reload_plugins(that.variables.list_to_reload);
-			utilities.redirect_ground(that.variables.url_to_redirect);
-			utilities.launch_event(that.variables.list_event);
+			let events = {
+				reload: that.variables.reload,
+				redirect: that.variables.redirect,
+				events: that.variables.event,
+				delay: that.variables.delay,
+			};
+
+			utilities.reload_plugins(events);
+			utilities.redirect_ground(events);
+			utilities.launch_event(events);
 		};
 
 

@@ -1,7 +1,8 @@
 <div class="block-content products tiles">
 
+    <!-- Backend: Exchange favorites to elements. -->
     <ul class="tiles-list">
-        {% for product in favorites %}
+        {% for element in favorites %}
             {% include 'part/ground/plugin/product/html/tile/product.html' %}
         {% endfor %}
     </ul>

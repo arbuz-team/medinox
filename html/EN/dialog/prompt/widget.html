@@ -56,11 +56,19 @@
         <div class="dialog-content-part">
             <div class="scroll">
 
-                {% for value in values %}
-                    <div>
-                        {{ value.name }} - Dopłata: {{ value.super_price }}
-                    </div>
-                {% endfor %}
+				{% if values %}
+
+					{% for value in values %}
+						<div>
+							{{ value.name }} - Dopłata: {{ value.super_price }}
+						</div>
+					{% endfor %}
+
+				{% else %}
+
+                    <div> No found </div>
+
+                {%  %}
             </div>
         </div>
 
@@ -71,12 +79,12 @@
         <!--buttons-->
 
         {% if edit %}
-            <button class="button post_button dialog-content-button"
+            <button class="button post_button"
                     type="button"
-                    data-dialog-button="cancel"
                     data-name="widget"
                     data-action="delete"
                     data-reload="ground"
+                    data-event="plugins.close_dialog"
                     data-url="{{ edit.url }}">
                 Delete
             </button>

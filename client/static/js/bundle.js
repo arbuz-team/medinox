@@ -46,10 +46,8 @@
 
 	'use strict';
 	
-	//noinspection JSUnresolvedFunction
 	__webpack_require__(1);
 	
-	//noinspection JSUnresolvedFunction
 	window.viewability = function () {
 	  return __webpack_require__(5);
 	}();
@@ -79,11 +77,7 @@
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	page_controller.start(); /**
-	                          * Created by mrskull on 24.11.16.
-	                          */
-	
-	// import './autosize-master/dist/autosize';
+	page_controller.start();
 
 /***/ },
 /* 6 */
@@ -93,20 +87,9 @@
 	
 	var _base = __webpack_require__(7);
 	
-	/*---------------- Interfejs funkcji standardowych ----------------*/
-	
-	/**
-	 *    Defining global veriables
-	 */
-	
-	window.APP = {}; /*    JavaScript    */
-	
+	window.APP = {};
 	window.APP.DATA = {};
 	window.APP.dictionary = new _base.Dictionary();
-	
-	/**
-	 *    Defining global functions
-	 */
 	
 	APP.add_own_event = function add_own_event(name, callback) {
 	  window.removeEventListener(name, callback, false);
@@ -138,7 +121,6 @@
 	  var fields = $(this).serializeArray(),
 	      form_object = {};
 	
-	  // Appending normal fields to array
 	  $.each(fields, function (i, field) {
 	    form_object[field.name] = field.value;
 	  });
@@ -159,18 +141,6 @@
 	};
 	
 	if (!String.prototype.splice) {
-	  /**
-	   * {JSDoc}
-	   *
-	   * The splice() method changes the content of a string by removing a range of
-	   * characters and/or adding new characters.
-	   *
-	   * @this {String}
-	   * @param {number} start Index at which to start changing the string.
-	   * @param {number} delCount An integer indicating the number of old chars to remove.
-	   * @param {string} newSubStr The String that is spliced in.
-	   * @return {string} A new string with the spliced substring.
-	   */
 	  String.prototype.splice = function (start, delCount, newSubStr) {
 	    return this.slice(0, start) + newSubStr + this.slice(start + Math.abs(delCount));
 	  };
@@ -189,10 +159,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	/**
-	 * Created by mrskull on 20.02.17.
-	 */
-	
 	var Dictionary = exports.Dictionary = function Dictionary() {
 	  var dictionary = window.DATA.dictionary;
 	
@@ -228,10 +194,6 @@
 	
 	var _structure = __webpack_require__(9);
 	
-	/**
-	 *    Defining private functions
-	 */
-	
 	var send_post_preprocess_url = function send_post_preprocess_url(response_url) {
 	  if (response_url && response_url.substring && response_url.substring(0, 1) === '/') return response_url;else return _structure.data_controller.get('path');
 	},
@@ -250,14 +212,6 @@
 	    callback(html, status, code);
 	  };
 	};
-	
-	/**
-	 *    Defining global functions
-	 */
-	
-	/**
-	 * Created by mrskull on 20.12.16.
-	 */
 	
 	window.APP.http_request = function (url, post_data, callback) {
 	  url = send_post_preprocess_url(url);
@@ -283,8 +237,6 @@
 	exports.data_controller = undefined;
 	
 	__webpack_require__(10);
-	
-	/*---------------- Struktura Dane_Strony ----------------*/
 	
 	var data_controller = exports.data_controller = new function Data_Controler() {
 	  var private_data = void 0,
@@ -333,19 +285,13 @@
 	      }
 	    }
 	  };
-	}(); /**
-	      * Created by mrskull on 24.11.16.
-	      */
+	}();
 
 /***/ },
 /* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	/**
-	 * Created by mrskull on 24.11.16.
-	 */
 	
 	window.EVENTS = {
 		define: new Event('define'),
@@ -413,12 +359,6 @@
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	/*---------------- Wydarzenia na stronie ----------------*/
-	
-	/**
-	 * Created by mrskull on 24.11.16.
-	 */
-	
 	var reload_sign_in = function reload_sign_in(permissions) {
 		return function () {
 			var delay = window.APP.DATA.delay,
@@ -444,7 +384,6 @@
 		}, delay);
 	},
 	    define = function define() {
-		// Usuń wszystkie wydarzenia ze wszystkich elementów
 		$('*').off();
 	
 		searcher_controllers.define();
@@ -489,14 +428,6 @@
 	
 	var _controllers4 = __webpack_require__(34);
 	
-	/**
-	 *    Defining private variables
-	 */
-	
-	/**
-	 * Created by mrskull on 07.01.17.
-	 */
-	
 	var searcher_loader_controllers = new _controllers.Plugins_Loader_Controllers({
 	  name: 'searcher',
 	  url: '/searcher/',
@@ -518,10 +449,6 @@
 	  container: '#SEARCHER'
 	}),
 	    searcher_form_controllers = new _controllers3.Form_Controllers(searcher_loader_controllers);
-	
-	/**
-	 *    Defining public functions
-	 */
 	
 	var define = exports.define = function define() {
 	  window.APP.add_own_event('searcher_open', searcher_motion_controllers.plugin_open);
@@ -550,19 +477,11 @@
 	
 	var _views = __webpack_require__(14);
 	
-	/**
-	 * Created by mrskull on 24.11.16.
-	 */
-	
 	var Plugins_Loader_Controllers = exports.Plugins_Loader_Controllers = function Plugins_Loader_Controllers(config) {
 	  var plugin_loader_views = new _views.Plugins_Loader_Views(config);
 	
 	  this.load = plugin_loader_views.change_content;
 	  this.container = plugin_loader_views.models.settings.container;
-	
-	  /**
-	   *    Defining private functions
-	   */
 	
 	  this.redirect = function () {
 	    var _this = this;
@@ -597,10 +516,6 @@
 	    setTimeout(plugin_loader_views.change_content, delay);
 	  };
 	
-	  /**
-	   *    Defining public functions
-	   */
-	
 	  this.define = function () {
 	    var plugin_name = plugin_loader_views.models.settings.name,
 	        auto_first_loading = plugin_loader_views.models.settings.auto_first_loading;
@@ -632,20 +547,12 @@
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	/**
-	 *    Created by mrskull on 24.11.16.
-	 */
-	
 	var Plugins_Loader_Views = exports.Plugins_Loader_Views = function Plugins_Loader_Views(config) {
 		var models = new _models.Plugins_Loader_Models(config),
 		    external_callback = void 0,
 		    data_controller = models.data_controller;
 	
 		this.models = models;
-	
-		/**
-	  *    Defining showing functions
-	  */
 	
 		var load_header_page = function load_header_page(object) {
 			data_controller.change_much({
@@ -715,10 +622,6 @@
 			}
 		};
 	
-		/**
-	  *    Defining hidding functions
-	  */
-	
 		var prepare_content_to_hide = function prepare_content_to_hide(url, post_data) {
 			models.variables.can_do_redirect = false;
 			models.variables.reload = models.if_reload(url);
@@ -739,10 +642,6 @@
 				models.download_content(models.variables.url, show_content);
 			});
 		};
-	
-		/**
-	  *    Defining public functions
-	  */
 	
 		this.change_content = hide_content;
 	};
@@ -765,10 +664,6 @@
 	
 		this.data_controller = _structure.data_controller;
 	
-		/**
-	  *    Plugin settings
-	  */
-	
 		this.settings = {
 			name: undefined,
 			url: undefined,
@@ -790,25 +685,18 @@
 			}
 		};
 	
-		// -- Load settings
 		(function () {
 			if (typeof config !== 'undefined') {
-				// -- Name
 				if (typeof config.name !== 'undefined') that.settings.name = config.name;
 	
-				// -- URL
 				if (typeof config.url !== 'undefined') that.settings.url = window.APP.dictionary.get_word(config.url);
 	
-				// -- Container
 				if (typeof config.load_with_page !== 'undefined') that.settings.load_with_page = config.load_with_page;
 	
-				// -- Container
 				if (typeof config.auto_first_loading !== 'undefined') that.settings.auto_first_loading = config.auto_first_loading;
 	
-				// -- Load with page
 				if (typeof config.container !== 'undefined') that.settings.container = config.container;
 	
-				// -- Duration
 				if (typeof config.duration !== 'undefined') {
 					var duration = config.duration;
 	
@@ -817,7 +705,6 @@
 					if (typeof duration.hide !== 'undefined') that.settings.duration.hide = duration.hide;
 				}
 	
-				// -- Opacity
 				if (typeof config.opacity !== 'undefined') {
 					var opacity = config.opacity;
 	
@@ -827,10 +714,6 @@
 				}
 			}
 		})();
-	
-		/**
-	  *    Plugin variables
-	  */
 	
 		this.variables = {
 			url: undefined,
@@ -845,10 +728,6 @@
 			redirect_time_out: undefined
 		};
 	
-		/**
-	  *    Defining prepare functions
-	  */
-	
 		this.prepare_url = function (response_url) {
 			if (!response_url) if (typeof this.settings.url !== 'undefined') response_url = this.settings.url;else response_url = _structure.data_controller.get('path');
 	
@@ -862,10 +741,6 @@
 	
 			this.variables.post_data = post_data;
 		};
-	
-		/**
-	  *    Defining refresh functions
-	  */
 	
 		this.refresh_data = function () {
 			_structure.data_controller.reset();
@@ -882,17 +757,11 @@
 			return old_url === new_url || !new_url;
 		};
 	
-		/**
-	  *    Defining download functions
-	  */
-	
 		this.download_content = function (url, callback) {
 			this.prepare_url(url);
 			window.APP.http_request(this.variables.url, this.variables.post_data, callback);
 		};
-	}; /**
-	    * Created by mrskull on 26.12.16.
-	    */
+	};
 
 /***/ },
 /* 16 */
@@ -911,8 +780,6 @@
 	var attr = function attr(elem, name) {
 	  return elem.getAttribute(name);
 	};
-	
-	////////////////////////////////////////
 	
 	var define = exports.define = function define() {
 	  var $images = $query('img'),
@@ -972,34 +839,7 @@
 	
 	  this.views = plugin_motion_views;
 	
-	  ///////////////////////////////
-	
-	  var
-	
-	  // swipe_open = function()
-	  // {
-	  //   if(plugin_motion_views.models.check_possibility_of_swipe())
-	  //     plugin_motion_views.plugin_open();
-	  // },
-	
-	
-	  // swipe_close = function()
-	  // {
-	  //   if(plugin_motion_views.models.check_possibility_of_swipe())
-	  //     plugin_motion_views.plugin_close();
-	  // },
-	  //
-	  //
-	  // pre_swipe_open = function(event)
-	  // {
-	  //   let y = event.gesture.center.y - event.gesture.distance;
-	  //
-	  //   if(y <= 70)
-	  //     swipe_open();
-	  // },
-	
-	
-	  pre_plugin_close = function pre_plugin_close() {
+	  var pre_plugin_close = function pre_plugin_close() {
 	    var container = settings.container,
 	        $container = $(container),
 	        $window = $(window);
@@ -1041,24 +881,12 @@
 	    event.stopPropagation();
 	  };
 	
-	  //////////////////////////////////////////
-	
 	  this.define = function () {
 	    var $window = $(window),
 	        $body = $('body'),
 	        $container = $(settings.container),
 	        $content = $(settings.content),
 	        $hide = $(settings.container + ' > ' + settings.hide);
-	
-	    // -- Swipe events
-	    // if(settings.direction_open === 'top' || settings.direction_open === 'bottom')
-	    //   $body.hammer().on(settings.swipe_open, pre_swipe_open);
-	    // else
-	    //   $body.hammer().on(settings.swipe_open, swipe_open);
-	    //
-	    // $body.hammer().on(settings.swipe_close, swipe_close);
-	    // $body.data('hammer').get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-	
 	
 	    if (settings.container !== '#CART' && settings.container !== '#NAVIGATION') {
 	      $body.click(plugin_motion_views.plugin_close);
@@ -1085,9 +913,7 @@
 	  this.plugin_open = plugin_motion_views.plugin_open;
 	  this.plugin_close = plugin_motion_views.plugin_close;
 	  this.is_open = plugin_motion_views.is_open;
-	}; /**
-	    * Created by mrskull on 06.01.17.
-	    */
+	};
 
 /***/ },
 /* 18 */
@@ -1149,9 +975,7 @@
 	      if (container === '#CART') $('#GROUND .ground').removeClass('smaller').stop().animate({ 'margin-right': 0 }, duration_close);
 	    }
 	  };
-	}; /**
-	    * Created by mrskull on 06.01.17.
-	    */
+	};
 
 /***/ },
 /* 19 */
@@ -1190,30 +1014,24 @@
 	
 	  var load_settings = function load_settings() {
 	    if (typeof config !== 'undefined') {
-	      // -- Container
 	      if (typeof config.container !== 'undefined') that.settings.container = config.container;
 	
-	      // -- Children container
 	      if (typeof config.content !== 'undefined') that.settings.content = config.container + ' ' + config.content;
 	
-	      // -- Witdh & height
 	      var $container = $(that.settings.container);
 	      that.settings.width = $container.outerWidth();
 	      that.settings.height = $container.outerHeight();
 	
-	      // -- Can open
 	      if (typeof config.can_open_by !== 'undefined') that.settings.can_open_by = config.can_open_by;
 	
 	      if (typeof config.can_open_from !== 'undefined') that.settings.can_open_from = config.can_open_from;
 	
 	      if (typeof config.can_open_to !== 'undefined') that.settings.can_open_to = config.can_open_to;
 	
-	      // -- Duration open & close
 	      if (typeof config.duration_open !== 'undefined') that.settings.duration_open = config.duration_open;
 	
 	      if (typeof config.duration_close !== 'undefined') that.settings.duration_close = config.duration_close;
 	
-	      // -- Swipe & direction
 	      if (typeof config.open !== 'undefined') {
 	        switch (config.open) {
 	          case 'right':
@@ -1250,14 +1068,10 @@
 	
 	  load_settings();
 	
-	  /////////////////////////
-	
 	  this.state = {
 	    is_open: false,
 	    is_not_set: true
 	  };
-	
-	  /////////////////////////
 	
 	  var check_by_sizes = function check_by_sizes() {
 	    var width_window = $(window).outerWidth(),
@@ -1290,12 +1104,6 @@
 	    return !this.state.is_open;
 	  };
 	
-	  // this.check_possibility_of_swipe = function()
-	  // {
-	  //   return check_mobile_by_sizes();
-	  // };
-	
-	
 	  this.check_possibility_of_opening = function () {
 	    if (check_by_sizes()) if (_structure.data_controller.get('can_do_open_plugin')) return this.check_is_close();else if (this.settings.container === '#CART') return this.check_is_close();
 	
@@ -1307,9 +1115,7 @@
 	
 	    if (this.settings.container !== '#CART') _structure.data_controller.change('can_do_open_plugin', bool);
 	  };
-	}; /**
-	    * Created by mrskull on 06.01.17.
-	    */
+	};
 
 /***/ },
 /* 20 */
@@ -1346,10 +1152,6 @@
 		var form_models = new _models.Form_Models(content_loader_controllers),
 		    variables = form_models.variables;
 	
-		/**
-	  *    Defining private functions
-	  */
-	
 		var prepare_form_to_send = function prepare_form_to_send(event) {
 			var form_action = $(this).attr('action'),
 			    protocol = void 0;
@@ -1363,17 +1165,14 @@
 				    url = $(this).attr('action'),
 				    form_object = $(this).serialize_object();
 	
-				variables.list_to_reload = $(this).data('reload');
-				variables.url_to_redirect = $(this).data('redirect');
-				variables.list_event = $(this).data('event');
+				variables.reload = $(this).data('reload');
+				variables.redirect = $(this).data('redirect');
+				variables.event = $(this).data('event');
+				variables.delay = $(this).data('event');
 	
 				form_models.send(form_name, url, form_object);
 			}
 		};
-	
-		/**
-	  *    Defining public functions
-	  */
 	
 		this.define = function () {
 			var $container = $(content_loader_controllers.container);
@@ -1385,9 +1184,7 @@
 			selected_form.define($container);
 			file_converter.define($container);
 		};
-	}; /**
-	    * Created by mrskull on 24.11.16.
-	    */
+	};
 
 /***/ },
 /* 21 */
@@ -1409,22 +1206,15 @@
 	var Form_Models = exports.Form_Models = function Form_Models(content_loader_controllers) {
 		var that = this;
 	
-		/**
-	  *    Defining settings
-	  */
-	
 		this.loader_controllers = content_loader_controllers;
 	
 		this.variables = {
 			name: undefined,
-			list_to_reload: undefined,
-			url_to_redirect: undefined,
-			list_event: undefined
+			reload: undefined,
+			redirect: undefined,
+			event: undefined,
+			delay: undefined
 		};
-	
-		/**
-	  *    Defining private functions
-	  */
 	
 		var prepare_post_data = function prepare_post_data(form_name, post_data) {
 			if (!post_data) post_data = {};
@@ -1436,23 +1226,24 @@
 		    end_loading = function end_loading(HTML_response, status) {
 			if (utilities.html_is_error(HTML_response, status)) return false;
 	
-			utilities.reload_plugins(that.variables.list_to_reload);
-			utilities.redirect_ground(that.variables.url_to_redirect);
-			utilities.launch_event(that.variables.list_event);
-		};
+			var events = {
+				reload: that.variables.reload,
+				redirect: that.variables.redirect,
+				events: that.variables.event,
+				delay: that.variables.delay
+			};
 	
-		/**
-	  *    Defining public functions
-	  */
+			utilities.reload_plugins(events);
+			utilities.redirect_ground(events);
+			utilities.launch_event(events);
+		};
 	
 		this.send = function (form_name, url, post_data) {
 			post_data = prepare_post_data(form_name, post_data);
 	
 			if (typeof this.loader_controllers !== 'undefined') this.loader_controllers.load(url, post_data, end_loading);else console.error('Valid config object.');
 		};
-	}; /**
-	    * Created by mrskull on 21.01.17.
-	    */
+	};
 
 /***/ },
 /* 22 */
@@ -1463,10 +1254,6 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	/**
-	 * Created by mrskull on 08.05.17.
-	 */
-	
 	var html_is_error = exports.html_is_error = function html_is_error(HTML_response, status) {
 		if (status !== 'success') return true;
 	
@@ -1483,8 +1270,14 @@
 	
 		return false;
 	},
-	    reload_plugins = exports.reload_plugins = function reload_plugins(plugins) {
-		var plugins_array = void 0,
+	    prepare_delay = exports.prepare_delay = function prepare_delay(data) {
+		var delay = data.delay;
+	
+		if (delay >= 0) window.APP.DATA.delay = delay;else window.APP.DATA.delay = 0;
+	},
+	    reload_plugins = exports.reload_plugins = function reload_plugins(data) {
+		var plugins = data.reload,
+		    plugins_array = void 0,
 		    array_length = void 0;
 	
 		if (!plugins || typeof plugins !== 'string') return false;
@@ -1494,31 +1287,45 @@
 	
 		for (var i = 0; i < array_length; ++i) {
 			if (plugins_array[i]) {
-				window.APP.DATA.delay = 0;
+				prepare_delay(data);
 				window.APP.throw_event(window.EVENTS.plugins['reload_' + plugins_array[i]]);
 			}
 		}
 	},
-	    redirect_ground = exports.redirect_ground = function redirect_ground(url) {
+	    redirect_ground = exports.redirect_ground = function redirect_ground(data) {
+		var url = data.redirect;
+	
 		if (!url || typeof url !== 'string') return false;
 	
 		window.APP.DATA.redirect = url;
-		window.APP.DATA.delay = 100;
+		prepare_delay(data);
 		window.APP.throw_event(window.EVENTS.redirect);
 	},
-	    launch_event = exports.launch_event = function launch_event(event) {
-		var split_event = void 0,
-		    ready_event = window.EVENTS;
+	    launch_event = exports.launch_event = function launch_event(data) {
+		var events = data.events,
+		    events_array = void 0,
+		    array_length = void 0;
 	
-		if (!event || typeof event !== 'string') return false;
+		if (!events || typeof events !== 'string') return false;
 	
-		split_event = event.split('.');
+		events_array = events.split(' ');
+		array_length = events_array.length;
 	
-		for (var i = 0; split_event.length > i; ++i) {
-			ready_event = ready_event[split_event[i]];
-		}if (ready_event.constructor === Event) {
-			window.APP.DATA.delay = 100;
-			window.APP.throw_event(ready_event); // example plugins.close_cart
+		for (var i = 0; i < array_length; ++i) {
+			if (events_array[i]) {
+				var select_event = events_array[i],
+				    split_event = void 0,
+				    ready_event = window.EVENTS;
+	
+				split_event = select_event.split('.');
+	
+				for (var _i = 0; split_event.length > _i; ++_i) {
+					ready_event = ready_event[split_event[_i]];
+				}if (ready_event.constructor === Event) {
+					prepare_delay(data);
+					window.APP.throw_event(ready_event);
+				} else console.error('Event error: This event doesn\'t exist');
+			}
 		}
 	};
 
@@ -1547,7 +1354,6 @@
 	    if (name || type) {
 	      Validators[name] = new _checkers.Constructor_Validator(name, type);
 	
-	      // Sprawdzanie wszystkich pól by odblokować guzik w razie ich poprawnego wypełnienia
 	      var fields_of_form = Validators[name].hasErrors();
 	      for (var key in fields_of_form) {
 	        if (fields_of_form.hasOwnProperty(key)) {
@@ -1565,8 +1371,6 @@
 	    if ($(this).is(':checked')) show_password(this);else hide_password(this);
 	  });
 	};
-	
-	//////////////////////////////   VIEWS VALIDATOR   ///////////////////////////////////
 	
 	var running_validator = false,
 	    form_name = void 0,
@@ -1592,7 +1396,6 @@
 	    field_name = $(field).attr('name');
 	    field_value = $(field).val();
 	
-	    // Sprawdzanie pojedynczego pola poprzez checker przypisany do jego nazwy
 	    Validator.field(field_name, field_value, show_status);
 	  }
 	};
@@ -1608,7 +1411,6 @@
 	
 	    Validator.change_status_field(field_name, bool);
 	
-	    // Sprawdź czy istnieje poprawiona wartość poli i jeśli tak to przypisz do tego pola.
 	    if ($field.val() != correction && typeof correction !== 'undefined' && correction !== '') $field.val(correction);
 	
 	    if (bool) {
@@ -1636,8 +1438,6 @@
 	    if (test_form) $button.prop('disabled', false);else $button.prop('disabled', true);
 	  }
 	};
-	
-	//////////////////////////////   VIEWS - SHOW/HIDE PASSWORD   ///////////////////////////////////
 	
 	var show_password = function show_password(checker) {
 	  var $checker = $(checker),
@@ -1672,11 +1472,7 @@
 	});
 	
 	
-	/////////////////////////////  Prepare checkers  ///////////////////////////////
-	
 	_views.Constructor_Validator.prototype.types = {};
-	
-	/////////////////////////////  Checkers  ///////////////////////////////
 	
 	_views.checker.create_checker('email', function (value, callback) {
 	  var result = _views.checker.create_result(),
@@ -1751,8 +1547,6 @@
 	  callback(result);
 	});
 	
-	////////////////      LENGTH      ///////////////////
-	
 	_views.checker.create_checker('length_3', function (value, callback) {
 	  var result = _views.checker.create_result();
 	
@@ -1760,8 +1554,6 @@
 	
 	  callback(result);
 	});
-	
-	////////////////////////////////////////////
 
 /***/ },
 /* 25 */
@@ -1777,8 +1569,6 @@
 	var _config = __webpack_require__(26);
 	
 	var _structure = __webpack_require__(9);
-	
-	//////////////////////////////////////////////////////
 	
 	var checker = exports.checker = {
 	
@@ -1832,10 +1622,7 @@
 	  }
 	};
 	
-	///////////////////////////////////////////////////////////////////////////////////////
-	
 	var Constructor_Validator = exports.Constructor_Validator = function Constructor_Validator(form_name, form_type) {
-	  // define base veriable
 	
 	  var fields_of_form = void 0,
 	      $form = $('form[data-name=' + form_name + ']');
@@ -1843,8 +1630,6 @@
 	  this.config = _config.list_configs[form_type];
 	
 	  if (!this.config) console.error('Validation Error: Invalid form type of list configs.');
-	
-	  // definitions function
 	
 	  this.change_status_field = function (name, value) {
 	    if (typeof fields_of_form[name] === 'boolean') {
@@ -1870,8 +1655,6 @@
 	  };
 	
 	  fields_of_form = prepare_list_fields();
-	
-	  ////////////////////////////////////////////////////
 	
 	  this.field = function (name, value, callback) {
 	    if (name && value) {
@@ -1983,9 +1766,7 @@
 	    do_nothing = function do_nothing(event) {
 	  event.preventDefault();
 	  return false;
-	}; /**
-	    * Created by mrskull on 17.01.17.
-	    */
+	};
 	
 	var define = exports.define = function define($container) {
 	  var $forms = $('form.auto_form, .auto_form form', $container);
@@ -2023,52 +1804,23 @@
 	
 	  this.models = models;
 	
-	  /**
-	   *    Defining public functions
-	   */
-	
 	  var check_is_number = function check_is_number(event) {
 	    var keycode = event.keyCode,
-	        valid = keycode === 8 || keycode === 46 || // backspace & delete
-	    keycode > 47 && keycode < 58 // number keys
-	    || keycode > 95 && keycode < 112 // numpad keys
-	    ;
+	        valid = keycode === 8 || keycode === 46 || keycode > 47 && keycode < 58 || keycode > 95 && keycode < 112;
 	
 	    return valid;
 	  };
 	
 	  var check_is_not_number_or_functionaly = function check_is_not_number_or_functionaly(event) {
 	    var keycode = event.keyCode,
-	        valid =
-	    //(keycode === 8 || keycode === 46)       // backspace & delete
-	    // || keycode > 47 && keycode < 58        // number keys
-	    keycode === 32 || keycode === 13 // spacebar & return key(s) (if you want to allow carriage returns)
-	    || keycode > 64 && keycode < 91 // letter keys
-	    // || (keycode > 95 && keycode < 112)     // numpad keys
-	    || keycode > 185 && keycode < 193 // ;=,-./` (in order)
-	    || keycode > 218 && keycode < 223 // [\]' (in order)
-	    || keycode == 16 // shift
-	    || event.ctrlKey || event.shiftKey || keycode > 105 && keycode < 110 // "*-+,"
-	    || keycode == 111 // "/"
-	    ;
+	        valid = keycode === 32 || keycode === 13 || keycode > 64 && keycode < 91 || keycode > 185 && keycode < 193 || keycode > 218 && keycode < 223 || keycode == 16 || event.ctrlKey || event.shiftKey || keycode > 105 && keycode < 110 || keycode == 111;
 	
 	    return valid;
 	  };
 	
 	  var check_is_not_functionaly = function check_is_not_functionaly(event) {
 	    var keycode = event.keyCode,
-	        valid =
-	    //(keycode === 8 || keycode === 46)       // backspace & delete
-	    keycode > 47 && keycode < 58 // number keys
-	    || keycode === 32 || keycode === 13 // spacebar & return key(s) (if you want to allow carriage returns)
-	    || keycode > 64 && keycode < 91 // letter keys
-	    || keycode > 95 && keycode < 112 // numpad keys
-	    || keycode > 185 && keycode < 193 // ;=,-./` (in order)
-	    || keycode > 218 && keycode < 223 // [\]' (in order)
-	    || keycode == 16 // shift
-	    || event.ctrlKey || event.shiftKey || keycode > 105 && keycode < 110 // "*-+,"
-	    || keycode == 111 // "/"
-	    ;
+	        valid = keycode > 47 && keycode < 58 || keycode === 32 || keycode === 13 || keycode > 64 && keycode < 91 || keycode > 95 && keycode < 112 || keycode > 185 && keycode < 193 || keycode > 218 && keycode < 223 || keycode == 16 || event.ctrlKey || event.shiftKey || keycode > 105 && keycode < 110 || keycode == 111;
 	
 	    return valid;
 	  };
@@ -2139,10 +1891,6 @@
 	    }
 	  };
 	
-	  /**
-	   *    Defining private functions
-	   */
-	
 	  var show_changes = function show_changes() {
 	    var delay = void 0,
 	        function_for_setTimeout = function function_for_setTimeout() {
@@ -2182,13 +1930,7 @@
 	    window.APP.http_request(models.settings.action, post_data, set_response);
 	    show_changes();
 	  };
-	}; /**
-	    * Created by mrskull on 17.01.17.
-	    */
-	
-	/**
-	 *    Defining private functions
-	 */
+	};
 
 /***/ },
 /* 29 */
@@ -2199,10 +1941,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	/**
-	 * Created by mrskull on 17.01.17.
-	 */
-	
 	var Auto_Form_Models = exports.Auto_Form_Models = function Auto_Form_Models(config) {
 	  var that = this;
 	
@@ -2219,7 +1957,6 @@
 	
 	  var load_settings = function load_settings() {
 	    if (typeof config !== 'undefined') {
-	      // -- Form
 	      if (typeof config.form !== 'undefined') {
 	        that.settings.form = config.form;
 	
@@ -2231,14 +1968,11 @@
 	        that.settings.delay = $form.data('delay');
 	      }
 	
-	      // -- Fields
 	      if (typeof config.fields !== 'undefined') that.settings.fields = config.fields;
 	    }
 	  };
 	
 	  load_settings();
-	
-	  /////////////////////////
 	
 	  var state = {
 	    response: false,
@@ -2271,9 +2005,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	/**
-	 * Created by mrskull on 17.12.16.
-	 */
+	
 	
 	var change_fields = function change_fields(select_choice) {
 	  var important_fields = $(select_choice).data('important_fields'),
@@ -2352,9 +2084,7 @@
 	      $(field).click();
 	    });
 	  });
-	}; /**
-	    * Created by mrskull on 23.01.17.
-	    */
+	};
 
 /***/ },
 /* 32 */
@@ -2414,9 +2144,7 @@
 				$button_shell.html('Error / select again');
 			}, 500);
 		};
-	}; /**
-	    * Created by mrskull on 23.01.17.
-	    */
+	};
 
 /***/ },
 /* 33 */
@@ -2427,10 +2155,6 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	/**
-	 * Created by mrskull on 23.01.17.
-	 */
-	
 	var settings = exports.settings = {
 		form: 'form',
 		input_file: 'input[type=file]',
@@ -2497,9 +2221,7 @@
 	
 			$post_buttons.click(manage_buttons);
 		};
-	}; /**
-	    * Created by mrskull on 17.12.16.
-	    */
+	};
 
 /***/ },
 /* 35 */
@@ -2519,10 +2241,6 @@
 	var utilities = _interopRequireWildcard(_utilities);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	/**
-	 * Created by mrskull on 18.12.16.
-	 */
 	
 	var Post_Button_Views = exports.Post_Button_Views = function Post_Button_Views(config) {
 		var models = new _models.Post_Button_Models(config),
@@ -2604,15 +2322,24 @@
 			return false;
 		},
 		    end_loading = function end_loading(JSON_response, status) {
+			var events = void 0;
+	
 			models.state.is_loading = false;
 	
 			if (is_error(JSON_response, status)) return false;
 	
 			set_text.done();
 	
-			utilities.reload_plugins(models.settings.button_reload);
-			utilities.redirect_ground(models.settings.button_redirect);
-			utilities.launch_event(models.settings.button_event);
+			events = {
+				reload: models.settings.button_reload,
+				redirect: models.settings.button_redirect,
+				events: models.settings.button_event,
+				delay: models.settings.button_delay
+			};
+	
+			utilities.reload_plugins(events);
+			utilities.redirect_ground(events);
+			utilities.launch_event(events);
 	
 			set_text.standard();
 		};
@@ -2636,10 +2363,6 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	/**
-	 * Created by mrskull on 31.01.17.
-	 */
-	
 	var Post_Button_Models = exports.Post_Button_Models = function Post_Button_Models(config) {
 		var that = this,
 		    dictionary = window.APP.dictionary;
@@ -2696,8 +2419,6 @@
 	
 		load_settings();
 	
-		/////////////////////////
-	
 		this.state = {
 			is_loading: false
 		};
@@ -2705,8 +2426,6 @@
 		this.is_loading = function () {
 			return that.state.is_loading;
 		};
-	
-		/////////////////////////
 	
 		var prepare_post_data = function prepare_post_data() {
 			var obj = { __button__: that.settings.button_action },
@@ -2752,10 +2471,6 @@
 	
 	var _controllers5 = __webpack_require__(38);
 	
-	/**
-	 *    Defining private variables
-	 */
-	
 	var cart_loader_controllers = new _controllers.Plugins_Loader_Controllers({
 	  name: 'cart',
 	  url: '/cart/',
@@ -2789,14 +2504,6 @@
 	    if (cart_motion_controllers.is_open()) cart_motion_controllers.plugin_close();else cart_motion_controllers.plugin_open();
 	  }
 	};
-	
-	/**
-	 *    Defining public functions
-	 */
-	
-	/**
-	 * Created by mrskull on 07.01.17.
-	 */
 	
 	var define = exports.define = function define() {
 	  window.APP.add_own_event('cart_open', cart_motion_controllers.plugin_open);
@@ -2873,9 +2580,7 @@
 	
 	    $buttons.click(manage_buttons);
 	  };
-	}; /**
-	    * Created by mrskull on 17.12.16.
-	    */
+	};
 
 /***/ },
 /* 39 */
@@ -2890,71 +2595,31 @@
 	
 	var _models = __webpack_require__(40);
 	
+	var _utilities = __webpack_require__(22);
+	
+	var utilities = _interopRequireWildcard(_utilities);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
 	var Event_Button_Views = exports.Event_Button_Views = function Event_Button_Views(config) {
 	
 		var models = new _models.Event_Button_Models(config);
 	
 		this.models = models;
 	
-		var prepare_delay = function prepare_delay() {
-			var delay = models.settings.button_delay;
-	
-			if (delay >= 0) window.APP.DATA.delay = delay;else window.APP.DATA.delay = 0;
-		},
-		    reload_plugins = function reload_plugins() {
-			var plugins = models.settings.button_reload,
-			    plugins_array = void 0,
-			    array_length = void 0;
-	
-			if (!plugins || typeof plugins !== 'string') return false;
-	
-			plugins_array = plugins.split(' ');
-			array_length = plugins_array.length;
-	
-			for (var i = 0; i < array_length; ++i) {
-				if (plugins_array[i]) {
-					prepare_delay();
-					window.APP.throw_event(window.EVENTS.plugins['reload_' + plugins_array[i]]);
-				}
-			}
-		},
-		    redirect_ground = function redirect_ground() {
-			var url = models.settings.button_redirect;
-	
-			if (!url || typeof url !== 'string') return false;
-	
-			window.APP.DATA.redirect = url;
-			prepare_delay();
-			window.APP.throw_event(window.EVENTS.redirect);
-		},
-	
-	
-		// --- Frontend: Multi events
-		launch_event = function launch_event() {
-			var event = models.settings.button_event,
-			    split_event = void 0,
-			    ready_event = window.EVENTS;
-	
-			if (!event || typeof event !== 'string') return false;
-	
-			split_event = event.split('.');
-	
-			for (var i = 0; split_event.length > i; ++i) {
-				ready_event = ready_event[split_event[i]];
-			}if (ready_event.constructor === Event) {
-				prepare_delay();
-				window.APP.throw_event(ready_event); // example plugins.close_cart
-			} else console.error('Event error: This event doesn\'t exist');
-		};
-	
 		this.start = function () {
-			reload_plugins();
-			redirect_ground();
-			launch_event();
+			var events = {
+				reload: models.settings.button_reload,
+				redirect: models.settings.button_redirect,
+				events: models.settings.button_event,
+				delay: models.settings.button_delay
+			};
+	
+			utilities.reload_plugins(events);
+			utilities.redirect_ground(events);
+			utilities.launch_event(events);
 		};
-	}; /**
-	    * Created by mrskull on 18.12.16.
-	    */
+	};
 
 /***/ },
 /* 40 */
@@ -2965,10 +2630,6 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	/**
-	 * Created by mrskull on 31.01.17.
-	 */
-	
 	var Event_Button_Models = exports.Event_Button_Models = function Event_Button_Models(config) {
 		var that = this;
 	
@@ -3015,10 +2676,6 @@
 	
 	var _controllers3 = __webpack_require__(38);
 	
-	/**
-	 *    Defining private variables
-	 */
-	
 	var navigation_loader_controllers = void 0,
 	    config_loader = {
 	  name: 'navigation',
@@ -3044,14 +2701,6 @@
 	  container: '#NAVIGATION'
 	});
 	
-	/**
-	 *    Defining public functions
-	 */
-	
-	/**
-	 * Created by mrskull on 24.11.16.
-	 */
-	
 	var define = exports.define = function define() {
 	  window.APP.add_own_event('navigation_close', navigation_motion_controllers.plugin_close);
 	  window.APP.add_own_event('navigation_open', navigation_motion_controllers.plugin_open);
@@ -3060,11 +2709,9 @@
 	  event_button_controllers.define();
 	},
 	    start = exports.start = function start() {
-	  // -- Loader configuration
 	  navigation_loader_controllers = new _controllers.Plugins_Loader_Controllers(config_loader);
 	  navigation_loader_controllers.define();
 	
-	  // -- Motion configuration
 	  navigation_motion_controllers = new _controllers2.Plugins_Motion_Controllers(config_motion);
 	  navigation_motion_controllers.start();
 	},
@@ -3087,14 +2734,6 @@
 	
 	var _controllers2 = __webpack_require__(38);
 	
-	/**
-	 *    Defining private variables
-	 */
-	
-	/**
-	 * Created by mrskull on 08.01.17.
-	 */
-	
 	var header_loader_events = void 0,
 	    config_loader = {
 	  name: 'header',
@@ -3107,10 +2746,6 @@
 	    event_button_controllers = new _controllers2.Event_Button_Controllers({
 	  container: '#HEADER'
 	});
-	
-	/**
-	 *    Defining public functions
-	 */
 	
 	var define = exports.define = function define() {
 	  event_button_controllers.define();
@@ -3141,14 +2776,6 @@
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	/**
-	 *    Defining public functions
-	 */
-	
-	/**
-	 * Created by mrskull on 29.12.16.
-	 */
-	
 	var define = exports.define = function define() {
 		var selectors = dialog_views.selectors;
 	
@@ -3162,10 +2789,6 @@
 	
 		interior_dialog_controllers.define();
 	};
-	
-	/**
-	 *    Defining events functions
-	 */
 	
 	var close_with_cancel_event = function close_with_cancel_event(event) {
 		cancel_event(event);
@@ -3181,10 +2804,6 @@
 	    cancel_event = function cancel_event(event) {
 		event.stopPropagation();
 	};
-	
-	/**
-	 *    Defining public functions
-	 */
 	
 	var open = exports.open = function open() {
 		var $button = $(this),
@@ -3230,19 +2849,7 @@
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	/**
-	 *    Defining public variables
-	 */
-	
 	var selectors = exports.selectors = dialog_models.selectors;
-	
-	/**
-	 *    Defining private functions
-	 */
-	
-	/**
-	 * Created by mrskull on 29.12.16.
-	 */
 	
 	var show = function show() {
 	  $(selectors.container).css('opacity', '').fadeIn(200);
@@ -3258,10 +2865,6 @@
 	    lighten = function lighten() {
 	  $(selectors.container).animate({ opacity: 1 }, 300);
 	};
-	
-	/**
-	 *    Defining public functions
-	 */
 	
 	var open = exports.open = function open(dialog_data, additional_data) {
 	  dialog_models.open(dialog_data, additional_data, show);
@@ -3295,10 +2898,6 @@
 	var interior_dialog_models = _interopRequireWildcard(_models);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	/**
-	 * Created by mrskull on 29.12.16.
-	 */
 	
 	var selectors = exports.selectors = interior_dialog_models.selectors,
 	    save_type_and_name = exports.save_type_and_name = function save_type_and_name(dialog_data) {
@@ -3378,12 +2977,6 @@
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	/////////////////////////////
-	
-	/**
-	 * Created by mrskull on 21.01.17.
-	 */
-	
 	var load = exports.load = interior_dialog_views.load,
 	    reload = exports.reload = interior_dialog_views.reload;
 	
@@ -3433,9 +3026,7 @@
 	
 	var hide_if_error = function hide_if_error(response, status) {
 	  if (interior_dialog_models.is_error(response, status) === false) $(interior_dialog_models.selectors.container).hide();
-	}; /**
-	    * Created by mrskull on 21.01.17.
-	    */
+	};
 	
 	var models = exports.models = interior_dialog_models,
 	    container = exports.container = models.selectors.container,
@@ -3470,12 +3061,6 @@
 		}
 	});
 	
-	///////////////////////////////////////
-	
-	/**
-	 * Created by mrskull on 21.01.17.
-	 */
-	
 	var selectors = exports.selectors = {
 		container: '#DIALOG',
 		buttons: '#DIALOG .dialog-content-button'
@@ -3505,9 +3090,7 @@
 		return false;
 	},
 	    prepare_post_data = exports.prepare_post_data = function prepare_post_data(post_data) {
-		if (post_data) // if is form
-			variables.post_data = post_data;else // if is normal dialog
-			{
+		if (post_data) variables.post_data = post_data;else {
 				if (!variables.post_data) variables.post_data = {};
 	
 				variables.post_data['dialog_type'] = variables.type;
@@ -3580,9 +3163,7 @@
 	
 	    $form.find('button').click(manage_form);
 	  };
-	}; /**
-	    * Created by mrskull on 17.12.16.
-	    */
+	};
 
 /***/ },
 /* 50 */
@@ -3641,7 +3222,7 @@
 	      ready_event = ready_event[split_event[i]];
 	    }if (ready_event.constructor === Event) {
 	      window.APP.DATA.delay = 100;
-	      window.APP.throw_event(ready_event); // example plugins.close_cart
+	      window.APP.throw_event(ready_event);
 	    }
 	  },
 	      end_loading = function end_loading(JSON_response, status) {
@@ -3666,9 +3247,7 @@
 	    models.settings.value = value;
 	    models.send_post(end_loading);
 	  };
-	}; /**
-	    * Created by mrskull on 18.12.16.
-	    */
+	};
 
 /***/ },
 /* 51 */
@@ -3679,10 +3258,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	/**
-	 * Created by mrskull on 31.01.17.
-	 */
-	
 	var Little_Form_Models = exports.Little_Form_Models = function Little_Form_Models(form_config) {
 	  var that = this;
 	
@@ -3714,8 +3289,6 @@
 	    window.APP.add_if_isset(form_config, that.settings, 'event');
 	  })();
 	
-	  /////////////////////////
-	
 	  var state = {
 	    loading: false,
 	    error: false
@@ -3736,8 +3309,6 @@
 	  this.set_state_error = function (setter) {
 	    if (setter) state.error = true;else state.error = false;
 	  };
-	
-	  /////////////////////////
 	
 	  var prepare_post_data = function prepare_post_data(name, value) {
 	    var post_data = {};
@@ -3790,14 +3361,6 @@
 	
 	var _controllers4 = __webpack_require__(38);
 	
-	/**
-	 *    Defining private variables
-	 */
-	
-	/**
-	 * Created by mrskull on 08.01.17.
-	 */
-	
 	var config_loader = {
 		name: 'ground',
 	
@@ -3815,10 +3378,6 @@
 		container: '#GROUND .ground'
 	}),
 	    ground_form_controllers = new _controllers2.Form_Controllers(ground_loader_controllers);
-	
-	/**
-	 *    Defining private functions
-	 */
 	
 	var change_url = function change_url(url) {
 		history.pushState('', url, url);
@@ -3881,10 +3440,6 @@
 	
 		$(this).addClass('is-long');
 	};
-	
-	/**
-	 *    Defining public functions
-	 */
 	
 	var define = exports.define = function define() {
 		change_height_content();

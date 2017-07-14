@@ -13,11 +13,11 @@
 
     {% include "part/ground/html/navigation.html" %}
 
-    {% if products or catalogs or request.session.root_login %}
+    {% if elements or request.session.root_login %}
         {% include 'part/ground/plugin/product/html/tiles_list/products.html' %}
     {% endif %}
 
-    {% if not products and not catalogs %}
+    {% if not elements %}
         <div class="block-content-message">No products found</div>
     {% endif %}
 

@@ -1,11 +1,12 @@
 <div class="block-content products tiles recommended">
 
+    <!-- Backend: Exchange recommended to elements. -->
     <ul class="tiles-list">
         {% if request.session.root_login %}
             {% include 'part/ground/plugin/product/html/tile/adding_recommended_product.html' %}
         {% endif %}
 
-        {% for product in recommended %}
+        {% for element in recommended %}
             {% include 'part/ground/plugin/product/html/tile/product.html' %}
         {% endfor %}
     </ul>

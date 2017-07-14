@@ -123,6 +123,8 @@ export let Post_Button_Views = function(config)
 
 		end_loading = function(JSON_response, status)
 		{
+			let events;
+
 			models.state.is_loading = false;
 
 			if(is_error(JSON_response, status))
@@ -130,9 +132,17 @@ export let Post_Button_Views = function(config)
 
 			set_text.done();
 
-			utilities.reload_plugins(models.settings.button_reload);
-			utilities.redirect_ground(models.settings.button_redirect);
-			utilities.launch_event(models.settings.button_event);
+
+			events = {
+				reload: models.settings.button_reload,
+				redirect: models.settings.button_redirect,
+				events: models.settings.button_event,
+				delay: models.settings.button_delay,
+			};
+
+			utilities.reload_plugins(events);
+			utilities.redirect_ground(events);
+			utilities.launch_event(events);
 
 			set_text.standard();
 		};

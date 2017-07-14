@@ -31,12 +31,12 @@
         <!--buttons-->
 
         {% if edit %}
-            <button class="button post_button dialog-content-button"
+            <button class="button post_button"
                     type="button"
-                    data-dialog-button="cancel"
                     data-name="{{ form_name }}"
                     data-action="delete"
                     data-reload="ground"
+                    data-event="plugins.close_dialog"
                     data-url="{{ edit.url }}">
 				Delete
             </button>

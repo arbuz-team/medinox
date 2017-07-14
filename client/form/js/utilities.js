@@ -30,10 +30,23 @@ export let
 	},
 
 
-	reload_plugins = function(plugins)
+	prepare_delay = function(data)
+	{
+		let delay = data.delay;
+
+		if(delay >= 0)
+			window.APP.DATA.delay = delay;
+		else
+			window.APP.DATA.delay = 0;
+	},
+
+
+	reload_plugins = function(data)
 	{
 		let
-			plugins_array, array_length;
+			plugins = data.reload, // examples: "cart ground header navigation"
+			plugins_array,
+			array_length;
 
 		if(!plugins || typeof plugins !== 'string')
 			return false;
@@ -44,40 +57,58 @@ export let
 		for(let i = 0; i < array_length; ++i)
 			if(plugins_array[i])
 			{
-				window.APP.DATA.delay = 0;
+				prepare_delay(data);
 				window.APP.throw_event(window.EVENTS.plugins['reload_'+ plugins_array[i]]);
 			}
 	},
 
 
-	redirect_ground = function(url)
+	redirect_ground = function(data)
 	{
+		let url = data.redirect; // examples: "/contact/" or "https://google.com/"
+
 		if(!url || typeof url !== 'string')
 			return false;
 
 		window.APP.DATA.redirect = url;
-		window.APP.DATA.delay = 100;
+		prepare_delay(data);
 		window.APP.throw_event(window.EVENTS.redirect);
 	},
 
 
-	launch_event = function(event)
+	launch_event = function(data)
 	{
 		let
-			split_event,
-			ready_event = window.EVENTS;
+			events = data.events, // events examples: "plugins.close_cart plugins.close_dialog"
+			events_array,
+			array_length;
 
-		if(!event || typeof event !== 'string')
+		if(!events || typeof events !== 'string')
 			return false;
 
-		split_event = event.split('.');
+		events_array = events.split(' ');
+		array_length = events_array.length;
 
-		for(let i = 0; split_event.length > i; ++i)
-			ready_event = ready_event[split_event[i]];
 
-		if(ready_event.constructor === Event)
-		{
-			window.APP.DATA.delay = 100;
-			window.APP.throw_event(ready_event); // example plugins.close_cart
-		}
+		for(let i = 0; i < array_length; ++i)
+			if(events_array[i])
+			{
+				let select_event = events_array[i],
+					split_event,
+					ready_event = window.EVENTS;
+
+				split_event = select_event.split('.');
+
+				for(let i = 0; split_event.length > i; ++i)
+					ready_event = ready_event[split_event[i]];
+
+
+				if(ready_event.constructor === Event)
+				{
+					prepare_delay(data);
+					window.APP.throw_event(ready_event); // example plugins.close_cart
+				}
+				else
+					console.error('Event error: This event doesn\'t exist');
+			}
 	};

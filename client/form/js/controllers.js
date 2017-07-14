@@ -39,9 +39,10 @@ export let Form_Controllers = function(content_loader_controllers)
 					url = $(this).attr('action'),
 					form_object = $(this).serialize_object();
 
-				variables.list_to_reload = $(this).data('reload');
-				variables.url_to_redirect = $(this).data('redirect');
-				variables.list_event = $(this).data('event');
+				variables.reload = $(this).data('reload');
+				variables.redirect = $(this).data('redirect');
+				variables.event = $(this).data('event');
+				variables.delay = $(this).data('delay');s
 
 				form_models.send(form_name, url, form_object);
 			}

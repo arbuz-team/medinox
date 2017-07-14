@@ -1,10 +1,10 @@
 {% load tags %}
 
 <script>
-    window.APP.DATA = {
-        title : 'Internal error',
-        description : '',
-    };
+	window.APP.DATA = {
+		title : 'Internal error',
+		description : '',
+	};
 </script>
 
 <div class="ground-block block-1">
@@ -15,30 +15,28 @@
 
         <div class="block-content-message">
             {% if error == 'form' %}
-                Undefined form name.
+            Undefined form name.
             {% elif error == 'no_event' %}
-                No defining POST instruction.
-            {% elif error == 'no_exist' %}
-                The page not exists.
+            No defining POST instruction.
             {% elif error == 'unauthorized' %}
 
-                <script>
+            <script>
 
-                    // {% if request.session.arbuz_permissions == 'only_root' %}
-                        window.APP.DATA.redirect = "{% redirect 'root.sign_in' %}";
-                    // {% elif request.session.arbuz_permissions == 'authorization' %}
-                        window.APP.DATA.redirect = "{% redirect 'user.sign_in' %}";
-                    // {% endif %}
+				// {% if request.session.arbuz_permissions == 'only_root' %}
+				window.APP.DATA.redirect = "{% redirect 'root.sign_in' %}";
+				// {% elif request.session.arbuz_permissions == 'authorization' %}
+				window.APP.DATA.redirect = "{% redirect 'user.sign_in' %}";
+				// {% endif %}
 
-                    // {% if request.session.arbuz_permissions == 'only_root' or request.session.arbuz_permissions == 'authorization' %}
-                        window.APP.DATA.delay = 0;
-                        window.APP.throw_event(window.EVENTS.redirect);
-                    // {% endif %}
+				// {% if request.session.arbuz_permissions == 'only_root' or request.session.arbuz_permissions == 'authorization' %}
+				window.APP.DATA.delay = 0;
+				window.APP.throw_event(window.EVENTS.redirect);
+				// {% endif %}
 
-                </script>
+            </script>
 
             {% elif error == 'post_is_dangerous' %}
-                POST contain HTML tags. It is forbidden to use the expression <.*>
+            POST contain HTML tags. It is forbidden to use the expression <.*>
             {% endif %}
         </div><!-- block-content-message -->
 
@@ -53,9 +51,9 @@
 
 <div class="dialog-header">
     {% if error == 'form' or error == 'no_event' %}
-        Error!
+    Error!
     {% elif error == 'post_is_dangerous' %}
-        Dangerous!
+    Dangerous!
     {% endif %}
 </div>
 
@@ -64,22 +62,23 @@
 
     <div class="dialog-content-part">
         {% if error == 'form' %}
-            Undefined form name.
+        Undefined form name.
         {% elif error == 'no_event' %}
-            No defining POST instruction.
+        No defining POST instruction.
         {% elif error == 'post_is_dangerous' %}
-            POST contain HTML tags. It is forbidden to use the expression <.*>
+        POST contain HTML tags. It is forbidden to use the expression <.*>
         {% endif %}
     </div><!-- dialog-content-part -->
 
 
     <div class="dialog-content-part">
         <!--buttons-->
-
-        <button class="button dialog-content-button"
-				data-dialog-button="cancel">
-			Close
-		</button>
+        <button class="button event_button"
+                type="button"
+                data-name="button_close_dialog"
+                data-event="plugins.close_dialog">
+            Close
+        </button>
     </div><!-- dialog-content-part -->
 
 </div><!-- dialog-content -->
