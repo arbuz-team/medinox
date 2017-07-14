@@ -1393,7 +1393,6 @@ img {
     margin-right: 80px; } }
 
 .tile {
-  overflow: hidden;
   margin-bottom: 10px;
   padding: 30px;
   cursor: pointer; }
@@ -1489,7 +1488,8 @@ img {
   max-width: 300px;
   margin: 0;
   padding: 0; }
-  .products .tile-content .button {
+  .products .tile-content .tooltip {
+    position: absolute;
     top: -100%; }
 
 @media (min-width: 680px) {
@@ -1855,6 +1855,8 @@ img {
   .mini_cart.is-long {
     height: 280px;
     overflow: visible; }
+    .mini_cart.is-long.for-user {
+      height: 250px; }
     .mini_cart.is-long .mini_cart-shell {
       height: 0; }
 
@@ -1903,6 +1905,8 @@ img {
     margin-left: 10px;
     margin-right: 10px;
     cursor: auto; }
+    .ground:not(.smaller) .ground-block.BIG .mini_cart.for-user {
+      height: 250px; }
     .ground:not(.smaller) .ground-block.BIG .mini_cart:nth-child(2n + 3) {
       margin-right: 10px; }
   .ground:not(.smaller) .ground-block.BIG .mini_cart-shell {
@@ -1918,6 +1922,8 @@ img {
     margin-left: 10px;
     margin-right: 10px;
     cursor: auto; }
+    .ground.smaller .ground-block.BIG .mini_cart.for-user {
+      height: 250px; }
     .ground.smaller .ground-block.BIG .mini_cart:nth-child(2n + 3) {
       margin-right: 10px; }
   .ground.smaller .ground-block.BIG .mini_cart-shell {

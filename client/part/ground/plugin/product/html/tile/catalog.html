@@ -19,15 +19,40 @@
         &nbsp;
 
         {% if request.session.root_login %}
-            <button class="button is-icon is-right dialog_button"
-                    type="button"
-                    data-type="prompt"
-                    data-name="catalog"
-                    data-value="{{ element.pk }}"
-                    data-dialog-reload="ground">
-                <span class="button-icon img-edit"> &nbsp; </span>
-            </button>
+
+            <div class="tooltip align-right align-top is-right">
+
+                <button class="button is-icon tooltip_button"
+                        type="button"
+                        data-name="edit">
+                    <span class="button-icon img-edit"> &nbsp; </span>
+                </button>
+
+
+                <div class="tooltip-options">
+                    <button class="button dialog_button"
+                            type="button"
+                            data-type="prompt"
+                            data-name="catalog"
+                            data-value="{{ element.pk }}"
+                            data-dialog-reload="ground">
+                        Edit
+                    </button>
+
+                    <button class="button"
+                            type="button">
+                        Move
+                    </button>
+
+                    <button class="button"
+                            type="button">
+                        Copy
+                    </button>
+                </div>
+            </div>
+
         {% endif %}
+
     </div>
 </li>
 

@@ -5,6 +5,7 @@ $mini_cart--width: 300px
 
 $mini_cart-short--height: 50px
 $mini_cart-long--height: 280px
+$mini_cart-for-user-long--height: 250px
 
 
 .mini_cart
@@ -23,9 +24,13 @@ $mini_cart-long--height: 280px
   &:nth-child(3n + 4)
     margin-right: auto
 
+
   &.is-long
     height: $mini_cart-long--height
     overflow: visible
+
+    &.for-user
+      height: $mini_cart-for-user-long--height
 
     .mini_cart-shell
       height: 0
@@ -99,6 +104,10 @@ $mini_cart-long--height: 280px
       right: 10px
 
     cursor: auto
+
+    &.for-user
+      height: $mini_cart-for-user-long--height
+
 
     &:nth-child(2n + 3)
       margin-right: 10px
