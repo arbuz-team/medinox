@@ -39,25 +39,20 @@ description : ''
 
                 <div class="title"> Register </div>
 
-                {% for i in form %}
+                {% for field in form %}
 
-                    {% if i.name == 'password' %}
+                    {% if field.name == 'password' %}
 
                         <div>
-                            {{ i }}
+                            {{ field }}
                             <input class="input show_password"
 								   type="checkbox" />
-                            {{ i.errors }}
-                            <div class="status"></div>
+                            <div class="status">{{ field.errors }}</div>
                         </div>
 
                     {% else %}
 
-                        <div>
-                            {{ i }}
-                            {{ i.errors }}
-                            <div class="status"></div>
-                        </div>
+                        {% include "form/html/manage_field.html" %}
 
                     {% endif %}
 

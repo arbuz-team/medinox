@@ -5,6 +5,8 @@
 </div>
 
 
+<!-- Frontend: Test this dialog. -->
+
 <div class="dialog-content">
 
     <div class="dialog-content-part">
@@ -33,12 +35,7 @@
 
                     {% if field|is_checkbox %}
 
-                        <div class="selecter checkbox">
-                            {{ field }}
-                            <label for="id_{{ field.name }}" class="selecter-field"></label>
-                            <label for="id_{{ field.name }}" class="selecter-text">{{ field.label }}</label>
-                        </div>
-
+                        {% include "form/html/manage_field.html" %}
 
                     {% elif field|is_radio %}
 

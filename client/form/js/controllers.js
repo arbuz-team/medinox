@@ -42,7 +42,7 @@ export let Form_Controllers = function(content_loader_controllers)
 				variables.reload = $(this).data('reload');
 				variables.redirect = $(this).data('redirect');
 				variables.event = $(this).data('event');
-				variables.delay = $(this).data('delay');s
+				variables.delay = $(this).data('delay');
 
 				form_models.send(form_name, url, form_object);
 			}

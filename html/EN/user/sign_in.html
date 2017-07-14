@@ -36,16 +36,9 @@
 
                 <div class="title"> Sign in </div>
 
-                {% for i in form %}
+                {% for field in form %}
 
-                    <div>
-                        {{ i }}
-                        {{ i.errors }}
-
-                        {% if i.name == 'email' %}
-                            <div class="status"></div>
-                        {% endif %}
-                    </div>
+					{% include "form/html/manage_field.html" %}
 
                 {% endfor %}
 

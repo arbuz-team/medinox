@@ -1168,7 +1168,7 @@
 				variables.reload = $(this).data('reload');
 				variables.redirect = $(this).data('redirect');
 				variables.event = $(this).data('event');
-				variables.delay = $(this).data('event');
+				variables.delay = $(this).data('delay');
 	
 				form_models.send(form_name, url, form_object);
 			}

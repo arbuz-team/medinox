@@ -18,12 +18,9 @@
 
             <div class="title"> Edit your address </div>
 
-            {% for i in form %}
+            {% for field in form %}
 
-                <div>
-                    {{ i }}
-                    {{ i.errors }}
-                </div>
+                {% include "form/html/manage_field.html" %}
 
             {% endfor %}
 

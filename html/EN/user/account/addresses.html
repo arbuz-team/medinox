@@ -34,10 +34,9 @@
 					</div>
 
 					<div class="address_block-field_list">
-						{% for address in edit_form_address %}
+						{% for field in edit_form_address %}
 
-							{{ address }}
-							{{ address.errors }}
+							{% include "form/html/manage_field.html" %}
 
 						{% endfor %}
 					</div>
@@ -77,10 +76,9 @@
 				</div>
 
 				<div class="address_block-field_list">
-					{% for address in new_form_address %}
+					{% for field in new_form_address %}
 
-						{{ address }}
-						{{ address.errors }}
+						{% include "form/html/manage_field.html" %}
 
 					{% endfor %}
 				</div>

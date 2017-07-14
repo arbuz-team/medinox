@@ -36,10 +36,9 @@
 
                 <div>
                     {% for field in additional_form %}
-                            {{ field }}
-                            {{ field.errors }}
 
-                            <div class="status"></div>
+                        {% include "form/html/manage_filed_multiple_in_line.html" %}
+
                     {% endfor %}
 
                     <button class="button" type="submit"> Create </button>
