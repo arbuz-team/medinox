@@ -1,3 +1,4 @@
+from django.utils.timezone import datetime, timedelta
 from inspect import getmembers, ismethod
 from server.service.translator.views import *
 from server.content.product.models import *
@@ -111,6 +112,12 @@ class Session_Controller:
 
         if 'catalog_path' not in self.request.session:
             self.request.session['catalog_path'] = ''
+
+        if 'catalog_selected_page' not in self.request.session:
+            self.request.session['catalog_selected_page'] = 1
+
+        if 'catalog_number_on_page' not in self.request.session:
+            self.request.session['catalog_number_on_page'] = 8
 
     def Check_Session_Searcher(self):
 

@@ -15,11 +15,11 @@
 
         {% for element in elements %}
 
-            {% if is_catalog element %}
+            {% if element|is_catalog %}
 
                 {% include 'part/ground/plugin/product/html/tile/catalog.html' %}
 
-            {% elif is_product element %}
+            {% elif element|is_product %}
 
                 {% include 'part/ground/plugin/product/html/tile/product.html' %}
 

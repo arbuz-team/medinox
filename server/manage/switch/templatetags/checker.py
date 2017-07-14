@@ -43,3 +43,11 @@ def is_fileinput(field):
     values = {'field': field}
 
     return Check_Manager(task, values).OUT
+
+@register.filter
+def is_catalog(element):
+    return element.__class__.__name__ == 'Model_Catalog'
+
+@register.filter
+def is_product(element):
+    return element.__class__.__name__ == 'Product'

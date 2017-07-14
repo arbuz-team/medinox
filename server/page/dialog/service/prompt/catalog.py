@@ -4,11 +4,11 @@ from server.page.dialog.service.base import *
 class Service_Catalog(Base_Service):
 
     def New(self):
-        self.request.session['catalog_editing'] = Catalog()
+        self.request.session['catalog_editing'] = Model_Catalog()
 
     def Edit(self):
 
-        catalog = SQL.Get(Catalog,
+        catalog = SQL.Get(Model_Catalog,
             pk=self.request.POST['dialog_value'])
 
         self.request.session['catalog_editing'] = catalog

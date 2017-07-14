@@ -1,4 +1,5 @@
 from server.manage.switch.forms.standard import *
+from server.service.file.views import *
 
 
 class Abstract_Image_Form(Abstract_Form):

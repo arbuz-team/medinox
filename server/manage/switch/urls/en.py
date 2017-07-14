@@ -3,7 +3,6 @@ from django.conf.urls import url, include
 urlpatterns = [
     url(r'^user/', include('server.manage.user.urls.en'), name='user'),
     url(r'^root/', include('server.manage.root.urls.en'), name='root'),
-    url(r'^statement/', include('server.content.statement.urls.en'), name='statement'),
     url(r'^product/', include('server.content.product.urls.en'), name='product'),
     url(r'^catalog/', include('server.content.catalog.urls.en'), name='catalog'),
     url(r'^setting/', include('server.manage.setting.urls.en'), name='setting'),

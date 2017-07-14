@@ -16,7 +16,7 @@
             <!--fields of form-->
             {% for field in form %}
 
-                {% include "form/html/manage_filed_multiple_in_line.html" %}
+                {% include "form/html/manage_field_multiple_in_line.html" %}
 
             {% endfor %}
 
@@ -37,7 +37,7 @@
                 <div>
                     {% for field in additional_form %}
 
-                        {% include "form/html/manage_filed_multiple_in_line.html" %}
+                        {% include "form/html/manage_field_multiple_in_line.html" %}
 
                     {% endfor %}
 
@@ -67,7 +67,7 @@
 
                     <div> No found </div>
 
-                {%  %}
+                {% endif %}
             </div>
         </div>
 

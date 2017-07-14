@@ -1,17 +1,11 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
-from django.utils.timezone import datetime, timedelta
 from django.contrib.auth.hashers import make_password
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
 
 from server.service.file.views import *
 from server.manage.switch.paths import *
 from server.manage.switch.settings import *
 from server.service.sql.views import *
-
-from abc import ABCMeta, abstractmethod
-import string, time
 
 
 class Base_Website(metaclass=ABCMeta):

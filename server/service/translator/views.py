@@ -1,8 +1,8 @@
 from django.contrib.gis.geoip import GeoIP
 from django.shortcuts import redirect
-from server.manage.switch.base import *
 from server.service.sql.views import *
 from server.service.translator.models import *
+from server.manage.switch.paths import *
 
 
 class Translator(Base):

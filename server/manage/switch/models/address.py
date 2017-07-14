@@ -1,4 +1,5 @@
 from server.manage.switch.models.standard import *
+from django_countries.fields import CountryField
 
 
 class Abstract_Address(Abstract_Model):

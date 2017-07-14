@@ -1,14 +1,14 @@
 from django.conf.urls import url
-from server.content.main import views
+from server.content.main.views import *
 
 
 urlpatterns = [
-    url(r'^$', views.Start.Launch, name='main.start'),
-    url(r'^about/$', views.About.Launch, name='main.about'),
-    url(r'^contact/$', views.Contact.Launch, name='main.contact'),
+    url(r'^$', Home.Launch, name='main.start'),
+    url(r'^about/$', About.Launch, name='main.about'),
+    url(r'^contact/$', Contact.Launch, name='main.contact'),
 
-    url(r'^about/manage/$', views.About.Launch, name='main.about.manage'),
-    url(r'^contact/manage/$', views.Contact.Launch, name='main.contact.manage'),
+    url(r'^about/manage/$', About.Launch, name='main.about.manage'),
+    url(r'^contact/manage/$', Contact.Launch, name='main.contact.manage'),
 
-    url(r'^example/$', views.Json_Example.Launch, name='main.json_example'),
+    url(r'^example/$', Json_Example.Launch, name='main.json_example'),
 ]

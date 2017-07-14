@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 from server.service.translator.views import *
 from base64 import b64encode
 from server.manage.switch.templatetags.base import *
+from server.service.translator.models import *
 
 
 class Other_Manager(Base_Tag_Manager):
@@ -44,7 +44,8 @@ class Other_Manager(Base_Tag_Manager):
         return Text(self, pk, language)
 
     def Get_App_Name(self):
-        app_name = self.request.session['arbuz_app'].split('.')[-1]
+        app_name = self.request.session['arbuz_app'].split('.')[-2]
+        print(app_name)
         pk = SQL.Get(Language_EN, value=app_name).pk
         return Text(self, pk).replace('.', ' ').title()
 

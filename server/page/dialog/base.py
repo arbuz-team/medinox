@@ -1,4 +1,5 @@
 from server.service.translator.views import *
+from server.manage.switch.website.base import *
 import importlib
 
 

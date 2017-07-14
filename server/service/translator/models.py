@@ -1,4 +1,4 @@
-from server.manage.switch.models.standard import *
+from server.manage.switch.models import *
 
 
 class Language_EN(Abstract_Model):
