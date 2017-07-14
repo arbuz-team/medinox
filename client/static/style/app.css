@@ -172,6 +172,9 @@ div > .buttons_to_action {
 .is-float-left {
   float: left; }
 
+.is-having-margins-5 {
+  margin: 5px; }
+
 .is-nowrap {
   white-space: nowrap;
   overflow: hidden; }
@@ -441,10 +444,6 @@ div > .buttons_to_action {
     line-height: inherit; }
   .select:hover, .select:focus {
     opacity: .9; }
-
-.g-recaptcha {
-  margin-left: 3px;
-  margin-bottom: 8px; }
 
 .show_password {
   position: relative; }
@@ -1365,7 +1364,9 @@ img {
   margin: 30px auto; }
 
 .ground-block.SMALL .is-fills-in-width-inside .input, .ground-block.SMALL .is-fills-in-width-inside .button {
-  width: 100%; }
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0; }
 
 .ground-block.MEDIUM .block-content, .ground-block.MEDIUM .block-content-message, .ground-block.BIG .block-content, .ground-block.BIG .block-content-message {
   width: 340px;

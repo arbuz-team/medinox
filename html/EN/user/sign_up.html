@@ -54,10 +54,12 @@ description : ''
 
                 {% endfor %}
 
-                By sign up, you agree that you've read and accepted our
-                <a href="{% url 'user.agreement' full=True %}" target="_blank">User Agreement</a>.
+                <div class="is-having-margins-5">
+                    By sign up, you agree that you've read and accepted our
+                    <a href="{% url 'user.agreement' full=True %}" target="_blank">User Agreement</a>.
+                </div>
 
-                <div class="form_buttons long">
+                <div>
 					<button class="button"
 							disabled
 							type="submit">
