@@ -162,3 +162,31 @@
   margin:
     left: 3px
     bottom: 8px
+
+
+// ----------------------
+
+.show_password
+  position: relative
+
+.show_password-checkbox
+  @extend .field_without_styles
+  @extend .is-right
+
+  top: 8px
+  right: 7px
+
+  width: 24px
+  height: 24px
+
+  -webkit-appearance: none
+  -moz-appearance: none
+  appearance: none
+
+  cursor: pointer
+  opacity: .6
+  +background-img( url(/static/img/icons/32/dark/eye.png), 100%, center)
+
+  &:hover, &:checked
+    opacity: 1
+

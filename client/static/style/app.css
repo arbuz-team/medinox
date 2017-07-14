@@ -161,7 +161,7 @@ div > .buttons_to_action {
 *:not(#DIALOG) > div > .dialog-header, *:not(#DIALOG) > div > .dialog-content {
   display: none; }
 
-.is-right {
+.is-right, .show_password-checkbox {
   position: absolute;
   top: 0;
   right: 0; }
@@ -195,7 +195,7 @@ div > .buttons_to_action {
   .is-mobile-visible {
     display: none; } }
 
-.std-img, .img-edit, .img-close, .img-waste_bin, .img-waste_bin-64, .img-shopping_cart, .img-searcher, .img-searcher-light, .img-email, .img-telephone, .img-home, .img-lines_menu, .img-flag-EN, .img-flag-PL, .img-flag-DE {
+.std-img, .img-edit, .img-close, .img-waste_bin, .img-waste_bin-64, .img-shopping_cart, .img-searcher, .img-searcher-light, .img-email, .img-telephone, .img-home, .img-eye, .img-lines_menu, .img-flag-EN, .img-flag-PL, .img-flag-DE {
   background-image: "";
   background-size: auto auto;
   background-position: 0 0;
@@ -231,6 +231,9 @@ div > .buttons_to_action {
 .img-home {
   background-image: url(/static/img/icons/32/dark/home.png); }
 
+.img-eye {
+  background-image: url(/static/img/icons/32/dark/eye.png); }
+
 .img-lines_menu {
   background-image: url(/static/img/icons/32/dark/lines_menu.png); }
 
@@ -243,7 +246,7 @@ div > .buttons_to_action {
 .img-flag-DE {
   background-image: url(/static/img/flags/DE.png); }
 
-.field_without_styles, .std_field, .button, .textarea, .input, .select, .button.is-icon, .button.is-icon:hover, .button.is-icon:focus, .button.is-icon:disabled, .searcher-phrase-field {
+.field_without_styles, .std_field, .button, .textarea, .input, .select, .button.is-icon, .button.is-icon:hover, .button.is-icon:focus, .button.is-icon:disabled, .show_password-checkbox, .searcher-phrase-field {
   line-height: inherit;
   margin: 0;
   padding: 0;
@@ -442,6 +445,26 @@ div > .buttons_to_action {
 .g-recaptcha {
   margin-left: 3px;
   margin-bottom: 8px; }
+
+.show_password {
+  position: relative; }
+
+.show_password-checkbox {
+  top: 8px;
+  right: 7px;
+  width: 24px;
+  height: 24px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  opacity: .6;
+  background-image: url(/static/img/icons/32/dark/eye.png);
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat; }
+  .show_password-checkbox:hover, .show_password-checkbox:checked {
+    opacity: 1; }
 
 .file_shell .input[type=file] {
   display: none; }

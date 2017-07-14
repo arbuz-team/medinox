@@ -43,10 +43,10 @@ description : ''
 
                     {% if field.name == 'password' %}
 
-                        <div>
+                        <div class="show_password">
                             {{ field }}
-                            <input class="input show_password"
-								   type="checkbox" />
+                            <input class="show_password-checkbox"
+								   type="checkbox"/>
                             <div class="status">{{ field.errors }}</div>
                         </div>
 

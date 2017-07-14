@@ -1336,7 +1336,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.define = undefined;
 	
@@ -1348,28 +1348,28 @@
 	
 	var define = exports.define = function define($container) {
 	
-	  $('form[data-test=yes]', $container).each(function () {
-	    var name = $(this).data('name'),
-	        type = $(this).data('type');
-	    if (name || type) {
-	      Validators[name] = new _checkers.Constructor_Validator(name, type);
+		$('form[data-test=yes]', $container).each(function () {
+			var name = $(this).data('name'),
+			    type = $(this).data('type');
+			if (name || type) {
+				Validators[name] = new _checkers.Constructor_Validator(name, type);
 	
-	      var fields_of_form = Validators[name].hasErrors();
-	      for (var key in fields_of_form) {
-	        if (fields_of_form.hasOwnProperty(key)) {
-	          var $field = $('form[data-name=' + name + '] *[name=' + key + ']');
+				var fields_of_form = Validators[name].hasErrors();
+				for (var key in fields_of_form) {
+					if (fields_of_form.hasOwnProperty(key)) {
+						var $field = $('form[data-name=' + name + '] *[name=' + key + ']');
 	
-	          if ($field.val()) validate($field);
-	        }
-	      }
-	    } else console.error('Validation Error: Incorrect or empty form name/type.');
-	  });
+						if ($field.val()) validate($field);
+					}
+				}
+			} else console.error('Validation Error: Incorrect or empty form name/type.');
+		});
 	
-	  $('form[data-test=yes] .test').keyup(catch_event_validate).change(catch_event_validate);
+		$('form[data-test=yes] .test', $container).keyup(catch_event_validate).change(catch_event_validate);
 	
-	  $('.show_password').change(function () {
-	    if ($(this).is(':checked')) show_password(this);else hide_password(this);
-	  });
+		$('.show_password-checkbox', $container).change(function () {
+			if ($(this).is(':checked')) show_password(this);else hide_password(this);
+		});
 	};
 	
 	var running_validator = false,
@@ -1381,74 +1381,76 @@
 	    field_value = void 0;
 	
 	var catch_event_validate = function catch_event_validate() {
-	  validate(this);
+		validate(this);
 	};
 	
 	var validate = function validate(response_field) {
-	  if (running_validator === false) {
-	    running_validator = true;
+		if (running_validator === false) {
+			running_validator = true;
 	
-	    field = response_field;
+			field = response_field;
 	
-	    form_name = $(field).parents('form').data('name');
-	    $form = $('form[data-name=' + form_name + ']');
-	    Validator = Validators[form_name];
-	    field_name = $(field).attr('name');
-	    field_value = $(field).val();
+			form_name = $(field).parents('form').data('name');
+			$form = $('form[data-name=' + form_name + ']');
+			Validator = Validators[form_name];
+			field_name = $(field).attr('name');
+			field_value = $(field).val();
 	
-	    Validator.field(field_name, field_value, show_status);
-	  }
+			Validator.field(field_name, field_value, show_status);
+		}
 	};
 	
 	var show_status = function show_status(result) {
-	  if (result) {
-	    var $field = $(field),
-	        $status = $field.parent().find('.status');
+		if (result) {
+			var $field = $(field),
+			    $status = $field.parent().find('.status');
 	
-	    var bool = result.bool,
-	        message = result.message,
-	        correction = result.correction;
+			var bool = result.bool,
+			    message = result.message,
+			    correction = result.correction;
 	
-	    Validator.change_status_field(field_name, bool);
+			Validator.change_status_field(field_name, bool);
 	
-	    if ($field.val() != correction && typeof correction !== 'undefined' && correction !== '') $field.val(correction);
+			if ($field.val() != correction && typeof correction !== 'undefined' && correction !== '') $field.val(correction);
 	
-	    if (bool) {
-	      $field.removeClass('form_error');
-	      $status.html('').fadeOut(200);
-	    } else if (typeof message === 'undefined') {
-	      $field.addClass('form_error');
-	      $status.html('').fadeOut(200);
-	    } else {
-	      $field.addClass('form_error');
-	      $status.html(message).fadeIn(200);
-	    }
-	  }
+			if (bool) {
+				$field.removeClass('form_error');
+				$status.html('').fadeOut(200);
+			} else if (typeof message === 'undefined') {
+				$field.addClass('form_error');
+				$status.html('').fadeOut(200);
+			} else {
+				$field.addClass('form_error');
+				$status.html(message).fadeIn(200);
+			}
+		}
 	
-	  var test_form = Validator.check_list_field();
-	  change_status_blockade(test_form);
+		var test_form = Validator.check_list_field();
+		change_status_blockade(test_form);
 	
-	  running_validator = false;
+		running_validator = false;
 	};
 	
 	var change_status_blockade = function change_status_blockade(test_form) {
-	  if (typeof test_form === 'boolean') {
-	    var $button = $form.find('*[type=submit]');
+		if (typeof test_form === 'boolean') {
+			var $button = $form.find('*[type=submit]');
 	
-	    if (test_form) $button.prop('disabled', false);else $button.prop('disabled', true);
-	  }
+			if (test_form) $button.prop('disabled', false);else $button.prop('disabled', true);
+		}
 	};
 	
 	var show_password = function show_password(checker) {
-	  var $checker = $(checker),
-	      $field = $checker.parent().find('input[name=password]');
-	  $field.attr('type', 'text');
+		var $checker = $(checker),
+		    $field = $checker.parent().find('.input[type=password]');
+	
+		$field.attr('type', 'text');
 	};
 	
 	var hide_password = function hide_password(checker) {
-	  var $checker = $(checker),
-	      $field = $checker.parent().find('input[name=password]');
-	  $field.attr('type', 'password');
+		var $checker = $(checker),
+		    $field = $checker.parent().find('.input[type=text]');
+	
+		$field.attr('type', 'password');
 	};
 
 /***/ },
