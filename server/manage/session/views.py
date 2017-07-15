@@ -105,7 +105,8 @@ class Session_Controller:
     def Check_Session_Catalog(self):
 
         if 'catalog_parent' not in self.request.session:
-            self.request.session['catalog_parent'] = None
+            self.request.session['catalog_parent'] = \
+                SQL.Get(Model_Catalog, parent=None, name='root')
 
         if 'catalog_editing' not in self.request.session:
             self.request.session['catalog_editing'] = None

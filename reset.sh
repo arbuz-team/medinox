@@ -16,7 +16,6 @@ python3 $(dirname $0)/manage.py makemigrations product
 python3 $(dirname $0)/manage.py makemigrations root
 python3 $(dirname $0)/manage.py makemigrations sender
 python3 $(dirname $0)/manage.py makemigrations session
-python3 $(dirname $0)/manage.py makemigrations statement
 python3 $(dirname $0)/manage.py makemigrations translator
 python3 $(dirname $0)/manage.py makemigrations user
 

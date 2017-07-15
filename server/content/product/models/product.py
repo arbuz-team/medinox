@@ -27,6 +27,9 @@ class Product(Abstract_Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        unique_together = ('name', 'parent', 'language')
+
 
 
 class Description(Abstract_Model):
@@ -37,7 +40,7 @@ class Description(Abstract_Model):
     product = models.ForeignKey(Product)
 
     def Set_Variables(self):
-        self.image_dir = '/client/static/img/product/description/'
+        self.image_dir = 'img/product/description/'
 
     def __str__(self):
         return self.header

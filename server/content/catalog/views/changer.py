@@ -20,11 +20,8 @@ class Catalog_Changer(Website_Manager):
     def Get_Selected_Catalog(self):
 
         catalogs = self.catalog_path.split('/')[:-1]
-        parent = None
-        selected = None
-
-        if not catalogs:
-            return None
+        parent = SQL.Get(Model_Catalog, parent=None, name='root')
+        selected = SQL.Get(Model_Catalog, parent=None, name='root')
 
         for catalog in catalogs:
             selected = self.Get_Catalog(catalog, parent)

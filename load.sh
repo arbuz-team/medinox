@@ -12,4 +12,3 @@ python3 $(dirname $0)/manage.py loaddata $(dirname $0)/server/manage/setting/dat
 python3 $(dirname $0)/manage.py loaddata $(dirname $0)/server/manage/setting/data/product.json
 python3 $(dirname $0)/manage.py loaddata $(dirname $0)/server/manage/setting/data/translator.json
 python3 $(dirname $0)/manage.py loaddata $(dirname $0)/server/manage/setting/data/user.json
-python3 $(dirname $0)/manage.py loaddata $(dirname $0)/server/manage/setting/data/payment.json
