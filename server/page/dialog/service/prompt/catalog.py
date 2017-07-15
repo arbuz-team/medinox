@@ -14,7 +14,7 @@ class Service_Catalog(Base_Service):
         self.request.session['catalog_editing'] = catalog
         self.content['edit'] = {'url': '/catalog/manage/'}
         self.content['image'] = catalog.image
-        self.instance = {'name': catalog.name}
+        self.initial = {'name': catalog.name}
 
     def Manage(self):
 
@@ -25,7 +25,7 @@ class Service_Catalog(Base_Service):
 
         self.content['title'] = Text(self, 157)
         self.content['form'] = self.Prepare_Form(
-            Form_Catalog, initial=self.instance)
+            Form_Catalog, initial=self.initial)
 
         return self.Render_Dialog(
             'prompt.html', 'catalog', only_root=True)

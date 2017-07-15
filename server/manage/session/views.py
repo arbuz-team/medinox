@@ -119,6 +119,12 @@ class Session_Controller:
         if 'catalog_number_on_page' not in self.request.session:
             self.request.session['catalog_number_on_page'] = 8
 
+        if 'catalog_copy_element' not in self.request.session:
+            self.request.session['catalog_copy_element'] = None
+
+        if 'catalog_copy_type' not in self.request.session:
+            self.request.session['catalog_copy_type'] = ''
+
     def Check_Session_Searcher(self):
 
         if 'searcher_filter_brand' not in self.request.session:

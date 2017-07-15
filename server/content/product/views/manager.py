@@ -15,6 +15,7 @@ class Product_Manager(Website_Manager):
             product.url_name = self.To_URL(self.content['form'].cleaned_data['name'])
             product.price = self.content['form'].cleaned_data['price']
             product.parent = self.request.session['catalog_parent']
+            product.language = self.request.session['translator_language']
             SQL.Save(data=product)
 
             product.Save_Image(self.content['form'].cleaned_data['image'])

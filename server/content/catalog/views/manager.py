@@ -6,10 +6,15 @@ class Catalog_Manager(Website_Manager):
 
     def Manage_Content_Ground(self):
 
+        # session data
         parent = self.request.session['catalog_parent']
-        catalogs = SQL.Filter(Model_Catalog, parent=parent)
-        products = SQL.Filter(Product, parent=parent)
+        language = self.request.session['translator_language']
 
+        # database data
+        catalogs = SQL.Filter(Model_Catalog, parent=parent, language=language)
+        products = SQL.Filter(Product, parent=parent, language=language)
+
+        # pages manager
         elements = list(catalogs) + list(products)
         number_element_on_page = self.request.session['catalog_number_on_page']
         selected_page = self.request.session['catalog_selected_page']
@@ -29,6 +34,7 @@ class Catalog_Manager(Website_Manager):
             catalog.name = self.content['form'].cleaned_data['name']
             catalog.url_name = self.To_URL(self.content['form'].cleaned_data['name'])
             catalog.parent = self.request.session['catalog_parent']
+            catalog.language = self.request.session['translator_language']
             SQL.Save(data=catalog)
 
             catalog.Save_Image(self.content['form'].cleaned_data['image'])

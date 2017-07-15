@@ -67,6 +67,7 @@ class Base_Website(metaclass=ABCMeta):
     @staticmethod
     def To_URL(text):
         text = text.replace(' ', '_').lower()
+        text = text.replace('-', '')
         return Base_Website.Convert_Polish_To_Ascii(text)
 
     @staticmethod

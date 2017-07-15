@@ -28,6 +28,8 @@
                     <span class="button-icon img-edit"> &nbsp; </span>
                 </button>
 
+                <!-- Frontend: tooltip icon should have bigger click area -->
+
 
                 <div class="tooltip-options">
                     <button class="button dialog_button"
@@ -39,15 +41,28 @@
                         Edit
                     </button>
 
-                    <button class="button"
-                            type="button">
+                    <button class="button dialog_button"
+                            type="button"
+                            data-type="prompt"
+                            data-name="move"
+                            data-value="{{ element.pk }}"
+                            data-other_1="type:catalog"
+                            data-dialog-reload="ground">
                         Move
                     </button>
 
-                    <button class="button"
-                            type="button">
+                    <button class="button dialog_button"
+                            type="button"
+                            data-type="prompt"
+                            data-name="copy"
+                            data-value="{{ element.pk }}"
+                            data-other_1="type:catalog"
+                            data-dialog-reload="ground">
                         Copy
                     </button>
+
+                    <!-- Frontend: create button delete in tooltip -->
+
                 </div>
             </div>
 

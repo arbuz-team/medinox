@@ -1,5 +1,4 @@
 from server.manage.user.models import User
-from server.manage.switch.models import *
 from server.content.catalog.models import *
 
 
@@ -20,7 +19,7 @@ class Product(Abstract_Model):
     image = models.ImageField(blank=True)
     brand = models.ForeignKey(Brand, null=True, on_delete=models.SET_NULL)
     parent = models.ForeignKey(Model_Catalog, null=True, on_delete=models.SET_NULL)
-    # TODO language as one column
+    language = models.CharField(max_length=2)
 
     def Set_Variables(self):
         self.image_dir = 'img/product/'
