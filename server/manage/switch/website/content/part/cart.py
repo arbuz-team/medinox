@@ -3,7 +3,7 @@ from server.manage.switch.website.inspector import *
 from server.service.payment.base import *
 
 
-class Cart_Manager(Endpoints, Inspector):
+class Cart_Part(Endpoints, Inspector):
 
     def Manage_Content(self):
 

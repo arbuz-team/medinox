@@ -85,8 +85,9 @@ class Direct_Part_Manager(Base):
         self.website = website
         self.parts = {
             'ground': self.website,
-            'cart': Cart_Manager(self),
-            'header': Menu_Standard(self),
-            'navigation': Menu_Mobile(self),
-            'searcher': Searcher(self)
+            'cart': Cart_Part(self),
+            'header': Menu_Standard_Part(self),
+            'navigation': Menu_Mobile_Part(self),
+            'searcher': Searcher_Part(self),
+            'dialog': Dialog_Part(self)
         }

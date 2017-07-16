@@ -9,24 +9,10 @@ class Endpoints(Base_Website):
         self.content['error'] = 'no_exist'
         return self.Render_HTML('arbuz/error.html')
 
-    def Manage_Content_Dialog(self):
-
-        if self.request.POST['dialog_type'] == 'alert':
-            return Dialog_Alert(self).HTML
-
-        if self.request.POST['dialog_type'] == 'confirm':
-            return Dialog_Confirm(self).HTML
-
-        if self.request.POST['dialog_type'] == 'prompt':
-            return Dialog_Prompt(self).HTML
-
     def Manage_Content(self):
 
         if 'ground' in self.request.POST['__content__']:
             return self.Manage_Content_Ground()
-
-        if 'dialog' in self.request.POST['__content__']:
-            return self.Manage_Content_Dialog()
 
         self.content['error'] = 'no_event'
         return self.Render_HTML('arbuz/error.html')

@@ -3,7 +3,7 @@ from server.ground.product.base import *
 from server.ground.product.models import *
 
 
-class Searcher(Endpoints):
+class Searcher_Part(Endpoints):
 
     def Manage_Content(self):
         self.content['brands'] = SQL.All(Brand)
