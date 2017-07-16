@@ -2,10 +2,12 @@
  * Created by mrskull on 08.01.17.
  */
 
+import {Request_Manager} 				from '../../../arbuz/plugin/request_manager/main'
+
 import {Plugins_Loader_Controllers}     from '../../plugin/part_loader/controllers'
 import {Form_Controllers}               from '../../../form/js/controllers'
 import {Post_Button_Controllers}        from '../../../form/plugin/post_button/controllers'
-import {Event_Button_Controllers}        from '../../../form/plugin/event_button/controllers'
+import {Event_Button_Controllers}       from '../../../form/plugin/event_button/controllers'
 
 
 /**
@@ -52,7 +54,9 @@ let
 	{
 		let
 			url = $(this).attr('href'),
-			protocol = url.substring(0, 4);
+			protocol = url.substring(0, 4),
+			request_manager = new Request_Manager();
+
 
 		if(protocol !== 'http')
 			if(event.which === 1)
@@ -63,6 +67,7 @@ let
 				change_url(url);
 
 				ground_loader_controllers.load(url);
+				request_manager.send();
 			}
 	},
 

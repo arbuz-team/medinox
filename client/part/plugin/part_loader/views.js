@@ -134,7 +134,6 @@ export let Plugins_Loader_Views = function(config)
 			models.variables.can_do_redirect = false;
 			models.variables.reload = models.if_reload(url);
 
-
 			models.refresh_data();
 			models.prepare_post_data(post_data);
 		},
@@ -142,22 +141,23 @@ export let Plugins_Loader_Views = function(config)
 
 		hide_content = function(url, post_data, callback)
 		{
-			external_callback = callback;
-			prepare_content_to_hide(url, post_data);
-
 			let
 				container = models.settings.container,
 				opacity = models.settings.opacity.hide,
 				duration = models.settings.duration.hide;
 
+			models.variables.url = url;
+			external_callback = callback;
 
-			models.send_request(models.variables.url);
+			prepare_content_to_hide(url, post_data);
+
+			models.send_request(url);
 
 			$(container)
-			.animate({opacity: opacity}, duration, () =>
-			{
-				models.insert_content(show_content);
-			});
+				.animate({opacity: opacity}, duration, () =>
+				{
+					models.insert_content(show_content);
+				});
 		};
 
 

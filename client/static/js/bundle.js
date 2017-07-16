@@ -637,14 +637,16 @@
 			models.prepare_post_data(post_data);
 		},
 		    hide_content = function hide_content(url, post_data, callback) {
-			external_callback = callback;
-			prepare_content_to_hide(url, post_data);
-	
 			var container = models.settings.container,
 			    opacity = models.settings.opacity.hide,
 			    duration = models.settings.duration.hide;
 	
-			models.send_request(models.variables.url);
+			models.variables.url = url;
+			external_callback = callback;
+	
+			prepare_content_to_hide(url, post_data);
+	
+			models.send_request(url);
 	
 			$(container).animate({ opacity: opacity }, duration, function () {
 				models.insert_content(show_content);
@@ -699,8 +701,6 @@
 		(function () {
 			if (typeof config !== 'undefined') {
 				if (typeof config.name !== 'undefined') that.settings.name = config.name;
-	
-				if (typeof config.url !== 'undefined') that.settings.url = window.APP.dictionary.get_word(config.url);
 	
 				if (typeof config.load_with_page !== 'undefined') that.settings.load_with_page = config.load_with_page;
 	
@@ -762,9 +762,8 @@
 			return old_url === new_url || !new_url;
 		};
 	
-		this.send_request = function (url) {
-			var actually_url = '',
-			    post_data = this.variables.post_data,
+		this.send_request = function (actually_url) {
+			var post_data = this.variables.post_data,
 			    request_manager = new _main.Request_Manager();
 	
 			response = request_manager.next(actually_url, post_data);
@@ -800,8 +799,6 @@
 		var that = this;
 	
 		this.next = function (url, post_data) {
-			console.log('next');
-	
 			models.add_request(url, post_data);
 	
 			return new Promise(function (resolve, reject) {
@@ -849,7 +846,6 @@
 		sending = false;
 	},
 	    preprocess_url = function preprocess_url() {
-		console.log('url');
 		var url = requests.url;
 	
 		if (url && url.substring && url.substring(0, 1) === '/') return url;else return _structure.data_controller.get('path');
@@ -859,41 +855,57 @@
 			__content__: ''
 		};
 	
-		requests.list.forEach(function (element, index) {
-			if (index !== 0) post_data.__content__ += ' ';
+		if (requests.list.length) {
+			requests.list.forEach(function (element) {
+				if (element.__content__) {
+					post_data.__content__ += element.__content__ + ' ';
 	
-			post_data.__content__ += element.__content__;
-		});
+					delete element.__content__;
+					Object.assign(post_data, element);
+				} else return false;
+			});
 	
-		post_data[_structure.data_controller.get_crsf('name')] = _structure.data_controller.get_crsf('value');
+			post_data[_structure.data_controller.get_crsf('name')] = _structure.data_controller.get_crsf('value');
 	
-		return post_data;
+			return post_data;
+		}
+	
+		return false;
 	},
 	    send_queue = function send_queue() {
 		return new Promise(function (resolve, reject) {
 			var url = preprocess_url(),
 			    post_data = post_data_prepare();
 	
-			console.log(post_data);
-	
-			$.ajax({
+			if (post_data) $.ajax({
 				type: 'POST',
 				url: url,
 				data: post_data,
 				complete: resolve
-			});
+			});else reject(post_data);
 		});
+	},
+	    catch_timeout_error = function catch_timeout_error() {
+		console.error('Request Manager error: Request Timeout. ' + 'Run `send` in Request Manager.');
+	
+		clear_request();
 	},
 	    run_sending = function run_sending() {
 		if (sending === false) sending = new Promise(function (resolve, reject) {
-			window.APP.add_own_event('send_request', function () {
-				send_queue().then(function (response, status) {
+			var timer = setTimeout(catch_timeout_error, 3000),
+			    send_request = function send_request() {
+				clearTimeout(timer);
+	
+				if (sending === false) reject('Request Manager error: Promise doesn\'t exist.');else send_queue().then(function (response) {
 					var data = response.__content__;
 	
+					window.removeEventListener('send_request', send_request, false);
+	
 					resolve(data);
-					reject(data);
 				});
-			});
+			};
+	
+			window.addEventListener('send_request', send_request, false);
 		});
 	
 		return sending;
@@ -2898,6 +2910,8 @@
 	});
 	exports.close = exports.reload = exports.open = exports.define = undefined;
 	
+	var _main = __webpack_require__(16);
+	
 	var _views = __webpack_require__(46);
 	
 	var dialog_views = _interopRequireWildcard(_views);
@@ -2922,7 +2936,8 @@
 		interior_dialog_controllers.define();
 	};
 	
-	var close_with_cancel_event = function close_with_cancel_event(event) {
+	var request_manager = new _main.Request_Manager(),
+	    close_with_cancel_event = function close_with_cancel_event(event) {
 		cancel_event(event);
 		close();
 	},
@@ -2958,6 +2973,7 @@
 		};
 	
 		dialog_views.open(dialog_data, additional_data);
+		request_manager.send();
 	},
 	    reload = exports.reload = function reload() {
 		dialog_views.reload();
@@ -3485,6 +3501,8 @@
 	});
 	exports.change_content = exports.get_content = exports.define = undefined;
 	
+	var _main = __webpack_require__(16);
+	
 	var _controllers = __webpack_require__(13);
 	
 	var _controllers2 = __webpack_require__(22);
@@ -3516,7 +3534,8 @@
 	},
 	    go_to_link = function go_to_link(event) {
 		var url = $(this).attr('href'),
-		    protocol = url.substring(0, 4);
+		    protocol = url.substring(0, 4),
+		    request_manager = new _main.Request_Manager();
 	
 		if (protocol !== 'http') if (event.which === 1) {
 			event.preventDefault();
@@ -3525,6 +3544,7 @@
 			change_url(url);
 	
 			ground_loader_controllers.load(url);
+			request_manager.send();
 		}
 	},
 	    redirect = function redirect(event) {

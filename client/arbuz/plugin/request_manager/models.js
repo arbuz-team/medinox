@@ -51,20 +51,31 @@ let
 		};
 
 
-		// --- Converting list of parts to string
-		requests.list.forEach(function(element, index)
+		if(requests.list.length)
 		{
-			if(index !== 0)
-				post_data.__content__ += ' ';
+			// --- Converting list of parts to string
+			requests.list.forEach(function(element)
+			{
+				if(element.__content__)
+				{
+					post_data.__content__ += element.__content__ +' ';
 
-			post_data.__content__ += element.__content__;
-		});
+					delete element.__content__;
+					Object.assign(post_data, element);
+				}
+				else
+					return false;
+			});
 
 
-		// --- Add CRSF TOKEN
-		post_data[data_controller.get_crsf('name')] = data_controller.get_crsf('value');
+			// --- Add CRSF TOKEN
+			post_data[data_controller.get_crsf('name')] = data_controller.get_crsf('value');
 
-		return post_data;
+			return post_data;
+		}
+
+
+		return false;
 	},
 
 
@@ -76,15 +87,26 @@ let
 				url = preprocess_url(),
 				post_data = post_data_prepare();
 
-			console.log(post_data);
+			if(post_data)
+				$.ajax({
+					type: 'POST',
+					url: url,
+					data: post_data,
+					complete: resolve,
+				});
 
-			$.ajax({
-				type: 'POST',
-				url: url,
-				data: post_data,
-				complete: resolve,
-			});
+			else
+				reject(post_data);
 		});
+	},
+
+
+	catch_timeout_error = function()
+	{
+		console.error('Request Manager error: Request Timeout. ' +
+			'Run `send` in Request Manager.');
+
+		clear_request();
 	},
 
 
@@ -93,15 +115,30 @@ let
 		if(sending === false)
 			sending = new Promise(function(resolve, reject)
 			{
-				window.APP.add_own_event('send_request', function()
-				{
-					send_queue().then(function(response, status)
-					{
-					    let data = response.__content__;
+				let
+					timer = setTimeout(catch_timeout_error, 3000),
 
-						resolve(data);
-					});
-				});
+
+					send_request = function()
+					{
+						clearTimeout(timer);
+
+						if(sending === false)
+							reject('Request Manager error: Promise doesn\'t exist.');
+
+						else
+							send_queue().then(function(response)
+							{
+								let data = response.__content__;
+
+								window.removeEventListener('send_request', send_request, false);
+
+								resolve(data);
+							});
+					};
+
+
+				window.addEventListener('send_request', send_request, false);
 			});
 
 		return sending;

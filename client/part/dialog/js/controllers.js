@@ -2,6 +2,8 @@
  * Created by mrskull on 29.12.16.
  */
 
+import {Request_Manager} 				from '../../../arbuz/plugin/request_manager/main'
+
 import * as dialog_views from './views'
 import * as interior_dialog_controllers from './interior/controllers'
 
@@ -34,6 +36,9 @@ export let
  */
 
 let
+
+	request_manager = new Request_Manager(),
+
 
 	close_with_cancel_event = function(event)
 	{
@@ -91,7 +96,8 @@ export let
 				additional_url:        $button.data('dialog-url'),
 			};
 
-		dialog_views.open(dialog_data, additional_data)
+		dialog_views.open(dialog_data, additional_data);
+		request_manager.send();
 	},
 
 

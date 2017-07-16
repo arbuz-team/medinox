@@ -51,8 +51,8 @@ export let Plugins_Loader_Models = function(config)
 				that.settings.name = config.name;
 
 			// -- URL
-			if(typeof config.url !== 'undefined')
-				that.settings.url = window.APP.dictionary.get_word(config.url);
+			//if(typeof config.url !== 'undefined')
+				//that.settings.url = window.APP.dictionary.get_word(config.url);
 
 
 			// -- Container
@@ -164,10 +164,9 @@ export let Plugins_Loader_Models = function(config)
 	 *    Defining download functions
 	 */
 
-	this.send_request = function(url)
+	this.send_request = function(actually_url)
 	{
 		let
-			actually_url = '',
 			post_data = this.variables.post_data,
 			request_manager = new Request_Manager();
 
@@ -183,8 +182,6 @@ export let Plugins_Loader_Models = function(config)
 
 			callback(precise_data.html, 'success', precise_data.status);
 		});
-
-		//window.APP.http_request(this.variables.url, this.variables.post_data, callback);
 	};
 };
 
