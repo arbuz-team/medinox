@@ -64,12 +64,12 @@ class Direct_Part_Manager(Base):
 
         for content in contents:
             part = self.parts[content]
-            response = self.Manage(part)
+            html = self.Manage(part)
 
             response['__content__'][content] = \
-                self.Get_Content_Data(response)
+                self.Get_Content_Data(html)
 
-        return response
+        return JsonResponse(response)
 
     def Direct(self):
 

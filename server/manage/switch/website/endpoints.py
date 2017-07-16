@@ -22,10 +22,10 @@ class Endpoints(Base_Website):
 
     def Manage_Content(self):
 
-        if self.request.POST['__content__'] == 'ground':
+        if 'ground' in self.request.POST['__content__']:
             return self.Manage_Content_Ground()
 
-        if self.request.POST['__content__'] == 'dialog':
+        if 'dialog' in self.request.POST['__content__']:
             return self.Manage_Content_Dialog()
 
         self.content['error'] = 'no_event'

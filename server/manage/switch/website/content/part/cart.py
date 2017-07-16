@@ -1,10 +1,15 @@
 from server.manage.switch.website.endpoints import *
+from server.manage.switch.website.inspector import *
 from server.service.payment.base import *
 
 
-class Cart_Manager(Endpoints):
+class Cart_Manager(Endpoints, Inspector):
 
     def Manage_Content(self):
+
+        # check authorization
+        if not self.Check_Authorization():
+            return self.Error_Authorization()
 
         self.content['payment'] = self.payment_models_manager. \
             Get_Payment()
@@ -55,6 +60,9 @@ class Cart_Manager(Endpoints):
 
     def __init__(self, _object):
         Endpoints.__init__(self, _object)
+        Inspector.__init__(self, _object)
+
+        self.authorization = True
         self.payment_models_manager = \
             Payment_Models_Manager(self)
 
