@@ -1,4 +1,5 @@
-from server.page.searcher.views import *
+from server.manage.switch.website.manager import *
+from server.service.searcher.views import *
 
 
 class Home(Website_Manager):

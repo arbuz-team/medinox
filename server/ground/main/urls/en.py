@@ -9,6 +9,4 @@ urlpatterns = [
 
     url(r'^about/manage/$', About.Launch, name='main.about.manage'),
     url(r'^contact/manage/$', Contact.Launch, name='main.contact.manage'),
-
-    url(r'^example/$', Json_Example.Launch, name='main.json_example'),
 ]
