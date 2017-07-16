@@ -17,7 +17,7 @@ class Cart_Manager(Endpoints, Inspector):
         self.content['cart'] = self.payment_models_manager. \
             Get_Selected_Products()
 
-        return self.Render_HTML('cart/cart.html')
+        return self.Render_HTML('part/cart.html')
 
     def Manage_Button_Append(self):
         product = SQL.Get(Product, pk=self.request.POST['value'])

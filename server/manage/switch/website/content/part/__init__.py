@@ -1,4 +1,4 @@
 from .cart import *
-from .header import *
-from .navigation import *
+from .menu_standard import *
+from .menu_mobile import *
 from .searcher import *

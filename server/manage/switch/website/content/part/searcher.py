@@ -7,7 +7,7 @@ class Searcher(Endpoints):
 
     def Manage_Content(self):
         self.content['brands'] = SQL.All(Brand)
-        return self.Render_HTML('searcher/searcher.html')
+        return self.Render_HTML('part/searcher.html')
 
     def Manage_Filter_Brand(self):
         filters = self.request.session['searcher_filter_brand']
