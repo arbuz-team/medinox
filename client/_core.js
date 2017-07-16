@@ -7,5 +7,7 @@ import './arbuz/js/base';
 import './arbuz/js/http_request';
 import * as page_controller from './arbuz/js/controllers';
 
-page_controller.start();
+window.APP.add_own_event('load', () => {
+	page_controller.start();
+});
 

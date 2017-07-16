@@ -11,19 +11,18 @@ import {Event_Button_Controllers}       from '../../../form/plugin/event_button/
  */
 
 let
-  header_loader_events,
-  config_loader = {
-    name: 'header',
-    url: '/navigation/',
+	header_loader_controllers = new Plugins_Loader_Controllers({
+		name: 'header',
+		url: '/navigation/',
 
-    container: '#HEADER > .header',
+		container: '#HEADER > .header',
 
-    auto_first_loading: true,
-  },
+		auto_first_loading: true,
+	}),
 
-  event_button_controllers = new Event_Button_Controllers({
-    container: '#HEADER'
-  });
+	event_button_controllers = new Event_Button_Controllers({
+		container: '#HEADER'
+	});
 
 
 /**
@@ -32,14 +31,13 @@ let
 
 export let
 
-  define = function()
-  {
-    event_button_controllers.define();
-  },
+	define = function()
+	{
+		event_button_controllers.define();
+	},
 
 
-  start = function()
-  {
-    header_loader_events = new Plugins_Loader_Controllers(config_loader);
-    header_loader_events.define();
-  };
+	get_content = function()
+	{
+		header_loader_controllers.define();
+	};

@@ -43,7 +43,8 @@ export let Plugins_Loader_Views = function(config)
 			if(status !== 'success')
 				if(error === true)
 					$(container)
-					.html('An error has occurred while connecting to server. Please, refresh website or check your connect with network.');
+					.html('An error has occurred while connecting to server. ' +
+						'Please, refresh website or check your connect with network.');
 				else
 				{
 					models.variables.error = true;
@@ -135,7 +136,6 @@ export let Plugins_Loader_Views = function(config)
 
 
 			models.refresh_data();
-			models.prepare_url(url);
 			models.prepare_post_data(post_data);
 		},
 
@@ -150,10 +150,13 @@ export let Plugins_Loader_Views = function(config)
 				opacity = models.settings.opacity.hide,
 				duration = models.settings.duration.hide;
 
+
+			models.send_request(models.variables.url);
+
 			$(container)
 			.animate({opacity: opacity}, duration, () =>
 			{
-				models.download_content(models.variables.url, show_content);
+				models.insert_content(show_content);
 			});
 		};
 

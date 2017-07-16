@@ -3,11 +3,14 @@
  */
 
 import {data_controller} from '../../../arbuz/js/structure'
+import {Request_Manager} from '../../../arbuz/plugin/request_manager/main'
 
 
 export let Plugins_Loader_Models = function(config)
 {
-	let that = this;
+	let
+		that = this,
+		response;
 
 	this.data_controller = data_controller;
 
@@ -116,18 +119,6 @@ export let Plugins_Loader_Models = function(config)
 	 *    Defining prepare functions
 	 */
 
-	this.prepare_url = function(response_url)
-	{
-		if(!response_url)
-			if(typeof this.settings.url !== 'undefined')
-				response_url = this.settings.url;
-			else
-				response_url = data_controller.get('path');
-
-		this.variables.url = response_url;
-	};
-
-
 	this.prepare_post_data = function(post_data)
 	{
 		if(!post_data)
@@ -168,14 +159,32 @@ export let Plugins_Loader_Models = function(config)
 	};
 
 
+
 	/**
 	 *    Defining download functions
 	 */
 
-	this.download_content = function(url, callback)
+	this.send_request = function(url)
 	{
-		this.prepare_url(url);
-		window.APP.http_request(this.variables.url, this.variables.post_data, callback);
+		let
+			actually_url = '',
+			post_data = this.variables.post_data,
+			request_manager = new Request_Manager();
+
+		response = request_manager.next(actually_url, post_data);
+	};
+
+
+	this.insert_content = function(callback)
+	{
+		response.then(function(data)
+		{
+			let precise_data = data[that.settings.name];
+
+			callback(precise_data.html, 'success', precise_data.status);
+		});
+
+		//window.APP.http_request(this.variables.url, this.variables.post_data, callback);
 	};
 };
 

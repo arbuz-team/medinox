@@ -10,6 +10,8 @@ import * as dialog_controllers        from '../../part/dialog/js/controllers'
 
 import * as ground_controllers        from '../../part/ground/js/controllers'
 
+import {Request_Manager} from '../plugin/request_manager/main'
+
 
 /*---------------- Wydarzenia na stronie ----------------*/
 
@@ -59,8 +61,7 @@ let
 
 	define = function()
 	{
-		// Usuń wszystkie wydarzenia ze wszystkich elementów
-		$( '*' ).off();
+		$('*').off(); // Usuń wszystkie wydarzenia ze wszystkich elementów
 
 		searcher_controllers.define();
 		cart_controllers.define();
@@ -73,16 +74,20 @@ let
 
 export let start = function()
 {
-	window.addEventListener('define', define, false);
+	let request_manager = new Request_Manager();
+
+	window.APP.add_own_event('define', define);
 	window.APP.add_own_event('reload_website', reload_website);
 	window.APP.add_own_event('reload_user_sign_in', reload_sign_in('user'));
 	window.APP.add_own_event('reload_root_sign_in', reload_sign_in('root'));
 
-	searcher_controllers.start();
-	cart_controllers.start();
-	navigation_controllers.start();
-	header_controllers.start();
-	ground_controllers.start();
+	searcher_controllers.get_content();
+	cart_controllers.get_content();
+	navigation_controllers.get_content();
+	header_controllers.get_content();
+	ground_controllers.get_content();
+
+	request_manager.send();
 
 	define();
 };

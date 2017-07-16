@@ -165,7 +165,7 @@ export let
 	},
 
 
-	start = function()
+	get_content = function()
 	{
 		ground_loader_controllers.define();
 	},
