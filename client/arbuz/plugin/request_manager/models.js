@@ -35,7 +35,6 @@ let
 
 	preprocess_url = function()
 	{
-		console.log('url');
 		let url = requests.url;
 
 		if(url && url.substring && url.substring(0, 1) === '/')
@@ -51,14 +50,18 @@ let
 			__content__: '',
 		};
 
-		for(let i = 0; i < requests.list.length; ++i)
+
+		// --- Converting list of parts to string
+		requests.list.forEach(function(element, index)
 		{
-			if(i !== 0)
+			if(index !== 0)
 				post_data.__content__ += ' ';
 
-			post_data.__content__ += requests.list[i].__content__;
-		}
+			post_data.__content__ += element.__content__;
+		});
 
+
+		// --- Add CRSF TOKEN
 		post_data[data_controller.get_crsf('name')] = data_controller.get_crsf('value');
 
 		return post_data;
@@ -73,6 +76,8 @@ let
 				url = preprocess_url(),
 				post_data = post_data_prepare();
 
+			console.log(post_data);
+
 			$.ajax({
 				type: 'POST',
 				url: url,
@@ -86,7 +91,6 @@ let
 	run_sending = function()
 	{
 		if(sending === false)
-		{
 			sending = new Promise(function(resolve, reject)
 			{
 				window.APP.add_own_event('send_request', function()
@@ -96,11 +100,9 @@ let
 					    let data = response.__content__;
 
 						resolve(data);
-						reject(data);
 					});
 				});
 			});
-		}
 
 		return sending;
 	};

@@ -14,10 +14,7 @@ export let Request_Manager = function()
 
 	this.next = function(url, post_data)
 	{
-		console.log('next');
-
 		models.add_request(url, post_data);
-
 
 		return new Promise(function(resolve, reject)
 		{
@@ -27,7 +24,7 @@ export let Request_Manager = function()
 
 			    resolve(data);
 			});
-		})
+		});
 	};
 
 

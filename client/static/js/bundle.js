@@ -859,11 +859,11 @@
 			__content__: ''
 		};
 	
-		for (var i = 0; i < requests.list.length; ++i) {
-			if (i !== 0) post_data.__content__ += ' ';
+		requests.list.forEach(function (element, index) {
+			if (index !== 0) post_data.__content__ += ' ';
 	
-			post_data.__content__ += requests.list[i].__content__;
-		}
+			post_data.__content__ += element.__content__;
+		});
 	
 		post_data[_structure.data_controller.get_crsf('name')] = _structure.data_controller.get_crsf('value');
 	
@@ -874,6 +874,8 @@
 			var url = preprocess_url(),
 			    post_data = post_data_prepare();
 	
+			console.log(post_data);
+	
 			$.ajax({
 				type: 'POST',
 				url: url,
@@ -883,18 +885,16 @@
 		});
 	},
 	    run_sending = function run_sending() {
-		if (sending === false) {
-			sending = new Promise(function (resolve, reject) {
-				window.APP.add_own_event('send_request', function () {
-					send_queue().then(function (response, status) {
-						var data = response.__content__;
+		if (sending === false) sending = new Promise(function (resolve, reject) {
+			window.APP.add_own_event('send_request', function () {
+				send_queue().then(function (response, status) {
+					var data = response.__content__;
 	
-						resolve(data);
-						reject(data);
-					});
+					resolve(data);
+					reject(data);
 				});
 			});
-		}
+		});
 	
 		return sending;
 	};
