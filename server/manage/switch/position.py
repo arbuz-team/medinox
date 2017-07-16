@@ -71,7 +71,7 @@ class Position_Manager(Base_Website):
             new_object.position = position + 1
 
     def Get_Direction(self):
-        direction = self.Get_Post_Value('direction')
+        direction = self.Get_Post_Other('direction')
 
         switch = {
             'up':   Direction.UP,

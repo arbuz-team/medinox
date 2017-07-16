@@ -9,7 +9,7 @@ class Copy_Catalog(Website_Manager):
         # create copy catalog
         copy_catalog = Model_Catalog()
         copy_catalog.name = name
-        copy_catalog.url_name = Base_Website.To_URL(name)
+        copy_catalog.url_name = Path_Manager.To_URL(name)
         copy_catalog.parent = parent
         copy_catalog.language = language
         SQL.Save(data=copy_catalog)

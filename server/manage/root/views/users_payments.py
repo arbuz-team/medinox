@@ -42,7 +42,7 @@ class Users_Payments(Website_Manager):
     def Manage_Button(self):
 
         if self.request.POST['__button__'] == 'assign':
-            index = self.Get_Post_Value('index')
+            index = self.Get_Post_Other('index')
             payment = SQL.Get(Payment, pk=index)
             payment.status = self.request.POST['value']
             SQL.Save(data=payment)

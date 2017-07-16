@@ -29,10 +29,11 @@ class Catalog_Manager(Website_Manager):
         self.content['form'] = Form_Catalog(self, post=True)
 
         if self.content['form'].is_valid():
+            name = self.content['form'].cleaned_data['name']
 
             catalog = Model_Catalog()
-            catalog.name = self.content['form'].cleaned_data['name']
-            catalog.url_name = self.To_URL(self.content['form'].cleaned_data['name'])
+            catalog.name = name
+            catalog.url_name = Path_Manager.To_URL(name)
             catalog.parent = self.request.session['catalog_parent']
             catalog.language = self.request.session['translator_language']
             SQL.Save(data=catalog)
@@ -47,9 +48,11 @@ class Catalog_Manager(Website_Manager):
         self.content['form'] = Form_Catalog(self, post=True)
 
         if self.content['form'].is_valid():
+            name = self.content['form'].cleaned_data['name']
+
             catalog = self.request.session['catalog_editing']
-            catalog.name = self.content['form'].cleaned_data['name']
-            catalog.url_name = self.To_URL(self.content['form'].cleaned_data['name'])
+            catalog.name = name
+            catalog.url_name = Path_Manager.To_URL(name)
             catalog.parent = self.request.session['catalog_parent']
             SQL.Save(data=catalog)
 

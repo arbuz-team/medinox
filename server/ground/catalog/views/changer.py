@@ -2,7 +2,7 @@ from server.ground.product.views import *
 from server.ground.catalog.forms import *
 
 
-class Catalog_Changer(Website_Manager):
+class Catalog_Changer(Base):
 
     @staticmethod
     def Get_Catalog(url_name, parent):
@@ -38,7 +38,9 @@ class Catalog_Changer(Website_Manager):
         self.request.session['catalog_path'] = self.catalog_path
 
     def __init__(self, request, catalog_path):
-        Website_Manager.__init__(self, request)
 
+        self.request = request
         self.catalog_path = catalog_path
+
+        Base.__init__(self, self)
         self.Change_Catalog()

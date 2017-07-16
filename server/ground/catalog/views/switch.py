@@ -4,7 +4,7 @@ from server.ground.catalog.views.changer import *
 from server.ground.product.views import *
 
 
-class Switch(Website_Manager):
+class Switch:
 
     @staticmethod
     def Launch(request, catalog_path=''):

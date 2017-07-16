@@ -79,19 +79,20 @@ class Website_Manager(Endpoints, Inspector, Refresh, metaclass=ABCMeta):
         self.length_navigation = length_navigation
 
         if autostart:
+            status_manager = Status_Manager(self)
 
             try:
 
-                self.Timer_Start()
+                status_manager.Timer_Start()
                 self.HTML = self.Initialize()
-                self.Display_Status()
+                status_manager.Display_Status()
 
                 if not self.HTML:
-                    self.Display_Status(message='NOT HTML')
+                    status_manager.Display_Status(message='NOT HTML')
 
             except Exception as exception:
 
-                self.Display_Status(message='INTERNAL')
+                status_manager.Display_Status(message='INTERNAL')
                 raise exception
 
     @staticmethod

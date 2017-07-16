@@ -7,7 +7,7 @@ class Service_Description(Base_Service):
     def New(self, direction):
 
         # get position parent description
-        index = self.dialog.Get_Post_Value('index')
+        index = self.dialog.Get_Post_Other('index')
         position = Description.objects\
             .get(pk=index).position
 

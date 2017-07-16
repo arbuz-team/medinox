@@ -7,7 +7,7 @@ class Service_Copy(Base_Service):
     def Get_Element(self):
 
         if 'dialog_value' in self.request.POST:
-            element_type = self.dialog.Get_Post_Value('type')
+            element_type = self.dialog.Get_Post_Other('type')
             element_pk = self.request.POST['dialog_value']
 
             # get element
@@ -22,7 +22,7 @@ class Service_Copy(Base_Service):
     def New(self):
 
         # get post data
-        element_type = self.dialog.Get_Post_Value('type')
+        element_type = self.dialog.Get_Post_Other('type')
         element = self.Get_Element()
 
         # initial data

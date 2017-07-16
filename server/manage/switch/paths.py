@@ -16,6 +16,12 @@ class Path_Manager(Base):
     def Static_URL(file=''):
         return os.path.join(STATIC_URL, file)
 
+    @staticmethod
+    def To_URL(text):
+        text = text.replace(' ', '_').lower()
+        text = text.replace('-', '')
+        return Base_Website.Convert_Polish_To_Ascii(text)
+
     def Get_Urls(self, name=None, kwargs=None,
                  language=None, current_language=False):
 
@@ -83,4 +89,3 @@ class Path_Manager(Base):
             return urls[self.request.session['translator_language'].lower()]
 
         return urls
-

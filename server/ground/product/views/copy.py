@@ -12,7 +12,7 @@ class Copy_Product(Website_Manager):
         # create copy product
         copy_product = Product()
         copy_product.name = name
-        copy_product.url_name = Base_Website.To_URL(name)
+        copy_product.url_name = Path_Manager.To_URL(name)
         copy_product.price = from_product.price
         copy_product.parent = parent
         copy_product.language = language
