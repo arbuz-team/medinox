@@ -1,7 +1,7 @@
 from django.utils.timezone import datetime, timedelta
 from inspect import getmembers, ismethod
 from server.service.translator.views import *
-from server.content.product.models import *
+from server.ground.product.models import *
 from server.manage.root.models import *
 
 

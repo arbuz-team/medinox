@@ -8,7 +8,7 @@ from server.manage.switch.settings import *
 from server.service.sql.views import *
 
 
-class Base_Website(metaclass=ABCMeta):
+class Base_Website(Base):
 
     def Render_HTML(self, file_name, form_name = '', additional_form_name=''):
 
@@ -185,9 +185,9 @@ class Base_Website(metaclass=ABCMeta):
             status += '\n' + '-' * 125 + '\n'
             print(status)
 
-    def __init__(self, request):
+    def __init__(self, _object):
+        Base.__init__(self, _object)
 
-        self.request = request
         self.start_time = 0
         self.content = {}
 

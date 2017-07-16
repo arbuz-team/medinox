@@ -16,12 +16,14 @@ class Payment_System(Base_Website):
 
             generator = Generator_PDF(self.request, authorization=True)
             pdf = generator.Invoice(self.payment.pk)
-            Sender(self.request).Send_Payment_Approved(content, email, pdf)
+            Sender(self).Send_Payment_Approved(content, email, pdf)
 
-        else: Sender(self.request).Send_Payment_Failure(content, email)
+        else: Sender(self).Send_Payment_Failure(content, email)
 
     def __init__(self, request):
-        Base_Website.__init__(self, request)
+        self.request = request
+
+        Base_Website.__init__(self, self)
         Check_Session(request)
 
         self.payment = None

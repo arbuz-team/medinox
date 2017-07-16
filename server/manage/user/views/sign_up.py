@@ -82,7 +82,7 @@ class Sign_Up(Website_Manager):
             'user':         self.request.session['user_user']
         }
 
-        Sender(self.request).Send_Register_Approved_Link(content, email)
+        Sender(self).Send_Register_Approved_Link(content, email)
 
     @staticmethod
     def Launch(request):

@@ -1,5 +1,5 @@
 from server.manage.switch.models import *
-from server.content.product.models import *
+from server.ground.product.models import *
 from server.manage.root.models import Delivery
 
 

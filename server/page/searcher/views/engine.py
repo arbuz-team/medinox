@@ -1,5 +1,5 @@
-from server.content.product.base import *
-from server.content.product.models import *
+from server.ground.product.base import *
+from server.ground.product.models import *
 from django.db.models import Q
 from functools import reduce
 import operator
@@ -203,7 +203,7 @@ class Search_Engine:
         self.request = request
         self.phrase = phrase
         self.product_models_manager = \
-            Product_Models_Manager(self.request)
+            Product_Models_Manager(self)
 
         if self.phrase:
             self.phrase = phrase.split(' ')

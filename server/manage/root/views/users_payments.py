@@ -88,8 +88,8 @@ class Users_Payments(Website_Manager):
 
                 note_file.Save_File(file)
 
-            return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
-        return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
+            return Dialog_Prompt(self, apply=True).HTML
+        return Dialog_Prompt(self, not_valid=True).HTML
 
     def Manage_Form_Deadline(self):
 
@@ -100,8 +100,8 @@ class Users_Payments(Website_Manager):
         if form_deadline.is_valid():
             SQL.Save(data=form_deadline)
 
-            return Dialog_Prompt(self.request, self.app_name, apply=True).HTML
-        return Dialog_Prompt(self.request, self.app_name, not_valid=True).HTML
+            return Dialog_Prompt(self, apply=True).HTML
+        return Dialog_Prompt(self, not_valid=True).HTML
 
     def Manage_Form(self):
 

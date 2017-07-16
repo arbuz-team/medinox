@@ -1,3 +1,4 @@
+from server.manage.switch.website.content.manager import *
 from server.manage.switch.website.endpoints import *
 from server.manage.switch.website.inspector import *
 from server.manage.switch.website.refresh import *
@@ -11,7 +12,7 @@ class Website_Manager(Endpoints, Inspector, Refresh, metaclass=ABCMeta):
             self.ERROR_HTML = self.Error()
             return False
 
-        methods = getmembers(Inspector(self.request), predicate=ismethod)
+        methods = getmembers(Inspector(self), predicate=ismethod)
         methods = [method[0] for method in methods]
 
         # call all of methods Check_*
@@ -31,7 +32,7 @@ class Website_Manager(Endpoints, Inspector, Refresh, metaclass=ABCMeta):
 
     def Update(self):
 
-        methods = getmembers(Refresh(self.request), predicate=ismethod)
+        methods = getmembers(Refresh(self), predicate=ismethod)
         methods = [method[0] for method in methods]
 
         for method in methods:
@@ -41,45 +42,15 @@ class Website_Manager(Endpoints, Inspector, Refresh, metaclass=ABCMeta):
     def Error(self):
         return getattr(Website_Manager, self.error_method)(self)
 
-    def Manage(self):
-
-        # parts of pages
-        if '__content__' in self.request.POST:
-            return self.Manage_Content()
-
-        # manage forms
-        if '__form__' in self.request.POST:
-            return self.Manage_Form()
-
-        # checkers
-        if '__exist__' in self.request.POST:
-            return self.Manage_Exist()
-
-        # getters
-        if '__get__' in self.request.POST:
-            return self.Manage_Get()
-
-        # auto/mini form
-        if '__little__' in self.request.POST:
-            return self.Manage_Little_Form()
-
-        # filters
-        if '__filter__' in self.request.POST:
-            return self.Manage_Filter()
-
-        # options
-        if '__button__' in self.request.POST:
-            return self.Manage_Button()
-
-        return self.Error_No_Event()
-
     def Initialize(self):
 
         self.Update()
 
         if self.request.method == 'POST':
             if self.Check():
-                return self.Manage()
+
+                content_manager = Direct_Part_Manager(self)
+                return content_manager.Direct()
 
             return self.ERROR_HTML
 
@@ -95,9 +66,10 @@ class Website_Manager(Endpoints, Inspector, Refresh, metaclass=ABCMeta):
                  clear_session=False,
                  length_navigation=None):
 
-        Endpoints.__init__(self, request)
-        Inspector.__init__(self, request)
-        Refresh.__init__(self, request)
+        self.request = request
+        Endpoints.__init__(self, self)
+        Inspector.__init__(self, self)
+        Refresh.__init__(self, self)
 
         self.authorization = authorization
         self.error_method = error_method

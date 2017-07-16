@@ -58,9 +58,5 @@ class Generator_PDF(Website_Manager):
         return False
 
     @staticmethod
-    def Launch_Invoice(request, pk):
+    def Launch(request, pk):
         return Generator_PDF(request, other_value=pk).Invoice(pk)
-
-    @staticmethod
-    def Launch(request):
-        pass

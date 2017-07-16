@@ -17,7 +17,7 @@ class Payment_Manager(Website_Manager, PayPal, DotPay):
 
     def Load_Payment_Details(self):
 
-        model_manager = Payment_Models_Manager(self.request)
+        model_manager = Payment_Models_Manager(self)
         self.content['user'] = self.request.session['user_user']
         self.content['cart'] = model_manager.Get_Selected_Products()
         self.content['total_price'] = model_manager.Count_Total_Price()

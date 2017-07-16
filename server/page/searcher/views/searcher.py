@@ -1,6 +1,6 @@
 from server.manage.switch.website.manager import *
-from server.content.product.base import *
-from server.content.product.models import *
+from server.ground.product.base import *
+from server.ground.product.models import *
 
 
 class Searcher(Website_Manager):

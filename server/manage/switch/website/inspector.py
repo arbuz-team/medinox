@@ -1,6 +1,5 @@
-from server.manage.session.views import *
+from server.manage.switch.website.base import *
 from server.service.payment.base import *
-from server.page.dialog.views import *
 
 
 class Inspector(Base_Website):
@@ -32,14 +31,14 @@ class Inspector(Base_Website):
 
         return True
 
-    def Check_Payment(self):
+    def Check_Payment(self): # Backend: WTF!!
         self.payment_models_manager = \
-            Payment_Models_Manager(self.request)
+            Payment_Models_Manager(self)
 
         return True
 
-    def __init__(self, request):
-        Base_Website.__init__(self, request)
+    def __init__(self, _object):
+        Base_Website.__init__(self, _object)
 
         self.ERROR_HTML = None
         self.authorization = False

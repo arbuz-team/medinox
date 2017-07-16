@@ -10,12 +10,12 @@ class Finance_Manager(Base_Tag_Manager):
         if not currency:
 
             currency = self.request.session['translator_currency']
-            selected_price = Product_Models_Manager(self.request)\
+            selected_price = Product_Models_Manager(self)\
                 .Get_Product_Price(product, current_currency=True)
 
         else:
 
-            selected_price = Product_Models_Manager(self.request)\
+            selected_price = Product_Models_Manager(self)\
                 .Get_Product_Price(product, currency=currency)
 
         selected_price = '{0:.2f}'.format(selected_price)
@@ -27,7 +27,7 @@ class Finance_Manager(Base_Tag_Manager):
         rate = self.values['rate']
 
         if product:
-            price = Product_Models_Manager(self.request)\
+            price = Product_Models_Manager(self)\
                 .Get_Product_Price(product, current_currency=True)
 
         return format((price * 100) / (100 + rate), '.2f')
@@ -53,7 +53,7 @@ class Finance_Manager(Base_Tag_Manager):
         delivery = self.values['delivery']
         currency = self.request.session['translator_currency']
 
-        price = Product_Models_Manager(self.request)\
+        price = Product_Models_Manager(self)\
                 .Get_Delivery_Price(delivery, current_currency=True)
 
         return '{0:.2f} {1}'.format(price, currency)

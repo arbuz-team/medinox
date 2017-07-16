@@ -1,6 +1,6 @@
 from server.manage.session.views import *
 from server.service.payment.base import *
-from server.page.dialog.views import *
+from server.dialog.views import *
 
 
 class Endpoints(Base_Website):
@@ -12,13 +12,13 @@ class Endpoints(Base_Website):
     def Manage_Content_Dialog(self):
 
         if self.request.POST['dialog_type'] == 'alert':
-            return Dialog_Alert(self.request, self.app_name).HTML
+            return Dialog_Alert(self).HTML
 
         if self.request.POST['dialog_type'] == 'confirm':
-            return Dialog_Confirm(self.request, self.app_name).HTML
+            return Dialog_Confirm(self).HTML
 
         if self.request.POST['dialog_type'] == 'prompt':
-            return Dialog_Prompt(self.request, self.app_name).HTML
+            return Dialog_Prompt(self).HTML
 
     def Manage_Content(self):
 
@@ -80,6 +80,6 @@ class Endpoints(Base_Website):
 
         return render(self.request, 'index.html', {})
 
-    def __init__(self, request):
-        Base_Website.__init__(self, request)
+    def __init__(self, _object):
+        Base_Website.__init__(self, _object)
         self.clear_session = False

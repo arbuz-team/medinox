@@ -57,7 +57,7 @@ class Forgot_Password(Website_Manager):
             'user':         SQL.Get(User, email=email)
         }
 
-        Sender(self.request).Send_Forgot_Password_Link(content, email)
+        Sender(self).Send_Forgot_Password_Link(content, email)
 
     def Manage_Exist(self):
 

@@ -1,12 +1,14 @@
 from inspect import getmembers, ismethod
-from server.content.product.base import *
+from server.ground.product.base import *
 from django import template
 register = template.Library()
 
 class Base_Tag_Manager(Base_Website):
 
     def __init__(self, task, values, request=None):
-        Base_Website.__init__(self, request)
+        self.request = request
+
+        Base_Website.__init__(self, self)
         self.values = values
 
         methods = getmembers(self, predicate=ismethod)

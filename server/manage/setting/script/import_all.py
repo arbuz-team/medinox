@@ -19,7 +19,7 @@ def import_all(path):
     return members, glob
 
 
-# from server.content.catalog import aa
+# from server.ground.catalog import aa
 #
 # __all__, glob = aa.import_all(__path__)
 # globals().update(glob)

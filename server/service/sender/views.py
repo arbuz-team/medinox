@@ -71,6 +71,6 @@ class Sender(Base_Website):
         self.Attach_Image('/static/img/logo.png', 'logo')
         self.email.send()
 
-    def __init__(self, request):
-        Base_Website.__init__(self, request)
+    def __init__(self, _object):
+        Base_Website.__init__(self, _object)
         self.email = None

@@ -1,6 +1,4 @@
-from server.manage.session.views import *
-from server.service.payment.base import *
-from server.page.dialog.views import *
+from server.manage.switch.website.base import *
 
 
 class Refresh(Base_Website):
@@ -51,8 +49,8 @@ class Refresh(Base_Website):
     def Update_App_Name(self):
         self.request.session['arbuz_app'] = self.app_name
 
-    def __init__(self, request):
-        Base_Website.__init__(self, request)
+    def __init__(self, _object):
+        Base_Website.__init__(self, _object)
         self.length_navigation = None
         self.only_root = False
         self.authorization = False

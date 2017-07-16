@@ -93,7 +93,3 @@ class Position_Manager(Base_Website):
         if self.request.POST['__button__'] == 'move_down':
             desc = SQL.Get(model, pk=self.request.POST['value'])
             self.Change_Position(model, desc.position, Direction.DOWN)
-
-    def __init__(self, _object):
-        Base_Website.__init__(self, _object.request)
-

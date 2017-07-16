@@ -1,6 +1,6 @@
 from server.service.payment.models import *
 from server.manage.user.models import *
-from server.content.product.base import *
+from server.ground.product.base import *
 
 
 class Payment_Models_Manager(Base_Website):
@@ -172,12 +172,12 @@ class Payment_Models_Manager(Base_Website):
         selected_product.number = number
         SQL.Save(data=selected_product)
 
-    def __init__(self, request):
-        Base_Website.__init__(self, request)
+    def __init__(self, _object):
+        Base_Website.__init__(self, _object)
 
         self.user = None
         self.payment = None
         self.product_models_manager = \
-            Product_Models_Manager(self.request)
+            Product_Models_Manager(self)
 
         self.Check_Payment()
