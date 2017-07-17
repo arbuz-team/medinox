@@ -2,20 +2,18 @@
  * Created by mrskull on 21.01.17.
  */
 
-import {Plugins_Loader_Controllers} from '../../../plugin/part_loader/controllers'
+import {Part_Loader_Dialog} from '../../../plugin/part_loader/dialog'
 
 
 let
 
-	dialog_loader_controllers = new Plugins_Loader_Controllers({
+	dialog_loader = new Part_Loader_Dialog({
 		name: 'dialog',
 
-		container: '#DIALOG > .dialog',
+		container: '.dialog',
 
-		duration: {
-			show: 0,
-			hide: 0,
-		},
+		duration_show: 0,
+		duration_hide: 0,
 	});
 
 
@@ -89,11 +87,11 @@ export let
 	{
 		prepare_post_data(post_data);
 
-		dialog_loader_controllers.load(url, variables.post_data, callback);
+		dialog_loader.load_content(url, variables.post_data, callback);
 	},
 
 
 	reload = function(callback)
 	{
-		dialog_loader_controllers.load(undefined, variables.post_data, callback);
+		dialog_loader.load_content(undefined, variables.post_data, callback);
 	};

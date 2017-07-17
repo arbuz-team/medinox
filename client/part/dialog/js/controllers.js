@@ -2,10 +2,9 @@
  * Created by mrskull on 29.12.16.
  */
 
-import {Request_Manager} 				from '../../../arbuz/plugin/request_manager/main'
-
 import * as dialog_views from './views'
 import * as interior_dialog_controllers from './interior/controllers'
+
 
 
 /**
@@ -24,8 +23,8 @@ export let
 
 		$(selectors.external_buttons).click(open);
 
-		window.APP.add_own_event('dialog_close', close_with_delay);
-		window.APP.add_own_event('dialog_reload', reload);
+		APP.add_own_event('dialog_close', close_with_delay);
+		APP.add_own_event('dialog_reload', reload);
 
 		interior_dialog_controllers.define();
 	};
@@ -36,9 +35,6 @@ export let
  */
 
 let
-
-	request_manager = new Request_Manager(),
-
 
 	close_with_cancel_event = function(event)
 	{
@@ -51,8 +47,8 @@ let
 	{
 		let delay;
 
-		if(window.APP.DATA.delay >= 0)
-			delay = window.APP.DATA.delay;
+		if(APP.DATA.delay >= 0)
+			delay = APP.DATA.delay;
 		else
 			delay = 2000;
 
@@ -97,7 +93,6 @@ export let
 			};
 
 		dialog_views.open(dialog_data, additional_data);
-		request_manager.send();
 	},
 
 

@@ -2,7 +2,7 @@
  * Created by mrskull on 07.01.17.
  */
 
-import {Plugins_Loader_Controllers}     from '../../plugin/part_loader/controllers'
+import {Part_Loader_Part}     			from '../../plugin/part_loader/part'
 import {Plugins_Motion_Controllers}     from '../../plugin/part_motion/controllers'
 import {Form_Controllers}               from '../../../form/js/controllers'
 import {Post_Button_Controllers}        from '../../../form/plugin/post_button/controllers'
@@ -14,20 +14,20 @@ import {Event_Button_Controllers}       from '../../../form/plugin/event_button/
  */
 
 let
+	container = '.cart',
 
-	cart_loader_controllers = new Plugins_Loader_Controllers({
+	config_loader = {
 		name: 'cart',
-		url: '/cart/',
+		container: container,
+		load_meta_tags: true,
+	},
 
-		container: '#CART .cart',
 
-		auto_first_loading: true,
-		load_with_page: false,
-	}),
+	cart_loader = new Part_Loader_Part(config_loader),
 
 	cart_motion_controllers = new Plugins_Motion_Controllers({
 		container: '#CART',
-		content: '.cart',
+		content: container,
 		open: 'left',
 		can_open_by: 'width',
 		can_open_from: 0,
@@ -36,15 +36,14 @@ let
 	}),
 
 	post_button_controllers = new Post_Button_Controllers({
-		container: '#CART > .cart',
-		callback: cart_loader_controllers.reload, ///////////////////////////////////////////////// popraw
+		container: '#CART > '+ container,
 	}),
 
 	event_button_controllers = new Event_Button_Controllers({
 		container: '#CART'
 	}),
 
-	cart_form_controllers = new Form_Controllers(cart_loader_controllers),
+	cart_form_controllers = new Form_Controllers(config_loader),
 
 
 	manage_key = function(event)
@@ -71,9 +70,9 @@ export let
 
 	define = function()
 	{
-		window.APP.add_own_event('cart_open', cart_motion_controllers.plugin_open);
-		window.APP.add_own_event('cart_close', cart_motion_controllers.plugin_close);
-		window.APP.add_own_event('cart_open_or_close', open_or_close);
+		APP.add_own_event('cart_open', cart_motion_controllers.plugin_open);
+		APP.add_own_event('cart_close', cart_motion_controllers.plugin_close);
+		APP.add_own_event('cart_open_or_close', open_or_close);
 
 		$('body').keydown(manage_key);
 
@@ -86,7 +85,8 @@ export let
 
 	get_content = function()
 	{
-		cart_loader_controllers.define();
+		cart_loader.define();
+		cart_loader.load_content();
 		cart_motion_controllers.set_start_position();
 	},
 
@@ -99,7 +99,7 @@ export let
 
 	open_or_close = function()
 	{
-		window.APP.throw_event(window.EVENTS.plugins.close_navigation);
+		APP.throw_event(EVENTS.part.close_navigation);
 
 		if(cart_motion_controllers.is_open())
 			plugin_close();

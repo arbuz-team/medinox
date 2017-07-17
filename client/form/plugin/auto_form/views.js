@@ -198,11 +198,11 @@ export let Auto_Form_Views = function(config)
             {
               APP.DATA.redirect = models.settings.redirect;
 
-              APP.throw_event(window.EVENTS.redirect);
+              APP.throw_event(EVENTS.redirect);
             }
             else if(models.settings.reload)
             {
-              APP.throw_event(window.EVENTS.plugins['reload_'+ models.settings.reload]);
+              APP.throw_event(EVENTS.part['reload_'+ models.settings.reload]);
             }
           }
           else if(models.get_state_error())
@@ -246,7 +246,7 @@ export let Auto_Form_Views = function(config)
     send = function(post_data)
     {
       models.set_state_response(false);
-      window.APP.http_request(models.settings.action, post_data, set_response);
+      APP.http_request(models.settings.action, post_data, set_response);
       show_changes();
     };
 

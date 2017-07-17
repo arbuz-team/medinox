@@ -1,10 +1,10 @@
 <script>
-    window.APP.throw_event(window.EVENTS.plugins.reload_user_sign_in);
-    window.APP.throw_event(window.EVENTS.plugins.close_cart);
+    APP.throw_event(EVENTS.part.reload_user_sign_in);
+    APP.throw_event(EVENTS.part.close_cart);
 
-    window.APP.DATA.redirect = '/';
-    window.APP.DATA.delay = 1500;
-    window.APP.throw_event(window.EVENTS.redirect);
+    APP.DATA.redirect = '/';
+    APP.DATA.delay = 1500;
+    APP.throw_event(EVENTS.redirect);
 </script>
 
 

@@ -2,9 +2,9 @@
  * Created by mrskull on 07.01.17.
  */
 
-import {Plugins_Loader_Controllers} from '../../plugin/part_loader/controllers'
-import {Plugins_Motion_Controllers} from '../../plugin/part_motion/controllers'
-import {Form_Controllers}  from '../../../form/js/controllers'
+import {Part_Loader_Part}     			from '../../plugin/part_loader/part'
+import {Plugins_Motion_Controllers} 	from '../../plugin/part_motion/controllers'
+import {Form_Controllers}  				from '../../../form/js/controllers'
 import {Post_Button_Controllers}        from '../../../form/plugin/post_button/controllers'
 
 
@@ -13,18 +13,19 @@ import {Post_Button_Controllers}        from '../../../form/plugin/post_button/c
  */
 
 let
-	searcher_loader_controllers = new Plugins_Loader_Controllers({
+	container = '.searcher',
+
+	config_loader = {
 		name: 'searcher',
-		url: '/searcher/',
+		container: container,
+	},
 
-		container: '#SEARCHER .searcher',
 
-		auto_first_loading: true,
-	}),
+	searcher_loader = new Part_Loader_Part(config_loader),
 
 	searcher_motion_controllers = new Plugins_Motion_Controllers({
 		container: '#SEARCHER',
-		content: '.searcher',
+		content: container,
 		open: 'right',
 		can_open_by: 'width',
 		can_open_to: 1000,
@@ -36,7 +37,7 @@ let
 		container: '#SEARCHER'
 	}),
 
-	searcher_form_controllers = new Form_Controllers(searcher_loader_controllers);
+	searcher_form_controllers = new Form_Controllers(config_loader);
 
 
 /**
@@ -47,7 +48,7 @@ export let
 
 	define = function()
 	{
-		window.APP.add_own_event('searcher_open', searcher_motion_controllers.plugin_open);
+		APP.add_own_event('searcher_open', searcher_motion_controllers.plugin_open);
 
 		searcher_motion_controllers.define();
 		searcher_form_controllers.define();
@@ -57,7 +58,9 @@ export let
 
 	get_content = function()
 	{
-		searcher_loader_controllers.define();
+		searcher_loader.define();
+		searcher_loader.load_content();
+
 		searcher_motion_controllers.set_start_position();
 	};
 

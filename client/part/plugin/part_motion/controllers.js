@@ -152,8 +152,8 @@ export let Plugins_Motion_Controllers = function(config)
 		$window.resize(if_horizontal_resize(this.set_start_position));
 		$window.resize(if_horizontal_resize(plugin_motion_views.plugin_close));
 
-		window.APP.add_own_event('plugins_close', pre_plugin_close);
-		window.APP.throw_event(window.EVENTS.plugins.close);
+		APP.add_own_event('plugins_close', pre_plugin_close);
+		APP.throw_event(EVENTS.part.close);
 
 	};
 

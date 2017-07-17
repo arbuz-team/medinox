@@ -7,7 +7,7 @@ export let Post_Button_Models = function(config)
 {
 	let
 		that = this,
-		dictionary = window.APP.dictionary;
+		dictionary = APP.dictionary;
 
 	this.settings = {
 		container:          undefined,
@@ -40,24 +40,24 @@ export let Post_Button_Models = function(config)
 	{
 		if(typeof config !== 'undefined')
 		{
-			window.APP.add_if_isset(config, that.settings, 'container');
+			APP.add_if_isset(config, that.settings, 'container');
 
-			window.APP.add_if_isset(config, that.settings, 'callback');
+			APP.add_if_isset(config, that.settings, 'callback');
 
-			window.APP.add_if_isset(config, that.settings, 'button');
+			APP.add_if_isset(config, that.settings, 'button');
 
-			window.APP.add_if_isset(config, that.settings, 'button_name');
-			window.APP.add_if_isset(config, that.settings, 'button_action');
-			window.APP.add_if_isset(config, that.settings, 'button_value');
-			window.APP.add_if_isset(config, that.settings, 'button_other_1');
-			window.APP.add_if_isset(config, that.settings, 'button_other_2');
-			window.APP.add_if_isset(config, that.settings, 'button_other_3');
-			window.APP.add_if_isset(config, that.settings, 'button_reload');
-			window.APP.add_if_isset(config, that.settings, 'button_redirect');
-			window.APP.add_if_isset(config, that.settings, 'button_event');
-			window.APP.add_if_isset(config, that.settings, 'button_url');
+			APP.add_if_isset(config, that.settings, 'button_name');
+			APP.add_if_isset(config, that.settings, 'button_action');
+			APP.add_if_isset(config, that.settings, 'button_value');
+			APP.add_if_isset(config, that.settings, 'button_other_1');
+			APP.add_if_isset(config, that.settings, 'button_other_2');
+			APP.add_if_isset(config, that.settings, 'button_other_3');
+			APP.add_if_isset(config, that.settings, 'button_reload');
+			APP.add_if_isset(config, that.settings, 'button_redirect');
+			APP.add_if_isset(config, that.settings, 'button_event');
+			APP.add_if_isset(config, that.settings, 'button_url');
 
-			window.APP.add_if_isset(config, that.settings, 'button_html', 'text_standard');
+			APP.add_if_isset(config, that.settings, 'button_html', 'text_standard');
 		}
 	};
 
@@ -104,7 +104,7 @@ export let Post_Button_Models = function(config)
 				url = that.settings.button_url,
 				post_data = prepare_post_data();
 
-			window.APP.http_request(url, post_data, callback);
+			APP.http_request(url, post_data, callback);
 		}, 200);
 	};
 

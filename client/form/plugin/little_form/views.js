@@ -30,8 +30,8 @@ export let Little_Form_Views = function(form_config)
       for(let i = 0; i < array_length; ++i)
         if(plugins_array[i])
         {
-          window.APP.DATA.delay = 0;
-          window.APP.throw_event(window.EVENTS.plugins['reload_'+ plugins_array[i]]);
+          APP.DATA.delay = 0;
+          APP.throw_event(EVENTS.part['reload_'+ plugins_array[i]]);
         }
     },
 
@@ -44,9 +44,9 @@ export let Little_Form_Views = function(form_config)
       if(!url || typeof url !== 'string')
         return false;
 
-      window.APP.DATA.redirect = url;
-      window.APP.DATA.delay = 100;
-      window.APP.throw_event(window.EVENTS.redirect);
+      APP.DATA.redirect = url;
+      APP.DATA.delay = 100;
+      APP.throw_event(EVENTS.redirect);
     },
 
 
@@ -55,7 +55,7 @@ export let Little_Form_Views = function(form_config)
       let
         event = models.settings.event,
         split_event,
-        ready_event = window.EVENTS;
+        ready_event = EVENTS;
 
       if(!event || typeof event !== 'string')
         return false;
@@ -67,8 +67,8 @@ export let Little_Form_Views = function(form_config)
 
       if(ready_event.constructor === Event)
       {
-        window.APP.DATA.delay = 100;
-        window.APP.throw_event(ready_event); // example plugins.close_cart
+        APP.DATA.delay = 100;
+        APP.throw_event(ready_event); // example plugins.close_cart
       }
     },
 

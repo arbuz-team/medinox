@@ -48,7 +48,7 @@ let
  *    Defining global functions
  */
 
-  window.APP.http_request = function(url, post_data, callback)
+  APP.http_request = function(url, post_data, callback)
   {
     url = send_post_preprocess_url(url);
     post_data = send_post_prepare(post_data);

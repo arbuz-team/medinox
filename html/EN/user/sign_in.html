@@ -1,5 +1,5 @@
 <script>
-    window.APP.DATA = {
+    APP.DATA = {
         title : 'Login',
         description : 'Here you can login.'
     };
@@ -23,11 +23,11 @@
             </div>
 
             <script>
-               window.APP.throw_event(window.EVENTS.plugins.reload_user_sign_in);
-                window.APP.DATA.redirect = '{{ go_back }}';
+               APP.throw_event(EVENTS.part.reload_user_sign_in);
+                APP.DATA.redirect = '{{ go_back }}';
 
-                window.APP.DATA.delay = 1500;
-                window.APP.throw_event(window.EVENTS.redirect);
+                APP.DATA.delay = 1500;
+                APP.throw_event(EVENTS.redirect);
             </script>
 
         {% else %}

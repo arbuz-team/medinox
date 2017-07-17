@@ -2,7 +2,7 @@
  * Created by mrskull on 08.01.17.
  */
 
-import {Plugins_Loader_Controllers}     from '../../plugin/part_loader/controllers'
+import {Part_Loader_Part}     			from '../../plugin/part_loader/part'
 import {Event_Button_Controllers}       from '../../../form/plugin/event_button/controllers'
 
 
@@ -11,7 +11,7 @@ import {Event_Button_Controllers}       from '../../../form/plugin/event_button/
  */
 
 let
-	header_loader_controllers = new Plugins_Loader_Controllers({
+	header_loader = new Part_Loader_Part({
 		name: 'header',
 		url: '/navigation/',
 
@@ -39,5 +39,6 @@ export let
 
 	get_content = function()
 	{
-		header_loader_controllers.define();
+		header_loader.define();
+		header_loader.load_content();
 	};

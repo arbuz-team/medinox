@@ -1,5 +1,5 @@
 <script>
-  window.APP.DATA = {
+  APP.DATA = {
     title : 'New product',
     description : ''
   };
@@ -17,9 +17,9 @@
 
             Product has been insert to databases.
             <script>
-                window.APP.DATA.redirect = '/product/new/';
-                window.APP.DATA.delay = 2000;
-                window.dispatchEvent(window.EVENTS.redirect);
+                APP.DATA.redirect = '/product/new/';
+                APP.DATA.delay = 2000;
+                window.dispatchEvent(EVENTS.redirect);
             </script>
 
         {% else %}

@@ -9,8 +9,8 @@ import {Dictionary} from '../plugin/dictionary/base';
  */
 
 window.APP = {};
-window.APP.DATA = {};
-window.APP.dictionary = new Dictionary();
+APP.DATA = {};
+APP.dictionary = new Dictionary();
 
 
 /**
@@ -108,7 +108,7 @@ if (!String.prototype.splice)
 }
 
 
-window.APP.add_if_isset = function(from, to, from_what, to_what)
+APP.add_if_isset = function(from, to, from_what, to_what)
 {
   if(typeof from[from_what] !== 'undefined')
     if(from_what && to_what)

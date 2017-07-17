@@ -35,9 +35,9 @@ export let
 		let delay = data.delay;
 
 		if(delay >= 0)
-			window.APP.DATA.delay = delay;
+			APP.DATA.delay = delay;
 		else
-			window.APP.DATA.delay = 0;
+			APP.DATA.delay = 0;
 	},
 
 
@@ -58,7 +58,7 @@ export let
 			if(plugins_array[i])
 			{
 				prepare_delay(data);
-				window.APP.throw_event(window.EVENTS.plugins['reload_'+ plugins_array[i]]);
+				APP.throw_event(EVENTS.part['reload_'+ plugins_array[i]]);
 			}
 	},
 
@@ -70,9 +70,9 @@ export let
 		if(!url || typeof url !== 'string')
 			return false;
 
-		window.APP.DATA.redirect = url;
+		APP.DATA.redirect = url;
 		prepare_delay(data);
-		window.APP.throw_event(window.EVENTS.redirect);
+		APP.throw_event(EVENTS.redirect);
 	},
 
 
@@ -95,7 +95,7 @@ export let
 			{
 				let select_event = events_array[i],
 					split_event,
-					ready_event = window.EVENTS;
+					ready_event = EVENTS;
 
 				split_event = select_event.split('.');
 
@@ -106,7 +106,7 @@ export let
 				if(ready_event.constructor === Event)
 				{
 					prepare_delay(data);
-					window.APP.throw_event(ready_event); // example plugins.close_cart
+					APP.throw_event(ready_event); // example plugins.close_cart
 				}
 				else
 					console.error('Event error: This event doesn\'t exist');

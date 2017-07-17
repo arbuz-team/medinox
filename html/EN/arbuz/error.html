@@ -1,7 +1,7 @@
 {% load tags %}
 
 <script>
-	window.APP.DATA = {
+	APP.DATA = {
 		title : 'Internal error',
 		description : '',
 	};
@@ -23,14 +23,14 @@
             <script>
 
 				// {% if request.session.arbuz_permissions == 'only_root' %}
-				window.APP.DATA.redirect = "{% redirect 'root.sign_in' %}";
+				APP.DATA.redirect = "{% redirect 'root.sign_in' %}";
 				// {% elif request.session.arbuz_permissions == 'authorization' %}
-				window.APP.DATA.redirect = "{% redirect 'user.sign_in' %}";
+				APP.DATA.redirect = "{% redirect 'user.sign_in' %}";
 				// {% endif %}
 
 				// {% if request.session.arbuz_permissions == 'only_root' or request.session.arbuz_permissions == 'authorization' %}
-				window.APP.DATA.delay = 0;
-				window.APP.throw_event(window.EVENTS.redirect);
+				APP.DATA.delay = 0;
+				APP.throw_event(EVENTS.redirect);
 				// {% endif %}
 
             </script>

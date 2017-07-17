@@ -1,7 +1,7 @@
 {% load tags %}
 
 <script>
-window.APP.DATA = {
+APP.DATA = {
 title : 'Register',
 description : ''
 };
@@ -23,9 +23,9 @@ description : ''
             </div>
 
             <script>
-            window.APP.DATA.redirect = '/';
-            window.APP.DATA.delay = 2000;
-            window.dispatchEvent(window.EVENTS.redirect);
+            APP.DATA.redirect = '/';
+            APP.DATA.delay = 2000;
+            window.dispatchEvent(EVENTS.redirect);
             </script>
 
         {% else %}

@@ -1,5 +1,5 @@
 <script>
-  window.APP.DATA = {
+  APP.DATA = {
     title : 'Edit {{ title }}',
     description : ''
   };
@@ -17,9 +17,9 @@
 
       Product has been edit.
       <script>
-        window.APP.DATA.redirect = '/products/';
-        window.APP.DATA.delay = 2000;
-        window.dispatchEvent(window.EVENTS.redirect);
+        APP.DATA.redirect = '/products/';
+        APP.DATA.delay = 2000;
+        window.dispatchEvent(EVENTS.redirect);
       </script>
 
     {% else %}

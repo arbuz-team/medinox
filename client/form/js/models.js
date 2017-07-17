@@ -2,18 +2,19 @@
  * Created by mrskull on 21.01.17.
  */
 
-import * as utilities from './utilities'
+import * as utilities 			from './utilities'
+import {Part_Loader_Form}     	from '../../part/plugin/part_loader/form'
 
 
-export let Form_Models = function(content_loader_controllers)
+export let Form_Models = function(config)
 {
-    let that = this;
+    let that = this,
+		form_loader = new Part_Loader_Form(config);
 
 	/**
 	 *    Defining settings
 	 */
 
-	this.loader_controllers = content_loader_controllers;
 
 	this.variables = {
 		name:           undefined,
@@ -67,10 +68,7 @@ export let Form_Models = function(content_loader_controllers)
 	{
 		post_data = prepare_post_data(form_name, post_data);
 
-		if(typeof this.loader_controllers !== 'undefined')
-			this.loader_controllers.load(url, post_data, end_loading);
-		else
-			console.error('Valid config object.');
+		form_loader.load_simple_content(url, post_data, end_loading);
 	};
 
 };

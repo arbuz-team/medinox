@@ -23,15 +23,15 @@ export let Event_Button_Models = function(config)
 	{
 		if(typeof config !== 'undefined')
 		{
-			window.APP.add_if_isset(config, that.settings, 'container');
+			APP.add_if_isset(config, that.settings, 'container');
 
-			window.APP.add_if_isset(config, that.settings, 'button');
+			APP.add_if_isset(config, that.settings, 'button');
 
-			window.APP.add_if_isset(config, that.settings, 'button_name');
-			window.APP.add_if_isset(config, that.settings, 'button_reload');
-			window.APP.add_if_isset(config, that.settings, 'button_redirect');
-			window.APP.add_if_isset(config, that.settings, 'button_event');
-			window.APP.add_if_isset(config, that.settings, 'button_delay');
+			APP.add_if_isset(config, that.settings, 'button_name');
+			APP.add_if_isset(config, that.settings, 'button_reload');
+			APP.add_if_isset(config, that.settings, 'button_redirect');
+			APP.add_if_isset(config, that.settings, 'button_event');
+			APP.add_if_isset(config, that.settings, 'button_delay');
 		}
 	})();
 

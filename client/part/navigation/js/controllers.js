@@ -2,7 +2,7 @@
  * Created by mrskull on 24.11.16.
  */
 
-import {Plugins_Loader_Controllers}     from '../../plugin/part_loader/controllers'
+import {Part_Loader_Part}     			from '../../plugin/part_loader/part'
 import {Plugins_Motion_Controllers}     from '../../plugin/part_motion/controllers'
 import {Event_Button_Controllers}       from '../../../form/plugin/event_button/controllers'
 
@@ -12,7 +12,7 @@ import {Event_Button_Controllers}       from '../../../form/plugin/event_button/
  */
 
 let
-	navigation_loader_controllers = new Plugins_Loader_Controllers({
+	navigation_loader = new Part_Loader_Part({
 		name: 'navigation',
 		url: '/navigation/',
 
@@ -45,8 +45,8 @@ let
 export let
 	define = function()
 	{
-		window.APP.add_own_event('navigation_close', navigation_motion_controllers.plugin_close);
-		window.APP.add_own_event('navigation_open', navigation_motion_controllers.plugin_open);
+		APP.add_own_event('navigation_close', navigation_motion_controllers.plugin_close);
+		APP.add_own_event('navigation_open', navigation_motion_controllers.plugin_open);
 
 		navigation_motion_controllers.define();
 		event_button_controllers.define();
@@ -55,7 +55,9 @@ export let
 
 	get_content = function()
 	{
-		navigation_loader_controllers.define();
+		navigation_loader.define();
+		navigation_loader.load_content();
+
 		navigation_motion_controllers.set_start_position();
 	},
 

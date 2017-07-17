@@ -25,17 +25,17 @@ export let Little_Form_Models = function(form_config)
 
   (function load_settings()
   {
-    window.APP.add_if_isset(form_config, that.settings, 'container');
-    window.APP.add_if_isset(form_config, that.settings, 'this');
+    APP.add_if_isset(form_config, that.settings, 'container');
+    APP.add_if_isset(form_config, that.settings, 'this');
 
-    window.APP.add_if_isset(form_config, that.settings, 'action');
-    window.APP.add_if_isset(form_config, that.settings, 'origin');
-    window.APP.add_if_isset(form_config, that.settings, 'name');
-    window.APP.add_if_isset(form_config, that.settings, 'value');
+    APP.add_if_isset(form_config, that.settings, 'action');
+    APP.add_if_isset(form_config, that.settings, 'origin');
+    APP.add_if_isset(form_config, that.settings, 'name');
+    APP.add_if_isset(form_config, that.settings, 'value');
 
-    window.APP.add_if_isset(form_config, that.settings, 'reload');
-    window.APP.add_if_isset(form_config, that.settings, 'redirect');
-    window.APP.add_if_isset(form_config, that.settings, 'event');
+    APP.add_if_isset(form_config, that.settings, 'reload');
+    APP.add_if_isset(form_config, that.settings, 'redirect');
+    APP.add_if_isset(form_config, that.settings, 'event');
   })();
 
 
@@ -121,7 +121,7 @@ export let Little_Form_Models = function(form_config)
         value = that.settings.value,
         post_data = prepare_post_data(name, value);
 
-      window.APP.http_request(action, post_data, callback);
+      APP.http_request(action, post_data, callback);
     }, 200);
   };
 

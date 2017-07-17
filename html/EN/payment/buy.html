@@ -1,8 +1,8 @@
 
 <script>
-    window.APP.DATA.redirect = '/payment/';
+    APP.DATA.redirect = '/payment/';
 
-    window.APP.DATA.delay = 0;
-    window.APP.throw_event(window.EVENTS.plugins.reload_cart);
-    window.APP.throw_event(window.EVENTS.redirect);
+    APP.DATA.delay = 0;
+    APP.throw_event(EVENTS.part.reload_cart);
+    APP.throw_event(EVENTS.redirect);
 </script>

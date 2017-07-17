@@ -1,9 +1,9 @@
 <script>
-    window.APP.throw_event(window.EVENTS.plugins.reload_root_sign_in);
+    APP.throw_event(EVENTS.part.reload_root_sign_in);
 
-  window.APP.DATA.redirect = '/';
-  window.APP.DATA.delay = 1500;
-  window.APP.throw_event(window.EVENTS.redirect);
+  APP.DATA.redirect = '/';
+  APP.DATA.delay = 1500;
+  APP.throw_event(EVENTS.redirect);
 </script>
 
 

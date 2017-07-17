@@ -9,7 +9,7 @@ window.EVENTS = {
 	redirect: new Event('redirect'),
 	reload_website: new Event('reload_website'),
 
-	plugins: {
+	part: {
 		open_cart: new Event('cart_open'),
 		open_navigation: new Event('navigation_open'),
 		open_searcher: new Event('searcher_open'),

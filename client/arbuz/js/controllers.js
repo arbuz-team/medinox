@@ -10,7 +10,7 @@ import * as dialog_controllers        from '../../part/dialog/js/controllers'
 
 import * as ground_controllers        from '../../part/ground/js/controllers'
 
-import {Request_Manager} from '../plugin/request_manager/main'
+import {Request_Manager_Part} from '../plugin/request_manager/part'
 
 
 /*---------------- Wydarzenia na stronie ----------------*/
@@ -22,18 +22,18 @@ let
 		return function()
 		{
 			let
-				delay = window.APP.DATA.delay,
+				delay = APP.DATA.delay,
 
 				reload = function()
 				{
-					window.APP.throw_event(window.EVENTS.plugins.reload_header);
-					window.APP.throw_event(window.EVENTS.plugins.reload_navigation);
+					APP.throw_event(EVENTS.part.reload_header);
+					APP.throw_event(EVENTS.part.reload_navigation);
 
 					if(permissions === 'root')
-						window.APP.throw_event(window.EVENTS.plugins.reload_searcher);
+						APP.throw_event(EVENTS.part.reload_searcher);
 
 					if(permissions === 'user')
-						window.APP.throw_event(window.EVENTS.plugins.reload_cart);
+						APP.throw_event(EVENTS.part.reload_cart);
 				};
 
 			if(delay)
@@ -47,8 +47,8 @@ let
 	{
 		let delay;
 
-		if(window.APP.DATA.delay)
-			delay = window.APP.DATA.delay;
+		if(APP.DATA.delay)
+			delay = APP.DATA.delay;
 		else
 			delay = 0;
 
@@ -74,12 +74,12 @@ let
 
 export let start = function()
 {
-	let request_manager = new Request_Manager();
+	let request_manager = new Request_Manager_Part();
 
-	window.APP.add_own_event('define', define);
-	window.APP.add_own_event('reload_website', reload_website);
-	window.APP.add_own_event('reload_user_sign_in', reload_sign_in('user'));
-	window.APP.add_own_event('reload_root_sign_in', reload_sign_in('root'));
+	APP.add_own_event('define', define);
+	APP.add_own_event('reload_website', reload_website);
+	APP.add_own_event('reload_user_sign_in', reload_sign_in('user'));
+	APP.add_own_event('reload_root_sign_in', reload_sign_in('root'));
 
 	searcher_controllers.get_content();
 	cart_controllers.get_content();
@@ -87,7 +87,7 @@ export let start = function()
 	header_controllers.get_content();
 	ground_controllers.get_content();
 
-	request_manager.send();
+	request_manager.send_list();
 
 	define();
 };
