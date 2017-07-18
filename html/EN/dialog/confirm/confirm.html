@@ -18,7 +18,7 @@
         <button class="button event_button"
                 type="button"
                 data-name="button_close_dialog"
-                data-event="plugins.close_dialog">
+                data-event="part.close_dialog">
             Close
         </button>
 
@@ -31,7 +31,7 @@
                 data-value="{{ additional.value }}"
                 data-reload="{{ additional.reload }}"
                 data-redirect="{{ additional.redirect }}"
-                data-event="plugins.close_dialog"
+                data-event="part.close_dialog {{ additional.event }}"
                 data-url="{{ additional.url}}">
             Delete
         </button>

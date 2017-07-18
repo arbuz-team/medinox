@@ -35,7 +35,7 @@
                     type="button"
                     data-dialog-button="cancel"
                     data-name="{{ form_name }}"
-                    data-event="plugins.close_dialog"
+                    data-event="part.close_dialog"
                     data-action="delete"
                     data-reload="ground"
                     data-url="{{ edit.url }}">
@@ -46,17 +46,16 @@
         <button class="button event_button"
                 type="button"
                 data-name="button_close_dialog"
-                data-event="plugins.close_dialog">
+                data-event="part.close_dialog">
             Close
         </button>
 
-        <button class="button dialog-content-button event_button"
+        <button class="button dialog_send event_button"
                 type="button"
-                data-dialog-button="send"
                 data-name="{{ additional.name }}"
                 data-reload="{{ additional.reload }}"
                 data-redirect="{{ additional.redirect }}"
-                data-event="{{ additional.event }}">
+                data-event="part.close_dialog {{ additional.event }}">
             Accept
         </button>
 

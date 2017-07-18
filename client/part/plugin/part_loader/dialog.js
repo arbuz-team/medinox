@@ -51,28 +51,27 @@ Part_Loader_Dialog.prototype.close_dialog_if_json = function(response, status)
 };
 
 
-Part_Loader_Dialog.prototype.load_content = function(url, post_data, callback)
+Part_Loader_Dialog.prototype.load_content = function(url, post_data)
 {
-	this.variables.url = url;
-	this.external_callback = callback;
-
-
-	this.prepare_content_to_change(url, post_data);
-
-	this.send_request(url);
-
-	this.hide_content().then(() =>
+	return new Promise((resolve) =>
 	{
-		this.receive_response().then((data) =>
+		this.variables.url = url;
+
+
+		this.prepare_content_to_change(url, post_data);
+
+		this.send_request(url);
+
+		this.hide_content().then(() =>
 		{
-			if(this.close_dialog_if_json(data))
-				return false;
-
-			this.prepare_content_to_show(data);
-
-			this.show_content().then(() =>
+			this.receive_response().then((data) =>
 			{
-				this.after_show_content(data);
+				if(this.close_dialog_if_json(data))
+					return false;
+
+				this.prepare_content_to_show(data);
+
+				this.show_content().then(resolve);
 			});
 		});
 	});

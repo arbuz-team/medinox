@@ -2,7 +2,7 @@
  * Created by mrskull on 17.07.17.
  */
 
-import * as data_utilities from '../../../arbuz/js/data_utilities'
+import {add_to_settings} from '../../../arbuz/plugin/utilities/data'
 
 
 export function Part_Loader(config)
@@ -30,14 +30,14 @@ export function Part_Loader(config)
 
 
 	// -- Load settings
-	data_utilities.add_to_settings(config, this, 'name');
-	data_utilities.add_to_settings(config, this, 'container');
+	add_to_settings(config, this, 'name');
+	add_to_settings(config, this, 'container');
 
-	data_utilities.add_to_settings(config, this, 'duration_show');
-	data_utilities.add_to_settings(config, this, 'duration_hide');
+	add_to_settings(config, this, 'duration_show');
+	add_to_settings(config, this, 'duration_hide');
 
-	data_utilities.add_to_settings(config, this, 'opacity_show');
-	data_utilities.add_to_settings(config, this, 'opacity_hide');
+	add_to_settings(config, this, 'opacity_show');
+	add_to_settings(config, this, 'opacity_hide');
 
 
 	this.variables = {

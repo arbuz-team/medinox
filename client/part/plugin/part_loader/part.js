@@ -3,7 +3,7 @@
  */
 
 import {data_controller} from '../../../arbuz/js/structure'
-import * as data_utilities from '../../../arbuz/js/data_utilities'
+import {add_to_settings} from '../../../arbuz/plugin/utilities/data'
 import {Request_Manager_Part} from '../../../arbuz/plugin/request_manager/part'
 import {Part_Loader} from './_controller'
 
@@ -14,7 +14,7 @@ export function Part_Loader_Part(config)
 
 	this.settings.load_meta_tags = false;
 
-	data_utilities.add_to_settings(config, this, 'load_meta_tags');
+	add_to_settings(config, this, 'load_meta_tags');
 }
 
 Part_Loader_Part.prototype = Object.create(Part_Loader.prototype);

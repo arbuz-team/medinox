@@ -100,7 +100,10 @@ export let
 				split_event = select_event.split('.');
 
 				for(let i = 0; split_event.length > i; ++i)
-					ready_event = ready_event[split_event[i]];
+					if(typeof ready_event[split_event[i]] === 'undefined')
+						console.error('Launch Event error: Event doesn\'t exist.');
+					else
+						ready_event = ready_event[split_event[i]];
 
 
 				if(ready_event.constructor === Event)
