@@ -1,7 +1,7 @@
 from server.manage.switch.forms.media import *
 
 
-class Form_Copy(Abstract_Form):
+class Form_Element_Operation(Abstract_Form):
 
     choices = (
         ('EN', 'English'),
@@ -22,3 +22,11 @@ class Form_Copy(Abstract_Form):
         self.fields['name'].widget.attrs = name_attr
         self.fields['language'].widget.attrs = type_attr
         Abstract_Form.Set_Widgets(self)
+
+
+
+class Form_Copy(Form_Element_Operation):
+    pass
+
+class Form_Move(Form_Element_Operation):
+    pass

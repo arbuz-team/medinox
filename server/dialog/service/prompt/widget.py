@@ -10,15 +10,17 @@ class Service_Widget(Base_Service):
 
         # get number
         if 'dialog_value' in self.request.POST:
+            if self.request.POST['dialog_value']:
 
-            widget = self.request.POST['dialog_value']
-            self.instance = SQL.Get(Widget, pk=widget)
-            self.content['edit'] = {'url': '/product/widget/manage/'}
+                widget = self.request.POST['dialog_value']
+                self.instance = SQL.Get(Widget, pk=widget)
+                self.content['edit'] = {'url': '/product/widget/manage/'}
 
         # other value get widget to edit
         # after created widget - next dialog
         elif self.dialog.other_value:
             self.instance = self.dialog.other_value
+            self.content['edit'] = {'url': '/product/widget/manage/'}
 
         # second form for append options to widget
         if self.instance:
