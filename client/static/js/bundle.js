@@ -3351,7 +3351,10 @@
 			container: config.container
 		},
 		    view = new _view.Dialog_Loader_View(config_loader),
-		    form_controller = new _controllers.Form_Controllers(config_loader),
+		    form_controller = new _controllers.Form_Controllers({
+			name: 'ground',
+			container: config.container
+		}),
 		    post_button_controller = new _controllers2.Post_Button_Controllers(config_loader),
 		    event_button_controller = new _controllers3.Event_Button_Controllers(config_loader),
 		    little_form_controller = new _controllers4.Little_Form_Controllers(config_loader),
