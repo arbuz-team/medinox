@@ -2680,9 +2680,7 @@
 				return true;
 			}
 	
-			var response = JSON.parse(JSON_response);
-	
-			if (response.__button__ !== 'true') {
+			if (JSON_response.__button__ !== 'true') {
 				set_text.error();
 				return true;
 			}
@@ -2724,13 +2722,17 @@
 
 /***/ },
 /* 42 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.Post_Button_Models = undefined;
+	
+	var _init = __webpack_require__(15);
+	
 	var Post_Button_Models = exports.Post_Button_Models = function Post_Button_Models(config) {
 		var that = this,
 		    dictionary = APP.dictionary;
@@ -2816,9 +2818,14 @@
 		this.send_post = function (callback) {
 			setTimeout(function () {
 				var url = that.settings.button_url,
-				    post_data = prepare_post_data();
+				    post_data = prepare_post_data(),
+				    request_manager = new _init.Request_Manager();
 	
-				APP.http_request(url, post_data, callback);
+				request_manager.send(url, post_data).then(function (data) {
+					callback(data, 'success');
+				}, function (data) {
+					callback(data, 'error');
+				});
 			}, 200);
 		};
 	};

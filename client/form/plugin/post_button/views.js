@@ -109,9 +109,7 @@ export let Post_Button_Views = function(config)
 				return true;
 			}
 
-			let response = JSON.parse(JSON_response);
-
-			if (response.__button__ !== 'true')
+			if (JSON_response.__button__ !== 'true')
 			{
 				set_text.error();
 				return true;

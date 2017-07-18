@@ -2,6 +2,8 @@
  * Created by mrskull on 31.01.17.
  */
 
+import {Request_Manager} from 'arbuz/plugin/request_manager/_init'
+
 
 export let Post_Button_Models = function(config)
 {
@@ -107,9 +109,19 @@ export let Post_Button_Models = function(config)
 		{
 			let
 				url = that.settings.button_url,
-				post_data = prepare_post_data();
+				post_data = prepare_post_data(),
+				request_manager = new Request_Manager();
 
-			APP.http_request(url, post_data, callback);
+
+			request_manager.send(url, post_data).then(
+				function(data)
+				{
+					callback(data, 'success');
+				},
+				function(data)
+				{
+					callback(data, 'error');
+				});
 		}, 200);
 	};
 
