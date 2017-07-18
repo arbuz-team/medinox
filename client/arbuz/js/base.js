@@ -1,6 +1,6 @@
 /*    JavaScript    */
 
-import {Dictionary} from '../plugin/dictionary/base';
+import {Dictionary} from 'arbuz/plugin/dictionary/base';
 
 /*---------------- Interfejs funkcji standardowych ----------------*/
 

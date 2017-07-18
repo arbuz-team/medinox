@@ -2,10 +2,10 @@
  * Created by mrskull on 08.01.17.
  */
 
-import {Part_Loader_Part}     			from '../../plugin/part_loader/part'
-import {Form_Controllers}               from '../../../form/js/controllers'
-import {Post_Button_Controllers}        from '../../../form/plugin/post_button/controllers'
-import {Event_Button_Controllers}       from '../../../form/plugin/event_button/controllers'
+import {Part_Loader_Part}     			from 'part/plugin/part_loader/part'
+import {Form_Controllers}               from 'form/js/controllers'
+import {Post_Button_Controllers}        from 'form/plugin/post_button/controllers'
+import {Event_Button_Controllers}       from 'form/plugin/event_button/controllers'
 
 
 /**

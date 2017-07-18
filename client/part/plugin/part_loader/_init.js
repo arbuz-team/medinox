@@ -2,7 +2,7 @@
  * Created by mrskull on 17.07.17.
  */
 
-import {add_to_settings} from '../../../arbuz/plugin/utilities/data'
+import {add_to_settings} from 'arbuz/plugin/utilities/data'
 
 
 export function Part_Loader(config)

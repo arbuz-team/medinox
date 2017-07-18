@@ -2,8 +2,8 @@
  * Created by mrskull on 17.07.17.
  */
 
-import {Request_Manager_Dialog} from '../../../arbuz/plugin/request_manager/dialog'
-import {Part_Loader} from './_controller'
+import {Request_Manager_Dialog} 	from 'arbuz/plugin/request_manager/dialog'
+import {Part_Loader} 				from './_controller'
 
 
 

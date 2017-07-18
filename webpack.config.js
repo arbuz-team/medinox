@@ -1,6 +1,6 @@
-"use strict";
 
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var path = require('path');
 
 module.exports = {
 	entry: './client/_sandbox.js',
@@ -28,7 +28,15 @@ module.exports = {
 				)
 			}
 
-		]
+		],
+	},
+	resolve: {
+		alias: {
+			'arbuz': path.resolve(__dirname, './client/arbuz'),
+			'form': path.resolve(__dirname, './client/form'),
+			'part': path.resolve(__dirname, './client/part'),
+			'static': path.resolve(__dirname, './client/static'),
+		}
 	},
 	plugins: [
 		new ExtractTextPlugin("./client/static/style/app.css")

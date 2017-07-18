@@ -2,7 +2,7 @@
  * Created by mrskull on 18.07.17.
  */
 
-import {timeout_promise} from '../../../../arbuz/plugin/utilities/standard'
+import {timeout_promise} from 'arbuz/plugin/utilities/standard'
 import {Dialog_Designer_View} from './view'
 
 

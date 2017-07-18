@@ -1,6 +1,6 @@
 
 import {list_configs} from './config'
-import {data_controller} from '../../../arbuz/js/structure';
+import {data_controller} from 'arbuz/js/structure';
 
 //////////////////////////////////////////////////////
 

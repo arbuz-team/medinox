@@ -3,10 +3,10 @@
  */
 
 import {Form_Models} 		from './models'
-import * as validator 		from '../plugin/validator/controllers'
-import * as auto_form 		from '../plugin/auto_form/controllers'
-import * as selected_form 	from '../plugin/selected_form/controllers'
-import * as file_converter 	from '../plugin/file_converter/controllers'
+import * as validator 		from 'form/plugin/validator/controllers'
+import * as auto_form 		from 'form/plugin/auto_form/controllers'
+import * as selected_form 	from 'form/plugin/selected_form/controllers'
+import * as file_converter 	from 'form/plugin/file_converter/controllers'
 
 export let Form_Controllers = function(content_loader_controllers)
 {

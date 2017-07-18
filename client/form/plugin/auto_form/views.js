@@ -2,10 +2,6 @@
  * Created by mrskull on 17.01.17.
  */
 
-/**
- *    Defining private functions
- */
-
 import {Auto_Form_Models} from './models'
 
 
@@ -19,9 +15,7 @@ export let Auto_Form_Views = function(config)
   this.models = models;
 
 
-  /**
-   *    Defining public functions
-   */
+  // ----------------------------------------------------
 
   let check_is_number = function(event)
   {

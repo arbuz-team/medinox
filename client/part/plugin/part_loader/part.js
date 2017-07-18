@@ -2,10 +2,10 @@
  * Created by mrskull on 17.07.17.
  */
 
-import {data_controller} from '../../../arbuz/js/structure'
-import {add_to_settings} from '../../../arbuz/plugin/utilities/data'
-import {Request_Manager_Part} from '../../../arbuz/plugin/request_manager/part'
-import {Part_Loader} from './_controller'
+import {data_controller} 		from 'arbuz/js/structure'
+import {add_to_settings} 		from 'arbuz/plugin/utilities/data'
+import {Request_Manager_Part} 	from 'arbuz/plugin/request_manager/part'
+import {Part_Loader} 			from './_controller'
 
 
 export function Part_Loader_Part(config)

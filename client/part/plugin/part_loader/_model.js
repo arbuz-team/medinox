@@ -2,8 +2,8 @@
  * Created by mrskull on 17.07.17.
  */
 
-import {data_controller} from '../../../arbuz/js/structure'
-import {Request_Manager_Part} from '../../../arbuz/plugin/request_manager/part'
+import {data_controller} from 'arbuz/js/structure'
+import {Request_Manager_Part} from 'arbuz/plugin/request_manager/part'
 import {Part_Loader} from './_init'
 
 

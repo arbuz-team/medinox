@@ -2,7 +2,7 @@
  * Created by mrskull on 06.01.17.
  */
 
-import {data_controller} from '../../../arbuz/js/structure'
+import {data_controller} from 'arbuz/js/structure'
 
 
 export let Plugins_Motion_Models = function(config)

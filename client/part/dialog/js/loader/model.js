@@ -2,7 +2,7 @@
  * Created by mrskull on 18.07.17.
  */
 
-import {Part_Loader_Dialog} from '../../../plugin/part_loader/dialog'
+import {Part_Loader_Dialog} from 'part/plugin/part_loader/dialog'
 
 
 export function Dialog_Loader_Model(config)

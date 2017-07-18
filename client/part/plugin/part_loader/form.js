@@ -2,7 +2,7 @@
  * Created by mrskull on 17.07.17.
  */
 
-import {Request_Manager_Form} from '../../../arbuz/plugin/request_manager/form'
+import {Request_Manager_Form} 	from 'arbuz/plugin/request_manager/form'
 import {Part_Loader_Part} 		from './part'
 
 

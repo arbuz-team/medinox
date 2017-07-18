@@ -3,7 +3,7 @@
  */
 
 import {Event_Button_Models} from './models'
-import * as utilities from '../../js/utilities'
+import * as utilities from 'form/js/utilities'
 
 
 export let Event_Button_Views = function(config)

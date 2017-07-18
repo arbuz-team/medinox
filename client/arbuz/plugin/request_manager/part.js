@@ -2,7 +2,7 @@
  * Created by mrskull on 17.07.17.
  */
 
-import {data_controller} from '../../js/structure'
+import {data_controller} from 'arbuz/js/structure'
 import {Request_Manager} from './_init'
 
 
