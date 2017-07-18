@@ -1,5 +1,5 @@
 from server.dialog.service.base import *
-from server.ground.catalog.forms.copy import *
+from server.ground.catalog.forms.operation import *
 
 
 class Service_Copy(Base_Service):

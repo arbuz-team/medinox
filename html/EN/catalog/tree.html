@@ -1,0 +1,20 @@
+
+<div class="lista-nazwa">
+    {{ parent.name }}
+</div>
+
+{% if catalogs %}
+
+    <ul>
+
+        {% for catalog in catalogs %}
+
+            <li class="lista-element">
+                <{{ forloop.counter0 }}>
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+{% endif %}

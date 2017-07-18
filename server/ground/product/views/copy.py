@@ -1,10 +1,8 @@
 from server.manage.switch.website.manager import *
-from server.ground.catalog.forms.copy import *
+from server.ground.catalog.forms.operation import *
 
 
 class Copy_Product(Website_Manager):
-
-    # Backend: create move product and catalog
 
     @staticmethod
     def Create_Copy_Product(from_product, name, language, parent):

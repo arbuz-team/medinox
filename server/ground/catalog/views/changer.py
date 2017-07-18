@@ -20,8 +20,8 @@ class Catalog_Changer(Base):
     def Get_Selected_Catalog(self):
 
         catalogs = self.catalog_path.split('/')[:-1]
-        parent = SQL.Get(Model_Catalog, parent=None, name='root')
-        selected = SQL.Get(Model_Catalog, parent=None, name='root')
+        parent = SQL.Get(Model_Catalog, parent=None, name='/')
+        selected = SQL.Get(Model_Catalog, parent=None, name='/')
 
         for catalog in catalogs:
             selected = self.Get_Catalog(catalog, parent)

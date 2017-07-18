@@ -20,7 +20,7 @@ class Path_Manager(Base):
     def To_URL(text):
         text = text.replace(' ', '_').lower()
         text = text.replace('-', '')
-        return Base_Website.Convert_Polish_To_Ascii(text)
+        return Base.Convert_Polish_To_Ascii(text)
 
     def Get_Urls(self, name=None, kwargs=None,
                  language=None, current_language=False):

@@ -13,8 +13,7 @@
 
     <div class="block-content">
 
-        <!-- Backend: Exchange favorites to elements. -->
-        {% if favorites %}
+        {% if elements %}
             {% include 'part/ground/plugin/product/html/tiles_list/favorite_products.html' %}
         {% else %}
             <div class="block-content-message">You don't have favorite products</div>

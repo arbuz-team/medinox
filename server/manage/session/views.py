@@ -106,7 +106,7 @@ class Session_Controller:
 
         if 'catalog_parent' not in self.request.session:
             self.request.session['catalog_parent'] = \
-                SQL.Get(Model_Catalog, parent=None, name='root')
+                SQL.Get(Model_Catalog, parent=None, name='/')
 
         if 'catalog_editing' not in self.request.session:
             self.request.session['catalog_editing'] = None
@@ -125,6 +125,12 @@ class Session_Controller:
 
         if 'catalog_copy_type' not in self.request.session:
             self.request.session['catalog_copy_type'] = ''
+
+        if 'catalog_move_element' not in self.request.session:
+            self.request.session['catalog_move_element'] = None
+
+        if 'catalog_move_type' not in self.request.session:
+            self.request.session['catalog_move_type'] = ''
 
     def Check_Session_Searcher(self):
 
