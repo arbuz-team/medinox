@@ -16,21 +16,21 @@ export function Part_Loader(config)
 
 
 	this.settings = {
-		name: undefined,
-		url: undefined,
+		part_name: 		undefined,
+		url: 			undefined,
 
-		container: undefined,
+		container: 		undefined,
 
-		duration_show: 150,
-		duration_hide: 100,
+		duration_show: 	150,
+		duration_hide: 	100,
 
-		opacity_show: 1,
-		opacity_hide: 0.4,
+		opacity_show: 	1,
+		opacity_hide: 	0.4,
 	};
 
 
 	// -- Load settings
-	add_to_settings(config, this, 'name');
+	add_to_settings(config, this, 'part_name');
 	add_to_settings(config, this, 'container');
 
 	add_to_settings(config, this, 'duration_show');
@@ -41,15 +41,15 @@ export function Part_Loader(config)
 
 
 	this.variables = {
-		url: undefined,
-		post_data: undefined,
-		reload: false,
+		url: 				undefined,
+		post_data: 			undefined,
+		reload: 			false,
 
-		error: undefined,
-		external_callback: undefined,
+		error: 				undefined,
+		external_callback: 	undefined,
 
-		can_do_load: true,
-		can_do_redirect: true,
-		redirect_time_out: undefined,
+		can_do_load: 		true,
+		can_do_redirect: 	true,
+		redirect_time_out: 	undefined,
 	};
 }

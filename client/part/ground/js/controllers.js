@@ -16,22 +16,20 @@ let
 	container = '.ground',
 
 	config_loader = {
-		name: 'ground',
+		part_name: 'ground',
 		container: container,
 		load_meta_tags: true,
+	},
+	config_form = {
+		part_name: 'ground',
+		container: container,
 	},
 
 
 	ground_loader = new Part_Loader_Part(config_loader),
 
-	post_button_controllers = new Post_Button_Controllers({
-		container: container
-	}),
-
-	event_button_controllers = new Event_Button_Controllers({
-		container: container
-	}),
-
+	post_button_controllers = new Post_Button_Controllers(config_form),
+	event_button_controllers = new Event_Button_Controllers(config_form),
 	ground_form_controllers = new Form_Controllers(config_loader);
 
 

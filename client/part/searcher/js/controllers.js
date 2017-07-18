@@ -16,7 +16,7 @@ let
 	container = '.searcher',
 
 	config_loader = {
-		name: 'searcher',
+		part_name: 'searcher',
 		container: container,
 	},
 
@@ -34,7 +34,8 @@ let
 	}),
 
 	post_button_controllers = new Post_Button_Controllers({
-		container: '#SEARCHER'
+		container: '#SEARCHER',
+		part_name: 'searcher',
 	}),
 
 	searcher_form_controllers = new Form_Controllers(config_loader);

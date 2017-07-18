@@ -17,14 +17,12 @@ let
 	container = '.cart',
 
 	config_loader = {
-		name: 'cart',
+		part_name: 'cart',
 		container: container,
-		load_meta_tags: true,
 	},
 
 
 	cart_loader = new Part_Loader_Part(config_loader),
-
 	cart_motion_controllers = new Plugins_Motion_Controllers({
 		container: '#CART',
 		content: container,
@@ -35,14 +33,10 @@ let
 		duration_close: 200,
 	}),
 
-	post_button_controllers = new Post_Button_Controllers({
-		container: '#CART > '+ container,
-	}),
-
+	post_button_controllers = new Post_Button_Controllers(config_loader),
 	event_button_controllers = new Event_Button_Controllers({
 		container: '#CART'
 	}),
-
 	cart_form_controllers = new Form_Controllers(config_loader),
 
 

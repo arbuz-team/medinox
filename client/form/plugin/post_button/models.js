@@ -11,6 +11,7 @@ export let Post_Button_Models = function(config)
 
 	this.settings = {
 		container:          undefined,
+		part_name:          undefined,
 		button:             undefined,
 
 		button_name:        undefined,
@@ -41,6 +42,7 @@ export let Post_Button_Models = function(config)
 		if(typeof config !== 'undefined')
 		{
 			APP.add_if_isset(config, that.settings, 'container');
+			APP.add_if_isset(config, that.settings, 'part_name');
 
 			APP.add_if_isset(config, that.settings, 'callback');
 
@@ -82,17 +84,20 @@ export let Post_Button_Models = function(config)
 	let prepare_post_data = function()
 	{
 		let
-			obj = {__button__: that.settings.button_action},
+			data = {
+				__button__: that.settings.button_action,
+				_direct_: that.settings.part_name,
+			},
 			value = that.settings.button_value;
 
 		if(value)
-			obj.value = value;
+			data.value = value;
 
-		obj.other_1 = that.settings.button_other_1 || '';
-		obj.other_2 = that.settings.button_other_2 || '';
-		obj.other_3 = that.settings.button_other_3 || '';
+		data.other_1 = that.settings.button_other_1 || '';
+		data.other_2 = that.settings.button_other_2 || '';
+		data.other_3 = that.settings.button_other_3 || '';
 
-		return obj;
+		return data;
 	};
 
 

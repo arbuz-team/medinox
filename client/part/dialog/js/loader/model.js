@@ -34,7 +34,6 @@ export function Dialog_Loader_Model(config)
 
 	this.send_request = function()
 	{
-		console.log(this.variable.post_data);
 		return part_dialog_loader.load_content(undefined, this.variable.post_data);
 	};
 }

@@ -50,7 +50,7 @@ Part_Loader.prototype.reload = function()
 	}
 
 	setTimeout(() => {
-		//this.load_content();
+		this.load_content();
 	}, delay);
 };
 
@@ -58,7 +58,7 @@ Part_Loader.prototype.reload = function()
 Part_Loader.prototype.define = function()
 {
 	let
-		part_name = this.settings.name;
+		part_name = this.settings.part_name;
 
 	APP.add_own_event(part_name +'_reload', () =>
 	{

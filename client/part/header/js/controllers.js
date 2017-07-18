@@ -12,12 +12,8 @@ import {Event_Button_Controllers}       from 'form/plugin/event_button/controlle
 
 let
 	header_loader = new Part_Loader_Part({
-		name: 'header',
-		url: '/navigation/',
-
-		container: '#HEADER > .header',
-
-		auto_first_loading: true,
+		part_name: 'header',
+		container: '.header',
 	}),
 
 	event_button_controllers = new Event_Button_Controllers({

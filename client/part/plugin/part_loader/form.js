@@ -35,7 +35,7 @@ Part_Loader_Form.prototype.prepare_post_data = function(post_data)
 	if(!post_data)
 		post_data = {};
 
-	post_data._direct_ = this.settings.name;
+	post_data._direct_ = this.settings.part_name;
 
 	this.variables.post_data = post_data;
 };

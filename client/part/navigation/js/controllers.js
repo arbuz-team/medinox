@@ -13,12 +13,8 @@ import {Event_Button_Controllers}       from 'form/plugin/event_button/controlle
 
 let
 	navigation_loader = new Part_Loader_Part({
-		name: 'navigation',
-		url: '/navigation/',
-
+		part_name: 'navigation',
 		container: '#NAVIGATION .navigation',
-
-		auto_first_loading: true,
 	}),
 
 	navigation_motion_controllers = new Plugins_Motion_Controllers({

@@ -31,7 +31,7 @@ Part_Loader_Part.prototype.prepare_post_data = function(post_data)
 		post_data = {};
 
 	if( typeof post_data.__content__ === 'undefined')
-		post_data['__content__'] = this.settings.name;
+		post_data['__content__'] = this.settings.part_name;
 
 
 	this.variables.post_data = post_data;
@@ -77,7 +77,7 @@ Part_Loader_Part.prototype.receive_response = function()
 	{
 		this.response.then((response) =>
 		{
-			let data = response[this.settings.name],
+			let data = response[this.settings.part_name],
 				precise_data = {
 					html: data.html,
 					status: 'success',
@@ -89,6 +89,22 @@ Part_Loader_Part.prototype.receive_response = function()
 	});
 };
 
+
+
+Part_Loader.prototype.reload = function()
+{
+	let delay = 0;
+
+	if(typeof APP.DATA.delay !== 'undefined')
+	{
+		delay = APP.DATA.delay;
+		APP.DATA.delay = undefined;
+	}
+
+	setTimeout(() => {
+		this.load_simple_content();
+	}, delay);
+};
 
 
 

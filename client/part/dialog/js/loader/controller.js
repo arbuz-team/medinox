@@ -14,19 +14,21 @@ export function Dialog_Loader_Controller(config)
 {
 	let
 		config_loader = {
-			name: config.name,
+			part_name: config.name,
 			container: config.container,
 		},
+		config_form = {
+			part_name: 'ground',
+			container: config.container,
+		},
+
+
 		view = new Dialog_Loader_View(config_loader),
 
-
-		form_controller = new Form_Controllers({
-			name: 'ground',
-			container: config.container,
-		}),
-		post_button_controller = new Post_Button_Controllers(config_loader),
+		form_controller = new Form_Controllers(config_form),
+		post_button_controller = new Post_Button_Controllers(config_form),
 		event_button_controller = new Event_Button_Controllers(config_loader),
-		little_form_controller = new Little_Form_Controllers(config_loader),
+		little_form_controller = new Little_Form_Controllers(config_form),
 
 
 		send_form = function()

@@ -75,7 +75,7 @@ Part_Loader.prototype.prepare_post_data = function(post_data)
 
 	if( typeof post_data.__form__ === 'undefined')
 		if( typeof post_data.__content__ === 'undefined')
-			post_data['__content__'] = this.settings.name;
+			post_data['__content__'] = this.settings.part_name;
 
 
 	this.variables.post_data = post_data;
@@ -98,7 +98,7 @@ Part_Loader.prototype.receive_response = function()
 	{
 		this.response.then((response) =>
 		{
-			let data = response.__content__[this.settings.name],
+			let data = response.__content__[this.settings.part_name],
 				precise_data = {
 					html: data.html,
 					code: data.status,
