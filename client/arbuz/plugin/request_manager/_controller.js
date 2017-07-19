@@ -21,7 +21,7 @@ Request_Manager.prototype.send = function(post_url, post_data, post_name)
 			if(typeof response.json[post_name] !== 'undefined')
 				response = response.json[post_name];
 			else
-				reject('Request_Manager_Part error: Invalid response.');
+				reject('Request_Manager error: Invalid response.');
 
 			resolve(response);
 		})

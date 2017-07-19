@@ -11,10 +11,10 @@
 
     <div class="block-background fill-abs"></div>
 
-    {% include "part/ground/html/navigation.html" %}
+    {% include "block/ground/html/navigation.html" %}
 
     {% if elements or request.session.root_login %}
-        {% include 'part/ground/plugin/product/html/tiles_list/products.html' %}
+        {% include 'block/ground/plugin/product/html/tiles_list/products.html' %}
     {% endif %}
 
     {% if not elements %}

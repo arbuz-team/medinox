@@ -221,7 +221,7 @@
 	
 	var ground_controllers = _interopRequireWildcard(_controllers5);
 	
-	var _part = __webpack_require__(14);
+	var _block = __webpack_require__(14);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -261,7 +261,7 @@
 	};
 	
 	var start = exports.start = function start() {
-		var request_manager = new _part.Request_Manager_Part();
+		var request_manager = new _block.Request_Manager_Block();
 	
 		APP.add_own_event('define', define);
 		APP.add_own_event('reload_website', reload_website);
@@ -348,7 +348,7 @@
 	
 	var _data = __webpack_require__(13);
 	
-	var _part = __webpack_require__(14);
+	var _block = __webpack_require__(14);
 	
 	var _controller = __webpack_require__(17);
 	
@@ -373,7 +373,7 @@
 	Part_Loader_Part.prototype._send_request = function () {
 		var post_data = this._variables.post_data,
 		    post_name = this._settings.post_name,
-		    request_manager = new _part.Request_Manager_Part();
+		    request_manager = new _block.Request_Manager_Block();
 	
 		this.response = request_manager.next(undefined, post_data, post_name);
 	};
@@ -449,7 +449,7 @@
 	};
 	
 	Part_Loader_Part.prototype.load_simple_content = function (url, post_data, callback) {
-		var request_manager = new _part.Request_Manager_Part();
+		var request_manager = new _block.Request_Manager_Block();
 	
 		this.load_content(url, post_data, callback);
 		request_manager.send_list();
@@ -615,25 +615,25 @@
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	exports.Request_Manager_Part = Request_Manager_Part;
+	exports.Request_Manager_Block = Request_Manager_Block;
 	
 	var _structure = __webpack_require__(11);
 	
 	var _controller = __webpack_require__(15);
 	
-	function Request_Manager_Part() {
-		if (_typeof(Request_Manager_Part.instance) === 'object') return Request_Manager_Part.instance;
+	function Request_Manager_Block() {
+		if (_typeof(Request_Manager_Block.instance) === 'object') return Request_Manager_Block.instance;
 	
 		_controller.Request_Manager.call(this);
 	
 		this._sending = undefined;
 	
-		Request_Manager_Part.instance = this;
+		Request_Manager_Block.instance = this;
 	}
 	
-	Request_Manager_Part.prototype = Object.create(_controller.Request_Manager.prototype);
+	Request_Manager_Block.prototype = Object.create(_controller.Request_Manager.prototype);
 	
-	Request_Manager_Part.prototype._add_request = function (url, post_data) {
+	Request_Manager_Block.prototype._add_request = function (url, post_data) {
 		if (typeof this._sending === 'undefined') this._clear_request();
 	
 		if (typeof this._data.url === 'undefined') this._data.url = url;
@@ -641,7 +641,7 @@
 		this._data.list.push(post_data);
 	};
 	
-	Request_Manager_Part.prototype._clear_request = function () {
+	Request_Manager_Block.prototype._clear_request = function () {
 		this._data = {
 			url: undefined,
 			list: []
@@ -650,7 +650,7 @@
 		this._sending = false;
 	};
 	
-	Request_Manager_Part.prototype._post_data_prepare = function () {
+	Request_Manager_Block.prototype._post_data_prepare = function () {
 		var post_data = {};
 	
 		if (this._data.list.length) {
@@ -668,7 +668,7 @@
 		return false;
 	};
 	
-	Request_Manager_Part.prototype._run_sending = function () {
+	Request_Manager_Block.prototype._run_sending = function () {
 		var _this = this;
 	
 		if (this._sending === false) this._sending = new Promise(function (resolve, reject) {
@@ -693,7 +693,7 @@
 		return this._sending;
 	};
 	
-	Request_Manager_Part.prototype.next = function (url, post_data, post_name) {
+	Request_Manager_Block.prototype.next = function (url, post_data, post_name) {
 		var _this2 = this;
 	
 		this._add_request(url, post_data);
@@ -702,16 +702,16 @@
 			_this2._run_sending().then(function (response) {
 				_this2._clear_request();
 	
-				if (typeof response.json[post_name] !== 'undefined') response = response.json[post_name];else reject('Request_Manager_Part error: Invalid response.');
+				if (typeof response.json[post_name] !== 'undefined') response = response.json[post_name];else reject('Request_Manager_Block error: Invalid response.');
 	
 				resolve(response);
 			});
 		});
 	};
 	
-	delete Request_Manager_Part.prototype.send;
+	delete Request_Manager_Block.prototype.send;
 	
-	Request_Manager_Part.prototype.send_list = function () {
+	Request_Manager_Block.prototype.send_list = function () {
 		APP.throw_event(window.EVENTS.send_request);
 	};
 
@@ -745,7 +745,7 @@
 			_this._send_request().then(function (response) {
 				_this._clear_request();
 	
-				if (typeof response.json[post_name] !== 'undefined') response = response.json[post_name];else reject('Request_Manager_Part error: Invalid response.');
+				if (typeof response.json[post_name] !== 'undefined') response = response.json[post_name];else reject('Request_Manager error: Invalid response.');
 	
 				resolve(response);
 			}).catch(function (data) {
@@ -1053,7 +1053,7 @@
 	
 	var _structure = __webpack_require__(11);
 	
-	var _part = __webpack_require__(14);
+	var _block = __webpack_require__(14);
 	
 	var _init = __webpack_require__(18);
 	
@@ -1088,7 +1088,7 @@
 		var url = this._variables.post_url,
 		    data = this._variables.post_data,
 		    post_name = this._settings.post_name,
-		    request_manager = new _part.Request_Manager_Part();
+		    request_manager = new _block.Request_Manager_Block();
 	
 		this.response = request_manager.send(url, data, post_name);
 	};

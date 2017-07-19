@@ -14,7 +14,7 @@
 <div class="ground-block block-1 product_details">
 
     <div class="block-background fill-abs"></div>
-    {% include "part/ground/html/navigation.html" %}
+    {% include "block/ground/html/navigation.html" %}
 
     <div class="block-content">
 
@@ -270,10 +270,10 @@
 
 {% if descriptions %}
     {% for element in descriptions %}
-        {% include "part/ground/html/paragraph.html" %}
+        {% include "block/ground/html/paragraph.html" %}
     {% endfor %}
 {% else %}
-    {% include "part/ground/html/paragraph_new.html" %}
+    {% include "block/ground/html/paragraph_new.html" %}
 {% endif %}
 
 {% include "EN/footer/standard.html" %}

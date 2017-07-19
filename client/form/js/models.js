@@ -3,7 +3,7 @@
  */
 
 import * as utilities 			from './utilities'
-import {Part_Loader_Form}     	from 'part/plugin/part_loader/form'
+import {Part_Loader_Form}     	from '../../block/plugin/part_loader/form'
 
 
 export let Form_Models = function(config)

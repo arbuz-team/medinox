@@ -1,0 +1,16 @@
+{% load tags %}
+
+{% var 'type_mini_cart' 'for-root' %}
+
+
+{% for item in shopping %}
+
+    {% include "block/cart/html/mini_cart.html" %}
+
+{% endfor %}
+
+
+{% if not shopping %}
+    </div>
+    <div class="block-content-message center">No payments found
+{% endif %}

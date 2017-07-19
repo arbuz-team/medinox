@@ -34,7 +34,7 @@ module.exports = {
 		alias: {
 			'arbuz': path.resolve(__dirname, './client/arbuz'),
 			'form': path.resolve(__dirname, './client/form'),
-			'part': path.resolve(__dirname, './client/part'),
+			'block': path.resolve(__dirname, './client/block'),
 			'static': path.resolve(__dirname, './client/static'),
 		}
 	},

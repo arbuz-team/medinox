@@ -2,15 +2,15 @@
  * Created by mrskull on 24.11.16.
  */
 
-import * as searcher_controllers      from 'part/searcher/js/controllers'
-import * as cart_controllers          from 'part/cart/js/controllers'
-import * as navigation_controllers    from 'part/navigation/js/controllers'
-import * as header_controllers        from 'part/header/js/controllers'
-import * as dialog_controllers        from 'part/dialog/js/controller'
+import * as searcher_controllers      	from 'block/searcher/js/controllers'
+import * as cart_controllers          	from 'block/cart/js/controllers'
+import * as navigation_controllers    	from '../../block/menu_mobile/js/controllers'
+import * as header_controllers        	from '../../block/menu/js/controllers'
+import * as dialog_controllers        	from 'block/dialog/js/controller'
 
-import * as ground_controllers        from 'part/ground/js/controllers'
+import * as ground_controllers        	from 'block/ground/js/controllers'
 
-import {Request_Manager_Part} from 'arbuz/plugin/request_manager/part'
+import {Request_Manager_Block} 			from 'arbuz/plugin/request_manager/block'
 
 
 /*---------------- Wydarzenia na stronie ----------------*/
@@ -74,7 +74,7 @@ let
 
 export let start = function()
 {
-	let request_manager = new Request_Manager_Part();
+	let request_manager = new Request_Manager_Block();
 
 	APP.add_own_event('define', define);
 	APP.add_own_event('reload_website', reload_website);

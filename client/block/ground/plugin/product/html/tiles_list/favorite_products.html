@@ -1,0 +1,11 @@
+<div class="block-content products tiles">
+
+    <ul class="tiles-list">
+        {% for element in elements %}
+            {% include 'block/ground/plugin/product/html/tile/product.html' %}
+        {% endfor %}
+    </ul>
+
+    {% include 'block/ground/html/page_numbers.html' %}
+
+</div>
