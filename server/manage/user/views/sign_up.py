@@ -5,7 +5,7 @@ import os, binascii
 
 class Sign_Up(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         self.content['form'] = Form_Register(self)
         return self.Render_HTML('user/sign_up.html', 'register')
 

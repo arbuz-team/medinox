@@ -3,7 +3,7 @@ from server.manage.user.forms import *
 
 class Change_Password(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         self.content['form'] = Form_Change_Password(self)
         return self.Render_HTML('user/change_password.html', 'change_password')
 

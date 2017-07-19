@@ -1,93 +1,74 @@
-from .part import *
+from .block import *
 
 
 class Direct_Part_Manager(Base):
 
-    def Manage(self, _object):
+    def Manage(self, name):
+        block = self.blocks[name]
 
         # parts of pages
-        if '__content__' in self.request.POST:
-            return _object.Manage_Content()
+        if self.request.POST[name] == 'content':
+            return block.Manage_Content()
 
         # manage forms
-        if '__form__' in self.request.POST:
-            return _object.Manage_Form()
+        if self.request.POST[name] == 'form':
+            return block.Manage_Form()
 
         # checkers
-        if '__exist__' in self.request.POST:
-            return _object.Manage_Exist()
+        if self.request.POST[name] == 'exist':
+            return block.Manage_Exist()
 
         # getters
-        if '__get__' in self.request.POST:
-            return _object.Manage_Get()
+        if self.request.POST[name] == 'get':
+            return block.Manage_Get()
 
         # auto/mini form
-        if '__little__' in self.request.POST:
-            return _object.Manage_Little_Form()
+        if self.request.POST[name] == 'little':
+            return block.Manage_Little_Form()
 
         # filters
-        if '__filter__' in self.request.POST:
-            return _object.Manage_Filter()
+        if self.request.POST[name] == 'filter':
+            return block.Manage_Filter()
 
         # options
-        if '__button__' in self.request.POST:
-            return _object.Manage_Button()
+        if self.request.POST[name] == 'button':
+            return block.Manage_Button()
 
         return self.website.Error_No_Event()
 
     @staticmethod
-    def Get_Content_Data(response):
+    def Packing(response):
 
         data = {
-            'status': response.status_code,
+            'code': response.status_code,
             'html': response.content.decode('utf-8')
         }
 
         return data
 
-    @staticmethod
-    def Get_Contents_List(contents):
-
-        contents = contents.split(' ')
-        content_list = []
-
-        for part in contents:
-            if part: content_list.append(part)
-
-        return content_list
-
-    def Generate_Content(self):
-
-        contents = self.request.POST['__content__']
-        contents = self.Get_Contents_List(contents)
-        response = {'__content__': {}}
-
-        for content in contents:
-            part = self.parts[content]
-            html = self.Manage(part)
-
-            response['__content__'][content] = \
-                self.Get_Content_Data(html)
-
-        return JsonResponse(response)
-
     def Direct(self):
 
-        if '__content__' in self.request.POST:
-            return self.Generate_Content()
+        variables = self.request.POST.keys()
+        response = {}
 
-        direct =  self.request.POST['_direct_']
-        return self.Manage(self.parts[direct])
+        # manage only block variables
+        for var in variables:
+            if var.startswith('__') and var.endswith('__'):
+
+                html_response = self.Manage(var)
+                response[var] = self.Packing(html_response)
+
+        return JsonResponse(response)
 
     def __init__(self, website):
         Base.__init__(self, website)
 
         self.website = website
-        self.parts = {
-            'ground': self.website,
-            'cart': Cart_Part(self),
-            'header': Menu_Standard_Part(self),
-            'navigation': Menu_Mobile_Part(self),
-            'searcher': Searcher_Part(self),
-            'dialog': Dialog_Part(self)
+        self.blocks = {
+            '__ground__': self.website,
+            '__cart__': Cart_Part(self),
+            '__header__': Menu_Standard_Part(self),
+            '__navigation__': Menu_Mobile_Part(self),
+            '__searcher__': Searcher_Part(self),
+            '__dialog__': Dialog_Part(self)
         }

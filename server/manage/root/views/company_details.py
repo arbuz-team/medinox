@@ -5,7 +5,7 @@ from server.service.payment.forms import *
 
 class Company_Details_Manager(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         address = SQL.First(Root_Address)
         self.content['form'] = Form_Root_Address(self, instance=address)
         return self.Render_HTML('root/company_details.html', 'root_address')

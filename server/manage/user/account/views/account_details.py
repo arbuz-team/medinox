@@ -4,7 +4,7 @@ from server.manage.user.account.forms import *
 
 class Account_Details(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         self.content['user'] = self.request.session['user_user']
         return self.Render_HTML('user/account/details.html')
 

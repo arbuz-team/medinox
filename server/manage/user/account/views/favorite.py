@@ -5,7 +5,7 @@ from server.service.payment.models import *
 
 class Favorite(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         user = self.request.session['user_user']
         self.content['elements'] = SQL.Filter(Product,
             pk__in=SQL.Filter(Favorite_Product, user=user).values('product__pk'))

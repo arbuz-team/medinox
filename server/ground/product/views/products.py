@@ -5,7 +5,7 @@ from server.manage.switch.pages import *
 
 class Products(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
 
         products = self.request.session['searcher_result']
         number_product_on_page = self.request.session['product_number_product_on_page']

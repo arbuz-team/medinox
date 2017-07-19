@@ -6,7 +6,7 @@ import os
 
 class Control_Panel(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         return self.Render_HTML('setting/control_panel.html')
 
     @staticmethod

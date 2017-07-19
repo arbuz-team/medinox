@@ -43,7 +43,7 @@ class Details(Website_Manager):
             for widget in widgets
         ]
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
 
         # get product and save to session
         self.content['product'] = SQL.Get(Product, pk=self.other_value)

@@ -4,9 +4,14 @@ from django.utils.timezone import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from abc import ABCMeta, abstractmethod
+from django.template import loader
 import string, random, time
 
+
 class Base:
+
+    def Render_HTML(self):
+        pass
 
     @staticmethod
     def Convert_Polish_To_Ascii(text):

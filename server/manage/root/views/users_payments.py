@@ -32,7 +32,7 @@ class Users_Payments(Website_Manager):
 
             self.content['shopping'].append(details)
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         self.Create_Payment_Structure()
         self.content['date_from'] = self.request.session['root_users_payments_date_from']
         self.content['date_to'] = self.request.session['root_users_payments_date_to']

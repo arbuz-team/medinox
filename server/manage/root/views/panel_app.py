@@ -4,7 +4,7 @@ from server.service.payment.forms import *
 
 class Panel_App(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
 
         path_manager = Path_Manager(self)
         self.content['apps'] = [

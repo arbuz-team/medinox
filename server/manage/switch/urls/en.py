@@ -1,4 +1,5 @@
 from django.conf.urls import url, include
+from server.manage.switch.website.content.errors_handler import *
 
 urlpatterns = [
     url(r'^user/', include('server.manage.user.urls.en'), name='user'),
@@ -11,3 +12,6 @@ urlpatterns = [
     url(r'', include('server.ground.main.urls.en'), name='main'),
 ]
 
+handler403 = Errors_Handler.Code_403
+handler404 = Errors_Handler.Code_404
+handler500 = Errors_Handler.Code_500

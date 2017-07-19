@@ -21,7 +21,7 @@ class Contact(Website_Manager):
             },
         ]
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         language = self.request.session['translator_language']
         self.content['form'] = Form_Email_Contact(self)
         self.content['content'] = SQL.Filter(Contact_Content,

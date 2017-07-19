@@ -32,9 +32,16 @@ class Status_Manager(Base):
         self.status += duration + ' ms\n'
 
     def Add_URL(self):
-        path_manager = Path_Manager(self)
-        self.status += self.Get_Text_Cell('URL: ', margin=2)
-        self.status += path_manager.Get_Path(current_language=True) + '\n'
+
+        try:
+
+            path_manager = Path_Manager(self)
+            path = path_manager.Get_Path(current_language=True)
+
+            self.status += self.Get_Text_Cell('URL: ', margin=2)
+            self.status += path + '\n'
+
+        except: pass
 
     def Add_HTTP_Variables(self, http_dict):
 
@@ -91,22 +98,20 @@ class Status_Manager(Base):
 
     def Display_Status(self, message=None):
 
-        if DEBUG:
+        if not DISPLAY_STATUS and not message:
+            return
 
-            if not DISPLAY_STATUS and not message:
-                return
+        # main data
+        self.Add_App_Name(message)
+        self.Add_URL()
+        self.Add_Method_Name()
+        self.Add_Duration()
 
-            # main data
-            self.Add_App_Name(message)
-            self.Add_URL()
-            self.Add_Method_Name()
-            self.Add_Duration()
+        # variables
+        self.Add_Variables()
 
-            # variables
-            self.Add_Variables()
-
-            # print
-            print(self.status)
+        # print
+        print(self.status)
 
     def __init__(self, _object):
         Base.__init__(self, _object)

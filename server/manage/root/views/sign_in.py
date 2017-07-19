@@ -4,7 +4,7 @@ from server.manage.root.forms import *
 
 class Sign_In(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         self.content['form'] = Form_Root_Login(self)
         return self.Render_HTML('root/sign_in.html', 'login')
 

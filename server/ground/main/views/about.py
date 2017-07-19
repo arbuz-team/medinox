@@ -5,7 +5,7 @@ from server.manage.switch.position import *
 
 class About(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         language = self.request.session['translator_language']
         path_manager = Path_Manager(self)
 

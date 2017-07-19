@@ -3,7 +3,7 @@ from server.manage.user.forms import *
 
 class Approved_Register(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         return self.Render_HTML('user/approved.html')
 
     @staticmethod

@@ -88,7 +88,7 @@ class Website_Manager(Endpoints, Inspector, Refresh, metaclass=ABCMeta):
                 status_manager.Display_Status()
 
                 if not self.HTML:
-                    status_manager.Display_Status(message='NOT HTML')
+                    status_manager.Display_Status(message='NO HTML')
 
             except Exception as exception:
 

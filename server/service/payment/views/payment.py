@@ -50,7 +50,7 @@ class Payment_Manager(Website_Manager, PayPal, DotPay):
         address.country = user_address.country
         SQL.Save(data=address)
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         self.Load_Payment_Details()
         return self.Render_HTML('payment/payment.html')
 
@@ -107,7 +107,7 @@ class Payment_Manager(Website_Manager, PayPal, DotPay):
 
 class Apply_Payment(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         return self.Render_HTML('payment/apply.html')
 
     def Error_No_Event(self):
@@ -122,7 +122,7 @@ class Apply_Payment(Website_Manager):
 
 class Cancel_Payment(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         return self.Render_HTML('payment/cancel.html')
 
     def Error_No_Event(self):

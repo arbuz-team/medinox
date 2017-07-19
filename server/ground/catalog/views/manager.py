@@ -4,7 +4,7 @@ from server.ground.catalog.forms import *
 
 class Catalog_Manager(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
 
         # session data
         parent = self.request.session['catalog_parent']

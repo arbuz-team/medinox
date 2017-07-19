@@ -3,7 +3,7 @@ from server.manage.switch.website.manager import *
 
 class Panel_App(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         return self.Render_HTML('product/start.html')
 
     @staticmethod

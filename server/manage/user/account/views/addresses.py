@@ -35,7 +35,7 @@ class User_Addresses(Website_Manager):
 
         return False
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         self.Get_User_Details()
         self.content['new_form_address'] = Form_User_Address(self)
         return self.Render_HTML('user/account/addresses.html')

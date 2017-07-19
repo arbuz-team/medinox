@@ -5,16 +5,8 @@ from server.dialog.views import *
 
 class Endpoints(Base_Website):
 
-    def Manage_Content_Ground(self):
-        self.content['error'] = 'no_exist'
-        return self.Render_HTML('arbuz/error.html')
-
     def Manage_Content(self):
-
-        if 'ground' in self.request.POST['__content__']:
-            return self.Manage_Content_Ground()
-
-        self.content['error'] = 'no_event'
+        self.content['error'] = 'no_exist'
         return self.Render_HTML('arbuz/error.html')
 
     def Manage_Form(self):
@@ -22,27 +14,19 @@ class Endpoints(Base_Website):
         return self.Render_HTML('arbuz/error.html')
 
     def Manage_Exist(self):
-        return JsonResponse({'__exist__': 'false'})
+        return HttpResponse('')
 
     def Manage_Get(self):
-        return JsonResponse({'__get__': 'false'})
+        return HttpResponse('')
 
     def Manage_Little_Form(self):
-        return JsonResponse({'__little__': 'false'})
+        return HttpResponse('')
 
     def Manage_Filter(self):
-        return JsonResponse({'__filter__': 'false'})
+        return HttpResponse('')
 
     def Manage_Button(self):
-
-        if self.request.POST['__button__'] == 'clear_session':
-            if self.clear_session:
-
-                self.Clear_Session(self.app_name)
-                Check_Session(self.request)
-                return JsonResponse({'__button__': 'true'})
-
-        return JsonResponse({'__button__': 'false'})
+        return HttpResponse('')
 
     def Clear_Session(self, key_contain=''):
         Base_Website.Clear_Session(self, key_contain)

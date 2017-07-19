@@ -5,7 +5,7 @@ import os, binascii
 
 class Forgot_Password(Website_Manager):
 
-    def Manage_Content_Ground(self):
+    def Manage_Content(self):
         self.content['form'] = Form_Forgot_Password(self)
         return self.Render_HTML('user/forgot.html', 'forgot_password')
 
