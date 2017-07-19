@@ -6,10 +6,10 @@ from server.manage.switch.position import *
 class Product_Manager(Website_Manager):
 
     def Manage_Form_Product(self):
-        self.content['form'] = Form_Product(self, post=True)
+        self.context['form'] = Form_Product(self, post=True)
 
-        if self.content['form'].is_valid():
-            cleaned_data = self.content['form'].cleaned_data
+        if self.context['form'].is_valid():
+            cleaned_data = self.context['form'].cleaned_data
 
             product = self.request.session['product_product']
             product.name = cleaned_data['name']

@@ -40,8 +40,8 @@ class Service_Copy(Base_Service):
         self.New()
 
         # code for each widget
-        self.content['title'] = Text(self, 177)
-        self.content['form'] = self.Prepare_Form(
+        self.context['title'] = Text(self, 177)
+        self.context['form'] = self.Prepare_Form(
             Form_Copy, initial=self.initial)
 
         return self.Render_Dialog(

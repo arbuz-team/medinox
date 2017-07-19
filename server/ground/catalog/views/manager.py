@@ -22,14 +22,14 @@ class Catalog_Manager(Website_Manager):
         pages_manager = Pages_Manager(elements,
               number_element_on_page, selected_page)
 
-        self.content.update(pages_manager.Create_Pages())
+        self.context.update(pages_manager.Create_Pages())
         return self.Render_HTML('catalog/catalogs.html')
 
     def Manage_Form_New_Catalog(self):
-        self.content['form'] = Form_Catalog(self, post=True)
+        self.context['form'] = Form_Catalog(self, post=True)
 
-        if self.content['form'].is_valid():
-            name = self.content['form'].cleaned_data['name']
+        if self.context['form'].is_valid():
+            name = self.context['form'].cleaned_data['name']
 
             catalog = Model_Catalog()
             catalog.name = name
@@ -38,17 +38,17 @@ class Catalog_Manager(Website_Manager):
             catalog.language = self.request.session['translator_language']
             SQL.Save(data=catalog)
 
-            catalog.Save_Image(self.content['form'].cleaned_data['image'])
-            self.content['form'] = None
+            catalog.Save_Image(self.context['form'].cleaned_data['image'])
+            self.context['form'] = None
 
             return Dialog_Prompt(self, apply=True).HTML
         return Dialog_Prompt(self, not_valid=True).HTML
 
     def Manage_Form_Edit_Catalog(self):
-        self.content['form'] = Form_Catalog(self, post=True)
+        self.context['form'] = Form_Catalog(self, post=True)
 
-        if self.content['form'].is_valid():
-            name = self.content['form'].cleaned_data['name']
+        if self.context['form'].is_valid():
+            name = self.context['form'].cleaned_data['name']
 
             catalog = self.request.session['catalog_editing']
             catalog.name = name
@@ -56,8 +56,8 @@ class Catalog_Manager(Website_Manager):
             catalog.parent = self.request.session['catalog_parent']
             SQL.Save(data=catalog)
 
-            catalog.Save_Image(self.content['form'].cleaned_data['image'])
-            self.content['form'] = None
+            catalog.Save_Image(self.context['form'].cleaned_data['image'])
+            self.context['form'] = None
 
             return Dialog_Prompt(self, apply=True).HTML
         return Dialog_Prompt(self, not_valid=True).HTML

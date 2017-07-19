@@ -1,6 +1,5 @@
 from server.dialog.service.base import *
 from server.ground.catalog.forms.operation import *
-from django.template import loader
 
 
 class Service_Move(Base_Service):
@@ -36,17 +35,10 @@ class Service_Move(Base_Service):
             'name': element.name
         }
 
-    @staticmethod
-    def Render_Catalog(catalog, children):
-
-        # Backend: template with full path is wrong
-        template = loader.get_template('EN/catalog/tree.html')
-        content = {
-            'parent': catalog,
-            'catalogs': list(range(children.count()))
-        }
-
-        return template.render(content)
+    def Render_Catalog(self, catalog, children):
+        self.context['parent'] = catalog
+        self.context['catalogs'] = list(range(children.count()))
+        return self.Render_To_String('catalog/tree.html')
 
     def Recursive_Catalogs(self, parent):
 
@@ -67,7 +59,7 @@ class Service_Move(Base_Service):
         root_catalog = SQL.Get(Model_Catalog,
            parent=None, name='/')
 
-        self.content['catalog_tree'] = \
+        self.context['catalog_tree'] = \
             self.Recursive_Catalogs(root_catalog)
 
     def Manage(self):
@@ -76,8 +68,8 @@ class Service_Move(Base_Service):
         self.New()
 
         # code for each widget
-        self.content['title'] = Text(self, 179)
-        self.content['form'] = self.Prepare_Form(
+        self.context['title'] = Text(self, 179)
+        self.context['form'] = self.Prepare_Form(
             Form_Move, initial=self.initial)
 
         return self.Render_Dialog(

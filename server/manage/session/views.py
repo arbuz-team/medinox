@@ -21,6 +21,9 @@ class Session_Controller:
         if 'arbuz_app' not in self.request.session:
             self.request.session['arbuz_app'] = ''
 
+        if 'arbuz_response' not in self.request.session:
+            self.request.session['arbuz_response'] = {}
+
     def Check_Session_User(self):
 
         if 'user_login' not in self.request.session:

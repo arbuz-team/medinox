@@ -5,7 +5,7 @@ from server.service.payment.forms import *
 class Delivery_Settings(Website_Manager):
 
     def Manage_Content(self):
-        self.content['options'] = SQL.All(Delivery)
+        self.context['options'] = SQL.All(Delivery)
         return self.Render_HTML('root/delivery_settings.html')
 
     def Manage_Form(self):

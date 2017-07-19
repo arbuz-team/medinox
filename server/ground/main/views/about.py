@@ -9,11 +9,11 @@ class About(Website_Manager):
         language = self.request.session['translator_language']
         path_manager = Path_Manager(self)
 
-        self.content['paragraph_name'] = 'about'
-        self.content['paragraph_url'] = path_manager.Get_Path(
+        self.context['paragraph_name'] = 'about'
+        self.context['paragraph_url'] = path_manager.Get_Path(
             'main.about.manage', current_language=True)
 
-        self.content['content'] = SQL.Filter(About_Content,
+        self.context['content'] = SQL.Filter(About_Content,
             language=language).order_by('position')
 
         return self.Render_HTML('main/about.html')

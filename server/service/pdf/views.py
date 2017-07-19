@@ -14,7 +14,7 @@ class Generator_PDF(Website_Manager):
         products = SQL.Filter(Selected_Product, payment=payment)
         seller = SQL.First(Root_Address)
 
-        self.content['invoice'] = {
+        self.context['invoice'] = {
             'unique':           payment.pk,
             'date':             payment.date,
             'delivery':         payment.delivery_price,

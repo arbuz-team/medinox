@@ -3,10 +3,10 @@ from server.ground.product.base import *
 from server.ground.product.models import *
 
 
-class Searcher_Part(Endpoints):
+class Searcher_Block(Endpoints):
 
     def Manage_Content(self):
-        self.content['brands'] = SQL.All(Brand)
+        self.context['brands'] = SQL.All(Brand)
         return self.Render_HTML('block/searcher.html')
 
     def Manage_Filter_Brand(self):
@@ -46,3 +46,7 @@ class Searcher_Part(Endpoints):
 
         if self.request.POST['__filter__'] == 'brand':
             return self.Manage_Filter_Brand()
+
+    def Error(self, response_class, context):
+        return response_class(self.Render_To_String(
+            'error/searcher.html', context=context))

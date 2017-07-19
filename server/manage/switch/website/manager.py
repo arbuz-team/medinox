@@ -49,13 +49,13 @@ class Website_Manager(Endpoints, Inspector, Refresh, metaclass=ABCMeta):
         if self.request.method == 'POST':
             if self.Check():
 
-                content_manager = Direct_Part_Manager(self)
+                content_manager = Direct_Block_Manager(self)
                 return content_manager.Direct()
 
             return self.ERROR_HTML
 
         if self.request.method == 'GET':
-            return self.Manage_Index()
+            return self.Index()
 
     def __init__(self, request,
                  autostart=True,

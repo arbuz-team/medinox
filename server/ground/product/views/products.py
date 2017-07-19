@@ -14,7 +14,7 @@ class Products(Website_Manager):
         pages_manager = Pages_Manager(
             products, number_product_on_page, selected_page)
 
-        self.content.update(pages_manager.Create_Pages())
+        self.context.update(pages_manager.Create_Pages())
         return self.Render_HTML('product/products.html')
 
     def Manage_Button(self):

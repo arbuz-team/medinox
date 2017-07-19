@@ -36,7 +36,7 @@ class Dialog_Prompt(Dialog):
 
     def Generate_Content(self):
 
-        self.content['additional'] = {
+        self.context['additional'] = {
             'reload': self.request.POST['additional_reload'],
             'redirect': self.request.POST['additional_redirect'],
             'event': self.request.POST['additional_event'],

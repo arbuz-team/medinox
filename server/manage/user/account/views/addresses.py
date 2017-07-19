@@ -7,12 +7,12 @@ class User_Addresses(Website_Manager):
 
     def Get_User_Details(self):
         unique = self.request.session['user_user'].unique
-        self.content['form_name_new'] = 'new_user_address'
-        self.content['form_name_edit'] = 'edit_user_address'
-        self.content['edit_forms_address'] = {}
+        self.context['form_name_new'] = 'new_user_address'
+        self.context['form_name_edit'] = 'edit_user_address'
+        self.context['edit_forms_address'] = {}
 
         for address in SQL.Filter(User_Address, user=unique):
-            self.content['edit_forms_address'][address.pk] = \
+            self.context['edit_forms_address'][address.pk] = \
                 Form_User_Address(self, instance=address)
 
     def Get_User_Address_ID(self):
@@ -37,18 +37,18 @@ class User_Addresses(Website_Manager):
 
     def Manage_Content(self):
         self.Get_User_Details()
-        self.content['new_form_address'] = Form_User_Address(self)
+        self.context['new_form_address'] = Form_User_Address(self)
         return self.Render_HTML('user/account/addresses.html')
 
     def Manage_Form_New_User_Address(self):
-        self.content['form'] = Form_User_Address(self, post=True)
+        self.context['form'] = Form_User_Address(self, post=True)
 
-        if self.content['form'].is_valid():
-            address_user = self.content['form'].save(commit=False)
+        if self.context['form'].is_valid():
+            address_user = self.context['form'].save(commit=False)
             address_user.user = self.request.session['user_user']
             SQL.Save(data=address_user)  # create address_user
 
-            self.content['new_form_address'] = Form_User_Address(self)
+            self.context['new_form_address'] = Form_User_Address(self)
 
         self.Get_User_Details()
         return self.Render_HTML('user/account/addresses.html')
@@ -57,15 +57,15 @@ class User_Addresses(Website_Manager):
 
         id_address = self.Get_User_Address_ID()
         address = SQL.Get(User_Address, id=id_address)
-        self.content['form'] = Form_User_Address(
+        self.context['form'] = Form_User_Address(
             self, post=True, instance=address)
 
-        if self.content['form'].is_valid():
-            address = self.content['form'].save(commit=False) # save change of address_user
+        if self.context['form'].is_valid():
+            address = self.context['form'].save(commit=False) # save change of address_user
             SQL.Save(data=address)
 
         self.Get_User_Details()
-        self.content['new_form_address'] = Form_User_Address(self)
+        self.context['new_form_address'] = Form_User_Address(self)
         return self.Render_HTML('user/account/addresses.html')
 
     def Manage_Form(self):

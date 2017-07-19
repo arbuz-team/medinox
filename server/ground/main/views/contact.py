@@ -6,7 +6,7 @@ class Contact(Website_Manager):
 
     def Create_Titles(self):
 
-        self.content['form_detail'] = [
+        self.context['form_detail'] = [
             {
                 'title':    Text(self, 81),
                 'hidden':   'url',
@@ -23,8 +23,8 @@ class Contact(Website_Manager):
 
     def Manage_Content(self):
         language = self.request.session['translator_language']
-        self.content['form'] = Form_Email_Contact(self)
-        self.content['content'] = SQL.Filter(Contact_Content,
+        self.context['form'] = Form_Email_Contact(self)
+        self.context['content'] = SQL.Filter(Contact_Content,
             language=language).order_by('position')
 
         self.Create_Titles()
@@ -33,18 +33,18 @@ class Contact(Website_Manager):
     def Manage_Form(self):
 
         self.Create_Titles()
-        self.content['form'] = Form_Email_Contact(self, post=True)
+        self.context['form'] = Form_Email_Contact(self, post=True)
 
-        if self.content['form'].is_valid():
+        if self.context['form'].is_valid():
 
-            title = self.content['form'].cleaned_data['title']
-            email = self.content['form'].cleaned_data['email']
+            title = self.context['form'].cleaned_data['title']
+            email = self.context['form'].cleaned_data['email']
 
             content = {
-                'client':   self.content['form'].cleaned_data['client'],
-                'question': self.content['form'].cleaned_data['message'],
-                'product':  self.content['form'].cleaned_data['product'],
-                'url':      self.content['form'].cleaned_data['url'],
+                'client':   self.context['form'].cleaned_data['client'],
+                'question': self.context['form'].cleaned_data['message'],
+                'product':  self.context['form'].cleaned_data['product'],
+                'url':      self.context['form'].cleaned_data['url'],
             }
 
             Sender(self).Send_Contact_Question(title, content, email)

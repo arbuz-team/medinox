@@ -6,12 +6,12 @@ from server.manage.switch.position import *
 class Values_Manager(Website_Manager):
 
     def Manage_Form(self):
-        self.content['form'] = Form_Values(self, post=True)
+        self.context['form'] = Form_Values(self, post=True)
 
-        if self.content['form'].is_valid():
+        if self.context['form'].is_valid():
             widget = self.request.session['product_widget']
 
-            values = self.content['form'].save(commit=False)
+            values = self.context['form'].save(commit=False)
             values.widget = widget
             SQL.Save(data=values)
 

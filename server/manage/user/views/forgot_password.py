@@ -6,20 +6,20 @@ import os, binascii
 class Forgot_Password(Website_Manager):
 
     def Manage_Content(self):
-        self.content['form'] = Form_Forgot_Password(self)
+        self.context['form'] = Form_Forgot_Password(self)
         return self.Render_HTML('user/forgot.html', 'forgot_password')
 
     def Manage_Form_Forgot_Password(self):
-        self.content['form'] = Form_Forgot_Password(self, post=True)
+        self.context['form'] = Form_Forgot_Password(self, post=True)
 
-        if self.content['form'].is_valid():
-            self.content['email'] = self.content['form'].cleaned_data['email']
+        if self.context['form'].is_valid():
+            self.context['email'] = self.context['form'].cleaned_data['email']
 
-            if SQL.Filter(User, email=self.content['email']):
+            if SQL.Filter(User, email=self.context['email']):
                 self.Create_Forgot_Password_User()
                 self.Send_Secure_Link()
 
-            self.content['form'] = None  # message of correct
+            self.context['form'] = None  # message of correct
 
             return self.Render_HTML('user/forgot.html')
 
@@ -33,12 +33,12 @@ class Forgot_Password(Website_Manager):
         return Website_Manager.Manage_Form(self)
 
     def Create_Forgot_Password_User(self):
-        self.content['key'] = binascii.hexlify(os.urandom(20))
+        self.context['key'] = binascii.hexlify(os.urandom(20))
 
-        if not SQL.Filter(Forgot_Password_User, approved_key=self.content['key']):
+        if not SQL.Filter(Forgot_Password_User, approved_key=self.context['key']):
             SQL.Save(Forgot_Password_User,
-                user=SQL.Get(User, email=self.content['email']),
-                approved_key=self.content['key']
+                user=SQL.Get(User, email=self.context['email']),
+                approved_key=self.context['key']
             )
 
         else: self.Create_Forgot_Password_User()
@@ -46,11 +46,11 @@ class Forgot_Password(Website_Manager):
     def Send_Secure_Link(self):
 
         path_manager = Path_Manager(self)
-        activate_key = self.content['key'].decode("utf-8")
+        activate_key = self.context['key'].decode("utf-8")
         activate_url = path_manager.Get_Urls('user.change_password',
              kwargs={'key': activate_key}, current_language=True)
 
-        email = self.content['email']
+        email = self.context['email']
 
         content = {
             'activate_url': activate_url,

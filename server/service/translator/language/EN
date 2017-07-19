@@ -170,3 +170,7 @@
 177:Copy element
 178: - copy
 179:Move element
+180:Check your CSRF token
+181:Forbidden
+182:Page Not Found
+183:Internal Server Error

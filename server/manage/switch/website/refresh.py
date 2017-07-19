@@ -40,10 +40,10 @@ class Refresh(Base_Website):
                 self.request.session['arbuz_permissions'] = 'authorization'
 
     def Update_Redirect_URL(self):
-        self.content['go_back'] = '/'
+        self.context['go_back'] = '/'
 
         if 'redirect' in self.other_value:
-            self.content['go_back'] = base64.b64decode(
+            self.context['go_back'] = base64.b64decode(
                 bytes(self.other_value['redirect'], 'utf-8'))
 
     def Update_App_Name(self):

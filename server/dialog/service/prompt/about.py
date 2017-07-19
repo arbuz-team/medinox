@@ -22,8 +22,8 @@ class Service_About(Base_Service):
             pk=self.request.POST['dialog_value'])
 
         self.request.session['main_about'] = about
-        self.content['edit'] = {'url': '/product/description/manage/'}
-        self.content['image'] = about.image
+        self.context['edit'] = {'url': '/product/description/manage/'}
+        self.context['image'] = about.image
         self.initial = {
             'header': about.header,
             'paragraph': about.paragraph,
@@ -40,8 +40,8 @@ class Service_About(Base_Service):
         elif 'dialog_value' in self.request.POST:
             self.Edit()
 
-        self.content['title'] = Text(self, 93)
-        self.content['form'] = self.Prepare_Form(
+        self.context['title'] = Text(self, 93)
+        self.context['form'] = self.Prepare_Form(
             Form_About_Content, initial=self.initial)
 
         return self.Render_Dialog(

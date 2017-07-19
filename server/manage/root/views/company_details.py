@@ -7,17 +7,17 @@ class Company_Details_Manager(Website_Manager):
 
     def Manage_Content(self):
         address = SQL.First(Root_Address)
-        self.content['form'] = Form_Root_Address(self, instance=address)
+        self.context['form'] = Form_Root_Address(self, instance=address)
         return self.Render_HTML('root/company_details.html', 'root_address')
 
     def Manage_Form_Root_Address(self):
 
         address = SQL.First(Root_Address)
-        self.content['form'] = Form_Root_Address(
+        self.context['form'] = Form_Root_Address(
             self, post=True, instance=address)
 
-        if self.content['form'].is_valid():
-            address = self.content['form'].save(commit=False) # save change of address_user
+        if self.context['form'].is_valid():
+            address = self.context['form'].save(commit=False) # save change of address_user
             SQL.Save(data=address)
 
             return self.Render_HTML('root/company_details.html', 'root_address')

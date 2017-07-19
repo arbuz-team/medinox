@@ -39,19 +39,19 @@ class Pages_Manager:
             number_of_pages += 1
 
         # create content
-        self.content['elements'] = self.Get_Elements_From_Current_Page()
-        self.content['list_pages'] = self.Get_List_Pages(number_of_pages)
-        self.content['split_pages'] = self.Get_Split_Pages(number_of_pages)
-        self.content['number_of_pages'] = number_of_pages
-        self.content['next_page'] = self.selected_page + 1
-        self.content['prev_page'] = self.selected_page - 1
+        self.context['elements'] = self.Get_Elements_From_Current_Page()
+        self.context['list_pages'] = self.Get_List_Pages(number_of_pages)
+        self.context['split_pages'] = self.Get_Split_Pages(number_of_pages)
+        self.context['number_of_pages'] = number_of_pages
+        self.context['next_page'] = self.selected_page + 1
+        self.context['prev_page'] = self.selected_page - 1
 
-        return self.content
+        return self.context
 
     def __init__(self, elements, number_elements_on_page, selected_page):
 
         self.elements = elements
         self.number_elements_on_page = number_elements_on_page
         self.selected_page = selected_page
-        self.content = {}
+        self.context = {}
 

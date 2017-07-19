@@ -7,7 +7,7 @@ class Favorite(Website_Manager):
 
     def Manage_Content(self):
         user = self.request.session['user_user']
-        self.content['elements'] = SQL.Filter(Product,
+        self.context['elements'] = SQL.Filter(Product,
             pk__in=SQL.Filter(Favorite_Product, user=user).values('product__pk'))
 
         return self.Render_HTML('user/account/favorite.html')

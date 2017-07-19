@@ -21,8 +21,8 @@ class Copy_Product(Website_Manager):
 
     def Manage_Form(self):
 
-        self.content['form'] = Form_Copy(self, post=True)
-        if self.content['form'].is_valid():
+        self.context['form'] = Form_Copy(self, post=True)
+        if self.context['form'].is_valid():
 
             # get data
             from_product = self.request.session['catalog_copy_element']

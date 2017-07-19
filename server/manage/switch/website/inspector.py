@@ -5,11 +5,11 @@ from server.service.payment.base import *
 class Inspector(Base_Website):
 
     def Error_No_Event(self):
-        self.content['error'] = 'no_event'
+        self.context['error'] = 'no_event'
         return self.Render_HTML('arbuz/error.html')
 
     def Error_Authorization(self):
-        self.content['error'] = 'unauthorized'
+        self.context['error'] = 'unauthorized'
         return self.Render_HTML('arbuz/error.html')
 
     def Check_Authorization(self):

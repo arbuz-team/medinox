@@ -8,34 +8,34 @@ class Details(Website_Manager):
     def Status_Buttons(self):
 
         user = self.request.session['user_user']
-        product = self.content['product']
+        product = self.context['product']
 
         if SQL.Filter(Favorite_Product, product=product, user=user):
-            self.content['is_favorite'] = True
+            self.context['is_favorite'] = True
 
         if SQL.Filter(Recommended_Product, product=product):
-            self.content['is_recommended'] = True
+            self.context['is_recommended'] = True
 
     def Descriptions(self):
 
         # get descriptions
-        self.content['descriptions'] = Description.objects \
-            .filter(product=self.content['product']).order_by('position')
+        self.context['descriptions'] = Description.objects \
+            .filter(product=self.context['product']).order_by('position')
 
         # variable for list of description
         # the same as edit in HTML
         path_manager = Path_Manager(self)
-        self.content['paragraph_name'] = 'description'
-        self.content['paragraph_url'] = path_manager.Get_Path(
+        self.context['paragraph_name'] = 'description'
+        self.context['paragraph_url'] = path_manager.Get_Path(
             'product.description.manage', current_language=True)
 
     def Widgets(self):
 
         # get widgets
         widgets = SQL.Filter(Widget,
-            product=self.content['product'])
+            product=self.context['product'])
 
-        self.content['widgets'] = [
+        self.context['widgets'] = [
             {
                 'widget': widget,
                 'values': SQL.Filter(Values, widget=widget)
@@ -46,10 +46,10 @@ class Details(Website_Manager):
     def Manage_Content(self):
 
         # get product and save to session
-        self.content['product'] = SQL.Get(Product, pk=self.other_value)
-        self.request.session['product_product'] = self.content['product']
+        self.context['product'] = SQL.Get(Product, pk=self.other_value)
+        self.request.session['product_product'] = self.context['product']
         self.request.session['product_last_selected'] = \
-            self.content['product']
+            self.context['product']
 
         self.Widgets()
         self.Descriptions()

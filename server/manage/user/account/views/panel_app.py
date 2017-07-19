@@ -6,7 +6,7 @@ class Panel_App(Website_Manager):
     def Manage_Content(self):
 
         path_manager = Path_Manager(self)
-        self.content['apps'] = [
+        self.context['apps'] = [
             {
                 'name': Text(self, 58),
                 'url':  path_manager.Get_Path('user.account.details', current_language=True),

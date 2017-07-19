@@ -1,7 +1,7 @@
 from .block import *
 
 
-class Direct_Part_Manager(Base):
+class Direct_Block_Manager(Base):
 
     def Manage(self, name):
         block = self.blocks[name]
@@ -55,9 +55,21 @@ class Direct_Part_Manager(Base):
         for var in variables:
             if var.startswith('__') and var.endswith('__'):
 
+                # without ground - generate at the end
+                if var == '__ground__':
+                    continue
+
                 html_response = self.Manage(var)
                 response[var] = self.Packing(html_response)
+                self.request.session['arbuz_response'] = response
 
+        # manage ground
+        if '__ground__' in variables:
+            html_response = self.Manage('__ground__')
+            response['__ground__'] = self.Packing(html_response)
+            self.request.session['arbuz_response'] = response
+
+        print(response)
         return JsonResponse(response)
 
     def __init__(self, website):
@@ -66,9 +78,9 @@ class Direct_Part_Manager(Base):
         self.website = website
         self.blocks = {
             '__ground__': self.website,
-            '__cart__': Cart_Part(self),
-            '__header__': Menu_Standard_Part(self),
-            '__navigation__': Menu_Mobile_Part(self),
-            '__searcher__': Searcher_Part(self),
-            '__dialog__': Dialog_Part(self)
+            '__cart__': Cart_Block(self),
+            '__header__': Menu_Standard_Block(self),
+            '__navigation__': Menu_Mobile_Block(self),
+            '__searcher__': Searcher_Block(self),
+            '__dialog__': Dialog_Block(self)
         }

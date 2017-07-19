@@ -55,7 +55,7 @@ class Sender(Base_Website):
     def Send_Email(self, title, content, recipient,
                    html_file, reply_to=None, pdf=None):
 
-        self.content = content
+        self.context = content
         html = self.Render_HTML('sender/' + html_file)
 
         self.email = EmailMultiAlternatives(

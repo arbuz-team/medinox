@@ -16,7 +16,7 @@ class My_Shopping(Website_Manager):
 
     def Create_Payment_Structure(self):
 
-        self.content['shopping'] = []
+        self.context['shopping'] = []
 
         date_from, date_to = self.Get_Date()
         user = self.request.session['user_user']
@@ -31,13 +31,13 @@ class My_Shopping(Website_Manager):
                 'products': SQL.Filter(Selected_Product, payment=payment)
             }
 
-            self.content['shopping'].append(details)
+            self.context['shopping'].append(details)
 
     def Manage_Content(self):
         self.Create_Payment_Structure()
-        self.content['date_from'] = self.request.session['user_my_shopping_date_from']
-        self.content['date_to'] = self.request.session['user_my_shopping_date_to']
-        self.content['button_address_name'] = 'user_address'
+        self.context['date_from'] = self.request.session['user_my_shopping_date_from']
+        self.context['date_to'] = self.request.session['user_my_shopping_date_to']
+        self.context['button_address_name'] = 'user_address'
         return self.Render_HTML('user/account/my_shopping.html')
 
     def Manage_Filter(self):

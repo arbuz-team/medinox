@@ -27,7 +27,7 @@ class Dialog(Base_Website):
 
     def Generate_Content(self):
 
-        self.content['additional'] = {
+        self.context['additional'] = {
             'name':     self.Get_POST_Variable('additional_name'),
             'action':   self.Get_POST_Variable('additional_action'),
             'value':    self.Get_POST_Variable('additional_value'),

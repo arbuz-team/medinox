@@ -14,7 +14,7 @@ class Search_Priorities:
         accuracy += self.name.count(word) * 10
         accuracy += self.keywords.count(word) * 5
         accuracy += self.filters.count(word) * 3
-        accuracy += self.content.count(word)
+        accuracy += self.context.count(word)
 
         return accuracy
 
@@ -24,7 +24,7 @@ class Search_Priorities:
         self.name = name.lower()
         self.keywords = keywords.lower()
         self.filters = filters.lower()
-        self.content = content.lower()
+        self.context = content.lower()
 
 
 

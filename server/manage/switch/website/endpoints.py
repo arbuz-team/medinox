@@ -1,44 +1,34 @@
 from server.manage.session.views import *
-from server.service.payment.base import *
 from server.dialog.views import *
 
 
 class Endpoints(Base_Website):
 
     def Manage_Content(self):
-        self.content['error'] = 'no_exist'
-        return self.Render_HTML('arbuz/error.html')
+        pass
 
     def Manage_Form(self):
-        self.content['error'] = 'form'
-        return self.Render_HTML('arbuz/error.html')
+        pass
 
     def Manage_Exist(self):
-        return HttpResponse('')
+        pass
 
     def Manage_Get(self):
-        return HttpResponse('')
+        pass
 
     def Manage_Little_Form(self):
-        return HttpResponse('')
+        pass
 
     def Manage_Filter(self):
-        return HttpResponse('')
+        pass
 
     def Manage_Button(self):
-        return HttpResponse('')
+        pass
 
-    def Clear_Session(self, key_contain=''):
-        Base_Website.Clear_Session(self, key_contain)
-        Check_Session(self.request)
+    def Error(self, response_class, context):
+        pass
 
-    def Index_Clear_Session(self):
-        Base_Website.Clear_Session(self, 'searcher')
-        Base_Website.Clear_Session(self, 'root_social_media')
-        Base_Website.Clear_Session(self, 'root_address')
-        Check_Session(self.request)
-
-    def Manage_Index(self):
+    def Index(self):
 
         self.Index_Clear_Session()
 
@@ -49,6 +39,16 @@ class Endpoints(Base_Website):
             return lang_redirect
 
         return render(self.request, 'index.html', {})
+
+    def Clear_Session(self, key_contain=''):
+        Base_Website.Clear_Session(self, key_contain)
+        Check_Session(self.request)
+
+    def Index_Clear_Session(self):
+        Base_Website.Clear_Session(self, 'searcher')
+        Base_Website.Clear_Session(self, 'root_social_media')
+        Base_Website.Clear_Session(self, 'root_address')
+        Check_Session(self.request)
 
     def __init__(self, _object):
         Base_Website.__init__(self, _object)

@@ -3,7 +3,7 @@ from server.manage.switch.website.inspector import *
 from server.service.payment.base import *
 
 
-class Cart_Part(Endpoints, Inspector):
+class Cart_Block(Endpoints, Inspector):
 
     def Manage_Content(self):
 
@@ -11,10 +11,10 @@ class Cart_Part(Endpoints, Inspector):
         if not self.Check_Authorization():
             return self.Error_Authorization()
 
-        self.content['payment'] = self.payment_models_manager. \
+        self.context['payment'] = self.payment_models_manager. \
             Get_Payment()
 
-        self.content['cart'] = self.payment_models_manager. \
+        self.context['cart'] = self.payment_models_manager. \
             Get_Selected_Products()
 
         return self.Render_HTML('block/cart.html')
@@ -57,6 +57,10 @@ class Cart_Part(Endpoints, Inspector):
             selected_pk, number)
 
         return JsonResponse({'__button__': 'true'})
+
+    def Error(self, response_class, context):
+        return response_class(self.Render_To_String(
+            'error/cart.html', context=context))
 
     def __init__(self, _object):
         Endpoints.__init__(self, _object)

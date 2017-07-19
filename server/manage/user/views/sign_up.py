@@ -6,34 +6,34 @@ import os, binascii
 class Sign_Up(Website_Manager):
 
     def Manage_Content(self):
-        self.content['form'] = Form_Register(self)
+        self.context['form'] = Form_Register(self)
         return self.Render_HTML('user/sign_up.html', 'register')
 
     def Manage_Form_Register(self):
-        self.content['form'] = Form_Register(self, post=True)
+        self.context['form'] = Form_Register(self, post=True)
 
-        if self.content['form'].is_valid():
-            user = self.content['form'].save(commit=False)
+        if self.context['form'].is_valid():
+            user = self.context['form'].save(commit=False)
             user.unique = User.Generate_User_Unique()
             SQL.Save(data=user)
 
             self.Create_No_Approved_User()
             self.Send_Activate_Link()
 
-            self.content['form'] = Form_User_Address(self)
+            self.context['form'] = Form_User_Address(self)
             return self.Render_HTML('user/sign_up.html', 'user_address')
 
         return self.Render_HTML('user/sign_up.html', 'register')
 
     def Manage_Form_User_Address(self):
-        self.content['form'] = Form_User_Address(self, post=True)
+        self.context['form'] = Form_User_Address(self, post=True)
 
-        if self.content['form'].is_valid():
-            address_user = self.content['form'].save(commit=False)
+        if self.context['form'].is_valid():
+            address_user = self.context['form'].save(commit=False)
             address_user.user = self.request.session['user_user']
             SQL.Save(data=address_user)  # create address_user
 
-            self.content['form'] = None  # message of correct
+            self.context['form'] = None  # message of correct
             return self.Render_HTML('user/sign_up.html')
 
         return self.Render_HTML('user/sign_up.html', 'user_address')
@@ -57,21 +57,21 @@ class Sign_Up(Website_Manager):
         return JsonResponse({'__exist__': 'false'})
 
     def Create_No_Approved_User(self):
-        self.content['key'] = binascii.hexlify(os.urandom(20))
-        form = self.content['form']
+        self.context['key'] = binascii.hexlify(os.urandom(20))
+        form = self.context['form']
 
-        if not SQL.Filter(No_Approved_User, approved_key=self.content['key']):
+        if not SQL.Filter(No_Approved_User, approved_key=self.context['key']):
             SQL.Save(No_Approved_User,
                 user=SQL.Get(User, email=form.cleaned_data['email']),
-                approved_key=self.content['key']
+                approved_key=self.context['key']
             )
 
         else: self.Create_No_Approved_User()
 
     def Send_Activate_Link(self):
 
-        email = self.content['form'].cleaned_data['email']
-        activate_key = self.content['key'].decode("utf-8")
+        email = self.context['form'].cleaned_data['email']
+        activate_key = self.context['key'].decode("utf-8")
 
         path_manager = Path_Manager(self)
         activate_url = path_manager.Get_Urls('user.approved',

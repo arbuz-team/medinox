@@ -1,7 +1,7 @@
 from server.manage.switch.website.endpoints import *
 
 
-class Dialog_Part(Endpoints):
+class Dialog_Block(Endpoints):
 
     def Manage_Content(self):
 
@@ -13,3 +13,7 @@ class Dialog_Part(Endpoints):
 
         if self.request.POST['dialog_type'] == 'prompt':
             return Dialog_Prompt(self).HTML
+
+    def Error(self, response_class, context):
+        return response_class(self.Render_To_String(
+            'error/dialog.html', context=context))

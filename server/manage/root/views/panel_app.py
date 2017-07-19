@@ -7,7 +7,7 @@ class Panel_App(Website_Manager):
     def Manage_Content(self):
 
         path_manager = Path_Manager(self)
-        self.content['apps'] = [
+        self.context['apps'] = [
             {
                 'name': Text(self, 24),
                 'url': path_manager.Get_Path('root.sign_out', current_language=True),

@@ -14,17 +14,17 @@ class Service_Widget(Base_Service):
 
                 widget = self.request.POST['dialog_value']
                 self.instance = SQL.Get(Widget, pk=widget)
-                self.content['edit'] = {'url': '/product/widget/manage/'}
+                self.context['edit'] = {'url': '/product/widget/manage/'}
 
         # other value get widget to edit
         # after created widget - next dialog
         elif self.dialog.other_value:
             self.instance = self.dialog.other_value
-            self.content['edit'] = {'url': '/product/widget/manage/'}
+            self.context['edit'] = {'url': '/product/widget/manage/'}
 
         # second form for append options to widget
         if self.instance:
-            self.content['additional_form'] = \
+            self.context['additional_form'] = \
                 self.Prepare_Form(Form_Values)
 
     def Manage(self):
@@ -34,9 +34,9 @@ class Service_Widget(Base_Service):
 
         # code for each widget
         self.request.session['product_widget'] = self.instance
-        self.content['values'] = SQL.Filter(Values, widget=self.instance)
-        self.content['title'] = Text(self, 156)
-        self.content['form'] = self.Prepare_Form(
+        self.context['values'] = SQL.Filter(Values, widget=self.instance)
+        self.context['title'] = Text(self, 156)
+        self.context['form'] = self.Prepare_Form(
             Form_Widget, instance=self.instance)
 
         return self.Render_Dialog(

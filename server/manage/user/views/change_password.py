@@ -4,21 +4,21 @@ from server.manage.user.forms import *
 class Change_Password(Website_Manager):
 
     def Manage_Content(self):
-        self.content['form'] = Form_Change_Password(self)
+        self.context['form'] = Form_Change_Password(self)
         return self.Render_HTML('user/change_password.html', 'change_password')
 
     def Manage_Form_Change_Password(self):
-        self.content['form'] = Form_Change_Password(self, post=True)
+        self.context['form'] = Form_Change_Password(self, post=True)
 
-        if self.content['form'].is_valid():
+        if self.context['form'].is_valid():
 
             key = self.other_value['key']
             record = SQL.Get(Forgot_Password_User, approved_key=key)
-            record.user.password = self.content['form'].cleaned_data['password']
+            record.user.password = self.context['form'].cleaned_data['password']
             SQL.Save(data=record.user)
 
             SQL.Delete(data=record, force=True)
-            self.content['form'] = None  # message of correct
+            self.context['form'] = None  # message of correct
 
             return self.Render_HTML('user/change_password.html')
 

@@ -7,26 +7,26 @@ class Payment_Manager(Website_Manager, PayPal, DotPay):
     def Update_Payment(self):
 
         payment = SQL.Get(Payment,
-            user=self.content['user'], status='cart')
+            user=self.context['user'], status='cart')
 
-        self.content['payment'] = payment.pk
+        self.context['payment'] = payment.pk
         payment.date = datetime.today().date()
-        payment.total_price = self.content['total_price']
+        payment.total_price = self.context['total_price']
         payment.currency = self.request.session['translator_currency']
         SQL.Save(data=payment)
 
     def Load_Payment_Details(self):
 
         model_manager = Payment_Models_Manager(self)
-        self.content['user'] = self.request.session['user_user']
-        self.content['cart'] = model_manager.Get_Selected_Products()
-        self.content['total_price'] = model_manager.Count_Total_Price()
-        self.content['delivery'] = model_manager.Get_Payment().delivery_price
-        self.content['address'] = SQL.Filter(User_Address, user=self.content['user'])
+        self.context['user'] = self.request.session['user_user']
+        self.context['cart'] = model_manager.Get_Selected_Products()
+        self.context['total_price'] = model_manager.Count_Total_Price()
+        self.context['delivery'] = model_manager.Get_Payment().delivery_price
+        self.context['address'] = SQL.Filter(User_Address, user=self.context['user'])
         self.Update_Payment()
 
-        self.content['paypal'] = self.Create_PayPal_From()
-        self.content['dotpay'] = self.Create_DotPay_From()
+        self.context['paypal'] = self.Create_PayPal_From()
+        self.context['dotpay'] = self.Create_DotPay_From()
 
     def Create_Address(self, pk, model):
 
@@ -64,7 +64,7 @@ class Payment_Manager(Website_Manager, PayPal, DotPay):
         self.Create_Address(address_invoice_pk, 'invoice_address')
 
         self.Load_Payment_Details()
-        self.content['address_is_validate'] = True
+        self.context['address_is_validate'] = True
         return self.Render_HTML('payment/payment.html')
 
     def Manage_Form(self):
@@ -111,7 +111,7 @@ class Apply_Payment(Website_Manager):
         return self.Render_HTML('payment/apply.html')
 
     def Error_No_Event(self):
-        return self.Manage_Index()
+        return self.Index()
 
     @staticmethod
     @csrf_exempt
@@ -126,7 +126,7 @@ class Cancel_Payment(Website_Manager):
         return self.Render_HTML('payment/cancel.html')
 
     def Error_No_Event(self):
-        return self.Manage_Index()
+        return self.Index()
 
     @staticmethod
     @csrf_exempt

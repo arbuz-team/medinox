@@ -35,8 +35,8 @@ class PayPal(Payment_System):
         {
             'business':         PAYPAL_RECEIVER_EMAIL,
             'item_name':        'medifiller',
-            'amount':           self.content['total_price'],
-            'custom':           self.content['payment'],
+            'amount':           self.context['total_price'],
+            'custom':           self.context['payment'],
             'currency_code':    self.request.session['translator_currency'],
 
             'notify_url':       path_manager.Get_Urls('payment.paypal', current_language=True),

@@ -10,7 +10,7 @@ class Service_Delete_Brand(Base_Service):
         products = SQL.Filter(Product, brand=brand)
 
         description = Text(self, 110)
-        self.content['text'] = description.format(len(products))
-        self.content['title'] = Text(self, 109)
+        self.context['text'] = description.format(len(products))
+        self.context['title'] = Text(self, 109)
 
         return self.Render_Dialog('confirm.html', only_root=True)

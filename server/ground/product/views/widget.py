@@ -6,12 +6,12 @@ from server.manage.switch.position import *
 class Widget_Manager(Website_Manager):
 
     def Manage_Form_New_Widget(self):
-        self.content['form'] = Form_Widget(self, post=True)
+        self.context['form'] = Form_Widget(self, post=True)
 
-        if self.content['form'].is_valid():
+        if self.context['form'].is_valid():
             widget = Widget(product=self.request.session['product_last_selected'])
-            widget.name = self.content['form'].cleaned_data['name']
-            widget.type = self.content['form'].cleaned_data['type']
+            widget.name = self.context['form'].cleaned_data['name']
+            widget.type = self.context['form'].cleaned_data['type']
             SQL.Save(data=widget)
 
             # other value get widget to edit
@@ -19,12 +19,12 @@ class Widget_Manager(Website_Manager):
         return Dialog_Prompt(self, not_valid=True).HTML
 
     def Manage_Form_Edit_Widget(self):
-        self.content['form'] = Form_Widget(self, post=True)
+        self.context['form'] = Form_Widget(self, post=True)
 
-        if self.content['form'].is_valid():
+        if self.context['form'].is_valid():
             widget = self.request.session['product_widget']
-            widget.name = self.content['form'].cleaned_data['name']
-            widget.type = self.content['form'].cleaned_data['type']
+            widget.name = self.context['form'].cleaned_data['name']
+            widget.type = self.context['form'].cleaned_data['type']
             SQL.Save(data=widget)
 
             return Dialog_Prompt(self, apply=True).HTML

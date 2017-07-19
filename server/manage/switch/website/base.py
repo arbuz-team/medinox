@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.hashers import make_password
 
@@ -10,16 +9,6 @@ from server.service.sql.views import *
 
 
 class Base_Website(Base):
-
-    def Render_HTML(self, file_name, form_name = '', additional_form_name=''):
-
-        # example: EN/user/sign_in.html
-        template = self.request.session['translator_language'] \
-                   + '/' + file_name
-
-        self.content['form_name'] = form_name
-        self.content['additional_form_name'] = additional_form_name
-        return render(self.request, template, self.content)
 
     def Get_Post_Other(self, name):
 
@@ -73,7 +62,7 @@ class Base_Website(Base):
         Base.__init__(self, _object)
 
         self.start_time = 0
-        self.content = {}
+        self.context = {}
 
         self.app_name = self.__module__.rsplit('.', 1)[0]
         self.short_app_name = self.app_name.rsplit('.', 1)[1]

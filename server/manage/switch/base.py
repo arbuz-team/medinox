@@ -3,15 +3,38 @@ from server.manage.switch.settings import *
 from django.utils.timezone import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+from django.template.loader import render_to_string
+from django.shortcuts import render
+
 from abc import ABCMeta, abstractmethod
-from django.template import loader
 import string, random, time
 
 
 class Base:
 
-    def Render_HTML(self):
-        pass
+    def Render_To_String(self, file_name, form_name = '',
+                         additional_form_name='', context=None):
+
+        if context:
+            self.context.update(context)
+
+        # example: EN/user/sign_in.html
+        template = self.request.session['translator_language'] \
+                   + '/' + file_name
+
+        self.context['form_name'] = form_name
+        self.context['additional_form_name'] = additional_form_name
+        return render_to_string(template, self.context, self.request)
+
+    def Render_HTML(self, file_name, form_name = '', additional_form_name=''):
+
+        # example: EN/user/sign_in.html
+        template = self.request.session['translator_language'] \
+                   + '/' + file_name
+
+        self.context['form_name'] = form_name
+        self.context['additional_form_name'] = additional_form_name
+        return render(self.request, template, self.context)
 
     @staticmethod
     def Convert_Polish_To_Ascii(text):
@@ -53,4 +76,5 @@ class Base:
 
     def __init__(self, _object):
         self.request = _object.request
+        self.context = {}
 

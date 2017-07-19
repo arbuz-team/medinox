@@ -7,15 +7,15 @@ from server.service.payment.forms import *
 from server.ground.main.models import *
 
 
-class Base_Service(metaclass=ABCMeta):
+class Base_Service(Base):
 
     @abstractmethod
     def Manage(self):
         pass
 
     def Unauthorized_Access(self):
-        self.content['title'] = Text(self, 69)
-        self.content['text'] = Text(self, 70)
+        self.context['title'] = Text(self, 69)
+        self.context['text'] = Text(self, 70)
         return self.dialog.Render_HTML('dialog/alert/alert.html')
 
     def Render_Dialog(self, file_name, form_name='', additional_form_name='',
@@ -26,17 +26,17 @@ class Base_Service(metaclass=ABCMeta):
             self.dialog.Get_Dialog_Type(), file_name)
 
         if not authorization and not only_root:
-            return self.dialog.Render_HTML(
+            return self.Render_HTML(
                 file_name, form_name, additional_form_name)
 
         if authorization:
             if self.request.session['user_login']:
-                return self.dialog.Render_HTML(
+                return self.Render_HTML(
                     file_name, form_name, additional_form_name)
 
         if only_root:
             if self.request.session['root_login']:
-                return self.dialog.Render_HTML(
+                return self.Render_HTML(
                     file_name, form_name, additional_form_name)
 
         return self.Unauthorized_Access()
@@ -61,10 +61,9 @@ class Base_Service(metaclass=ABCMeta):
                           instance=instance)
 
     def __init__(self, dialog):
+        Base.__init__(self, dialog)
 
         self.dialog = dialog
-        self.request = dialog.request
-        self.content = dialog.content
         self.instance = None
         self.initial = None
 

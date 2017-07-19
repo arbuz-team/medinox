@@ -28,18 +28,18 @@ class DotPay(Payment_System):
             self.valid = True
 
     def Create_DotPay_From(self):
-        payment = SQL.Get(Payment, pk=self.content['payment'])
+        payment = SQL.Get(Payment, pk=self.context['payment'])
         address = SQL.Filter(User_Address, user=payment.user)[0]
         path_manager = Path_Manager(self)
 
         dotpay_dict = \
         {
             'id':           DOTPAY_RECEIVER_ID,
-            'amount':       self.content['total_price'],
+            'amount':       self.context['total_price'],
             'currency':     self.request.session['translator_currency'],
             'description':  Text(self, 152),
 
-            'control':      self.content['payment'],
+            'control':      self.context['payment'],
             'firstname':    address.full_name.split(' ')[0],
             'lastname':     address.full_name.split(' ')[1],
             'email':        payment.user.email,
