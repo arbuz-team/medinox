@@ -3,7 +3,6 @@
  */
 
 import {data_controller} from 'arbuz/js/structure'
-import {is_undefined} from 'arbuz/plugin/utilities/data'
 import {Request_Manager_Part} from 'arbuz/plugin/request_manager/part'
 import {Part_Loader} from './_init'
 
@@ -54,29 +53,15 @@ Part_Loader.prototype._send_request = function()
 	let
 		url = this._variables.post_url,
 		data = this._variables.post_data,
+		post_name = this._settings.post_name,
 		request_manager = new Request_Manager_Part();
 
-	this.response = request_manager.send(url, data);
+	this.response = request_manager.send(url, data, post_name);
 };
 
 
 
 // --------------------------    RESPONSE    --------------------------
-
-
-Part_Loader.prototype._preprocess_response = function(response)
-{
-	let precise_data = response[this._settings.post_name];
-
-
-	if(400 <= data.status < 600)
-		precise_data.status = 'error';
-
-	else if(200 <= data.status < 300)
-		precise_data.status = 'success';
-
-	return precise_data;
-};
 
 
 Part_Loader.prototype._check_for_errors = function(response)
@@ -85,4 +70,13 @@ Part_Loader.prototype._check_for_errors = function(response)
 		return true;
 
 	return false;
+};
+
+
+Part_Loader.prototype._preprocess_response = function(response)
+{
+	return {
+		html: response.html,
+		code: response.code,
+	};
 };

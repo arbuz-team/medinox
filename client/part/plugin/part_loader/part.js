@@ -36,34 +36,31 @@ Part_Loader_Part.prototype._prepare_post_data = function(post_data)
 };
 
 
-Part_Loader_Part.prototype._send_request = function(actually_url)
+Part_Loader_Part.prototype._send_request = function()
 {
 	let
 		post_data = this._variables.post_data,
+		post_name = this._settings.post_name,
 		request_manager = new Request_Manager_Part();
 
-	this.response = request_manager.next(actually_url, post_data);
+	this.response = request_manager.next(undefined, post_data, post_name);
 };
 
 // --------------------------    VIEW    --------------------------
 
 
-Part_Loader_Part.prototype._load_header_page = function(object)
+Part_Loader_Part.prototype._load_head_of_page = function()
 {
-	data_controller.change_much({
-		title: object.title,
-		description: object.description
-	});
+	if(this._settings.load_meta_tags)
+	{
+		data_controller.change_much({
+			title: APP.DATA.title,
+			description: APP.DATA.description
+		});
 
-	$('title').html(data_controller.get('title'));
-	$('meta[ name="description" ]').attr('content', data_controller.get('description'));
-};
-
-
-Part_Loader_Part.prototype._after_show_content = function()
-{
-	if(this.settings.load_meta_tags && APP.DATA)
-		this._load_header_page(APP.DATA);
+		$('title').html(data_controller.get('title'));
+		$('meta[ name="description" ]').attr('content', data_controller.get('description'));
+	}
 };
 
 
@@ -108,6 +105,32 @@ Part_Loader_Part.prototype.reload = function()
 	setTimeout(() => {
 		this.load_simple_content();
 	}, delay);
+};
+
+
+Part_Loader_Part.prototype.load_content = function(post_url, post_data)
+{
+	return new Promise((resolve) =>
+	{
+		this._get_content(post_url, post_data);
+
+		this._hide_content().then(() =>
+		{
+			this._receive_response().then((response) =>
+			{
+				this._load_head_of_page();
+
+				this._set_content(response);
+
+				this._prepare_content_to_show();
+
+				this._show_content().then(() =>
+				{
+					resolve(response);
+				});
+			});
+		});
+	});
 };
 
 

@@ -8,11 +8,34 @@ import {object_to_formdata} from 'arbuz/plugin/utilities/data'
 
 export function Request_Manager()
 {
-	this.requests = undefined;
-	this.sending = undefined; // After will be promise
+	this._data = undefined;
 
 
-	this.request = obj => {
+	let
+		pack_response = (json, code) =>
+		{
+			try
+			{
+				return {
+					json: JSON.parse(json),
+					code: code,
+				};
+			}
+			catch(err)
+			{
+				this._show_error(json);
+				return false;
+			}
+		},
+
+
+		check_status = function(code)
+		{
+			return code >= 200 && code < 400;
+		};
+
+
+	this._request = obj => {
 		return new Promise((resolve, reject) =>
 		{
 			let
@@ -32,12 +55,12 @@ export function Request_Manager()
 
 			xhr.onload = () =>
 			{
-				if (xhr.status >= 200 && xhr.status < 300)
-					resolve(xhr.response);
+				if(check_status(xhr.status))
+					resolve(pack_response(xhr.response, xhr.status));
 				else
-					resolve(xhr.response);
+					reject(pack_response(xhr.response, xhr.status));
 			};
-			xhr.onerror = () => resolve(xhr.response);
+			xhr.onerror = () => reject(pack_response(xhr.response, xhr.status));
 			xhr.send(data);
 		});
 	};
@@ -45,37 +68,33 @@ export function Request_Manager()
 
 
 
+// --------------------------    REQUEST    --------------------------
 
 
-
-Request_Manager.prototype.add_request = function(url, post_data)
+Request_Manager.prototype._clear_request = function()
 {
-	if(this.sending === undefined)
-		this.clear_request();
-
-	if(this.requests.url === undefined)
-		this.requests.url = url || '';
-
-	this.requests.data = post_data || {};
-};
-
-
-Request_Manager.prototype.clear_request = function()
-{
-	this.requests = {
+	this._data = {
 		url: undefined,
 		data: {},
 	};
-
-	this.sending = false;
 };
 
 
-// --------------
-
-Request_Manager.prototype.preprocess_url = function()
+Request_Manager.prototype._add_request = function(url, post_data)
 {
-	let url = this.requests.url;
+	if(this._sending === undefined)
+		this._clear_request();
+
+	if(this._data.url === undefined)
+		this._data.url = url || '';
+
+	this._data.data = post_data || {};
+};
+
+
+Request_Manager.prototype._preprocess_url = function()
+{
+	let url = this._data.url;
 
 	if(url && url.substring && url.substring(0, 1) === '/')
 		return url;
@@ -84,11 +103,11 @@ Request_Manager.prototype.preprocess_url = function()
 };
 
 
-Request_Manager.prototype.post_data_prepare = function()
+Request_Manager.prototype._post_data_prepare = function()
 {
-	if(this.requests.data)
+	if(this._data.data)
 	{
-		let post_data = this.requests.data;
+		let post_data = this._data.data;
 
 		// --- Add CRSF TOKEN
 		post_data[data_controller.get_crsf('name')] = data_controller.get_crsf('value');
@@ -100,23 +119,27 @@ Request_Manager.prototype.post_data_prepare = function()
 };
 
 
-Request_Manager.prototype.send_request = function()
+Request_Manager.prototype._send_request = function()
 {
 	return new Promise((resolve, reject) =>
 	{
 		let
-			post_url = this.preprocess_url(),
-			post_data = this.post_data_prepare();
+			post_url = this._preprocess_url(),
+			post_data = this._post_data_prepare();
 
 		if(post_data)
 		{
-			this.request({
+			this._request({
 				method: 'POST',
 				url: post_url,
 				data: post_data,
 			})
 			.then(resolve)
-			.catch(reject);
+			.catch(response =>
+			{
+			    this._show_error(response);
+			    reject('Request Manager error: Invalid response.');
+			});
 		}
 		else
 			reject('Request Manager error: Invalid post data.');
@@ -124,33 +147,22 @@ Request_Manager.prototype.send_request = function()
 };
 
 
-Request_Manager.prototype.catch_timeout_error = function()
+// --------------------------    RESPONSE    --------------------------
+
+
+Request_Manager.prototype._show_error = function(response)
+{
+	let new_tab = window.open('', '_blank');
+	new_tab.document.write(response);
+	new_tab.init();
+	new_tab.focus();
+};
+
+
+Request_Manager.prototype._catch_timeout_error = function()
 {
 	console.error('Request Manager error: Request Timeout. ' +
 		'Run `send` in Request Manager.');
 
-	this.clear_request();
-};
-
-
-// --------------
-
-Request_Manager.prototype.send = function(url, post_data)
-{
-	this.add_request(url, post_data);
-
-	return new Promise((resolve) =>
-	{
-		this.send_request().then((data) =>
-		{
-			this.clear_request();
-
-			resolve(data);
-		})
-		.catch((data) =>
-		{
-			console.log('Co jest?!');
-			console.log(data);
-		});
-	});
+	this._clear_request();
 };

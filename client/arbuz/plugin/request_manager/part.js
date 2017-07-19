@@ -3,7 +3,7 @@
  */
 
 import {data_controller} from 'arbuz/js/structure'
-import {Request_Manager} from './_init'
+import {Request_Manager} from './_controller'
 
 
 export function Request_Manager_Part()
@@ -13,6 +13,8 @@ export function Request_Manager_Part()
 
 	Request_Manager.call(this);
 
+	this._sending = undefined; // After will be promise
+
 	Request_Manager_Part.instance = this;
 }
 
@@ -21,37 +23,37 @@ Request_Manager_Part.prototype = Object.create(Request_Manager.prototype);
 
 
 
-Request_Manager_Part.prototype.add_request = function(url, post_data)
+Request_Manager_Part.prototype._add_request = function(url, post_data)
 {
-	if(this.sending === undefined)
-		this.clear_request();
+	if(typeof this._sending === 'undefined')
+		this._clear_request();
 
-	if(this.requests.url === undefined)
-		this.requests.url = url;
+	if(typeof this._data.url === 'undefined')
+		this._data.url = url;
 
-	this.requests.list.push(post_data);
+	this._data.list.push(post_data);
 };
 
 
-Request_Manager_Part.prototype.clear_request = function()
+Request_Manager_Part.prototype._clear_request = function()
 {
-	this.requests = {
+	this._data = {
 		url: undefined,
 		list: [],
 	};
 
-	this.sending = false;
+	this._sending = false;
 };
 
 
-Request_Manager_Part.prototype.post_data_prepare = function()
+Request_Manager_Part.prototype._post_data_prepare = function()
 {
 	let post_data = {};
 
-	if(this.requests.list.length)
+	if(this._data.list.length)
 	{
 		// --- Converting list of parts to string
-		this.requests.list.forEach((element) =>
+		this._data.list.forEach((element) =>
 		{
 			if(element)
 			{
@@ -73,35 +75,15 @@ Request_Manager_Part.prototype.post_data_prepare = function()
 };
 
 
-Request_Manager_Part.prototype.show_error = function(response)
+Request_Manager_Part.prototype._run_sending = function()
 {
-	let new_tab = window.open('', '_blank');
-	new_tab.document.write(response);
-	new_tab.init();
-	new_tab.focus();
-};
-
-
-Request_Manager_Part.prototype.check_error = function(response)
-{
-	try {
-		JSON.parse(response);
-	} catch (e) {
-		return true;
-	}
-	return false;
-};
-
-
-Request_Manager_Part.prototype.run_sending = function()
-{
-	if(this.sending === false)
-		this.sending = new Promise((resolve, reject) =>
+	if(this._sending === false)
+		this._sending = new Promise((resolve, reject) =>
 		{
 			let
 				timer = setTimeout(() =>
 				{
-					this.catch_timeout_error();
+					this._catch_timeout_error();
 				}, 3000),
 
 
@@ -110,56 +92,47 @@ Request_Manager_Part.prototype.run_sending = function()
 					clearTimeout(timer);
 
 
-					if(this.sending === false)
+					if(this._sending === false)
 						reject('Request Manager error: Promise doesn\'t exist.');
 
-					this.send_request()
-						.then(response =>
-						{
-							window.removeEventListener('send_request', send_and_wait, false);
+					this._send_request().then(response =>
+					{
+						window.removeEventListener('send_request', send_and_wait, false);
 
-							if(this.check_error(response))
-							{
-								this.show_error(response);
-								reject();
-							}
-							resolve(response);
-						});
+						resolve(response);
+					});
 				};
 
 
 			window.addEventListener('send_request', send_and_wait, false);
 		});
 
-	return this.sending;
+	return this._sending;
 };
 
 
-Request_Manager_Part.prototype.next = function(url, post_data)
+Request_Manager_Part.prototype.next = function(url, post_data, post_name)
 {
-	let post_name = Object.keys(post_data)[0];
-
-	this.add_request(url, post_data);
+	this._add_request(url, post_data);
 
 	return new Promise((resolve, reject) =>
 	{
-		this.run_sending().then((response) =>
+		this._run_sending().then(response =>
 		{
-			let data = JSON.parse(response),
-				precise_data;
+			this._clear_request();
 
-			this.clear_request();
-
-			if(typeof data[post_name] !== 'undefined')
-				precise_data = data[post_name];
+			if(typeof response.json[post_name] !== 'undefined')
+				response = response.json[post_name];
 			else
-				reject('error');
+				reject('Request_Manager_Part error: Invalid response.');
 
-			this.clear_request();
-			resolve(precise_data);
+			resolve(response);
 		});
 	});
 };
+
+
+delete Request_Manager_Part.prototype.send;
 
 
 Request_Manager_Part.prototype.send_list = function()

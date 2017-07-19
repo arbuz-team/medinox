@@ -61,15 +61,7 @@ Part_Loader.prototype._prepare_content_to_show = function()
 
 Part_Loader.prototype._set_content = function(response)
 {
-	if(this._check_for_errors(response))
-	{
-		let new_tab = window.open('/', '_blank');
-		new_tab.dataFromParent = response;
-		new_tab.init();
-		new_tab.focus();
-	}
-	else
-		$(this._settings.container).html(response.html)
+	$(this._settings.container).html(response.html)
 };
 
 

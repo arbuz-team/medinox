@@ -26,8 +26,6 @@ export function Dialog_Loader_Model(config)
 			if(post_data.hasOwnProperty(data))
 				new_post_data[data] = post_data[data] || '';
 
-		new_post_data.__content__ = 'dialog';
-
 		this.variable.post_data = new_post_data;
 	};
 
