@@ -121,7 +121,7 @@ Request_Manager_Part.prototype.run_sending = function()
 							if(this.check_error(response))
 							{
 								this.show_error(response);
-								reject(response);
+								reject();
 							}
 							resolve(response);
 						});
@@ -141,19 +141,22 @@ Request_Manager_Part.prototype.next = function(url, post_data)
 
 	this.add_request(url, post_data);
 
-	return new Promise((resolve) =>
+	return new Promise((resolve, reject) =>
 	{
 		this.run_sending().then((response) =>
 		{
-			let data;
-
-			if(typeof response[post_name] !== 'undefined')
-				data = response[post_name];
-			else
-				reject(response);
+			let data = JSON.parse(response),
+				precise_data;
 
 			this.clear_request();
-			resolve(data);
+
+			if(typeof data[post_name] !== 'undefined')
+				precise_data = data[post_name];
+			else
+				reject('error');
+
+			this.clear_request();
+			resolve(precise_data);
 		});
 	});
 };

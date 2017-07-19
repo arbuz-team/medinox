@@ -80,11 +80,10 @@ Part_Loader_Part.prototype._receive_response = function()
 			}
 			else
 			{
-				let data = response[this.settings.part_name],
-					precise_data = {
-						html: data.html,
+				let precise_data = {
+						html: response.html,
 						status: 'success',
-						code: data.status,
+						code: response.code,
 					};
 
 				resolve(precise_data);

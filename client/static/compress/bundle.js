@@ -400,11 +400,10 @@
 				if (_this._check_for_errors(response)) {
 					reject(response);
 				} else {
-					var data = response[_this.settings.part_name],
-					    precise_data = {
-						html: data.html,
+					var precise_data = {
+						html: response.html,
 						status: 'success',
-						code: data.status
+						code: response.code
 					};
 	
 					resolve(precise_data);
@@ -679,7 +678,7 @@
 	
 					if (_this.check_error(response)) {
 						_this.show_error(response);
-						reject(response);
+						reject();
 					}
 					resolve(response);
 				});
@@ -698,14 +697,17 @@
 	
 		this.add_request(url, post_data);
 	
-		return new Promise(function (resolve) {
+		return new Promise(function (resolve, reject) {
 			_this2.run_sending().then(function (response) {
-				var data = void 0;
-	
-				if (typeof response[post_name] !== 'undefined') data = response[post_name];else reject(response);
+				var data = JSON.parse(response),
+				    precise_data = void 0;
 	
 				_this2.clear_request();
-				resolve(data);
+	
+				if (typeof data[post_name] !== 'undefined') precise_data = data[post_name];else reject('error');
+	
+				_this2.clear_request();
+				resolve(precise_data);
 			});
 		});
 	};
