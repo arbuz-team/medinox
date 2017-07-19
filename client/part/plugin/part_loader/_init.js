@@ -15,9 +15,9 @@ export function Part_Loader(config)
 	}
 
 
-	this.settings = {
+	this._settings = {
 		part_name: 		undefined,
-		url: 			undefined,
+		post_name: 		undefined,
 
 		container: 		undefined,
 
@@ -28,9 +28,26 @@ export function Part_Loader(config)
 		opacity_hide: 	0.4,
 	};
 
+	this._variables = {
+		post_url: 			undefined,
+		post_data: 			undefined,
+
+		external_callback: 	undefined,
+		redirect_time_out: 	undefined,
+	};
+
+	this._state = {
+		reload: 			false,
+
+		can_do_load: 		true,
+		can_do_redirect: 	true,
+	};
+
 
 	// -- Load settings
 	add_to_settings(config, this, 'part_name');
+	this._settings.post_name = '__'+ this._settings.part_name +'__';
+
 	add_to_settings(config, this, 'container');
 
 	add_to_settings(config, this, 'duration_show');
@@ -39,17 +56,4 @@ export function Part_Loader(config)
 	add_to_settings(config, this, 'opacity_show');
 	add_to_settings(config, this, 'opacity_hide');
 
-
-	this.variables = {
-		url: 				undefined,
-		post_data: 			undefined,
-		reload: 			false,
-
-		error: 				undefined,
-		external_callback: 	undefined,
-
-		can_do_load: 		true,
-		can_do_redirect: 	true,
-		redirect_time_out: 	undefined,
-	};
 }

@@ -3,13 +3,16 @@
  */
 
 import {data_controller} from 'arbuz/js/structure'
+import {is_undefined} from 'arbuz/plugin/utilities/data'
 import {Request_Manager_Part} from 'arbuz/plugin/request_manager/part'
 import {Part_Loader} from './_init'
 
 
 
+// --------------------------    REQUEST    --------------------------
 
-Part_Loader.prototype.if_reload = function(url)
+
+Part_Loader.prototype._if_reload = function(url)
 {
 	let
 		old_url = data_controller.get('path'),
@@ -19,98 +22,67 @@ Part_Loader.prototype.if_reload = function(url)
 };
 
 
-Part_Loader.prototype.refresh_data = function()
-{
-	data_controller.reset();
-};
-
-
-Part_Loader.prototype.refresh_events = function()
+Part_Loader.prototype._refresh_events = function()
 {
 	APP.throw_event( EVENTS.define );
 };
 
 
-Part_Loader.prototype.check_for_errors = function(status, code)
+Part_Loader.prototype._prepare_to_change_content = function(post_url)
 {
-	let
-		$container = $(this.settings.container),
-		error = this.variables.error;
+	this._variables.post_url = post_url;
+	this._variables.can_do_redirect = false;
+	this._state.reload = this._if_reload(post_url);
 
-	if(status !== 'success')
-		if(error === true)
-			$container.html('An error has occurred while connecting to server. ' +
-					'Please, refresh website or check your connect with network.');
-		else
-		{
-			this.variables.error = true;
-
-			this.prepare_post_data({__content__: 'ground'});
-			this.send_request('/statement/' + code + '/');
-			this.receive_response().then(() =>
-			{
-				this.show_content();
-			});
-
-			return true;
-		}
-	return false;
+	data_controller.reset();
 };
 
 
-Part_Loader.prototype.prepare_content_to_change = function(url, post_data)
-{
-	this.variables.can_do_redirect = false;
-	this.variables.reload = this.if_reload(url);
-
-	this.refresh_data();
-	this.prepare_post_data(post_data);
-};
-
-
-Part_Loader.prototype.prepare_post_data = function(post_data)
+Part_Loader.prototype._prepare_post_data = function(post_data)
 {
 	if(!post_data)
 		post_data = {};
 
-	if( typeof post_data.__form__ === 'undefined')
-		if( typeof post_data.__content__ === 'undefined')
-			post_data['__content__'] = this.settings.part_name;
+	post_data[this._settings.post_name] = 'content';
 
-
-	this.variables.post_data = post_data;
+	this._variables.post_data = post_data;
 };
 
 
-Part_Loader.prototype.send_request = function(actually_url)
+Part_Loader.prototype._send_request = function()
 {
 	let
-		post_data = this.variables.post_data,
+		url = this._variables.post_url,
+		data = this._variables.post_data,
 		request_manager = new Request_Manager_Part();
 
-	this.response = request_manager.send(actually_url, post_data);
+	this.response = request_manager.send(url, data);
 };
 
 
-Part_Loader.prototype.receive_response = function()
+
+// --------------------------    RESPONSE    --------------------------
+
+
+Part_Loader.prototype._preprocess_response = function(response)
 {
-	return new Promise((resolve) =>
-	{
-		this.response.then((response) =>
-		{
-			let data = response.__content__[this.settings.part_name],
-				precise_data = {
-					html: data.html,
-					code: data.status,
-				};
-
-			if(200 <= data.status < 300)
-				precise_data.status = 'success';
-			else if(400 <= data.status < 600)
-				precise_data.status = 'error';
+	let precise_data = response[this._settings.post_name];
 
 
-			resolve(precise_data);
-		});
-	});
+	if(400 <= data.status < 600)
+		precise_data.status = 'error';
+
+	else if(200 <= data.status < 300)
+		precise_data.status = 'success';
+
+	return precise_data;
+};
+
+
+Part_Loader.prototype._check_for_errors = function(response)
+{
+	if(typeof response.html === 'undefined' || typeof response.code === 'undefined')
+		return true;
+
+	return false;
 };

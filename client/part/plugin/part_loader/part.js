@@ -12,7 +12,7 @@ export function Part_Loader_Part(config)
 {
 	Part_Loader.call(this, config);
 
-	this.settings.load_meta_tags = false;
+	this._settings.load_meta_tags = false;
 
 	add_to_settings(config, this, 'load_meta_tags');
 }
@@ -23,33 +23,32 @@ Part_Loader_Part.prototype = Object.create(Part_Loader.prototype);
 
 
 
-// ------------------------------------------
+// --------------------------    MODEL    --------------------------
 
-Part_Loader_Part.prototype.prepare_post_data = function(post_data)
+Part_Loader_Part.prototype._prepare_post_data = function(post_data)
 {
 	if(!post_data)
 		post_data = {};
 
-	if( typeof post_data.__content__ === 'undefined')
-		post_data['__content__'] = this.settings.part_name;
+	post_data[this._settings.post_name] = 'content';
 
-
-	this.variables.post_data = post_data;
+	this._variables.post_data = post_data;
 };
 
 
-Part_Loader_Part.prototype.send_request = function(actually_url)
+Part_Loader_Part.prototype._send_request = function(actually_url)
 {
 	let
-		post_data = this.variables.post_data,
+		post_data = this._variables.post_data,
 		request_manager = new Request_Manager_Part();
 
 	this.response = request_manager.next(actually_url, post_data);
 };
 
+// --------------------------    VIEW    --------------------------
 
 
-Part_Loader_Part.prototype.load_header_page = function(object)
+Part_Loader_Part.prototype._load_header_page = function(object)
 {
 	data_controller.change_much({
 		title: object.title,
@@ -61,37 +60,43 @@ Part_Loader_Part.prototype.load_header_page = function(object)
 };
 
 
-Part_Loader_Part.prototype.after_show_content = function(data)
+Part_Loader_Part.prototype._after_show_content = function()
 {
-	if(this.external_callback)
-		this.external_callback(data.html, data.status, data.code);
-
 	if(this.settings.load_meta_tags && APP.DATA)
-		this.load_header_page(APP.DATA);
+		this._load_header_page(APP.DATA);
 };
 
 
-Part_Loader_Part.prototype.receive_response = function()
+Part_Loader_Part.prototype._receive_response = function()
 {
-	return new Promise((resolve) =>
+	return new Promise((resolve, reject) =>
 	{
 		this.response.then((response) =>
 		{
-			let data = response[this.settings.part_name],
-				precise_data = {
-					html: data.html,
-					status: 'success',
-					code: data.status,
-				};
 
-			resolve(precise_data);
+			if(this._check_for_errors(response))
+			{
+				reject(response);
+			}
+			else
+			{
+				let data = response[this.settings.part_name],
+					precise_data = {
+						html: data.html,
+						status: 'success',
+						code: data.status,
+					};
+
+				resolve(precise_data);
+			}
 		});
 	});
 };
 
 
+// --------------------------    DEFINE    --------------------------
 
-Part_Loader.prototype.reload = function()
+Part_Loader_Part.prototype.reload = function()
 {
 	let delay = 0;
 
@@ -105,7 +110,6 @@ Part_Loader.prototype.reload = function()
 		this.load_simple_content();
 	}, delay);
 };
-
 
 
 Part_Loader_Part.prototype.load_simple_content = function(url, post_data, callback)

@@ -6,7 +6,7 @@ module.exports = {
 	entry: './client/_sandbox.js',
 	output: {
 		path: __dirname,
-		filename: './client/static/js/bundle.js'
+		filename: './client/static/compress/bundle.js'
 	},
 	devtool: "source-map",
 	module: {
@@ -39,6 +39,6 @@ module.exports = {
 		}
 	},
 	plugins: [
-		new ExtractTextPlugin("./client/static/style/app.css")
+		new ExtractTextPlugin("./client/static/compress/bundle.css")
 	]
 };

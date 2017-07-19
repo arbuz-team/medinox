@@ -46,21 +46,15 @@ Request_Manager_Part.prototype.clear_request = function()
 
 Request_Manager_Part.prototype.post_data_prepare = function()
 {
-	let post_data = {
-		__content__: '',
-	};
-
+	let post_data = {};
 
 	if(this.requests.list.length)
 	{
 		// --- Converting list of parts to string
 		this.requests.list.forEach((element) =>
 		{
-			if(element.__content__)
+			if(element)
 			{
-				post_data.__content__ += element.__content__ +' ';
-
-				delete element.__content__;
 				Object.assign(post_data, element);
 			}
 			else
@@ -76,6 +70,21 @@ Request_Manager_Part.prototype.post_data_prepare = function()
 
 
 	return false;
+};
+
+
+Request_Manager_Part.prototype.show_error = function(response)
+{
+	let new_tab = window.open('', '_blank');
+	new_tab.document.write(response);
+	new_tab.init();
+	new_tab.focus();
+};
+
+
+Request_Manager_Part.prototype.check_error = function(response)
+{
+	return typeof response === 'string';
 };
 
 
@@ -99,10 +108,16 @@ Request_Manager_Part.prototype.run_sending = function()
 					if(this.sending === false)
 						reject('Request Manager error: Promise doesn\'t exist.');
 
-					else
-						this.send_request().then((response) =>
+					this.send_request()
+						.then(response =>
 						{
 							window.removeEventListener('send_request', send_and_wait, false);
+
+							if(this.check_error(response))
+							{
+								this.show_error(response);
+								reject(response);
+							}
 							resolve(response);
 						});
 				};
@@ -117,16 +132,22 @@ Request_Manager_Part.prototype.run_sending = function()
 
 Request_Manager_Part.prototype.next = function(url, post_data)
 {
+	let post_name = Object.keys(post_data)[0];
+
 	this.add_request(url, post_data);
 
 	return new Promise((resolve) =>
 	{
 		this.run_sending().then((response) =>
 		{
+			let data;
+
+			if(typeof response[post_name] !== 'undefined')
+				data = response[post_name];
+			else
+				reject(response);
+
 			this.clear_request();
-
-			let data = response.__content__;
-
 			resolve(data);
 		});
 	});

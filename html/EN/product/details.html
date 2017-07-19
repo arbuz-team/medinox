@@ -202,13 +202,13 @@
                                 <div class="widget-title">{{ item.widget.name }}</div>
 
                                 {% if request.session.root_login %}
-                                    <button class="button dialog_button icon"
+                                    <button class="button dialog_button is-icon is-right"
                                             type="button"
                                             data-type="prompt"
                                             data-name="widget"
                                             data-value="{{ item.widget.pk }}"
                                             data-dialog-reload="ground">
-                                        <i style="background-image: url(/static/img/icons/32/dark/edit.png)"> &nbsp; </i>
+                                        <span class="button-icon img-edit"> &nbsp; </span>
                                     </button>
                                 {% endif %}
 
@@ -244,7 +244,7 @@
 
                                 {% elif item.widget.type == 'Select' %}
 
-                                    <select id="id_select" name="widget_{{ item.widget.pk }}_0" required="">
+                                    <select class="select" id="id_select" name="widget_{{ item.widget.pk }}_0" required="">
                                         {% for field in item.values %}
                                             <option value="{{ field.pk }}">{{ field.name }} (+ {{ field.super_price }} zł)</option>
                                         {% endfor %}

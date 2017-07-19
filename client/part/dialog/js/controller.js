@@ -30,9 +30,14 @@ let
 	reload = function()
 	{
 		let loading = loader.reload_content(this);
+
 		designer.set_loading().then(() =>
 		{
-			loading.then(designer.unset_loading);
+			loading.then(() =>
+			{
+				loader.define();
+				designer.unset_loading();
+			});
 		});
 	},
 
@@ -67,5 +72,5 @@ export let
 
 		$(config.external_button).click(open);
 		APP.add_own_event('dialog_close', close);
-		//APP.add_own_event('dialog_reload', reload);
+		APP.add_own_event('dialog_reload', reload);
 	};

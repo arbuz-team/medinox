@@ -5,19 +5,58 @@
 
 export let
 
+
 	is_undefined = function(object)
 	{
 		return typeof object === 'undefined';
 	},
 
 
-	is_not_undefined = function(object)
+	is_defined = function(object)
 	{
 	  return typeof object !== 'undefined';
 	},
 
 
+	is_number = function(object)
+	{
+		return typeof object === 'number';
+	},
+
+
+	is_not_number = function(object)
+	{
+		return typeof object !== 'number';
+	},
+
+
 	// -----------------------------
+
+
+	object_to_formdata = function(obj)
+	{
+		let form_data = new FormData();
+
+		for(let prop in obj)
+			if(obj.hasOwnProperty(prop))
+				form_data.append(prop, obj[prop]);
+
+		return form_data;
+	},
+
+
+	select_number = function(to_checking, emergency)
+	{
+		if(is_number(to_checking))
+			return to_checking;
+
+		if(is_number(emergency))
+			return emergency;
+
+		console.error('Utilities data error: Variable emergency is not number.');
+		return undefined;
+	},
+
 
 	add_to_object = function(from, to, from_what, to_what)
 	{
@@ -33,11 +72,11 @@ export let
 
 	add_to_settings = function(from, to, from_what, to_what)
 	{
-		if(is_undefined(to) && is_undefined(to.settings))
+		if(is_undefined(to) && is_undefined(to._settings))
 		{
 			console.error('Data Utilities error: Invalid object.');
 			return false;
 		}
 
-		add_to_object(from, to.settings, from_what, to_what);
+		add_to_object(from, to._settings, from_what, to_what);
 	};

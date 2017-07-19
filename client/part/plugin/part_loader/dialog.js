@@ -76,3 +76,8 @@ Part_Loader_Dialog.prototype.load_content = function(url, post_data)
 		});
 	});
 };
+
+
+Part_Loader_Dialog.prototype.define = function()
+{
+};

@@ -3,12 +3,44 @@
  */
 
 import {data_controller} from 'arbuz/js/structure'
+import {object_to_formdata} from 'arbuz/plugin/utilities/data'
 
 
 export function Request_Manager()
 {
 	this.requests = undefined;
 	this.sending = undefined; // After will be promise
+
+
+	this.request = obj => {
+		return new Promise((resolve, reject) =>
+		{
+			let
+				xhr = new XMLHttpRequest(),
+				method = obj.method || "GET",
+				data = object_to_formdata(obj.data);
+
+			xhr.open(method, obj.url);
+
+			if(obj.headers)
+			{
+				Object.keys(obj.headers).forEach(key =>
+				{
+					xhr.setRequestHeader(key, obj.headers[key]);
+				});
+			}
+
+			xhr.onload = () =>
+			{
+				if (xhr.status >= 200 && xhr.status < 300)
+					resolve(xhr.response);
+				else
+					resolve(xhr.response);
+			};
+			xhr.onerror = () => resolve(xhr.response);
+			xhr.send(data);
+		});
+	};
 }
 
 
@@ -73,17 +105,19 @@ Request_Manager.prototype.send_request = function()
 	return new Promise((resolve, reject) =>
 	{
 		let
-			url = this.preprocess_url(),
+			post_url = this.preprocess_url(),
 			post_data = this.post_data_prepare();
 
 		if(post_data)
-			$.ajax({
-				type: 'POST',
-				url: url,
+		{
+			this.request({
+				method: 'POST',
+				url: post_url,
 				data: post_data,
-				complete: resolve,
-			});
-
+			})
+			.then(resolve)
+			.catch(reject);
+		}
 		else
 			reject('Request Manager error: Invalid post data.');
 	});
@@ -112,6 +146,11 @@ Request_Manager.prototype.send = function(url, post_data)
 			this.clear_request();
 
 			resolve(data);
+		})
+		.catch((data) =>
+		{
+			console.log('Co jest?!');
+			console.log(data);
 		});
 	});
 };

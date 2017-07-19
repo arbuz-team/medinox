@@ -7,85 +7,81 @@ import {Part_Loader} 		from './_init'
 
 
 
+// --------------------------    RESPONSE    --------------------------
 
 
-Part_Loader.prototype.hide_content = function()
+Part_Loader.prototype._hide_content = function()
 {
 	return new Promise((resolve) =>
 	{
 		let
-			container = this.settings.container,
-			opacity = this.settings.opacity_hide,
-			duration = this.settings.duration_hide;
+			container = this._settings.container,
+			opacity = this._settings.opacity_hide,
+			duration = this._settings.duration_hide;
 
 		$(container).animate({opacity: opacity}, duration, resolve);
 	});
 };
 
 
-Part_Loader.prototype.prepare_content_to_show = function(data)
+Part_Loader.prototype._get_content = function(post_url, post_data)
 {
-	let
-		$container = $(this.settings.container),
-		error = this.variables.error;
+	this._prepare_to_change_content(post_url);
+	this._prepare_post_data(post_data);
 
-	if(this.variables.reload === false)
-		$container.scrollTop(0);
+	this._send_request();
+};
 
-	if(this.check_for_errors(data.status, data.code))
-		return false;
 
-	if(error !== true || status === 'success')
-		$container.html(data.html);
 
-	this.variables.error = false;
-	this.variables.url = '';
+// --------------------------    RESPONSE    --------------------------
 
-	this.refresh_events();
+
+Part_Loader.prototype._receive_response = function()
+{
+	return new Promise((resolve) =>
+	{
+		this.response.then((response) =>
+		{
+			resolve(this._preprocess_response(response));
+		});
+	});
+};
+
+
+Part_Loader.prototype._prepare_content_to_show = function()
+{
+	if(this._state.reload === false)
+		$(this._settings.container).scrollTop(0);
+
+	this._refresh_events();
 	img_loader.define();
 };
 
 
-Part_Loader.prototype.show_content = function()
+Part_Loader.prototype._set_content = function(response)
+{
+	if(this._check_for_errors(response))
+	{
+		let new_tab = window.open('/', '_blank');
+		new_tab.dataFromParent = response;
+		new_tab.init();
+		new_tab.focus();
+	}
+	else
+		$(this._settings.container).html(response.html)
+};
+
+
+Part_Loader.prototype._show_content = function()
 {
 	return new Promise((resolve) =>
 	{
 		let
-			container = this.settings.container,
-			opacity = this.settings.opacity_show,
-			duration = this.settings.duration_show;
+			container = this._settings.container,
+			opacity = this._settings.opacity_show,
+			duration = this._settings.duration_show;
 
 		$(container).animate({opacity: opacity}, duration, resolve);
-	});
-};
-
-
-Part_Loader.prototype.after_show_content = function(data)
-{
-	if(this.external_callback)
-		this.external_callback(data.html, data.status, data.code);
-};
-
-
-Part_Loader.prototype.load_content = function(url, post_data, callback)
-{
-	this.variables.url = url;
-	this.external_callback = callback;
-
-	this.prepare_content_to_change(url, post_data);
-
-	this.send_request(url);
-
-	this.hide_content().then(() =>
-	{
-		this.receive_response().then((data) =>
-		{
-			this.prepare_content_to_show(data);
-
-			this.show_content().then(() =>
-			{
-				this.after_show_content(data);
-			});
-		});
 	});
 };

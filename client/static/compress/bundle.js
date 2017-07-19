@@ -201,19 +201,19 @@
 	
 	var searcher_controllers = _interopRequireWildcard(_controllers);
 	
-	var _controllers2 = __webpack_require__(43);
+	var _controllers2 = __webpack_require__(44);
 	
 	var cart_controllers = _interopRequireWildcard(_controllers2);
 	
-	var _controllers3 = __webpack_require__(47);
+	var _controllers3 = __webpack_require__(48);
 	
 	var navigation_controllers = _interopRequireWildcard(_controllers3);
 	
-	var _controllers4 = __webpack_require__(48);
+	var _controllers4 = __webpack_require__(49);
 	
 	var header_controllers = _interopRequireWildcard(_controllers4);
 	
-	var _controller = __webpack_require__(49);
+	var _controller = __webpack_require__(50);
 	
 	var dialog_controllers = _interopRequireWildcard(_controller);
 	
@@ -292,11 +292,11 @@
 	
 	var _part = __webpack_require__(10);
 	
-	var _controllers = __webpack_require__(21);
+	var _controllers = __webpack_require__(22);
 	
-	var _controllers2 = __webpack_require__(24);
+	var _controllers2 = __webpack_require__(25);
 	
-	var _controllers3 = __webpack_require__(40);
+	var _controllers3 = __webpack_require__(41);
 	
 	var container = '.searcher',
 	    config_loader = {
@@ -355,29 +355,29 @@
 	function Part_Loader_Part(config) {
 		_controller.Part_Loader.call(this, config);
 	
-		this.settings.load_meta_tags = false;
+		this._settings.load_meta_tags = false;
 	
 		(0, _data.add_to_settings)(config, this, 'load_meta_tags');
 	}
 	
 	Part_Loader_Part.prototype = Object.create(_controller.Part_Loader.prototype);
 	
-	Part_Loader_Part.prototype.prepare_post_data = function (post_data) {
+	Part_Loader_Part.prototype._prepare_post_data = function (post_data) {
 		if (!post_data) post_data = {};
 	
-		if (typeof post_data.__content__ === 'undefined') post_data['__content__'] = this.settings.part_name;
+		post_data[this._settings.post_name] = 'content';
 	
-		this.variables.post_data = post_data;
+		this._variables.post_data = post_data;
 	};
 	
-	Part_Loader_Part.prototype.send_request = function (actually_url) {
-		var post_data = this.variables.post_data,
+	Part_Loader_Part.prototype._send_request = function (actually_url) {
+		var post_data = this._variables.post_data,
 		    request_manager = new _part.Request_Manager_Part();
 	
 		this.response = request_manager.next(actually_url, post_data);
 	};
 	
-	Part_Loader_Part.prototype.load_header_page = function (object) {
+	Part_Loader_Part.prototype._load_header_page = function (object) {
 		_structure.data_controller.change_much({
 			title: object.title,
 			description: object.description
@@ -387,30 +387,33 @@
 		$('meta[ name="description" ]').attr('content', _structure.data_controller.get('description'));
 	};
 	
-	Part_Loader_Part.prototype.after_show_content = function (data) {
-		if (this.external_callback) this.external_callback(data.html, data.status, data.code);
-	
-		if (this.settings.load_meta_tags && APP.DATA) this.load_header_page(APP.DATA);
+	Part_Loader_Part.prototype._after_show_content = function () {
+		if (this.settings.load_meta_tags && APP.DATA) this._load_header_page(APP.DATA);
 	};
 	
-	Part_Loader_Part.prototype.receive_response = function () {
+	Part_Loader_Part.prototype._receive_response = function () {
 		var _this = this;
 	
-		return new Promise(function (resolve) {
+		return new Promise(function (resolve, reject) {
 			_this.response.then(function (response) {
-				var data = response[_this.settings.part_name],
-				    precise_data = {
-					html: data.html,
-					status: 'success',
-					code: data.status
-				};
 	
-				resolve(precise_data);
+				if (_this._check_for_errors(response)) {
+					reject(response);
+				} else {
+					var data = response[_this.settings.part_name],
+					    precise_data = {
+						html: data.html,
+						status: 'success',
+						code: data.status
+					};
+	
+					resolve(precise_data);
+				}
 			});
 		});
 	};
 	
-	_controller.Part_Loader.prototype.reload = function () {
+	Part_Loader_Part.prototype.reload = function () {
 		var _this2 = this;
 	
 		var delay = 0;
@@ -542,8 +545,29 @@
 	var is_undefined = exports.is_undefined = function is_undefined(object) {
 		return typeof object === 'undefined';
 	},
-	    is_not_undefined = exports.is_not_undefined = function is_not_undefined(object) {
+	    is_defined = exports.is_defined = function is_defined(object) {
 		return typeof object !== 'undefined';
+	},
+	    is_number = exports.is_number = function is_number(object) {
+		return typeof object === 'number';
+	},
+	    is_not_number = exports.is_not_number = function is_not_number(object) {
+		return typeof object !== 'number';
+	},
+	    object_to_formdata = exports.object_to_formdata = function object_to_formdata(obj) {
+		var form_data = new FormData();
+	
+		for (var prop in obj) {
+			if (obj.hasOwnProperty(prop)) form_data.append(prop, obj[prop]);
+		}return form_data;
+	},
+	    select_number = exports.select_number = function select_number(to_checking, emergency) {
+		if (is_number(to_checking)) return to_checking;
+	
+		if (is_number(emergency)) return emergency;
+	
+		console.error('Utilities data error: Variable emergency is not number.');
+		return undefined;
 	},
 	    add_to_object = exports.add_to_object = function add_to_object(from, to, from_what, to_what) {
 		if (is_undefined(from[from_what])) return false;
@@ -551,12 +575,12 @@
 		if (from_what && to_what) to[to_what] = from[from_what];else if (from_what) to[from_what] = from[from_what];
 	},
 	    add_to_settings = exports.add_to_settings = function add_to_settings(from, to, from_what, to_what) {
-		if (is_undefined(to) && is_undefined(to.settings)) {
+		if (is_undefined(to) && is_undefined(to._settings)) {
 			console.error('Data Utilities error: Invalid object.');
 			return false;
 		}
 	
-		add_to_object(from, to.settings, from_what, to_what);
+		add_to_object(from, to._settings, from_what, to_what);
 	};
 
 /***/ },
@@ -605,16 +629,11 @@
 	};
 	
 	Request_Manager_Part.prototype.post_data_prepare = function () {
-		var post_data = {
-			__content__: ''
-		};
+		var post_data = {};
 	
 		if (this.requests.list.length) {
 			this.requests.list.forEach(function (element) {
-				if (element.__content__) {
-					post_data.__content__ += element.__content__ + ' ';
-	
-					delete element.__content__;
+				if (element) {
 					Object.assign(post_data, element);
 				} else return false;
 			});
@@ -627,6 +646,17 @@
 		return false;
 	};
 	
+	Request_Manager_Part.prototype.show_error = function (response) {
+		var new_tab = window.open('', '_blank');
+		new_tab.document.write(response);
+		new_tab.init();
+		new_tab.focus();
+	};
+	
+	Request_Manager_Part.prototype.check_error = function (response) {
+		return typeof response === 'string';
+	};
+	
 	Request_Manager_Part.prototype.run_sending = function () {
 		var _this = this;
 	
@@ -637,8 +667,15 @@
 			    send_and_wait = function send_and_wait() {
 				clearTimeout(timer);
 	
-				if (_this.sending === false) reject('Request Manager error: Promise doesn\'t exist.');else _this.send_request().then(function (response) {
+				if (_this.sending === false) reject('Request Manager error: Promise doesn\'t exist.');
+	
+				_this.send_request().then(function (response) {
 					window.removeEventListener('send_request', send_and_wait, false);
+	
+					if (_this.check_error(response)) {
+						_this.show_error(response);
+						reject(response);
+					}
 					resolve(response);
 				});
 			};
@@ -652,14 +689,17 @@
 	Request_Manager_Part.prototype.next = function (url, post_data) {
 		var _this2 = this;
 	
+		var post_name = Object.keys(post_data)[0];
+	
 		this.add_request(url, post_data);
 	
 		return new Promise(function (resolve) {
 			_this2.run_sending().then(function (response) {
+				var data = void 0;
+	
+				if (typeof response[post_name] !== 'undefined') data = response[post_name];else reject(response);
+	
 				_this2.clear_request();
-	
-				var data = response.__content__;
-	
 				resolve(data);
 			});
 		});
@@ -682,9 +722,35 @@
 	
 	var _structure = __webpack_require__(11);
 	
+	var _data = __webpack_require__(13);
+	
 	function Request_Manager() {
 		this.requests = undefined;
 		this.sending = undefined;
+	
+		this.request = function (obj) {
+			return new Promise(function (resolve, reject) {
+				var xhr = new XMLHttpRequest(),
+				    method = obj.method || "GET",
+				    data = (0, _data.object_to_formdata)(obj.data);
+	
+				xhr.open(method, obj.url);
+	
+				if (obj.headers) {
+					Object.keys(obj.headers).forEach(function (key) {
+						xhr.setRequestHeader(key, obj.headers[key]);
+					});
+				}
+	
+				xhr.onload = function () {
+					if (xhr.status >= 200 && xhr.status < 300) resolve(xhr.response);else resolve(xhr.response);
+				};
+				xhr.onerror = function () {
+					return resolve(xhr.response);
+				};
+				xhr.send(data);
+			});
+		};
 	}
 	
 	Request_Manager.prototype.add_request = function (url, post_data) {
@@ -726,15 +792,16 @@
 		var _this = this;
 	
 		return new Promise(function (resolve, reject) {
-			var url = _this.preprocess_url(),
+			var post_url = _this.preprocess_url(),
 			    post_data = _this.post_data_prepare();
 	
-			if (post_data) $.ajax({
-				type: 'POST',
-				url: url,
-				data: post_data,
-				complete: resolve
-			});else reject('Request Manager error: Invalid post data.');
+			if (post_data) {
+				_this.request({
+					method: 'POST',
+					url: post_url,
+					data: post_data
+				}).then(resolve).catch(reject);
+			} else reject('Request Manager error: Invalid post data.');
 		});
 	};
 	
@@ -754,6 +821,9 @@
 				_this2.clear_request();
 	
 				resolve(data);
+			}).catch(function (data) {
+				console.log('Co jest?!');
+				console.log(data);
 			});
 		});
 	};
@@ -780,54 +850,69 @@
 	
 	var _structure = __webpack_require__(11);
 	
-	__webpack_require__(18);
+	var _data = __webpack_require__(13);
+	
+	var _standard = __webpack_require__(18);
 	
 	__webpack_require__(19);
+	
+	__webpack_require__(20);
 	
 	_init.Part_Loader.prototype.redirect = function () {
 		var _this = this;
 	
-		var url = _structure.data_controller.get('path'),
-		    delay = 0,
-		    variables = this.variables;
+		return new Promise(function (resolve) {
+			var url = APP.DATA.redirect || _structure.data_controller.get('path'),
+			    delay = (0, _data.select_number)(APP.DATA.delay, 0),
+			    state = _this._state,
+			    variables = _this._variables;
 	
-		if (typeof APP.DATA.redirect !== 'undefined') url = APP.DATA.redirect;
+			state.can_do_redirect = true;
+			clearTimeout(variables.redirect_time_out);
 	
-		if (typeof APP.DATA.delay !== 'undefined') {
-			delay = APP.DATA.delay;
-			APP.DATA.delay = undefined;
-		}
-	
-		variables.can_do_redirect = true;
-		clearTimeout(variables.redirect_time_out);
-	
-		variables.redirect_time_out = setTimeout(function () {
-			if (_this.variables.can_do_redirect === true) _this.load_content(url);
-		}, delay);
+			variables.redirect_time_out = setTimeout(function () {
+				if (state.can_do_redirect === true) _this.load_content(url).then(resolve);
+			}, delay);
+		});
 	};
 	
 	_init.Part_Loader.prototype.reload = function () {
 		var _this2 = this;
 	
-		var delay = 0;
+		return new Promise(function (resolve) {
+			var delay = (0, _data.select_number)(APP.DATA.delay, 0);
 	
-		if (typeof APP.DATA.delay !== 'undefined') {
-			delay = APP.DATA.delay;
-			APP.DATA.delay = undefined;
-		}
+			(0, _standard.timeout_promise)(delay).then(function () {
+				_this2.load_content().then(resolve);
+			});
+		});
+	};
 	
-		setTimeout(function () {
-			_this2.load_content();
-		}, delay);
+	_init.Part_Loader.prototype.load_content = function (post_url, post_data) {
+		var _this3 = this;
+	
+		return new Promise(function (resolve) {
+			_this3._get_content(post_url, post_data);
+	
+			_this3._hide_content().then(function () {
+				_this3._receive_response().then(function (response) {
+					_this3._set_content(response);
+	
+					_this3._prepare_content_to_show();
+	
+					_this3._show_content().then(function () {
+						resolve(response);
+					});
+				});
+			});
+		});
 	};
 	
 	_init.Part_Loader.prototype.define = function () {
-		var _this3 = this;
+		var _this4 = this;
 	
-		var part_name = this.settings.part_name;
-	
-		APP.add_own_event(part_name + '_reload', function () {
-			_this3.reload();
+		APP.add_own_event(this._settings.part_name + '_reload', function () {
+			_this4.reload();
 		});
 	};
 
@@ -851,9 +936,9 @@
 			return {};
 		}
 	
-		this.settings = {
+		this._settings = {
 			part_name: undefined,
-			url: undefined,
+			post_name: undefined,
 	
 			container: undefined,
 	
@@ -864,7 +949,24 @@
 			opacity_hide: 0.4
 		};
 	
+		this._variables = {
+			post_url: undefined,
+			post_data: undefined,
+	
+			external_callback: undefined,
+			redirect_time_out: undefined
+		};
+	
+		this._state = {
+			reload: false,
+	
+			can_do_load: true,
+			can_do_redirect: true
+		};
+	
 		(0, _data.add_to_settings)(config, this, 'part_name');
+		this._settings.post_name = '__' + this._settings.part_name + '__';
+	
 		(0, _data.add_to_settings)(config, this, 'container');
 	
 		(0, _data.add_to_settings)(config, this, 'duration_show');
@@ -872,106 +974,22 @@
 	
 		(0, _data.add_to_settings)(config, this, 'opacity_show');
 		(0, _data.add_to_settings)(config, this, 'opacity_hide');
-	
-		this.variables = {
-			url: undefined,
-			post_data: undefined,
-			reload: false,
-	
-			error: undefined,
-			external_callback: undefined,
-	
-			can_do_load: true,
-			can_do_redirect: true,
-			redirect_time_out: undefined
-		};
 	}
 
 /***/ },
 /* 18 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
-	var _structure = __webpack_require__(11);
-	
-	var _part = __webpack_require__(14);
-	
-	var _init = __webpack_require__(17);
-	
-	_init.Part_Loader.prototype.if_reload = function (url) {
-		var old_url = _structure.data_controller.get('path'),
-		    new_url = url;
-	
-		return old_url === new_url || !new_url;
-	};
-	
-	_init.Part_Loader.prototype.refresh_data = function () {
-		_structure.data_controller.reset();
-	};
-	
-	_init.Part_Loader.prototype.refresh_events = function () {
-		APP.throw_event(EVENTS.define);
-	};
-	
-	_init.Part_Loader.prototype.check_for_errors = function (status, code) {
-		var _this = this;
-	
-		var $container = $(this.settings.container),
-		    error = this.variables.error;
-	
-		if (status !== 'success') if (error === true) $container.html('An error has occurred while connecting to server. ' + 'Please, refresh website or check your connect with network.');else {
-			this.variables.error = true;
-	
-			this.prepare_post_data({ __content__: 'ground' });
-			this.send_request('/statement/' + code + '/');
-			this.receive_response().then(function () {
-				_this.show_content();
-			});
-	
-			return true;
-		}
-		return false;
-	};
-	
-	_init.Part_Loader.prototype.prepare_content_to_change = function (url, post_data) {
-		this.variables.can_do_redirect = false;
-		this.variables.reload = this.if_reload(url);
-	
-		this.refresh_data();
-		this.prepare_post_data(post_data);
-	};
-	
-	_init.Part_Loader.prototype.prepare_post_data = function (post_data) {
-		if (!post_data) post_data = {};
-	
-		if (typeof post_data.__form__ === 'undefined') if (typeof post_data.__content__ === 'undefined') post_data['__content__'] = this.settings.part_name;
-	
-		this.variables.post_data = post_data;
-	};
-	
-	_init.Part_Loader.prototype.send_request = function (actually_url) {
-		var post_data = this.variables.post_data,
-		    request_manager = new _part.Request_Manager_Part();
-	
-		this.response = request_manager.send(actually_url, post_data);
-	};
-	
-	_init.Part_Loader.prototype.receive_response = function () {
-		var _this2 = this;
-	
-		return new Promise(function (resolve) {
-			_this2.response.then(function (response) {
-				var data = response.__content__[_this2.settings.part_name],
-				    precise_data = {
-					html: data.html,
-					code: data.status
-				};
-	
-				if (200 <= data.status < 300) precise_data.status = 'success';else if (400 <= data.status < 600) precise_data.status = 'error';
-	
-				resolve(precise_data);
-			});
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	var timeout_promise = exports.timeout_promise = function timeout_promise(delay) {
+		return new Promise(function (resolve, reject) {
+			setTimeout(function () {
+				reject();
+			}, delay);
 		});
 	};
 
@@ -981,7 +999,70 @@
 
 	'use strict';
 	
-	var _img_loader = __webpack_require__(20);
+	var _structure = __webpack_require__(11);
+	
+	var _data = __webpack_require__(13);
+	
+	var _part = __webpack_require__(14);
+	
+	var _init = __webpack_require__(17);
+	
+	_init.Part_Loader.prototype._if_reload = function (url) {
+		var old_url = _structure.data_controller.get('path'),
+		    new_url = url;
+	
+		return old_url === new_url || !new_url;
+	};
+	
+	_init.Part_Loader.prototype._refresh_events = function () {
+		APP.throw_event(EVENTS.define);
+	};
+	
+	_init.Part_Loader.prototype._prepare_to_change_content = function (post_url) {
+		this._variables.post_url = post_url;
+		this._variables.can_do_redirect = false;
+		this._state.reload = this._if_reload(post_url);
+	
+		_structure.data_controller.reset();
+	};
+	
+	_init.Part_Loader.prototype._prepare_post_data = function (post_data) {
+		if (!post_data) post_data = {};
+	
+		post_data[this._settings.post_name] = 'content';
+	
+		this._variables.post_data = post_data;
+	};
+	
+	_init.Part_Loader.prototype._send_request = function () {
+		var url = this._variables.post_url,
+		    data = this._variables.post_data,
+		    request_manager = new _part.Request_Manager_Part();
+	
+		this.response = request_manager.send(url, data);
+	};
+	
+	_init.Part_Loader.prototype._preprocess_response = function (response) {
+		var precise_data = response[this._settings.post_name];
+	
+		if (400 <= data.status < 600) precise_data.status = 'error';else if (200 <= data.status < 300) precise_data.status = 'success';
+	
+		return precise_data;
+	};
+	
+	_init.Part_Loader.prototype._check_for_errors = function (response) {
+		if (typeof response.html === 'undefined' || typeof response.code === 'undefined') return true;
+	
+		return false;
+	};
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _img_loader = __webpack_require__(21);
 	
 	var img_loader = _interopRequireWildcard(_img_loader);
 	
@@ -989,74 +1070,65 @@
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	_init.Part_Loader.prototype.hide_content = function () {
+	_init.Part_Loader.prototype._hide_content = function () {
 		var _this = this;
 	
 		return new Promise(function (resolve) {
-			var container = _this.settings.container,
-			    opacity = _this.settings.opacity_hide,
-			    duration = _this.settings.duration_hide;
+			var container = _this._settings.container,
+			    opacity = _this._settings.opacity_hide,
+			    duration = _this._settings.duration_hide;
 	
 			$(container).animate({ opacity: opacity }, duration, resolve);
 		});
 	};
 	
-	_init.Part_Loader.prototype.prepare_content_to_show = function (data) {
-		var $container = $(this.settings.container),
-		    error = this.variables.error;
+	_init.Part_Loader.prototype._get_content = function (post_url, post_data) {
+		this._prepare_to_change_content(post_url);
+		this._prepare_post_data(post_data);
 	
-		if (this.variables.reload === false) $container.scrollTop(0);
-	
-		if (this.check_for_errors(data.status, data.code)) return false;
-	
-		if (error !== true || status === 'success') $container.html(data.html);
-	
-		this.variables.error = false;
-		this.variables.url = '';
-	
-		this.refresh_events();
-		img_loader.define();
+		this._send_request();
 	};
 	
-	_init.Part_Loader.prototype.show_content = function () {
+	_init.Part_Loader.prototype._receive_response = function () {
 		var _this2 = this;
 	
 		return new Promise(function (resolve) {
-			var container = _this2.settings.container,
-			    opacity = _this2.settings.opacity_show,
-			    duration = _this2.settings.duration_show;
-	
-			$(container).animate({ opacity: opacity }, duration, resolve);
+			_this2.response.then(function (response) {
+				resolve(_this2._preprocess_response(response));
+			});
 		});
 	};
 	
-	_init.Part_Loader.prototype.after_show_content = function (data) {
-		if (this.external_callback) this.external_callback(data.html, data.status, data.code);
+	_init.Part_Loader.prototype._prepare_content_to_show = function () {
+		if (this._state.reload === false) $(this._settings.container).scrollTop(0);
+	
+		this._refresh_events();
+		img_loader.define();
 	};
 	
-	_init.Part_Loader.prototype.load_content = function (url, post_data, callback) {
+	_init.Part_Loader.prototype._set_content = function (response) {
+		if (this._check_for_errors(response)) {
+			var new_tab = window.open('/', '_blank');
+			new_tab.dataFromParent = response;
+			new_tab.init();
+			new_tab.focus();
+		} else $(this._settings.container).html(response.html);
+	};
+	
+	_init.Part_Loader.prototype._show_content = function () {
 		var _this3 = this;
 	
-		this.variables.url = url;
-		this.external_callback = callback;
+		return new Promise(function (resolve) {
+			var container = _this3._settings.container,
+			    opacity = _this3._settings.opacity_show,
+			    duration = _this3._settings.duration_show;
 	
-		this.prepare_content_to_change(url, post_data);
-	
-		this.send_request(url);
-	
-		this.hide_content().then(function () {
-			_this3.receive_response().then(function (data) {
-				_this3.prepare_content_to_show(data);
-	
-				_this3.show_content().then(function () {
-					_this3.after_show_content(data);
-				});
-			});
+			$(container).animate({ opacity: opacity }, duration, resolve);
 		});
 	};
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1113,7 +1185,7 @@
 	};
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1123,7 +1195,7 @@
 	});
 	exports.Plugins_Motion_Controllers = undefined;
 	
-	var _views = __webpack_require__(22);
+	var _views = __webpack_require__(23);
 	
 	var Plugins_Motion_Controllers = exports.Plugins_Motion_Controllers = function Plugins_Motion_Controllers(config) {
 		var plugin_motion_views = new _views.Plugins_Motion_Views(config),
@@ -1205,7 +1277,7 @@
 	};
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1215,7 +1287,7 @@
 	});
 	exports.Plugins_Motion_Views = undefined;
 	
-	var _models = __webpack_require__(23);
+	var _models = __webpack_require__(24);
 	
 	var Plugins_Motion_Views = exports.Plugins_Motion_Views = function Plugins_Motion_Views(config) {
 	  var models = new _models.Plugins_Motion_Models(config),
@@ -1267,7 +1339,7 @@
 	};
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1407,7 +1479,7 @@
 	};
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1417,21 +1489,21 @@
 	});
 	exports.Form_Controllers = undefined;
 	
-	var _models = __webpack_require__(25);
+	var _models = __webpack_require__(26);
 	
-	var _controllers = __webpack_require__(29);
+	var _controllers = __webpack_require__(30);
 	
 	var validator = _interopRequireWildcard(_controllers);
 	
-	var _controllers2 = __webpack_require__(33);
+	var _controllers2 = __webpack_require__(34);
 	
 	var auto_form = _interopRequireWildcard(_controllers2);
 	
-	var _controllers3 = __webpack_require__(36);
+	var _controllers3 = __webpack_require__(37);
 	
 	var selected_form = _interopRequireWildcard(_controllers3);
 	
-	var _controllers4 = __webpack_require__(37);
+	var _controllers4 = __webpack_require__(38);
 	
 	var file_converter = _interopRequireWildcard(_controllers4);
 	
@@ -1476,7 +1548,7 @@
 	};
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1486,11 +1558,11 @@
 	});
 	exports.Form_Models = undefined;
 	
-	var _utilities = __webpack_require__(26);
+	var _utilities = __webpack_require__(27);
 	
 	var utilities = _interopRequireWildcard(_utilities);
 	
-	var _form = __webpack_require__(27);
+	var _form = __webpack_require__(28);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -1536,7 +1608,7 @@
 	};
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1620,7 +1692,7 @@
 	};
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1630,7 +1702,7 @@
 	});
 	exports.Part_Loader_Form = Part_Loader_Form;
 	
-	var _form = __webpack_require__(28);
+	var _form = __webpack_require__(29);
 	
 	var _part = __webpack_require__(10);
 	
@@ -1677,7 +1749,7 @@
 	};
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1696,7 +1768,7 @@
 	Request_Manager_Form.prototype = Object.create(_init.Request_Manager.prototype);
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1706,7 +1778,7 @@
 	});
 	exports.define = undefined;
 	
-	var _checkers = __webpack_require__(30);
+	var _checkers = __webpack_require__(31);
 	
 	var Validators = {};
 	
@@ -1820,7 +1892,7 @@
 	};
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1830,7 +1902,7 @@
 	});
 	exports.Constructor_Validator = undefined;
 	
-	var _views = __webpack_require__(31);
+	var _views = __webpack_require__(32);
 	
 	Object.defineProperty(exports, 'Constructor_Validator', {
 	  enumerable: true,
@@ -1924,7 +1996,7 @@
 	});
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1934,7 +2006,7 @@
 	});
 	exports.Constructor_Validator = exports.checker = undefined;
 	
-	var _config = __webpack_require__(32);
+	var _config = __webpack_require__(33);
 	
 	var _structure = __webpack_require__(11);
 	
@@ -2050,7 +2122,7 @@
 	};
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2101,7 +2173,7 @@
 	};
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2111,7 +2183,7 @@
 	});
 	exports.define = undefined;
 	
-	var _views = __webpack_require__(34);
+	var _views = __webpack_require__(35);
 	
 	var add_event_on_fields = function add_event_on_fields(auto_form_views) {
 	  var settings = auto_form_views.models.settings,
@@ -2153,7 +2225,7 @@
 	};
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2163,7 +2235,7 @@
 	});
 	exports.Auto_Form_Views = undefined;
 	
-	var _models = __webpack_require__(35);
+	var _models = __webpack_require__(36);
 	
 	var Auto_Form_Views = exports.Auto_Form_Views = function Auto_Form_Views(config) {
 	  var models = new _models.Auto_Form_Models(config),
@@ -2301,7 +2373,7 @@
 	};
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2365,7 +2437,7 @@
 	};
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2419,7 +2491,7 @@
 	};
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2429,7 +2501,7 @@
 	});
 	exports.define = undefined;
 	
-	var _views = __webpack_require__(38);
+	var _views = __webpack_require__(39);
 	
 	var image_convert_views = _interopRequireWildcard(_views);
 	
@@ -2455,7 +2527,7 @@
 	};
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2465,7 +2537,7 @@
 	});
 	exports.Callback_Functions = exports.get_base64 = exports.settings = exports.models = undefined;
 	
-	var _models = __webpack_require__(39);
+	var _models = __webpack_require__(40);
 	
 	var image_convert_models = _interopRequireWildcard(_models);
 	
@@ -2515,7 +2587,7 @@
 	};
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2535,7 +2607,7 @@
 	};
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2545,7 +2617,7 @@
 	});
 	exports.Post_Button_Controllers = undefined;
 	
-	var _views = __webpack_require__(41);
+	var _views = __webpack_require__(42);
 	
 	var Post_Button_Controllers = exports.Post_Button_Controllers = function Post_Button_Controllers(config) {
 		if (typeof config === 'undefined' && typeof config.container === 'undefined') {
@@ -2592,7 +2664,7 @@
 	};
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2602,9 +2674,9 @@
 	});
 	exports.Post_Button_Views = undefined;
 	
-	var _models = __webpack_require__(42);
+	var _models = __webpack_require__(43);
 	
-	var _utilities = __webpack_require__(26);
+	var _utilities = __webpack_require__(27);
 	
 	var utilities = _interopRequireWildcard(_utilities);
 	
@@ -2721,7 +2793,7 @@
 	};
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2831,7 +2903,7 @@
 	};
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2843,13 +2915,13 @@
 	
 	var _part = __webpack_require__(10);
 	
-	var _controllers = __webpack_require__(21);
+	var _controllers = __webpack_require__(22);
 	
-	var _controllers2 = __webpack_require__(24);
+	var _controllers2 = __webpack_require__(25);
 	
-	var _controllers3 = __webpack_require__(40);
+	var _controllers3 = __webpack_require__(41);
 	
-	var _controllers4 = __webpack_require__(44);
+	var _controllers4 = __webpack_require__(45);
 	
 	var container = '.cart',
 	    config_loader = {
@@ -2909,7 +2981,7 @@
 	};
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2919,7 +2991,7 @@
 	});
 	exports.Event_Button_Controllers = undefined;
 	
-	var _views = __webpack_require__(45);
+	var _views = __webpack_require__(46);
 	
 	var Event_Button_Controllers = exports.Event_Button_Controllers = function Event_Button_Controllers(config) {
 	  if (typeof config === 'undefined' && typeof config.container === 'undefined') {
@@ -2959,7 +3031,7 @@
 	};
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2969,9 +3041,9 @@
 	});
 	exports.Event_Button_Views = undefined;
 	
-	var _models = __webpack_require__(46);
+	var _models = __webpack_require__(47);
 	
-	var _utilities = __webpack_require__(26);
+	var _utilities = __webpack_require__(27);
 	
 	var utilities = _interopRequireWildcard(_utilities);
 	
@@ -2998,7 +3070,7 @@
 	};
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3036,7 +3108,7 @@
 	};
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3048,9 +3120,9 @@
 	
 	var _part = __webpack_require__(10);
 	
-	var _controllers = __webpack_require__(21);
+	var _controllers = __webpack_require__(22);
 	
-	var _controllers2 = __webpack_require__(44);
+	var _controllers2 = __webpack_require__(45);
 	
 	var navigation_loader = new _part.Part_Loader_Part({
 		part_name: 'navigation',
@@ -3089,7 +3161,7 @@
 	};
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3101,7 +3173,7 @@
 	
 	var _part = __webpack_require__(10);
 	
-	var _controllers = __webpack_require__(44);
+	var _controllers = __webpack_require__(45);
 	
 	var header_loader = new _part.Part_Loader_Part({
 		part_name: 'header',
@@ -3120,7 +3192,7 @@
 	};
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3130,7 +3202,7 @@
 	});
 	exports.define = undefined;
 	
-	var _controller = __webpack_require__(50);
+	var _controller = __webpack_require__(51);
 	
 	var _controller2 = __webpack_require__(53);
 	
@@ -3149,8 +3221,12 @@
 	    loader = new _controller2.Dialog_Loader_Controller(config),
 	    reload = function reload() {
 		var loading = loader.reload_content(this);
+	
 		designer.set_loading().then(function () {
-			loading.then(designer.unset_loading);
+			loading.then(function () {
+				loader.define();
+				designer.unset_loading();
+			});
 		});
 	},
 	    close = function close() {
@@ -3171,10 +3247,11 @@
 	
 		$(config.external_button).click(open);
 		APP.add_own_event('dialog_close', close);
+		APP.add_own_event('dialog_reload', reload);
 	};
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3184,7 +3261,7 @@
 	});
 	exports.Dialog_Designer_Controller = Dialog_Designer_Controller;
 	
-	var _standard = __webpack_require__(51);
+	var _standard = __webpack_require__(18);
 	
 	var _view = __webpack_require__(52);
 	
@@ -3232,23 +3309,6 @@
 			$(view.selector.window).click(cancel_event);
 		};
 	}
-
-/***/ },
-/* 51 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	var timeout_promise = exports.timeout_promise = function timeout_promise(delay) {
-		return new Promise(function (resolve, reject) {
-			setTimeout(function () {
-				reject();
-			}, delay);
-		});
-	};
 
 /***/ },
 /* 52 */
@@ -3315,11 +3375,11 @@
 	});
 	exports.Dialog_Loader_Controller = Dialog_Loader_Controller;
 	
-	var _controllers = __webpack_require__(24);
+	var _controllers = __webpack_require__(25);
 	
-	var _controllers2 = __webpack_require__(40);
+	var _controllers2 = __webpack_require__(41);
 	
-	var _controllers3 = __webpack_require__(44);
+	var _controllers3 = __webpack_require__(45);
 	
 	var _controllers4 = __webpack_require__(54);
 	
@@ -3743,6 +3803,8 @@
 			});
 		});
 	};
+	
+	Part_Loader_Dialog.prototype.define = function () {};
 
 /***/ },
 /* 60 */
@@ -3776,11 +3838,11 @@
 	
 	var _part = __webpack_require__(10);
 	
-	var _controllers = __webpack_require__(24);
+	var _controllers = __webpack_require__(25);
 	
-	var _controllers2 = __webpack_require__(40);
+	var _controllers2 = __webpack_require__(41);
 	
-	var _controllers3 = __webpack_require__(44);
+	var _controllers3 = __webpack_require__(45);
 	
 	var container = '.ground',
 	    config_loader = {
