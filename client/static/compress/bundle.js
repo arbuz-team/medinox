@@ -745,7 +745,7 @@
 			_this._send_request().then(function (response) {
 				_this._clear_request();
 	
-				if (typeof response.json[post_name + 'x'] !== 'undefined') response = response.json[post_name];else reject('Request_Manager_Part error: Invalid response.');
+				if (typeof response.json[post_name] !== 'undefined') response = response.json[post_name];else reject('Request_Manager_Part error: Invalid response.');
 	
 				resolve(response);
 			}).catch(function (data) {
