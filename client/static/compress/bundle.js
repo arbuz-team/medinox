@@ -654,7 +654,12 @@
 	};
 	
 	Request_Manager_Part.prototype.check_error = function (response) {
-		return typeof response === 'string';
+		try {
+			JSON.parse(response);
+		} catch (e) {
+			return true;
+		}
+		return false;
 	};
 	
 	Request_Manager_Part.prototype.run_sending = function () {

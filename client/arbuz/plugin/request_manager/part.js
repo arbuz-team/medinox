@@ -84,7 +84,12 @@ Request_Manager_Part.prototype.show_error = function(response)
 
 Request_Manager_Part.prototype.check_error = function(response)
 {
-	return typeof response === 'string';
+	try {
+		JSON.parse(response);
+	} catch (e) {
+		return true;
+	}
+	return false;
 };
 
 
