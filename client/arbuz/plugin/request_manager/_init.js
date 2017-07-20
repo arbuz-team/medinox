@@ -12,6 +12,8 @@ export function Request_Manager()
 
 
 	let
+		error = false,
+
 		pack_response = (json, code) =>
 		{
 			try
@@ -21,10 +23,10 @@ export function Request_Manager()
 					code: code,
 				};
 			}
-			catch(err)
+			catch(e)
 			{
+				error = true;
 				this._show_error(json);
-				return false;
 			}
 		},
 
@@ -35,6 +37,7 @@ export function Request_Manager()
 		};
 
 
+
 	this._request = obj => {
 		return new Promise((resolve, reject) =>
 		{
@@ -42,6 +45,8 @@ export function Request_Manager()
 				xhr = new XMLHttpRequest(),
 				method = obj.method || "GET",
 				data = object_to_formdata(obj.data);
+
+			error = false;
 
 			xhr.open(method, obj.url);
 
@@ -55,12 +60,17 @@ export function Request_Manager()
 
 			xhr.onload = () =>
 			{
-				if(check_status(xhr.status))
-					resolve(pack_response(xhr.response, xhr.status));
-				else
+				if(error === false)
+					if(check_status(xhr.status))
+						resolve(pack_response(xhr.response, xhr.status));
+					else
+						reject(pack_response(xhr.response, xhr.status));
+			};
+			xhr.onerror = () =>
+			{
+				if(error === false)
 					reject(pack_response(xhr.response, xhr.status));
 			};
-			xhr.onerror = () => reject(pack_response(xhr.response, xhr.status));
 			xhr.send(data);
 		});
 	};
@@ -137,7 +147,6 @@ Request_Manager.prototype._send_request = function()
 			.then(resolve)
 			.catch(response =>
 			{
-			    this._show_error(response);
 			    reject('Request Manager error: Invalid response.');
 			});
 		}

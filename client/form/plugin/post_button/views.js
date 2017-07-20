@@ -101,31 +101,23 @@ export let Post_Button_Views = function(config)
 		},
 
 
-		is_error = function(JSON_response, status)
+		is_error = function(code)
 		{
-			if(status !== 'success')
-			{
-				set_text.error();
-				return true;
-			}
+			if(code >= 200 && code < 300)
+				return false;
 
-			if (JSON_response.__button__ !== 'true')
-			{
-				set_text.error();
-				return true;
-			}
-
-			return false;
+			set_text.error();
+			return true;
 		},
 
 
-		end_loading = function(JSON_response, status)
+		end_loading = function(response)
 		{
 			let events;
 
 			models.state.is_loading = false;
 
-			if(is_error(JSON_response, status))
+			if(is_error(response.code))
 				return false;
 
 			set_text.done();
@@ -152,7 +144,7 @@ export let Post_Button_Views = function(config)
 			return false;
 
 		start_loading();
-		models.send_post(end_loading);
+		models.send_post().then(end_loading);
 	};
 
 	this.models = models;

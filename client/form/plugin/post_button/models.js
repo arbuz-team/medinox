@@ -5,7 +5,7 @@
 import {Request_Manager} from 'arbuz/plugin/request_manager/_init'
 
 
-export let Post_Button_Models = function(config)
+export function Post_Button_Models(config)
 {
 	let
 		that = this,
@@ -14,6 +14,7 @@ export let Post_Button_Models = function(config)
 	this.settings = {
 		container:          undefined,
 		part_name:          undefined,
+		post_name:          undefined,
 		button:             undefined,
 
 		button_name:        undefined,
@@ -39,12 +40,13 @@ export let Post_Button_Models = function(config)
 		delay_text_standard: 1000,
 	};
 
-	let load_settings = function()
+	let load_settings = () =>
 	{
 		if(typeof config !== 'undefined')
 		{
 			APP.add_if_isset(config, that.settings, 'container');
 			APP.add_if_isset(config, that.settings, 'part_name');
+			this.settings.post_name = '__'+ this.settings.part_name +'__';
 
 			APP.add_if_isset(config, that.settings, 'callback');
 
@@ -86,11 +88,11 @@ export let Post_Button_Models = function(config)
 	let prepare_post_data = function()
 	{
 		let
-			data = {
-				__button__: that.settings.button_action,
-				_direct_: that.settings.part_name,
-			},
+			data = {},
 			value = that.settings.button_value;
+
+		data[that.settings.post_name] = 'button';
+		data._name_= that.settings.button_action;
 
 		if(value)
 			data.value = value;
@@ -103,26 +105,21 @@ export let Post_Button_Models = function(config)
 	};
 
 
-	this.send_post = function(callback)
+	this.send_post = function()
 	{
-		setTimeout(function()
+		return new Promise(resolve =>
 		{
-			let
-				url = that.settings.button_url,
-				post_data = prepare_post_data(),
-				request_manager = new Request_Manager();
+			setTimeout(function()
+			{
+				let
+					post_url = that.settings.button_url,
+					post_data = prepare_post_data(),
+					request_manager = new Request_Manager();
 
 
-			request_manager.send(url, post_data).then(
-				function(data)
-				{
-					callback(data, 'success');
-				},
-				function(data)
-				{
-					callback(data, 'error');
-				});
-		}, 200);
+				request_manager.send(post_url, post_data).then(resolve);
+			}, 200);
+		});
 	};
 
-};
+}

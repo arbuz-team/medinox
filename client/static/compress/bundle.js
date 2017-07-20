@@ -712,9 +712,6 @@
 			_this2._run_sending().then(function (response) {
 				_this2._clear_request();
 	
-				console.log(response);
-				console.log(post_name);
-	
 				if (typeof response.json[post_name] !== 'undefined') response = response.json[post_name];else reject('Request_Manager_Block error: Invalid response.');
 	
 				resolve(response);
@@ -787,15 +784,16 @@
 	
 		this._data = undefined;
 	
-		var pack_response = function pack_response(json, code) {
+		var error = false,
+		    pack_response = function pack_response(json, code) {
 			try {
 				return {
 					json: JSON.parse(json),
 					code: code
 				};
-			} catch (err) {
+			} catch (e) {
+				error = true;
 				_this._show_error(json);
-				return false;
 			}
 		},
 		    check_status = function check_status(code) {
@@ -808,6 +806,8 @@
 				    method = obj.method || "GET",
 				    data = (0, _data.object_to_formdata)(obj.data);
 	
+				error = false;
+	
 				xhr.open(method, obj.url);
 	
 				if (obj.headers) {
@@ -817,10 +817,10 @@
 				}
 	
 				xhr.onload = function () {
-					if (check_status(xhr.status)) resolve(pack_response(xhr.response, xhr.status));else reject(pack_response(xhr.response, xhr.status));
+					if (error === false) if (check_status(xhr.status)) resolve(pack_response(xhr.response, xhr.status));else reject(pack_response(xhr.response, xhr.status));
 				};
 				xhr.onerror = function () {
-					return reject(pack_response(xhr.response, xhr.status));
+					if (error === false) reject(pack_response(xhr.response, xhr.status));
 				};
 				xhr.send(data);
 			});
@@ -873,7 +873,6 @@
 					url: post_url,
 					data: post_data
 				}).then(resolve).catch(function (response) {
-					_this2._show_error(response);
 					reject('Request Manager error: Invalid response.');
 				});
 			} else reject('Request Manager error: Invalid post data.');
@@ -2793,25 +2792,18 @@
 			set_text.sending();
 			set_text.waiting();
 		},
-		    is_error = function is_error(JSON_response, status) {
-			if (status !== 'success') {
-				set_text.error();
-				return true;
-			}
+		    is_error = function is_error(code) {
+			if (code >= 200 && code < 300) return false;
 	
-			if (JSON_response.__button__ !== 'true') {
-				set_text.error();
-				return true;
-			}
-	
-			return false;
+			set_text.error();
+			return true;
 		},
-		    end_loading = function end_loading(JSON_response, status) {
+		    end_loading = function end_loading(response) {
 			var events = void 0;
 	
 			models.state.is_loading = false;
 	
-			if (is_error(JSON_response, status)) return false;
+			if (is_error(response.code)) return false;
 	
 			set_text.done();
 	
@@ -2833,7 +2825,7 @@
 			if (models.is_loading()) return false;
 	
 			start_loading();
-			models.send_post(end_loading);
+			models.send_post().then(end_loading);
 		};
 	
 		this.models = models;
@@ -2848,17 +2840,20 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.Post_Button_Models = undefined;
+	exports.Post_Button_Models = Post_Button_Models;
 	
 	var _init = __webpack_require__(16);
 	
-	var Post_Button_Models = exports.Post_Button_Models = function Post_Button_Models(config) {
+	function Post_Button_Models(config) {
+		var _this = this;
+	
 		var that = this,
 		    dictionary = APP.dictionary;
 	
 		this.settings = {
 			container: undefined,
 			part_name: undefined,
+			post_name: undefined,
 			button: undefined,
 	
 			button_name: undefined,
@@ -2888,6 +2883,7 @@
 			if (typeof config !== 'undefined') {
 				APP.add_if_isset(config, that.settings, 'container');
 				APP.add_if_isset(config, that.settings, 'part_name');
+				_this.settings.post_name = '__' + _this.settings.part_name + '__';
 	
 				APP.add_if_isset(config, that.settings, 'callback');
 	
@@ -2919,11 +2915,11 @@
 		};
 	
 		var prepare_post_data = function prepare_post_data() {
-			var data = {
-				__button__: that.settings.button_action,
-				_direct_: that.settings.part_name
-			},
+			var data = {},
 			    value = that.settings.button_value;
+	
+			data[that.settings.post_name] = 'button';
+			data._name_ = that.settings.button_action;
 	
 			if (value) data.value = value;
 	
@@ -2934,20 +2930,18 @@
 			return data;
 		};
 	
-		this.send_post = function (callback) {
-			setTimeout(function () {
-				var url = that.settings.button_url,
-				    post_data = prepare_post_data(),
-				    request_manager = new _init.Request_Manager();
+		this.send_post = function () {
+			return new Promise(function (resolve) {
+				setTimeout(function () {
+					var post_url = that.settings.button_url,
+					    post_data = prepare_post_data(),
+					    request_manager = new _init.Request_Manager();
 	
-				request_manager.send(url, post_data).then(function (data) {
-					callback(data, 'success');
-				}, function (data) {
-					callback(data, 'error');
-				});
-			}, 200);
+					request_manager.send(post_url, post_data).then(resolve);
+				}, 200);
+			});
 		};
-	};
+	}
 
 /***/ },
 /* 44 */

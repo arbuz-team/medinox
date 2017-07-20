@@ -121,9 +121,6 @@ Request_Manager_Block.prototype.next = function(url, post_data, post_name)
 		{
 			this._clear_request();
 
-			console.log(response);
-			console.log(post_name);
-
 			if(typeof response.json[post_name] !== 'undefined')
 				response = response.json[post_name];
 			else
