@@ -10,7 +10,7 @@ class Delivery_Settings(Website_Manager):
 
     def Manage_Form(self):
 
-        pk, currency = self.request.POST['__form__'].split(' ')
+        pk, currency = self.request.POST['_name_'].split(' ')
         price = float(self.request.POST['value']) * 100
         delivery = SQL.Get(Delivery, pk=pk)
 
@@ -21,7 +21,7 @@ class Delivery_Settings(Website_Manager):
             delivery.price_eur = price
 
         SQL.Save(data=delivery)
-        return JsonResponse({'__form__': 'true'})
+        return JsonResponse({}) # Backend: True empty
 
     @staticmethod
     def Launch(request):

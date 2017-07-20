@@ -26,7 +26,7 @@ class Description_Manager(Website_Manager):
 
     def Manage_Form(self):
 
-        if self.request.POST['__form__'] == 'description':
+        if self.request.POST['_name_'] == 'description':
             return self.Manage_Form_Description()
 
         return Website_Manager.Manage_Form(self)

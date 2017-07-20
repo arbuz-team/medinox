@@ -59,15 +59,15 @@ class Details(Website_Manager):
     @staticmethod
     def Details(request, pk, name):
 
-        if '__form__' in request.POST:
+        if '_name_' in request.POST:
 
-            if request.POST['__form__'] == 'widget':
+            if request.POST['_name_'] == 'widget':
                 return Widget_Manager(request, only_root=True).HTML
 
-            if request.POST['__form__'] == 'values':
+            if request.POST['_name_'] == 'values':
                 return Values_Manager(request, only_root=True).HTML
 
-            if request.POST['__form__'] == 'description':
+            if request.POST['_name_'] == 'description':
                 return Description_Manager(request, only_root=True).HTML
 
         return Details(request, other_value=pk).HTML

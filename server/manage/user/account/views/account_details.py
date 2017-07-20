@@ -43,13 +43,13 @@ class Account_Details(Website_Manager):
 
     def Manage_Form(self):
 
-        if self.request.POST['__form__'] == 'email':
+        if self.request.POST['_name_'] == 'email':
             return self.Manage_Form_Edit_Email()
 
-        if self.request.POST['__form__'] == 'username':
+        if self.request.POST['_name_'] == 'username':
             return self.Manage_Form_Edit_Username()
 
-        if self.request.POST['__form__'] == 'password':
+        if self.request.POST['_name_'] == 'password':
             return self.Manage_Form_Edit_Password()
 
         return Website_Manager.Manage_Form(self)

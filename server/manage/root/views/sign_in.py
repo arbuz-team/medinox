@@ -22,7 +22,7 @@ class Sign_In(Website_Manager):
 
     def Manage_Form(self):
 
-        if self.request.POST['__form__'] == 'login':
+        if self.request.POST['_name_'] == 'login':
             return self.Manage_Form_Login()
 
         return Website_Manager.Manage_Form(self)

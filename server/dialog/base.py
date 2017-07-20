@@ -39,7 +39,7 @@ class Dialog(Base_Website):
 
     @staticmethod
     def Apply_Message():
-        return JsonResponse({'__form__': 'true'})
+        return JsonResponse({}) # Backend: True empty 
 
     def Manage(self):
 

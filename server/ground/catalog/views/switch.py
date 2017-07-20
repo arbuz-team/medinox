@@ -10,15 +10,15 @@ class Switch:
     def Launch(request, catalog_path=''):
 
         # service of forms
-        if '__form__' in request.POST:
+        if '_name_' in request.POST:
 
-            if request.POST['__form__'] == 'catalog':
+            if request.POST['_name_'] == 'catalog':
                 return Catalog_Manager(request, only_root=True).HTML
 
-            if request.POST['__form__'] == 'product':
+            if request.POST['_name_'] == 'product':
                 return Product_Manager(request, only_root=True).HTML
 
-            if request.POST['__form__'] == 'copy':
+            if request.POST['_name_'] == 'copy':
                 element_type = request.session['catalog_copy_type']
 
                 if element_type == 'product':

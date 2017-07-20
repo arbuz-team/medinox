@@ -69,7 +69,7 @@ class Payment_Manager(Website_Manager, PayPal, DotPay):
 
     def Manage_Form(self):
 
-        if self.request.POST['__form__'] == 'address':
+        if self.request.POST['_name_'] == 'address':
             return self.Manage_Form_Address_Payment()
 
         return Website_Manager.Manage_Form(self)

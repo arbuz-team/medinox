@@ -26,7 +26,7 @@ class Product_Manager(Website_Manager):
 
     def Manage_Form(self):
 
-        if self.request.POST['__form__'] == 'product':
+        if self.request.POST['_name_'] == 'product':
             return self.Manage_Form_Product()
 
         return Website_Manager.Manage_Form(self)

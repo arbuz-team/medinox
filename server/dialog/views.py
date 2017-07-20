@@ -45,8 +45,8 @@ class Dialog_Prompt(Dialog):
     def Get_Dialog_Name(self):
 
         # when not valid or get dialog after send form
-        if '__form__' in self.request.POST:
-            dialog_name = self.request.POST['__form__']
+        if '_name_' in self.request.POST:
+            dialog_name = self.request.POST['_name_']
 
             if self.Get_Alias(dialog_name):
                 return self.Get_Alias(dialog_name)

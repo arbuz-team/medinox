@@ -8,6 +8,7 @@ class Inspector(Base_Website):
         self.context['error'] = 'no_event'
         return self.Render_HTML('arbuz/error.html')
 
+    # Backend: fix to HttpResponseRedirect
     def Error_Authorization(self):
         self.context['error'] = 'unauthorized'
         return self.Render_HTML('arbuz/error.html')

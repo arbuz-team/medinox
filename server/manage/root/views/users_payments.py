@@ -105,10 +105,10 @@ class Users_Payments(Website_Manager):
 
     def Manage_Form(self):
 
-        if self.request.POST['__form__'] == 'note':
+        if self.request.POST['_name_'] == 'note':
             return self.Manage_Form_Note()
 
-        if self.request.POST['__form__'] == 'deadline':
+        if self.request.POST['_name_'] == 'deadline':
             return self.Manage_Form_Deadline()
 
         return Website_Manager.Manage_Form(self)

@@ -27,7 +27,7 @@ class Forgot_Password(Website_Manager):
 
     def Manage_Form(self):
 
-        if self.request.POST['__form__'] == 'forgot_password':
+        if self.request.POST['_name_'] == 'forgot_password':
             return self.Manage_Form_Forgot_Password()
 
         return Website_Manager.Manage_Form(self)

@@ -26,7 +26,7 @@ class Change_Password(Website_Manager):
 
     def Manage_Form(self):
 
-        if self.request.POST['__form__'] == 'change_password':
+        if self.request.POST['_name_'] == 'change_password':
             return self.Manage_Form_Change_Password()
 
         return Website_Manager.Manage_Form(self)

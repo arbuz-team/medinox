@@ -11,14 +11,14 @@ class Social_Media_Manager(Website_Manager):
 
     def Manage_Form(self):
 
-        pk = self.request.POST['__form__']
+        pk = self.request.POST['_name_']
         url = self.request.POST['value']
 
         social = SQL.Get(Social_Media, pk=pk)
         social.url = url
         SQL.Save(data=social)
 
-        return JsonResponse({'__form__': 'true'})
+        return JsonResponse({}) # Backend: True empty
 
     @staticmethod
     def Launch(request):

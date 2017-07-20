@@ -16,7 +16,7 @@ class User_Addresses(Website_Manager):
                 Form_User_Address(self, instance=address)
 
     def Get_User_Address_ID(self):
-        form_name = self.request.POST['__form__']
+        form_name = self.request.POST['_name_']
         id_address = int(form_name.replace('edit_user_address_', ''))
 
         if self.Check_ID_Address(id_address):
@@ -70,11 +70,11 @@ class User_Addresses(Website_Manager):
 
     def Manage_Form(self):
 
-        if self.request.POST['__form__'] == 'new_user_address':
+        if self.request.POST['_name_'] == 'new_user_address':
             return self.Manage_Form_New_User_Address()
 
         # all of edit forms
-        if 'edit_user_address' in self.request.POST['__form__']:
+        if 'edit_user_address' in self.request.POST['_name_']:
             return self.Manage_Form_Edit_User_Address()
 
         return Website_Manager.Manage_Form(self)

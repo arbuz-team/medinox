@@ -40,10 +40,10 @@ class Sign_Up(Website_Manager):
 
     def Manage_Form(self):
 
-        if self.request.POST['__form__'] == 'register':
+        if self.request.POST['_name_'] == 'register':
             return self.Manage_Form_Register()
 
-        if self.request.POST['__form__'] == 'user_address':
+        if self.request.POST['_name_'] == 'user_address':
             return self.Manage_Form_User_Address()
 
         return Website_Manager.Manage_Form(self)

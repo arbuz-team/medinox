@@ -25,7 +25,7 @@ class Company_Details_Manager(Website_Manager):
 
     def Manage_Form(self):
 
-        if self.request.POST['__form__'] == 'root_address':
+        if self.request.POST['_name_'] == 'root_address':
             return self.Manage_Form_Root_Address()
 
         return Website_Manager.Manage_Form(self)
