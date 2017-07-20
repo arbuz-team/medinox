@@ -48,6 +48,7 @@ class Direct_Block_Manager(Base):
 
     def Direct(self):
 
+        self.request.session['arbuz_response'] = {}
         variables = self.request.POST.keys()
         response = {}
 
@@ -69,6 +70,7 @@ class Direct_Block_Manager(Base):
             response['__ground__'] = self.Packing(html_response)
             self.request.session['arbuz_response'] = response
 
+        self.request.session['arbuz_response'] = {}
         return JsonResponse(response)
 
     def __init__(self, website):

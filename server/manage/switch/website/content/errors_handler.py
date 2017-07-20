@@ -75,7 +75,7 @@ class Errors_Handler(Base):
             response[block] = Direct_Block_Manager\
                 .Packing(response_html)
 
-        self.request.session['arbuz_response'] = response
+        self.request.session['arbuz_response'] = {}
         return JsonResponse(response)
 
     def Initialize(self):
