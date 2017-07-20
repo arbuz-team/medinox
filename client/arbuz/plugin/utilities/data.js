@@ -30,6 +30,12 @@ export let
 	},
 
 
+	is_empty = function(string)
+	{
+		return string === '';
+	},
+
+
 	// -----------------------------
 
 

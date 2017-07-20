@@ -18,14 +18,25 @@ export function Request_Manager()
 		{
 			try
 			{
-				return {
+				let data = {
 					json: JSON.parse(json),
 					code: code,
 				};
+
+				console.log(data);
+				console.groupEnd();
+				return data;
 			}
 			catch(e)
 			{
 				error = true;
+
+				console.log({
+					json: json,
+					code: code,
+				});
+				console.groupEnd();
+
 				this._show_error(json);
 			}
 		},
@@ -47,6 +58,10 @@ export function Request_Manager()
 				data = object_to_formdata(obj.data);
 
 			error = false;
+
+			console.group('Request data: ');
+			console.log(obj.url);
+			console.log(obj.data);
 
 			xhr.open(method, obj.url);
 

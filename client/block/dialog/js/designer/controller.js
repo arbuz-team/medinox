@@ -20,12 +20,6 @@ export function Dialog_Designer_Controller(config)
 			event.stopPropagation();
 		},
 
-		close_with_cancel_event = (event) =>
-		{
-			cancel_event(event);
-			this.close();
-		},
-
 		close_with_delay = () =>
 		{
 			return new Promise((resolve) =>
@@ -66,6 +60,13 @@ export function Dialog_Designer_Controller(config)
 	};
 
 
+	this.close_with_cancel_event = (event) =>
+	{
+		cancel_event(event);
+		return this.close();
+	};
+
+
 	this.open = function()
 	{
 		return view.show();
@@ -76,7 +77,6 @@ export function Dialog_Designer_Controller(config)
 
 	this.define = function()
 	{
-		$(view.selector.html_id).click(close_with_cancel_event);
 		$(view.selector.window).click(cancel_event);
 	};
 }

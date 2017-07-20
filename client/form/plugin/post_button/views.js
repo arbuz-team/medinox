@@ -2,8 +2,9 @@
  * Created by mrskull on 18.12.16.
  */
 
-import {Post_Button_Models} from './models'
-import * as utilities from 'form/js/utilities'
+import * as utilities           from 'form/js/utilities'
+import {recognise_status}       from 'arbuz/plugin/utilities/response'
+import {Post_Button_Models}     from './models'
 
 
 export let Post_Button_Views = function(config)
@@ -103,7 +104,7 @@ export let Post_Button_Views = function(config)
 
 		is_error = function(code)
 		{
-			if(code >= 200 && code < 300)
+			if(recognise_status(code) === 'success')
 				return false;
 
 			set_text.error();

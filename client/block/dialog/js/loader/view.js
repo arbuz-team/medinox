@@ -46,4 +46,17 @@ export function Dialog_Loader_View(config)
 
 		return model.send_request();
 	};
+
+
+	this.send_form = function()
+	{
+		$(config.form, config.container).submit();
+	};
+
+
+	this.set_loading = function()
+	{
+		$(model.settings.header).html('<div class="container-part-loading"> Loading... </div>');
+		$(model.settings.content).html('<div class="container-part-loading"> Loading... </div>');
+	};
 }

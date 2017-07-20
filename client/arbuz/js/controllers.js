@@ -7,7 +7,6 @@ import {Cart_Controller}         	from 'block/cart/js/controller'
 import {Menu_Mobile_Controller}    	from 'block/menu_mobile/js/controller'
 import {Menu_Controller}            from 'block/menu/js/controller'
 import {Dialog_Controller}        	from 'block/dialog/js/controller'
-
 import {Ground_Controller}        	from 'block/ground/js/controller'
 
 import {Request_Manager_Block} 	    from 'arbuz/plugin/request_manager/block'

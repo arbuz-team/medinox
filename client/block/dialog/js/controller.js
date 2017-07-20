@@ -16,9 +16,11 @@ export function Dialog_Controller()
 
 	let
 		config = {
-			name:				'dialog',
+			part_name:				'dialog',
 			html_id: 			'#DIALOG',
 			container: 			'.dialog',
+			header: 	        '.dialog-header',
+			content: 	        '.dialog-content',
 			internal_button: 	'.dialog_send',
 			external_button: 	'.dialog_button',
 			form: 				'.dialog_form',
@@ -50,10 +52,13 @@ export function Dialog_Controller()
 
 		close = function()
 		{
-			designer.close().then(() =>
-			{
-				loader.define();
-			});
+			designer.close().then(loader.set_loading);
+		},
+
+
+		close_with_cancel_event = function()
+		{
+			designer.close_with_cancel_event(event).then(loader.set_loading);
 		},
 
 
@@ -72,6 +77,7 @@ export function Dialog_Controller()
 	{
 		designer.define();
 
+		$(config.html_id).click(close_with_cancel_event);
 		$(config.external_button).click(open);
 		APP.add_own_event('dialog_close', close);
 		APP.add_own_event('dialog_reload', reload);

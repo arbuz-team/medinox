@@ -2,8 +2,10 @@
  * Created by mrskull on 17.07.17.
  */
 
-import {Request_Manager_Dialog} 	from 'arbuz/plugin/request_manager/dialog'
-import {Block_Loader} 				from './_controller'
+import {recognise_status} 	    from 'arbuz/plugin/utilities/response'
+import {is_empty} 	    from 'arbuz/plugin/utilities/data'
+import {Request_Manager} 	    from 'arbuz/plugin/request_manager/_controller'
+import {Block_Loader} 			from './_controller'
 
 
 
@@ -28,20 +30,18 @@ Block_Loader_Dialog.prototype._send_request = function()
 	let
 		post_data = this._variables.post_data,
 		post_name = this._settings.post_name,
-		request_manager = new Request_Manager_Dialog();
+		request_manager = new Request_Manager();
 
 	this._response = request_manager.send(undefined, post_data, post_name);
 };
 
 
+// --------------------------    VIEW    --------------------------
 
 
-Block_Loader_Dialog.prototype.close_dialog_if_json = function(response, status)
+Block_Loader_Dialog.prototype._close_dialog_if_no_content = function(response)
 {
-	if(status !== 'success')
-		return false;
-
-	if(response === '{"__form__": "true"}')
+	if(recognise_status(response.code) === 'success' && is_empty(response.html))
 	{
 		APP.DATA.delay = 0;
 		APP.throw_event(EVENTS.part.close_dialog);
@@ -52,9 +52,12 @@ Block_Loader_Dialog.prototype.close_dialog_if_json = function(response, status)
 };
 
 
+// --------------------------    CONTROLLER    --------------------------
+
+
 Block_Loader_Dialog.prototype.load_content = function(post_url, post_data)
 {
-	return new Promise((resolve) =>
+	return new Promise(resolve =>
 	{
 		this._get_content(post_url, post_data);
 
@@ -62,8 +65,8 @@ Block_Loader_Dialog.prototype.load_content = function(post_url, post_data)
 		{
 			this._receive_response().then(response =>
 			{
-				if(this.close_dialog_if_json(response))
-					return false;
+				if(this._close_dialog_if_no_content(response))
+					resolve(response);
 
 				this._set_content(response);
 

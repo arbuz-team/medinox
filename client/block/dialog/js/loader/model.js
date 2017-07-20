@@ -10,6 +10,11 @@ export function Dialog_Loader_Model(config)
 
 	let part_dialog_loader = new Block_Loader_Dialog(config);
 
+	this.settings = {
+		header: 		config.header,
+		content:		config.content,
+	};
+
 	this.variable = {
 		post_data: 		undefined,
 		response:		undefined,
