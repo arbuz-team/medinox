@@ -2,7 +2,7 @@
  * Created by mrskull on 08.01.17.
  */
 
-import {Block_Loader_Part}     			from 'block/plugin/block_loader/part'
+import {Block_Loader_Part}     			from 'block/plugin/block_loader/block'
 import {Page_Controller}                from 'arbuz/js/controllers';
 import {Menu_Controller}     			from 'block/menu/js/controller'
 

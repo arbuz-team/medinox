@@ -3,7 +3,7 @@
  */
 
 import {Request_Manager_Block} 	from 'arbuz/plugin/request_manager/block'
-import {Block_Loader_Part} 		from './part'
+import {Block_Loader_Part} 		from './block'
 
 
 export function Block_Loader_Form(config)

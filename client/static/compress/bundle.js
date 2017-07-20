@@ -295,7 +295,7 @@
 	
 	exports.Search_Controller = Search_Controller;
 	
-	var _part = __webpack_require__(10);
+	var _block = __webpack_require__(10);
 	
 	var _controller = __webpack_require__(23);
 	
@@ -313,7 +313,7 @@
 			part_name: 'searcher',
 			container: container
 		},
-		    searcher_loader = new _part.Block_Loader_Part(config_loader),
+		    searcher_loader = new _block.Block_Loader_Part(config_loader),
 		    searcher_motion_controller = new _controller.Block_Motion_Controllers({
 			container: '#SEARCHER',
 			content: container,
@@ -472,59 +472,59 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.data_controller = undefined;
 	
 	__webpack_require__(12);
 	
-	var data_controller = exports.data_controller = new function Data_Controler() {
-	  var private_data = void 0,
-	      public_data = void 0;
+	var data_controller = exports.data_controller = new function Data_Controller() {
+		var private_data = void 0,
+		    public_data = void 0;
 	
-	  this.reset = function () {
-	    private_data = {
-	      path: location.pathname,
-	      all_url: location.href,
-	      history: [],
-	      csrf_token: $('input[ name=csrfmiddlewaretoken ]').val() || ''
-	    };
+		this.reset = function () {
+			private_data = {
+				path: location.pathname,
+				all_url: location.href,
+				history: [],
+				csrf_token: $('input[ name=csrfmiddlewaretoken ]').val() || ''
+			};
 	
-	    public_data = {
-	      can_do_redirect: false,
-	      can_do_open_plugin: true,
-	      page_name: 'Spasungate',
-	      title: 'Loading... - Spasungate',
-	      description: 'This page is shop, which is ownership Spasungate.',
-	      statement_content: 'Empty statement.'
-	    };
-	  };
+			public_data = {
+				can_do_redirect: false,
+				can_do_open_plugin: true,
+				page_name: 'Medinox',
+				title: 'Loading - Medinox',
+				description: 'This page is shop, which is ownership Medinox.',
+				statement_content: 'Empty statement.'
+			};
+		};
 	
-	  this.reset();
+		this.reset();
 	
-	  this.get = function (name) {
-	    if (typeof private_data[name] !== 'undefined') return private_data[name];else if (typeof public_data[name] !== 'undefined') return public_data[name];else {
-	      console.error('Data structure error: Wrong call! Veriable with this name doesn\'t exist: "' + name + '".');
-	    }
-	  };
+		this.get = function (name) {
+			if (typeof private_data[name] !== 'undefined') return private_data[name];else if (typeof public_data[name] !== 'undefined') return public_data[name];else {
+				console.warn('Data structure error: Wrong call! Veriable with this name doesn\'t exist: "' + name + '".');
+			}
+		};
 	
-	  this.get_crsf = function (what) {
-	    if (what === 'name') return 'csrfmiddlewaretoken';else if (what === 'value') return private_data.csrf_token;else console.error('Data structure error: Wrong call! Veriable with this name doesn\'t exist (crsf).');
-	  };
+		this.get_crsf = function (what) {
+			if (what === 'name') return 'csrfmiddlewaretoken';else if (what === 'value') return private_data.csrf_token;else console.warn('Data structure error: Wrong call! Veriable with this name doesn\'t exist (crsf).');
+		};
 	
-	  this.change = function (name, wartosc) {
-	    if (typeof public_data[name] !== 'undefined') public_data[name] = wartosc;else console.error('Data structure error: Wrong call! Veriable with this name doesn\'t exist: "' + name + '".');
-	  };
+		this.change = function (name, value) {
+			if (typeof public_data[name] !== 'undefined' && typeof value !== 'undefined') public_data[name] = value;else console.warn('Data structure error: Wrong call! Veriable with this name doesn\'t exist: "' + name + '".');
+		};
 	
-	  this.change_much = function (object) {
-	    for (var name in object) {
-	      if (object.hasOwnProperty(name)) {
-	        if (name === 'title') {
-	          if (object[name] !== '') this.change(name, object[name] + ' - ' + public_data.page_name);else this.change(name, public_data.page_name);
-	        } else this.change(name, object[name]);
-	      }
-	    }
-	  };
+		this.change_much = function (object) {
+			for (var name in object) {
+				if (object.hasOwnProperty(name)) {
+					if (name === 'title') {
+						if (object[name] !== '') this.change(name, object[name] + ' - ' + public_data.page_name);else this.change(name, public_data.page_name);
+					} else this.change(name, object[name]);
+				}
+			}
+		};
 	}();
 
 /***/ },
@@ -1779,13 +1779,13 @@
 	
 	var _block = __webpack_require__(14);
 	
-	var _part = __webpack_require__(10);
+	var _block2 = __webpack_require__(10);
 	
 	function Block_Loader_Form(config) {
-		_part.Block_Loader_Part.call(this, config);
+		_block2.Block_Loader_Part.call(this, config);
 	}
 	
-	Block_Loader_Form.prototype = Object.create(_part.Block_Loader_Part.prototype);
+	Block_Loader_Form.prototype = Object.create(_block2.Block_Loader_Part.prototype);
 	
 	Block_Loader_Form.prototype._prepare_post_data = function (post_data) {
 		if (!post_data) post_data = {};
@@ -2974,7 +2974,7 @@
 	
 	exports.Cart_Controller = Cart_Controller;
 	
-	var _part = __webpack_require__(10);
+	var _block = __webpack_require__(10);
 	
 	var _controller = __webpack_require__(23);
 	
@@ -2996,7 +2996,7 @@
 			part_name: 'cart',
 			container: container
 		},
-		    cart_loader = new _part.Block_Loader_Part(config_loader),
+		    cart_loader = new _block.Block_Loader_Part(config_loader),
 		    cart_motion_controller = new _controller.Block_Motion_Controllers({
 			container: '#CART',
 			content: container,
@@ -3199,7 +3199,7 @@
 	
 	exports.Menu_Mobile_Controller = Menu_Mobile_Controller;
 	
-	var _part = __webpack_require__(10);
+	var _block = __webpack_require__(10);
 	
 	var _controller = __webpack_require__(23);
 	
@@ -3210,7 +3210,7 @@
 	
 		Menu_Mobile_Controller.instance = this;
 	
-		var navigation_loader = new _part.Block_Loader_Part({
+		var navigation_loader = new _block.Block_Loader_Part({
 			part_name: 'navigation',
 			container: '#NAVIGATION .navigation'
 		}),
@@ -3263,7 +3263,7 @@
 	
 	exports.Menu_Controller = Menu_Controller;
 	
-	var _part = __webpack_require__(10);
+	var _block = __webpack_require__(10);
 	
 	var _controllers = __webpack_require__(45);
 	
@@ -3272,7 +3272,7 @@
 	
 		Menu_Controller.instance = this;
 	
-		var header_loader = new _part.Block_Loader_Part({
+		var header_loader = new _block.Block_Loader_Part({
 			part_name: 'header',
 			container: '.menu'
 		}),
@@ -3950,7 +3950,7 @@
 	
 	exports.Ground_Controller = Ground_Controller;
 	
-	var _part = __webpack_require__(10);
+	var _block = __webpack_require__(10);
 	
 	var _controllers = __webpack_require__(8);
 	
@@ -3977,7 +3977,7 @@
 			part_name: 'ground',
 			container: container
 		},
-		    ground_loader = new _part.Block_Loader_Part(config_loader),
+		    ground_loader = new _block.Block_Loader_Part(config_loader),
 		    post_button_controller = new _controllers2.Post_Button_Controllers(config_form),
 		    event_button_controller = new _controllers3.Event_Button_Controllers(config_form),
 		    ground_form_controller = new _controller2.Form_Controllers(config_loader),

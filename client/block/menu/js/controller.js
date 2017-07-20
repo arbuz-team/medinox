@@ -2,7 +2,7 @@
  * Created by mrskull on 08.01.17.
  */
 
-import {Block_Loader_Part}     			from 'block/plugin/block_loader/part'
+import {Block_Loader_Part}     			from 'block/plugin/block_loader/block'
 import {Event_Button_Controllers}       from 'form/plugin/event_button/controllers'
 
 
