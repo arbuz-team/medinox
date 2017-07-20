@@ -323,9 +323,12 @@ div > .buttons_to_action {
   max-width: 100px;
   width: 100px; }
 
-.status {
-  display: none;
-  margin: 2px 3px;
+.status-external, .status {
+  position: relative;
+  top: -6px;
+  left: 5px;
+  font-size: 14px;
+  line-height: 18px;
   color: #dd4b39; }
 
 .form_error {

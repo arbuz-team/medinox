@@ -6,7 +6,7 @@ import {Block_Loader_Part}     			from 'block/plugin/block_loader/part'
 import {Page_Controller}                from 'arbuz/js/controllers';
 import {Menu_Controller}     			from 'block/menu/js/controller'
 
-import {Form_Controllers}               from 'form/js/controllers'
+import {Form_Controllers}               from 'form/js/controller'
 import {Post_Button_Controllers}        from 'form/plugin/post_button/controllers'
 import {Event_Button_Controllers}       from 'form/plugin/event_button/controllers'
 

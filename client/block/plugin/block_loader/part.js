@@ -43,7 +43,7 @@ Block_Loader_Part.prototype._send_request = function()
 		post_name = this._settings.post_name,
 		request_manager = new Request_Manager_Block();
 
-	this.response = request_manager.next(undefined, post_data, post_name);
+	this._response = request_manager.next(undefined, post_data, post_name);
 };
 
 // --------------------------    VIEW    --------------------------
@@ -68,13 +68,12 @@ Block_Loader_Part.prototype._receive_response = function()
 {
 	return new Promise((resolve, reject) =>
 	{
-		this.response.then((response) =>
+		this._response.then(response =>
 		{
 
 			if(this._check_for_errors(response))
-			{
 				reject(response);
-			}
+
 			else
 			{
 				let precise_data = {
@@ -110,13 +109,13 @@ Block_Loader_Part.prototype.reload = function()
 
 Block_Loader_Part.prototype.load_content = function(post_url, post_data)
 {
-	return new Promise((resolve) =>
+	return new Promise(resolve =>
 	{
 		this._get_content(post_url, post_data);
 
 		this._hide_content().then(() =>
 		{
-			this._receive_response().then((response) =>
+			this._receive_response().then(response =>
 			{
 				this._load_head_of_page();
 
@@ -134,11 +133,11 @@ Block_Loader_Part.prototype.load_content = function(post_url, post_data)
 };
 
 
-Block_Loader_Part.prototype.load_simple_content = function(url, post_data, callback)
+Block_Loader_Part.prototype.load_simple_content = function(url, post_data)
 {
 	let request_manager = new Request_Manager_Block();
 
-	this.load_content(url, post_data, callback);
+	this.load_content(url, post_data);
 	request_manager.send_list();
 };
 

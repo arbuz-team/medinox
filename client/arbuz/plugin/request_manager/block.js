@@ -46,7 +46,7 @@ Request_Manager_Block.prototype._clear_request = function()
 };
 
 
-Request_Manager_Block.prototype._post_data_prepare = function()
+Request_Manager_Block.prototype._prepare_post_data = function()
 {
 	let post_data = {};
 
@@ -113,13 +113,16 @@ Request_Manager_Block.prototype._run_sending = function()
 
 Request_Manager_Block.prototype.next = function(url, post_data, post_name)
 {
-	this._add_request(url, post_data);
-
 	return new Promise((resolve, reject) =>
 	{
+		this._add_request(url, post_data);
+
 		this._run_sending().then(response =>
 		{
 			this._clear_request();
+
+			console.log(response);
+			console.log(post_name);
 
 			if(typeof response.json[post_name] !== 'undefined')
 				response = response.json[post_name];

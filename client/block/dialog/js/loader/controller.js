@@ -2,7 +2,7 @@
  * Created by mrskull on 18.07.17.
  */
 
-import {Form_Controllers}           from 'form/js/controllers'
+import {Form_Controllers}           from 'form/js/controller'
 import {Post_Button_Controllers}    from 'form/plugin/post_button/controllers'
 import {Event_Button_Controllers}   from 'form/plugin/event_button/controllers'
 import {Little_Form_Controllers}    from 'form/plugin/little_form/controllers'

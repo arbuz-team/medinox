@@ -22,10 +22,10 @@
 
 {% elif field|is_fileinput %}
 
-	<span class="file_shell">
+	<div class="file_shell">
 		{{ field }}
 		<button class="button" type="button">Select file</button>
-		<div class="status">{{ field.errors }}</div>
+		<span class="status">{{ field.errors }}</span>
 
 {% elif field.name == 'image_name' or field.name == 'image_name' or field.name == 'image_base64' or field.name == 'file_base64' %}
 
@@ -34,7 +34,8 @@
 {% elif field.name == 'image_url' or field.name == 'file_url' %}
 		&nbsp;or&nbsp;
 		{{ field }}
-		<div class="status">{{ field.errors }}</div>
+		<span class="status-external">{{ field.errors }}</span>
+		<span class="status"></span>
 
 		{% if image %}
 			<div class="file-list">
@@ -54,7 +55,7 @@
 
 			</div>
 		{% endif %}
-	</span>
+	</div>
 
 <!-- End image inputs -->
 
@@ -63,9 +64,8 @@
 
 	<span>
 		{{ field }}
-		{{ field.errors }}
-
-		<div class="status"></div>
+		<span class="status-external">{{ field.errors }}</span>
+		<span class="status"></span>
 	</span>
 
 {% endif %}

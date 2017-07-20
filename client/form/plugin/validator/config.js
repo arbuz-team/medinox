@@ -8,8 +8,8 @@ list_configs.register = {
 };
 
 list_configs.login = {
-	email:        'email',
-	password:     'password',
+	email:          'email',
+	password:       'password_login',
 };
 
 list_configs.user_address = {

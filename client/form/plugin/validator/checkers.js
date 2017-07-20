@@ -49,6 +49,17 @@ checker.create_checker('password', function(value, callback)
 });
 
 
+checker.create_checker('password_login', function(value, callback)
+{
+	let result = checker.create_result();
+
+	if(checker.check_condition( value.length >= 8 ))
+		result = checker.create_error('The password must be 8 characters long.');
+
+	callback(result);
+});
+
+
 checker.create_checker('proper_name', function(value, callback)
 {
   value = value.charAt(0).toUpperCase() + value.slice(1);

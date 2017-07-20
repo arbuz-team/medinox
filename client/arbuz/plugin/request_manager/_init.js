@@ -92,7 +92,7 @@ Request_Manager.prototype._add_request = function(url, post_data)
 };
 
 
-Request_Manager.prototype._preprocess_url = function()
+Request_Manager.prototype._prepare_url = function()
 {
 	let url = this._data.url;
 
@@ -103,7 +103,7 @@ Request_Manager.prototype._preprocess_url = function()
 };
 
 
-Request_Manager.prototype._post_data_prepare = function()
+Request_Manager.prototype._prepare_post_data = function()
 {
 	if(this._data.data)
 	{
@@ -124,8 +124,8 @@ Request_Manager.prototype._send_request = function()
 	return new Promise((resolve, reject) =>
 	{
 		let
-			post_url = this._preprocess_url(),
-			post_data = this._post_data_prepare();
+			post_url = this._prepare_url(),
+			post_data = this._prepare_post_data();
 
 		if(post_data)
 		{
@@ -154,7 +154,6 @@ Request_Manager.prototype._show_error = function(response)
 {
 	let new_tab = window.open('', '_blank');
 	new_tab.document.write(response);
-	new_tab.init();
 	new_tab.focus();
 };
 

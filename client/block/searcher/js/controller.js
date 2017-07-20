@@ -4,7 +4,7 @@
 
 import {Block_Loader_Part}     			from 'block/plugin/block_loader/part'
 import {Block_Motion_Controllers} 	from 'block/plugin/block_motion/controller'
-import {Form_Controllers}  				from 'form/js/controllers'
+import {Form_Controllers}  				from 'form/js/controller'
 import {Post_Button_Controllers}        from 'form/plugin/post_button/controllers'
 
 

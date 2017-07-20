@@ -56,7 +56,7 @@ Block_Loader.prototype._send_request = function()
 		post_name = this._settings.post_name,
 		request_manager = new Request_Manager_Block();
 
-	this.response = request_manager.send(url, data, post_name);
+	this._response = request_manager.send(url, data, post_name);
 };
 
 
@@ -73,7 +73,7 @@ Block_Loader.prototype._check_for_errors = function(response)
 };
 
 
-Block_Loader.prototype._preprocess_response = function(response)
+Block_Loader.prototype._process_response = function(response)
 {
 	return {
 		html: response.html,

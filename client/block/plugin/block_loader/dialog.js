@@ -30,7 +30,7 @@ Block_Loader_Dialog.prototype._send_request = function()
 		post_name = this._settings.post_name,
 		request_manager = new Request_Manager_Dialog();
 
-	this.response = request_manager.send(undefined, post_data, post_name);
+	this._response = request_manager.send(undefined, post_data, post_name);
 };
 
 

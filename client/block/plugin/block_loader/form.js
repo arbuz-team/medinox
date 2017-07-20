@@ -2,7 +2,7 @@
  * Created by mrskull on 17.07.17.
  */
 
-import {Request_Manager_Form} 	from 'arbuz/plugin/request_manager/form'
+import {Request_Manager_Block} 	from 'arbuz/plugin/request_manager/block'
 import {Block_Loader_Part} 		from './part'
 
 
@@ -20,47 +20,38 @@ Block_Loader_Form.prototype = Object.create(Block_Loader_Part.prototype);
 // ------------------------------------------
 
 
-Block_Loader_Form.prototype._send_request = function(actually_url)
-{
-	let
-		post_data = this.variables.post_data,
-		request_manager = new Request_Manager_Form();
-
-	this.response = request_manager.send(actually_url, post_data);
-};
-
-
 Block_Loader_Form.prototype._prepare_post_data = function(post_data)
 {
 	if(!post_data)
 		post_data = {};
 
-	post_data._direct_ = this.settings.part_name;
+	post_data[this._settings.post_name] = 'form';
 
-	this.variables.post_data = post_data;
+	this._variables.post_data = post_data;
 };
 
 
-Block_Loader_Form.prototype._receive_response = function()
+Block_Loader_Form.prototype._send_request = function()
 {
-	return new Promise((resolve) =>
-	{
-		this.response.then((response) =>
-		{
+	let
+		post_data = this._variables.post_data,
+		post_name = this._settings.post_name,
+		request_manager = new Request_Manager_Block();
 
-			let precise_data = {
-					html: response,
-					status: 'success',
-					code: 200,
-				};
-
-			resolve(precise_data);
-		});
-	});
+	this._response = request_manager.next(undefined, post_data, post_name);
 };
 
 
-Block_Loader_Form.prototype.load_simple_content = function(url, post_data, callback)
+Block_Loader_Form.prototype.load_simple_content = function(url, post_data)
 {
-	this.load_content(url, post_data, callback);
+	let
+		request_manager,
+		loading;
+
+	request_manager = new Request_Manager_Block();
+
+	loading = this.load_content(url, post_data);
+	request_manager.send_list();
+
+	return loading;
 };

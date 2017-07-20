@@ -2,16 +2,16 @@
  * Created by mrskull on 24.11.16.
  */
 
-import {Form_Models} 		from './models'
+import {Form_Models} 		from './model'
 import * as validator 		from 'form/plugin/validator/controllers'
 import * as auto_form 		from 'form/plugin/auto_form/controllers'
 import * as selected_form 	from 'form/plugin/selected_form/controllers'
 import * as file_converter 	from 'form/plugin/file_converter/controllers'
 
-export let Form_Controllers = function(content_loader_controllers)
+export let Form_Controllers = function(config)
 {
 	let
-		form_models = new Form_Models(content_loader_controllers),
+		form_models = new Form_Models(config),
 	    variables = form_models.variables;
 
 
@@ -34,17 +34,15 @@ export let Form_Controllers = function(content_loader_controllers)
 			{
 				event.preventDefault();
 
-				let
-					form_name = $(this).data('name'),
-					url = $(this).attr('action'),
-					form_object = $(this).serialize_object();
+				variables.form_name =   $(this).data('name');
+				variables.post_url =    $(this).attr('action');
+				variables.post_data =   $(this).serialize_object();
+				variables.reload =      $(this).data('reload');
+				variables.redirect =    $(this).data('redirect');
+				variables.event =       $(this).data('event');
+				variables.delay =       $(this).data('delay');
 
-				variables.reload = $(this).data('reload');
-				variables.redirect = $(this).data('redirect');
-				variables.event = $(this).data('event');
-				variables.delay = $(this).data('delay');
-
-				form_models.send(form_name, url, form_object);
+				form_models.send();
 			}
 		};
 
@@ -55,7 +53,7 @@ export let Form_Controllers = function(content_loader_controllers)
 
 	this.define = function()
 	{
-		let $container = $(content_loader_controllers.container);
+		let $container = $(config.container);
 
 		$('form', $container).submit(prepare_form_to_send);
 

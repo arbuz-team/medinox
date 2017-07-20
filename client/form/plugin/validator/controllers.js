@@ -90,7 +90,8 @@ let show_status = function(result)
 	if(result)
 	{
 		let $field = $(field),
-			$status = $field.parent().find('.status');
+			$status = $field.parent().find('.status'),
+			$status_external = $field.parent().find('.status-external');
 
 		let bool = result.bool,
 			message = result.message,
@@ -105,17 +106,18 @@ let show_status = function(result)
 		if(bool)
 		{
 			$field.removeClass('form_error');
-			$status.html('').fadeOut(200);
+			$status.html('');
 		}
 		else if(typeof message === 'undefined')
 		{
 			$field.addClass('form_error');
-			$status.html('').fadeOut(200);
+			$status.html('');
 		}
 		else
 		{
 			$field.addClass('form_error');
-			$status.html(message).fadeIn(200);
+			$status.html(message);
+			$status_external.html('');
 		}
 	}
 

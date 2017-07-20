@@ -15,9 +15,11 @@ export let Form_Models = function(config)
 	 *    Defining settings
 	 */
 
-
 	this.variables = {
-		name:           undefined,
+		form_name:      undefined,
+		post_url:       undefined,
+		post_data:      undefined,
+
 		reload:     	undefined,
 		redirect:    	undefined,
 		event:         	undefined,
@@ -31,27 +33,27 @@ export let Form_Models = function(config)
 
 	let
 
-		prepare_post_data = function(form_name, post_data)
+		prepare_post_data = () =>
 		{
-			if(!post_data)
-				post_data = {};
+			let variables = this.variables;
 
-			post_data.__form__ = form_name;
+			if(!variables.post_data)
+				variables.post_data = {};
 
-			return post_data;
+			variables.post_data._name_ = variables.form_name;
 		},
 
 
-		end_loading = function(HTML_response, status)
+		end_loading = () =>
 		{
-			if(utilities.html_is_error(HTML_response, status))
-				return false;
+			let variables = this.variables,
+				events;
 
-			let events = {
-				reload: that.variables.reload,
-				redirect: that.variables.redirect,
-				events: that.variables.event,
-				delay: that.variables.delay,
+			events = {
+				reload: variables.reload,
+				redirect: variables.redirect,
+				events: variables.event,
+				delay: variables.delay,
 			};
 
 			utilities.reload_plugins(events);
@@ -64,11 +66,14 @@ export let Form_Models = function(config)
 	 *    Defining public functions
 	 */
 
-	this.send = function(form_name, url, post_data)
+	this.send = function()
 	{
-		post_data = prepare_post_data(form_name, post_data);
+		let
+			post_data = this.variables.post_data;
 
-		form_loader.load_simple_content(url, post_data, end_loading);
+		prepare_post_data();
+
+		form_loader.load_simple_content(undefined, post_data).then(end_loading);
 	};
 
 };

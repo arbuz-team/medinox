@@ -41,9 +41,9 @@ Block_Loader.prototype._receive_response = function()
 {
 	return new Promise((resolve) =>
 	{
-		this.response.then((response) =>
+		this._response.then((response) =>
 		{
-			resolve(this._preprocess_response(response));
+			resolve(this._process_response(response));
 		});
 	});
 };
