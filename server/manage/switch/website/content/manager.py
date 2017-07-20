@@ -69,7 +69,6 @@ class Direct_Block_Manager(Base):
             response['__ground__'] = self.Packing(html_response)
             self.request.session['arbuz_response'] = response
 
-        print(response)
         return JsonResponse(response)
 
     def __init__(self, website):
