@@ -38,6 +38,7 @@ Request_Manager.prototype.send = function(post_url, post_data, post_name)
 		.catch((data) =>
 		{
 			console.error(data);
+			reject(data);
 		});
 	});
 };

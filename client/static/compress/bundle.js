@@ -768,6 +768,7 @@
 				resolve(response);
 			}).catch(function (data) {
 				console.error(data);
+				reject(data);
 			});
 		});
 	};
