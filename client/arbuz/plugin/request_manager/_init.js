@@ -147,11 +147,15 @@ Request_Manager.prototype._send_request = function()
 			.then(resolve)
 			.catch(response =>
 			{
+				console.trace();
 			    reject('Request Manager error: Invalid response.');
 			});
 		}
 		else
+		{
+			console.trace();
 			reject('Request Manager error: Invalid post data.');
+		}
 	});
 };
 

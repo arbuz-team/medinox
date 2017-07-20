@@ -7,11 +7,11 @@ export let
 
 	timeout_promise = function(delay)
 	{
-	    return new Promise(function(resolve, reject)
+	    return new Promise(function(resolve)
 	    {
 	        setTimeout(function()
 	        {
-				reject();
+				resolve();
 	        }, delay);
 	    });
 	};

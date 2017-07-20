@@ -749,13 +749,21 @@
 	_init.Request_Manager.prototype.send = function (post_url, post_data, post_name) {
 		var _this = this;
 	
-		this._add_request(post_url, post_data);
+		if (typeof post_name === 'undefined') {
+			console.error('Request_Manager error: Invalid variable "post_name"');
+			return false;
+		}
 	
 		return new Promise(function (resolve, reject) {
+			_this._add_request(post_url, post_data);
+	
 			_this._send_request().then(function (response) {
 				_this._clear_request();
 	
-				if (typeof response.json[post_name] !== 'undefined') response = response.json[post_name];else reject('Request_Manager error: Invalid response.');
+				if (typeof response.json[post_name] !== 'undefined') response = response.json[post_name];else {
+					console.error('Request_Manager error: Invalid response.');
+					reject('Request_Manager error: Invalid response.');
+				}
 	
 				resolve(response);
 			}).catch(function (data) {
@@ -873,9 +881,13 @@
 					url: post_url,
 					data: post_data
 				}).then(resolve).catch(function (response) {
+					console.trace();
 					reject('Request Manager error: Invalid response.');
 				});
-			} else reject('Request Manager error: Invalid post data.');
+			} else {
+				console.trace();
+				reject('Request Manager error: Invalid post data.');
+			}
 		});
 	};
 	
@@ -1049,9 +1061,9 @@
 		value: true
 	});
 	var timeout_promise = exports.timeout_promise = function timeout_promise(delay) {
-		return new Promise(function (resolve, reject) {
+		return new Promise(function (resolve) {
 			setTimeout(function () {
-				reject();
+				resolve();
 			}, delay);
 		});
 	};
@@ -2844,6 +2856,8 @@
 	
 	var _init = __webpack_require__(16);
 	
+	var _standard = __webpack_require__(19);
+	
 	function Post_Button_Models(config) {
 		var _this = this;
 	
@@ -2931,14 +2945,17 @@
 		};
 	
 		this.send_post = function () {
+			var _this2 = this;
+	
 			return new Promise(function (resolve) {
-				setTimeout(function () {
+				(0, _standard.timeout_promise)(200).then(function () {
 					var post_url = that.settings.button_url,
 					    post_data = prepare_post_data(),
+					    post_name = _this2.settings.post_name,
 					    request_manager = new _init.Request_Manager();
 	
-					request_manager.send(post_url, post_data).then(resolve);
-				}, 200);
+					request_manager.send(post_url, post_data, post_name).then(resolve, resolve);
+				});
 			});
 		};
 	}
