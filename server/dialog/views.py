@@ -34,14 +34,6 @@ class Dialog_Prompt(Dialog):
 
         return None
 
-    def Generate_Content(self):
-
-        self.context['additional'] = {
-            'reload': self.request.POST['additional_reload'],
-            'redirect': self.request.POST['additional_redirect'],
-            'event': self.request.POST['additional_event'],
-        }
-
     def Get_Dialog_Name(self):
 
         # when not valid or get dialog after send form

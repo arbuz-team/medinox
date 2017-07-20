@@ -18,7 +18,7 @@ class Social_Media_Manager(Website_Manager):
         social.url = url
         SQL.Save(data=social)
 
-        return JsonResponse({}) # Backend: True empty
+        return HttpResponse()
 
     @staticmethod
     def Launch(request):

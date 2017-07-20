@@ -20,14 +20,12 @@ class Control_Panel(Website_Manager):
         root.password = Base_Website.Encrypt('kaktus88')
         SQL.Save(data=root)
 
-        return JsonResponse({'__button__': 'true'})
+        return HttpResponse()
 
     def Manage_Button(self):
 
-        if self.request.POST['__button__'] == 'reset_passwords':
+        if self.request.POST['_name_'] == 'reset_passwords':
             return self.Manage_Button_Reset_Passwords()
-
-        return Website_Manager.Manage_Button(self)
 
     @staticmethod
     def Launch(request):

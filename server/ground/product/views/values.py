@@ -20,11 +20,9 @@ class Values_Manager(Website_Manager):
 
     def Manage_Button(self):
 
-        if 'delete' in self.request.POST['__button__']:
+        if 'delete' in self.request.POST['_name_']:
             SQL.Delete(Values, pk=self.request.POST['value'])
-            return JsonResponse({'__button__': 'true'})
-
-        return JsonResponse({'__button__': 'false'})
+            return HttpResponse()
 
     @staticmethod
     def Launch(request):

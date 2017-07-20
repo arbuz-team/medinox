@@ -82,14 +82,11 @@ class User_Addresses(Website_Manager):
     def Manage_Button(self):
 
         # removed address
-        if '__button__' in self.request.POST:
-            id_address = int(self.request.POST['value'])
+        id_address = int(self.request.POST['value'])
 
-            if self.Check_ID_Address(id_address):
-                SQL.Delete(User_Address, id=id_address)
-                return JsonResponse({'__button__': 'true'})
-
-        return JsonResponse({'__button__': 'false'})
+        if self.Check_ID_Address(id_address):
+            SQL.Delete(User_Address, id=id_address)
+            return HttpResponse()
 
     @staticmethod
     def Redirect(request, url):

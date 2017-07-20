@@ -33,7 +33,6 @@ export function Dialog_Loader_View(config)
 			additional_event:      	$button.data('dialog-event'),
 			additional_url:        	$button.data('dialog-url'),
 
-			// Backend: Add other value in dialog
 			additional_other_1:    	$button.data('dialog-other_1'),
 			additional_other_2:    	$button.data('dialog-other_2'),
 			additional_other_3:    	$button.data('dialog-other_3'),

@@ -40,7 +40,7 @@ class About(Website_Manager):
     def Manage_Button(self):
         position_manager = Position_Manager(self)
         position_manager.Button_Service(About_Content)
-        return JsonResponse({'__button__': 'true'})
+        return HttpResponse()
 
     @staticmethod
     def Launch(request):
