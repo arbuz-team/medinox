@@ -3833,24 +3833,24 @@
 			var $button = $(button);
 	
 			model.variable.post_data = {
-				dialog_type: $button.data('type'),
-				dialog_name: $button.data('name'),
-				dialog_value: $button.data('value'),
-				dialog_other_1: $button.data('other_1'),
-				dialog_other_2: $button.data('other_2'),
-				dialog_other_3: $button.data('other_3'),
+				_type_: $button.data('type'),
+				_name_: $button.data('name'),
+				value: $button.data('value'),
+				other_1: $button.data('other_1'),
+				other_2: $button.data('other_2'),
+				other_3: $button.data('other_3'),
 	
-				additional_name: $button.data('dialog-name'),
-				additional_action: $button.data('dialog-action'),
-				additional_value: $button.data('dialog-value'),
-				additional_reload: $button.data('dialog-reload'),
-				additional_redirect: $button.data('dialog-redirect'),
-				additional_event: $button.data('dialog-event'),
-				additional_url: $button.data('dialog-url'),
+				accept_name: $button.data('dialog-name'),
+				accept_action: $button.data('dialog-action'),
+				accept_value: $button.data('dialog-value'),
+				accept_reload: $button.data('dialog-reload'),
+				accept_redirect: $button.data('dialog-redirect'),
+				accept_event: $button.data('dialog-event'),
+				accept_url: $button.data('dialog-url'),
 	
-				additional_other_1: $button.data('dialog-other_1'),
-				additional_other_2: $button.data('dialog-other_2'),
-				additional_other_3: $button.data('dialog-other_3')
+				accept_other_1: $button.data('dialog-other_1'),
+				accept_other_2: $button.data('dialog-other_2'),
+				accept_other_3: $button.data('dialog-other_3')
 			};
 		};
 	

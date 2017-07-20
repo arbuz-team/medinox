@@ -25,9 +25,9 @@
 
             {% endfor %}
 
-            <input type="hidden" name="additional_reload" value="{{ additional.reload }}">
-            <input type="hidden" name="additional_redirect" value="{{ additional.redirect }}">
-            <input type="hidden" name="additional_event" value="{{ additional.event }}">
+            <input type="hidden" name="accept_reload" value="{{ accept.reload }}">
+            <input type="hidden" name="accept_redirect" value="{{ accept.redirect }}">
+            <input type="hidden" name="accept_event" value="{{ accept.event }}">
 
             {{ catalog_tree|safe }}
 
@@ -56,13 +56,12 @@
             Close
         </button>
 
-        <button class="button dialog-content-button event_button"
+        <button class="button dialog_send event_button"
                 type="button"
-                data-dialog-button="send"
-                data-name="{{ additional.name }}"
-                data-reload="{{ additional.reload }}"
-                data-redirect="{{ additional.redirect }}"
-                data-event="{{ additional.event }}">
+                data-name="{{ accept.name }}"
+                data-reload="{{ accept.reload }}"
+                data-redirect="{{ accept.redirect }}"
+                data-event="part.close_dialog {{ accept.event }}">
             Accept
         </button>
 

@@ -66,7 +66,10 @@
 
             <button class="button dialog_send event_button"
                     type="button"
-                    data-event="part.close_dialog">
+                    data-name="{{ accept.name }}"
+                    data-reload="{{ accept.reload }}"
+                    data-redirect="{{ accept.redirect }}"
+                    data-event="part.close_dialog {{ accept.event }}">
                 Accept
             </button>
 
