@@ -6,67 +6,69 @@ import {Dialog_Designer_Controller} from './designer/controller'
 import {Dialog_Loader_Controller} from './loader/controller'
 
 
+export function Dialog_Controller()
+{
+	if(typeof Dialog_Controller.instance === 'object')
+		return Dialog_Controller.instance;
 
-let
-	config = {
-		name:				'dialog',
-		html_id: 			'#DIALOG',
-		container: 			'.dialog',
-		internal_button: 	'.dialog_send',
-		external_button: 	'.dialog_button',
-		form: 				'.dialog_form',
-
-		duration_show: 0,
-		duration_hide: 0,
-	},
+	Dialog_Controller.instance = this;
 
 
-	designer = new Dialog_Designer_Controller(config),
-	loader = new Dialog_Loader_Controller(config),
+	let
+		config = {
+			name:				'dialog',
+			html_id: 			'#DIALOG',
+			container: 			'.dialog',
+			internal_button: 	'.dialog_send',
+			external_button: 	'.dialog_button',
+			form: 				'.dialog_form',
+
+			duration_show: 0,
+			duration_hide: 0,
+		},
+
+		designer = new Dialog_Designer_Controller(config),
+		loader = new Dialog_Loader_Controller(config),
 
 
-	// ---------------------------------------------
+		// ---------------------------------------------
 
-	reload = function()
-	{
-		let loading = loader.reload_content(this);
-
-		designer.set_loading().then(() =>
+		reload = function()
 		{
-			loading.then(() =>
+			let loading = loader.reload_content(this);
+
+			designer.set_loading().then(() =>
+			{
+				loading.then(() =>
+				{
+					loader.define();
+					designer.unset_loading();
+				});
+			});
+		},
+
+
+		close = function()
+		{
+			designer.close().then(() =>
 			{
 				loader.define();
-				designer.unset_loading();
 			});
-		});
-	},
+		},
 
 
-	close = function()
-	{
-		designer.close().then(() =>
+		open = function()
 		{
-			loader.define();
-		});
-	},
+			let loading = loader.get_content(this);
+
+			designer.open().then(() =>
+			{
+				loading.then(loader.define);
+			});
+		};
 
 
-	open = function()
-	{
-		let loading = loader.get_content(this);
-
-		designer.open().then(() =>
-		{
-			loading.then(loader.define);
-		});
-	};
-
-	// ---------------------------------------------
-
-
-export let
-
-	define = function()
+	this.define = function()
 	{
 		designer.define();
 
@@ -74,3 +76,4 @@ export let
 		APP.add_own_event('dialog_close', close);
 		APP.add_own_event('dialog_reload', reload);
 	};
+}

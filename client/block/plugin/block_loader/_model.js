@@ -4,14 +4,14 @@
 
 import {data_controller} 			from 'arbuz/js/structure'
 import {Request_Manager_Block} 		from 'arbuz/plugin/request_manager/block'
-import {Part_Loader} 				from './_init'
+import {Block_Loader} 				from './_init'
 
 
 
 // --------------------------    REQUEST    --------------------------
 
 
-Part_Loader.prototype._if_reload = function(url)
+Block_Loader.prototype._if_reload = function(url)
 {
 	let
 		old_url = data_controller.get('path'),
@@ -21,13 +21,13 @@ Part_Loader.prototype._if_reload = function(url)
 };
 
 
-Part_Loader.prototype._refresh_events = function()
+Block_Loader.prototype._refresh_events = function()
 {
 	APP.throw_event( EVENTS.define );
 };
 
 
-Part_Loader.prototype._prepare_to_change_content = function(post_url)
+Block_Loader.prototype._prepare_to_change_content = function(post_url)
 {
 	this._variables.post_url = post_url;
 	this._variables.can_do_redirect = false;
@@ -37,7 +37,7 @@ Part_Loader.prototype._prepare_to_change_content = function(post_url)
 };
 
 
-Part_Loader.prototype._prepare_post_data = function(post_data)
+Block_Loader.prototype._prepare_post_data = function(post_data)
 {
 	if(!post_data)
 		post_data = {};
@@ -48,7 +48,7 @@ Part_Loader.prototype._prepare_post_data = function(post_data)
 };
 
 
-Part_Loader.prototype._send_request = function()
+Block_Loader.prototype._send_request = function()
 {
 	let
 		url = this._variables.post_url,
@@ -64,7 +64,7 @@ Part_Loader.prototype._send_request = function()
 // --------------------------    RESPONSE    --------------------------
 
 
-Part_Loader.prototype._check_for_errors = function(response)
+Block_Loader.prototype._check_for_errors = function(response)
 {
 	if(typeof response.html === 'undefined' || typeof response.code === 'undefined')
 		return true;
@@ -73,7 +73,7 @@ Part_Loader.prototype._check_for_errors = function(response)
 };
 
 
-Part_Loader.prototype._preprocess_response = function(response)
+Block_Loader.prototype._preprocess_response = function(response)
 {
 	return {
 		html: response.html,

@@ -5,19 +5,19 @@
 import {data_controller} 			from 'arbuz/js/structure'
 import {add_to_settings} 			from 'arbuz/plugin/utilities/data'
 import {Request_Manager_Block} 		from 'arbuz/plugin/request_manager/block'
-import {Part_Loader} 				from './_controller'
+import {Block_Loader} 				from './_controller'
 
 
-export function Part_Loader_Part(config)
+export function Block_Loader_Part(config)
 {
-	Part_Loader.call(this, config);
+	Block_Loader.call(this, config);
 
 	this._settings.load_meta_tags = false;
 
 	add_to_settings(config, this, 'load_meta_tags');
 }
 
-Part_Loader_Part.prototype = Object.create(Part_Loader.prototype);
+Block_Loader_Part.prototype = Object.create(Block_Loader.prototype);
 
 
 
@@ -25,7 +25,7 @@ Part_Loader_Part.prototype = Object.create(Part_Loader.prototype);
 
 // --------------------------    MODEL    --------------------------
 
-Part_Loader_Part.prototype._prepare_post_data = function(post_data)
+Block_Loader_Part.prototype._prepare_post_data = function(post_data)
 {
 	if(!post_data)
 		post_data = {};
@@ -36,7 +36,7 @@ Part_Loader_Part.prototype._prepare_post_data = function(post_data)
 };
 
 
-Part_Loader_Part.prototype._send_request = function()
+Block_Loader_Part.prototype._send_request = function()
 {
 	let
 		post_data = this._variables.post_data,
@@ -49,7 +49,7 @@ Part_Loader_Part.prototype._send_request = function()
 // --------------------------    VIEW    --------------------------
 
 
-Part_Loader_Part.prototype._load_head_of_page = function()
+Block_Loader_Part.prototype._load_head_of_page = function()
 {
 	if(this._settings.load_meta_tags)
 	{
@@ -64,7 +64,7 @@ Part_Loader_Part.prototype._load_head_of_page = function()
 };
 
 
-Part_Loader_Part.prototype._receive_response = function()
+Block_Loader_Part.prototype._receive_response = function()
 {
 	return new Promise((resolve, reject) =>
 	{
@@ -92,7 +92,7 @@ Part_Loader_Part.prototype._receive_response = function()
 
 // --------------------------    DEFINE    --------------------------
 
-Part_Loader_Part.prototype.reload = function()
+Block_Loader_Part.prototype.reload = function()
 {
 	let delay = 0;
 
@@ -108,7 +108,7 @@ Part_Loader_Part.prototype.reload = function()
 };
 
 
-Part_Loader_Part.prototype.load_content = function(post_url, post_data)
+Block_Loader_Part.prototype.load_content = function(post_url, post_data)
 {
 	return new Promise((resolve) =>
 	{
@@ -134,7 +134,7 @@ Part_Loader_Part.prototype.load_content = function(post_url, post_data)
 };
 
 
-Part_Loader_Part.prototype.load_simple_content = function(url, post_data, callback)
+Block_Loader_Part.prototype.load_simple_content = function(url, post_data, callback)
 {
 	let request_manager = new Request_Manager_Block();
 

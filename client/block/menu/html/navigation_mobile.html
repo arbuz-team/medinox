@@ -1,6 +1,6 @@
 
 
-<li class="header-navigation-mobile-field is-float-left">
+<li class="menu-navigation-mobile-field is-float-left">
 	<button class="button is-icon event_button"
 			type="button"
 			data-name="mobile-open_searcher"
@@ -9,7 +9,7 @@
 	</button>
 </li>
 
-<li class="header-navigation-mobile-field">
+<li class="menu-navigation-mobile-field">
 	<button class="button is-icon event_button"
 			type="button"
 			data-name="mobile-open_navigation"
@@ -21,7 +21,7 @@
 
 {% if request.session.user_login %}
 
-	<li class="header-navigation-mobile-field is-float-right">
+	<li class="menu-navigation-mobile-field is-float-right">
 		<button class="button is-icon event_button"
 				type="button"
 				data-name="mobile-open_or_close_cart"
@@ -32,7 +32,7 @@
 
 {% else %}
 
-	<li class="header-navigation-mobile-field is-float-right">
+	<li class="menu-navigation-mobile-field is-float-right">
 		<a class="button is-icon event_button"
 		   href="/user/sign_in/">
 			<span class="button-icon img-shopping_cart"> &nbsp; </span>

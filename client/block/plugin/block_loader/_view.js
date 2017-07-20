@@ -3,14 +3,14 @@
  */
 
 import * as img_loader      from './img_loader';
-import {Part_Loader} 		from './_init'
+import {Block_Loader} 		from './_init'
 
 
 
 // --------------------------    RESPONSE    --------------------------
 
 
-Part_Loader.prototype._hide_content = function()
+Block_Loader.prototype._hide_content = function()
 {
 	return new Promise((resolve) =>
 	{
@@ -24,7 +24,7 @@ Part_Loader.prototype._hide_content = function()
 };
 
 
-Part_Loader.prototype._get_content = function(post_url, post_data)
+Block_Loader.prototype._get_content = function(post_url, post_data)
 {
 	this._prepare_to_change_content(post_url);
 	this._prepare_post_data(post_data);
@@ -37,7 +37,7 @@ Part_Loader.prototype._get_content = function(post_url, post_data)
 // --------------------------    RESPONSE    --------------------------
 
 
-Part_Loader.prototype._receive_response = function()
+Block_Loader.prototype._receive_response = function()
 {
 	return new Promise((resolve) =>
 	{
@@ -49,7 +49,7 @@ Part_Loader.prototype._receive_response = function()
 };
 
 
-Part_Loader.prototype._prepare_content_to_show = function()
+Block_Loader.prototype._prepare_content_to_show = function()
 {
 	if(this._state.reload === false)
 		$(this._settings.container).scrollTop(0);
@@ -59,13 +59,13 @@ Part_Loader.prototype._prepare_content_to_show = function()
 };
 
 
-Part_Loader.prototype._set_content = function(response)
+Block_Loader.prototype._set_content = function(response)
 {
 	$(this._settings.container).html(response.html)
 };
 
 
-Part_Loader.prototype._show_content = function()
+Block_Loader.prototype._show_content = function()
 {
 	return new Promise((resolve) =>
 	{

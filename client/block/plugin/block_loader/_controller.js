@@ -6,16 +6,16 @@ import {data_controller} 	from 'arbuz/js/structure'
 import {select_number} 	from 'arbuz/plugin/utilities/data'
 import {timeout_promise} 	from 'arbuz/plugin/utilities/standard'
 
-import {Part_Loader} 		from './_init'
+import {Block_Loader} 		from './_init'
 import './_model'
 import './_view'
 
-export {Part_Loader} 		from './_init'
+export {Block_Loader} 		from './_init'
 
 
 
 
-Part_Loader.prototype.redirect = function()
+Block_Loader.prototype.redirect = function()
 {
 	return new Promise((resolve) =>
 	{
@@ -37,7 +37,7 @@ Part_Loader.prototype.redirect = function()
 };
 
 
-Part_Loader.prototype.reload = function()
+Block_Loader.prototype.reload = function()
 {
 	return new Promise((resolve) =>
 	{
@@ -51,7 +51,7 @@ Part_Loader.prototype.reload = function()
 };
 
 
-Part_Loader.prototype.load_content = function(post_url, post_data)
+Block_Loader.prototype.load_content = function(post_url, post_data)
 {
 	return new Promise((resolve) =>
 	{
@@ -75,7 +75,7 @@ Part_Loader.prototype.load_content = function(post_url, post_data)
 };
 
 
-Part_Loader.prototype.define = function()
+Block_Loader.prototype.define = function()
 {
 	APP.add_own_event(this._settings.part_name +'_reload', () =>
 	{

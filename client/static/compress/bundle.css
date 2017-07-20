@@ -572,7 +572,7 @@ div > .buttons_to_action {
       border: none;
         border-bottom: 1px solid #e8e8e8; }
 
-#HEADER {
+#MENU {
   position: relative;
   display: block;
   height: 52px;
@@ -580,27 +580,27 @@ div > .buttons_to_action {
   overflow: visible;
   z-index: 70; }
 
-.header {
+.menu {
   position: relative;
   height: inherit;
   background-color: #ffffff; }
 
 @media screen and (min-width: 680px) {
-  #HEADER {
+  #MENU {
     height: 72px; } }
 
 @media screen and (min-width: 1000px) {
-  #HEADER {
+  #MENU {
     height: 82px;
     margin-left: 250px; } }
 
-.header-navigation-mobile {
+.menu-navigation-mobile {
   display: block;
   position: relative;
   height: inherit;
   text-align: center; }
 
-.header-navigation-mobile-field {
+.menu-navigation-mobile-field {
   display: inline-block;
   position: relative;
   z-index: 38;
@@ -609,30 +609,30 @@ div > .buttons_to_action {
   margin-top: 15px;
   margin-left: 15px;
   margin-right: 15px; }
-  .header-navigation-mobile-field .button, .header-navigation-mobile-field .button:hover, .header-navigation-mobile-field .button:focus {
+  .menu-navigation-mobile-field .button, .menu-navigation-mobile-field .button:hover, .menu-navigation-mobile-field .button:focus {
     display: block;
     width: inherit;
     height: inherit;
     padding: 0;
     margin: 0;
     line-height: 100%; }
-    .header-navigation-mobile-field .button .button-icon, .header-navigation-mobile-field .button:hover .button-icon, .header-navigation-mobile-field .button:focus .button-icon {
+    .menu-navigation-mobile-field .button .button-icon, .menu-navigation-mobile-field .button:hover .button-icon, .menu-navigation-mobile-field .button:focus .button-icon {
       height: inherit;
       width: inherit; }
 
 @media (min-width: 680px) {
-  .header-navigation-mobile {
+  .menu-navigation-mobile {
     display: none; } }
 
-.header-navigation-primary {
+.menu-navigation-primary {
   display: none; }
 
 @media (min-width: 680px) {
-  .header-navigation-primary {
+  .menu-navigation-primary {
     display: block;
     position: relative;
     height: inherit; }
-    .header-navigation-primary .navigation-field, .header-navigation-primary .header-field {
+    .menu-navigation-primary .navigation-field, .menu-navigation-primary .menu-field {
       display: inline-block;
       position: relative;
       z-index: 38;
@@ -641,9 +641,9 @@ div > .buttons_to_action {
       min-width: 150px;
       line-height: 40px;
       border-radius: 2px; }
-      .header-navigation-primary .navigation-field:not(.navigation-primary-language):hover, .header-navigation-primary .header-field:not(.navigation-primary-language):hover {
+      .menu-navigation-primary .navigation-field:not(.navigation-primary-language):hover, .menu-navigation-primary .menu-field:not(.navigation-primary-language):hover {
         background-color: #fafafa; }
-      .header-navigation-primary .navigation-field > *, .header-navigation-primary .header-field > * {
+      .menu-navigation-primary .navigation-field > *, .menu-navigation-primary .menu-field > * {
         display: block;
         height: 100%;
         padding: 0 15px;
@@ -677,19 +677,19 @@ div > .buttons_to_action {
       background-repeat: no-repeat; } }
 
 @media (min-width: 1000px) {
-  .header-navigation-primary .navigation-field, .header-navigation-primary .header-field {
+  .menu-navigation-primary .navigation-field, .menu-navigation-primary .menu-field {
     height: 55px;
     margin-top: 30px;
     line-height: 55px; }
-  .header-navigation-primary .navigation-primary-language {
+  .menu-navigation-primary .navigation-primary-language {
     margin-top: 40px;
     margin-right: 15px; } }
 
-.header-navigation-secondary {
+.menu-navigation-secondary {
   display: none; }
 
 @media (min-width: 680px) {
-  .header-navigation-secondary {
+  .menu-navigation-secondary {
     position: absolute;
     left: 0;
     top: 0;
@@ -701,21 +701,21 @@ div > .buttons_to_action {
     background-color: #1a1a1a;
     color: #ffffff;
     z-index: 70; }
-    .header-navigation-secondary .navigation-field, .header-navigation-secondary .header-field {
+    .menu-navigation-secondary .navigation-field, .menu-navigation-secondary .menu-field {
       position: relative;
       display: inline-block;
       width: auto;
       font-size: 14px;
       font-weight: normal; }
-      .header-navigation-secondary .navigation-field > *, .header-navigation-secondary .header-field > * {
+      .menu-navigation-secondary .navigation-field > *, .menu-navigation-secondary .menu-field > * {
         position: relative;
         font-weight: bold;
         cursor: pointer; }
-  .header-navigation-secondary-root {
+  .menu-navigation-secondary-root {
     display: inline-block;
     float: left;
     text-align: left; }
-  .header-navigation-secondary-user {
+  .menu-navigation-secondary-user {
     display: inline-block;
     float: right;
     text-align: right; }
@@ -734,7 +734,7 @@ div > .buttons_to_action {
         margin-right: 3px; } }
 
 @media (min-width: 1000px) {
-  .header-navigation-secondary .navigation-secondary-searcher, .header-navigation-secondary .header-field-space.for-searcher {
+  .menu-navigation-secondary .navigation-secondary-searcher, .menu-navigation-secondary .menu-field-space.for-searcher {
     display: none; } }
 
 img {

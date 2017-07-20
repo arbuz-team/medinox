@@ -3,15 +3,15 @@
  */
 
 import {Request_Manager_Form} 	from 'arbuz/plugin/request_manager/form'
-import {Part_Loader_Part} 		from './part'
+import {Block_Loader_Part} 		from './part'
 
 
-export function Part_Loader_Form(config)
+export function Block_Loader_Form(config)
 {
-	Part_Loader_Part.call(this, config);
+	Block_Loader_Part.call(this, config);
 }
 
-Part_Loader_Form.prototype = Object.create(Part_Loader_Part.prototype);
+Block_Loader_Form.prototype = Object.create(Block_Loader_Part.prototype);
 
 
 
@@ -20,7 +20,7 @@ Part_Loader_Form.prototype = Object.create(Part_Loader_Part.prototype);
 // ------------------------------------------
 
 
-Part_Loader_Form.prototype.send_request = function(actually_url)
+Block_Loader_Form.prototype._send_request = function(actually_url)
 {
 	let
 		post_data = this.variables.post_data,
@@ -30,7 +30,7 @@ Part_Loader_Form.prototype.send_request = function(actually_url)
 };
 
 
-Part_Loader_Form.prototype.prepare_post_data = function(post_data)
+Block_Loader_Form.prototype._prepare_post_data = function(post_data)
 {
 	if(!post_data)
 		post_data = {};
@@ -41,7 +41,7 @@ Part_Loader_Form.prototype.prepare_post_data = function(post_data)
 };
 
 
-Part_Loader_Form.prototype.receive_response = function()
+Block_Loader_Form.prototype._receive_response = function()
 {
 	return new Promise((resolve) =>
 	{
@@ -60,7 +60,7 @@ Part_Loader_Form.prototype.receive_response = function()
 };
 
 
-Part_Loader_Form.prototype.load_simple_content = function(url, post_data, callback)
+Block_Loader_Form.prototype.load_simple_content = function(url, post_data, callback)
 {
 	this.load_content(url, post_data, callback);
 };

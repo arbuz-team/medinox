@@ -2,13 +2,13 @@
  * Created by mrskull on 18.07.17.
  */
 
-import {Part_Loader_Dialog} from '../../..//plugin/part_loader/dialog'
+import {Block_Loader_Dialog} from 'block/plugin/block_loader/dialog'
 
 
 export function Dialog_Loader_Model(config)
 {
 
-	let part_dialog_loader = new Part_Loader_Dialog(config);
+	let part_dialog_loader = new Block_Loader_Dialog(config);
 
 	this.variable = {
 		post_data: 		undefined,

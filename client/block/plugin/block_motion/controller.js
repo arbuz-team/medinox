@@ -2,13 +2,14 @@
  * Created by mrskull on 06.01.17.
  */
 
-import {Plugins_Motion_Views} from './views'
+import {Block_Motion_Views} from './views'
 
 
-export let Plugins_Motion_Controllers = function(config)
+
+export let Block_Motion_Controllers = function(config)
 {
 	let
-		plugin_motion_views = new Plugins_Motion_Views(config),
+		plugin_motion_views = new Block_Motion_Views(config),
 		settings = plugin_motion_views.models.settings;
 
 	this.views = plugin_motion_views;

@@ -3,13 +3,13 @@
  */
 
 import * as utilities 			from './utilities'
-import {Part_Loader_Form}     	from '../../block/plugin/part_loader/form'
+import {Block_Loader_Form}     	from '../../block/plugin/block_loader/form'
 
 
 export let Form_Models = function(config)
 {
     let that = this,
-		form_loader = new Part_Loader_Form(config);
+		form_loader = new Block_Loader_Form(config);
 
 	/**
 	 *    Defining settings

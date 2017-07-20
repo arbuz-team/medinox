@@ -3,8 +3,12 @@
  */
 
 // import './autosize-master/dist/autosize';
-import './arbuz/js/base';
-import * as page_controller from './arbuz/js/controllers';
+import 'arbuz/js/base';
+import {Page_Controller} from 'arbuz/js/controllers';
+
+
+
+let page_controller = new Page_Controller();
 
 window.APP.add_own_event('load', () => {
 	page_controller.start();

@@ -1,19 +1,19 @@
 
-$header-navigation-secondary--color: $G-COLOR-4
-$header-navigation-secondary--background-color: $G-COLOR-0
+$menu-navigation-secondary--color: $G-COLOR-4
+$menu-navigation-secondary--background-color: $G-COLOR-0
 
 
 //--------------------------------------
 //         Navigation secondary
 //--------------------------------------
 
-.header-navigation-secondary
+.menu-navigation-secondary
   display: none
 
 
 @media (min-width: $G-SIZE-2)
 
-  .header-navigation-secondary
+  .menu-navigation-secondary
     position: absolute
     left: 0
     top: 0
@@ -25,12 +25,12 @@ $header-navigation-secondary--background-color: $G-COLOR-0
       left: 17px
       right: 15px
 
-    background-color: $header--color
-    color: $header--background-color
+    background-color: $menu--color
+    color: $menu--background-color
 
     z-index: 70
 
-    .navigation-field, .header-field
+    .navigation-field, .menu-field
       position: relative
       display: inline-block
       width: auto
@@ -45,13 +45,13 @@ $header-navigation-secondary--background-color: $G-COLOR-0
         cursor: pointer
 
 
-  .header-navigation-secondary-root
+  .menu-navigation-secondary-root
     display: inline-block
     float: left
     text-align: left
 
 
-  .header-navigation-secondary-user
+  .menu-navigation-secondary-user
     display: inline-block
     float: right
     text-align: right
@@ -78,7 +78,7 @@ $header-navigation-secondary--background-color: $G-COLOR-0
 
 @media (min-width: $G-SIZE-3)
 
-  .header-navigation-secondary
+  .menu-navigation-secondary
 
-    .navigation-secondary-searcher, .header-field-space.for-searcher
+    .navigation-secondary-searcher, .menu-field-space.for-searcher
       display: none

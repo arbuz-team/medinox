@@ -5,7 +5,7 @@
 import {add_to_settings} from 'arbuz/plugin/utilities/data'
 
 
-export function Part_Loader(config)
+export function Block_Loader(config)
 {
 
 	if(typeof config === 'undefined')

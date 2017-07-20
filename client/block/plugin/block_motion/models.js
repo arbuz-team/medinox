@@ -5,7 +5,7 @@
 import {data_controller} from 'arbuz/js/structure'
 
 
-export let Plugins_Motion_Models = function(config)
+export let Block_Motion_Models = function(config)
 {
   let that = this;
 

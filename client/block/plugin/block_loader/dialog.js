@@ -3,16 +3,16 @@
  */
 
 import {Request_Manager_Dialog} 	from 'arbuz/plugin/request_manager/dialog'
-import {Part_Loader} 				from './_controller'
+import {Block_Loader} 				from './_controller'
 
 
 
-export function Part_Loader_Dialog(config)
+export function Block_Loader_Dialog(config)
 {
-	Part_Loader.call(this, config);
+	Block_Loader.call(this, config);
 }
 
-Part_Loader_Dialog.prototype = Object.create(Part_Loader.prototype);
+Block_Loader_Dialog.prototype = Object.create(Block_Loader.prototype);
 
 
 
@@ -23,7 +23,7 @@ Part_Loader_Dialog.prototype = Object.create(Part_Loader.prototype);
 // --------------------------    MODEL    --------------------------
 
 
-Part_Loader_Dialog.prototype._send_request = function()
+Block_Loader_Dialog.prototype._send_request = function()
 {
 	let
 		post_data = this._variables.post_data,
@@ -36,7 +36,7 @@ Part_Loader_Dialog.prototype._send_request = function()
 
 
 
-Part_Loader_Dialog.prototype.close_dialog_if_json = function(response, status)
+Block_Loader_Dialog.prototype.close_dialog_if_json = function(response, status)
 {
 	if(status !== 'success')
 		return false;
@@ -52,7 +52,7 @@ Part_Loader_Dialog.prototype.close_dialog_if_json = function(response, status)
 };
 
 
-Part_Loader_Dialog.prototype.load_content = function(post_url, post_data)
+Block_Loader_Dialog.prototype.load_content = function(post_url, post_data)
 {
 	return new Promise((resolve) =>
 	{
@@ -79,6 +79,6 @@ Part_Loader_Dialog.prototype.load_content = function(post_url, post_data)
 };
 
 
-Part_Loader_Dialog.prototype.define = function()
+Block_Loader_Dialog.prototype.define = function()
 {
 };
