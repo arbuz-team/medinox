@@ -6,9 +6,9 @@ class Service_Move(Base_Service):
 
     def Get_Element(self):
 
-        if 'dialog_value' in self.request.POST:
+        if 'value' in self.request.POST:
             element_type = self.dialog.Get_Post_Other('type')
-            element_pk = self.request.POST['dialog_value']
+            element_pk = self.request.POST['value']
 
             # get element
             if element_type == 'product':

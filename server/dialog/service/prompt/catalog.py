@@ -9,7 +9,7 @@ class Service_Catalog(Base_Service):
     def Edit(self):
 
         catalog = SQL.Get(Model_Catalog,
-            pk=self.request.POST['dialog_value'])
+            pk=self.request.POST['value'])
 
         self.request.session['catalog_editing'] = catalog
         self.context['edit'] = {'url': '/catalog/manage/'}
@@ -18,7 +18,7 @@ class Service_Catalog(Base_Service):
 
     def Manage(self):
 
-        if 'dialog_value' in self.request.POST:
+        if 'value' in self.request.POST:
             self.Edit()
 
         else: self.New()

@@ -19,7 +19,7 @@ class Service_About(Base_Service):
     def Edit(self):
 
         about = SQL.Get(About_Content,
-            pk=self.request.POST['dialog_value'])
+            pk=self.request.POST['value'])
 
         self.request.session['main_about'] = about
         self.context['edit'] = {'url': '/product/description/manage/'}
@@ -37,7 +37,7 @@ class Service_About(Base_Service):
         if direction:
             self.New(direction)
 
-        elif 'dialog_value' in self.request.POST:
+        elif 'value' in self.request.POST:
             self.Edit()
 
         self.context['title'] = Text(self, 93)

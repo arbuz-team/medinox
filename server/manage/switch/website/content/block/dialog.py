@@ -5,13 +5,13 @@ class Dialog_Block(Endpoints):
 
     def Manage_Content(self):
 
-        if self.request.POST['dialog_type'] == 'alert':
+        if self.request.POST['_type_'] == 'alert':
             return Dialog_Alert(self).HTML
 
-        if self.request.POST['dialog_type'] == 'confirm':
+        if self.request.POST['_type_'] == 'confirm':
             return Dialog_Confirm(self).HTML
 
-        if self.request.POST['dialog_type'] == 'prompt':
+        if self.request.POST['_type_'] == 'prompt':
             return Dialog_Prompt(self).HTML
 
     def Error(self, response_class, context):
@@ -40,4 +40,6 @@ class Dialog_Block(Endpoints):
 
     def __init__(self, _object):
         Endpoints.__init__(self, _object)
-        self.website = _object.website
+
+        try: self.website = _object.website
+        except: pass

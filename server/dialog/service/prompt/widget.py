@@ -9,10 +9,10 @@ class Service_Widget(Base_Service):
     def Edit(self):
 
         # get number
-        if 'dialog_value' in self.request.POST:
-            if self.request.POST['dialog_value']:
+        if 'value' in self.request.POST:
+            if self.request.POST['value']:
 
-                widget = self.request.POST['dialog_value']
+                widget = self.request.POST['value']
                 self.instance = SQL.Get(Widget, pk=widget)
                 self.context['edit'] = {'url': '/product/widget/manage/'}
 

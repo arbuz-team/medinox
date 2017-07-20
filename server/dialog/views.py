@@ -46,7 +46,7 @@ class Dialog_Prompt(Dialog):
             return dialog_name
 
         # when standard ask about dialog
-        dialog_name = self.request.POST['dialog_name']
+        dialog_name = self.request.POST['_name_']
         if self.Get_Alias(dialog_name):
             return self.Get_Alias(dialog_name)
 

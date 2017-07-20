@@ -6,8 +6,8 @@ class Service_Deadline(Base_Service):
     def Edit(self):
 
         # open edit deadline
-        if 'dialog_value' in self.request.POST:
-            payment = self.request.POST['dialog_value']
+        if 'value' in self.request.POST:
+            payment = self.request.POST['value']
             self.instance = SQL.Get(Order_Deadline, payment=payment)
 
         # when form not valid

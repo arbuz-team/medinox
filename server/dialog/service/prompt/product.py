@@ -11,7 +11,7 @@ class Service_Product(Base_Service):
     def Edit(self):
 
         product = SQL.Get(Product,
-            pk=self.request.POST['dialog_value'])
+            pk=self.request.POST['value'])
 
         self.request.session['product_is_editing'] = True
         self.request.session['product_product'] = product
@@ -26,7 +26,7 @@ class Service_Product(Base_Service):
 
     def Manage(self):
 
-        if 'dialog_value' in self.request.POST:
+        if 'value' in self.request.POST:
             self.Edit()
 
         else: self.New()
