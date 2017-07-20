@@ -71,13 +71,11 @@ class Catalog_Manager(Website_Manager):
 
     def Manage_Button(self):
 
-        if 'delete' in self.request.POST['__button__']:
+        if 'delete' in self.request.POST['_name_']:
             SQL.Delete(data=self.request.session['catalog_editing'])
 
             self.request.session['catalog_editing'] = None
-            return JsonResponse({'__button__': 'true'})
-
-        return JsonResponse({'__button__': 'false'})
+            return HttpResponse()
 
     @staticmethod
     def Launch(request):

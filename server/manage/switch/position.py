@@ -83,13 +83,13 @@ class Position_Manager(Base_Website):
 
     def Button_Service(self, model):
 
-        if self.request.POST['__button__'] == 'delete':
+        if self.request.POST['_name_'] == 'delete':
             SQL.Delete(model, pk=self.request.POST['value'])
 
-        if self.request.POST['__button__'] == 'move_up':
+        if self.request.POST['_name_'] == 'move_up':
             desc = SQL.Get(model, pk=self.request.POST['value'])
             self.Change_Position(model, desc.position, Direction.UP)
 
-        if self.request.POST['__button__'] == 'move_down':
+        if self.request.POST['_name_'] == 'move_down':
             desc = SQL.Get(model, pk=self.request.POST['value'])
             self.Change_Position(model, desc.position, Direction.DOWN)

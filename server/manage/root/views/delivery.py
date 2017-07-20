@@ -21,7 +21,7 @@ class Delivery_Settings(Website_Manager):
             delivery.price_eur = price
 
         SQL.Save(data=delivery)
-        return JsonResponse({}) # Backend: True empty
+        return HttpResponse()
 
     @staticmethod
     def Launch(request):

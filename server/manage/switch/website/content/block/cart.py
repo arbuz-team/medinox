@@ -22,27 +22,27 @@ class Cart_Block(Endpoints, Inspector):
     def Manage_Button_Append(self):
         product = SQL.Get(Product, pk=self.request.POST['value'])
         self.payment_models_manager.Append_Selected_Product(product)
-        return JsonResponse({'__button__': 'true'})
+        return HttpResponse()
 
     def Manage_Button_Delete(self):
         product = SQL.Get(Product, pk=self.request.POST['value'])
         self.payment_models_manager.Delete_Selected_Product(product)
-        return JsonResponse({'__button__': 'true'})
+        return HttpResponse()
 
     def Manage_Button_Clear(self):
         self.payment_models_manager.Clear_Selected_Product()
-        return JsonResponse({'__button__': 'true'})
+        return HttpResponse()
 
     def Manage_Button(self):
         return_value = None
 
-        if self.request.POST['__button__'] == 'append':
+        if self.request.POST['_name_'] == 'append':
             return_value = self.Manage_Button_Append()
 
-        if self.request.POST['__button__'] == 'delete':
+        if self.request.POST['_name_'] == 'delete':
             return_value = self.Manage_Button_Delete()
 
-        if self.request.POST['__button__'] == 'clear':
+        if self.request.POST['_name_'] == 'clear':
             return_value = self.Manage_Button_Clear()
 
         self.payment_models_manager.Update_Total_Price()
@@ -56,7 +56,7 @@ class Cart_Block(Endpoints, Inspector):
         self.payment_models_manager.Edit_Number_Of_Products(
             selected_pk, number)
 
-        return JsonResponse({'__button__': 'true'})
+        return HttpResponse()
 
     def Error(self, response_class, context):
         return response_class(self.Render_To_String(

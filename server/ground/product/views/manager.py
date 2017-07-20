@@ -35,7 +35,7 @@ class Product_Manager(Website_Manager):
         self.request.session['product_product'].delete()
         self.request.session['product_product'] = None
         self.Clear_Session('searcher_result')
-        return JsonResponse({'__button__': 'true'})
+        return HttpResponse()
 
     def Manage_Button_Recommended(self):
         action = self.Get_Post_Other('action')
@@ -49,7 +49,7 @@ class Product_Manager(Website_Manager):
         if action == 'append':
             SQL.Save(Recommended_Product, product=product)
 
-        return JsonResponse({'__button__': 'true'})
+        return HttpResponse()
 
     def Manage_Button_Favorite(self):
         action = self.Get_Post_Other('action')
@@ -64,20 +64,18 @@ class Product_Manager(Website_Manager):
         if action == 'append':
             SQL.Save(Favorite_Product, product=product, user=user)
 
-        return JsonResponse({'__button__': 'true'})
+        return HttpResponse()
 
     def Manage_Button(self):
 
-        if 'delete' in self.request.POST['__button__']:
+        if 'delete' in self.request.POST['_name_']:
             return self.Manage_Button_Delete()
 
-        if 'recommended' in self.request.POST['__button__']:
+        if 'recommended' in self.request.POST['_name_']:
             return self.Manage_Button_Recommended()
 
-        if 'favorite' in self.request.POST['__button__']:
+        if 'favorite' in self.request.POST['_name_']:
             return self.Manage_Button_Favorite()
-
-        return JsonResponse({'__button__': 'false'})
 
     @staticmethod
     def Launch(request):

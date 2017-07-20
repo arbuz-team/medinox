@@ -41,17 +41,17 @@ class Users_Payments(Website_Manager):
 
     def Manage_Button(self):
 
-        if self.request.POST['__button__'] == 'assign':
+        if self.request.POST['_name_'] == 'assign':
             index = self.Get_Post_Other('index')
             payment = SQL.Get(Payment, pk=index)
             payment.status = self.request.POST['value']
             SQL.Save(data=payment)
 
-        if self.request.POST['__button__'] == 'change':
+        if self.request.POST['_name_'] == 'change':
             self.request.session['root_payment_status'] = \
                 self.request.POST['value']
 
-        return JsonResponse({'__button__': 'true'})
+        return HttpResponse()
 
     def Manage_Filter(self):
 

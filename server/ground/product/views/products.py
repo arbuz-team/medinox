@@ -22,7 +22,7 @@ class Products(Website_Manager):
         self.request.session['product_page'] = \
             int(self.request.POST['value'])
 
-        return JsonResponse({'__button__': 'true'})
+        return HttpResponse()
 
     @staticmethod
     def Launch(request):

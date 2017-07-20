@@ -5,7 +5,7 @@ import importlib
 
 class Dialog(Base_Website):
 
-    def Get_POST_Variable(self, name):
+    def Get_Dialog_Post_Variable(self, name):
 
         if name in self.request.POST:
             return self.request.POST[name]
@@ -28,18 +28,21 @@ class Dialog(Base_Website):
     def Generate_Content(self):
 
         self.context['additional'] = {
-            'name':     self.Get_POST_Variable('additional_name'),
-            'action':   self.Get_POST_Variable('additional_action'),
-            'value':    self.Get_POST_Variable('additional_value'),
-            'reload':   self.Get_POST_Variable('additional_reload'),
-            'redirect': self.Get_POST_Variable('additional_redirect'),
-            'url':      self.Get_POST_Variable('additional_url'),
-            'event':    self.Get_POST_Variable('additional_event'),
+            'name':     self.Get_Dialog_Post_Variable('additional_name'),
+            'action':   self.Get_Dialog_Post_Variable('additional_action'),
+            'value':    self.Get_Dialog_Post_Variable('additional_value'),
+            'reload':   self.Get_Dialog_Post_Variable('additional_reload'),
+            'redirect': self.Get_Dialog_Post_Variable('additional_redirect'),
+            'url':      self.Get_Dialog_Post_Variable('additional_url'),
+            'event':    self.Get_Dialog_Post_Variable('additional_event'),
+            'other_1':  self.Get_Dialog_Post_Variable('additional_other_1'),
+            'other_2':  self.Get_Dialog_Post_Variable('additional_other_2'),
+            'other_3':  self.Get_Dialog_Post_Variable('additional_other_3'),
         }
 
     @staticmethod
     def Apply_Message():
-        return JsonResponse({}) # Backend: True empty 
+        return HttpResponse()
 
     def Manage(self):
 
