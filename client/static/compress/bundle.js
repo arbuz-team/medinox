@@ -3255,7 +3255,7 @@
 		Menu_Mobile_Controller.instance = this;
 	
 		var navigation_loader = new _block.Block_Loader_Part({
-			part_name: 'navigation',
+			part_name: 'menu_mobile',
 			container: '#NAVIGATION .navigation'
 		}),
 		    navigation_motion_controller = new _controller.Block_Motion_Controllers({
@@ -3317,7 +3317,7 @@
 		Menu_Controller.instance = this;
 	
 		var header_loader = new _block.Block_Loader_Part({
-			part_name: 'header',
+			part_name: 'menu',
 			container: '.menu'
 		}),
 		    event_button_controller = new _controllers.Event_Button_Controllers({

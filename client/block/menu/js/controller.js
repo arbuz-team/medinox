@@ -17,7 +17,7 @@ export function Menu_Controller()
 
 	let
 		header_loader = new Block_Loader_Part({
-			part_name: 'header',
+			part_name: 'menu',
 			container: '.menu',
 		}),
 

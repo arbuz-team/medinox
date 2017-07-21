@@ -18,7 +18,7 @@ export function Menu_Mobile_Controller()
 
 	let
 		navigation_loader = new Block_Loader_Part({
-			part_name: 'navigation',
+			part_name: 'menu_mobile',
 			container: '#NAVIGATION .navigation',
 		}),
 
