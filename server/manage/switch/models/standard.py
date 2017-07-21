@@ -10,13 +10,6 @@ class Abstract_Model(Base_Model, models.Model):
 
     def Get_File_Data(self, name, file_dir):
 
-        # validate variables
-        if not name:
-            return
-
-        if file_dir in str(name):
-            return
-
         # get file details
         file_format = name.rsplit('.')[1]
         file_name = '{0}{1}.{2}'.format(
@@ -31,6 +24,13 @@ class Abstract_Model(Base_Model, models.Model):
 
     def Save_Image(self, name):
 
+        # validate variables
+        if not name:
+            return
+
+        if self.image_dir in str(name):
+            return
+
         old_path, new_path, url = \
             self.Get_File_Data(name, self.image_dir)
 
@@ -40,6 +40,13 @@ class Abstract_Model(Base_Model, models.Model):
         self.save()
 
     def Save_File(self, name):
+
+        # validate variables
+        if not name:
+            return
+
+        if self.file_dir in str(name):
+            return
 
         old_path, new_path, url = \
             self.Get_File_Data(name, self.file_dir)

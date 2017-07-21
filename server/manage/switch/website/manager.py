@@ -47,12 +47,17 @@ class Website_Manager(Endpoints, Inspector, Refresh, metaclass=ABCMeta):
         self.Update()
 
         if self.request.method == 'POST':
+            content_manager = Direct_Block_Manager(self)
+            response = content_manager.Direct()
+
             if self.Check():
+                return JsonResponse(response)
 
-                content_manager = Direct_Block_Manager(self)
-                return content_manager.Direct()
+            # not checked
+            response['__ground__'] = content_manager\
+                .Packing(self.ERROR_HTML)
 
-            return self.ERROR_HTML
+            return JsonResponse(response)
 
         if self.request.method == 'GET':
             return self.Index()

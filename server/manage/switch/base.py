@@ -1,10 +1,15 @@
 from server.manage.switch.settings import *
 
+from django.contrib.auth.hashers import make_password
 from django.utils.timezone import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.template.loader import render_to_string
 from django.shortcuts import render
+
+from django.http.response import HttpResponse, JsonResponse, \
+    HttpResponseRedirect, HttpResponseNotFound, \
+    HttpResponseForbidden, HttpResponseServerError
 
 from abc import ABCMeta, abstractmethod
 import string, random, time

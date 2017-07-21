@@ -25,7 +25,7 @@ class Endpoints(Base_Website):
     def Manage_Button(self):
         pass
 
-    def Error(self, response_class, context):
+    def Error(self, *args, **kwargs):
         pass
 
     def Index(self):

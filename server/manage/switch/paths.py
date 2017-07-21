@@ -1,5 +1,6 @@
 from django.core.urlresolvers import reverse, resolve
 from server.manage.switch.base import *
+from base64 import b64encode
 
 
 class Path_Manager(Base):
@@ -21,6 +22,18 @@ class Path_Manager(Base):
         text = text.replace(' ', '_').lower()
         text = text.replace('-', '')
         return Base.Convert_Polish_To_Ascii(text)
+
+    def Create_Redirect_URL(self, name_from, name_to, kwargs=None):
+
+        name_from = self.Get_Path(
+            name_from, kwargs, current_language=True)
+
+        name_to = self.Get_Path(
+            name_to, kwargs, current_language=True)
+
+        name_to = b64encode(bytes(name_to, 'utf-8'))
+        name_to = name_to.decode('utf-8')
+        return '{0}redirect/{1}/'.format(name_from, name_to)
 
     def Get_Urls(self, name=None, kwargs=None,
                  language=None, current_language=False):

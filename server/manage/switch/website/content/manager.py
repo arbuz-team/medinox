@@ -40,10 +40,12 @@ class Direct_Block_Manager(Base):
     def Packing(response):
 
         data = {
-            'code': response.status_code,
-            'html': response.content.decode('utf-8')
+            'html': response.content.decode('utf-8'), # Backend: content
+            'code': response.status_code
         }
 
+        try: data['url'] = response.url
+        except: pass
         return data
 
     def Direct(self):
@@ -71,7 +73,7 @@ class Direct_Block_Manager(Base):
             self.request.session['arbuz_response'] = response
 
         self.request.session['arbuz_response'] = {}
-        return JsonResponse(response)
+        return response
 
     def __init__(self, website):
         Base.__init__(self, website)
@@ -80,8 +82,8 @@ class Direct_Block_Manager(Base):
         self.blocks = {
             '__ground__': self.website,
             '__cart__': Cart_Block(self),
-            '__header__': Menu_Standard_Block(self),
-            '__navigation__': Menu_Mobile_Block(self),
+            '__menu__': Menu_Block(self),
+            '__menu_mobile__': Menu_Mobile_Block(self),
             '__searcher__': Searcher_Block(self),
             '__dialog__': Dialog_Block(self)
         }

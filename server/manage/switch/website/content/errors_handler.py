@@ -1,6 +1,5 @@
 from .manager import *
 from server.manage.switch.status import *
-from django.http.response import *
 
 
 class Errors_Handler(Base):
@@ -95,8 +94,8 @@ class Errors_Handler(Base):
         self.blocks = {
             '__ground__': Ground_Block(self),
             '__cart__': Cart_Block(self),
-            '__header__': Menu_Standard_Block(self),
-            '__navigation__': Menu_Mobile_Block(self),
+            '__menu__': Menu_Block(self),
+            '__menu_mobile__': Menu_Mobile_Block(self),
             '__searcher__': Searcher_Block(self),
             '__dialog__': Dialog_Block(self)
         }

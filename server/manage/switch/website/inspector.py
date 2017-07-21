@@ -8,10 +8,19 @@ class Inspector(Base_Website):
         self.context['error'] = 'no_event'
         return self.Render_HTML('arbuz/error.html')
 
-    # Backend: fix to HttpResponseRedirect
     def Error_Authorization(self):
-        self.context['error'] = 'unauthorized'
-        return self.Render_HTML('arbuz/error.html')
+        path_manager = Path_Manager(self)
+        redirect = None
+
+        if self.only_root:
+            redirect = path_manager.Create_Redirect_URL(
+                'root.sign_in', None)
+
+        if self.authorization:
+            redirect = path_manager.Create_Redirect_URL(
+                'user.sign_in', None)
+
+        return HttpResponseRedirect(redirect)
 
     def Check_Authorization(self):
 

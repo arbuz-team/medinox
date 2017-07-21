@@ -1,6 +1,3 @@
-from django.http import JsonResponse, HttpResponse
-from django.contrib.auth.hashers import make_password
-
 from server.service.file.views import *
 from server.manage.switch.paths import *
 from server.manage.switch.status import *

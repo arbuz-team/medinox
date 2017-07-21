@@ -21,22 +21,22 @@ class Dialog_Block(Endpoints):
     # methods direct to ground `website`
 
     def Manage_Form(self):
-        self.website.Manage_Form()
+        return self.website.Manage_Form()
 
     def Manage_Exist(self):
-        self.website.Manage_Exist()
+        return self.website.Manage_Exist()
 
     def Manage_Get(self):
-        self.website.Manage_Get()
+        return self.website.Manage_Get()
 
     def Manage_Little_Form(self):
-        self.website.Manage_Little_Form()
+        return self.website.Manage_Little_Form()
 
     def Manage_Filter(self):
-        self.website.Manage_Filter()
+        return self.website.Manage_Filter()
 
     def Manage_Button(self):
-        self.website.Manage_Button()
+        return self.website.Manage_Button()
 
     def __init__(self, _object):
         Endpoints.__init__(self, _object)
