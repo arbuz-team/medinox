@@ -48,15 +48,15 @@ class Website_Manager(Endpoints, Inspector, Refresh, metaclass=ABCMeta):
 
         if self.request.method == 'POST':
             content_manager = Direct_Block_Manager(self)
-            response = content_manager.Direct()
 
+            # check everything, when not valid
+            # save error to ERROR_HTML
             if self.Check():
+                response = content_manager.Direct()
                 return JsonResponse(response)
 
             # not checked
-            response['__ground__'] = content_manager\
-                .Packing(self.ERROR_HTML)
-
+            response = content_manager.Direct(self.ERROR_HTML)
             return JsonResponse(response)
 
         if self.request.method == 'GET':

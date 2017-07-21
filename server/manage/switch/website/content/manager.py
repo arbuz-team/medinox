@@ -48,36 +48,50 @@ class Direct_Block_Manager(Base):
         except: pass
         return data
 
-    def Direct(self):
+    def Create_Block(self, variable):
 
+        # error block for ground
+        if variable == '__ground__':
+            if self.ground_content:
+                return self.Packing(self.ground_content)
+
+        response = self.Manage(variable)
+        return self.Packing(response)
+
+    def Direct(self, ground_content=None):
+
+        # variable
         self.request.session['arbuz_response'] = {}
+        self.ground_content = ground_content
+
         variables = self.request.POST.keys()
+        exception = None
         response = {}
 
         # manage only block variables
         for var in variables:
             if var.startswith('__') and var.endswith('__'):
 
-                # without ground - generate at the end
-                if var == '__ground__':
-                    continue
+                try:
 
-                html_response = self.Manage(var)
-                response[var] = self.Packing(html_response)
-                self.request.session['arbuz_response'] = response
+                    response[var] = self.Create_Block(var)
+                    self.request.session['arbuz_response'] = response
 
-        # manage ground
-        if '__ground__' in variables:
-            html_response = self.Manage('__ground__')
-            response['__ground__'] = self.Packing(html_response)
-            self.request.session['arbuz_response'] = response
+                except Exception as e:
+                    exception = e
 
+        # error in some blocks
+        if exception:
+            raise exception
+
+        # response
         self.request.session['arbuz_response'] = {}
         return response
 
     def __init__(self, website):
         Base.__init__(self, website)
 
+        self.ground_content = None
         self.website = website
         self.blocks = {
             '__ground__': self.website,
