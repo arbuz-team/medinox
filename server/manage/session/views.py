@@ -104,8 +104,8 @@ class Session_Controller:
         if 'product_page' not in self.request.session:
             self.request.session['product_page'] = 1
 
-        if 'product_number_product_on_page' not in self.request.session:
-            self.request.session['product_number_product_on_page'] = 10
+        if 'product_number_on_page' not in self.request.session:
+            self.request.session['product_number_on_page'] = 10
 
     def Check_Session_Catalog(self):
 

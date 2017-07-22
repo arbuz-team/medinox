@@ -4,7 +4,7 @@ class Sign_Out(Website_Manager):
 
     def Manage_Content(self):
         self.request.session['root_login'] = False
-        self.request.session['product_number_product_on_page'] = 10
+        self.request.session['product_number_on_page'] = 10
         return self.Render_HTML('root/sign_out.html')
 
     def Check_Authorization(self):

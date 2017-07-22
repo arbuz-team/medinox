@@ -18,7 +18,7 @@ class Search_Engine(Base):
             reduce(operator.or_, (Q(description__header__icontains=s)       for s in self.words)) |
             reduce(operator.or_, (Q(description__paragraph__icontains=s)    for s in self.words)) |
             reduce(operator.or_, (Q(widget__name__icontains=s)              for s in self.words)) |
-            reduce(operator.or_, (Q(values__name__icontains=s)              for s in self.words)) &
+            reduce(operator.or_, (Q(widget__values__name__icontains=s)      for s in self.words)) &
                                   Q(language=language)
         )
 
@@ -67,10 +67,10 @@ class Search_Engine(Base):
         self.__Sort_Result()
         return self.products
 
-    def __init__(self, request, phrase):
-        self.request = request
+    def __init__(self, _object, phrase):
+        Base.__init__(self, _object)
         self.products = None
+        self.words = []
 
-        Base.__init__(self, self)
         if phrase: self.words = \
             self.Get_Words(phrase)

@@ -9,7 +9,15 @@ class Searcher_Block(Endpoints):
         self.context['brands'] = SQL.All(Brand)
         return self.Render_HTML('block/searcher.html')
 
+    def Manage_Filter_Phrase(self):
+        self.request.session['searcher_result'] = None
+        self.request.session['searcher_phrase'] = \
+            self.request.POST['value']
+
+        return HttpResponse()
+
     def Manage_Filter_Brand(self):
+        self.request.session['searcher_result'] = None
         filters = self.request.session['searcher_filter_brand']
 
         if self.request.POST['action'] == 'append':#
@@ -21,12 +29,6 @@ class Searcher_Block(Endpoints):
             if self.request.POST['name'] in filters:
                 filters.remove(self.request.POST['name'])
                 self.request.session['searcher_filter_brand'] = filters
-
-        return HttpResponse()
-
-    def Manage_Filter_Phrase(self):
-        self.request.session['searcher_phrase'] = \
-            self.request.POST['value']
 
         return HttpResponse()
 
@@ -44,11 +46,11 @@ class Searcher_Block(Endpoints):
 
     def Manage_Filter(self):
 
-        if self.request.POST['_name_'] == 'brand':
-            return self.Manage_Filter_Brand()
-
         if self.request.POST['_name_'] == 'phrase':
             return self.Manage_Filter_Phrase()
+
+        if self.request.POST['_name_'] == 'brand':
+            return self.Manage_Filter_Brand()
 
         if self.request.POST['_name_'] == 'order':
             return self.Manage_Filter_Order()

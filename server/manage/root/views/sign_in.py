@@ -13,7 +13,7 @@ class Sign_In(Website_Manager):
 
         if self.context['form'].is_valid():
             self.request.session['root_login'] = True
-            self.request.session['product_number_product_on_page'] = 9
+            self.request.session['product_number_on_page'] = 9
 
             self.context['form'] = None  # message of correct
             return self.Render_HTML('root/sign_in.html')
