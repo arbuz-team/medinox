@@ -2,85 +2,116 @@
  * Created by mrskull on 17.01.17.
  */
 
+import {Request_Manager} from 'arbuz/plugin/request_manager/_controller'
+
+
 
 export let Auto_Form_Models = function(config)
 {
-  let that = this;
+	let request_manager = new Request_Manager();
 
-  this.settings = {
-    form: undefined,
-    fields: undefined,
+	this.settings = {
+		post_name:  undefined,
 
-    action: undefined,
-    origin: undefined,
-    redirect: undefined,
-    reload: undefined,
-    delay: undefined,
-  };
+		form:       undefined,
+		fields:     undefined,
 
-  let load_settings = function()
-  {
-    if(typeof config !== 'undefined')
-    {
-      // -- Form
-      if(typeof config.form !== 'undefined')
-      {
-        that.settings.form = config.form;
+		origin:     undefined,
+		redirect:   undefined,
+		reload:     undefined,
+		delay:      undefined,
+	};
 
-        let $form = that.settings.form;
-        that.settings.action = $form.attr('action');
-        that.settings.origin = $form.data('origin');
-        that.settings.redirect = $form.data('redirect');
-        that.settings.reload = $form.data('reload');
-        that.settings.delay = $form.data('delay');
-      }
+	let
+		variables = {
+			post_data:  {},
+		},
+
+		state = {
+			response:   false,
+			error:      false,
+		},
 
 
-      // -- Fields
-      if(typeof config.fields !== 'undefined')
-        that.settings.fields = config.fields;
-    }
-  };
+		load_settings = () =>
+		{
+			if(typeof config !== 'undefined')
+			{
+				// -- Form
+				if(typeof config.form !== 'undefined')
+				{
+					this.settings.post_name = config.post_name;
+					this.settings.form = config.form;
 
-  load_settings();
+					let $form = this.settings.form;
+					this.settings.origin = $form.data('origin');
+					this.settings.redirect = $form.data('redirect');
+					this.settings.reload = $form.data('reload');
+					this.settings.delay = $form.data('delay');
+				}
 
-/////////////////////////
 
-  let state = {
-    response: false,
-    error: false,
-  };
+				// -- Fields
+				if(typeof config.fields !== 'undefined')
+					this.settings.fields = config.fields;
+			}
+		};
 
-  this.get_state_response = function()
-  {
-    if(state.response)
-      return true;
-    else
-      return false;
-  };
+	load_settings();
 
-  this.set_state_response = function(setter)
-  {
-    if(setter)
-      state.response = true;
-    else
-      state.response = false;
-  };
+	/////////////////////////
 
-  this.get_state_error = function()
-  {
-    if(state.error)
-      return true;
-    else
-      return false;
-  };
+	this.get_state_response = function()
+	{
+		if(state.response)
+			return true;
+		else
+			return false;
+	};
 
-  this.set_state_error = function(setter)
-  {
-    if(setter)
-      state.error = true;
-    else
-      state.error = false;
-  };
+	this.set_state_response = function(setter)
+	{
+		if(setter)
+			state.response = true;
+		else
+			state.response = false;
+	};
+
+	this.get_state_error = function()
+	{
+		if(state.error)
+			return true;
+		else
+			return false;
+	};
+
+	this.set_state_error = function(setter)
+	{
+		if(setter)
+			state.error = true;
+		else
+			state.error = false;
+	};
+
+	// --------------------------------------------------
+
+
+	this.prepare_post_data = function(name, value)
+	{
+		variables.post_data = {};
+
+		variables.post_data[this.settings.post_name] = this.settings.origin;
+		variables.post_data._name_ = name;
+		variables.post_data.value = value;
+	};
+
+
+	this.send = function()
+	{
+		this.set_state_response(false);
+
+		return request_manager.send(undefined, variables.post_data, this.settings.post_name);
+	};
+
 
 };

@@ -16,17 +16,16 @@
 
 
 <div class="searcher-phrase auto_form">
-    <form action="/searcher/" data-origin="filter" data-redirect="/products/" data-delay="100">
+    <form action="/searcher/" data-origin="filter" data-redirect="/product/:/" data-delay="100">
         <input class="searcher-field searcher-phrase-field auto_field only_enter"
 			   type="text"
-			   name="search"
-			   placeholder="Search"
-			   data-name="phrase" />
+			   name="phrase"
+			   placeholder="Search" />
     </form>
 </div>
 
 
-<form class="searcher-filters auto_form" action="/searcher/" data-origin="filter" data-redirect="/products/" data-delay="1000">
+<form class="searcher-filters auto_form" data-origin="filter" data-redirect="/product/:/" data-delay="1000">
 
     <div class="searcher-sort">
         <div>

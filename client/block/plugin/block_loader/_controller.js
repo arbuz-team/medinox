@@ -5,6 +5,7 @@
 import {data_controller} 	from 'arbuz/js/structure'
 import {select_number} 	from 'arbuz/plugin/utilities/data'
 import {timeout_promise} 	from 'arbuz/plugin/utilities/standard'
+import {Request_Manager_Block} 	from 'arbuz/plugin/request_manager/block'
 
 import {Block_Loader} 		from './_init'
 import './_model'
@@ -31,7 +32,13 @@ Block_Loader.prototype.redirect = function()
 		variables.redirect_time_out = setTimeout(() =>
 		{
 			if(state.can_do_redirect === true)
+			{
+				let request_manager = new Request_Manager_Block();
+
 				this.load_content(url).then(resolve);
+				request_manager.send_list();
+			}
+
 		}, delay);
 	});
 };

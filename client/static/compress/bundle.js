@@ -301,7 +301,7 @@
 	
 	var _controller2 = __webpack_require__(26);
 	
-	var _controllers = __webpack_require__(41);
+	var _controllers = __webpack_require__(42);
 	
 	function Search_Controller() {
 		if (_typeof(Search_Controller.instance) === 'object') return Search_Controller.instance;
@@ -948,6 +948,8 @@
 	
 	var _standard = __webpack_require__(19);
 	
+	var _block = __webpack_require__(14);
+	
 	__webpack_require__(20);
 	
 	__webpack_require__(21);
@@ -965,7 +967,12 @@
 			clearTimeout(variables.redirect_time_out);
 	
 			variables.redirect_time_out = setTimeout(function () {
-				if (state.can_do_redirect === true) _this.load_content(url).then(resolve);
+				if (state.can_do_redirect === true) {
+					var request_manager = new _block.Request_Manager_Block();
+	
+					_this.load_content(url).then(resolve);
+					request_manager.send_list();
+				}
 			}, delay);
 		});
 	};
@@ -1241,7 +1248,8 @@
 	    if (!$imgs[i]) return false;
 	
 	    var downloadingImage = new Image(),
-	        data_src = attr($imgs[i], 'data-src');
+	        data_src = attr($imgs[i], 'data-src'),
+	        data_src_default = attr($imgs[i], 'data-default-src');
 	
 	    downloadingImage.onload = function () {
 	      $imgs[i].src = this.src;
@@ -1252,8 +1260,8 @@
 	    };
 	
 	    downloadingImage.onerror = function () {
-	      $imgs[i].src = default_src;
-	      $imgs[i].alt = 'Sorry, an error has occurred.';
+	      $imgs[i].src = data_src_default || default_src;
+	
 	      setTimeout(function () {
 	        $imgs[i].style = 'opacity: 1;';
 	        $imgs[i].setAttribute('class', 'error');
@@ -1586,11 +1594,11 @@
 	
 	var auto_form = _interopRequireWildcard(_controllers2);
 	
-	var _controllers3 = __webpack_require__(37);
+	var _controllers3 = __webpack_require__(38);
 	
 	var selected_form = _interopRequireWildcard(_controllers3);
 	
-	var _controllers4 = __webpack_require__(38);
+	var _controllers4 = __webpack_require__(39);
 	
 	var file_converter = _interopRequireWildcard(_controllers4);
 	
@@ -1622,14 +1630,18 @@
 		};
 	
 		this.define = function () {
-			var $container = $(config.container);
+			var $container = $(config.container),
+			    config_form = {
+				post_name: '__' + config.part_name + '__',
+				$container: $container
+			};
 	
 			$('form', $container).submit(prepare_form_to_send);
 	
-			validator.define($container);
-			auto_form.define($container);
-			selected_form.define($container);
-			file_converter.define($container);
+			validator.define(config_form);
+			auto_form.define(config_form);
+			selected_form.define(config_form);
+			file_converter.define(config_form);
 		};
 	};
 
@@ -2256,49 +2268,51 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.define = undefined;
 	
 	var _views = __webpack_require__(35);
 	
 	var add_event_on_fields = function add_event_on_fields(auto_form_views) {
-	  var settings = auto_form_views.models.settings,
-	      $field = void 0;
+		var settings = auto_form_views.models.settings,
+		    $field = void 0;
 	
-	  settings.fields.each(function () {
-	    $field = $(this);
+		settings.fields.each(function () {
+			$field = $(this);
 	
-	    if ($field.is(':checkbox')) $field.change(auto_form_views.send_checkbox);else if ($field.is(':text')) {
-	      if ($field.hasClass('only_enter')) $field.keydown(auto_form_views.send_on_enter);else {
-	        if ($field.hasClass('always')) $field.keyup(auto_form_views.send_if_number_only);
+			if ($field.is(':checkbox')) $field.change(auto_form_views.send_checkbox);else if ($field.is(':text')) {
+				if ($field.hasClass('only_enter')) $field.keydown(auto_form_views.send_on_enter);else {
+					if ($field.hasClass('always')) $field.keyup(auto_form_views.send_if_number_only);
 	
-	        if ($field.hasClass('only_number_3')) $field.keydown(auto_form_views.try_press_number_max_3);
+					if ($field.hasClass('only_number_3')) $field.keydown(auto_form_views.try_press_number_max_3);
 	
-	        $field.change(auto_form_views.send_default).keydown(auto_form_views.send_on_enter);
-	      }
-	    } else $field.change(auto_form_views.send_default);
-	  });
+					$field.change(auto_form_views.send_default).keydown(auto_form_views.send_on_enter);
+				}
+			} else $field.change(auto_form_views.send_default);
+		});
 	},
 	    do_nothing = function do_nothing(event) {
-	  event.preventDefault();
-	  return false;
+		event.preventDefault();
+		return false;
 	};
 	
-	var define = exports.define = function define($container) {
-	  var $forms = $('form.auto_form, .auto_form form', $container);
+	var define = exports.define = function define(config) {
+		var $container = config.$container,
+		    $forms = $('form.auto_form, .auto_form form', $container);
 	
-	  $forms.each(function () {
-	    var $form = $(this),
-	        config = {
-	      form: $form,
-	      fields: $('.auto_field', $form)
-	    },
-	        auto_form_views = new _views.Auto_Form_Views(config);
+		$forms.each(function () {
+			var $form = $(this),
+			    config_form = {
+				form: $form,
+				fields: $('.auto_field', $form),
+				post_name: config.post_name
+			},
+			    auto_form_views = new _views.Auto_Form_Views(config_form);
 	
-	    $form.submit(do_nothing);
-	    add_event_on_fields(auto_form_views);
-	  });
+			$form.submit(do_nothing);
+			add_event_on_fields(auto_form_views);
+		});
 	};
 
 /***/ },
@@ -2308,145 +2322,148 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.Auto_Form_Views = undefined;
 	
-	var _models = __webpack_require__(36);
+	var _response = __webpack_require__(36);
+	
+	var _models = __webpack_require__(37);
 	
 	var Auto_Form_Views = exports.Auto_Form_Views = function Auto_Form_Views(config) {
-	  var models = new _models.Auto_Form_Models(config),
-	      that = this,
-	      sent_http_request = setTimeout(function () {}, 0);
+		var models = new _models.Auto_Form_Models(config),
+		    that = this,
+		    sent_http_request = setTimeout(function () {}, 0);
 	
-	  this.models = models;
+		this.models = models;
 	
-	  var check_is_number = function check_is_number(event) {
-	    var keycode = event.keyCode,
-	        valid = keycode === 8 || keycode === 46 || keycode > 47 && keycode < 58 || keycode > 95 && keycode < 112;
+		var check_is_number = function check_is_number(event) {
+			var keycode = event.keyCode,
+			    valid = keycode === 8 || keycode === 46 || keycode > 47 && keycode < 58 || keycode > 95 && keycode < 112;
 	
-	    return valid;
-	  };
+			return valid;
+		};
 	
-	  var check_is_not_number_or_functionaly = function check_is_not_number_or_functionaly(event) {
-	    var keycode = event.keyCode,
-	        valid = keycode === 32 || keycode === 13 || keycode > 64 && keycode < 91 || keycode > 185 && keycode < 193 || keycode > 218 && keycode < 223 || keycode == 16 || event.ctrlKey || event.shiftKey || keycode > 105 && keycode < 110 || keycode == 111;
+		var check_is_not_number_or_functionaly = function check_is_not_number_or_functionaly(event) {
+			var keycode = event.keyCode,
+			    valid = keycode === 32 || keycode === 13 || keycode > 64 && keycode < 91 || keycode > 185 && keycode < 193 || keycode > 218 && keycode < 223 || keycode == 16 || event.ctrlKey || event.shiftKey || keycode > 105 && keycode < 110 || keycode == 111;
 	
-	    return valid;
-	  };
+			return valid;
+		};
 	
-	  var check_is_not_functionaly = function check_is_not_functionaly(event) {
-	    var keycode = event.keyCode,
-	        valid = keycode > 47 && keycode < 58 || keycode === 32 || keycode === 13 || keycode > 64 && keycode < 91 || keycode > 95 && keycode < 112 || keycode > 185 && keycode < 193 || keycode > 218 && keycode < 223 || keycode == 16 || event.ctrlKey || event.shiftKey || keycode > 105 && keycode < 110 || keycode == 111;
+		var check_is_not_functionaly = function check_is_not_functionaly(event) {
+			var keycode = event.keyCode,
+			    valid = keycode > 47 && keycode < 58 || keycode === 32 || keycode === 13 || keycode > 64 && keycode < 91 || keycode > 95 && keycode < 112 || keycode > 185 && keycode < 193 || keycode > 218 && keycode < 223 || keycode == 16 || event.ctrlKey || event.shiftKey || keycode > 105 && keycode < 110 || keycode == 111;
 	
-	    return valid;
-	  };
+			return valid;
+		};
 	
-	  this.try_press_number_max_3 = function (event) {
+		this.try_press_number_max_3 = function (event) {
 	
-	    if (check_is_not_number_or_functionaly(event)) {
-	      event.preventDefault();
-	    } else {
-	      var length = $(this).val().length;
-	      if (length > 2 && check_is_not_functionaly(event)) event.preventDefault();
-	    }
-	  };
+			if (check_is_not_number_or_functionaly(event)) {
+				event.preventDefault();
+			} else {
+				var length = $(this).val().length;
+				if (length > 2 && check_is_not_functionaly(event)) event.preventDefault();
+			}
+		};
 	
-	  this.send_if_number_only = function (event) {
-	    if (check_is_number(event)) {
-	      var $field = $(this),
-	          name = $field.data('name'),
-	          value = $field.val();
+		this.send_if_number_only = function (event) {
+			if (check_is_number(event)) {
+				var $field = $(this),
+				    name = $field.data('name'),
+				    value = $field.val();
 	
-	      that.send_default(name, value);
-	    }
-	  };
+				that.send_default(name, value);
+			}
+		};
 	
-	  var check_is_key_code_enter = function check_is_key_code_enter(event) {
-	    return event.keyCode === 13;
-	  };
+		var check_is_key_code_enter = function check_is_key_code_enter(event) {
+			return event.keyCode === 13;
+		};
 	
-	  this.send_checkbox = function () {
-	    var $field = $(this),
-	        post_data = {};
+		this.send_checkbox = function () {
+			var $field = $(this),
+			    form_name = $field.data('name'),
+			    name = $field.attr('name'),
+			    value = void 0;
 	
-	    post_data['__' + models.settings.origin + '__'] = $field.data('name');
-	    post_data['name'] = $field.attr('name');
+			if ($field.is(':checked')) value = 'append';else value = 'delete';
 	
-	    if ($field.is(':checked')) post_data['action'] = 'append';else post_data['action'] = 'delete';
+			models.prepare_post_data(name, value);
 	
-	    send(post_data);
-	  };
+			send();
+		};
 	
-	  this.send_default = function (name, value) {
-	    var $field = void 0,
-	        post_data = {};
+		this.send_default = function (name, value) {
+			var $field = void 0;
 	
-	    if (name && value) {
-	      post_data['__' + models.settings.origin + '__'] = name;
-	      post_data['value'] = value;
-	    } else {
-	      $field = $(this);
+			if (name && value) {
+				models.prepare_post_data(name, value);
+			} else {
+				$field = $(this);
 	
-	      post_data['__' + models.settings.origin + '__'] = $field.data('name');
-	      post_data['value'] = $field.val();
-	    }
+				models.prepare_post_data($field.data('name'), $field.val());
+			}
 	
-	    send(post_data);
-	  };
+			send();
+		};
 	
-	  this.send_on_enter = function (event) {
-	    if (check_is_key_code_enter(event)) {
-	      event.preventDefault();
-	      var $field = $(this),
-	          post_data = {};
+		this.send_on_enter = function (event) {
+			if (check_is_key_code_enter(event)) {
+				event.preventDefault();
+				var $field = $(this);
 	
-	      post_data['__' + models.settings.origin + '__'] = $field.data('name');
-	      post_data['value'] = $field.val();
+				models.prepare_post_data($field.attr('name'), $field.val());
 	
-	      send(post_data);
-	    }
-	  };
+				send();
+			}
+		};
 	
-	  var show_changes = function show_changes() {
-	    var delay = void 0,
-	        function_for_setTimeout = function function_for_setTimeout() {
-	      if (models.get_state_response() && models.get_state_error() === false) {
-	        APP.DATA.delay = delay;
+		var show_changes = function show_changes() {
+			var delay = void 0,
+			    function_for_setTimeout = function function_for_setTimeout() {
+				if (models.get_state_response() && models.get_state_error() === false) {
+					APP.DATA.delay = delay;
 	
-	        if (models.settings.redirect) {
-	          APP.DATA.redirect = models.settings.redirect;
+					if (models.settings.redirect) {
+						APP.DATA.redirect = models.settings.redirect;
 	
-	          APP.throw_event(EVENTS.redirect);
-	        } else if (models.settings.reload) {
-	          APP.throw_event(EVENTS.part['reload_' + models.settings.reload]);
-	        }
-	      } else if (models.get_state_error()) return false;else sent_http_request = setTimeout(function_for_setTimeout, 100);
-	    };
+						APP.throw_event(EVENTS.redirect);
+					} else if (models.settings.reload) {
+						APP.throw_event(EVENTS.part['reload_' + models.settings.reload]);
+					}
+				} else if (models.get_state_error()) {
+					return false;
+				} else {
+					sent_http_request = setTimeout(function_for_setTimeout, 100);
+				}
+			};
 	
-	    if (typeof models.settings.delay !== 'undefined') delay = models.settings.delay;else delay = 0;
+			if (typeof models.settings.delay !== 'undefined') delay = models.settings.delay;else delay = 0;
 	
-	    clearTimeout(sent_http_request);
-	    sent_http_request = setTimeout(function_for_setTimeout, delay);
-	  },
-	      is_error = function is_error(status) {
-	    return status !== 'success';
-	  },
-	      set_response = function set_response(JSON_response, status) {
-	    if (is_error(status)) {
-	      models.set_state_error(true);
-	      models.set_state_response(false);
-	      return false;
-	    }
+			clearTimeout(sent_http_request);
+			sent_http_request = setTimeout(function_for_setTimeout, delay);
+		},
+		    is_error = function is_error(code) {
+			return (0, _response.recognise_status)(code) === 'error';
+		},
+		    set_response = function set_response(response) {
+			if (is_error(response.code)) {
+				models.set_state_error(true);
+				models.set_state_response(false);
+				return false;
+			}
 	
-	    models.set_state_error(false);
-	    models.set_state_response(true);
-	  },
-	      send = function send(post_data) {
-	    models.set_state_response(false);
-	    APP.http_request(models.settings.action, post_data, set_response);
-	    show_changes();
-	  };
+			models.set_state_error(false);
+			models.set_state_response(true);
+		},
+		    send = function send() {
+			models.send().then(function (response) {
+				set_response(response);
+			});
+			show_changes();
+		};
 	};
 
 /***/ },
@@ -2456,65 +2473,111 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
-	var Auto_Form_Models = exports.Auto_Form_Models = function Auto_Form_Models(config) {
-	  var that = this;
+	var recognise_status = exports.recognise_status = function recognise_status(code) {
+		if (code >= 200 && code < 300) return 'success';
 	
-	  this.settings = {
-	    form: undefined,
-	    fields: undefined,
+		if (code >= 300 && code < 400) return 'redirect';
 	
-	    action: undefined,
-	    origin: undefined,
-	    redirect: undefined,
-	    reload: undefined,
-	    delay: undefined
-	  };
-	
-	  var load_settings = function load_settings() {
-	    if (typeof config !== 'undefined') {
-	      if (typeof config.form !== 'undefined') {
-	        that.settings.form = config.form;
-	
-	        var $form = that.settings.form;
-	        that.settings.action = $form.attr('action');
-	        that.settings.origin = $form.data('origin');
-	        that.settings.redirect = $form.data('redirect');
-	        that.settings.reload = $form.data('reload');
-	        that.settings.delay = $form.data('delay');
-	      }
-	
-	      if (typeof config.fields !== 'undefined') that.settings.fields = config.fields;
-	    }
-	  };
-	
-	  load_settings();
-	
-	  var state = {
-	    response: false,
-	    error: false
-	  };
-	
-	  this.get_state_response = function () {
-	    if (state.response) return true;else return false;
-	  };
-	
-	  this.set_state_response = function (setter) {
-	    if (setter) state.response = true;else state.response = false;
-	  };
-	
-	  this.get_state_error = function () {
-	    if (state.error) return true;else return false;
-	  };
-	
-	  this.set_state_error = function (setter) {
-	    if (setter) state.error = true;else state.error = false;
-	  };
+		return 'error';
+	},
+	    prepare_error_data = exports.prepare_error_data = function prepare_error_data() {
+		return {
+			html: '',
+			code: 500
+		};
 	};
 
 /***/ },
 /* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Auto_Form_Models = undefined;
+	
+	var _controller = __webpack_require__(15);
+	
+	var Auto_Form_Models = exports.Auto_Form_Models = function Auto_Form_Models(config) {
+		var _this = this;
+	
+		var request_manager = new _controller.Request_Manager();
+	
+		this.settings = {
+			post_name: undefined,
+	
+			form: undefined,
+			fields: undefined,
+	
+			origin: undefined,
+			redirect: undefined,
+			reload: undefined,
+			delay: undefined
+		};
+	
+		var variables = {
+			post_data: {}
+		},
+		    state = {
+			response: false,
+			error: false
+		},
+		    load_settings = function load_settings() {
+			if (typeof config !== 'undefined') {
+				if (typeof config.form !== 'undefined') {
+					_this.settings.post_name = config.post_name;
+					_this.settings.form = config.form;
+	
+					var $form = _this.settings.form;
+					_this.settings.origin = $form.data('origin');
+					_this.settings.redirect = $form.data('redirect');
+					_this.settings.reload = $form.data('reload');
+					_this.settings.delay = $form.data('delay');
+				}
+	
+				if (typeof config.fields !== 'undefined') _this.settings.fields = config.fields;
+			}
+		};
+	
+		load_settings();
+	
+		this.get_state_response = function () {
+			if (state.response) return true;else return false;
+		};
+	
+		this.set_state_response = function (setter) {
+			if (setter) state.response = true;else state.response = false;
+		};
+	
+		this.get_state_error = function () {
+			if (state.error) return true;else return false;
+		};
+	
+		this.set_state_error = function (setter) {
+			if (setter) state.error = true;else state.error = false;
+		};
+	
+		this.prepare_post_data = function (name, value) {
+			variables.post_data = {};
+	
+			variables.post_data[this.settings.post_name] = this.settings.origin;
+			variables.post_data._name_ = name;
+			variables.post_data.value = value;
+		};
+	
+		this.send = function () {
+			this.set_state_response(false);
+	
+			return request_manager.send(undefined, variables.post_data, this.settings.post_name);
+		};
+	};
+
+/***/ },
+/* 38 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2568,7 +2631,7 @@
 	};
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2578,7 +2641,7 @@
 	});
 	exports.define = undefined;
 	
-	var _views = __webpack_require__(39);
+	var _views = __webpack_require__(40);
 	
 	var image_convert_views = _interopRequireWildcard(_views);
 	
@@ -2604,7 +2667,7 @@
 	};
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2614,7 +2677,7 @@
 	});
 	exports.Callback_Functions = exports.get_base64 = exports.settings = exports.models = undefined;
 	
-	var _models = __webpack_require__(40);
+	var _models = __webpack_require__(41);
 	
 	var image_convert_models = _interopRequireWildcard(_models);
 	
@@ -2664,7 +2727,7 @@
 	};
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2684,7 +2747,7 @@
 	};
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2694,7 +2757,7 @@
 	});
 	exports.Post_Button_Controllers = undefined;
 	
-	var _views = __webpack_require__(42);
+	var _views = __webpack_require__(43);
 	
 	var Post_Button_Controllers = exports.Post_Button_Controllers = function Post_Button_Controllers(config) {
 		if (typeof config === 'undefined' && typeof config.container === 'undefined') {
@@ -2741,7 +2804,7 @@
 	};
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2755,7 +2818,7 @@
 	
 	var utilities = _interopRequireWildcard(_utilities);
 	
-	var _response = __webpack_require__(43);
+	var _response = __webpack_require__(36);
 	
 	var _models = __webpack_require__(44);
 	
@@ -2862,29 +2925,6 @@
 		};
 	
 		this.models = models;
-	};
-
-/***/ },
-/* 43 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	var recognise_status = exports.recognise_status = function recognise_status(code) {
-		if (code >= 200 && code < 300) return 'success';
-	
-		if (code >= 300 && code < 400) return 'redirect';
-	
-		return 'error';
-	},
-	    prepare_error_data = exports.prepare_error_data = function prepare_error_data() {
-		return {
-			html: '',
-			code: 500
-		};
 	};
 
 /***/ },
@@ -3024,7 +3064,7 @@
 	
 	var _controller2 = __webpack_require__(26);
 	
-	var _controllers = __webpack_require__(41);
+	var _controllers = __webpack_require__(42);
 	
 	var _controllers2 = __webpack_require__(46);
 	
@@ -3537,7 +3577,7 @@
 	
 	var _controller = __webpack_require__(26);
 	
-	var _controllers = __webpack_require__(41);
+	var _controllers = __webpack_require__(42);
 	
 	var _controllers2 = __webpack_require__(46);
 	
@@ -3545,7 +3585,7 @@
 	
 	var _view = __webpack_require__(58);
 	
-	var _views = __webpack_require__(39);
+	var _views = __webpack_require__(40);
 	
 	function Dialog_Loader_Controller(config) {
 		var config_loader = {
@@ -3922,7 +3962,7 @@
 	});
 	exports.Block_Loader_Dialog = Block_Loader_Dialog;
 	
-	var _response = __webpack_require__(43);
+	var _response = __webpack_require__(36);
 	
 	var _data = __webpack_require__(13);
 	
@@ -4000,7 +4040,7 @@
 	
 	var _controller2 = __webpack_require__(26);
 	
-	var _controllers2 = __webpack_require__(41);
+	var _controllers2 = __webpack_require__(42);
 	
 	var _controllers3 = __webpack_require__(46);
 	

@@ -53,14 +53,19 @@ export let Form_Controllers = function(config)
 
 	this.define = function()
 	{
-		let $container = $(config.container);
+		let
+			$container = $(config.container),
+			config_form = {
+				post_name:      '__'+ config.part_name +'__',
+				$container:     $container,
+			};
 
 		$('form', $container).submit(prepare_form_to_send);
 
-		validator.define($container);
-		auto_form.define($container);
-		selected_form.define($container);
-		file_converter.define($container);
+		validator.define(config_form);
+		auto_form.define(config_form);
+		selected_form.define(config_form);
+		file_converter.define(config_form);
 	};
 
 };

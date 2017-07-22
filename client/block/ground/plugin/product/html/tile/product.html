@@ -6,7 +6,10 @@
 
         <div class="tile-img mini_image">
             <div class="fill-abs">
-                <img data-src="{{ element.image }}" alt="{{ element.name }}" src="{% static 'img/pixel.png' %}" />
+                <img data-src="{{ element.image }}"
+                     data-default-src="{% static 'img/icons/128/dark/medical-history.png' %}"
+                     alt="{{ element.name }}"
+                     src="{% static 'img/pixel.png' %}" />
             </div>
         </div>
 

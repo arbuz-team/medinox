@@ -24,7 +24,8 @@ export let define = function()
       return false;
 
     let downloadingImage = new Image(),
-      data_src = attr($imgs[i], 'data-src');
+      data_src = attr($imgs[i], 'data-src'),
+      data_src_default = attr($imgs[i], 'data-default-src');
 
     downloadingImage.onload = function()
     {
@@ -38,8 +39,8 @@ export let define = function()
 
     downloadingImage.onerror = function()
     {
-      $imgs[i].src = default_src;
-      $imgs[i].alt = 'Sorry, an error has occurred.';
+      $imgs[i].src = data_src_default || default_src;
+      //$imgs[i].alt = 'Sorry, an error has occurred.';
       setTimeout(function()
       {
         $imgs[i].style = 'opacity: 1;';
