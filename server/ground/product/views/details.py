@@ -19,8 +19,8 @@ class Details(Website_Manager):
     def Descriptions(self):
 
         # get descriptions
-        self.context['descriptions'] = Description.objects \
-            .filter(product=self.context['product']).order_by('position')
+        self.context['descriptions'] = SQL.Filter(Description,
+              product=self.context['product']).order_by('position')
 
         # variable for list of description
         # the same as edit in HTML

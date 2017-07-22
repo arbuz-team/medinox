@@ -8,7 +8,7 @@ class Approved_Register(Website_Manager):
 
     @staticmethod
     def Update_User_Status(request, key):
-        all_keys = No_Approved_User.objects.values('approved_key')
+        all_keys = SQL.All(No_Approved_User).values('approved_key')
 
         if {'approved_key': key} in all_keys:
             record = SQL.Get(No_Approved_User, approved_key=key)

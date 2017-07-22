@@ -33,7 +33,7 @@ class Change_Password(Website_Manager):
 
     @staticmethod
     def Secure(request, key):
-        all_keys = Forgot_Password_User.objects.values('approved_key')
+        all_keys = SQL.All(Forgot_Password_User).values('approved_key')
 
         if {'approved_key': key} in all_keys:
             value = {'key': key}

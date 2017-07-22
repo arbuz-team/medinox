@@ -1,5 +1,5 @@
 from server.manage.switch.website.endpoints import *
-from server.ground.product.base import *
+from server.manage.switch.website.base import *
 from server.ground.product.models import *
 
 
@@ -22,30 +22,36 @@ class Searcher_Block(Endpoints):
                 filters.remove(self.request.POST['name'])
                 self.request.session['searcher_filter_brand'] = filters
 
-        return JsonResponse({'__filter__': 'true'})
+        return HttpResponse()
 
     def Manage_Filter_Phrase(self):
         self.request.session['searcher_phrase'] = \
             self.request.POST['value']
 
-        return JsonResponse({'__filter__': 'true'})
+        return HttpResponse()
 
     def Manage_Filter_Order(self):
 
-        if 'name' in self.request.POST['__filter__']:
-            self.request.session['searcher_order_name'] = \
+        if 'name' in self.request.POST['_name_']:
+            self.request.session['searcher_sort_name'] = \
                 self.request.POST['value']
 
-        if 'direction' in self.request.POST['__filter__']:
-            self.request.session['searcher_order_direction'] = \
+        if 'direction' in self.request.POST['_name_']:
+            self.request.session['searcher_sort_direction'] = \
                 self.request.POST['value']
 
-        return JsonResponse({'__filter__': 'true'})
+        return HttpResponse()
 
     def Manage_Filter(self):
 
-        if self.request.POST['__filter__'] == 'brand':
+        if self.request.POST['_name_'] == 'brand':
             return self.Manage_Filter_Brand()
+
+        if self.request.POST['_name_'] == 'phrase':
+            return self.Manage_Filter_Phrase()
+
+        if self.request.POST['_name_'] == 'order':
+            return self.Manage_Filter_Order()
 
     def Error(self, response_class, context):
         return response_class(self.Render_To_String(

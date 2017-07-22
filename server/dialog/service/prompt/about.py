@@ -8,8 +8,7 @@ class Service_About(Base_Service):
 
         # get position parent
         index = self.dialog.Get_Post_Other('index')
-        position = About_Content.objects\
-            .get(pk=index).position
+        position = SQL.Get(About_Content, pk=index).position
 
         # create new
         about = About_Content(position=position)

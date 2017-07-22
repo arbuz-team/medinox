@@ -14,8 +14,8 @@ def Convert_To_Json(file_path, model_name):
 
     for line in lines:
 
-        number = line.split(':')[0]
-        text = line.split(':')[1].replace('"', '\\"')
+        number = line.split(':', 1)[0]
+        text = line.split(':', 1)[1].replace('"', '\\"')
 
         json.append('{"model": "%s", "pk": %s, "fields": {"value": "%s"}}'
                     % (model_name, number, text))

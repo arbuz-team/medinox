@@ -20,7 +20,7 @@ class User(Abstract_Model):
         for char_number in range(0, 8):
             unique += random.choice(permitted_chars)
 
-        if {'unique': unique} in User.objects.values('unique'):
+        if {'unique': unique} in SQL.All(User).values('unique'):
             return User.Generate_User_Unique()
 
         return unique

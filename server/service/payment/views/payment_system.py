@@ -8,8 +8,8 @@ class Payment_System(Base_Website):
         email = self.payment.user.email
         content = {
             'payment': self.payment,
-            'selected_products': Selected_Product.
-                objects.filter(payment=self.payment)
+            'selected_products': SQL.Filter(
+                Selected_Product, payment=self.payment)
         }
 
         if self.valid:

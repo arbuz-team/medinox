@@ -1,5 +1,5 @@
+from server.manage.switch.website.base import *
 from inspect import getmembers, ismethod
-from server.ground.product.base import *
 from django import template
 register = template.Library()
 

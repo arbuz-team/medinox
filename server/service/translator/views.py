@@ -32,7 +32,7 @@ class Translator(Base):
     def Set_Subdomain_Language(self):
 
         url = self.request.get_host()
-        subdomain = url.split('.')[0]
+        subdomain = url.split('.', 1)[0]
 
         if subdomain in ['pl', 'de', 'en']:
             self.request.session['translator_language'] = \
@@ -56,7 +56,7 @@ class Translator(Base):
     def Get_Language_Redirect(self):
 
         url = self.request.get_host()
-        subdomain = url.split('.')[0]
+        subdomain = url.split('.', 1)[0]
 
         if subdomain not in ['pl', 'de', 'en']:
             client_ip = self.request.META.get('REMOTE_ADDR', None)

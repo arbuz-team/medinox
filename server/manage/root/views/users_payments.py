@@ -55,16 +55,16 @@ class Users_Payments(Website_Manager):
 
     def Manage_Filter(self):
 
-        if self.request.POST['__filter__'] == 'date_to':
+        if self.request.POST['_name_'] == 'date_to':
             self.request.session['root_users_payments_date_to'] = \
                 self.request.POST['value']
 
-        if self.request.POST['__filter__'] == 'date_from':
+        if self.request.POST['_name_'] == 'date_from':
             self.request.session['root_users_payments_date_from'] = \
                 self.request.POST['value']
 
         self.Validate_Period('root_users_payments_date_from', 'root_users_payments_date_to')
-        return JsonResponse({'__filter__': 'true'})
+        return HttpResponse()
 
     def Manage_Form_Note(self):
 

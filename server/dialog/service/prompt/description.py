@@ -8,8 +8,7 @@ class Service_Description(Base_Service):
 
         # get position parent description
         index = self.dialog.Get_Post_Other('index')
-        position = Description.objects\
-            .get(pk=index).position
+        position = SQL.Get(Description, pk=index).position
 
         # create new description
         description = Description(position=position)

@@ -42,16 +42,16 @@ class My_Shopping(Website_Manager):
 
     def Manage_Filter(self):
 
-        if self.request.POST['__filter__'] == 'date_to':
+        if self.request.POST['_name_'] == 'date_to':
             self.request.session['user_my_shopping_date_to'] = \
                 self.request.POST['value']
 
-        if self.request.POST['__filter__'] == 'date_from':
+        if self.request.POST['_name_'] == 'date_from':
             self.request.session['user_my_shopping_date_from'] = \
                 self.request.POST['value']
 
         self.Validate_Period('user_my_shopping_date_from', 'user_my_shopping_date_to')
-        return JsonResponse({'__filter__': 'true'})
+        return HttpResponse()
 
     @staticmethod
     def Launch(request):

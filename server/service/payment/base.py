@@ -1,6 +1,6 @@
 from server.service.payment.models import *
 from server.manage.user.models import *
-from server.ground.product.base import *
+from server.manage.switch.website.base import *
 
 
 class Payment_Models_Manager(Base_Website):
@@ -177,7 +177,4 @@ class Payment_Models_Manager(Base_Website):
 
         self.user = None
         self.payment = None
-        self.product_models_manager = \
-            Product_Models_Manager(self)
-
         self.Check_Payment()

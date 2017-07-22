@@ -148,11 +148,11 @@ class Session_Controller:
         if 'searcher_phrase' not in self.request.session:
             self.request.session['searcher_phrase'] = ''
 
-        if 'searcher_order_name' not in self.request.session:
-            self.request.session['searcher_order_name'] = 'search_accuracy'
+        if 'searcher_sort_name' not in self.request.session:
+            self.request.session['searcher_sort_name'] = 'search_accuracy'
 
-        if 'searcher_order_direction' not in self.request.session:
-            self.request.session['searcher_order_direction'] = 'descending'
+        if 'searcher_sort_direction' not in self.request.session:
+            self.request.session['searcher_sort_direction'] = 'descending'
 
         if 'searcher_result' not in self.request.session:
             self.request.session['searcher_result'] = SQL.All(Product)

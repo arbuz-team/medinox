@@ -26,7 +26,7 @@ class Service_Product(Base_Service):
 
     def Manage(self):
 
-        if 'value' in self.request.POST:
+        if self.request.POST['value']:
             self.Edit()
 
         else: self.New()
