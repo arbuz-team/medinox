@@ -1,10 +1,14 @@
+from server.manage.switch.website.content.errors_handler import *
 from server.ground.catalog.views.copy import Copy_Catalog
 from server.ground.catalog.views.manager import *
 from server.ground.catalog.views.changer import *
 from server.ground.product.views import *
 
 
-class Switch:
+class Catalog_Switch(Website_Manager):
+
+    def Manage_Content(self):
+        return Errors_Handler.Code_404(self.request, '__ground__')
 
     @staticmethod
     def Launch(request, catalog_path=''):
@@ -27,6 +31,11 @@ class Switch:
                 if element_type == 'catalog':
                     return Copy_Catalog(request, only_root=True).HTML
 
-        # change catalog and show content
-        Catalog_Changer(request, catalog_path)
-        return Catalog_Manager(request).HTML
+        try:
+
+            # change catalog and show content
+            Catalog_Changer(request, catalog_path)
+            return Catalog_Manager(request).HTML
+
+        # catalog not found
+        except: return Catalog_Switch(request).HTML

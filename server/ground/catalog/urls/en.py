@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^manage/$', Catalog_Manager.Launch, name='catalog.manager'),
 
     # change catalog
-    url(r'^:/$', Switch.Launch, name='catalog.switcher.empty'),
-    url(r'^:/(?P<catalog_path>.+)$', Switch.Launch, name='catalog.switcher'),
+    url(r'^:/$', Catalog_Switch.Launch, name='catalog.switcher.empty'),
+    url(r'^:/(?P<catalog_path>.+)$', Catalog_Switch.Launch, name='catalog.switcher'),
 
 ]

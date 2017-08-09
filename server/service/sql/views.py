@@ -2,21 +2,24 @@
 class SQL:
 
     @staticmethod
-    def Get(model, *args, **kwargs):
-        return model.objects.filter(deleted=False)\
-            .get(*args, **kwargs)
+    def Get(model, deleted=False, *args, **kwargs):
+        return model.objects.get(*args, **kwargs) if deleted is None \
+            else model.objects.filter(deleted=deleted).get(*args, **kwargs)
 
     @staticmethod
-    def Filter(model, *args, **kwargs):
-        return model.objects.filter(deleted=False, *args, **kwargs)
+    def Filter(model, deleted=False, *args, **kwargs):
+        return model.objects.filter(*args, **kwargs) if deleted is None \
+            else model.objects.filter(deleted=deleted, *args, **kwargs)
 
     @staticmethod
-    def All(model):
-        return model.objects.filter(deleted=False)
+    def All(model, deleted=False):
+        return model.objects.all() if deleted is None \
+            else model.objects.filter(deleted=deleted)
 
     @staticmethod
-    def First(model, *args, **kwargs):
-        return model.objects.filter(deleted=False, *args, **kwargs).first()
+    def First(model, deleted=False, *args, **kwargs):
+        return model.objects.filter(*args, **kwargs).first() if deleted is None \
+            else model.objects.filter(deleted=deleted, *args, **kwargs).first()
 
     @staticmethod
     def Delete(model=None, data=None,
@@ -59,6 +62,7 @@ class SQL:
             model(*args, **kwargs).save()
 
     @staticmethod
-    def Trash(model):
-        return model.objects.filter(deleted=True)
+    def Trash(model, *args, **kwargs):
+        return model.objects.filter(deleted=True)\
+            .filter(*args, **kwargs)
 

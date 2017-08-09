@@ -1,5 +1,4 @@
-from server.ground.product.views import *
-from server.ground.catalog.forms import *
+from server.manage.session.views import *
 
 
 class Catalog_Changer(Base):
@@ -23,6 +22,7 @@ class Catalog_Changer(Base):
         parent = SQL.Get(Model_Catalog, parent=None, name='/')
         selected = SQL.Get(Model_Catalog, parent=None, name='/')
 
+        # search selected catalog
         for catalog in catalogs:
             selected = self.Get_Catalog(catalog, parent)
             parent = selected
@@ -31,13 +31,12 @@ class Catalog_Changer(Base):
 
     def Change_Catalog(self):
 
-        try: catalog = self.Get_Selected_Catalog()
-        except: return Statement_404.Launch(self.request)
-
+        catalog = self.Get_Selected_Catalog()
         self.request.session['catalog_parent'] = catalog
         self.request.session['catalog_path'] = self.catalog_path
 
     def __init__(self, request, catalog_path):
+        Check_Session(request)
 
         self.request = request
         self.catalog_path = catalog_path

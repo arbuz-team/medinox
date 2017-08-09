@@ -5,36 +5,36 @@ from server.manage.switch.status import *
 class Errors_Handler(Base):
 
     @staticmethod
-    def CSRF_Failure(request):
+    def CSRF_Failure(request, block=None):
         response_class = HttpResponseForbidden
         message = Text(request=request, pk=180)
         image = None
         return Errors_Handler(request, response_class,
-                              message, image).HTML
+                              message, image, block).HTML
 
     @staticmethod
-    def Code_403(request):
+    def Code_403(request, block=None):
         response_class = HttpResponseForbidden
         message = Text(request=request, pk=181)
         image = None
         return Errors_Handler(request, response_class,
-                              message, image).HTML
+                              message, image, block).HTML
 
     @staticmethod
-    def Code_404(request):
+    def Code_404(request, block=None):
         response_class = HttpResponseNotFound
         message = Text(request=request, pk=182)
         image = None
         return Errors_Handler(request, response_class,
-                              message, image).HTML
+                              message, image, block).HTML
 
     @staticmethod
-    def Code_500(request):
+    def Code_500(request, block=None):
         response_class = HttpResponseServerError
         message = Text(request=request, pk=183)
         image = None
         return Errors_Handler(request, response_class,
-                              message, image).HTML
+                              message, image, block).HTML
 
     def Get_Error_Block(self):
 
@@ -82,11 +82,17 @@ class Errors_Handler(Base):
         status_manager = Status_Manager(self)
         status_manager.Timer_Start()
 
-        self.HTML = self.Manage()
+        # when app get selected block error
+        if self.selected_block:
+            self.HTML = self.blocks[self.selected_block]\
+                .Error(self.response_class, self.context)
+
+        else: self.HTML = self.Manage()
         status_manager.Display_Status(message='INTERNAL')
 
-    def __init__(self, request, response_class, message, image):
+    def __init__(self, request, response_class, message, image, selected_block):
 
+        self.selected_block = selected_block
         self.response_class = response_class
         self.request = request
         self.HTML = None
@@ -108,5 +114,5 @@ class Errors_Handler(Base):
 
 
 
-def csrf_failure(request, reason=""):
+def csrf_failure(request, reason=''):
     return Errors_Handler.CSRF_Failure(request)

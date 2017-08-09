@@ -99,6 +99,10 @@ class Sort_By_Accuracy(Base):
         if not self.words:
             return self.products
 
+        # have no products
+        if not self.products:
+            return self.products
+
         # generate priority list
         sort_list = Sort_List(self.products, self.words)
         priority_list = sort_list.Generate_Priority_List()
