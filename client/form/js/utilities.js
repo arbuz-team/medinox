@@ -79,7 +79,7 @@ export let
 	launch_event = function(data)
 	{
 		let
-			events = data.events, // events examples: "plugins.close_cart plugins.close_dialog"
+			events = data.events, // events examples: "part.close_cart part.close_dialog"
 			events_array,
 			array_length;
 
