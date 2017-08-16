@@ -41,7 +41,7 @@ class Inspector(Base_Website):
 
         return True
 
-    def Check_Payment(self): # Backend: WTF!!
+    def Check_Payment(self): # Backend: WTF!! when we will refactoring payments
         self.payment_models_manager = \
             Payment_Models_Manager(self)
 

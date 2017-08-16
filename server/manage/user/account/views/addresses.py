@@ -2,7 +2,7 @@ from server.manage.switch.website.manager import *
 from server.manage.user.forms import *
 from server.manage.user.account.forms import *
 
-# Backend: http://127.0.0.1:8000/user/account/addresses/ - error
+
 class User_Addresses(Website_Manager):
 
     def Get_User_Details(self):

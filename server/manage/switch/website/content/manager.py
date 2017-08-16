@@ -40,10 +40,11 @@ class Direct_Block_Manager(Base):
     def Packing(response):
 
         data = {
-            'html': response.content.decode('utf-8'), # Backend: content
+            'html': response.content.decode('utf-8'), # Backend: change name `html` to `content`
             'code': response.status_code
         }
 
+        # if response url exists
         try: data['url'] = response.url
         except: pass
         return data
