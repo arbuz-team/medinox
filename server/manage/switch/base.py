@@ -29,7 +29,7 @@ class Base:
 
         self.context['form_name'] = form_name
         self.context['additional_form_name'] = additional_form_name
-        return render_to_string(template, self.context, self.request)
+        return render_to_string(template, self.context)
 
     def Render_HTML(self, file_name, form_name = '', additional_form_name=''):
 
