@@ -1863,11 +1863,12 @@
 	
 	window.Validators = Validators;
 	
-	var define = exports.define = function define($container) {
+	var define = exports.define = function define(config) {
 	
-		$('form[data-test=yes]', $container).each(function () {
+		$('form[data-test=yes]', config.$container).each(function () {
 			var name = $(this).data('name'),
 			    type = $(this).data('type');
+	
 			if (name || type) {
 				Validators[name] = new _checkers.Constructor_Validator(name, type);
 	
@@ -1882,9 +1883,9 @@
 			} else console.error('Validation Error: Incorrect or empty form name/type.');
 		});
 	
-		$('form[data-test=yes] .test', $container).keyup(catch_event_validate).change(catch_event_validate);
+		$('form[data-test=yes] .test', config.$container).keyup(catch_event_validate).change(catch_event_validate);
 	
-		$('.show_password-checkbox', $container).change(function () {
+		$('.show_password-checkbox', config.$container).change(function () {
 			if ($(this).is(':checked')) show_password(this);else hide_password(this);
 		});
 	};

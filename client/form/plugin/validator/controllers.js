@@ -5,12 +5,13 @@ let Validators = {};
 
 window.Validators = Validators;
 
-export let define = function($container)
+export let define = function(config)
 {
 
-	$('form[data-test=yes]', $container).each(function(){
+	$('form[data-test=yes]', config.$container).each(function(){
 		let name = $(this).data('name'),
 			type = $(this).data('type');
+
 		if(name || type)
 		{
 			Validators[name] = new Constructor_Validator(name, type);
@@ -31,12 +32,12 @@ export let define = function($container)
 	});
 
 
-	$('form[data-test=yes] .test', $container)
+	$('form[data-test=yes] .test', config.$container)
 	.keyup(catch_event_validate)
 	.change(catch_event_validate);
 
 
-	$('.show_password-checkbox', $container).change(function()
+	$('.show_password-checkbox', config.$container).change(function()
 	{
 		if($(this).is(':checked'))
 			show_password(this);
