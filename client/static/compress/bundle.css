@@ -2218,4 +2218,16 @@ img {
   .searcher-filters-remove:hover {
     opacity: .8; }
 
+.directory_tree {
+  padding: 10px 5px;
+  font-size: 16px; }
+
+.directory_tree-radio:hover {
+  cursor: pointer;
+  background: #f0f0f0; }
+
+.directory_tree-element {
+  margin-left: 15px;
+  line-height: 25px; }
+
 /*# sourceMappingURL=bundle.css.map*/

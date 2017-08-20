@@ -1,15 +1,15 @@
 
-<div class="lista-nazwa">
+<div class="directory_tree-radio">
     {{ parent.name }}
 </div>
 
 {% if catalogs %}
 
-    <ul>
+    <ul class="directory_tree-list">
 
         {% for catalog in catalogs %}
 
-            <li class="lista-element">
+            <li class="directory_tree-element">
                 <{{ forloop.counter0 }}>
             </li>
 
