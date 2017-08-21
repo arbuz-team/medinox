@@ -4,6 +4,11 @@ from server.ground.catalog.forms.operation import *
 
 class Service_Move(Base_Service):
 
+    @staticmethod
+    def Have_Children(element):
+        return True if SQL.Filter(
+            Model_Catalog, parent=element) else False
+
     def Get_Element(self):
 
         if 'value' in self.request.POST:
@@ -38,6 +43,7 @@ class Service_Move(Base_Service):
     def Render_Catalog(self, catalog, children):
         self.context['parent'] = catalog
         self.context['catalogs'] = list(range(children.count()))
+        self.context['have_children'] = self.Have_Children(catalog)
         return self.Render_To_String('catalog/tree.html')
 
     def Recursive_Catalogs(self, parent):
