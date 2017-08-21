@@ -14,8 +14,13 @@ class Path_Manager(Base):
         return os.path.join(STATICFILES_DIRS[0], file)
 
     @staticmethod
+    def Base_Root(file=''):
+        return os.path.join(BASE_DIR, file)
+
+    @staticmethod
     def Static_URL(file=''):
         return os.path.join(STATIC_URL, file)
+
 
     @staticmethod
     def To_URL(text):
@@ -49,25 +54,25 @@ class Path_Manager(Base):
             domain = self.request.get_host()[3:]
 
         urls = \
-        {
-            'en': secure + 'en.' + domain +
-                  reverse(name, urlconf='server.manage.switch.urls.en', kwargs=kwargs),
+            {
+                'en': secure + 'en.' + domain +
+                      reverse(name, urlconf='server.manage.switch.urls.en', kwargs=kwargs),
 
-            # 'pl': secure + 'pl.' + domain +
-            #      reverse(name, urlconf='server.manage.switch.urls.pl', kwargs=kwargs),
+                # 'pl': secure + 'pl.' + domain +
+                #      reverse(name, urlconf='server.manage.switch.urls.pl', kwargs=kwargs),
 
-            # 'de': secure + 'de.' + domain +
-            #      reverse(name, urlconf='server.manage.switch.urls.de', kwargs=kwargs),
+                # 'de': secure + 'de.' + domain +
+                #      reverse(name, urlconf='server.manage.switch.urls.de', kwargs=kwargs),
 
-            'local_en': secure + domain +
-                  reverse(name, urlconf='server.manage.switch.urls.en', kwargs=kwargs),
+                'local_en': secure + domain +
+                            reverse(name, urlconf='server.manage.switch.urls.en', kwargs=kwargs),
 
-            # 'local_pl': secure + domain +
-            #       reverse(name, urlconf='server.manage.switch.urls.pl', kwargs=kwargs),
+                # 'local_pl': secure + domain +
+                #       reverse(name, urlconf='server.manage.switch.urls.pl', kwargs=kwargs),
 
-            # 'local_de': secure + domain +
-            #       reverse(name, urlconf='server.manage.switch.urls.de', kwargs=kwargs),
-        }
+                # 'local_de': secure + domain +
+                #       reverse(name, urlconf='server.manage.switch.urls.de', kwargs=kwargs),
+            }
 
         if current_language:
             language = self.request.session['translator_language']
@@ -89,11 +94,11 @@ class Path_Manager(Base):
             kwargs = resolve(self.request.path_info).kwargs
 
         urls = \
-        {
-            'en': reverse(name, urlconf='server.manage.switch.urls.en', kwargs=kwargs),
-            # 'pl': reverse(name, urlconf='server.manage.switch.urls.pl', kwargs=kwargs),
-            # 'de': reverse(name, urlconf='server.manage.switch.urls.de', kwargs=kwargs),
-        }
+            {
+                'en': reverse(name, urlconf='server.manage.switch.urls.en', kwargs=kwargs),
+                # 'pl': reverse(name, urlconf='server.manage.switch.urls.pl', kwargs=kwargs),
+                # 'de': reverse(name, urlconf='server.manage.switch.urls.de', kwargs=kwargs),
+            }
 
         if language:
             return urls[language.lower()]

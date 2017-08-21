@@ -52,9 +52,15 @@ class Sign_Up(Website_Manager):
 
         if self.request.POST['__exist__'] == 'email':
             if SQL.Filter(User, email=self.request.POST['value']):
-                return JsonResponse({'__exist__': 'true'})
+                return HttpResponse()
 
-        return JsonResponse({'__exist__': 'false'})
+        # Backend: change __exist__ to __valid__
+        if self.request.POST['__exist__'] == 'password':
+            path = './server/manage/user/passwords'
+            passwords = open(Path_Manager.Base_Root(path)).read()
+
+            if self.request.POST['value'] in passwords.splitlines():
+                return HttpResponse()
 
     def Create_No_Approved_User(self):
         self.context['key'] = binascii.hexlify(os.urandom(20))
