@@ -9,7 +9,7 @@ class Cart_Block(Endpoints, Inspector):
 
         # check authorization
         if not self.Check_Authorization():
-            return self.Error_Authorization()
+            return HttpResponse()
 
         self.context['payment'] = self.payment_models_manager. \
             Get_Payment()
