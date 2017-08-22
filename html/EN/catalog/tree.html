@@ -1,7 +1,7 @@
 
 
 <div class="directory_tree-single">
-    <input class="directory_tree-radio" type="radio" id="id_{{ parent.pk }}" name="directory_tree">
+    <input class="directory_tree-radio" type="radio" id="id_{{ parent.pk }}" name="directory_tree" value="{{ parent.pk }}">
     <label class="directory_tree-name" for="id_{{ parent.pk }}">
 
         {% if have_children %}
