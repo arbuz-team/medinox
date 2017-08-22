@@ -2,18 +2,52 @@
 //@import 'menu'
 
 .directory_tree
-  padding: 10px 5px
+  padding-left: 10px
+  margin: 10px 20px
 
-  font-size: 16px
+  font-size: 15.4px
+  font-weight: bold
+
+
+.directory_tree-title
+  margin:
+    left: -10px
+    bottom: 8px
+
+  opacity: .6
 
 
 .directory_tree-radio
-  &:hover
-    cursor: pointer
-    background: #f0f0f0
+  display: none
+
+
+.directory_tree-name
+  display: block
+  opacity: .8
+  cursor: pointer
+
+
+.directory_tree-radio:checked + .directory_tree-name
+  background: #f0f0f0
+  opacity: 1
+
+
+.directory_tree-arrow
+  display: inline-block
+  width: 15px
+
+  opacity: .6
+
+  &.is-close
+    +background-img(url(/static/img/icons/32/dark/sort_down.png), 10px 13px, center)
+
+  &.is-open
+    +background-img(url(/static/img/icons/32/dark/sort_right.png), 13px 10px, center)
+
+
+.directory_tree-single, .directory_tree-element
+  line-height: 25px
 
 
 .directory_tree-element
-  margin-left: 15px
-
-  line-height: 25px
+  padding-left: 15px

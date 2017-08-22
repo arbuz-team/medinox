@@ -2219,15 +2219,47 @@ img {
     opacity: .8; }
 
 .directory_tree {
-  padding: 10px 5px;
-  font-size: 16px; }
+  padding-left: 10px;
+  margin: 10px 20px;
+  font-size: 15.4px;
+  font-weight: bold; }
 
-.directory_tree-radio:hover {
-  cursor: pointer;
-  background: #f0f0f0; }
+.directory_tree-title {
+  margin-left: -10px;
+  margin-bottom: 8px;
+  opacity: .6; }
+
+.directory_tree-radio {
+  display: none; }
+
+.directory_tree-name {
+  display: block;
+  opacity: .8;
+  cursor: pointer; }
+
+.directory_tree-radio:checked + .directory_tree-name {
+  background: #f0f0f0;
+  opacity: 1; }
+
+.directory_tree-arrow {
+  display: inline-block;
+  width: 15px;
+  opacity: .6; }
+  .directory_tree-arrow.is-close {
+    background-image: url(/static/img/icons/32/dark/sort_down.png);
+    background-size: 10px 13px;
+    background-position: center;
+    background-repeat: no-repeat; }
+  .directory_tree-arrow.is-open {
+    background-image: url(/static/img/icons/32/dark/sort_right.png);
+    background-size: 13px 10px;
+    background-position: center;
+    background-repeat: no-repeat; }
+
+.directory_tree-single, .directory_tree-element {
+  line-height: 25px; }
 
 .directory_tree-element {
-  margin-left: 15px;
-  line-height: 25px; }
+  padding-left: 15px; }
 
 /*# sourceMappingURL=bundle.css.map*/
