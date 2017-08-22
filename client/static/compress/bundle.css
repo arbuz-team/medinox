@@ -2256,6 +2256,18 @@ img {
     background-position: center;
     background-repeat: no-repeat; }
 
+.directory_tree-list {
+  overflow: hidden;
+  -webkit-transition: height 100ms;
+  -moz-transition: height 100ms;
+  -ms-transition: height 100ms;
+  -o-transition: height 100ms;
+  transition: height 100ms; }
+  .directory_tree-list.is-close {
+    height: 0; }
+  .directory_tree-list.is-open {
+    height: auto; }
+
 .directory_tree-single, .directory_tree-element {
   line-height: 25px; }
 

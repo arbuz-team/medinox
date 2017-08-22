@@ -6,6 +6,7 @@ import {Form_Controllers}           from 'form/js/controller'
 import {Post_Button_Controllers}    from 'form/plugin/post_button/controllers'
 import {Event_Button_Controllers}   from 'form/plugin/event_button/controllers'
 import {Little_Form_Controllers}    from 'form/plugin/little_form/controllers'
+import {Directory_Tree}    from 'block/plugin/directory_tree/controller'
 import {Dialog_Loader_View} 		from './view'
 import {models} from "form/plugin/file_converter/views";
 
@@ -20,12 +21,13 @@ export function Dialog_Loader_Controller(config)
 		},
 
 
-		view = new Dialog_Loader_View(config),
+		view =                          new Dialog_Loader_View(config),
 
-		form_controller = new Form_Controllers(config_loader),
-		post_button_controller = new Post_Button_Controllers(config_loader),
-		event_button_controller = new Event_Button_Controllers(config_loader),
-		little_form_controller = new Little_Form_Controllers(config_loader);
+		form_controller =               new Form_Controllers(config_loader),
+		post_button_controller =        new Post_Button_Controllers(config_loader),
+		event_button_controller =       new Event_Button_Controllers(config_loader),
+		little_form_controller =        new Little_Form_Controllers(config_loader),
+		directory_tree_controller =     new Directory_Tree(config_loader);
 
 
 
@@ -61,6 +63,8 @@ export function Dialog_Loader_Controller(config)
 		post_button_controller.define();
 		event_button_controller.define();
 		little_form_controller.define();
+		directory_tree_controller.define();
+
 		$(config.internal_button, config.container).click(view.send_form);
 	};
 }

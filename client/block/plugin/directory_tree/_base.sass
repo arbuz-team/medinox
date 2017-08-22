@@ -41,8 +41,22 @@
   &.is-close
     +background-img(url(/static/img/icons/32/dark/sort_down.png), 10px 13px, center)
 
+
   &.is-open
     +background-img(url(/static/img/icons/32/dark/sort_right.png), 13px 10px, center)
+
+
+.directory_tree-list
+  overflow: hidden
+
+  +transition(height 100ms)
+
+  &.is-close
+    height: 0
+
+
+  &.is-open
+    height: auto
 
 
 .directory_tree-single, .directory_tree-element
