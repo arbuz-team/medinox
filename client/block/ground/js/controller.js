@@ -24,18 +24,6 @@ export function Ground_Controller()
 			{
 				fun(this, event);
 			}
-		},
-
-
-		redirect = function()
-		{
-			model.redirect_ground();
-		},
-
-
-		back = function(event)
-		{
-			model.back_url(event);
 		};
 
 
@@ -45,8 +33,8 @@ export function Ground_Controller()
 		view.change_height_content();
 
 		$('a').click( transfer_event( view.go_to_link));
-		APP.add_own_event('redirect', redirect);
-		APP.add_own_event('popstate', back);
+		APP.add_own_event('redirect', model.redirect_ground);
+		APP.add_own_event('popstate', model.back_url);
 		$(window).resize( transfer_event( view.change_height_content));
 
 

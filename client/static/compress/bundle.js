@@ -4121,20 +4121,14 @@
 			return function (event) {
 				fun(this, event);
 			};
-		},
-		    redirect = function redirect() {
-			model.redirect_ground();
-		},
-		    back = function back(event) {
-			model.back_url(event);
 		};
 	
 		this.define = function () {
 			view.change_height_content();
 	
 			$('a').click(transfer_event(view.go_to_link));
-			APP.add_own_event('redirect', redirect);
-			APP.add_own_event('popstate', back);
+			APP.add_own_event('redirect', model.redirect_ground);
+			APP.add_own_event('popstate', model.back_url);
 			$(window).resize(transfer_event(view.change_height_content));
 	
 			var $container = $(model.container);
@@ -4167,6 +4161,8 @@
 	var _model = __webpack_require__(64);
 	
 	function Ground_View() {
+		var _this = this;
+	
 		var model = new _model.Ground_Model();
 	
 		this.model = model;
@@ -4210,7 +4206,7 @@
 			    height_container = height.window - height.header - height.ground_top;
 	
 			$container.height(height_container);
-			this.change_height_start_banner($container, height_container);
+			_this.change_height_start_banner($container, height_container);
 		};
 	
 		this.change_to_long_or_short = function (that, event) {
@@ -4253,6 +4249,8 @@
 	var _standard = __webpack_require__(19);
 	
 	function Ground_Model() {
+		var _this = this;
+	
 		this.container = '.ground';
 	
 		this.config_loader = {
@@ -4283,16 +4281,14 @@
 		};
 	
 		this.check_redirect = function (response) {
-			if (this.is_redirect(response)) {
-				this.change_url(response.url);
-				this.load_single_ground_content();
+			if (_this.is_redirect(response)) {
+				_this.change_url(response.url);
+				_this.load_single_ground_content();
 			}
 		};
 	
 		this.load_ground_content = function (url, data) {
-			var _this = this;
-	
-			var result = this.ground_loader.load_content(url, data);
+			var result = _this.ground_loader.load_content(url, data);
 	
 			result.then(function (response) {
 				return _this.check_redirect(response);
@@ -4300,28 +4296,24 @@
 		};
 	
 		this.load_single_ground_content = function (url, data) {
-			var _this2 = this;
-	
-			var result = this.ground_loader.load_simple_content(url, data);
+			var result = _this.ground_loader.load_simple_content(url, data);
 	
 			result.then(function (response) {
-				return _this2.check_redirect(response);
+				return _this.check_redirect(response);
 			});
 		};
 	
 		this.redirect_ground = function () {
-			var _this3 = this;
-	
-			var result = this.ground_loader.redirect(this.change_url);
+			var result = _this.ground_loader.redirect(_this.change_url);
 	
 			result.then(function (response) {
-				return _this3.check_redirect(response);
+				return _this.check_redirect(response);
 			});
 		};
 	
-		this.back_url = function () {
+		this.back_url = function (event) {
 			event.preventDefault();
-			this.load_single_ground_content();
+			_this.load_single_ground_content();
 		};
 	}
 

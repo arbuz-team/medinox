@@ -54,7 +54,7 @@ export function Ground_View()
 	};
 
 
-	this.change_height_content = function()
+	this.change_height_content = () =>
 	{
 		let
 

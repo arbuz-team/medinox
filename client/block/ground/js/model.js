@@ -51,7 +51,7 @@ export function Ground_Model()
 	};
 
 
-	this.check_redirect = function(response)
+	this.check_redirect = (response) =>
 	{
 		if(this.is_redirect(response))
 		{
@@ -61,7 +61,7 @@ export function Ground_Model()
 	};
 
 
-	this.load_ground_content = function(url, data)
+	this.load_ground_content = (url, data) =>
 	{
 		let result = this.ground_loader.load_content(url, data);
 
@@ -69,7 +69,7 @@ export function Ground_Model()
 	};
 
 
-	this.load_single_ground_content = function(url, data)
+	this.load_single_ground_content = (url, data) =>
 	{
 		let result = this.ground_loader.load_simple_content(url, data);
 
@@ -77,7 +77,7 @@ export function Ground_Model()
 	};
 
 
-	this.redirect_ground = function()
+	this.redirect_ground = () =>
 	{
 		let result = this.ground_loader.redirect(this.change_url);
 
@@ -85,7 +85,7 @@ export function Ground_Model()
 	};
 
 
-	this.back_url = function()
+	this.back_url = (event) =>
 	{
 		event.preventDefault();
 		this.load_single_ground_content();
