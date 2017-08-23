@@ -218,6 +218,7 @@
 		Page_Controller.instance = this;
 	
 		var searcher_controller = new _controller.Search_Controller(),
+		    cart_controller = new _controller2.Cart_Controller(),
 		    navigation_controller = new _controller3.Menu_Mobile_Controller(),
 		    menu_controller = new _controller4.Menu_Controller(),
 		    dialog_controller = new _controller5.Dialog_Controller(),
@@ -250,7 +251,7 @@
 			$('*').off();
 	
 			searcher_controller.define();
-	
+			cart_controller.define();
 			navigation_controller.define();
 			menu_controller.define();
 			dialog_controller.define();
@@ -271,7 +272,7 @@
 			var request_manager = new _block.Request_Manager_Block();
 	
 			searcher_controller.get_content();
-	
+			cart_controller.get_content();
 			navigation_controller.get_content();
 			menu_controller.get_content();
 			ground_controller.get_content();
