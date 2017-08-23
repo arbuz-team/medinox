@@ -23,7 +23,7 @@ export function Page_Controller()
 
 	let
 		searcher_controller = new Search_Controller(),
-		cart_controller = new Cart_Controller(),
+		// cart_controller = new Cart_Controller(),
 		navigation_controller = new Menu_Mobile_Controller(),
 		menu_controller = new Menu_Controller(),
 		dialog_controller = new Dialog_Controller(),
@@ -78,7 +78,7 @@ export function Page_Controller()
 			$('*').off(); // Usuń wszystkie wydarzenia ze wszystkich elementów
 
 			searcher_controller.define();
-			cart_controller.define();
+			//cart_controller.define();
 			navigation_controller.define();
 			menu_controller.define();
 			dialog_controller.define();
@@ -104,7 +104,7 @@ export function Page_Controller()
 		let request_manager = new Request_Manager_Block();
 
 		searcher_controller.get_content();
-		cart_controller.get_content();
+		// cart_controller.get_content();
 		navigation_controller.get_content();
 		menu_controller.get_content();
 		ground_controller.get_content();

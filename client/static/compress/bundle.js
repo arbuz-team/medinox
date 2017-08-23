@@ -218,7 +218,6 @@
 		Page_Controller.instance = this;
 	
 		var searcher_controller = new _controller.Search_Controller(),
-		    cart_controller = new _controller2.Cart_Controller(),
 		    navigation_controller = new _controller3.Menu_Mobile_Controller(),
 		    menu_controller = new _controller4.Menu_Controller(),
 		    dialog_controller = new _controller5.Dialog_Controller(),
@@ -251,7 +250,7 @@
 			$('*').off();
 	
 			searcher_controller.define();
-			cart_controller.define();
+	
 			navigation_controller.define();
 			menu_controller.define();
 			dialog_controller.define();
@@ -272,7 +271,7 @@
 			var request_manager = new _block.Request_Manager_Block();
 	
 			searcher_controller.get_content();
-			cart_controller.get_content();
+	
 			navigation_controller.get_content();
 			menu_controller.get_content();
 			ground_controller.get_content();
@@ -383,11 +382,12 @@
 	};
 	
 	Block_Loader_Part.prototype._send_request = function () {
-		var post_data = this._variables.post_data,
+		var url = this._variables.post_url,
+		    data = this._variables.post_data,
 		    post_name = this._settings.post_name,
 		    request_manager = new _block.Request_Manager_Block();
 	
-		this._response = request_manager.next(undefined, post_data, post_name);
+		this._response = request_manager.next(url, data, post_name);
 	};
 	
 	Block_Loader_Part.prototype._load_head_of_page = function () {
@@ -407,22 +407,50 @@
 	
 		return new Promise(function (resolve, reject) {
 			_this._response.then(function (response) {
+				var precise_data = void 0;
 	
-				if (_this._check_for_errors(response)) reject(response);else {
-					var precise_data = {
-						html: response.html,
-						status: 'success',
-						code: response.code
-					};
+				if (_this._check_for_errors(response)) reject(response);else if (_this._is_redirect(response)) precise_data = {
+					status: 'success',
+					code: response.code,
+					url: response.url
+				};else precise_data = {
+					html: response.html,
+					status: 'success',
+					code: response.code
+				};
 	
-					resolve(precise_data);
-				}
+				resolve(precise_data);
 			});
 		});
 	};
 	
-	Block_Loader_Part.prototype.reload = function () {
+	Block_Loader_Part.prototype.redirect = function (change_url) {
 		var _this2 = this;
+	
+		return new Promise(function (resolve) {
+			var url = APP.DATA.redirect || _structure.data_controller.get('path'),
+			    delay = (0, _data.select_number)(APP.DATA.delay, 0),
+			    state = _this2._state,
+			    variables = _this2._variables;
+	
+			state.can_do_redirect = true;
+			clearTimeout(variables.redirect_time_out);
+	
+			variables.redirect_time_out = setTimeout(function () {
+				if (state.can_do_redirect === true) {
+					var request_manager = new _block.Request_Manager_Block();
+	
+					change_url(url);
+	
+					_this2.load_content(url).then(resolve);
+					request_manager.send_list();
+				}
+			}, delay);
+		});
+	};
+	
+	Block_Loader_Part.prototype.reload = function () {
+		var _this3 = this;
 	
 		var delay = 0;
 	
@@ -432,25 +460,31 @@
 		}
 	
 		setTimeout(function () {
-			_this2.load_simple_content();
+			_this3.load_simple_content();
 		}, delay);
 	};
 	
+	Block_Loader_Part.prototype._is_redirect = function (response) {
+		return response && response.code === 302;
+	};
+	
 	Block_Loader_Part.prototype.load_content = function (post_url, post_data) {
-		var _this3 = this;
+		var _this4 = this;
 	
 		return new Promise(function (resolve) {
-			_this3._get_content(post_url, post_data);
+			_this4._get_content(post_url, post_data);
 	
-			_this3._hide_content().then(function () {
-				_this3._receive_response().then(function (response) {
-					_this3._load_head_of_page();
+			_this4._hide_content().then(function () {
+				_this4._receive_response().then(function (response) {
+					if (_this4._is_redirect(response)) resolve(response);
 	
-					_this3._set_content(response);
+					_this4._load_head_of_page();
 	
-					_this3._prepare_content_to_show();
+					_this4._set_content(response);
 	
-					_this3._show_content().then(function () {
+					_this4._prepare_content_to_show();
+	
+					_this4._show_content().then(function () {
 						resolve(response);
 					});
 				});
@@ -459,10 +493,11 @@
 	};
 	
 	Block_Loader_Part.prototype.load_simple_content = function (url, post_data) {
-		var request_manager = new _block.Request_Manager_Block();
+		var request_manager = new _block.Request_Manager_Block(),
+		    result = this.load_content(url, post_data);
 	
-		this.load_content(url, post_data);
 		request_manager.send_list();
+		return result;
 	};
 
 /***/ },
@@ -1119,7 +1154,7 @@
 	
 	_init.Block_Loader.prototype._prepare_to_change_content = function (post_url) {
 		this._variables.post_url = post_url;
-		this._variables.can_do_redirect = false;
+		this._state.can_do_redirect = false;
 		this._state.reload = this._if_reload(post_url);
 	
 		_structure.data_controller.reset();
@@ -4072,6 +4107,136 @@
 	
 	exports.Ground_Controller = Ground_Controller;
 	
+	var _view = __webpack_require__(63);
+	
+	function Ground_Controller() {
+		if (_typeof(Ground_Controller.instance) === 'object') return Ground_Controller.instance;
+	
+		Ground_Controller.instance = this;
+	
+		var view = new _view.Ground_View(),
+		    model = view.model,
+		    transfer_event = function transfer_event(fun) {
+			return function (event) {
+				fun(this, event);
+			};
+		},
+		    redirect = function redirect() {
+			model.redirect_ground();
+		},
+		    back = function back(event) {
+			model.back_url(event);
+		};
+	
+		this.define = function () {
+			view.change_height_content();
+	
+			$('a').click(transfer_event(view.go_to_link));
+			APP.add_own_event('redirect', redirect);
+			APP.add_own_event('popstate', back);
+			$(window).resize(transfer_event(view.change_height_content));
+	
+			var $container = $(model.container);
+	
+			$('.change_length', $container).click(transfer_event(view.change_to_long));
+			$('.change_length .change_length-button', $container).click(transfer_event(view.change_to_long_or_short));
+	
+			model.ground_form_controller.define();
+			model.post_button_controller.define();
+			model.event_button_controller.define();
+		};
+	
+		this.get_content = function () {
+			model.ground_loader.define();
+			model.load_ground_content();
+		};
+	}
+
+/***/ },
+/* 63 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Ground_View = Ground_View;
+	
+	var _model = __webpack_require__(64);
+	
+	function Ground_View() {
+		var model = new _model.Ground_Model();
+	
+		this.model = model;
+	
+		this.go_to_link = function (that, event) {
+			var url = $(that).attr('href'),
+			    protocol = url.substring(0, 4);
+	
+			if (protocol !== 'http') if (event.which === 1) {
+				event.preventDefault();
+				APP.throw_event(EVENTS.part.close);
+	
+				model.change_url(url);
+	
+				model.load_single_ground_content(url);
+			}
+		};
+	
+		this.change_height_start_banner = function ($container, height_container) {
+			var width_website = model.page_controller.get_height(),
+			    height_start_banner = 0;
+	
+			if (height_container > 768) height_start_banner = height_container - 386;
+	
+			if (height_start_banner === 0 || width_website < 1000) {
+				$('.ground-block.start .block-content-image', $container).hide();
+				$('.ground-block.start .block-content-recommended-title', $container).show();
+			} else {
+				$('.ground-block.start .block-content-image', $container).show().height(height_start_banner);
+				$('.ground-block.start .block-content-recommended-title', $container).hide();
+			}
+		};
+	
+		this.change_height_content = function () {
+			var $container = $(model.container),
+			    height = {
+				window: model.page_controller.get_height(),
+				header: model.menu_controller.get_height(),
+				ground_top: $container.position().top
+			},
+			    height_container = height.window - height.header - height.ground_top;
+	
+			$container.height(height_container);
+			this.change_height_start_banner($container, height_container);
+		};
+	
+		this.change_to_long_or_short = function (that, event) {
+			var $element = $(that).parents('.change_length');
+			event.stopPropagation();
+	
+			if ($element.hasClass('is-long')) $element.removeClass('is-long');else $element.addClass('is-long');
+		};
+	
+		this.change_to_long = function (that, event) {
+			event.stopPropagation();
+	
+			$(that).addClass('is-long');
+		};
+	}
+
+/***/ },
+/* 64 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Ground_Model = Ground_Model;
+	
 	var _block = __webpack_require__(10);
 	
 	var _controllers = __webpack_require__(8);
@@ -4084,110 +4249,78 @@
 	
 	var _controllers3 = __webpack_require__(46);
 	
-	function Ground_Controller() {
-		if (_typeof(Ground_Controller.instance) === 'object') return Ground_Controller.instance;
+	var _standard = __webpack_require__(19);
 	
-		Ground_Controller.instance = this;
+	function Ground_Model() {
+		this.container = '.ground';
 	
-		var container = '.ground',
-		    config_loader = {
+		this.config_loader = {
 			part_name: 'ground',
-			container: container,
+			container: this.container,
 			load_meta_tags: true
-		},
-		    config_form = {
+		};
+		this.config_form = {
 			part_name: 'ground',
-			container: container
-		},
-		    ground_loader = new _block.Block_Loader_Part(config_loader),
-		    post_button_controller = new _controllers2.Post_Button_Controllers(config_form),
-		    event_button_controller = new _controllers3.Event_Button_Controllers(config_form),
-		    ground_form_controller = new _controller2.Form_Controllers(config_loader),
-		    page_controller = new _controllers.Page_Controller(),
-		    menu_controller = new _controller.Menu_Controller(),
-		    change_url = function change_url(url) {
+			container: this.container
+		};
+	
+		this.ground_loader = new _block.Block_Loader_Part(this.config_loader);
+	
+		this.post_button_controller = new _controllers2.Post_Button_Controllers(this.config_form);
+		this.event_button_controller = new _controllers3.Event_Button_Controllers(this.config_form);
+		this.ground_form_controller = new _controller2.Form_Controllers(this.config_loader);
+	
+		this.page_controller = new _controllers.Page_Controller();
+		this.menu_controller = new _controller.Menu_Controller();
+	
+		this.change_url = function (url) {
 			history.pushState('', url, url);
-		},
-		    go_to_link = function go_to_link(event) {
-			var url = $(this).attr('href'),
-			    protocol = url.substring(0, 4);
+		};
 	
-			if (protocol !== 'http') if (event.which === 1) {
-				event.preventDefault();
-				APP.throw_event(EVENTS.part.close);
+		this.is_redirect = function (response) {
+			return response && response.code === 302;
+		};
 	
-				change_url(url);
-	
-				ground_loader.load_simple_content(url);
+		this.check_redirect = function (response) {
+			if (this.is_redirect(response)) {
+				this.change_url(response.url);
+				this.load_single_ground_content();
 			}
-		},
-		    redirect = function redirect(event) {
-			change_url(APP.DATA.redirect);
-			ground_loader.redirect(event);
-		},
-		    back_url = function back_url() {
+		};
+	
+		this.load_ground_content = function (url, data) {
+			var _this = this;
+	
+			var result = this.ground_loader.load_content(url, data);
+	
+			result.then(function (response) {
+				return _this.check_redirect(response);
+			});
+		};
+	
+		this.load_single_ground_content = function (url, data) {
+			var _this2 = this;
+	
+			var result = this.ground_loader.load_simple_content(url, data);
+	
+			result.then(function (response) {
+				return _this2.check_redirect(response);
+			});
+		};
+	
+		this.redirect_ground = function () {
+			var _this3 = this;
+	
+			var result = this.ground_loader.redirect(this.change_url);
+	
+			result.then(function (response) {
+				return _this3.check_redirect(response);
+			});
+		};
+	
+		this.back_url = function () {
 			event.preventDefault();
-			ground_loader.load();
-		},
-		    change_height_start_banner = function change_height_start_banner($container, height_container) {
-			var width_website = page_controller.get_height(),
-			    height_start_banner = 0;
-	
-			if (height_container > 768) height_start_banner = height_container - 386;
-	
-			if (height_start_banner === 0 || width_website < 1000) {
-				$('.ground-block.start .block-content-image', $container).hide();
-				$('.ground-block.start .block-content-recommended-title', $container).show();
-			} else {
-				$('.ground-block.start .block-content-image', $container).show().height(height_start_banner);
-				$('.ground-block.start .block-content-recommended-title', $container).hide();
-			}
-		},
-		    change_height_content = function change_height_content() {
-			var $container = $(container),
-			    height = {
-				window: page_controller.get_height(),
-				header: menu_controller.get_height(),
-				ground_top: $container.position().top
-			},
-			    height_container = height.window - height.header - height.ground_top;
-	
-			$container.height(height_container);
-			change_height_start_banner($container, height_container);
-		},
-		    change_to_long_or_short = function change_to_long_or_short(event) {
-			var $element = $(this).parents('.change_length');
-			event.stopPropagation();
-	
-			if ($element.hasClass('is-long')) $element.removeClass('is-long');else $element.addClass('is-long');
-		},
-		    change_to_long = function change_to_long(event) {
-			event.stopPropagation();
-	
-			$(this).addClass('is-long');
-		};
-	
-		this.define = function () {
-			change_height_content();
-	
-			$('a').click(go_to_link);
-			APP.add_own_event('redirect', redirect);
-			APP.add_own_event('popstate', back_url);
-			$(window).resize(change_height_content);
-	
-			var $container = $(container);
-	
-			$('.change_length', $container).click(change_to_long);
-			$('.change_length .change_length-button', $container).click(change_to_long_or_short);
-	
-			ground_form_controller.define();
-			post_button_controller.define();
-			event_button_controller.define();
-		};
-	
-		this.get_content = function () {
-			ground_loader.define();
-			ground_loader.load_content();
+			this.load_single_ground_content();
 		};
 	}
 

@@ -30,7 +30,7 @@ Block_Loader.prototype._refresh_events = function()
 Block_Loader.prototype._prepare_to_change_content = function(post_url)
 {
 	this._variables.post_url = post_url;
-	this._variables.can_do_redirect = false;
+	this._state.can_do_redirect = false;
 	this._state.reload = this._if_reload(post_url);
 
 	data_controller.reset();
