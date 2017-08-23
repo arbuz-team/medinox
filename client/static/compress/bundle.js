@@ -226,8 +226,8 @@
 			return function () {
 				var delay = APP.DATA.delay,
 				    reload = function reload() {
-					APP.throw_event(EVENTS.part.reload_header);
-					APP.throw_event(EVENTS.part.reload_navigation);
+					APP.throw_event(EVENTS.part.reload_menu);
+					APP.throw_event(EVENTS.part.reload_menu_mobile);
 	
 					if (permissions === 'root') APP.throw_event(EVENTS.part.reload_searcher);
 	
@@ -589,8 +589,8 @@
 			reload_root_sign_in: new Event('reload_root_sign_in'),
 			reload_user_sign_in: new Event('reload_user_sign_in'),
 	
-			reload_navigation: new Event('navigation_reload'),
-			reload_header: new Event('header_reload'),
+			reload_menu_mobile: new Event('menu_mobile_reload'),
+			reload_menu: new Event('menu_reload'),
 			reload_cart: new Event('cart_reload'),
 			reload_searcher: new Event('searcher_reload'),
 			reload_ground: new Event('ground_reload'),

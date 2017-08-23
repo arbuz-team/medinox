@@ -39,8 +39,8 @@ export function Page_Controller()
 
 					reload = function()
 					{
-						APP.throw_event(EVENTS.part.reload_header);
-						APP.throw_event(EVENTS.part.reload_navigation);
+						APP.throw_event(EVENTS.part.reload_menu);
+						APP.throw_event(EVENTS.part.reload_menu_mobile);
 
 						if(permissions === 'root')
 							APP.throw_event(EVENTS.part.reload_searcher);
