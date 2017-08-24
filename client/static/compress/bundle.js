@@ -219,20 +219,23 @@
 	
 		var searcher_controller = new _controller.Search_Controller(),
 		    cart_controller = new _controller2.Cart_Controller(),
-		    navigation_controller = new _controller3.Menu_Mobile_Controller(),
+		    menu_mobile_controller = new _controller3.Menu_Mobile_Controller(),
 		    menu_controller = new _controller4.Menu_Controller(),
 		    dialog_controller = new _controller5.Dialog_Controller(),
 		    ground_controller = new _controller6.Ground_Controller(),
 		    reload_sign_in = function reload_sign_in(permissions) {
 			return function () {
-				var delay = APP.DATA.delay,
+				var request_manager = new _block.Request_Manager_Block(),
+				    delay = APP.DATA.delay,
 				    reload = function reload() {
-					APP.throw_event(EVENTS.part.reload_menu);
-					APP.throw_event(EVENTS.part.reload_menu_mobile);
+					menu_mobile_controller.get_content();
+					menu_controller.get_content();
 	
-					if (permissions === 'root') APP.throw_event(EVENTS.part.reload_searcher);
+					if (permissions === 'root') searcher_controller.get_content();
 	
-					if (permissions === 'user') APP.throw_event(EVENTS.part.reload_cart);
+					if (permissions === 'user') cart_controller.get_content();
+	
+					request_manager.send_list();
 				};
 	
 				if (delay) setTimeout(reload, delay);else reload();
@@ -252,7 +255,7 @@
 	
 			searcher_controller.define();
 			cart_controller.define();
-			navigation_controller.define();
+			menu_mobile_controller.define();
 			menu_controller.define();
 			dialog_controller.define();
 			ground_controller.define();
@@ -273,7 +276,7 @@
 	
 			searcher_controller.get_content();
 			cart_controller.get_content();
-			navigation_controller.get_content();
+			menu_mobile_controller.get_content();
 			menu_controller.get_content();
 			ground_controller.get_content();
 	

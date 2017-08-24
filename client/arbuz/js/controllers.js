@@ -24,7 +24,7 @@ export function Page_Controller()
 	let
 		searcher_controller = new Search_Controller(),
 		cart_controller = new Cart_Controller(),
-		navigation_controller = new Menu_Mobile_Controller(),
+		menu_mobile_controller = new Menu_Mobile_Controller(),
 		menu_controller = new Menu_Controller(),
 		dialog_controller = new Dialog_Controller(),
 		ground_controller = new Ground_Controller(),
@@ -35,18 +35,21 @@ export function Page_Controller()
 			return function()
 			{
 				let
+					request_manager = new Request_Manager_Block(),
 					delay = APP.DATA.delay,
 
 					reload = function()
 					{
-						APP.throw_event(EVENTS.part.reload_menu);
-						APP.throw_event(EVENTS.part.reload_menu_mobile);
+						menu_mobile_controller.get_content();
+						menu_controller.get_content();
 
 						if(permissions === 'root')
-							APP.throw_event(EVENTS.part.reload_searcher);
+							searcher_controller.get_content();
 
 						if(permissions === 'user')
-							APP.throw_event(EVENTS.part.reload_cart);
+							cart_controller.get_content();
+
+						request_manager.send_list();
 					};
 
 				if(delay)
@@ -79,7 +82,7 @@ export function Page_Controller()
 
 			searcher_controller.define();
 			cart_controller.define();
-			navigation_controller.define();
+			menu_mobile_controller.define();
 			menu_controller.define();
 			dialog_controller.define();
 			ground_controller.define();
@@ -105,7 +108,7 @@ export function Page_Controller()
 
 		searcher_controller.get_content();
 		cart_controller.get_content();
-		navigation_controller.get_content();
+		menu_mobile_controller.get_content();
 		menu_controller.get_content();
 		ground_controller.get_content();
 

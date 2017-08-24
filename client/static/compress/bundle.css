@@ -1977,9 +1977,9 @@ img {
     text-align: center;
     cursor: pointer;
     border-top: solid #666 3px;
-    -moz-box-shadow: 0px -5px 5px 0px rgba(15, 15, 15, 0.4);
-    -webkit-box-shadow: 0px -5px 5px 0px rgba(15, 15, 15, 0.4);
-    box-shadow: 0px -5px 5px 0px rgba(15, 15, 15, 0.4);
+    -moz-box-shadow: 0px -8px 5px 0px rgba(15, 15, 15, 0.4);
+    -webkit-box-shadow: 0px -8px 5px 0px rgba(15, 15, 15, 0.4);
+    box-shadow: 0px -8px 5px 0px rgba(15, 15, 15, 0.4);
     opacity: .8; }
   #MENU_MOBILE .part-hide-text {
     line-height: 45px;
