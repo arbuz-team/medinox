@@ -1921,6 +1921,14 @@ img {
 .mini_cart-product {
   font-size: 14px; }
 
+.mini_cart-message {
+  height: 100px;
+  line-height: 100px;
+  font-size: 22px;
+  font-weight: bolder;
+  color: #ccc;
+  text-align: center; }
+
 .mini_cart-additional_info {
   font-size: 14px;
   font-weight: bold;

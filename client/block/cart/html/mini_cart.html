@@ -25,12 +25,24 @@
         </div>
 
         <div class="mini_cart-field_list">
-            {% for selected in item.products %}
-                <div class="mini_cart-product">
-                    <span>{{ selected.product }}</span>
-                    <span>x {{ selected.number }}</span>
+
+            {% if button_address_name == 'root_address' and item.fullname %}
+
+                {% for selected in item.products %}
+                    <div class="mini_cart-product">
+                        <span>{{ selected.product }}</span>
+                        <span>x {{ selected.number }}</span>
+                    </div>
+                {% endfor %}
+
+            {% else %}
+
+                <div class="mini_cart-message">
+                    <span>Empty</span>
                 </div>
-            {% endfor %}
+
+            {% endif %}
+
         </div>
 
         <div>
