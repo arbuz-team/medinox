@@ -3115,14 +3115,16 @@
 	
 		Cart_Controller.instance = this;
 	
-		var container = '.cart',
+		var container_id = '#CART',
+		    container = '.cart',
+		    part_name = 'cart',
 		    config_loader = {
-			part_name: 'cart',
+			part_name: part_name,
 			container: container
 		},
 		    cart_loader = new _block.Block_Loader_Part(config_loader),
 		    cart_motion_controller = new _controller.Block_Motion_Controllers({
-			container: '#CART',
+			container: container_id,
 			content: container,
 			open: 'left',
 			can_open_by: 'width',
@@ -3132,7 +3134,7 @@
 		}),
 		    post_button_controller = new _controllers.Post_Button_Controllers(config_loader),
 		    event_button_controller = new _controllers2.Event_Button_Controllers({
-			container: '#CART'
+			container: container_id
 		}),
 		    cart_form_controller = new _controller2.Form_Controllers(config_loader),
 		    manage_key = function manage_key(event) {
@@ -3153,7 +3155,7 @@
 		};
 	
 		this.open_or_close = function () {
-			APP.throw_event(EVENTS.part.close_navigation);
+			APP.throw_event(EVENTS.part.close_menu_mobile);
 	
 			if (cart_motion_controller.is_open()) _this.plugin_close();else _this.plugin_open();
 		};
