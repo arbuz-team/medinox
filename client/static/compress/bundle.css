@@ -201,7 +201,7 @@ div > .buttons_to_action {
   .is-mobile-visible {
     display: none; } }
 
-.std-img, .img-edit, .img-close, .img-waste_bin, .img-waste_bin-64, .img-padlock_open-light-64, .img-shut_down-light-64, .img-businessman-light-64, .img-simple_settings-light-64, .img-notification-light-64, .img-has_notifications-64, .is-has-notifications, .img-telephone-light-64, .img-shopping_cart, .img-searcher, .img-searcher-light, .img-email, .img-telephone, .img-home, .img-home-light-64, .img-eye, .img-lines_menu, .img-flag-EN, .img-flag-PL, .img-flag-DE {
+.std-img, .img-edit, .img-close, .img-waste_bin, .img-waste_bin-64, .img-padlock_open-light-64, .img-shut_down-light-64, .img-businessman-light-64, .img-simple_settings-light-64, .img-notification-light-64, .is-has-no-notifications, .img-has_notifications-64, .is-has-notifications, .img-telephone-light-64, .img-shopping_cart, .img-searcher, .img-searcher-light, .img-email, .img-telephone, .img-home, .img-home-light-64, .img-eye, .img-lines_menu, .img-flag-EN, .img-flag-PL, .img-flag-DE {
   background-image: "";
   background-size: auto auto;
   background-position: 0 0;
@@ -231,7 +231,7 @@ div > .buttons_to_action {
 .img-simple_settings-light-64 {
   background-image: url(/static/img/icons/64/light/simple_settings.png); }
 
-.img-notification-light-64 {
+.img-notification-light-64, .is-has-no-notifications {
   background-image: url(/static/img/icons/64/light/notifications.png); }
 
 .img-has_notifications-64, .is-has-notifications {
