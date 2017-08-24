@@ -1,4 +1,16 @@
 
+<div class="menu_mobile-who">
+
+    {% if request.session.root_login %}
+        Hello <span class="menu_mobile-who-name">root</span>! How are you? :)
+    {% elif request.session.user_login %}
+        Hello <span class="menu_mobile-who-name">{{ request.session.user_user.username }}</span>! How are you? :)
+    {% else %}
+        Sign up now! :)
+    {% endif %}
+
+</div>
+
 <div class="menu_mobile-tiles is-have-4">
 
     {% include 'block/menu/html/navigation_mobile_tiles.html' %}

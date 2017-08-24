@@ -1980,7 +1980,7 @@ img {
     -moz-box-shadow: 0px -8px 5px 0px rgba(15, 15, 15, 0.4);
     -webkit-box-shadow: 0px -8px 5px 0px rgba(15, 15, 15, 0.4);
     box-shadow: 0px -8px 5px 0px rgba(15, 15, 15, 0.4);
-    opacity: .8; }
+    opacity: 0.8; }
   #MENU_MOBILE .part-hide-text {
     line-height: 45px;
     font-weight: bold;
@@ -1992,9 +1992,22 @@ img {
   color: #ffffff;
   background-color: inherit; }
 
+.menu_mobile-who {
+  padding-left: 10px;
+  line-height: 30px;
+  font-size: 14px;
+  text-align: center;
+  color: #bbb; }
+
+.menu_mobile-who-name {
+  font-weight: bold;
+  color: #fff; }
+
 .menu_mobile-tiles {
   height: 80px;
-  border-bottom: solid #666 1px;
+  border: solid #444 1px;
+    border-left: 0;
+    border-right: 0;
   font-size: 0; }
   .menu_mobile-tiles.is-have-4 .menu_mobile-tile {
     width: 25%; }
