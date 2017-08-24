@@ -101,7 +101,7 @@ export let
 
 				for(let i = 0; split_event.length > i; ++i)
 					if(typeof ready_event[split_event[i]] === 'undefined')
-						console.error('Launch Event error: Event doesn\'t exist.');
+						console.error('Launch Event error: Event '+ split_event[i] +' doesn\'t exist.');
 					else
 						ready_event = ready_event[split_event[i]];
 

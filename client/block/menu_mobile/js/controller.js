@@ -17,50 +17,54 @@ export function Menu_Mobile_Controller()
 
 
 	let
-		navigation_loader = new Block_Loader_Part({
-			part_name: 'menu_mobile',
-			container: '#NAVIGATION .navigation',
+		container_id =          '#MENU_MOBILE',
+		container =             '.menu_mobile',
+		part_name =             'menu_mobile',
+
+		loader = new Block_Loader_Part({
+			part_name:          part_name,
+			container:          container,
 		}),
 
-		navigation_motion_controller = new Block_Motion_Controllers({
-			container: '#NAVIGATION',
-			content: '.navigation',
-			open: 'down',
+		motion_controller = new Block_Motion_Controllers({
+			container:          container_id,
+			content:            container,
+			open:               'down',
 
-			can_open_by: 'width',
-			can_open_to: 675,
+			can_open_by:        'width',
+			can_open_to:        675,
 
-			duration_open: 300,
-			duration_close: 150,
+			duration_open:      300,
+			duration_close:     150,
 		}),
 
 		event_button_controller = new Event_Button_Controllers({
-			container: '#NAVIGATION'
+			container:          container_id,
 		});
 
 
 	this.plugin_open = function()
 	{
-		navigation_motion_controller.plugin_open();
+		motion_controller.plugin_open();
 	};
 
 
 	this.define = function()
 	{
-		APP.add_own_event('navigation_close', navigation_motion_controller.plugin_close);
-		APP.add_own_event('navigation_open', navigation_motion_controller.plugin_open);
+		APP.add_own_event(part_name +'_close', motion_controller.plugin_close);
+		APP.add_own_event(part_name +'_open', motion_controller.plugin_open);
 
-		navigation_motion_controller.define();
+		motion_controller.define();
 		event_button_controller.define();
 	};
 
 
 	this.get_content = function()
 	{
-		navigation_loader.define();
-		navigation_loader.load_content();
+		loader.define();
+		loader.load_content();
 
-		navigation_motion_controller.set_start_position();
+		motion_controller.set_start_position();
 	};
 }
 

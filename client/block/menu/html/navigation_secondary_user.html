@@ -1,7 +1,7 @@
 
 {% if request.session.user_login %}
 
-	<li class="navigation-field">
+	<li class="navigation-field menu_mobile-tile">
 		<a class="fill-abs" href="/user/sign_out/">
 			Sign out
 		</a>
@@ -9,7 +9,7 @@
 
 {% else %}
 
-	<li class="navigation-field">
+	<li class="navigation-field menu_mobile-tile">
 		<a class="fill-abs" href="/user/sign_up/">
 			Sign up
 		</a>
@@ -32,7 +32,7 @@
 {% if request.session.user_login %}
 
 	<li class="navigation-secondary-cart navigation-field" title="CTRL+SHIFT+X">
-		<div class="fill-abs event_button" data-name="navigation-open_or_close_cart" data-event="plugins.open_or_close_cart">
+		<div class="fill-abs event_button" data-name="navigation-open_or_close_cart" data-event="part.open_or_close_cart">
 			Cart
 		</div>
 	</li>

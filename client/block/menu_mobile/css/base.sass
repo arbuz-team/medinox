@@ -1,22 +1,22 @@
 
-$navigation--height: 100%
-$navigation-field--height: 45px
+$menu_mobile--height: 100%
+$menu_mobile-field--height: 45px
 
-$navigation--color: $G-COLOR-4
-$navigation--background-color: $G-COLOR-0
+$menu_mobile--color: $G-COLOR-4
+$menu_mobile--background-color: $G-COLOR-0
 
 
 //--------------------------------------
 //       STYLE PRZESUWANEGO MENU
 //--------------------------------------
 
-#NAVIGATION
+#MENU_MOBILE
   left: 0
-  top: -$navigation--height
+  top: -$menu_mobile--height
   right: 0
 
-  height: $navigation--height
-  background-color: $navigation--background-color
+  height: $menu_mobile--height
+  background-color: $menu_mobile--background-color
 
   z-index: 80
 
@@ -29,38 +29,75 @@ $navigation--background-color: $G-COLOR-0
     background-color: inherit
     text-align: center
     cursor: pointer
-    +box-shadow(0px -5px 5px 0px rgba(85,85,85,0.4))
+    border-top:  solid #666 3px
+    +box-shadow(0px -8px 5px 0px rgba(15, 15, 15, 0.4))
 
     opacity: .8
 
 
   .part-hide-text
-    line-height: 50px
+    line-height: 45px
+    font-weight: bold
     color: $G-COLOR-4
 
 
-.navigation
-  margin-bottom: 100px
+.menu_mobile
+  margin:
+    right: 15px
+    bottom: 100px
 
-  color: $navigation--color
+  color: $menu_mobile--color
   background-color: inherit
+
+
+
+.menu_mobile-tiles
+  height: 80px
+
+  border-bottom: solid #666 1px
+  font-size: 0
+
+  &.is-have-4
+
+    .menu_mobile-tile
+      width: 25%
+
+
+.menu_mobile-tile
+  position: relative
+  display: inline-block
+
+  margin: 0
+  height: 100%
+
+  .button
+    &, &:hover
+      height: 43px
+      margin-top: 18.5px
+
+      .button-icon
+        width: 43px
+        height: 43px
+
+        opacity: 1
+
 
 
 .navigation-list
 
-  li:not(.navigation-field)
+  li:not(.navigation-field), .menu_mobile-tile
     display: none
 
   .navigation-field
     position: relative
-    height: $navigation-field--height
+    height: $menu_mobile-field--height
 
     border-bottom: solid #666 1px
-    background-color: $navigation--background-color
+    background-color: $menu_mobile--background-color
 
     >*
       padding: 0 15px
-      line-height: $navigation-field--height
+      line-height: $menu_mobile-field--height
 
       cursor: pointer
 
@@ -74,5 +111,5 @@ $navigation--background-color: $G-COLOR-0
 //--------------------------------------
 
 @media (min-width: $G-SIZE-2)
-  #NAVIGATION
-    top: -$navigation--height !important
+  #MENU_MOBILE
+    top: -$menu_mobile--height !important

@@ -577,14 +577,14 @@
 	
 		part: {
 			open_cart: new Event('cart_open'),
-			open_navigation: new Event('navigation_open'),
+			open_menu_mobile: new Event('menu_mobile_open'),
 			open_searcher: new Event('searcher_open'),
 	
 			open_or_close_cart: new Event('cart_open_or_close'),
 	
 			close: new Event('plugins_close'),
 			close_cart: new Event('cart_close'),
-			close_navigation: new Event('navigation_close'),
+			close_menu_mobile: new Event('menu_mobile_close'),
 			close_dialog: new Event('dialog_close'),
 	
 			reload_root_sign_in: new Event('reload_root_sign_in'),
@@ -1824,7 +1824,7 @@
 				split_event = select_event.split('.');
 	
 				for (var _i = 0; split_event.length > _i; ++_i) {
-					if (typeof ready_event[split_event[_i]] === 'undefined') console.error('Launch Event error: Event doesn\'t exist.');else ready_event = ready_event[split_event[_i]];
+					if (typeof ready_event[split_event[_i]] === 'undefined') console.error('Launch Event error: Event ' + split_event[_i] + ' doesn\'t exist.');else ready_event = ready_event[split_event[_i]];
 				}if (ready_event.constructor === Event) {
 					prepare_delay(data);
 					APP.throw_event(ready_event);
@@ -3331,13 +3331,16 @@
 	
 		Menu_Mobile_Controller.instance = this;
 	
-		var navigation_loader = new _block.Block_Loader_Part({
-			part_name: 'menu_mobile',
-			container: '#NAVIGATION .navigation'
+		var container_id = '#MENU_MOBILE',
+		    container = '.menu_mobile',
+		    part_name = 'menu_mobile',
+		    loader = new _block.Block_Loader_Part({
+			part_name: part_name,
+			container: container
 		}),
-		    navigation_motion_controller = new _controller.Block_Motion_Controllers({
-			container: '#NAVIGATION',
-			content: '.navigation',
+		    motion_controller = new _controller.Block_Motion_Controllers({
+			container: container_id,
+			content: container,
 			open: 'down',
 	
 			can_open_by: 'width',
@@ -3347,26 +3350,26 @@
 			duration_close: 150
 		}),
 		    event_button_controller = new _controllers.Event_Button_Controllers({
-			container: '#NAVIGATION'
+			container: container_id
 		});
 	
 		this.plugin_open = function () {
-			navigation_motion_controller.plugin_open();
+			motion_controller.plugin_open();
 		};
 	
 		this.define = function () {
-			APP.add_own_event('navigation_close', navigation_motion_controller.plugin_close);
-			APP.add_own_event('navigation_open', navigation_motion_controller.plugin_open);
+			APP.add_own_event(part_name + '_close', motion_controller.plugin_close);
+			APP.add_own_event(part_name + '_open', motion_controller.plugin_open);
 	
-			navigation_motion_controller.define();
+			motion_controller.define();
 			event_button_controller.define();
 		};
 	
 		this.get_content = function () {
-			navigation_loader.define();
-			navigation_loader.load_content();
+			loader.define();
+			loader.load_content();
 	
-			navigation_motion_controller.set_start_position();
+			motion_controller.set_start_position();
 		};
 	}
 
@@ -3393,16 +3396,19 @@
 	
 		Menu_Controller.instance = this;
 	
-		var header_loader = new _block.Block_Loader_Part({
-			part_name: 'menu',
-			container: '.menu'
+		var container_id = '#MENU',
+		    container = '.menu',
+		    part_name = 'menu',
+		    loader = new _block.Block_Loader_Part({
+			part_name: part_name,
+			container: container
 		}),
 		    event_button_controller = new _controllers.Event_Button_Controllers({
-			container: '#MENU'
+			container: container_id
 		});
 	
 		this.get_height = function () {
-			return $('#MENU').outerHeight();
+			return $(container_id).outerHeight();
 		};
 	
 		this.define = function () {
@@ -3410,8 +3416,8 @@
 		};
 	
 		this.get_content = function () {
-			header_loader.define();
-			header_loader.load_content();
+			loader.define();
+			loader.load_content();
 		};
 	}
 

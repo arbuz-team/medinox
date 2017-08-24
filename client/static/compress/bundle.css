@@ -179,6 +179,9 @@ div > .buttons_to_action {
   white-space: nowrap;
   overflow: hidden; }
 
+.is-bold {
+  font-weight: bold; }
+
 .is-inline-inside > * {
   display: inline-block; }
 
@@ -198,7 +201,7 @@ div > .buttons_to_action {
   .is-mobile-visible {
     display: none; } }
 
-.std-img, .img-edit, .img-close, .img-waste_bin, .img-waste_bin-64, .img-shopping_cart, .img-searcher, .img-searcher-light, .img-email, .img-telephone, .img-home, .img-eye, .img-lines_menu, .img-flag-EN, .img-flag-PL, .img-flag-DE {
+.std-img, .img-edit, .img-close, .img-waste_bin, .img-waste_bin-64, .img-padlock_open-light-64, .img-shut_down-light-64, .img-businessman-light-64, .img-simple_settings-light-64, .img-notification-light-64, .img-has_notifications-64, .img-telephone-light-64, .img-shopping_cart, .img-searcher, .img-searcher-light, .img-email, .img-telephone, .img-home, .img-home-light-64, .img-eye, .img-lines_menu, .img-flag-EN, .img-flag-PL, .img-flag-DE {
   background-image: "";
   background-size: auto auto;
   background-position: 0 0;
@@ -215,6 +218,27 @@ div > .buttons_to_action {
 
 .img-waste_bin-64 {
   background-image: url(/static/img/icons/64/dark/waste_bin.png); }
+
+.img-padlock_open-light-64 {
+  background-image: url(/static/img/icons/64/light/padlock_open.png); }
+
+.img-shut_down-light-64 {
+  background-image: url(/static/img/icons/64/light/shut_down.png); }
+
+.img-businessman-light-64 {
+  background-image: url(/static/img/icons/64/light/businessman.png); }
+
+.img-simple_settings-light-64 {
+  background-image: url(/static/img/icons/64/light/simple_settings.png); }
+
+.img-notification-light-64 {
+  background-image: url(/static/img/icons/64/light/notifications.png); }
+
+.img-has_notifications-64 {
+  background-image: url(/static/img/icons/64/other/has_notifications.png); }
+
+.img-telephone-light-64 {
+  background-image: url(/static/img/icons/64/light/telephone.png); }
 
 .img-shopping_cart {
   background-image: url(/static/img/icons/32/dark/shopping_cart.png); }
@@ -233,6 +257,9 @@ div > .buttons_to_action {
 
 .img-home {
   background-image: url(/static/img/icons/32/dark/home.png); }
+
+.img-home-light-64 {
+  background-image: url(/static/img/icons/64/light/home.png); }
 
 .img-eye {
   background-image: url(/static/img/icons/32/dark/eye.png); }
@@ -1934,14 +1961,14 @@ img {
   .ground.smaller .ground-block.BIG .mini_cart-title {
     cursor: auto; } }
 
-#NAVIGATION {
+#MENU_MOBILE {
   left: 0;
   top: -100%;
   right: 0;
   height: 100%;
   background-color: #1a1a1a;
   z-index: 80; }
-  #NAVIGATION .part-hide {
+  #MENU_MOBILE .part-hide {
     bottom: 0;
     left: 0;
     right: 0;
@@ -1949,20 +1976,43 @@ img {
     background-color: inherit;
     text-align: center;
     cursor: pointer;
-    -moz-box-shadow: 0px -5px 5px 0px rgba(85, 85, 85, 0.4);
-    -webkit-box-shadow: 0px -5px 5px 0px rgba(85, 85, 85, 0.4);
-    box-shadow: 0px -5px 5px 0px rgba(85, 85, 85, 0.4);
+    border-top: solid #666 3px;
+    -moz-box-shadow: 0px -5px 5px 0px rgba(15, 15, 15, 0.4);
+    -webkit-box-shadow: 0px -5px 5px 0px rgba(15, 15, 15, 0.4);
+    box-shadow: 0px -5px 5px 0px rgba(15, 15, 15, 0.4);
     opacity: .8; }
-  #NAVIGATION .part-hide-text {
-    line-height: 50px;
+  #MENU_MOBILE .part-hide-text {
+    line-height: 45px;
+    font-weight: bold;
     color: #ffffff; }
 
-.navigation {
+.menu_mobile {
+  margin-right: 15px;
   margin-bottom: 100px;
   color: #ffffff;
   background-color: inherit; }
 
-.navigation-list li:not(.navigation-field) {
+.menu_mobile-tiles {
+  height: 80px;
+  border-bottom: solid #666 1px;
+  font-size: 0; }
+  .menu_mobile-tiles.is-have-4 .menu_mobile-tile {
+    width: 25%; }
+
+.menu_mobile-tile {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  height: 100%; }
+  .menu_mobile-tile .button, .menu_mobile-tile .button:hover {
+    height: 43px;
+    margin-top: 18.5px; }
+    .menu_mobile-tile .button .button-icon, .menu_mobile-tile .button:hover .button-icon {
+      width: 43px;
+      height: 43px;
+      opacity: 1; }
+
+.navigation-list li:not(.navigation-field), .navigation-list .menu_mobile-tile {
   display: none; }
 
 .navigation-list .navigation-field {
@@ -1979,7 +2029,7 @@ img {
   font-weight: bold; }
 
 @media (min-width: 680px) {
-  #NAVIGATION {
+  #MENU_MOBILE {
     top: -100% !important; } }
 
 #DIALOG {

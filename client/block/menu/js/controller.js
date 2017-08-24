@@ -16,19 +16,24 @@ export function Menu_Controller()
 
 
 	let
-		header_loader = new Block_Loader_Part({
-			part_name: 'menu',
-			container: '.menu',
+		container_id =          '#MENU',
+		container =             '.menu',
+		part_name =             'menu',
+
+
+		loader = new Block_Loader_Part({
+			part_name: part_name,
+			container: container,
 		}),
 
 		event_button_controller = new Event_Button_Controllers({
-			container: '#MENU'
+			container: container_id
 		});
 
 
 	this.get_height = function()
 	{
-		return $('#MENU').outerHeight();
+		return $(container_id).outerHeight();
 	};
 
 
@@ -40,7 +45,7 @@ export function Menu_Controller()
 
 	this.get_content = function()
 	{
-		header_loader.define();
-		header_loader.load_content();
+		loader.define();
+		loader.load_content();
 	};
 }
