@@ -482,9 +482,9 @@
 				_this4._receive_response().then(function (response) {
 					if (_this4._is_redirect(response)) resolve(response);
 	
-					_this4._load_head_of_page();
-	
 					_this4._set_content(response);
+	
+					_this4._load_head_of_page();
 	
 					_this4._prepare_content_to_show();
 	

@@ -164,9 +164,9 @@ Block_Loader_Part.prototype.load_content = function(post_url, post_data)
 				if(this._is_redirect(response))
 					resolve(response);
 
-				this._load_head_of_page();
-
 				this._set_content(response);
+
+				this._load_head_of_page();
 
 				this._prepare_content_to_show();
 
