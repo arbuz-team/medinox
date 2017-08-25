@@ -10,7 +10,7 @@ class Notification_Manager(Website_Manager):
         date = SQL.Get(Notification_Model, pk=last_notification_pk).date
 
         self.context['notifications'] = SQL.Filter(
-            Notification_Model, date__lt=date)[:10]
+            Notification_Model, date__lt=date).order_by('-date')[:10]
 
         return self.Render_HTML('notification/list.html')
 

@@ -17,3 +17,5 @@ class Abstract_Address(Abstract_Model):
 
     def __str__(self):
         return self.full_name
+
+

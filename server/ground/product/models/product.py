@@ -1,5 +1,6 @@
 from server.manage.user.models import User
 from server.ground.catalog.models import *
+from server.manage.switch.models import *
 
 
 class Brand(Abstract_Model):

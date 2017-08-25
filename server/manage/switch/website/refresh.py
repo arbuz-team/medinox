@@ -58,18 +58,20 @@ class Refresh(Base_Website):
         reminders = SQL.Filter(Order_Deadline, reminder__lt=today)
 
         for deadline in deadlines:
-            SQL.Save(Notification_Model,
-                     name=deadline.name,
-                     type='deadline',
-                     date=today,
-                     direct_url='')
+            try: SQL.Save(Notification_Model,
+                          name=deadline.name,
+                          type='deadline',
+                          date=today,
+                          direct_url='{0}'.format(deadline.payment.pk))
+            except: pass
 
         for reminder in reminders:
-            SQL.Save(Notification_Model,
-                     name=reminder.name,
-                     type='reminder',
-                     date=today,
-                     direct_url='')
+            try: SQL.Save(Notification_Model,
+                          name=reminder.name,
+                          type='reminder',
+                          date=today,
+                          direct_url='{0}'.format(reminder.payment.pk))
+            except: pass
 
         self.request.session['notification_is_unreaded'] = \
             True if SQL.Filter(Notification_Model, not_viewed=True) \

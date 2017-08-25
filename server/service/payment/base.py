@@ -9,12 +9,10 @@ class Payment_Models_Manager(Base_Website):
 
         selected_products = self.Get_Selected_Products()
         delivery = self.Get_Payment().delivery_price
-        total = self.product_models_manager\
-            .Get_Delivery_Price(delivery, current_currency=True)
+        total = delivery.price_eur
 
         for selected in selected_products:
-            product_price = self.product_models_manager\
-                .Get_Product_Price(selected.product, current_currency=True)
+            product_price = selected.price
 
             total += product_price * selected.number
 
