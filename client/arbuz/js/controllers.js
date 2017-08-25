@@ -78,8 +78,12 @@ export function Page_Controller()
 
 		define = () =>
 		{
+			let $textarea = $('textarea');
+
 			$('*').off(); // Usuń wszystkie wydarzenia ze wszystkich elementów
 
+			window.autosize.destroy($textarea);
+			window.autosize($textarea);
 			searcher_controller.define();
 			cart_controller.define();
 			menu_mobile_controller.define();

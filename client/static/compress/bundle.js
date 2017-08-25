@@ -251,8 +251,12 @@
 			}, delay);
 		},
 		    define = function define() {
+			var $textarea = $('textarea');
+	
 			$('*').off();
 	
+			window.autosize.destroy($textarea);
+			window.autosize($textarea);
 			searcher_controller.define();
 			cart_controller.define();
 			menu_mobile_controller.define();
@@ -2680,7 +2684,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.define = undefined;
 	
@@ -2691,22 +2695,22 @@
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	var define = exports.define = function define(config) {
-	  var views = image_convert_views,
-	      settings = views.models.settings,
-	      $forms = $(settings.form, config.$container),
-	      $file_fields = $(settings.input_file, $forms);
+		var views = image_convert_views,
+		    settings = views.models.settings,
+		    $forms = $(settings.form, config.$container),
+		    $file_fields = $(settings.input_file, $forms);
 	
-	  $file_fields.each(function (i, field) {
-	    $(field).change(function () {
-	      if (field.files[0]) {
-	        var callback = new views.Callback_Functions(field);
+		$file_fields.each(function (i, field) {
+			$(field).change(function () {
+				if (field.files[0]) {
+					var callback = new views.Callback_Functions(field);
 	
-	        views.get_base64(field.files[0], callback);
-	      }
-	    }).parent().children(settings.button_shell).click(function () {
-	      $(field).click();
-	    });
-	  });
+					views.get_base64(field.files[0], callback);
+				}
+			}).parent().children(settings.button_shell).click(function () {
+				$(field).click();
+			});
+		});
 	};
 
 /***/ },
