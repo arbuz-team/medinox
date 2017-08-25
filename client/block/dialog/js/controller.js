@@ -43,7 +43,7 @@ export function Dialog_Controller()
 			{
 				loading.then(() =>
 				{
-					loader.define();
+					// loader.define();
 					designer.unset_loading();
 				});
 			});
@@ -68,7 +68,7 @@ export function Dialog_Controller()
 
 			designer.open().then(() =>
 			{
-				loading.then(loader.define);
+				// loading.then(loader.define);
 			});
 		};
 
@@ -76,6 +76,7 @@ export function Dialog_Controller()
 	this.define = function()
 	{
 		designer.define();
+		loader.define();
 
 		$(config.html_id).click(close_with_cancel_event);
 		$(config.external_button).click(open);

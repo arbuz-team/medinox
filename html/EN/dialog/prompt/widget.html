@@ -96,18 +96,25 @@
             Close
         </button>
 
-        <button class="button dialog_send event_button"
-                type="button"
-                data-name="{{ accept.name }}"
-                data-reload="{{ accept.reload }}"
-                data-redirect="{{ accept.redirect }}"
-                data-event="part.close_dialog {{ accept.event }}">
-            {% if additional_form %}
-                Save
-            {% else %}
+        {% if additional_form %}
+            <button class="button dialog_send event_button"
+                    type="button"
+                    data-name="{{ accept.name }}"
+                    data-reload="{{ accept.reload }}"
+                    data-redirect="{{ accept.redirect }}"
+                    data-event="part.close_dialog {{ accept.event }}">
+                    Save
+            </button>
+        {% else %}
+            <button class="button dialog_send event_button"
+                    type="button"
+                    data-name="{{ accept.name }}"
+                    data-reload="{{ accept.reload }}"
+                    data-redirect="{{ accept.redirect }}"
+                    data-event="part.reload_dialog {{ accept.event }}">
                 Create
-            {% endif %}
-        </button>
+            </button>
+        {% endif %}
     </div><!-- dialog-content-part -->
 
 </div><!-- dialog-content -->

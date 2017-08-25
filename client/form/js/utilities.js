@@ -109,7 +109,7 @@ export let
 				if(ready_event.constructor === Event)
 				{
 					prepare_delay(data);
-					APP.throw_event(ready_event); // example plugins.close_cart
+					APP.throw_event(ready_event); // example part.close_cart
 				}
 				else
 					console.error('Event error: This event doesn\'t exist');

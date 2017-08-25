@@ -16,7 +16,7 @@ window.EVENTS = {
 
 		open_or_close_cart:     new Event('cart_open_or_close'),
 
-		close:                  new Event('plugins_close'),
+		close:                  new Event('part_close'),
 		close_cart:             new Event('cart_close'),
 		close_menu_mobile:      new Event('menu_mobile_close'),
 		close_dialog:           new Event('dialog_close'),

@@ -68,7 +68,7 @@ export let Little_Form_Views = function(form_config)
       if(ready_event.constructor === Event)
       {
         APP.DATA.delay = 100;
-        APP.throw_event(ready_event); // example plugins.close_cart
+        APP.throw_event(ready_event); // example part.close_cart
       }
     },
 

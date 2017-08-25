@@ -23,6 +23,7 @@ Block_Loader.prototype._if_reload = function(url)
 
 Block_Loader.prototype._refresh_events = function()
 {
+	console.log('refresh events');
 	APP.throw_event( EVENTS.define );
 };
 

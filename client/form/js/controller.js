@@ -60,6 +60,11 @@ export let Form_Controllers = function(config)
 				$container:     $container,
 			};
 
+		$('form', $container).each(function()
+		{
+			if($(this).data('name') === 'values')
+				console.log(this);
+		});
 		$('form', $container).submit(prepare_form_to_send);
 
 		validator.define(config_form);

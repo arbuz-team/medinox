@@ -585,7 +585,7 @@
 	
 			open_or_close_cart: new Event('cart_open_or_close'),
 	
-			close: new Event('plugins_close'),
+			close: new Event('part_close'),
 			close_cart: new Event('cart_close'),
 			close_menu_mobile: new Event('menu_mobile_close'),
 			close_dialog: new Event('dialog_close'),
@@ -1153,6 +1153,7 @@
 	};
 	
 	_init.Block_Loader.prototype._refresh_events = function () {
+		console.log('refresh events');
 		APP.throw_event(EVENTS.define);
 	};
 	
@@ -1401,7 +1402,7 @@
 			$window.resize(if_horizontal_resize(this.set_start_position));
 			$window.resize(if_horizontal_resize(plugin_motion_views.plugin_close));
 	
-			APP.add_own_event('plugins_close', pre_plugin_close);
+			APP.add_own_event('part_close', pre_plugin_close);
 			APP.throw_event(EVENTS.part.close);
 		};
 	
@@ -1675,6 +1676,9 @@
 				$container: $container
 			};
 	
+			$('form', $container).each(function () {
+				if ($(this).data('name') === 'values') console.log(this);
+			});
 			$('form', $container).submit(prepare_form_to_send);
 	
 			validator.define(config_form);
@@ -3469,7 +3473,6 @@
 	
 			designer.set_loading().then(function () {
 				loading.then(function () {
-					loader.define();
 					designer.unset_loading();
 				});
 			});
@@ -3483,13 +3486,12 @@
 		    open = function open() {
 			var loading = loader.get_content(this);
 	
-			designer.open().then(function () {
-				loading.then(loader.define);
-			});
+			designer.open().then(function () {});
 		};
 	
 		this.define = function () {
 			designer.define();
+			loader.define();
 	
 			$(config.html_id).click(close_with_cancel_event);
 			$(config.external_button).click(open);
