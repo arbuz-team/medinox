@@ -6,8 +6,8 @@ class Notification_Manager(Website_Manager):
 
     def Manage_Get_Next_Ten_Notifications(self):
 
-        last_notification_id = self.request.POST['last_notification_id']
-        date = SQL.Get(Notification_Model, id=last_notification_id).date
+        last_notification_pk = self.request.POST['last_notification_pk']
+        date = SQL.Get(Notification_Model, pk=last_notification_pk).date
 
         self.context['notifications'] = SQL.Filter(
             Notification_Model, date__lt=date)[:10]
