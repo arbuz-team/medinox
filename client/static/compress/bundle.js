@@ -1153,7 +1153,6 @@
 	};
 	
 	_init.Block_Loader.prototype._refresh_events = function () {
-		console.log('refresh events');
 		APP.throw_event(EVENTS.define);
 	};
 	
@@ -2691,10 +2690,10 @@
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	var define = exports.define = function define($container) {
+	var define = exports.define = function define(config) {
 	  var views = image_convert_views,
 	      settings = views.models.settings,
-	      $forms = $(settings.form, $container),
+	      $forms = $(settings.form, config.$container),
 	      $file_fields = $(settings.input_file, $forms);
 	
 	  $file_fields.each(function (i, field) {
