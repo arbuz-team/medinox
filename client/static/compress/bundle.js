@@ -1281,7 +1281,7 @@
 	
 	var define = exports.define = function define() {
 	  var $images = $query('img'),
-	      default_src = '/static/img/puzzle_256.png',
+	      default_src = '/static/img/icons/256/band_aid.png',
 	      image = new Image();
 	
 	  function download_img($imgs, i) {

@@ -5,3 +5,11 @@ img
   position: relative
   opacity: 0.4
   z-index: 1
+
+
+.img-default
+  +background-img('', 60%, center)
+  opacity: 0.5
+
+  &.is-button:hover
+    opacity: 0.7

@@ -23,9 +23,19 @@
             <div class="block-content-left">
 
                 <div class="product_details-image">
-                    <div class="fill-abs">
-                        <img data-src="{{ product.image }}" src="{% static 'img/pixel.png' %}" alt="{{ product.name }}">
-                    </div>
+                    {% if element.image %}
+
+                        <div class="fill-abs">
+                            <img data-src="{{ product.image }}" src="{% static 'img/pixel.png' %}" alt="{{ product.name }}">
+                        </div>
+
+                    {% else %}
+
+                        <div class="img-default fill-abs img-hospital-256">
+                            &nbsp;
+                        </div>
+
+                    {% endif %}
                 </div>
 
             </div><!-- block-content-left -->

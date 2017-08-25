@@ -240,6 +240,12 @@ div > .buttons_to_action {
 .img-telephone-light-64 {
   background-image: url(/static/img/icons/64/light/telephone.png); }
 
+.img-medical_records-256 {
+  background-image: url(/static/img/icons/256/medical_records.png); }
+
+.img-hospital-256 {
+  background-image: url(/static/img/icons/256/hospital.png); }
+
 .img-shopping_cart {
   background-image: url(/static/img/icons/32/dark/shopping_cart.png); }
 
@@ -773,6 +779,15 @@ img {
   position: relative;
   opacity: 0.4;
   z-index: 1; }
+
+.img-default {
+  background-image: "";
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.5; }
+  .img-default.is-button:hover {
+    opacity: 0.7; }
 
 #GROUND {
   position: relative;
@@ -1436,6 +1451,8 @@ img {
     opacity: 0; }
   .tile:hover .icon {
     opacity: 1; }
+  .tile:hover .img-default {
+    opacity: 0.7; }
 
 .tile-img {
   padding: 10px 15px;
@@ -1449,9 +1466,9 @@ img {
   padding: 0;
     padding-top: 80%;
   overflow: hidden; }
-  .tile-img > div {
+  .tile-img .fill-abs, .tile-img .address_block-shell, .tile-img .mini_cart-shell {
     text-align: center; }
-    .tile-img > div > img {
+    .tile-img .fill-abs > img, .tile-img .address_block-shell > img, .tile-img .mini_cart-shell > img {
       max-width: 100%;
       max-height: 100%;
       vertical-align: middle; }
