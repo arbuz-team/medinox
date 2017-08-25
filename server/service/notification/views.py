@@ -16,7 +16,7 @@ class Notification_Manager(Website_Manager):
 
     def Manage_Get(self):
 
-        if self.request.POST['__get__'] == 'ten_notifications':
+        if self.request.POST['_name_'] == 'ten_notifications':
             return self.Manage_Get_Next_Ten_Notifications()
 
     @staticmethod
