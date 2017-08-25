@@ -2,9 +2,10 @@
 
 <div class="notifications-single is-relative"
 	 data-pk="{{ notification.pk }}"
-	 data-unread="{{ notification.not_viewed }}">
+	 data-unread="{{ notification.not_viewed }}"
+	 data-type="{{ notification.type }}">
 
-	<a class="fill-abs" href="{{ notification.direct_url }}" target="_blank">
+	<a class="notifications-single-content fill-abs" href="{{ notification.direct_url }}" target="_blank">
 
 		<div class="notifications-single-info">{{ notification.type }}</div>
 

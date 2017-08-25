@@ -30,6 +30,6 @@ export function Notifications_Controller(config)
 
 	this.define = function()
 	{
-		$(model.selector, container).click(updata_list_notifications);
+		$(model.selector.show_more_button, container).click(updata_list_notifications);
 	}
 }

@@ -3967,14 +3967,14 @@
 		}
 	
 		var container = config.container,
-		    view = new _view.Notifications_View(config),
+		    view = new _view.Notifications_View(),
 		    model = view.model,
 		    updata_list_notifications = function updata_list_notifications() {
 			view.get_list(this).then(view.set_list);
 		};
 	
 		this.define = function () {
-			$(model.selector, container).click(updata_list_notifications);
+			$(model.selector.show_more_button, container).click(updata_list_notifications);
 		};
 	}
 
@@ -3991,12 +3991,12 @@
 	
 	var _model = __webpack_require__(61);
 	
-	function Notifications_View(config) {
-		var container = config.container,
-		    model = this.model,
+	function Notifications_View() {
+		var model = void 0,
 		    $list_notifications = void 0;
 	
 		this.model = new _model.Notifications_Model();
+		model = this.model;
 	
 		this.set_list = function (response) {
 			var html = model.receive_response(response);
@@ -4013,7 +4013,9 @@
 	
 			$list_notifications = $list;
 	
-			return model.get_ten_notifications(pk);
+			model.prepare_post_data(pk);
+	
+			return model.get_ten_notifications();
 		};
 	}
 
@@ -4033,8 +4035,9 @@
 	function Notifications_Model() {
 		var request_manager = new _controller.Request_Manager(),
 		    variable = {
+			post_url: '/notification/',
 			post_data: undefined,
-			post_name: '__get__'
+			post_name: '__ground__'
 		};
 	
 		this.selector = {
@@ -4044,10 +4047,14 @@
 		};
 	
 		this.prepare_post_data = function (pk) {
+			if (!pk) pk = '';
+	
 			variable.post_data = {
-				__get__: 'ten_notifications',
-				last_notification_id: pk
+				_name_: 'ten_notifications',
+				last_notification_pk: pk
 			};
+	
+			variable.post_data[variable.post_name] = 'get';
 		};
 	
 		this.receive_response = function (response) {
@@ -4055,7 +4062,7 @@
 		};
 	
 		this.get_ten_notifications = function () {
-			return request_manager.send(undefined, variable.post_data, variable.post_name);
+			return request_manager.send(variable.post_url, variable.post_data, variable.post_name);
 		};
 	}
 

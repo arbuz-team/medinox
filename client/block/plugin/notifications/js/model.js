@@ -11,8 +11,9 @@ export function Notifications_Model()
 		request_manager = new Request_Manager(),
 
 		variable = {
+			post_url:   '/notification/',
 			post_data:  undefined,
-			post_name:  '__get__',
+			post_name:  '__ground__',
 		};
 
 
@@ -28,10 +29,15 @@ export function Notifications_Model()
 
 	this.prepare_post_data = function(pk)
 	{
+		if(!pk)
+			pk = '';
+
 		variable.post_data = {
-			__get__:                'ten_notifications',
-			last_notification_id:   pk,
+			_name_:                'ten_notifications',
+			last_notification_pk:   pk,
 		};
+
+		variable.post_data[variable.post_name] = 'get';
 	};
 
 
@@ -44,6 +50,6 @@ export function Notifications_Model()
 
 	this.get_ten_notifications = function()
 	{
-		return request_manager.send(undefined, variable.post_data, variable.post_name);
+		return request_manager.send(variable.post_url, variable.post_data, variable.post_name);
 	};
 }

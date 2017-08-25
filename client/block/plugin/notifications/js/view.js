@@ -8,13 +8,12 @@ import {Notifications_Model} 		from './model'
 export function Notifications_View()
 {
 	let
-		model = this.model,
-
+		model,
 		$list_notifications;
 
 
 	this.model = new Notifications_Model();
-
+	model = this.model;
 
 	this.set_list = function(response)
 	{
@@ -36,6 +35,8 @@ export function Notifications_View()
 
 		$list_notifications = $list;
 
-		return model.get_ten_notifications(pk);
+		model.prepare_post_data(pk);
+
+		return model.get_ten_notifications();
 	};
 }

@@ -1,6 +1,35 @@
 
+.notifications
+  margin: 15px
+
+
 .notifications-single
-  margin-bottom: 15px
+  height: 45px
+
+  margin-bottom: 10px
+
+  border-left: solid 7px #4CAF50
+
+  &[data-unread="True"]
+    background-color: #eee
+
+
+  &[data-type="deadline"]
+    border-left-color: #F44336
+
+  &[data-type="reminder"]
+    border-left-color: #FFEB3B
+
+
+.notifications-single-content
+  padding: 5px 10px
+
+
+
+.notifications-single-date
+  position: absolute
+  top: 5px
+  right: 10px
 
 
 .notifications-show_more

@@ -1,3 +1,7 @@
 
 
-{% include 'block/plugin/notifications/html/main.html' %}
+{% for notification in notifications %}
+
+	{% include 'block/plugin/notifications/html/single.html' %}
+
+{% endfor %}

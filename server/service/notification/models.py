@@ -9,5 +9,5 @@ class Notification_Model(Abstract_Model):
     direct_url = models.URLField()
     not_viewed = models.BooleanField(default=True)
 
-    class Meta:
-        unique_together = ('direct_url', 'type',)
+    # class Meta:
+    #    unique_together = ('direct_url', 'type',)
