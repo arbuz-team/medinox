@@ -208,7 +208,7 @@
 	
 	var _controller5 = __webpack_require__(51);
 	
-	var _controller6 = __webpack_require__(62);
+	var _controller6 = __webpack_require__(65);
 	
 	var _block = __webpack_require__(14);
 	
@@ -3638,9 +3638,9 @@
 	
 	var _controller2 = __webpack_require__(58);
 	
-	var _view = __webpack_require__(59);
+	var _controller3 = __webpack_require__(59);
 	
-	var _views = __webpack_require__(40);
+	var _view = __webpack_require__(62);
 	
 	function Dialog_Loader_Controller(config) {
 		var config_loader = {
@@ -3652,7 +3652,8 @@
 		    post_button_controller = new _controllers.Post_Button_Controllers(config_loader),
 		    event_button_controller = new _controllers2.Event_Button_Controllers(config_loader),
 		    little_form_controller = new _controllers3.Little_Form_Controllers(config_loader),
-		    directory_tree_controller = new _controller2.Directory_Tree(config_loader);
+		    directory_tree_controller = new _controller2.Directory_Tree(config_loader),
+		    notifications_controller = new _controller3.Notifications_Controller(config_loader);
 	
 		this.reload_content = function () {
 			return view.send_request();
@@ -3676,6 +3677,7 @@
 			event_button_controller.define();
 			little_form_controller.define();
 			directory_tree_controller.define();
+			notifications_controller.define();
 	
 			$(config.internal_button, config.container).click(view.send_form);
 		};
@@ -3954,9 +3956,121 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.Notifications_Controller = Notifications_Controller;
+	
+	var _view = __webpack_require__(60);
+	
+	function Notifications_Controller(config) {
+		if (!config || !config.container) {
+			console.error('Part Loader error: Invalid configuration.');
+			return {};
+		}
+	
+		var container = config.container,
+		    view = new _view.Notifications_View(config),
+		    model = view.model,
+		    updata_list_notifications = function updata_list_notifications() {
+			view.get_list(this).then(view.set_list);
+		};
+	
+		this.define = function () {
+			$(model.selector, container).click(updata_list_notifications);
+		};
+	}
+
+/***/ },
+/* 60 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Notifications_View = Notifications_View;
+	
+	var _model = __webpack_require__(61);
+	
+	function Notifications_View(config) {
+		var container = config.container,
+		    model = this.model,
+		    $list_notifications = void 0;
+	
+		this.model = new _model.Notifications_Model();
+	
+		this.set_list = function (response) {
+			var html = model.receive_response(response);
+	
+			$list_notifications.append(html);
+		};
+	
+		this.get_list = function (button) {
+			var $button = $(button),
+			    $container = $button.parents(model.selector.container),
+			    $list = $container.find(model.selector.list),
+			    $last_notification = $list.children().last(),
+			    pk = $last_notification.data('pk');
+	
+			$list_notifications = $list;
+	
+			return model.get_ten_notifications(pk);
+		};
+	}
+
+/***/ },
+/* 61 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Notifications_Model = Notifications_Model;
+	
+	var _controller = __webpack_require__(15);
+	
+	function Notifications_Model() {
+		var request_manager = new _controller.Request_Manager(),
+		    variable = {
+			post_data: undefined,
+			post_name: '__get__'
+		};
+	
+		this.selector = {
+			container: '.notifications',
+			list: '.notifications-list',
+			show_more_button: '.notifications-show_more-button'
+		};
+	
+		this.prepare_post_data = function (pk) {
+			variable.post_data = {
+				__get__: 'ten_notifications',
+				last_notification_id: pk
+			};
+		};
+	
+		this.receive_response = function (response) {
+			if (response && response.html) return response.html;
+		};
+	
+		this.get_ten_notifications = function () {
+			return request_manager.send(undefined, variable.post_data, variable.post_name);
+		};
+	}
+
+/***/ },
+/* 62 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Dialog_Loader_View = Dialog_Loader_View;
 	
-	var _model = __webpack_require__(60);
+	var _model = __webpack_require__(63);
 	
 	function Dialog_Loader_View(config) {
 		var model = new _model.Dialog_Loader_Model(config);
@@ -4003,7 +4117,7 @@
 	}
 
 /***/ },
-/* 60 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4013,7 +4127,7 @@
 	});
 	exports.Dialog_Loader_Model = Dialog_Loader_Model;
 	
-	var _dialog = __webpack_require__(61);
+	var _dialog = __webpack_require__(64);
 	
 	function Dialog_Loader_Model(config) {
 	
@@ -4044,7 +4158,7 @@
 	}
 
 /***/ },
-/* 61 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4111,7 +4225,7 @@
 	Block_Loader_Dialog.prototype.define = function () {};
 
 /***/ },
-/* 62 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4124,7 +4238,7 @@
 	
 	exports.Ground_Controller = Ground_Controller;
 	
-	var _view = __webpack_require__(63);
+	var _view = __webpack_require__(66);
 	
 	function Ground_Controller() {
 		if (_typeof(Ground_Controller.instance) === 'object') return Ground_Controller.instance;
@@ -4164,7 +4278,7 @@
 	}
 
 /***/ },
-/* 63 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4174,7 +4288,7 @@
 	});
 	exports.Ground_View = Ground_View;
 	
-	var _model = __webpack_require__(64);
+	var _model = __webpack_require__(67);
 	
 	function Ground_View() {
 		var _this = this;
@@ -4240,7 +4354,7 @@
 	}
 
 /***/ },
-/* 64 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

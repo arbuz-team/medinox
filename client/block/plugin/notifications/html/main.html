@@ -1,0 +1,25 @@
+
+<div class="notifications">
+
+	<div class="notifications-list">
+
+		{{ notifications }}
+
+		{% for notification in notifications %}
+
+			{% include 'block/plugin/notifications/html/single.html' %}
+
+		{% endfor %}
+
+	</div>
+
+	<div class="notifications-show_more">
+
+		<button class="button notifications-show_more-button"
+				type="button">
+			Show more
+		</button>
+
+	</div>
+
+</div>

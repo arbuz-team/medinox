@@ -1,0 +1,17 @@
+
+
+<div class="notifications-single is-relative"
+	 data-pk="{{ notification.pk }}"
+	 data-unread="{{ notification.not_viewed }}">
+
+	<a class="fill-abs" href="{{ notification.direct_url }}" target="_blank">
+
+		<div class="notifications-single-info">{{ notification.type }}</div>
+
+		<div class="notifications-single-title">{{ notification.name }}</div>
+
+		<div class="notifications-single-date">{{ notification.date }}</div>
+
+	</a>
+
+</div>
