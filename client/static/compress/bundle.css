@@ -1449,10 +1449,11 @@ img {
     bottom: 35px;
     float: right;
     opacity: 0; }
-  .tile:hover .icon {
+  .tile:hover .icon, .tile:hover .tile-img {
     opacity: 1; }
-  .tile:hover .img-default {
-    opacity: 0.7; }
+
+.img-default {
+  opacity: 0.7; }
 
 .tile-img {
   padding: 10px 15px;
@@ -1475,6 +1476,14 @@ img {
 
 .tile-title {
   font-weight: bold; }
+
+@media (min-width: 1000px) {
+  .tile-img {
+    opacity: 0.8; }
+  .img-default {
+    opacity: 0.5; }
+  .tile:hover .img-default {
+    opacity: 0.7; } }
 
 .products.tiles > ul > .tile.new > a > .tile-img.mini_image, .products.tiles > ul > .tile.new > div:not(.tooltip-options) > .tile-img.mini_image {
   background-image: url(/static/img/icons/128/dark/add.png);

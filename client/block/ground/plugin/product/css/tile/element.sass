@@ -17,11 +17,12 @@
     opacity: 0
 
   &:hover
-    .icon
+    .icon, .tile-img
       opacity: 1
 
-    .img-default
-      opacity: 0.7
+
+.img-default
+  opacity: 0.7
 
 
 .tile-img
@@ -48,4 +49,17 @@
 
 
 
+@media (min-width: $G-SIZE-3)
+
+  .tile-img
+    opacity: 0.8
+
+
+  .img-default
+    opacity: 0.5
+
+
+  .tile:hover
+    .img-default
+      opacity: 0.7
 
