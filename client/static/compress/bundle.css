@@ -1408,7 +1408,7 @@ img {
   width: 340px;
   margin: 30px auto; }
 
-.ground-block.SMALL .is-fills-in-width-inside .input, .ground-block.SMALL .is-fills-in-width-inside .button {
+.ground-block.SMALL .is-fills-in-width-inside .input, .ground-block.SMALL .is-fills-in-width-inside .button, .ground-block.SMALL .is-fills-in-width-inside .select {
   width: 100%;
   margin-left: 0;
   margin-right: 0; }

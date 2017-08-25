@@ -2286,7 +2286,7 @@
 	};
 	
 	list_configs.root_address = {
-	  full_name: 'full_name',
+	  full_name: 'proper_name',
 	  address_line: 'no_empty',
 	  city: 'proper_name',
 	  region: 'proper_name',
