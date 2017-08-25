@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^catalog/', include('server.ground.catalog.urls.en'), name='catalog'),
     url(r'^setting/', include('server.manage.setting.urls.en'), name='setting'),
     url(r'^payment/', include('server.service.payment.urls.en'), name='payment'),
+    url(r'^notification/', include('server.service.notification.urls.en'), name='notification'),
     url(r'^pdf/', include('server.service.pdf.urls.en'), name='pdf'),
     url(r'', include('server.ground.main.urls.en'), name='main'),
 ]

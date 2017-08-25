@@ -1,0 +1,14 @@
+
+{% for notification in notifications %}
+
+    <div>
+
+        {{ notification.name }}
+        {{ notification.type }}
+        {{ notification.date }}
+        {{ notification.direct_url }}
+        {{ notification.not_viewed }}
+
+    </div>
+
+{% endfor %}

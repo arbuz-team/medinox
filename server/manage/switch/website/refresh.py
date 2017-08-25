@@ -1,4 +1,6 @@
 from server.manage.switch.website.base import *
+from server.service.payment.models import *
+from server.service.notification.models import *
 
 
 class Refresh(Base_Website):
@@ -48,6 +50,30 @@ class Refresh(Base_Website):
 
     def Update_App_Name(self):
         self.request.session['arbuz_app'] = self.app_name
+
+    def Update_Notifications(self):
+
+        today = datetime.today()
+        deadlines = SQL.Filter(Order_Deadline, deadline__lt=today)
+        reminders = SQL.Filter(Order_Deadline, reminder__lt=today)
+
+        for deadline in deadlines:
+            SQL.Save(Notification_Model,
+                     name=deadline.name,
+                     type='deadline',
+                     date=today,
+                     direct_url='')
+
+        for reminder in reminders:
+            SQL.Save(Notification_Model,
+                     name=reminder.name,
+                     type='reminder',
+                     date=today,
+                     direct_url='')
+
+        self.request.session['notification_is_unreaded'] = \
+            True if SQL.Filter(Notification_Model, not_viewed=True) \
+                else False
 
     def __init__(self, _object):
         Base_Website.__init__(self, _object)

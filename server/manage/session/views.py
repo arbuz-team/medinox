@@ -165,6 +165,11 @@ class Session_Controller:
         if 'main_about' not in self.request.session:
             self.request.session['main_about'] = ''
 
+    def Check_Session_Notification(self):
+
+        if 'notification_is_unreaded' not in self.request.session:
+            self.request.session['notification_is_unreaded'] = False
+
     def Check_Session(self):
 
         methods = getmembers(self, predicate=ismethod)
