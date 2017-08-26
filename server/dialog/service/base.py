@@ -66,5 +66,6 @@ class Base_Service(Base):
         self.dialog = dialog
         self.instance = None
         self.initial = None
+        self.context = dialog.context
 
         self.HTML = self.Manage()
