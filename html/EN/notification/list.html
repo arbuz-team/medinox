@@ -1,4 +1,9 @@
 
+{% if not notifications %}
+
+	<div class="dialog-message"> No notifications </div>
+
+{% endif %}
 
 {% for notification in notifications %}
 
