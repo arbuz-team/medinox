@@ -19,6 +19,7 @@ export function Notifications_View()
 	{
 		let html = model.receive_response(response);
 
+		$list_notifications.children(model.selector.message).remove();
 		$list_notifications.append(html);
 	};
 
@@ -29,7 +30,7 @@ export function Notifications_View()
 			$button = $(button),
 			$container = $button.parents(model.selector.container),
 			$list = $container.find(model.selector.list),
-			$last_notification = $list.children().last(),
+			$last_notification = $list.children(model.selector.single).last(),
 
 			pk = $last_notification.data('pk');
 

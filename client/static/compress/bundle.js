@@ -3974,6 +3974,8 @@
 		};
 	
 		this.define = function () {
+			$(model.selector.list, container).each(updata_list_notifications);
+	
 			$(model.selector.show_more_button, container).click(updata_list_notifications);
 		};
 	}
@@ -4001,6 +4003,7 @@
 		this.set_list = function (response) {
 			var html = model.receive_response(response);
 	
+			$list_notifications.children(model.selector.message).remove();
 			$list_notifications.append(html);
 		};
 	
@@ -4008,7 +4011,7 @@
 			var $button = $(button),
 			    $container = $button.parents(model.selector.container),
 			    $list = $container.find(model.selector.list),
-			    $last_notification = $list.children().last(),
+			    $last_notification = $list.children(model.selector.single).last(),
 			    pk = $last_notification.data('pk');
 	
 			$list_notifications = $list;
@@ -4043,6 +4046,8 @@
 		this.selector = {
 			container: '.notifications',
 			list: '.notifications-list',
+			message: '.notifications-message',
+			single: '.notifications-single',
 			show_more_button: '.notifications-show_more-button'
 		};
 	
