@@ -5,7 +5,7 @@ find . -path "$(dirname $0)/*/migrations/*.pyc"  -delete
 
 COMMAND=""
 COMMAND="$COMMAND DROP DATABASE medinox;"
-COMMAND="$COMMAND CREATE DATABASE medinox CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+COMMAND="$COMMAND CREATE DATABASE medinox DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
 echo $COMMAND | python3 $(dirname $0)/manage.py dbshell
 
 python3 $(dirname $0)/manage.py makemigrations cart

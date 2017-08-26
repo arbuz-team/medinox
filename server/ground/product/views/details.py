@@ -57,7 +57,7 @@ class Details(Website_Manager):
         return self.Render_HTML('product/details.html')
 
     @staticmethod
-    def Details(request, pk, name):
+    def Launch(request, pk, name):
 
         if '_name_' in request.POST:
 
@@ -71,7 +71,3 @@ class Details(Website_Manager):
                 return Description_Manager(request, only_root=True).HTML
 
         return Details(request, other_value=pk).HTML
-
-    @staticmethod
-    def Launch(request):
-        pass

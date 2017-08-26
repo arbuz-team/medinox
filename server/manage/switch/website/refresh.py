@@ -56,21 +56,42 @@ class Refresh(Base_Website):
         today = datetime.today()
         deadlines = SQL.Filter(Order_Deadline, deadline__lt=today)
         reminders = SQL.Filter(Order_Deadline, reminder__lt=today)
+        path_manager = Path_Manager(self)
 
         for deadline in deadlines:
-            try: SQL.Save(Notification_Model,
-                          name=deadline.name,
-                          type='deadline',
-                          date=today,
-                          direct_url='{0}'.format(deadline.payment.pk))
+
+            try:
+
+                SQL.Save(
+                    Notification_Model,
+                    name=deadline.name,
+                    type='deadline',
+                    date=today,
+                    direct_url=path_manager.Get_Urls(
+                        'root.selected_user_payment',
+                        kwargs={'pk': deadline.payment.pk},
+                        current_language=True
+                    )
+                )
+
             except: pass
 
         for reminder in reminders:
-            try: SQL.Save(Notification_Model,
-                          name=reminder.name,
-                          type='reminder',
-                          date=today,
-                          direct_url='{0}'.format(reminder.payment.pk))
+
+            try:
+
+                SQL.Save(
+                    Notification_Model,
+                    name=reminder.name,
+                    type='reminder',
+                    date=today,
+                    direct_url=path_manager.Get_Urls(
+                        'root.selected_user_payment',
+                        kwargs={'pk': reminder.payment.pk},
+                        current_language=True
+                    )
+                )
+
             except: pass
 
         self.request.session['notification_is_unreaded'] = \

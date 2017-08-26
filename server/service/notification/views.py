@@ -11,14 +11,14 @@ class Notification_Manager(Website_Manager):
         if not last_notification_pk:
 
             self.context['notifications'] = SQL.Filter(
-                Notification_Model).order_by('-date')[:10]
+                Notification_Model).order_by('-pk')[:10]
 
         else:
 
             # records after date from last_notification_pk
-            date = SQL.Get(Notification_Model, pk=last_notification_pk).date
-            self.context['notifications'] = SQL.Filter(
-                Notification_Model, date__lt=date).order_by('-date')[:10]
+            last = SQL.Get(Notification_Model, pk=last_notification_pk)
+            self.context['notifications'] = SQL.Filter(Notification_Model,
+                pk__lt=last.pk).order_by('-pk')[:10]
 
         return self.Render_HTML('notification/list.html')
 
