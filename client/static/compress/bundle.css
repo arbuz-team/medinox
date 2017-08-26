@@ -20,6 +20,14 @@
   bottom: 0;
   left: 0; }
 
+@keyframes notifications {
+  0% {
+    color: white; }
+  50% {
+    color: red; }
+  100% {
+    color: white; } }
+
 @font-face {
   font-family: 'OS_Regular';
   src: url("/static/img/czcionki/OpenSans-Regular.ttf"); }
@@ -184,6 +192,9 @@ div > .buttons_to_action {
 
 .is-relative {
   position: relative; }
+
+.is-text-has-notifications {
+  animation: notifications 2.3s infinite; }
 
 .is-inline-inside > * {
   display: inline-block; }
@@ -2120,6 +2131,14 @@ img {
   .dialog-content > .dialog-content-part:last-child {
     text-align: right; }
 
+.dialog-message {
+  height: 100px;
+  line-height: 75px;
+  font-size: 22px;
+  font-weight: bolder;
+  color: #ccc;
+  text-align: center; }
+
 .dialog-content-part > div {
   padding-bottom: 5px; }
 
@@ -2376,14 +2395,6 @@ img {
 
 .notifications {
   margin: 15px; }
-
-.notifications-message {
-  height: 100px;
-  line-height: 75px;
-  font-size: 22px;
-  font-weight: bolder;
-  color: #ccc;
-  text-align: center; }
 
 .notifications-single {
   height: 45px;

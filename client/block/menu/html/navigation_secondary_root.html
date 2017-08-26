@@ -26,10 +26,24 @@
 
 	<li class="menu-field menu-field-space"> | </li>
 
-	<li class="navigation-field menu_mobile-tile">
-		<div class="dialog_button fill-abs is-bold" data-type="alert" data-name="notifications">
-			Notifications
-		</div>
-	</li>
+
+	{% if request.session.notification_is_unreaded %}
+
+		<li class="navigation-field menu_mobile-tile">
+			<div class="dialog_button fill-abs is-bold is-text-has-notifications" data-type="alert" data-name="notifications">
+				Notifications
+			</div>
+		</li>
+
+	{% else %}
+
+		<li class="navigation-field menu_mobile-tile">
+			<div class="dialog_button fill-abs is-bold" data-type="alert" data-name="notifications">
+				Notifications
+			</div>
+		</li>
+
+	{% endif %}
+
 
 {% endif %}

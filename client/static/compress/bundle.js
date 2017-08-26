@@ -4046,7 +4046,7 @@
 		this.selector = {
 			container: '.notifications',
 			list: '.notifications-list',
-			message: '.notifications-message',
+			message: '.dialog-message',
 			single: '.notifications-single',
 			show_more_button: '.notifications-show_more-button'
 		};
@@ -4124,7 +4124,7 @@
 	
 		this.set_loading = function () {
 			$(model.settings.header).html('<div class="container-part-loading"> Loading... </div>');
-			$(model.settings.content).html('<div class="container-part-loading"> Loading... </div>');
+			$(model.settings.content).html('<div class="dialog-message"> Loading... </div>');
 		};
 	}
 

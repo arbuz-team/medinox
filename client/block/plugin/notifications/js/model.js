@@ -20,7 +20,7 @@ export function Notifications_Model()
 	this.selector = {
 		container:          '.notifications',
 		list:               '.notifications-list',
-		message:            '.notifications-message',
+		message:            '.dialog-message',
 		single:             '.notifications-single',
 		show_more_button:   '.notifications-show_more-button',
 	};
