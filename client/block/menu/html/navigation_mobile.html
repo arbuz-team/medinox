@@ -9,7 +9,12 @@
 	</button>
 </li>
 
+
+{% if request.session.notification_is_unreaded %}
+<li class="menu-navigation-mobile-field is-has-notifications">
+{% else %}
 <li class="menu-navigation-mobile-field">
+{% endif %}
 	<button class="button is-icon event_button"
 			type="button"
 			data-name="mobile-open_navigation"

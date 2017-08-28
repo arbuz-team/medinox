@@ -14,7 +14,6 @@ $menu-navigation-mobile-field: $menu--height_mobile - 22px
 
 .menu-navigation-mobile-field
   display: inline-block
-  position: relative
   z-index: 38
 
   width: $menu-navigation-mobile-field
@@ -39,6 +38,25 @@ $menu-navigation-mobile-field: $menu--height_mobile - 22px
       .button-icon
         height: inherit
         width: inherit
+
+
+  &.is-has-notifications
+    position: relative
+
+    &::after
+      content: ''
+
+      position: absolute
+      top: -2px
+      right: -5px
+
+      display: block
+      box-sizing: border-box
+      width: 14px
+      height: 14px
+
+      background-color: #F44336
+      border-radius: 50%
 
 
 
