@@ -1679,9 +1679,6 @@
 				$container: $container
 			};
 	
-			$('form', $container).each(function () {
-				if ($(this).data('name') === 'values') console.log(this);
-			});
 			$('form', $container).submit(prepare_form_to_send);
 	
 			validator.define(config_form);
@@ -1713,8 +1710,7 @@
 	var Form_Models = exports.Form_Models = function Form_Models(config) {
 		var _this = this;
 	
-		var that = this,
-		    form_loader = new _form.Block_Loader_Form(config);
+		var form_loader = new _form.Block_Loader_Form(config);
 	
 		this.variables = {
 			form_name: undefined,
@@ -1751,11 +1747,12 @@
 		};
 	
 		this.send = function () {
-			var post_data = this.variables.post_data;
+			var post_url = this.variables.post_url,
+			    post_data = this.variables.post_data;
 	
 			prepare_post_data();
 	
-			form_loader.load_simple_content(undefined, post_data).then(end_loading);
+			form_loader.load_simple_content(post_url, post_data).then(end_loading);
 		};
 	};
 
@@ -1873,20 +1870,21 @@
 	};
 	
 	Block_Loader_Form.prototype._send_request = function () {
-		var post_data = this._variables.post_data,
+		var post_url = this._variables.post_url,
+		    post_data = this._variables.post_data,
 		    post_name = this._settings.post_name,
 		    request_manager = new _block.Request_Manager_Block();
 	
-		this._response = request_manager.next(undefined, post_data, post_name);
+		this._response = request_manager.next(post_url, post_data, post_name);
 	};
 	
-	Block_Loader_Form.prototype.load_simple_content = function (url, post_data) {
+	Block_Loader_Form.prototype.load_simple_content = function (post_url, post_data) {
 		var request_manager = void 0,
 		    loading = void 0;
 	
 		request_manager = new _block.Request_Manager_Block();
 	
-		loading = this.load_content(url, post_data);
+		loading = this.load_content(post_url, post_data);
 		request_manager.send_list();
 	
 		return loading;

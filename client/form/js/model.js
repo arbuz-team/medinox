@@ -8,8 +8,7 @@ import {Block_Loader_Form}     	from '../../block/plugin/block_loader/form'
 
 export let Form_Models = function(config)
 {
-    let that = this,
-		form_loader = new Block_Loader_Form(config);
+    let form_loader = new Block_Loader_Form(config);
 
 	/**
 	 *    Defining settings
@@ -69,11 +68,12 @@ export let Form_Models = function(config)
 	this.send = function()
 	{
 		let
+			post_url = this.variables.post_url,
 			post_data = this.variables.post_data;
 
 		prepare_post_data();
 
-		form_loader.load_simple_content(undefined, post_data).then(end_loading);
+		form_loader.load_simple_content(post_url, post_data).then(end_loading);
 	};
 
 };
