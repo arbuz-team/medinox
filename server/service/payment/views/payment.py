@@ -140,7 +140,10 @@ class Buy(Website_Manager):
     def Manage_Form(self):
         product = SQL.Get(Product, pk=self.other_value)
         self.payment_models_manager.Append_Selected_Product(product)
-        return self.Render_HTML('payment/buy.html')
+
+        path_manager = Path_Manager(self)
+        url = path_manager.Get_Path('payment', current_language=True)
+        return HttpResponseRedirect(url)
 
     @staticmethod
     def Buy_Product(request, pk):
