@@ -56,7 +56,7 @@
 
                         <div class="product_details-action_panel-prices">
                             {% if request.session.user_login %}
-                            Product price: {{ product }}
+                            Product price: {{ product.price }} {{ request.session.language_currency }}
                             {% else %}
                             If you want buy a product you must login.
                             <a href="{% redirect 'user.sign_in' %}">Sign in!</a>
