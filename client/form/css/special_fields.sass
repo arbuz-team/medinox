@@ -12,24 +12,25 @@
 // ----------------------
 
 .button.is-icon
-  &, &:hover, &:focus, &:disabled
-    @extend .field_without_styles
-
+  &
     margin: 0 3px
     height: 20px
     +box-shadow(none)
+
+  &, &:hover, &:focus, &:disabled
+    @extend .field_without_styles
 
   &:hover
     .button-icon
       opacity: 1
 
-  .button-icon
-    display: inline-block
-    width: 20px
-    height: 20px
+.button-icon
+  display: inline-block
+  width: 20px
+  height: 20px
 
-    opacity: .8
-    +background-img( '', 100%, center)
+  opacity: .8
+  +background-img( '', 100%, center)
 
 
 // ----------------------

@@ -38,13 +38,25 @@
 {% endif %}
 
 
-<li class="menu-field navigation-primary-language">
+<li class="navigation-primary-language">
 	<div class="fill-abs">
 		<button class="button is-icon dialog_button"
 				type="button"
 				data-type="alert"
 				data-name="language">
 			<span class="button-icon img-flag-{{ request.session.translator_language }}"> &nbsp; </span>
+		</button>
+	</div>
+</li>
+
+
+<li class="navigation-primary-currency">
+	<div class="fill-abs">
+		<button class="button is-icon dialog_button"
+				type="button"
+				data-type="prompt"
+				data-name="currency">
+			<span class="button-icon img-change_currency-64"> &nbsp; </span>
 		</button>
 	</div>
 </li>

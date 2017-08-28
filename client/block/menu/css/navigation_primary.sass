@@ -40,34 +40,34 @@
         color: $menu--color
 
 
-  .navigation-primary-language
+  .navigation-primary-currency, .navigation-primary-language
     float: right
-    display: block
     position: relative
 
-    min-width: 40px !important
-    width: 40px !important
-    height: 40px !important
+    width: 40px
+    height: 40px
 
     margin: 0
       top: 35px
       right: 10px
 
     .button
-      &, &:hover, &:focus
-        position: absolute
-        left: 0
-        top: 0
-
-        width: 100%
-        height: 100%
-        margin: 0
+      width: 100%
+      height: 100%
+      margin: 0 !important
 
       .button-icon
         width: 100%
         height: 100%
-        margin: 0
-        +background-img('', 100% 100%, center bottom)
+
+
+  .navigation-primary-language
+    .button
+      display: block
+
+      .button-icon
+        width: 100%
+        height: 100%
 
 
 
