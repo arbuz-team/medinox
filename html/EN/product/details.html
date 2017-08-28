@@ -69,7 +69,8 @@
                                 <!-- Frontend: Don't redirect to payment. -->
                                 <button class="button form-address_switcher"
 										type="button"
-										name="redirect_for_buy"
+										data-name="redirect_for_buy"
+                                        data-address="/payment/add_to_cart/{{ product.pk }}/"
 										value="tak">
 									Add to cart
 								</button>

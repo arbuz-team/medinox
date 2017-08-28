@@ -200,13 +200,13 @@
 	
 	var _controller = __webpack_require__(9);
 	
-	var _controller2 = __webpack_require__(52);
+	var _controller2 = __webpack_require__(54);
 	
-	var _controller3 = __webpack_require__(53);
+	var _controller3 = __webpack_require__(55);
 	
 	var _controller4 = __webpack_require__(33);
 	
-	var _controller5 = __webpack_require__(54);
+	var _controller5 = __webpack_require__(56);
 	
 	var _controller6 = __webpack_require__(30);
 	
@@ -1645,10 +1645,13 @@
 	
 	var file_converter = _interopRequireWildcard(_controllers4);
 	
+	var _controller = __webpack_require__(52);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	var Form_Controllers = exports.Form_Controllers = function Form_Controllers(config) {
 		var form_models = new _model.Form_Models(config),
+		    address_switcher = new _controller.Address_Switcher_Controller(config),
 		    variables = form_models.variables;
 	
 		var prepare_form_to_send = function prepare_form_to_send(event) {
@@ -1685,6 +1688,7 @@
 			auto_form.define(config_form);
 			selected_form.define(config_form);
 			file_converter.define(config_form);
+			address_switcher.define(config_form);
 		};
 	};
 
@@ -3517,6 +3521,58 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.Address_Switcher_Controller = Address_Switcher_Controller;
+	
+	var _main = __webpack_require__(53);
+	
+	function Address_Switcher_Controller(config) {
+		if (!config || !config.container) {
+			console.error('Part Loader error: Invalid configuration.');
+			return {};
+		}
+	
+		this.container = config.container;
+	
+		var add_switcher = function add_switcher() {
+			new _main.Address_Switcher(this);
+		};
+	
+		this.define = function () {
+			$('.form-address_switcher', this.container).each(add_switcher);
+		};
+	}
+
+/***/ },
+/* 53 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Address_Switcher = Address_Switcher;
+	function Address_Switcher(button) {
+		var $button = $(button),
+		    address = $button.data('address'),
+		    $form = $button.parents('form'),
+		    receive_event = function receive_event() {
+			$form.attr('action', address);
+			$form.submit();
+		};
+	
+		$(button).click(receive_event);
+	}
+
+/***/ },
+/* 54 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
@@ -3609,7 +3665,7 @@
 	}
 
 /***/ },
-/* 53 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3676,7 +3732,7 @@
 	}
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3689,9 +3745,9 @@
 	
 	exports.Dialog_Controller = Dialog_Controller;
 	
-	var _controller = __webpack_require__(55);
+	var _controller = __webpack_require__(57);
 	
-	var _controller2 = __webpack_require__(57);
+	var _controller2 = __webpack_require__(59);
 	
 	function Dialog_Controller() {
 		if (_typeof(Dialog_Controller.instance) === 'object') return Dialog_Controller.instance;
@@ -3746,7 +3802,7 @@
 	}
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3758,7 +3814,7 @@
 	
 	var _standard = __webpack_require__(19);
 	
-	var _view = __webpack_require__(56);
+	var _view = __webpack_require__(58);
 	
 	function Dialog_Designer_Controller(config) {
 		var _this = this;
@@ -3806,7 +3862,7 @@
 	}
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3860,7 +3916,7 @@
 	}
 
 /***/ },
-/* 57 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3876,13 +3932,13 @@
 	
 	var _controllers2 = __webpack_require__(34);
 	
-	var _controllers3 = __webpack_require__(58);
+	var _controllers3 = __webpack_require__(60);
 	
-	var _controller2 = __webpack_require__(61);
+	var _controller2 = __webpack_require__(63);
 	
-	var _controller3 = __webpack_require__(62);
+	var _controller3 = __webpack_require__(64);
 	
-	var _view = __webpack_require__(65);
+	var _view = __webpack_require__(67);
 	
 	function Dialog_Loader_Controller(config) {
 		var config_loader = {
@@ -3926,7 +3982,7 @@
 	}
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3936,7 +3992,7 @@
 	});
 	exports.Little_Form_Controllers = undefined;
 	
-	var _views = __webpack_require__(59);
+	var _views = __webpack_require__(61);
 	
 	var Little_Form_Controllers = exports.Little_Form_Controllers = function Little_Form_Controllers(form_config) {
 	  if (typeof form_config === 'undefined' && typeof form_config.container === 'undefined') {
@@ -3979,7 +4035,7 @@
 	};
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3989,7 +4045,7 @@
 	});
 	exports.Little_Form_Views = undefined;
 	
-	var _models = __webpack_require__(60);
+	var _models = __webpack_require__(62);
 	
 	var Little_Form_Views = exports.Little_Form_Views = function Little_Form_Views(form_config) {
 	  var models = new _models.Little_Form_Models(form_config);
@@ -4063,7 +4119,7 @@
 	};
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4156,7 +4212,7 @@
 	};
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4188,7 +4244,7 @@
 	}
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4198,7 +4254,7 @@
 	});
 	exports.Notifications_Controller = Notifications_Controller;
 	
-	var _view = __webpack_require__(63);
+	var _view = __webpack_require__(65);
 	
 	function Notifications_Controller(config) {
 		if (!config || !config.container) {
@@ -4221,7 +4277,7 @@
 	}
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4231,7 +4287,7 @@
 	});
 	exports.Notifications_View = Notifications_View;
 	
-	var _model = __webpack_require__(64);
+	var _model = __webpack_require__(66);
 	
 	function Notifications_View() {
 		var model = void 0,
@@ -4263,7 +4319,7 @@
 	}
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4312,7 +4368,7 @@
 	}
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4322,7 +4378,7 @@
 	});
 	exports.Dialog_Loader_View = Dialog_Loader_View;
 	
-	var _model = __webpack_require__(66);
+	var _model = __webpack_require__(68);
 	
 	function Dialog_Loader_View(config) {
 		var model = new _model.Dialog_Loader_Model(config);
@@ -4369,7 +4425,7 @@
 	}
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4379,7 +4435,7 @@
 	});
 	exports.Dialog_Loader_Model = Dialog_Loader_Model;
 	
-	var _dialog = __webpack_require__(67);
+	var _dialog = __webpack_require__(69);
 	
 	function Dialog_Loader_Model(config) {
 	
@@ -4410,7 +4466,7 @@
 	}
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
