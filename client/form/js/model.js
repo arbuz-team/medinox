@@ -4,11 +4,14 @@
 
 import * as utilities 			from './utilities'
 import {Block_Loader_Form}     	from '../../block/plugin/block_loader/form'
+import {Ground_Controller}     	from '../../block/ground/js/controller'
 
 
 export let Form_Models = function(config)
 {
-    let form_loader = new Block_Loader_Form(config);
+    let
+	    form_loader = new Block_Loader_Form(config),
+        ground_controller = new Ground_Controller();
 
 	/**
 	 *    Defining settings
@@ -43,8 +46,16 @@ export let Form_Models = function(config)
 		},
 
 
-		end_loading = () =>
+		end_loading = response =>
 		{
+			if(ground_controller.is_redirect(response))
+			{
+				ground_controller.change_url(response.url);
+				ground_controller.load_single_ground_content();
+
+				return true;
+			}
+
 			let variables = this.variables,
 				events;
 

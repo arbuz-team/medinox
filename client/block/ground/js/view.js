@@ -7,10 +7,10 @@ import {Ground_Model}       from './model'
 
 export function Ground_View()
 {
-	let model = new Ground_Model();
+	let model;
 
-	this.model = model;
-
+	this.model = new Ground_Model();
+	model = this.model;
 
 	this.go_to_link = function(that, event)
 	{

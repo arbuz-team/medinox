@@ -17,8 +17,6 @@ export function Directory_Tree(config)
 
 	let change_state = function()
 	{
-		console.log('click');
-
 		let
 			$parent = $(this).parent().parent(),
 			$list = $parent.children('.directory_tree-list'),

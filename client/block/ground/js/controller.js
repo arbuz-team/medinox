@@ -27,6 +27,13 @@ export function Ground_Controller()
 		};
 
 
+	this.is_redirect = response =>
+	{
+		return model.is_redirect(response);
+	};
+	this.change_url = url => model.change_url(url);
+	this.load_single_ground_content = () => model.load_single_ground_content();
+
 
 	this.define = function()
 	{
