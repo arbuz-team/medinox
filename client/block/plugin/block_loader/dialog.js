@@ -3,8 +3,8 @@
  */
 
 import {recognise_status} 	    from 'arbuz/plugin/utilities/response'
-import {is_empty} 	    from 'arbuz/plugin/utilities/data'
-import {Request_Manager} 	    from 'arbuz/plugin/request_manager/_controller'
+import {is_empty} 	            from 'arbuz/plugin/utilities/data'
+import {Request_Manager_Main} 	from 'arbuz/plugin/request_manager/main'
 import {Block_Loader} 			from './_controller'
 
 
@@ -30,7 +30,7 @@ Block_Loader_Dialog.prototype._send_request = function()
 	let
 		post_data = this._variables.post_data,
 		post_name = this._settings.post_name,
-		request_manager = new Request_Manager();
+		request_manager = new Request_Manager_Main();
 
 	this._response = request_manager.send(undefined, post_data, post_name);
 };

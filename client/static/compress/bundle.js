@@ -200,15 +200,15 @@
 	
 	var _controller = __webpack_require__(9);
 	
-	var _controller2 = __webpack_require__(54);
+	var _controller2 = __webpack_require__(56);
 	
-	var _controller3 = __webpack_require__(55);
+	var _controller3 = __webpack_require__(57);
 	
-	var _controller4 = __webpack_require__(33);
+	var _controller4 = __webpack_require__(34);
 	
-	var _controller5 = __webpack_require__(56);
+	var _controller5 = __webpack_require__(58);
 	
-	var _controller6 = __webpack_require__(30);
+	var _controller6 = __webpack_require__(31);
 	
 	var _block = __webpack_require__(14);
 	
@@ -304,11 +304,11 @@
 	
 	var _block = __webpack_require__(10);
 	
-	var _controller = __webpack_require__(23);
+	var _controller = __webpack_require__(24);
 	
-	var _controller2 = __webpack_require__(26);
+	var _controller2 = __webpack_require__(27);
 	
-	var _controllers = __webpack_require__(37);
+	var _controllers = __webpack_require__(38);
 	
 	function Search_Controller() {
 		if (_typeof(Search_Controller.instance) === 'object') return Search_Controller.instance;
@@ -369,7 +369,7 @@
 	
 	var _block = __webpack_require__(14);
 	
-	var _controller = __webpack_require__(17);
+	var _controller = __webpack_require__(18);
 	
 	function Block_Loader_Part(config) {
 		_controller.Block_Loader.call(this, config);
@@ -675,45 +675,61 @@
 	
 	var _structure = __webpack_require__(11);
 	
-	var _controller = __webpack_require__(15);
+	var _init = __webpack_require__(15);
+	
+	__webpack_require__(17);
+	
+	var _model = __webpack_require__(16);
+	
+	var model = _interopRequireWildcard(_model);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function Request_Manager_Block() {
 		if (_typeof(Request_Manager_Block.instance) === 'object') return Request_Manager_Block.instance;
 	
-		_controller.Request_Manager.call(this);
+		_init.Request_Manager.call(this);
 	
-		this._sending = undefined;
+		model._sending = undefined;
+		model._data_block = {};
+	
+		this._clear_request();
 	
 		Request_Manager_Block.instance = this;
 	}
 	
-	Request_Manager_Block.prototype = Object.create(_controller.Request_Manager.prototype);
+	Request_Manager_Block.prototype = Object.create(_init.Request_Manager.prototype);
 	
 	Request_Manager_Block.prototype._add_request = function (url, post_data) {
-		if (typeof this._sending === 'undefined') this._clear_request();
+		if (typeof model._sending === 'undefined') this._clear_request();
 	
-		if (typeof this._data.url === 'undefined') this._data.url = url;
+		if (typeof model._data_block.url === 'undefined') model._data_block.url = url;
 	
-		this._data.list.push(post_data);
+		model._data_block.list.push(post_data);
 	};
 	
 	Request_Manager_Block.prototype._clear_request = function () {
-		this._data = {
+		model._sending = false;
+	
+		model._data_block = {
 			url: undefined,
 			list: []
 		};
 	
-		this._sending = false;
+		model._data = {
+			url: undefined,
+			data: {}
+		};
 	};
 	
 	Request_Manager_Block.prototype._prepare_post_data = function () {
 		var post_data = {};
 	
-		if (this._data.list.length) {
-			this._data.list.forEach(function (element) {
-				if (element) {
-					Object.assign(post_data, element);
-				} else return false;
+		console.log(model._data_block);
+	
+		if (model._data_block.list.length) {
+			model._data_block.list.forEach(function (element) {
+				if (element) Object.assign(post_data, element);else return false;
 			});
 	
 			post_data[_structure.data_controller.get_crsf('name')] = _structure.data_controller.get_crsf('value');
@@ -724,36 +740,78 @@
 		return false;
 	};
 	
+	Request_Manager_Block.prototype._add_to_queue = function () {
+		var data = {
+			post_url: undefined,
+			post_data: this._prepare_post_data()
+		},
+		    do_step = function do_step(resolve) {
+			resolve(data);
+		},
+		    promise = new Promise(function (resolve) {
+			var length = model._queue.length,
+			    last_number = length - 1;
+	
+			if (length === 0) model._request_promise.then(function () {
+				return do_step(resolve);
+			});else model._queue[last_number].promise.then(function () {
+				return do_step(resolve);
+			});
+		}),
+		    queue_data = Object.assign({ promise: promise }, data);
+	
+		model._queue.push(queue_data);
+	
+		return promise;
+	};
+	
+	Request_Manager_Block.prototype._make_request = function (timer, send_and_wait, resolve, reject) {
+		clearTimeout(timer);
+	
+		if (model._sending === false) reject('Request Manager error: Promise doesn\'t exist.');
+	
+		this._send_request().then(function (response) {
+			window.removeEventListener('send_request', send_and_wait, false);
+	
+			resolve(response);
+		});
+	};
+	
 	Request_Manager_Block.prototype._run_sending = function () {
 		var _this = this;
 	
-		if (this._sending === false) this._sending = new Promise(function (resolve, reject) {
+		if (model._sending === false) model._sending = new Promise(function (resolve, reject) {
 			var timer = setTimeout(function () {
 				_this._catch_timeout_error();
 			}, 3000),
 			    send_and_wait = function send_and_wait() {
-				clearTimeout(timer);
 	
-				if (_this._sending === false) reject('Request Manager error: Promise doesn\'t exist.');
+				if (model._request_status === false) {
+					model._data.url = model._data_block.url;
+					model._data.data = _this._prepare_post_data();
 	
-				_this._send_request().then(function (response) {
-					window.removeEventListener('send_request', send_and_wait, false);
+					_this._make_request(timer, send_and_wait, resolve, reject);
+				} else {
+					_this._add_to_queue().then(function (data) {
+						model._data.url = model._data_block.url;
+						model._data.data = data.post_data;
 	
-					resolve(response);
-				});
+						_this._make_request(timer, send_and_wait, resolve, reject);
+					});
+				}
 			};
 	
 			window.addEventListener('send_request', send_and_wait, false);
 		});
 	
-		return this._sending;
+		return model._sending;
 	};
 	
-	Request_Manager_Block.prototype.next = function (url, post_data, post_name) {
+	Request_Manager_Block.prototype.next = function (post_url, post_data, post_name) {
 		var _this2 = this;
 	
 		return new Promise(function (resolve, reject) {
-			_this2._add_request(url, post_data);
+			_this2._add_request(post_url, post_data);
 	
 			_this2._run_sending().then(function (response) {
 				_this2._clear_request();
@@ -780,64 +838,22 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.Request_Manager = undefined;
-	
-	var _init = __webpack_require__(16);
-	
-	Object.defineProperty(exports, 'Request_Manager', {
-		enumerable: true,
-		get: function get() {
-			return _init.Request_Manager;
-		}
-	});
-	
-	
-	_init.Request_Manager.prototype.send = function (post_url, post_data, post_name) {
-		var _this = this;
-	
-		if (typeof post_name === 'undefined') {
-			console.error('Request_Manager error: Invalid variable "post_name"');
-			return false;
-		}
-	
-		return new Promise(function (resolve, reject) {
-			_this._add_request(post_url, post_data);
-	
-			_this._send_request().then(function (response) {
-				_this._clear_request();
-	
-				if (typeof response.json[post_name] !== 'undefined') response = response.json[post_name];else {
-					console.error('Request_Manager error: Invalid response.');
-					reject('Request_Manager error: Invalid response.');
-				}
-	
-				resolve(response);
-			}).catch(function (data) {
-				console.error(data);
-				reject(data);
-			});
-		});
-	};
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
 	exports.Request_Manager = Request_Manager;
 	
 	var _structure = __webpack_require__(11);
 	
 	var _data = __webpack_require__(13);
 	
+	var _model = __webpack_require__(16);
+	
+	var model = _interopRequireWildcard(_model);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
 	function Request_Manager() {
 		var _this = this;
 	
-		this._data = undefined;
+		this.model = model;
 	
 		var error = false,
 		    pack_response = function pack_response(json, code) {
@@ -873,6 +889,7 @@
 				    data = (0, _data.object_to_formdata)(obj.data);
 	
 				error = false;
+				_this.model._request_status = true;
 	
 				console.group('Request data: ');
 				console.log(obj.url);
@@ -898,29 +915,29 @@
 	}
 	
 	Request_Manager.prototype._clear_request = function () {
-		this._data = {
+		this.model._data = {
 			url: undefined,
 			data: {}
 		};
 	};
 	
 	Request_Manager.prototype._add_request = function (url, post_data) {
-		if (this._sending === undefined) this._clear_request();
+		if (this.model._sending === undefined) this._clear_request();
 	
-		if (this._data.url === undefined) this._data.url = url || '';
+		if (this.model._data.url === undefined) this.model._data.url = url || '';
 	
-		this._data.data = post_data || {};
+		this.model._data.data = post_data || {};
 	};
 	
 	Request_Manager.prototype._prepare_url = function () {
-		var url = this._data.url;
+		var url = this.model._data.url;
 	
 		if (url && url.substring && url.substring(0, 1) === '/') return url;else return _structure.data_controller.get('path');
 	};
 	
 	Request_Manager.prototype._prepare_post_data = function () {
-		if (this._data.data) {
-			var post_data = this._data.data;
+		if (this.model._data.data) {
+			var post_data = this.model._data.data;
 	
 			post_data[_structure.data_controller.get_crsf('name')] = _structure.data_controller.get_crsf('value');
 	
@@ -933,7 +950,7 @@
 	Request_Manager.prototype._send_request = function () {
 		var _this2 = this;
 	
-		return new Promise(function (resolve, reject) {
+		this.model._request_promise = new Promise(function (resolve, reject) {
 			var post_url = _this2._prepare_url(),
 			    post_data = _this2._prepare_post_data();
 	
@@ -942,7 +959,10 @@
 					method: 'POST',
 					url: post_url,
 					data: post_data
-				}).then(resolve).catch(function (response) {
+				}).then(function (response) {
+					_this2.model._request_status = false;
+					resolve(response);
+				}).catch(function (response) {
 					console.trace();
 					reject('Request Manager error: Invalid response.');
 				});
@@ -951,6 +971,8 @@
 				reject('Request Manager error: Invalid post data.');
 			}
 		});
+	
+		return this.model._request_promise;
 	};
 	
 	Request_Manager.prototype._show_error = function (response) {
@@ -966,7 +988,101 @@
 	};
 
 /***/ },
+/* 16 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	var _data = exports._data = undefined,
+	    _queue = exports._queue = [],
+	    _request_promise = exports._request_promise = undefined,
+	    _request_status = exports._request_status = false;
+
+/***/ },
 /* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _init = __webpack_require__(15);
+	
+	var _model = __webpack_require__(16);
+	
+	var model = _interopRequireWildcard(_model);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	_init.Request_Manager.prototype._add_to_queue = function (data) {
+		var _this = this;
+	
+		var do_step = function do_step(resolve, reject) {
+			_this._make_request(data, resolve, reject);
+		},
+		    promise = new Promise(function (resolve, reject) {
+			var length = _this._queue.length,
+			    last_number = length - 1;
+	
+			if (length === 0) model._request_promise.then(function () {
+				return do_step(resolve, reject);
+			});else model._queue[last_number].promise.then(function () {
+				return do_step(resolve, reject);
+			});
+		}),
+		    queue_data = Object.assign({ promise: promise }, data);
+	
+		model._queue.push(queue_data);
+	
+		return promise;
+	};
+	
+	_init.Request_Manager.prototype._make_request = function (data, resolve, reject) {
+		var _this2 = this;
+	
+		var post_url = data.post_url,
+		    post_data = data.post_data,
+		    post_name = data.post_name;
+	
+		this._add_request(post_url, post_data);
+	
+		this._send_request().then(function (response) {
+			_this2._clear_request();
+	
+			if (typeof response.json[post_name] !== 'undefined') response = response.json[post_name];else {
+				console.error('Request_Manager error: Invalid response.');
+				reject('Request_Manager error: Invalid response.');
+			}
+	
+			resolve(response);
+		}).catch(function (error) {
+			console.error(error);
+			reject(error);
+		});
+	};
+	
+	_init.Request_Manager.prototype.send = function (post_url, post_data, post_name) {
+		var _this3 = this;
+	
+		if (typeof post_name === 'undefined') {
+			console.error('Request_Manager error: Invalid variable "post_name"');
+			return false;
+		}
+	
+		var data = {
+			post_url: post_url,
+			post_data: post_data,
+			post_name: post_name
+		};
+	
+		if (model._request_status === false) return new Promise(function (resolve, reject) {
+			_this3._make_request(data, resolve, reject);
+		});else return this._add_to_queue(data);
+	};
+
+/***/ },
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -976,7 +1092,7 @@
 	});
 	exports.Block_Loader = undefined;
 	
-	var _init = __webpack_require__(18);
+	var _init = __webpack_require__(19);
 	
 	Object.defineProperty(exports, 'Block_Loader', {
 		enumerable: true,
@@ -989,13 +1105,13 @@
 	
 	var _data = __webpack_require__(13);
 	
-	var _standard = __webpack_require__(19);
+	var _standard = __webpack_require__(20);
 	
 	var _block = __webpack_require__(14);
 	
-	__webpack_require__(20);
-	
 	__webpack_require__(21);
+	
+	__webpack_require__(22);
 	
 	_init.Block_Loader.prototype.redirect = function () {
 		var _this = this;
@@ -1061,7 +1177,7 @@
 	};
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1121,7 +1237,7 @@
 	}
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1138,7 +1254,7 @@
 	};
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1147,7 +1263,7 @@
 	
 	var _block = __webpack_require__(14);
 	
-	var _init = __webpack_require__(18);
+	var _init = __webpack_require__(19);
 	
 	_init.Block_Loader.prototype._if_reload = function (url) {
 		var old_url = _structure.data_controller.get('path'),
@@ -1199,16 +1315,16 @@
 	};
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _img_loader = __webpack_require__(22);
+	var _img_loader = __webpack_require__(23);
 	
 	var img_loader = _interopRequireWildcard(_img_loader);
 	
-	var _init = __webpack_require__(18);
+	var _init = __webpack_require__(19);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -1265,7 +1381,7 @@
 	};
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1323,7 +1439,7 @@
 	};
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1333,7 +1449,7 @@
 	});
 	exports.Block_Motion_Controllers = undefined;
 	
-	var _views = __webpack_require__(24);
+	var _views = __webpack_require__(25);
 	
 	var Block_Motion_Controllers = exports.Block_Motion_Controllers = function Block_Motion_Controllers(config) {
 		var plugin_motion_views = new _views.Block_Motion_Views(config),
@@ -1415,7 +1531,7 @@
 	};
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1425,7 +1541,7 @@
 	});
 	exports.Block_Motion_Views = undefined;
 	
-	var _models = __webpack_require__(25);
+	var _models = __webpack_require__(26);
 	
 	var Block_Motion_Views = exports.Block_Motion_Views = function Block_Motion_Views(config) {
 		var models = new _models.Block_Motion_Models(config),
@@ -1477,7 +1593,7 @@
 	};
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1617,7 +1733,7 @@
 	};
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1627,25 +1743,25 @@
 	});
 	exports.Form_Controllers = undefined;
 	
-	var _model = __webpack_require__(27);
+	var _model = __webpack_require__(28);
 	
-	var _controllers = __webpack_require__(41);
+	var _controllers = __webpack_require__(43);
 	
 	var validator = _interopRequireWildcard(_controllers);
 	
-	var _controllers2 = __webpack_require__(45);
+	var _controllers2 = __webpack_require__(47);
 	
 	var auto_form = _interopRequireWildcard(_controllers2);
 	
-	var _controllers3 = __webpack_require__(48);
+	var _controllers3 = __webpack_require__(50);
 	
 	var selected_form = _interopRequireWildcard(_controllers3);
 	
-	var _controllers4 = __webpack_require__(49);
+	var _controllers4 = __webpack_require__(51);
 	
 	var file_converter = _interopRequireWildcard(_controllers4);
 	
-	var _controller = __webpack_require__(52);
+	var _controller = __webpack_require__(54);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -1693,7 +1809,7 @@
 	};
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1703,13 +1819,13 @@
 	});
 	exports.Form_Models = undefined;
 	
-	var _utilities = __webpack_require__(28);
+	var _utilities = __webpack_require__(29);
 	
 	var utilities = _interopRequireWildcard(_utilities);
 	
-	var _form = __webpack_require__(29);
+	var _form = __webpack_require__(30);
 	
-	var _controller = __webpack_require__(30);
+	var _controller = __webpack_require__(31);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -1771,7 +1887,7 @@
 	};
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1855,7 +1971,7 @@
 	};
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1905,7 +2021,7 @@
 	};
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1918,7 +2034,7 @@
 	
 	exports.Ground_Controller = Ground_Controller;
 	
-	var _view = __webpack_require__(31);
+	var _view = __webpack_require__(32);
 	
 	function Ground_Controller() {
 		if (_typeof(Ground_Controller.instance) === 'object') return Ground_Controller.instance;
@@ -1968,7 +2084,7 @@
 	}
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1978,7 +2094,7 @@
 	});
 	exports.Ground_View = Ground_View;
 	
-	var _model = __webpack_require__(32);
+	var _model = __webpack_require__(33);
 	
 	function Ground_View() {
 		var _this = this;
@@ -2045,7 +2161,7 @@
 	}
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2059,15 +2175,15 @@
 	
 	var _controllers = __webpack_require__(8);
 	
-	var _controller = __webpack_require__(33);
+	var _controller = __webpack_require__(34);
 	
-	var _controller2 = __webpack_require__(26);
+	var _controller2 = __webpack_require__(27);
 	
-	var _controllers2 = __webpack_require__(37);
+	var _controllers2 = __webpack_require__(38);
 	
-	var _controllers3 = __webpack_require__(34);
+	var _controllers3 = __webpack_require__(35);
 	
-	var _standard = __webpack_require__(19);
+	var _standard = __webpack_require__(20);
 	
 	function Ground_Model() {
 		var _this = this;
@@ -2139,7 +2255,7 @@
 	}
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2154,7 +2270,7 @@
 	
 	var _block = __webpack_require__(10);
 	
-	var _controllers = __webpack_require__(34);
+	var _controllers = __webpack_require__(35);
 	
 	function Menu_Controller() {
 		if (_typeof(Menu_Controller.instance) === 'object') return Menu_Controller.instance;
@@ -2187,7 +2303,7 @@
 	}
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2197,7 +2313,7 @@
 	});
 	exports.Event_Button_Controllers = undefined;
 	
-	var _views = __webpack_require__(35);
+	var _views = __webpack_require__(36);
 	
 	var Event_Button_Controllers = exports.Event_Button_Controllers = function Event_Button_Controllers(config) {
 	  if (typeof config === 'undefined' && typeof config.container === 'undefined') {
@@ -2237,7 +2353,7 @@
 	};
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2247,9 +2363,9 @@
 	});
 	exports.Event_Button_Views = undefined;
 	
-	var _models = __webpack_require__(36);
+	var _models = __webpack_require__(37);
 	
-	var _utilities = __webpack_require__(28);
+	var _utilities = __webpack_require__(29);
 	
 	var utilities = _interopRequireWildcard(_utilities);
 	
@@ -2276,7 +2392,7 @@
 	};
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2314,7 +2430,7 @@
 	};
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2324,7 +2440,7 @@
 	});
 	exports.Post_Button_Controllers = undefined;
 	
-	var _views = __webpack_require__(38);
+	var _views = __webpack_require__(39);
 	
 	var Post_Button_Controllers = exports.Post_Button_Controllers = function Post_Button_Controllers(config) {
 		if (typeof config === 'undefined' && typeof config.container === 'undefined') {
@@ -2371,7 +2487,7 @@
 	};
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2381,13 +2497,13 @@
 	});
 	exports.Post_Button_Views = undefined;
 	
-	var _utilities = __webpack_require__(28);
+	var _utilities = __webpack_require__(29);
 	
 	var utilities = _interopRequireWildcard(_utilities);
 	
-	var _response = __webpack_require__(39);
+	var _response = __webpack_require__(40);
 	
-	var _models = __webpack_require__(40);
+	var _models = __webpack_require__(41);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -2495,7 +2611,7 @@
 	};
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2518,7 +2634,7 @@
 	};
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2528,9 +2644,9 @@
 	});
 	exports.Post_Button_Models = Post_Button_Models;
 	
-	var _init = __webpack_require__(16);
+	var _main = __webpack_require__(42);
 	
-	var _standard = __webpack_require__(19);
+	var _standard = __webpack_require__(20);
 	
 	function Post_Button_Models(config) {
 		var _this = this;
@@ -2626,7 +2742,7 @@
 					var post_url = that.settings.button_url,
 					    post_data = prepare_post_data(),
 					    post_name = _this2.settings.post_name,
-					    request_manager = new _init.Request_Manager();
+					    request_manager = new _main.Request_Manager_Main();
 	
 					request_manager.send(post_url, post_data, post_name).then(resolve, resolve);
 				});
@@ -2635,7 +2751,28 @@
 	}
 
 /***/ },
-/* 41 */
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Request_Manager_Main = Request_Manager_Main;
+	
+	var _init = __webpack_require__(15);
+	
+	__webpack_require__(17);
+	
+	function Request_Manager_Main() {
+	  _init.Request_Manager.call(this);
+	}
+	
+	Request_Manager_Main.prototype = Object.create(_init.Request_Manager.prototype);
+
+/***/ },
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2645,7 +2782,7 @@
 	});
 	exports.define = undefined;
 	
-	var _checkers = __webpack_require__(42);
+	var _checkers = __webpack_require__(44);
 	
 	var Validators = {};
 	
@@ -2762,7 +2899,7 @@
 	};
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2772,7 +2909,7 @@
 	});
 	exports.Constructor_Validator = undefined;
 	
-	var _views = __webpack_require__(43);
+	var _views = __webpack_require__(45);
 	
 	Object.defineProperty(exports, 'Constructor_Validator', {
 	  enumerable: true,
@@ -2874,7 +3011,7 @@
 	});
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2884,7 +3021,7 @@
 	});
 	exports.Constructor_Validator = exports.checker = undefined;
 	
-	var _config = __webpack_require__(44);
+	var _config = __webpack_require__(46);
 	
 	var _structure = __webpack_require__(11);
 	
@@ -3000,7 +3137,7 @@
 	};
 
 /***/ },
-/* 44 */
+/* 46 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3051,7 +3188,7 @@
 	};
 
 /***/ },
-/* 45 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3061,7 +3198,7 @@
 	});
 	exports.define = undefined;
 	
-	var _views = __webpack_require__(46);
+	var _views = __webpack_require__(48);
 	
 	var add_event_on_fields = function add_event_on_fields(auto_form_views) {
 		var settings = auto_form_views.models.settings,
@@ -3105,7 +3242,7 @@
 	};
 
 /***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3115,9 +3252,9 @@
 	});
 	exports.Auto_Form_Views = undefined;
 	
-	var _response = __webpack_require__(39);
+	var _response = __webpack_require__(40);
 	
-	var _models = __webpack_require__(47);
+	var _models = __webpack_require__(49);
 	
 	var Auto_Form_Views = exports.Auto_Form_Views = function Auto_Form_Views(config) {
 		var models = new _models.Auto_Form_Models(config),
@@ -3256,7 +3393,7 @@
 	};
 
 /***/ },
-/* 47 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3266,12 +3403,12 @@
 	});
 	exports.Auto_Form_Models = undefined;
 	
-	var _controller = __webpack_require__(15);
+	var _main = __webpack_require__(42);
 	
 	var Auto_Form_Models = exports.Auto_Form_Models = function Auto_Form_Models(config) {
 		var _this = this;
 	
-		var request_manager = new _controller.Request_Manager();
+		var request_manager = new _main.Request_Manager_Main();
 	
 		this.settings = {
 			post_name: undefined,
@@ -3343,7 +3480,7 @@
 	};
 
 /***/ },
-/* 48 */
+/* 50 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3397,7 +3534,7 @@
 	};
 
 /***/ },
-/* 49 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3407,7 +3544,7 @@
 	});
 	exports.define = undefined;
 	
-	var _views = __webpack_require__(50);
+	var _views = __webpack_require__(52);
 	
 	var image_convert_views = _interopRequireWildcard(_views);
 	
@@ -3433,7 +3570,7 @@
 	};
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3443,7 +3580,7 @@
 	});
 	exports.Callback_Functions = exports.get_base64 = exports.settings = exports.models = undefined;
 	
-	var _models = __webpack_require__(51);
+	var _models = __webpack_require__(53);
 	
 	var image_convert_models = _interopRequireWildcard(_models);
 	
@@ -3493,7 +3630,7 @@
 	};
 
 /***/ },
-/* 51 */
+/* 53 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3513,7 +3650,7 @@
 	};
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3523,7 +3660,7 @@
 	});
 	exports.Address_Switcher_Controller = Address_Switcher_Controller;
 	
-	var _main = __webpack_require__(53);
+	var _main = __webpack_require__(55);
 	
 	function Address_Switcher_Controller(config) {
 		if (!config || !config.container) {
@@ -3543,7 +3680,7 @@
 	}
 
 /***/ },
-/* 53 */
+/* 55 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3565,7 +3702,7 @@
 	}
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3580,13 +3717,13 @@
 	
 	var _block = __webpack_require__(10);
 	
-	var _controller = __webpack_require__(23);
+	var _controller = __webpack_require__(24);
 	
-	var _controller2 = __webpack_require__(26);
+	var _controller2 = __webpack_require__(27);
 	
-	var _controllers = __webpack_require__(37);
+	var _controllers = __webpack_require__(38);
 	
-	var _controllers2 = __webpack_require__(34);
+	var _controllers2 = __webpack_require__(35);
 	
 	function Cart_Controller() {
 		var _this = this;
@@ -3665,7 +3802,7 @@
 	}
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3680,9 +3817,9 @@
 	
 	var _block = __webpack_require__(10);
 	
-	var _controller = __webpack_require__(23);
+	var _controller = __webpack_require__(24);
 	
-	var _controllers = __webpack_require__(34);
+	var _controllers = __webpack_require__(35);
 	
 	function Menu_Mobile_Controller() {
 		if (_typeof(Menu_Mobile_Controller.instance) === 'object') return Menu_Mobile_Controller.instance;
@@ -3732,7 +3869,7 @@
 	}
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3745,9 +3882,9 @@
 	
 	exports.Dialog_Controller = Dialog_Controller;
 	
-	var _controller = __webpack_require__(57);
+	var _controller = __webpack_require__(59);
 	
-	var _controller2 = __webpack_require__(59);
+	var _controller2 = __webpack_require__(61);
 	
 	function Dialog_Controller() {
 		if (_typeof(Dialog_Controller.instance) === 'object') return Dialog_Controller.instance;
@@ -3802,7 +3939,7 @@
 	}
 
 /***/ },
-/* 57 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3812,9 +3949,9 @@
 	});
 	exports.Dialog_Designer_Controller = Dialog_Designer_Controller;
 	
-	var _standard = __webpack_require__(19);
+	var _standard = __webpack_require__(20);
 	
-	var _view = __webpack_require__(58);
+	var _view = __webpack_require__(60);
 	
 	function Dialog_Designer_Controller(config) {
 		var _this = this;
@@ -3862,7 +3999,7 @@
 	}
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3916,7 +4053,7 @@
 	}
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3926,19 +4063,19 @@
 	});
 	exports.Dialog_Loader_Controller = Dialog_Loader_Controller;
 	
-	var _controller = __webpack_require__(26);
+	var _controller = __webpack_require__(27);
 	
-	var _controllers = __webpack_require__(37);
+	var _controllers = __webpack_require__(38);
 	
-	var _controllers2 = __webpack_require__(34);
+	var _controllers2 = __webpack_require__(35);
 	
-	var _controllers3 = __webpack_require__(60);
+	var _controllers3 = __webpack_require__(62);
 	
-	var _controller2 = __webpack_require__(63);
+	var _controller2 = __webpack_require__(65);
 	
-	var _controller3 = __webpack_require__(64);
+	var _controller3 = __webpack_require__(66);
 	
-	var _view = __webpack_require__(67);
+	var _view = __webpack_require__(69);
 	
 	function Dialog_Loader_Controller(config) {
 		var config_loader = {
@@ -3982,7 +4119,7 @@
 	}
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3992,7 +4129,7 @@
 	});
 	exports.Little_Form_Controllers = undefined;
 	
-	var _views = __webpack_require__(61);
+	var _views = __webpack_require__(63);
 	
 	var Little_Form_Controllers = exports.Little_Form_Controllers = function Little_Form_Controllers(form_config) {
 	  if (typeof form_config === 'undefined' && typeof form_config.container === 'undefined') {
@@ -4035,7 +4172,7 @@
 	};
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4045,7 +4182,7 @@
 	});
 	exports.Little_Form_Views = undefined;
 	
-	var _models = __webpack_require__(62);
+	var _models = __webpack_require__(64);
 	
 	var Little_Form_Views = exports.Little_Form_Views = function Little_Form_Views(form_config) {
 	  var models = new _models.Little_Form_Models(form_config);
@@ -4119,7 +4256,7 @@
 	};
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4212,7 +4349,7 @@
 	};
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4244,7 +4381,7 @@
 	}
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4254,7 +4391,7 @@
 	});
 	exports.Notifications_Controller = Notifications_Controller;
 	
-	var _view = __webpack_require__(65);
+	var _view = __webpack_require__(67);
 	
 	function Notifications_Controller(config) {
 		if (!config || !config.container) {
@@ -4277,7 +4414,7 @@
 	}
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4287,7 +4424,7 @@
 	});
 	exports.Notifications_View = Notifications_View;
 	
-	var _model = __webpack_require__(66);
+	var _model = __webpack_require__(68);
 	
 	function Notifications_View() {
 		var model = void 0,
@@ -4319,7 +4456,7 @@
 	}
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4329,10 +4466,10 @@
 	});
 	exports.Notifications_Model = Notifications_Model;
 	
-	var _controller = __webpack_require__(15);
+	var _main = __webpack_require__(42);
 	
 	function Notifications_Model() {
-		var request_manager = new _controller.Request_Manager(),
+		var request_manager = new _main.Request_Manager_Main(),
 		    variable = {
 			post_url: '/notification/',
 			post_data: undefined,
@@ -4368,7 +4505,7 @@
 	}
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4378,7 +4515,7 @@
 	});
 	exports.Dialog_Loader_View = Dialog_Loader_View;
 	
-	var _model = __webpack_require__(68);
+	var _model = __webpack_require__(70);
 	
 	function Dialog_Loader_View(config) {
 		var model = new _model.Dialog_Loader_Model(config);
@@ -4425,7 +4562,7 @@
 	}
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4435,7 +4572,7 @@
 	});
 	exports.Dialog_Loader_Model = Dialog_Loader_Model;
 	
-	var _dialog = __webpack_require__(69);
+	var _dialog = __webpack_require__(71);
 	
 	function Dialog_Loader_Model(config) {
 	
@@ -4466,7 +4603,7 @@
 	}
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4476,24 +4613,24 @@
 	});
 	exports.Block_Loader_Dialog = Block_Loader_Dialog;
 	
-	var _response = __webpack_require__(39);
+	var _response = __webpack_require__(40);
 	
 	var _data = __webpack_require__(13);
 	
-	var _controller = __webpack_require__(15);
+	var _main = __webpack_require__(42);
 	
-	var _controller2 = __webpack_require__(17);
+	var _controller = __webpack_require__(18);
 	
 	function Block_Loader_Dialog(config) {
-		_controller2.Block_Loader.call(this, config);
+		_controller.Block_Loader.call(this, config);
 	}
 	
-	Block_Loader_Dialog.prototype = Object.create(_controller2.Block_Loader.prototype);
+	Block_Loader_Dialog.prototype = Object.create(_controller.Block_Loader.prototype);
 	
 	Block_Loader_Dialog.prototype._send_request = function () {
 		var post_data = this._variables.post_data,
 		    post_name = this._settings.post_name,
-		    request_manager = new _controller.Request_Manager();
+		    request_manager = new _main.Request_Manager_Main();
 	
 		this._response = request_manager.send(undefined, post_data, post_name);
 	};

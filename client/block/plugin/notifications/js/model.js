@@ -2,13 +2,13 @@
  * Created by mrskull on 25.08.17.
  */
 
-import {Request_Manager} from 'arbuz/plugin/request_manager/_controller'
+import {Request_Manager_Main} from 'arbuz/plugin/request_manager/main'
 
 
 export function Notifications_Model()
 {
 	let
-		request_manager = new Request_Manager(),
+		request_manager = new Request_Manager_Main(),
 
 		variable = {
 			post_url:   '/notification/',

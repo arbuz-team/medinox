@@ -2,7 +2,7 @@
  * Created by mrskull on 31.01.17.
  */
 
-import {Request_Manager}    from 'arbuz/plugin/request_manager/_init'
+import {Request_Manager_Main}    from 'arbuz/plugin/request_manager/main'
 import {timeout_promise}    from 'arbuz/plugin/utilities/standard'
 
 
@@ -116,7 +116,7 @@ export function Post_Button_Models(config)
 					post_url = that.settings.button_url,
 					post_data = prepare_post_data(),
 					post_name = this.settings.post_name,
-					request_manager = new Request_Manager();
+					request_manager = new Request_Manager_Main();
 
 
 				request_manager

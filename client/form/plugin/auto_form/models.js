@@ -2,13 +2,13 @@
  * Created by mrskull on 17.01.17.
  */
 
-import {Request_Manager} from 'arbuz/plugin/request_manager/_controller'
+import {Request_Manager_Main} 	from 'arbuz/plugin/request_manager/main'
 
 
 
 export let Auto_Form_Models = function(config)
 {
-	let request_manager = new Request_Manager();
+	let request_manager = new Request_Manager_Main();
 
 	this.settings = {
 		post_name:  undefined,

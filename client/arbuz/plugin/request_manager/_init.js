@@ -4,11 +4,12 @@
 
 import {data_controller} from 'arbuz/js/structure'
 import {object_to_formdata} from 'arbuz/plugin/utilities/data'
+import * as model from 'arbuz/plugin/request_manager/_model'
 
 
 export function Request_Manager()
 {
-	this._data = undefined;
+	this.model = model;
 
 
 	let
@@ -58,6 +59,7 @@ export function Request_Manager()
 				data = object_to_formdata(obj.data);
 
 			error = false;
+			this.model._request_status = true;
 
 			console.group('Request data: ');
 			console.log(obj.url);
@@ -93,12 +95,13 @@ export function Request_Manager()
 
 
 
+
 // --------------------------    REQUEST    --------------------------
 
 
 Request_Manager.prototype._clear_request = function()
 {
-	this._data = {
+	this.model._data = {
 		url: undefined,
 		data: {},
 	};
@@ -107,19 +110,19 @@ Request_Manager.prototype._clear_request = function()
 
 Request_Manager.prototype._add_request = function(url, post_data)
 {
-	if(this._sending === undefined)
+	if(this.model._sending === undefined)
 		this._clear_request();
 
-	if(this._data.url === undefined)
-		this._data.url = url || '';
+	if(this.model._data.url === undefined)
+		this.model._data.url = url || '';
 
-	this._data.data = post_data || {};
+	this.model._data.data = post_data || {};
 };
 
 
 Request_Manager.prototype._prepare_url = function()
 {
-	let url = this._data.url;
+	let url = this.model._data.url;
 
 	if(url && url.substring && url.substring(0, 1) === '/')
 		return url;
@@ -130,9 +133,9 @@ Request_Manager.prototype._prepare_url = function()
 
 Request_Manager.prototype._prepare_post_data = function()
 {
-	if(this._data.data)
+	if(this.model._data.data)
 	{
-		let post_data = this._data.data;
+		let post_data = this.model._data.data;
 
 		// --- Add CRSF TOKEN
 		post_data[data_controller.get_crsf('name')] = data_controller.get_crsf('value');
@@ -146,7 +149,8 @@ Request_Manager.prototype._prepare_post_data = function()
 
 Request_Manager.prototype._send_request = function()
 {
-	return new Promise((resolve, reject) =>
+
+	this.model._request_promise = new Promise((resolve, reject) =>
 	{
 		let
 			post_url = this._prepare_url(),
@@ -159,7 +163,11 @@ Request_Manager.prototype._send_request = function()
 				url: post_url,
 				data: post_data,
 			})
-			.then(resolve)
+			.then((response) =>
+			{
+				this.model._request_status = false;
+				resolve(response);
+			})
 			.catch(response =>
 			{
 				console.trace();
@@ -172,6 +180,8 @@ Request_Manager.prototype._send_request = function()
 			reject('Request Manager error: Invalid post data.');
 		}
 	});
+
+	return this.model._request_promise;
 };
 
 

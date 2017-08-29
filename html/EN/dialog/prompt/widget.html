@@ -97,21 +97,19 @@
         </button>
 
         {% if additional_form %}
-            <button class="button dialog_send event_button"
+            <button class="button dialog_send"
                     type="button"
-                    data-name="{{ accept.name }}"
                     data-reload="{{ accept.reload }}"
                     data-redirect="{{ accept.redirect }}"
-                    data-event="part.close_dialog {{ accept.event }}">
-                    Save
+                    data-event="{{ accept.event }}">
+                Save
             </button>
         {% else %}
             <button class="button dialog_send event_button"
-                    type="button"
-                    data-name="{{ accept.name }}"
-                    data-reload="{{ accept.reload }}"
-                    data-redirect="{{ accept.redirect }}"
-                    data-event="part.reload_dialog {{ accept.event }}">
+					type="button"
+					data-reload="{{ accept.reload }}"
+					data-redirect="{{ accept.redirect }}"
+					data-event="{{ accept.event }}">
                 Create
             </button>
         {% endif %}

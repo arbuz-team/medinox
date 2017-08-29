@@ -44,7 +44,7 @@ export let
 	reload_plugins = function(data)
 	{
 		let
-			plugins = data.reload, // examples: "cart ground header navigation"
+			plugins = data.reload, // examples: "cart ground dialog"
 			plugins_array,
 			array_length;
 
