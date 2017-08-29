@@ -1857,8 +1857,6 @@
 			if (ground_controller.is_redirect(response)) {
 				ground_controller.change_url(response.url);
 				ground_controller.load_single_ground_content();
-	
-				return true;
 			}
 	
 			var variables = _this.variables,
