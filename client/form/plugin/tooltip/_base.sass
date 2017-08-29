@@ -1,4 +1,13 @@
 
+$tooltip--background: #f0f0f0
+$tooltip--background-hover: #f5f5f5
+$tooltip--color: $G-COLOR-0
+
+$tooltip-dangerous--background: #b71c1c
+$tooltip-dangerous--background-hover: #c62828
+$tooltip-dangerous--color: #fff
+
+
 .tooltip
   @extend .std_button
 
@@ -19,11 +28,23 @@
     bottom: 100%
 
 
+  &.is-dangerous
+    .tooltip-options
+      >a, >.button
+        background-color: $tooltip-dangerous--background !important
+        color: $tooltip-dangerous--color
+
+        &:hover
+          background-image: -webkit-linear-gradient(top, $tooltip-dangerous--background-hover, $tooltip-dangerous--background)
+          background-color: $tooltip-dangerous--background-hover !important
+
+
+
 .tooltip_button:focus + .tooltip-options, .tooltip-options:hover
   display: block
 
   >*
-    background-color: #f5f5f5
+    background-color: $tooltip--background-hover
 
 
 .tooltip-options
@@ -31,7 +52,7 @@
   position: absolute
   width: 150px
 
-  background-color: #f0f0f0
+  background-color: $tooltip--background
   border: $G-STYLE-BORDER
     radius: 1px
 
@@ -52,10 +73,10 @@
       radius: 0
 
     text-align: left
-    color: $G-COLOR-0
+    color: $tooltip--color
 
     &:last-child
-      border-bottom: none
+      border-bottom: none !important
 
     &:hover
       border: none

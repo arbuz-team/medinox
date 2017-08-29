@@ -48,16 +48,25 @@
 							Update
 						</button>
 
-                        <button class="button dialog_button"
-								type="button"
-                                data-type="confirm"
-                                data-name="delete_address"
-                                data-dialog-name="delete_address_{{ id_address }}"
-                                data-dialog-action="delete"
-                                data-dialog-reload="ground"
-                                data-dialog-value="{{ id_address }}">
-                            Delete
-                        </button>
+						<div class="tooltip align-right align-bottom is-dangerous">
+
+							<button class="button tooltip_button"
+									type="button"
+									data-name="remove_product-cart">
+								Delete
+							</button>
+
+							<div class="tooltip-options">
+								<button class="button post_button"
+										type="button"
+										data-name="delete_address_{{ id_address }}"
+										data-action="delete"
+										data-reload="ground"
+										data-value="{{ id_address }}">
+									Are you sure?
+								</button>
+							</div>
+						</div>
                     </div>
 
                 </form>

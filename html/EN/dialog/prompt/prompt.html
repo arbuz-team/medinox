@@ -31,15 +31,24 @@
         <!--buttons-->
 
         {% if edit %}
-            <button class="button post_button"
-                    type="button"
-                    data-name="{{ form_name }}"
-                    data-action="delete"
-                    data-reload="ground"
-                    data-event="part.close_dialog"
-                    data-url="{{ edit.url }}">
-				Delete
-            </button>
+            <div class="tooltip align-right align-bottom dialog-content-button is-dangerous">
+
+                <button class="button tooltip_button" type="button" data-name="dialog_deleting">
+                    Delete
+                </button>
+
+                <div class="tooltip-options">
+                    <button class="button post_button"
+                            type="button"
+                            data-name="{{ form_name }}"
+                            data-action="delete"
+                            data-reload="ground"
+                            data-event="part.close_dialog"
+                            data-url="{{ edit.url }}">
+                        Are you sure?
+                    </button>
+                </div>
+            </div>
         {% endif %}
 
         <button class="button event_button"

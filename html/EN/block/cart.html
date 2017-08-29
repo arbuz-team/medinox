@@ -25,7 +25,7 @@
 
 
                     <div class="cart-list-product-actions">
-                        <form class="auto_form" action="/cart/" data-origin="little">
+                        <form class="auto_form" action="" data-origin="little">
 
                             <input class="cart-list-product-number input auto_field only_number_3 always"
                                    type="text"
@@ -35,15 +35,25 @@
 
                             <span class="cart-list-product-price"> x {{ selected.product.price }}</span>
 
-                            <button class="cart-list-product-remove button is-icon post_button"
-                                    type="button"
-                                    data-name="Delete_{{ selected.product.pk }}"
-                                    data-action="delete"
-                                    data-value="{{ selected.product.pk }}"
-                                    data-reload="cart ground"
-                                    data-url="/cart/">
-                                <span class="button-icon img-waste_bin"> &nbsp; </span>
-                            </button>
+                            <div class="tooltip align-right align-bottom is-dangerous">
+
+                                <button class="button is-icon tooltip_button cart-list-product-remove"
+										type="button"
+										data-name="remove_product-cart">
+                                    <span class="button-icon img-waste_bin"> &nbsp; </span>
+                                </button>
+
+                                <div class="tooltip-options">
+                                    <button class="button post_button"
+                                            type="button"
+                                            data-name="Delete_{{ selected.product.pk }}"
+                                            data-action="delete"
+                                            data-value="{{ selected.product.pk }}"
+                                            data-reload="cart ground">
+                                        Are you sure?
+                                    </button>
+                                </div>
+                            </div>
 
                         </form>
                     </div>
@@ -62,17 +72,22 @@
             <li class="is-inline-inside">
 
                 <div class="cart-list-button">
-                    <button class="button dialog_button"
-                            type="button"
-                            data-type="confirm"
-                            data-name="clear_cart"
-                            data-dialog-name="Clear_cart"
-                            data-dialog-action="clear"
-                            data-dialog-reload="cart"
-                            data-dialog-event="part.close_cart"
-                            data-dialog-url="/cart/">
-                        Clear cart
-                    </button>
+					<div class="tooltip align-right align-bottom is-dangerous">
+
+						<button class="button tooltip_button" type="button" data-name="clear_cart">
+							Clear cart
+						</button>
+
+						<div class="tooltip-options">
+							<button class="button post_button"
+									type="button"
+									data-name="clear_cart"
+									data-action="clear"
+									data-reload="cart">
+								Are you sure?
+							</button>
+						</div>
+					</div>
                 </div>
 
                 <a class="cart-list-button" href="/payment/">
