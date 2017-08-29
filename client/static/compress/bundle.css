@@ -2095,6 +2095,15 @@ img {
     padding: 0 15px;
     line-height: 45px;
     cursor: pointer; }
+  .navigation-list .navigation-field .navigation-button {
+    margin: 0;
+    padding: 0;
+    line-height: 45px;
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    font: inherit;
+      font-weight: bold; }
 
 .navigation-list .navigation-secondary-cart {
   font-weight: bold; }
