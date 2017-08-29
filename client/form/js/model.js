@@ -52,8 +52,6 @@ export let Form_Models = function(config)
 			{
 				ground_controller.change_url(response.url);
 				ground_controller.load_single_ground_content();
-
-				return true;
 			}
 
 			let variables = this.variables,
