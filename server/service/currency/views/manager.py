@@ -14,14 +14,14 @@ class Currency_Manager(Website_Manager, Base_Currency_Manager):
 
         # get html
         fp = urllib.request.urlopen(url)
-        html = fp.read().decode("utf8")
+        html = fp.read().decode('ISO-8859-1')
         fp.close()
 
         # parse html
         html = html[html.find('span'):html.rfind('span')]
         price = html[html.find('>'):html.rfind('<')]
 
-        return price
+        return price[1:-4]
 
     def Manage_Get(self):
 

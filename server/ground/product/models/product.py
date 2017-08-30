@@ -28,8 +28,8 @@ class Product(Abstract_Model):
 
     url_name = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
-    price = models.ForeignKey(Prices, null=True, on_delete=models.SET_NULL)
     image = models.ImageField(blank=True)
+    price = models.ForeignKey(Prices, null=True, on_delete=models.SET_NULL)
     brand = models.ForeignKey(Brand, null=True, on_delete=models.SET_NULL)
     parent = models.ForeignKey(Model_Catalog, null=True, on_delete=models.SET_NULL)
     language = models.CharField(max_length=2)
