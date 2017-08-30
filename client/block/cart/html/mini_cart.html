@@ -82,6 +82,22 @@
                             </button>
 
                             <button class="button is-text_icon post_button"
+                                    data-name="set_cart_status_pending"
+                                    data-action="assign"
+                                    data-value="late_payment"
+                                    data-other_1="index:{{ item.payment.pk }}"
+                                    data-reload="ground">
+                                <span class="button-text">
+                                    Late payment
+                                </span>
+                                <span class="button-icon">
+                                    {% if request.session.root_payment_status == 'late_payment' %}
+                                        &#10004;
+                                    {% endif %}
+                                </span>
+                            </button>
+
+                            <button class="button is-text_icon post_button"
                                     type="button"
                                     data-name="set_cart_status_internal"
                                     data-action="assign"
