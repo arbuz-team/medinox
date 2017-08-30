@@ -26,18 +26,24 @@ class Form_Product(Abstract_Image_Form):
 
     def Create_Fields(self):
         self.fields['name'] = forms.CharField(max_length=100)
-        self.fields['price'] = forms.FloatField(required=False)
+        self.fields['price_eur'] = forms.FloatField(required=False)
+        self.fields['price_pln'] = forms.FloatField(required=False)
+        self.fields['price_gbp'] = forms.FloatField(required=False)
         self.fields['brand'] = forms.ModelChoiceField(queryset=SQL.All(Brand))
         Abstract_Image_Form.Create_Fields(self)
 
     def Set_Widgets(self):
 
         name_attr = self.Attr(Text(self, 167))
-        price_attr = self.Attr(Text(self, 168), field=Field.NUMBER)
+        price_eur_attr = self.Attr(Text(self, 184), field=Field.NUMBER, classes='currency_converter')
+        price_pln_attr = self.Attr(Text(self, 185), field=Field.NUMBER, classes='currency_converter')
+        price_gbp_attr = self.Attr(Text(self, 186), field=Field.NUMBER, classes='currency_converter')
         brand_attr = self.Attr(field=Field.SELECT)
 
         self.fields['name'].widget = forms.TextInput(attrs=name_attr)
-        self.fields['price'].widget = forms.TextInput(attrs=price_attr)
+        self.fields['price_eur'].widget = forms.TextInput(attrs=price_eur_attr)
+        self.fields['price_pln'].widget = forms.TextInput(attrs=price_pln_attr)
+        self.fields['price_gbp'].widget = forms.TextInput(attrs=price_gbp_attr)
         self.fields['brand'].widget.attrs = brand_attr
 
         Abstract_Image_Form.Set_Widgets(self)

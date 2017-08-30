@@ -61,11 +61,11 @@ class Forgot_Password(Website_Manager):
 
     def Manage_Exist(self):
 
-        if self.request.POST['__exist__'] == 'email':
+        if self.request.POST['__valid__'] == 'email':
             if SQL.Filter(User, email=self.request.POST['value']):
-                return JsonResponse({'__exist__': 'true'})
+                return JsonResponse({'__valid__': 'true'})
 
-        return JsonResponse({'__exist__': 'false'})
+        return JsonResponse({'__valid__': 'false'})
 
     @staticmethod
     def Launch(request):

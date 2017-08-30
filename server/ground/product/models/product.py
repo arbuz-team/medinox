@@ -12,11 +12,23 @@ class Brand(Abstract_Model):
 
 
 
+class Prices(Abstract_Model):
+
+    eur = models.FloatField()
+    pln = models.FloatField()
+    gbp = models.FloatField()
+
+    def __str__(self):
+        return '{0} eur, {1} pln, {2} gbp'\
+            .format(self.eur, self.pln, self.gbp)
+
+
+
 class Product(Abstract_Model):
 
     url_name = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
-    price = models.IntegerField(blank=True)
+    price = models.ForeignKey(Prices, null=True, on_delete=models.SET_NULL)
     image = models.ImageField(blank=True)
     brand = models.ForeignKey(Brand, null=True, on_delete=models.SET_NULL)
     parent = models.ForeignKey(Model_Catalog, null=True, on_delete=models.SET_NULL)

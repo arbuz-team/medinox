@@ -50,12 +50,12 @@ class Sign_Up(Website_Manager):
 
     def Manage_Exist(self):
 
-        if self.request.POST['__exist__'] == 'email':
+        if self.request.POST['__valid__'] == 'email':
             if SQL.Filter(User, email=self.request.POST['value']):
                 return HttpResponse()
 
         # Backend: change __exist__ to __valid__
-        if self.request.POST['__exist__'] == 'password':
+        if self.request.POST['__valid__'] == 'password':
             path = './server/manage/user/passwords'
             passwords = open(Path_Manager.Base_Root(path)).read()
 
