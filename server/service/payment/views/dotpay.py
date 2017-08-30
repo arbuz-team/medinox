@@ -36,7 +36,7 @@ class DotPay(Payment_System):
         {
             'id':           DOTPAY_RECEIVER_ID,
             'amount':       self.context['total_price'],
-            'currency':     self.request.session['translator_currency'],
+            'currency':     self.request.session['currency_selected'],
             'description':  Text(self, 152),
 
             'control':      self.context['payment'],

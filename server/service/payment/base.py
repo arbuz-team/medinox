@@ -12,7 +12,7 @@ class Payment_Models_Manager(Base_Website):
         total = delivery.price_eur
 
         for selected in selected_products:
-            product_price = selected.price
+            product_price = selected.product.price
 
             total += product_price * selected.number
 
@@ -113,7 +113,7 @@ class Payment_Models_Manager(Base_Website):
                 total_price='0.00',
                 delivery_price=delivery,
                 service='None',
-                currency=self.request.session['translator_currency'],
+                currency=self.request.session['currency_selected'],
                 status='cart'
             )
             SQL.Save(data=payment)
