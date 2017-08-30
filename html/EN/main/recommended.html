@@ -1,0 +1,27 @@
+{% load staticfiles %}
+{% load tags %}
+
+<script>
+    APP.DATA = {
+        title : '',
+        description : 'This is home page.',
+    };
+</script>
+
+<div class="ground-block block-1 start">
+
+    <div class="block-background fill-abs"></div>
+
+    <div class="block-content">
+
+        <div class="block-content-recommended_title">
+            <span class="block-content-recommended_title-content">Polecamy</span>
+        </div>
+
+        {% include 'block/ground/plugin/product/html/tiles_list/recommended_products.html' %}
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/start.html" %}
