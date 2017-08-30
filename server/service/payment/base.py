@@ -13,7 +13,6 @@ class Payment_Models_Manager(Base_Website):
 
         for selected in selected_products:
             product_price = selected.product.price
-
             total += product_price * selected.number
 
         return format(total, '.2f')

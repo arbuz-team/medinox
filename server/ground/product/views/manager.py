@@ -14,7 +14,9 @@ class Product_Manager(Website_Manager):
             product = self.request.session['product_product']
             product.name = cleaned_data['name']
             product.url_name = Path_Manager.To_URL(cleaned_data['name'])
-            product.price = cleaned_data['price']
+            product.price.eur = cleaned_data['price_eur']
+            product.price.pln = cleaned_data['price_pln']
+            product.price.gbp = cleaned_data['price_gbp']
             product.parent = self.request.session['catalog_parent']
             product.language = self.request.session['translator_language']
             SQL.Save(data=product)

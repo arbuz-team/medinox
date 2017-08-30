@@ -59,13 +59,11 @@ class Forgot_Password(Website_Manager):
 
         Sender(self).Send_Forgot_Password_Link(content, email)
 
-    def Manage_Exist(self):
+    def Manage_Valid(self):
 
-        if self.request.POST['__valid__'] == 'email':
+        if self.request.POST['_name_'] == 'email':
             if SQL.Filter(User, email=self.request.POST['value']):
-                return JsonResponse({'__valid__': 'true'})
-
-        return JsonResponse({'__valid__': 'false'})
+                return HttpResponse()
 
     @staticmethod
     def Launch(request):

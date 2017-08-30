@@ -16,7 +16,7 @@ class Direct_Block_Manager(Base):
 
         # checkers
         if self.request.POST[name] == 'valid':
-            return block.Manage_Exist()
+            return block.Manage_Valid()
 
         # getters
         if self.request.POST[name] == 'get':
