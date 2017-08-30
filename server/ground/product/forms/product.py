@@ -35,9 +35,9 @@ class Form_Product(Abstract_Image_Form):
     def Set_Widgets(self):
 
         name_attr = self.Attr(Text(self, 167))
-        price_eur_attr = self.Attr(Text(self, 184), field=Field.NUMBER, classes='currency_converter')
-        price_pln_attr = self.Attr(Text(self, 185), field=Field.NUMBER, classes='currency_converter')
-        price_gbp_attr = self.Attr(Text(self, 186), field=Field.NUMBER, classes='currency_converter')
+        price_eur_attr = self.Attr(Text(self, 184), field=Field.NUMBER, classes='currency_converter-field')
+        price_pln_attr = self.Attr(Text(self, 185), field=Field.NUMBER, classes='currency_converter-field')
+        price_gbp_attr = self.Attr(Text(self, 186), field=Field.NUMBER, classes='currency_converter-field')
         brand_attr = self.Attr(field=Field.SELECT)
 
         self.fields['name'].widget = forms.TextInput(attrs=name_attr)
