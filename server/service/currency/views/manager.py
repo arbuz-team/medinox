@@ -23,6 +23,14 @@ class Currency_Manager(Website_Manager, Base_Currency_Manager):
 
         return price
 
+    def Manage_Get(self):
+
+        if self.request.POST['_name_'] == 'exchange_rate':
+            amount = self.request.POST['amount']
+            currency_from = self.request.POST['currency_from']
+            currency_to = self.request.POST['currency_to']
+            return self.Exchange_Rate(amount, currency_from, currency_to)
+
     def Manage_Button(self):
 
         selected_currency = self.request.POST['value']
