@@ -2190,6 +2190,32 @@ img {
   .dialog-content-part > input {
     width: 468px; } }
 
+.dialog-address-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px; }
+
+.dialog-address-content {
+  margin: 0 15px;
+    margin-bottom: 15px; }
+
+.dialog-address-field {
+  position: relative;
+  line-height: 22px; }
+
+.dialog-address-name {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 120px;
+  font-weight: bold;
+  opacity: 0.8; }
+
+.dialog-address-value {
+  display: block;
+  margin-left: 120px; }
+
 #SEARCHER {
   top: 0;
   left: -250px;
