@@ -12,7 +12,7 @@ class Payment_Models_Manager(Base_Website):
         total = delivery.price_eur
 
         for selected in selected_products:
-            product_price = selected.product.price
+            product_price = selected.product.price # Backend: product.price not exist. create price getter
             total += product_price * selected.number
 
         return format(total, '.2f')

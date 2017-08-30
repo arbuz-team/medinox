@@ -1,3 +1,4 @@
+from server.manage.switch.templatetags import other
 from .dotpay import *
 from .paypal import *
 
@@ -146,9 +147,16 @@ class Buy(Website_Manager):
         return HttpResponseRedirect(url)
 
     @staticmethod
-    def Buy_Product(request, pk):
+    def Launch(request, pk):
         return Buy(request, other_value=pk).HTML
 
+
+
+class Cart_Manager(Website_Manager):
+
+    def Manage_Form(self):
+        return HttpResponse()
+
     @staticmethod
-    def Launch(request):
-        return Buy(request).HTML
+    def Launch(request, pk):
+        return Cart_Manager(request, other_value=pk).HTML
