@@ -6,6 +6,12 @@
 
   cursor: pointer
 
+  &.is-deleted
+
+    .tile-img, .img-default
+      opacity: 0.7 !important
+
+
   >a, >div
     display: block
     height: 100%
@@ -19,6 +25,20 @@
   &:hover
     .icon, .tile-img
       opacity: 1
+
+
+.tile-deleted-cover
+  @extend .fill-abs
+  @extend .img-reload
+
+  background:
+    size: 40%
+    position: center
+    color: rgba(100, 100, 100, 0.1)
+  opacity: 0.8
+
+  &:hover
+    opacity: 1
 
 
 .img-default

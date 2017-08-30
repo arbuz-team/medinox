@@ -1,85 +1,131 @@
 {% load staticfiles %}
 {% load tags %}
 
-<li class="tile" data-id="{{ element.pk }}">
-    <a href="/product/{{ element.pk }}/{{ element.url_name }}/">
 
-        <div class="tile-img mini_image">
-            {% if element.image %}
+{% if element.deleted and request.session.root_login %}
 
-                <div class="fill-abs">
-                    <img data-src="{{ element.image }}"
-                         alt="{{ element.name }}"
-                         src="{% static 'img/pixel.png' %}" />
-                </div>
+    <li class="tile is-deleted" data-id="{{ element.pk }}">
+		<div class="post_button is-icon" type="button" data-name="restore_product_{{ element.pk }}">
 
-            {% else %}
+			<div class="tile-img mini_image">
+				{% if element.image %}
 
-                <div class="img-default fill-abs img-hospital-256">
-                    &nbsp;
-                </div>
+				<div class="fill-abs">
+					<img data-src="{{ element.image }}"
+						 alt="{{ element.name }}"
+						 src="{% static 'img/pixel.png' %}" />
+				</div>
 
-            {% endif %}
-        </div>
+				{% else %}
 
-        <h3 class="tile-title">
-            {{ element.name }}
-        </h3>
-    </a>
+				<div class="img-default fill-abs img-hospital-256">
+					&nbsp;
+				</div>
 
-    <div class="tile-content">
-        &nbsp;
+				{% endif %}
+			</div>
 
-        {% if request.session.root_login %}
+			<h3 class="tile-title">
+				{{ element.name }}
+			</h3>
 
-            <div class="tooltip align-right align-top is-right">
+		</div>
 
-                <button class="button is-icon tooltip_button"
-                        type="button"
-                        data-name="edit">
-                    <span class="button-icon img-edit"> &nbsp; </span>
-                </button>
+		<div class="tile-content">
+			&nbsp;
+		</div>
+	</li>
 
-                <!-- Frontend: tooltip icon should have bigger click area -->
+{% else %}
+
+    <li class="tile" data-id="{{ element.pk }}">
+		<a href="/product/{{ element.pk }}/{{ element.url_name }}/">
+
+			<div class="tile-img mini_image">
+				{% if element.image %}
+
+					<div class="fill-abs">
+						<img data-src="{{ element.image }}"
+							 alt="{{ element.name }}"
+							 src="{% static 'img/pixel.png' %}" />
+					</div>
+
+				{% elif request.session.root_login %}
+
+					<div class="img-default fill-abs img-hospital-256">
+						&nbsp;
+					</div>
+
+				{% else %}
+
+					<div class="img-default fill-abs">
+						&nbsp;
+					</div>
+
+				{% endif %}
+			</div>
+
+			<h3 class="tile-title">
+				{{ element.name }}
+			</h3>
+		</a>
+
+		<div class="tile-content">
+			&nbsp;
+
+			{% if request.session.root_login %}
+
+			<div class="tooltip align-right align-top is-right">
+
+				<button class="button is-icon tooltip_button"
+						type="button"
+						data-name="edit">
+					<span class="button-icon img-edit"> &nbsp; </span>
+				</button>
+
+				<!-- Frontend: tooltip icon should have bigger click area -->
 
 
-                <div class="tooltip-options">
-                    <button class="button dialog_button"
-                            type="button"
-                            data-type="prompt"
-                            data-name="product"
-                            data-value="{{ element.pk }}"
-                            data-dialog-reload="ground">
-                        Edit
-                    </button>
+				<div class="tooltip-options">
+					<button class="button dialog_button"
+							type="button"
+							data-type="prompt"
+							data-name="product"
+							data-value="{{ element.pk }}"
+							data-dialog-reload="ground">
+						Edit
+					</button>
 
-                    <button class="button dialog_button"
-                            type="button"
-                            data-type="prompt"
-                            data-name="move"
-                            data-value="{{ element.pk }}"
-                            data-other_1="type:product"
-                            data-dialog-reload="ground">
-                        Move
-                    </button>
+					<button class="button dialog_button"
+							type="button"
+							data-type="prompt"
+							data-name="move"
+							data-value="{{ element.pk }}"
+							data-other_1="type:product"
+							data-dialog-reload="ground">
+						Move
+					</button>
 
-                    <button class="button dialog_button"
-                            type="button"
-                            data-type="prompt"
-                            data-name="copy"
-                            data-value="{{ element.pk }}"
-                            data-other_1="type:product"
-                            data-dialog-reload="ground">
-                        Copy
-                    </button>
+					<button class="button dialog_button"
+							type="button"
+							data-type="prompt"
+							data-name="copy"
+							data-value="{{ element.pk }}"
+							data-other_1="type:product"
+							data-dialog-reload="ground">
+						Copy
+					</button>
 
-                    <!-- Frontend: create button delete in tooltip -->
+					<!-- Frontend: create button delete in tooltip -->
 
-                </div>
-            </div>
+				</div>
+			</div>
 
-        {% endif %}
-    </div>
-</li>
+			{% endif %}
+		</div>
+	</li>
+
+{% endif %}
+
 
 

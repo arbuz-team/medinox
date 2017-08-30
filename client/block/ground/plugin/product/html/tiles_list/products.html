@@ -28,19 +28,6 @@
         {% endfor %}
     </ul>
 
-    <button class="button post_button"
-            data-name="show_deleted_button"
-            data-action="show_deleted"
-            data-reload="ground"
-            data-url="/catalog/manage/">
-
-        {% if request.session.catalog_deleted_flag %}
-            Hide deleted
-        {% else %}
-            Show deleted
-        {% endif %}
-    </button>
-
     {% include 'block/ground/html/page_numbers.html' %}
 
 </div>
