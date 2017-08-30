@@ -38,21 +38,6 @@ class Translator(Base):
             self.request.session['translator_language'] = \
                 subdomain.upper()
 
-    def Set_Currency(self):
-
-        geo = GeoIP()
-        client_ip = self.request.META.get('REMOTE_ADDR', None)
-        country = geo.country_code(client_ip)
-
-        if country == 'PL':
-            self.request.session['translator_currency'] = 'PLN'
-
-        if country == 'DE':
-            self.request.session['translator_currency'] = 'EUR'
-
-        if country == 'GB': # united kingdom
-            self.request.session['translator_currency'] = 'GBP'
-
     def Get_Language_Redirect(self):
 
         url = self.request.get_host()

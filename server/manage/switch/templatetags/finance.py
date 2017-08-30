@@ -9,7 +9,7 @@ class Finance_Manager(Base_Tag_Manager):
 
         if not currency:
 
-            currency = self.request.session['translator_currency']
+            currency = self.request.session['currency_selected']
             selected_price = Product_Models_Manager(self)\
                 .Get_Product_Price(product, current_currency=True)
 
@@ -51,7 +51,7 @@ class Finance_Manager(Base_Tag_Manager):
 
     def Get_Delivery_Price(self):
         delivery = self.values['delivery']
-        currency = self.request.session['translator_currency']
+        currency = self.request.session['currency_selected']
 
         price = Product_Models_Manager(self)\
                 .Get_Delivery_Price(delivery, current_currency=True)

@@ -37,7 +37,7 @@ class PayPal(Payment_System):
             'item_name':        'medifiller',
             'amount':           self.context['total_price'],
             'custom':           self.context['payment'],
-            'currency_code':    self.request.session['translator_currency'],
+            'currency_code':    self.request.session['currency_selected'],
 
             'notify_url':       path_manager.Get_Urls('payment.paypal', current_language=True),
             'return':           path_manager.Get_Urls('payment.apply', current_language=True),

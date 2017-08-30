@@ -1,5 +1,5 @@
 from inspect import getmembers, ismethod
-from server.service.translator.views import *
+from server.service.currency.views.base import *
 from server.ground.product.models import *
 from server.manage.root.models import *
 
@@ -77,12 +77,16 @@ class Session_Controller:
         if 'translator_language' not in self.request.session:
             self.request.session['translator_language'] = 'EN'
 
-        if 'translator_currency' not in self.request.session:
-            self.request.session['translator_currency'] = 'EUR'
-
         translator = Translator(self)
         translator.Set_Subdomain_Language()
-        translator.Set_Currency()
+
+    def Check_Session_Currency(self):
+
+        if 'currency_selected' not in self.request.session:
+            self.request.session['currency_selected'] = 'EUR'
+
+        currency = Base_Currency_Manager(self)
+        currency.Set_Default_Currency()
 
     def Check_Session_Product(self):
 

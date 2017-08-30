@@ -12,7 +12,7 @@ class Payment_Manager(Website_Manager, PayPal, DotPay):
         self.context['payment'] = payment.pk
         payment.date = datetime.today().date()
         payment.total_price = self.context['total_price']
-        payment.currency = self.request.session['translator_currency']
+        payment.currency = self.request.session['currency_selected']
         SQL.Save(data=payment)
 
     def Load_Payment_Details(self):
