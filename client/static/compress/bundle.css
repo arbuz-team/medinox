@@ -2205,10 +2205,6 @@ img {
 .dialog-content-part > div {
   padding-bottom: 5px; }
 
-.dialog-content-part > input {
-  width: 95%;
-  box-sizing: border-box; }
-
 @media (min-width: 500px) {
   .dialog {
     width: 500px;

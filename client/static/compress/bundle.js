@@ -200,13 +200,13 @@
 	
 	var _controller = __webpack_require__(9);
 	
-	var _controller2 = __webpack_require__(56);
+	var _controller2 = __webpack_require__(60);
 	
-	var _controller3 = __webpack_require__(57);
+	var _controller3 = __webpack_require__(61);
 	
 	var _controller4 = __webpack_require__(34);
 	
-	var _controller5 = __webpack_require__(58);
+	var _controller5 = __webpack_require__(62);
 	
 	var _controller6 = __webpack_require__(31);
 	
@@ -1007,7 +1007,19 @@
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Request_Manager = undefined;
+	
 	var _init = __webpack_require__(15);
+	
+	Object.defineProperty(exports, 'Request_Manager', {
+		enumerable: true,
+		get: function get() {
+			return _init.Request_Manager;
+		}
+	});
 	
 	var _model = __webpack_require__(16);
 	
@@ -1763,11 +1775,14 @@
 	
 	var _controller = __webpack_require__(54);
 	
+	var _controller2 = __webpack_require__(56);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	var Form_Controllers = exports.Form_Controllers = function Form_Controllers(config) {
 		var form_models = new _model.Form_Models(config),
 		    address_switcher = new _controller.Address_Switcher_Controller(config),
+		    currency_converter = new _controller2.Currency_Converter_Controller(config),
 		    variables = form_models.variables;
 	
 		var prepare_form_to_send = function prepare_form_to_send(event) {
@@ -1805,6 +1820,7 @@
 			selected_form.define(config_form);
 			file_converter.define(config_form);
 			address_switcher.define(config_form);
+			currency_converter.define(config_form);
 		};
 	};
 
@@ -2759,15 +2775,13 @@
 	});
 	exports.Request_Manager_Main = Request_Manager_Main;
 	
-	var _init = __webpack_require__(15);
-	
-	__webpack_require__(17);
+	var _controller = __webpack_require__(17);
 	
 	function Request_Manager_Main() {
-	  _init.Request_Manager.call(this);
+	  _controller.Request_Manager.call(this);
 	}
 	
-	Request_Manager_Main.prototype = Object.create(_init.Request_Manager.prototype);
+	Request_Manager_Main.prototype = Object.create(_controller.Request_Manager.prototype);
 
 /***/ },
 /* 43 */
@@ -3708,6 +3722,196 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.Currency_Converter_Controller = Currency_Converter_Controller;
+	
+	var _model = __webpack_require__(57);
+	
+	var model = _interopRequireWildcard(_model);
+	
+	var _event = __webpack_require__(58);
+	
+	var _view = __webpack_require__(59);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function Currency_Converter_Controller(config) {
+		if (!config || !config.container) {
+			console.error('Part Loader error: Invalid configuration.');
+			return {};
+		}
+	
+		var container = config.container,
+		    view = new _view.Currency_Converter_View();
+	
+		this.define = function () {
+			$(model.selector.checkbox, container).each((0, _event.event_broker)(view.change_status_field)).change((0, _event.event_broker)(view.change_status_field));
+			$(model.selector.button, container).click((0, _event.event_broker)(view.calculate));
+		};
+	}
+
+/***/ },
+/* 57 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.get_price = exports.selector = undefined;
+	
+	var _controller = __webpack_require__(17);
+	
+	var request_manager = new _controller.Request_Manager(),
+	    prepare_currencies = function prepare_currencies(list) {
+		var text = '';
+	
+		for (var i = 0; list.length > i; ++i) {
+			if (i === 0) text += list[i];else text += ' ' + list[i];
+		}
+	
+		return text;
+	},
+	    receive_data = function receive_data(resolve) {
+		return function (response) {
+			var list = JSON.parse(response.html),
+			    array = [];
+	
+			if (typeof list.EUR !== 'undefined') array.push({
+				currency: 'EUR',
+				price: list.EUR
+			});
+			if (typeof list.PLN !== 'undefined') array.push({
+				currency: 'PLN',
+				price: list.PLN
+			});
+			if (typeof list.GBP !== 'undefined') array.push({
+				currency: 'GBP',
+				price: list.GBP
+			});
+	
+			resolve(array);
+		};
+	};
+	
+	var selector = exports.selector = {
+		container: '.currency_converter',
+		column: '.currency_converter-col',
+		checkbox: '.currency_converter-checkbox',
+		input: '.currency_converter-field',
+		button: '.currency_converter-button'
+	},
+	    get_price = exports.get_price = function get_price(base_price, base_currency, list_of_currencies) {
+		return new Promise(function (resolve) {
+			var content = '__ground__',
+			    data = {
+				__ground__: 'get',
+				_name_: 'exchange_rate',
+				amount: base_price,
+				currency_from: base_currency,
+				currencies_to: prepare_currencies(list_of_currencies)
+			};
+	
+			request_manager.send('/currency/', data, content).then(receive_data(resolve));
+		});
+	};
+
+/***/ },
+/* 58 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	var event_broker = exports.event_broker = function event_broker(fun) {
+		return function (event) {
+			fun(this, event);
+		};
+	};
+
+/***/ },
+/* 59 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Currency_Converter_View = Currency_Converter_View;
+	
+	var _model = __webpack_require__(57);
+	
+	var model = _interopRequireWildcard(_model);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function Currency_Converter_View() {
+		this.change_status_field = function (checkbox) {
+			var $checkbox = $(checkbox),
+			    checked = $checkbox.prop('checked'),
+			    $column = $checkbox.parents(model.selector.column),
+			    $input = $(model.selector.input, $column),
+			    $button = $(model.selector.button, $column);
+	
+			if (checked) {
+				$input.prop('disabled', false);
+				$button.prop('disabled', false);
+			} else {
+				$input.prop('disabled', true);
+				$button.prop('disabled', true);
+			}
+		};
+	
+		this.calculate = function (button) {
+			var $button = $(button),
+			    $column = $button.parents(model.selector.column),
+			    $container = $column.parents(model.selector.container),
+			    $input = $(model.selector.input, $column),
+			    base_price = $input.val(),
+			    base_currency = $column.data('currency'),
+			    $all_checkbox = $(model.selector.checkbox, $container),
+			    $disabled_buttons = $(model.selector.button, $container).filter(':disabled'),
+			    list_of_currencies = [];
+	
+			$all_checkbox.prop('disabled', true);
+	
+			$disabled_buttons.each(function () {
+				var $a_button = $(this),
+				    $a_column = $a_button.parents(model.selector.column),
+				    currency = $a_column.data('currency');
+	
+				list_of_currencies.push(currency);
+			});
+	
+			model.get_price(base_price, base_currency, list_of_currencies).then(function (array) {
+				for (var i = 0; array.length > i; ++i) {
+					var currency = array[i].currency,
+					    price = array[i].price,
+					    $input_for_setting = $(model.selector.input, model.selector.column + '[data-currency=' + currency + ']');
+	
+					console.log(currency);
+					console.log(price);
+					console.log($input_for_setting);
+	
+					$input_for_setting.val(price);
+					$all_checkbox.prop('disabled', false);
+				}
+			});
+		};
+	}
+
+/***/ },
+/* 60 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
@@ -3800,7 +4004,7 @@
 	}
 
 /***/ },
-/* 57 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3867,7 +4071,7 @@
 	}
 
 /***/ },
-/* 58 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3880,9 +4084,9 @@
 	
 	exports.Dialog_Controller = Dialog_Controller;
 	
-	var _controller = __webpack_require__(59);
+	var _controller = __webpack_require__(63);
 	
-	var _controller2 = __webpack_require__(61);
+	var _controller2 = __webpack_require__(65);
 	
 	function Dialog_Controller() {
 		if (_typeof(Dialog_Controller.instance) === 'object') return Dialog_Controller.instance;
@@ -3937,7 +4141,7 @@
 	}
 
 /***/ },
-/* 59 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3949,7 +4153,7 @@
 	
 	var _standard = __webpack_require__(20);
 	
-	var _view = __webpack_require__(60);
+	var _view = __webpack_require__(64);
 	
 	function Dialog_Designer_Controller(config) {
 		var _this = this;
@@ -3997,7 +4201,7 @@
 	}
 
 /***/ },
-/* 60 */
+/* 64 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4051,7 +4255,7 @@
 	}
 
 /***/ },
-/* 61 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4067,13 +4271,13 @@
 	
 	var _controllers2 = __webpack_require__(35);
 	
-	var _controllers3 = __webpack_require__(62);
+	var _controllers3 = __webpack_require__(66);
 	
-	var _controller2 = __webpack_require__(65);
+	var _controller2 = __webpack_require__(69);
 	
-	var _controller3 = __webpack_require__(66);
+	var _controller3 = __webpack_require__(70);
 	
-	var _view = __webpack_require__(69);
+	var _view = __webpack_require__(73);
 	
 	function Dialog_Loader_Controller(config) {
 		var config_loader = {
@@ -4117,7 +4321,7 @@
 	}
 
 /***/ },
-/* 62 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4127,7 +4331,7 @@
 	});
 	exports.Little_Form_Controllers = undefined;
 	
-	var _views = __webpack_require__(63);
+	var _views = __webpack_require__(67);
 	
 	var Little_Form_Controllers = exports.Little_Form_Controllers = function Little_Form_Controllers(form_config) {
 	  if (typeof form_config === 'undefined' && typeof form_config.container === 'undefined') {
@@ -4170,7 +4374,7 @@
 	};
 
 /***/ },
-/* 63 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4180,7 +4384,7 @@
 	});
 	exports.Little_Form_Views = undefined;
 	
-	var _models = __webpack_require__(64);
+	var _models = __webpack_require__(68);
 	
 	var Little_Form_Views = exports.Little_Form_Views = function Little_Form_Views(form_config) {
 	  var models = new _models.Little_Form_Models(form_config);
@@ -4254,7 +4458,7 @@
 	};
 
 /***/ },
-/* 64 */
+/* 68 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4347,7 +4551,7 @@
 	};
 
 /***/ },
-/* 65 */
+/* 69 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4379,7 +4583,7 @@
 	}
 
 /***/ },
-/* 66 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4389,7 +4593,7 @@
 	});
 	exports.Notifications_Controller = Notifications_Controller;
 	
-	var _view = __webpack_require__(67);
+	var _view = __webpack_require__(71);
 	
 	function Notifications_Controller(config) {
 		if (!config || !config.container) {
@@ -4412,7 +4616,7 @@
 	}
 
 /***/ },
-/* 67 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4422,7 +4626,7 @@
 	});
 	exports.Notifications_View = Notifications_View;
 	
-	var _model = __webpack_require__(68);
+	var _model = __webpack_require__(72);
 	
 	function Notifications_View() {
 		var model = void 0,
@@ -4454,7 +4658,7 @@
 	}
 
 /***/ },
-/* 68 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4503,7 +4707,7 @@
 	}
 
 /***/ },
-/* 69 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4513,7 +4717,7 @@
 	});
 	exports.Dialog_Loader_View = Dialog_Loader_View;
 	
-	var _model = __webpack_require__(70);
+	var _model = __webpack_require__(74);
 	
 	function Dialog_Loader_View(config) {
 		var model = new _model.Dialog_Loader_Model(config);
@@ -4560,7 +4764,7 @@
 	}
 
 /***/ },
-/* 70 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4570,7 +4774,7 @@
 	});
 	exports.Dialog_Loader_Model = Dialog_Loader_Model;
 	
-	var _dialog = __webpack_require__(71);
+	var _dialog = __webpack_require__(75);
 	
 	function Dialog_Loader_Model(config) {
 	
@@ -4601,7 +4805,7 @@
 	}
 
 /***/ },
-/* 71 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

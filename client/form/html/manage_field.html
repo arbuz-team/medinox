@@ -77,10 +77,10 @@
 
 	<div class="currency_converter">
 
-		<div class="currency_converter-col">
+		<div class="currency_converter-col" data-currency="EUR">
 
 			<div class="selecter checkbox">
-				<input type="checkbox" name="price_eur" id="id_price_eur" checked>
+				<input class="currency_converter-checkbox" type="checkbox" name="price_eur" id="id_price_eur" checked>
 				<label for="id_price_eur" class="selecter-field"></label>
 				<label for="id_price_eur" class="selecter-text">Set EUR</label>
 			</div>
@@ -89,16 +89,19 @@
 			<div class="status-external">{{ field.errors }}</div>
 			<div class="status"></div>
 
-			<button class="button" type="button">Przelicz</button>
+			<button class="button currency_converter-button"
+			        type="button">
+				Przelicz
+			</button>
 
 		</div>
 
 {% elif field.name = 'price_pln' %}
 
-		<div class="currency_converter-col">
+		<div class="currency_converter-col" data-currency="PLN">
 
 			<div class="selecter checkbox">
-				<input type="checkbox" name="price_pln" id="id_price_pln">
+				<input class="currency_converter-checkbox" type="checkbox" name="price_pln" id="id_price_pln">
 				<label for="id_price_pln" class="selecter-field"></label>
 				<label for="id_price_pln" class="selecter-text">Set PLN</label>
 			</div>
@@ -107,16 +110,19 @@
 			<div class="status-external">{{ field.errors }}</div>
 			<div class="status"></div>
 
-			<button class="button" type="button">Przelicz</button>
+			<button class="button currency_converter-button"
+			        type="button">
+				Przelicz
+			</button>
 
 		</div>
 
 {% elif field.name = 'price_gbp' %}
 
-		<div class="currency_converter-col">
+		<div class="currency_converter-col" data-currency="GBP">
 
 			<div class="selecter checkbox">
-				<input type="checkbox" name="price_gbp" id="id_price_gbp">
+				<input class="currency_converter-checkbox" type="checkbox" name="price_gbp" id="id_price_gbp">
 				<label for="id_price_gbp" class="selecter-field"></label>
 				<label for="id_price_gbp" class="selecter-text">Set GBP</label>
 			</div>
@@ -125,7 +131,10 @@
 			<span class="status-external">{{ field.errors }}</span>
 			<span class="status"></span>
 
-			<button class="button" type="button">Przelicz</button>
+			<button class="button currency_converter-button"
+			        type="button">
+				Przelicz
+			</button>
 
 		</div>
 

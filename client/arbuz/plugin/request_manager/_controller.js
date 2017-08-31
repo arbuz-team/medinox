@@ -5,6 +5,9 @@
 import {Request_Manager} 		from './_init'
 import * as model from 'arbuz/plugin/request_manager/_model'
 
+export {Request_Manager} 		from './_init'
+
+
 
 // --------------------------    QUEUE OF REQUEST    --------------------------
 
