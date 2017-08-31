@@ -21,15 +21,20 @@ class Currency_Manager(Website_Manager, Base_Currency_Manager):
         html = html[html.find('span'):html.rfind('span')]
         price = html[html.find('>'):html.rfind('<')]
 
-        return price[1:-4]
+        return HttpResponse(price[1:-4])
 
     def Manage_Get(self):
 
         if self.request.POST['_name_'] == 'exchange_rate':
+
             amount = self.request.POST['amount']
             currency_from = self.request.POST['currency_from']
-            currency_to = self.request.POST['currency_to']
-            return self.Exchange_Rate(amount, currency_from, currency_to)
+            currencies_to = self.request.POST['currencies_to']
+
+            response = {}
+            for currency_to in currencies_to:
+                response[currency_to] = self.Exchange_Rate(
+                    amount, currency_from, currency_to)
 
     def Manage_Button(self):
 
