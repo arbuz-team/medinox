@@ -30,6 +30,7 @@ class Currency_Manager(Website_Manager, Base_Currency_Manager):
             amount = self.request.POST['amount']
             currency_from = self.request.POST['currency_from']
             currencies_to = self.request.POST['currencies_to']
+            currencies_to = currencies_to.split(' ')
 
             response = {}
             for currency_to in currencies_to:
