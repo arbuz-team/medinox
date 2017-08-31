@@ -20,8 +20,9 @@ class Currency_Manager(Website_Manager, Base_Currency_Manager):
         # parse html
         html = html[html.find('span'):html.rfind('span')]
         price = html[html.find('>'):html.rfind('<')]
+        price = float(price[1:-4])
 
-        return price[1:-4]
+        return '{0:.2f}'.format(price)
 
     def Manage_Get(self):
 
