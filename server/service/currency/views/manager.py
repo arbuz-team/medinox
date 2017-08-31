@@ -21,7 +21,7 @@ class Currency_Manager(Website_Manager, Base_Currency_Manager):
         html = html[html.find('span'):html.rfind('span')]
         price = html[html.find('>'):html.rfind('<')]
 
-        return HttpResponse(price[1:-4])
+        return price[1:-4]
 
     def Manage_Get(self):
 
@@ -35,6 +35,8 @@ class Currency_Manager(Website_Manager, Base_Currency_Manager):
             for currency_to in currencies_to:
                 response[currency_to] = self.Exchange_Rate(
                     amount, currency_from, currency_to)
+
+            return JsonResponse(response)
 
     def Manage_Button(self):
 
