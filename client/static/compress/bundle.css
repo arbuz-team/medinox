@@ -521,8 +521,20 @@ div > .buttons_to_action {
   .show_password-checkbox:hover, .show_password-checkbox:checked {
     opacity: 1; }
 
-.file_shell .input[type=file] {
-  display: none; }
+.file_shell {
+  font-size: 0; }
+  .file_shell .input[type=file] {
+    display: none; }
+  .file_shell .input {
+    width: 342px; }
+  .file_shell .button {
+    width: 90px; }
+
+.file_shell-text {
+  display: inline-block;
+  width: 30px;
+  font-size: 14px;
+  text-align: center; }
 
 .file-tile {
   display: inline-block;
@@ -633,6 +645,20 @@ div > .buttons_to_action {
     .tooltip-options > *:hover {
       border: none;
         border-bottom: 1px solid #e8e8e8; }
+
+.currency_converter {
+  padding: 15px 0 !important;
+  font-size: 0; }
+
+.currency_converter-col {
+  display: inline-block;
+  width: 152px;
+  margin: 0 3px; }
+  .currency_converter-col .selecter, .currency_converter-col .button, .currency_converter-col .currency_converter-field {
+    display: block;
+    width: 100%;
+    margin-left: 0 !important;
+    margin-right: 0 !important; }
 
 #MENU {
   position: relative;
@@ -2187,7 +2213,9 @@ img {
   .dialog {
     width: 500px;
     margin-top: 200px; }
-  .dialog-content-part > input {
+  .dialog-content-part span .input, .dialog-content-part span .select, .dialog-content-part span .textarea {
+    width: 220px; }
+  .dialog-content-part div:not(.file_shell) .input, .dialog-content-part div:not(.file_shell) .select, .dialog-content-part div:not(.file_shell) .textarea {
     width: 468px; } }
 
 .dialog-address-title {

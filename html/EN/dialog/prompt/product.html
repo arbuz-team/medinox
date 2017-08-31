@@ -14,11 +14,18 @@
 
         <div class="dialog-content-part">
             <!--fields of form-->
-            {% for field in form %}
 
-                {% include "form/html/manage_field.html" %}
+	        {% include "form/html/manage_field_multiple_in_line.html" with field=form.name %}
+	        {% include "form/html/manage_field_multiple_in_line.html" with field=form.brand %}
 
-            {% endfor %}
+	        {% include "form/html/manage_field.html" with field=form.image %}
+	        {% include "form/html/manage_field.html" with field=form.image_base64 %}
+	        {% include "form/html/manage_field.html" with field=form.image_url %}
+
+	        {% include "form/html/manage_field.html" with field=form.price_eur %}
+	        {% include "form/html/manage_field.html" with field=form.price_pln %}
+	        {% include "form/html/manage_field.html" with field=form.price_gbp %}
+
 
             <input type="hidden" name="accept_reload" value="{{ accept.reload }}">
             <input type="hidden" name="accept_redirect" value="{{ accept.redirect }}">
@@ -49,15 +56,6 @@
                     </button>
                 </div>
             </div>
-            <!--<button class="button post_button dialog-content-button"-->
-                    <!--type="button"-->
-                    <!--data-name="{{ form_name }}"-->
-                    <!--data-event="part.close_dialog"-->
-                    <!--data-action="delete"-->
-                    <!--data-reload="ground"-->
-                    <!--data-url="{{ edit.url }}">-->
-				<!--Delete-->
-            <!--</button>-->
         {% endif %}
 
         <button class="button event_button"

@@ -59,16 +59,17 @@
   padding-bottom: 5px
 
 
-.dialog-content-part > input
-  width: 95%
-  box-sizing: border-box
-
-
 @media (min-width: $G-SIZE-1)
 
   .dialog
     width: 500px
     margin-top: 200px
 
-  .dialog-content-part > input
-    width: 468px
+  .dialog-content-part
+    span
+      .input, .select, .textarea
+        width: 220px
+
+    div:not(.file_shell)
+      .input, .select, .textarea
+        width: 468px
