@@ -3892,10 +3892,6 @@
 					    price = array[i].price,
 					    $input_for_setting = $(model.selector.input, model.selector.column + '[data-currency=' + currency + ']');
 	
-					console.log(currency);
-					console.log(price);
-					console.log($input_for_setting);
-	
 					$input_for_setting.val(price);
 					$all_checkbox.prop('disabled', false);
 				}
