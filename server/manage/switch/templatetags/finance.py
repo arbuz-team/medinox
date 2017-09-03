@@ -3,6 +3,13 @@ from server.manage.switch.templatetags.base import *
 
 class Finance_Manager(Base_Tag_Manager):
 
+    @staticmethod
+    @register.simple_tag(takes_context=True)
+    def get_price(context, product):
+        currency = context.request.session['currency_selected']
+        price = product.price.Get_Price(context)
+        return '{0:.2f} {1}'.format(price, currency)
+
     def Get_Product_Price(self):
         product = self.values['product']
         currency = self.values['currency']
@@ -59,22 +66,6 @@ class Finance_Manager(Base_Tag_Manager):
         return '{0:.2f} {1}'.format(price, currency)
 
 
-
-@register.filter
-def to_price(value):
-    return format(value / 100, '.2f')
-
-@register.simple_tag(takes_context=True)
-def get_price(context, product, currency=None):
-
-    task = 'Get_Product_Price'
-    request = context['request']
-    values = {
-        'product': product,
-        'currency': currency
-    }
-
-    return Finance_Manager(task, values, request).OUT
 
 @register.simple_tag(takes_context=True)
 def netto(context, price=None, product=None, rate=8):

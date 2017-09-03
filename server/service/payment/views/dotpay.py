@@ -1,7 +1,7 @@
 from server.service.payment.forms import *
-from .payment_system import *
+from .base_payment import *
 
-class DotPay(Payment_System):
+class DotPay(Base_Payment):
 
     def Valid_DotPay(self):
         post = self.request.POST

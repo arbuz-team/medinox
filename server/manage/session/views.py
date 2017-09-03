@@ -85,8 +85,8 @@ class Session_Controller:
         if 'currency_selected' not in self.request.session:
             self.request.session['currency_selected'] = 'EUR'
 
-        currency = Base_Currency_Manager(self)
-        currency.Set_Default_Currency()
+            currency = Base_Currency_Manager(self)
+            currency.Set_Default_Currency()
 
     def Check_Session_Product(self):
 

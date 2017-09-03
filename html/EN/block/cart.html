@@ -33,7 +33,7 @@
                                    value="{{ selected.number }}"
                                    data-name="{{ selected.pk }}" />
 
-                            <span class="cart-list-product-price"> x {{ selected.product.price }}</span>
+                            <span class="cart-list-product-price"> x {% get_price selected.product %}</span>
 
                             <div class="tooltip align-right align-bottom is-dangerous">
 
@@ -65,7 +65,7 @@
 
             <li class="cart-list-total_price is-inline-inside">
                 <div class="cart-list-total_price-title">Total price:</div>
-                <div class="cart-list-total_price-price">{{ payment.total_price }} {{ request.session.translator_currency }}</div>
+                <div class="cart-list-total_price-price">{{ payment.total_price }} {{ request.session.currency_selected }}</div>
             </li>
 
 

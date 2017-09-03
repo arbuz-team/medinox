@@ -54,7 +54,7 @@
                                            value="{{ selected.number }}"
                                            data-name="{{ selected.pk }}" />
 
-                                    <span class="cart-list-product-price"> x </span>
+                                    <span class="cart-list-product-price"> x {% get_price selected.product %}</span>
 
                                     <button class="cart-list-product-remove button is-icon post_button"
                                             type="button"

@@ -1,8 +1,8 @@
 from server.service.payment.forms import *
-from .payment_system import *
+from .base_payment import *
 
 
-class PayPal(Payment_System):
+class PayPal(Base_Payment):
 
     def Valid_PayPal(self):
         post = self.request.POST

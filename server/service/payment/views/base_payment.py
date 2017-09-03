@@ -1,7 +1,7 @@
 from server.service.sender.views import *
 
 
-class Payment_System(Base_Website):
+class Base_Payment(Base_Website):
 
     def Send_Confirm(self):
 
