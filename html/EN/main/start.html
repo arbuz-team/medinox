@@ -10,10 +10,10 @@
 
 {% if content %}
     {% for element in content %}
-        {% include "block/ground/html/paragraph.html" %}
+        {% include "block/ground/plugin/paragraph/html/single.html" %}
     {% endfor %}
 {% else %}
-    {% include "block/ground/html/paragraph_new.html" %}
+    {% include "block/ground/plugin/paragraph/html/new.html" %}
 {% endif %}
 
 {% include "EN/footer/start.html" %}

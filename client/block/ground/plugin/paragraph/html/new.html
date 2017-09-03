@@ -1,16 +1,16 @@
 
-<div class="ground-block about">
+<div class="ground-block paragraph">
 
 	{% if request.session.root_login %}
-		<div class="block-content block-new">
-			<button class="dialog_button icon"
+		<div class="block-content is-new">
+			<div class="dialog_button icon"
 					data-type="prompt"
 					data-name="description"
 					data-other_1="index:{{ element.pk }}"
 					data-other_2="direction:up"
 					data-dialog-reload="ground">
-				<i>&nbsp;</i>
-			</button>
+				<span class="button-icon img-add-128">&nbsp;</span>
+			</div>
 		</div><!-- block-content-paragraph new -->
 	{% endif %}
 
