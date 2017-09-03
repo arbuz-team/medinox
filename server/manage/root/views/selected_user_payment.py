@@ -10,7 +10,7 @@ class Selected_User_Payment(Website_Manager):
         self.context['shopping'] = [{
             'fullname': SQL.Get(Invoice_Address, payment=payment).full_name,
             'payment':  payment,
-            'products': SQL.Filter(Selected_Product, payment=payment)
+            'products': SQL.Filter(Payment_Product, payment=payment)
         }]
 
     def Manage_Content(self):

@@ -11,26 +11,26 @@ class Cart_Block(Endpoints, Inspector):
         if not self.Check_Authorization():
             return HttpResponse()
 
-        self.context['payment'] = self.payment_models_manager. \
-            Get_Payment()
+        payment = self.payment_models_manager.Get_Cart()
 
-        self.context['cart'] = self.payment_models_manager. \
-            Get_Selected_Products()
+        self.context['payment'] = payment
+        self.context['cart'] = SQL.Filter(
+            Payment_Product, payment=payment)
 
         return self.Render_HTML('block/cart.html')
 
     def Manage_Button_Append(self):
         product = SQL.Get(Product, pk=self.request.POST['value'])
-        self.payment_models_manager.Append_Selected_Product(product)
+        self.payment_models_manager.Add_Cart_Product(product)
         return HttpResponse()
 
     def Manage_Button_Delete(self):
         product = SQL.Get(Product, pk=self.request.POST['value'])
-        self.payment_models_manager.Delete_Selected_Product(product)
+        self.payment_models_manager.Delete_Cart_Product(product)
         return HttpResponse()
 
     def Manage_Button_Clear(self):
-        self.payment_models_manager.Clear_Selected_Product()
+        self.payment_models_manager.Clear_Cart()
         return HttpResponse()
 
     def Manage_Button(self):
@@ -53,8 +53,8 @@ class Cart_Block(Endpoints, Inspector):
         selected_pk = self.request.POST['__little__']
         number = self.request.POST['value']
 
-        self.payment_models_manager.Edit_Number_Of_Products(
-            selected_pk, number)
+        self.payment_models_manager\
+            .Edit_Number_Of_Cart_Products(selected_pk, number)
 
         return HttpResponse()
 

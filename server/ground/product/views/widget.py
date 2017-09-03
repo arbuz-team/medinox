@@ -40,7 +40,7 @@ class Widget_Manager(Website_Manager):
     def Manage_Button(self):
 
         if 'delete' in self.request.POST['_name_']:
-            self.request.session['product_widget'].delete()
+            SQL.Delete(data=self.request.session['product_widget'])
             self.request.session['product_widget'] = None
             return HttpResponse()
 

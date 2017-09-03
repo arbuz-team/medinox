@@ -22,6 +22,17 @@ class Prices(Abstract_Model):
         return '{0} eur, {1} pln, {2} gbp'\
             .format(self.eur, self.pln, self.gbp)
 
+    def Get_Price(self, _object):
+
+        switch = {
+            'EUR': self.eur,
+            'PLN': self.pln,
+            'GBP': self.gbp
+        }
+
+        currency = _object.request.session['currency_selected']
+        return switch[currency]
+
 
 
 class Product(Abstract_Model):

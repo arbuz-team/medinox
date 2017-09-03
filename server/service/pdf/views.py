@@ -11,7 +11,7 @@ class Generator_PDF(Website_Manager):
 
         payment = SQL.Get(Payment, pk=pk)
         address = SQL.Get(Invoice_Address, payment=payment)
-        products = SQL.Filter(Selected_Product, payment=payment)
+        products = SQL.Filter(Payment_Product, payment=payment)
         seller = SQL.First(Root_Address)
 
         self.context['invoice'] = {

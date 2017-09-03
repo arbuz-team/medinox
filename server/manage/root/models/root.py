@@ -29,6 +29,10 @@ class Social_Media(Abstract_Model):
 
 class Delivery(Abstract_Model):
 
-    country = models.CharField(max_length=20, unique=True)
-    price_eur = models.FloatField()
-    price_pln = models.FloatField()
+    currency = models.CharField(max_length=3)
+    price = models.FloatField()
+
+    @staticmethod
+    def Get_Price(_object):
+        currency = _object.request.session['currency_selected']
+        return SQL.Get(Delivery, currency=currency).price

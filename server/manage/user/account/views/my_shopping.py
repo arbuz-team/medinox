@@ -28,7 +28,7 @@ class My_Shopping(Website_Manager):
             details = {
                 'payment': payment,
                 'full_name': SQL.Get(Delivery_Address, payment=payment).full_name,
-                'products': SQL.Filter(Selected_Product, payment=payment)
+                'products': SQL.Filter(Payment_Product, payment=payment)
             }
 
             self.context['shopping'].append(details)

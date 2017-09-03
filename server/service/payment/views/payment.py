@@ -1,4 +1,3 @@
-from server.manage.switch.templatetags import other
 from .dotpay import *
 from .paypal import *
 
@@ -19,10 +18,13 @@ class Payment_Manager(Website_Manager, PayPal, DotPay):
     def Load_Payment_Details(self):
 
         model_manager = Payment_Models_Manager(self)
+        payment = model_manager.Get_Cart()
+        payment.Update_Total_Price(self)
+
         self.context['user'] = self.request.session['user_user']
-        self.context['cart'] = model_manager.Get_Selected_Products()
-        self.context['total_price'] = model_manager.Count_Total_Price()
-        self.context['delivery'] = model_manager.Get_Payment().delivery_price
+        self.context['cart'] = SQL.Filter(Payment_Product, payment=payment)
+        self.context['total_price'] = payment.total_price
+        self.context['delivery'] = payment.delivery_price
         self.context['address'] = SQL.Filter(User_Address, user=self.context['user'])
         self.Update_Payment()
 
@@ -140,7 +142,7 @@ class Buy(Website_Manager):
 
     def Manage_Form(self):
         product = SQL.Get(Product, pk=self.other_value)
-        self.payment_models_manager.Append_Selected_Product(product)
+        self.payment_models_manager.Add_Cart_Product(product)
 
         path_manager = Path_Manager(self)
         url = path_manager.Get_Path('payment', current_language=True)

@@ -34,7 +34,7 @@ class Product_Manager(Website_Manager):
         return Website_Manager.Manage_Form(self)
 
     def Manage_Button_Delete(self):
-        self.request.session['product_product'].delete()
+        SQL.Delete(data=self.request.session['product_product'])
         self.request.session['product_product'] = None
         self.Clear_Session('searcher_result')
         return HttpResponse()
@@ -45,8 +45,8 @@ class Product_Manager(Website_Manager):
         product = SQL.Get(Product, pk=pk)
 
         if action == 'delete':
-            SQL.Get(Recommended_Product,
-                product=product).delete()
+            SQL.Delete(Recommended_Product,
+                product=product, force=True)
 
         if action == 'append':
             SQL.Save(Recommended_Product, product=product)
@@ -60,8 +60,8 @@ class Product_Manager(Website_Manager):
         user = self.request.session['user_user']
 
         if action == 'delete':
-            SQL.Get(Favorite_Product,
-                product=product, user=user).delete()
+            SQL.Delete(Favorite_Product,
+                product=product, user=user, force=True)
 
         if action == 'append':
             SQL.Save(Favorite_Product, product=product, user=user)

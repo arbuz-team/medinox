@@ -1,4 +1,5 @@
 from server.manage.switch.enum import *
+from server.service.sql.views import *
 from django.db import models
 import os
 
