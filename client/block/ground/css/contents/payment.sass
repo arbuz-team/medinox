@@ -36,8 +36,32 @@ $payment-address_block-long-height: 295px
 
     border: $G-STYLE-BORDER-DASHED
 
+    &:not(.new)::after
+      position: absolute
+      top: 5px
+      right: 5px
+
+      display: block
+      content: '▼'
+
+      width: 30px
+      height: 30px
+
+      font-size: 18px
+      line-height: 30px
+      text-align: center
+      opacity: 0.65
+
+      +transform(rotate(0deg))
+
+      +transition(all 600ms ease)
+
+
     &.is-long
       height: $payment-address_block-long-height
+
+      &::after
+        +transform(rotate(-180deg - 360deg))
 
 
     &.new
@@ -92,6 +116,9 @@ $payment-address_block-long-height: 295px
 
         .address_block
           height: $payment-address_block-long-height
+
+          &::after
+            display: none
 
 
         .address_block-field_list

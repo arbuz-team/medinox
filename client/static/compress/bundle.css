@@ -193,6 +193,24 @@ div > .buttons_to_action {
 .is-relative {
   position: relative; }
 
+.is-rotate-360 {
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: all 600ms ease;
+  -moz-transition: all 600ms ease;
+  -ms-transition: all 600ms ease;
+  -o-transition: all 600ms ease;
+  transition: all 600ms ease; }
+  .is-rotate-360:hover {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg); }
+
 .is-text-has-notifications {
   animation: notifications 2.3s infinite; }
 
@@ -1287,8 +1305,36 @@ img {
   height: 44px;
   padding: 10px 5px;
   border: 3px dashed #e8e8e8; }
+  .ground-block.payment .address_block:not(.new)::after, .ground-block.payment .mini_cart:not(.new)::after {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: block;
+    content: '\25BC';
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+    opacity: 0.65;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: all 600ms ease;
+    -moz-transition: all 600ms ease;
+    -ms-transition: all 600ms ease;
+    -o-transition: all 600ms ease;
+    transition: all 600ms ease; }
   .ground-block.payment .address_block.is-long, .ground-block.payment .is-long.mini_cart {
     height: 295px; }
+    .ground-block.payment .address_block.is-long::after, .ground-block.payment .is-long.mini_cart::after {
+      -webkit-transform: rotate(-540deg);
+      -moz-transform: rotate(-540deg);
+      -ms-transform: rotate(-540deg);
+      -o-transform: rotate(-540deg);
+      transform: rotate(-540deg); }
   .ground-block.payment .address_block.new, .ground-block.payment .new.mini_cart {
     height: 295px; }
     .ground-block.payment .address_block.new .address_block-image, .ground-block.payment .new.mini_cart .address_block-image {
@@ -1328,6 +1374,8 @@ img {
 @media (min-width: 680px) {
   .ground:not(.smaller) .ground-block.payment.MEDIUM .address_block, .ground:not(.smaller) .ground-block.payment.MEDIUM .mini_cart, .ground:not(.smaller) .ground-block.payment.BIG .address_block, .ground:not(.smaller) .ground-block.payment.BIG .mini_cart {
     height: 295px; }
+    .ground:not(.smaller) .ground-block.payment.MEDIUM .address_block::after, .ground:not(.smaller) .ground-block.payment.MEDIUM .mini_cart::after, .ground:not(.smaller) .ground-block.payment.BIG .address_block::after, .ground:not(.smaller) .ground-block.payment.BIG .mini_cart::after {
+      display: none; }
   .ground:not(.smaller) .ground-block.payment.MEDIUM .address_block-field_list, .ground:not(.smaller) .ground-block.payment.BIG .address_block-field_list {
     width: 180px;
     margin-right: 0; }
@@ -1340,6 +1388,8 @@ img {
 @media (min-width: 1300px) {
   .ground.smaller .ground-block.payment.MEDIUM .address_block, .ground.smaller .ground-block.payment.MEDIUM .mini_cart, .ground.smaller .ground-block.payment.BIG .address_block, .ground.smaller .ground-block.payment.BIG .mini_cart {
     height: 295px; }
+    .ground.smaller .ground-block.payment.MEDIUM .address_block::after, .ground.smaller .ground-block.payment.MEDIUM .mini_cart::after, .ground.smaller .ground-block.payment.BIG .address_block::after, .ground.smaller .ground-block.payment.BIG .mini_cart::after {
+      display: none; }
   .ground.smaller .ground-block.payment.MEDIUM .address_block-field_list, .ground.smaller .ground-block.payment.BIG .address_block-field_list {
     width: 180px;
     margin-right: 0; } }

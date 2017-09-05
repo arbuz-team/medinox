@@ -33,6 +33,14 @@
   position: relative
 
 
+.is-rotate-360
+  +transform(rotate(0deg))
+  +transition(all 600ms ease)
+
+  &:hover
+    +transform(rotate(360deg))
+
+
 
 
 
