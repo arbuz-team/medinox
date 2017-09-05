@@ -34,7 +34,7 @@
         {% for element in request.session.root_social_media %}
 
             {% if element.url %}
-                <a class="footer-social-link" href="{{ element.url }}" target="_blank">
+                <a class="footer-social-link is-zoom" href="{{ element.url }}" target="_blank">
                     <div class="footer-social-icon footer-social-{{ element.pk }}"></div>
                 </a>
             {% endif %}
