@@ -73,15 +73,17 @@ $cart--color: $G-COLOR-0
 
 
 .cart-list-product
+  position: relative
+
   margin-top: 5px
   padding-bottom: 3px
-  border-bottom: $G-STYLE-BORDER
 
-  //overflow: hidden
+  border-bottom: $G-STYLE-BORDER
 
 
 .cart-list-product-name
-  width: 180px
+  display: inline-block
+  min-width: 50px
   font-size: 15px
 
   opacity: .8
@@ -90,15 +92,27 @@ $cart--color: $G-COLOR-0
     opacity: .95
 
 
+  &::after
+    content: ''
+    display: inline-block
+    width: 150px
+    height: 20px
+
+
 .cart-list-product-actions
+  position: absolute
+  right: 0
+  bottom: 2px
+
+  display: inline-block
   min-width: 120px
-  float: right
-  width: 150px
-  vertical-align: top
+  height: 26px
+  padding-left: 2px
 
   font-size: 14px
   text-align: right
   color: $G-COLOR-0
+  background-color: $G-COLOR-4
 
 .cart-list-product-number
   min-width: 30px
