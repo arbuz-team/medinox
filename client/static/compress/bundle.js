@@ -3334,14 +3334,15 @@
 		};
 	
 		this.send_default = function (name, value) {
-			var $field = void 0;
-	
 			if (name && value) {
 				models.prepare_post_data(name, value);
 			} else {
-				$field = $(this);
+				var $field = $(this),
+				    _name = $field.data('name'),
+				    _value = $field.val(),
+				    field = $field.attr('name');
 	
-				models.prepare_post_data($field.data('name'), $field.val());
+				models.prepare_post_data(_name, _value, undefined, field);
 			}
 	
 			send();
@@ -3417,6 +3418,8 @@
 	
 	var _main = __webpack_require__(42);
 	
+	var _data = __webpack_require__(13);
+	
 	var Auto_Form_Models = exports.Auto_Form_Models = function Auto_Form_Models(config) {
 		var _this = this;
 	
@@ -3476,13 +3479,16 @@
 			if (setter) state.error = true;else state.error = false;
 		};
 	
-		this.prepare_post_data = function (name, value, action) {
+		this.prepare_post_data = function (name, value, action, field) {
 			variables.post_data = {};
 	
 			variables.post_data[this.settings.post_name] = this.settings.origin;
 			variables.post_data._name_ = name;
-			variables.post_data.action = action;
 			variables.post_data.value = value;
+	
+			if ((0, _data.is_defined)(action)) variables.post_data.action = action;
+	
+			if ((0, _data.is_defined)(field)) variables.post_data.field = field;
 		};
 	
 		this.send = function () {

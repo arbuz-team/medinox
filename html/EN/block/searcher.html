@@ -30,8 +30,8 @@
     <div class="searcher-sort">
         <div>
             <select class="searcher-field select auto_field"
-                    name="sort_by"
-                    data-name="order_name">
+                    name="category"
+                    data-name="sort">
                 <option value="search_accuracy" selected> search accuracy </option>
                 <option value="price"> price </option>
                 <option value="name_of_product"> name of product </option>
@@ -43,8 +43,8 @@
     <div class="searcher-order">
         <div>
             <select class="searcher-field select auto_field"
-                    name="order_by"
-                    data-name="order_direction">
+                    name="direction"
+                    data-name="sort">
                 <option value="descending" selected> descending </option>
                 <option value="ascending"> ascending </option>
             </select>
@@ -62,7 +62,7 @@
                     <input type="checkbox" class="auto_field"
                            id="id_{{ brand.name }}"
                            name="brand"
-                           value="{{ brand.name }}"/>
+                           value="{{ brand.pk }}"/>
                     <label for="id_{{ brand.name }}" class="selecter-field"></label>
                     <label for="id_{{ brand.name }}" class="selecter-text">{{ brand.name }}</label>
 

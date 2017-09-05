@@ -3,6 +3,7 @@
  */
 
 import {Request_Manager_Main} 	from 'arbuz/plugin/request_manager/main'
+import {is_defined} from 'arbuz/plugin/utilities/data'
 
 
 
@@ -96,14 +97,19 @@ export let Auto_Form_Models = function(config)
 	// --------------------------------------------------
 
 
-	this.prepare_post_data = function(name, value, action)
+	this.prepare_post_data = function(name, value, action, field)
 	{
 		variables.post_data = {};
 
 		variables.post_data[this.settings.post_name] = this.settings.origin;
 		variables.post_data._name_ = name;
-		variables.post_data.action = action;
 		variables.post_data.value = value;
+
+		if(is_defined(action))
+			variables.post_data.action = action;
+
+		if(is_defined(field))
+			variables.post_data.field = field;
 	};
 
 

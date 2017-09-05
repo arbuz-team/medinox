@@ -138,17 +138,19 @@ export let Auto_Form_Views = function(config)
 
 	this.send_default = function(name, value)
 	{
-		let $field;
-
 		if(name && value)
 		{
 			models.prepare_post_data(name, value);
 		}
 		else
 		{
-			$field = $(this);
+			let
+				$field = $(this),
+				name = $field.data('name'),
+				value = $field.val(),
+				field = $field.attr('name');
 
-			models.prepare_post_data($field.data('name'), $field.val());
+			models.prepare_post_data(name, value, undefined, field);
 		}
 
 		send();
