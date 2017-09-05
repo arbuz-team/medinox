@@ -60,9 +60,9 @@
 
                 <li class="selecter checkbox">
                     <input type="checkbox" class="auto_field"
-                           data-name="brand"
                            id="id_{{ brand.name }}"
-                           name="{{ brand.pk }}" />
+                           name="brand"
+                           value="{{ brand.pk }}"/>
                     <label for="id_{{ brand.name }}" class="selecter-field"></label>
                     <label for="id_{{ brand.name }}" class="selecter-text">{{ brand.name }}</label>
 

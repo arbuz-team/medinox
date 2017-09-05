@@ -96,12 +96,13 @@ export let Auto_Form_Models = function(config)
 	// --------------------------------------------------
 
 
-	this.prepare_post_data = function(name, value)
+	this.prepare_post_data = function(name, value, action)
 	{
 		variables.post_data = {};
 
 		variables.post_data[this.settings.post_name] = this.settings.origin;
 		variables.post_data._name_ = name;
+		variables.post_data.action = action;
 		variables.post_data.value = value;
 	};
 

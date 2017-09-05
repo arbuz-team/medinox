@@ -121,16 +121,16 @@ export let Auto_Form_Views = function(config)
 		let
 			$field = $(this),
 
-            form_name = $field.data('name'),
             name = $field.attr('name'),
-			value;
+			value = $field.val(),
+			action;
 
 		if($field.is(':checked'))
-			value = 'append';
+			action = 'append';
 		else
-			value = 'delete';
+			action = 'delete';
 
-		models.prepare_post_data(name, value);
+		models.prepare_post_data(name, value, action);
 
 		send();
 	};
