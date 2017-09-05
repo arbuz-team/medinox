@@ -69,13 +69,17 @@
     background-image: -webkit-linear-gradient(top,#f5f5f5,#f1f1f1)
     border: 1px solid #726229
 
-  &.is-brown
-    background:
-      color: #4d90fe
-    //+linear-gradient(top, #4d90fe, #4787ed)
-    +linear-gradient(top, #554721, #4a3c1f)
-    border: 1px solid #4a3c1f //#3079ed
-    color: #fff
+  &.is-important
+    background-color: lighten($Tundora, 5)
+    +linear-gradient(top, lighten($Tundora, 5), $Tundora)
+    border: 1px solid $Tundora
+    color: $White
+
+  &.is-dangerous
+    background-color: $Pomegranate
+    +linear-gradient(top, $Pomegranate, $Persian_Red)
+    border: 1px solid $Persian_Red
+    color: $White
 
   &:disabled, &.is-disabled
     background:

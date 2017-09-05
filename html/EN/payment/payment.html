@@ -98,7 +98,7 @@
                     <div class="form_submit">
                         <div class="form_submit-description">Please select your address of below list <wbr>for shipment and invoice.</div>
 
-                        <button class="form_submit-button button is-brown"
+                        <button class="form_submit-button button is-important"
                                 type="submit">
                             Next
                         </button>
@@ -179,19 +179,53 @@
 
         {% else %} <!-- //////////////////////  ADDRESS IS VALIDATE  ////////////////////// -->
 
+            <div class="title">Choose payment method</div>
+
             <div class="cart-list-button">
                 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-                    OPIS DLA PAYPAL <br>
                     {{ paypal.as_p }}
-                    <button class="button is-brown" type="submit"> PayPal </button>
+
+                    <button class="payment-button button"
+                            type="submit">
+                        PayPal
+                    </button>
+
                 </form>
             </div>
 
             <div class="cart-list-button">
                 <form action="https://ssl.dotpay.pl/test_payment/" method="post">
-                    OPIS DLA DOTPAY <br>
                     {{ dotpay.as_p }}
-                    <button class="button is-brown" type="submit"> Dotpay </button>
+
+                    <button class="payment-button button"
+                            type="submit">
+                        Dotpay
+                    </button>
+
+                </form>
+            </div>
+
+            <div class="cart-list-button">
+                <form action="https://ssl.dotpay.pl/test_payment/" method="post">
+                    {{ dotpay.as_p }}
+
+                    <button class="payment-button button"
+                            type="submit">
+                        Cash on delivery
+                    </button>
+
+                </form>
+            </div>
+
+            <div class="cart-list-button">
+                <form action="https://ssl.dotpay.pl/test_payment/" method="post">
+                    {{ dotpay.as_p }}
+
+                    <button class="payment-button button"
+                            type="submit">
+                        Delayed transfer
+                    </button>
+
                 </form>
             </div>
 
