@@ -1813,7 +1813,8 @@ img {
       height: auto;
       vertical-align: bottom; }
   .ground-block.paragraph .block-content.is-new, .ground-block.paragraph .is-new.block-content-message {
-    margin: 20px 30px; }
+    margin-top: 20px;
+    margin-bottom: 20px; }
     .ground-block.paragraph .block-content.is-new .dialog_button, .ground-block.paragraph .is-new.block-content-message .dialog_button {
       padding: 15px;
       cursor: pointer;
