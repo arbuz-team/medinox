@@ -53,7 +53,7 @@ export let
 			plugins = data.reload, // examples: "cart ground dialog"
 			plugins_array,
 			array_length,
-			delay = 100;
+			delay = 0;
 
 		if(!plugins || typeof plugins !== 'string')
 			return false;

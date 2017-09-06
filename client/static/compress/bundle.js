@@ -1944,7 +1944,7 @@
 		var plugins = data.reload,
 		    plugins_array = void 0,
 		    array_length = void 0,
-		    delay = 100;
+		    delay = 0;
 	
 		if (!plugins || typeof plugins !== 'string') return false;
 	
