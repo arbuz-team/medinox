@@ -30,9 +30,6 @@ Request_Manager_Block.prototype = Object.create(Request_Manager.prototype);
 
 Request_Manager_Block.prototype._add_request = function(url, post_data)
 {
-	if(typeof model._sending === 'undefined')
-		this._clear_request();
-
 	if(typeof model._data_block.url === 'undefined')
 		model._data_block.url = url;
 
@@ -57,11 +54,9 @@ Request_Manager_Block.prototype._clear_request = function()
 };
 
 
-Request_Manager_Block.prototype._prepare_post_data = function()
+Request_Manager_Block.prototype._prepare_block_post_data = function()
 {
 	let post_data = {};
-
-	console.log(model._data_block);
 
 	if(model._data_block.list.length)
 	{
@@ -90,7 +85,7 @@ Request_Manager_Block.prototype._add_to_queue = function()
 	let
 		data = {
 			post_url: undefined,
-			post_data: this._prepare_post_data(),
+			post_data: this._prepare_block_post_data(),
 		},
 
 
@@ -131,8 +126,6 @@ Request_Manager_Block.prototype._make_request = function(timer, send_and_wait, r
 
 	this._send_request().then(response =>
 	{
-		window.removeEventListener('send_request', send_and_wait, false);
-
 		resolve(response);
 	});
 };
@@ -144,19 +137,23 @@ Request_Manager_Block.prototype._run_sending = function()
 		model._sending = new Promise((resolve, reject) =>
 		{
 			let
-				timer = setTimeout(() =>
+				throw_exception = () =>
 				{
 					this._catch_timeout_error();
-				}, 3000),
+				},
 
 
 				send_and_wait = () =>
 				{
+					console.log('Request_Manager_Block - send_and_wait');
+					window.removeEventListener('send_request', send_and_wait, false);
 
 					if(model._request_status === false)
 					{
+						let timer = setTimeout(throw_exception, 3000);
+
 						model._data.url = model._data_block.url;
-						model._data.data = this._prepare_post_data();
+						model._data.data = this._prepare_block_post_data();
 
 						this._make_request(timer, send_and_wait, resolve, reject);
 					}
@@ -164,6 +161,8 @@ Request_Manager_Block.prototype._run_sending = function()
 					{
 						this._add_to_queue().then((data) =>
 						{
+							let timer = setTimeout(throw_exception, 3000);
+
 							model._data.url = model._data_block.url;
 							model._data.data = data.post_data;
 
@@ -172,6 +171,7 @@ Request_Manager_Block.prototype._run_sending = function()
 					}
 				};
 
+			console.log('Request_Manager_Block - _run_sending');
 
 			window.addEventListener('send_request', send_and_wait, false);
 		});
@@ -188,8 +188,6 @@ Request_Manager_Block.prototype.next = function(post_url, post_data, post_name)
 
 		this._run_sending().then(response =>
 		{
-			this._clear_request();
-
 			if(typeof response.json[post_name] !== 'undefined')
 				response = response.json[post_name];
 			else

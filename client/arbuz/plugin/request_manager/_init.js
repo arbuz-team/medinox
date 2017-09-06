@@ -9,9 +9,6 @@ import * as model from 'arbuz/plugin/request_manager/_model'
 
 export function Request_Manager()
 {
-	this.model = model;
-
-
 	let
 		error = false,
 
@@ -59,7 +56,7 @@ export function Request_Manager()
 				data = object_to_formdata(obj.data);
 
 			error = false;
-			this.model._request_status = true;
+			model._request_status = true;
 
 			console.group('Request data: ');
 			console.log(obj.url);
@@ -101,28 +98,25 @@ export function Request_Manager()
 
 Request_Manager.prototype._clear_request = function()
 {
-	this.model._data = {
+	model._data = {
 		url: undefined,
 		data: {},
 	};
 };
 
 
-Request_Manager.prototype._add_request = function(url, post_data)
+Request_Manager.prototype._add_request = function(post_url, post_data)
 {
-	if(this.model._sending === undefined)
-		this._clear_request();
+	if(model._data.url === undefined)
+		model._data.url = post_url || '';
 
-	if(this.model._data.url === undefined)
-		this.model._data.url = url || '';
-
-	this.model._data.data = post_data || {};
+	model._data.data = post_data || {};
 };
 
 
 Request_Manager.prototype._prepare_url = function()
 {
-	let url = this.model._data.url;
+	let url = model._data.url;
 
 	if(url && url.substring && url.substring(0, 1) === '/')
 		return url;
@@ -133,9 +127,9 @@ Request_Manager.prototype._prepare_url = function()
 
 Request_Manager.prototype._prepare_post_data = function()
 {
-	if(this.model._data.data)
+	if(model._data.data)
 	{
-		let post_data = this.model._data.data;
+		let post_data = model._data.data;
 
 		// --- Add CRSF TOKEN
 		post_data[data_controller.get_crsf('name')] = data_controller.get_crsf('value');
@@ -149,15 +143,17 @@ Request_Manager.prototype._prepare_post_data = function()
 
 Request_Manager.prototype._send_request = function()
 {
-
-	this.model._request_promise = new Promise((resolve, reject) =>
+	model._request_promise = new Promise((resolve, reject) =>
 	{
 		let
 			post_url = this._prepare_url(),
 			post_data = this._prepare_post_data();
 
+
 		if(post_data)
 		{
+			this._clear_request();
+
 			this._request({
 				method: 'POST',
 				url: post_url,
@@ -165,7 +161,7 @@ Request_Manager.prototype._send_request = function()
 			})
 			.then((response) =>
 			{
-				this.model._request_status = false;
+				model._request_status = false;
 				resolve(response);
 			})
 			.catch(response =>
@@ -177,11 +173,12 @@ Request_Manager.prototype._send_request = function()
 		else
 		{
 			console.trace();
+			console.warn(post_data);
 			reject('Request Manager error: Invalid post data.');
 		}
 	});
 
-	return this.model._request_promise;
+	return model._request_promise;
 };
 
 

@@ -2,7 +2,13 @@
  * Created by mrskull on 08.05.17.
  */
 
+import {Request_Manager_Block} from 'arbuz/plugin/request_manager/block'
+import {timeout_promise} from 'arbuz/plugin/utilities/standard'
+
+
 export let
+
+	request_manager = new Request_Manager_Block(),
 
 	html_is_error = function(HTML_response, status)
 	{
@@ -46,7 +52,8 @@ export let
 		let
 			plugins = data.reload, // examples: "cart ground dialog"
 			plugins_array,
-			array_length;
+			array_length,
+			delay = 100;
 
 		if(!plugins || typeof plugins !== 'string')
 			return false;
@@ -60,6 +67,17 @@ export let
 				prepare_delay(data);
 				APP.throw_event(EVENTS.part['reload_'+ plugins_array[i]]);
 			}
+
+
+		if(typeof APP.DATA.delay !== 'undefined')
+		{
+			delay = APP.DATA.delay;
+			APP.DATA.delay = undefined;
+		}
+
+		timeout_promise(delay).then(() => {
+			request_manager.send_list();
+		});
 	},
 
 

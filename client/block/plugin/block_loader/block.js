@@ -6,6 +6,7 @@ import {data_controller} 	                from 'arbuz/js/structure'
 import {add_to_settings, select_number} 	from 'arbuz/plugin/utilities/data'
 import {Request_Manager_Block} 		        from 'arbuz/plugin/request_manager/block'
 import {Block_Loader} 				        from './_controller'
+import {timeout_promise} from "arbuz/plugin/utilities/standard";
 
 
 export function Block_Loader_Part(config)
@@ -131,17 +132,9 @@ Block_Loader_Part.prototype.redirect = function(change_url)
 
 Block_Loader_Part.prototype.reload = function()
 {
-	let delay = 0;
-
-	if(typeof APP.DATA.delay !== 'undefined')
-	{
-		delay = APP.DATA.delay;
-		APP.DATA.delay = undefined;
-	}
-
-	setTimeout(() => {
-		this.load_simple_content();
-	}, delay);
+	timeout_promise().then(() => {
+		this.load_content();
+	});
 };
 
 
