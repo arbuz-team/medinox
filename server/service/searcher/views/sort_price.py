@@ -12,7 +12,7 @@ class Sort_By_Price(Base):
         if direction == 'descending': order_by = '-price_eur'
         if direction == 'ascending': order_by = 'price_eur'
 
-        return SQL.Filter(Product,
+        return SQL.Filter(Model_Product,
             pk__in=self.products).order_by(order_by)
 
     def __init__(self, search_engine):

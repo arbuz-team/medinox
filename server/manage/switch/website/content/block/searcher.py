@@ -6,7 +6,7 @@ from server.ground.product.models import *
 class Searcher_Block(Endpoints):
 
     def Manage_Content(self):
-        self.context['brands'] = SQL.All(Brand)
+        self.context['brands'] = SQL.All(Model_Brand)
         return self.Render_HTML('block/searcher.html')
 
     def Manage_Filter_Phrase(self):

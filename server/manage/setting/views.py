@@ -12,11 +12,11 @@ class Control_Panel(Website_Manager):
     @staticmethod
     def Manage_Button_Reset_Passwords():
 
-        user = SQL.Get(User, username='Drego31')
+        user = SQL.Get(Model_User, username='Drego31')
         user.password = Base_Website.Encrypt('kaktus88')
         SQL.Save(data=user)
 
-        root = SQL.First(Root)
+        root = SQL.First(Model_Root)
         root.password = Base_Website.Encrypt('kaktus88')
         SQL.Save(data=root)
 

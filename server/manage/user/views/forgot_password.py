@@ -15,7 +15,7 @@ class Forgot_Password(Website_Manager):
         if self.context['form'].is_valid():
             self.context['email'] = self.context['form'].cleaned_data['email']
 
-            if SQL.Filter(User, email=self.context['email']):
+            if SQL.Filter(Model_User, email=self.context['email']):
                 self.Create_Forgot_Password_User()
                 self.Send_Secure_Link()
 
@@ -35,9 +35,9 @@ class Forgot_Password(Website_Manager):
     def Create_Forgot_Password_User(self):
         self.context['key'] = binascii.hexlify(os.urandom(20))
 
-        if not SQL.Filter(Forgot_Password_User, approved_key=self.context['key']):
-            SQL.Save(Forgot_Password_User,
-                user=SQL.Get(User, email=self.context['email']),
+        if not SQL.Filter(Model_Forgot_Password_User, approved_key=self.context['key']):
+            SQL.Save(Model_Forgot_Password_User,
+                user=SQL.Get(Model_User, email=self.context['email']),
                 approved_key=self.context['key']
             )
 
@@ -54,7 +54,7 @@ class Forgot_Password(Website_Manager):
 
         content = {
             'activate_url': activate_url,
-            'user':         SQL.Get(User, email=email)
+            'user':         SQL.Get(Model_User, email=email)
         }
 
         Sender(self).Send_Forgot_Password_Link(content, email)
@@ -62,7 +62,7 @@ class Forgot_Password(Website_Manager):
     def Manage_Valid(self):
 
         if self.request.POST['_name_'] == 'email':
-            if SQL.Filter(User, email=self.request.POST['value']):
+            if SQL.Filter(Model_User, email=self.request.POST['value']):
                 return HttpResponse()
 
     @staticmethod

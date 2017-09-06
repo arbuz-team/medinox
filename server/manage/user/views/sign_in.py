@@ -12,11 +12,11 @@ class Sign_In(Website_Manager):
 
         if self.context['form'].is_valid():
             email = self.context['form'].cleaned_data['email']
-            unique = SQL.Get(User, email=email).unique
+            unique = SQL.Get(Model_User, email=email).unique
 
             self.request.session['user_login'] = True
             self.request.session['user_user'] = \
-                SQL.Get(User, unique=unique)
+                SQL.Get(Model_User, unique=unique)
 
             self.context['form'] = None  # message of correct
             return self.Render_HTML('user/sign_in.html')

@@ -19,15 +19,15 @@ class Users_Payments(Website_Manager):
 
         date_from, date_to = self.Get_Date()
         status = self.request.session['root_payment_status']
-        payments = SQL.Filter(Payment, status=status,
+        payments = SQL.Filter(Model_Payment, status=status,
                       date__gte=date_from, date__lte=date_to)
 
         for payment in payments:
 
             details = {
-                'fullname': SQL.Get(Invoice_Address, payment=payment).full_name,
+                'fullname': SQL.Get(Model_Invoice_Address, payment=payment).full_name,
                 'payment':  payment,
-                'products': SQL.Filter(Payment_Product, payment=payment)
+                'products': SQL.Filter(Model_Payment_Product, payment=payment)
             }
 
             self.context['shopping'].append(details)
@@ -43,7 +43,7 @@ class Users_Payments(Website_Manager):
 
         if self.request.POST['_name_'] == 'assign':
             index = self.Get_Post_Other('index')
-            payment = SQL.Get(Payment, pk=index)
+            payment = SQL.Get(Model_Payment, pk=index)
             payment.status = self.request.POST['value']
             SQL.Save(data=payment)
 

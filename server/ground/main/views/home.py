@@ -5,8 +5,8 @@ from server.service.searcher.views import *
 class Home(Website_Manager):
 
     def Manage_Content(self):
-        self.context['elements'] = SQL.Filter(Product,
-            pk__in=SQL.All(Recommended_Product).values('product__pk'))
+        self.context['elements'] = SQL.Filter(Model_Product,
+            pk__in=SQL.All(Model_Recommended_Product).values('product__pk'))
 
         return self.Render_HTML('main/start.html')
 

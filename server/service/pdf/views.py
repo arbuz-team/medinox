@@ -9,10 +9,10 @@ class Generator_PDF(Website_Manager):
 
     def Invoice(self, pk):
 
-        payment = SQL.Get(Payment, pk=pk)
-        address = SQL.Get(Invoice_Address, payment=payment)
-        products = SQL.Filter(Payment_Product, payment=payment)
-        seller = SQL.First(Root_Address)
+        payment = SQL.Get(Model_Payment, pk=pk)
+        address = SQL.Get(Model_Invoice_Address, payment=payment)
+        products = SQL.Filter(Model_Payment_Product, payment=payment)
+        seller = SQL.First(Model_Root_Address)
 
         self.context['invoice'] = {
             'unique':           payment.pk,
@@ -51,7 +51,7 @@ class Generator_PDF(Website_Manager):
         if not self.request.session['user_login']:
             return False
 
-        payment = SQL.Get(Payment, pk=self.other_value)
+        payment = SQL.Get(Model_Payment, pk=self.other_value)
         if self.request.session['user_user'] == payment.user:
             return True
 

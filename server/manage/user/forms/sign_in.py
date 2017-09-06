@@ -7,10 +7,10 @@ class Form_Login(Abstract_Form):
     def clean_email(self):
         email = self.data['email']
 
-        if not SQL.Filter(User, email=email):
+        if not SQL.Filter(Model_User, email=email):
             raise forms.ValidationError(Text(self, 41))
 
-        if not SQL.Get(User, email=email).approved:
+        if not SQL.Get(Model_User, email=email).approved:
             raise forms.ValidationError(Text(self, 42))
 
         return email
@@ -19,10 +19,10 @@ class Form_Login(Abstract_Form):
         email = self.data['email']
         password = self.data['password']
 
-        if not SQL.Filter(User, email=email):
+        if not SQL.Filter(Model_User, email=email):
             return ''
 
-        user = SQL.Get(User, email=email)
+        user = SQL.Get(Model_User, email=email)
         if user.password != Base_Website.Encrypt(password):
             raise forms.ValidationError(Text(self, 43))
 

@@ -35,7 +35,7 @@ class Form_Register(Abstract_Model_Form):
 
     class Meta:
 
-        model = User
+        model = Model_User
         fields = \
         (
             'email',

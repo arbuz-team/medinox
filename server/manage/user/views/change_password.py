@@ -13,7 +13,7 @@ class Change_Password(Website_Manager):
         if self.context['form'].is_valid():
 
             key = self.other_value['key']
-            record = SQL.Get(Forgot_Password_User, approved_key=key)
+            record = SQL.Get(Model_Forgot_Password_User, approved_key=key)
             record.user.password = self.context['form'].cleaned_data['password']
             SQL.Save(data=record.user)
 
@@ -33,7 +33,7 @@ class Change_Password(Website_Manager):
 
     @staticmethod
     def Secure(request, key):
-        all_keys = SQL.All(Forgot_Password_User).values('approved_key')
+        all_keys = SQL.All(Model_Forgot_Password_User).values('approved_key')
 
         if {'approved_key': key} in all_keys:
             value = {'key': key}

@@ -1,7 +1,7 @@
 from server.manage.switch.models import *
 
 
-class Content_Tab(Abstract_Model):
+class Model_Content_Tab(Abstract_Model):
 
     header = models.CharField(max_length=200)
     paragraph = models.TextField()
@@ -16,14 +16,14 @@ class Content_Tab(Abstract_Model):
 
 
 
-class About_Content(Content_Tab):
+class Model_About_Content(Model_Content_Tab):
 
     def Set_Variables(self):
         self.image_dir = 'img/about/'
 
 
 
-class Contact_Content(Content_Tab):
+class Model_Contact_Content(Model_Content_Tab):
 
     def Set_Variables(self):
         self.image_dir = 'img/contact/'

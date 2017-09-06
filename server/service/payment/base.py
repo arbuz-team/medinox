@@ -8,10 +8,10 @@ class Payment_Models_Manager(Base_Website):
     # base cart operations
 
     def Get_Cart(self): # cart is not approved payment
-        return SQL.Get(Payment, user=self.user, status='cart')
+        return SQL.Get(Model_Payment, user=self.user, status='cart')
 
     def Clear_Cart(self):
-        SQL.Delete(Payment_Product,
+        SQL.Delete(Model_Payment_Product,
            payment=self.payment, force=True)
 
 
@@ -19,7 +19,7 @@ class Payment_Models_Manager(Base_Website):
     # products in cart operations
 
     def Add_Cart_Product(self, product):
-        selected_product = SQL.Filter(Payment_Product,
+        selected_product = SQL.Filter(Model_Payment_Product,
             payment=self.payment, product=product)
 
         # append new product
@@ -32,7 +32,7 @@ class Payment_Models_Manager(Base_Website):
                     values.append(self.request.POST[key])
 
             # create selected product
-            selected_product = Payment_Product(
+            selected_product = Model_Payment_Product(
                 payment=self.payment,
                 product=product,
                 number=1
@@ -43,13 +43,13 @@ class Payment_Models_Manager(Base_Website):
             selected_product.values.add(*values)
 
     def Delete_Cart_Product(self, product):
-        SQL.Delete(Payment_Product, payment=self.payment,
+        SQL.Delete(Model_Payment_Product, payment=self.payment,
                    product=product, force=True)
 
     @staticmethod
     def Edit_Number_Of_Cart_Products(selected_pk, number):
         selected_product = SQL.Get(
-            Payment_Product, pk=selected_pk)
+            Model_Payment_Product, pk=selected_pk)
 
         selected_product.number = number
         SQL.Save(data=selected_product)
@@ -64,14 +64,14 @@ class Payment_Models_Manager(Base_Website):
         if not self.user:
             return
 
-        Payment.Initialize(self, self.user)
-        self.payment = SQL.Get(Payment,
+        Model_Payment.Initialize(self, self.user)
+        self.payment = SQL.Get(Model_Payment,
                 user=self.user, status='cart')
 
-        Delivery_Address.Initialize(self.payment)
-        Invoice_Address.Initialize(self.payment)
-        Order_Deadline.Initialize(self.payment)
-        Order_Note.Initialize(self.payment)
+        Model_Delivery_Address.Initialize(self.payment)
+        Model_Invoice_Address.Initialize(self.payment)
+        Model_Order_Deadline.Initialize(self.payment)
+        Model_Order_Note.Initialize(self.payment)
 
     def __init__(self, _object):
         Base_Website.__init__(self, _object)

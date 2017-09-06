@@ -54,8 +54,8 @@ class Refresh(Base_Website):
     def Update_Notifications(self):
 
         today = datetime.today()
-        deadlines = SQL.Filter(Order_Deadline, deadline__lt=today)
-        reminders = SQL.Filter(Order_Deadline, reminder__lt=today)
+        deadlines = SQL.Filter(Model_Order_Deadline, deadline__lt=today)
+        reminders = SQL.Filter(Model_Order_Deadline, reminder__lt=today)
         path_manager = Path_Manager(self)
 
         for deadline in deadlines:
@@ -63,7 +63,7 @@ class Refresh(Base_Website):
             try:
 
                 SQL.Save(
-                    Notification_Model,
+                    Model_Notification,
                     name=deadline.name,
                     type='deadline',
                     date=today,
@@ -81,7 +81,7 @@ class Refresh(Base_Website):
             try:
 
                 SQL.Save(
-                    Notification_Model,
+                    Model_Notification,
                     name=reminder.name,
                     type='reminder',
                     date=today,
@@ -95,7 +95,7 @@ class Refresh(Base_Website):
             except: pass
 
         self.request.session['notification_is_unreaded'] = \
-            True if SQL.Filter(Notification_Model, not_viewed=True) \
+            True if SQL.Filter(Model_Notification, not_viewed=True) \
                 else False
 
     def __init__(self, _object):

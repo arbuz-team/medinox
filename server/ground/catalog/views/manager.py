@@ -16,7 +16,7 @@ class Catalog_Manager(Website_Manager):
         catalogs = SQL.Filter(Model_Catalog,
             deleted=deleted, parent=parent, language=language)
 
-        products = SQL.Filter(Product,
+        products = SQL.Filter(Model_Product,
             deleted=deleted, parent=parent, language=language)
 
         # pages manager

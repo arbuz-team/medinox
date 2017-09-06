@@ -11,7 +11,7 @@ class User_Addresses(Website_Manager):
         self.context['form_name_edit'] = 'edit_user_address'
         self.context['edit_forms_address'] = {}
 
-        for address in SQL.Filter(User_Address, user=unique):
+        for address in SQL.Filter(Model_User_Address, user=unique):
             self.context['edit_forms_address'][address.pk] = \
                 Form_User_Address(self, instance=address)
 
@@ -27,7 +27,7 @@ class User_Addresses(Website_Manager):
 
     def Check_ID_Address(self, id_address):
         user = self.request.session['user_user']
-        ids_address = SQL.Filter(User_Address, user=user).\
+        ids_address = SQL.Filter(Model_User_Address, user=user).\
             values_list('id', flat=True)
 
         if id_address in ids_address:
@@ -56,7 +56,7 @@ class User_Addresses(Website_Manager):
     def Manage_Form_Edit_User_Address(self):
 
         id_address = self.Get_User_Address_ID()
-        address = SQL.Get(User_Address, id=id_address)
+        address = SQL.Get(Model_User_Address, id=id_address)
         self.context['form'] = Form_User_Address(
             self, post=True, instance=address)
 
@@ -85,7 +85,7 @@ class User_Addresses(Website_Manager):
         id_address = int(self.request.POST['value'])
 
         if self.Check_ID_Address(id_address):
-            SQL.Delete(User_Address, id=id_address)
+            SQL.Delete(Model_User_Address, id=id_address)
             return HttpResponse()
 
     @staticmethod

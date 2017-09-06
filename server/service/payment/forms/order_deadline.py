@@ -27,6 +27,6 @@ class Form_Order_Deadline(Abstract_Model_Form):
         self.fields['send_to_root'].widget = forms.CheckboxInput(attrs=str_attr)
 
     class Meta:
-        model = Order_Deadline
+        model = Model_Order_Deadline
         fields = ('name', 'deadline', 'reminder',
                   'send_to_buyer', 'send_to_root')

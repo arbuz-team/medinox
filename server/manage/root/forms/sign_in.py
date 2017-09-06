@@ -8,13 +8,13 @@ class Form_Root_Login(Abstract_Form):
     def clean_password(self):
         password = self.data['password']
 
-        if not SQL.All(Root):
+        if not SQL.All(Model_Root):
             raise forms.ValidationError(Text(self, 28))
 
-        if not SQL.Filter(Root, password=Base_Website.Encrypt(password)):
+        if not SQL.Filter(Model_Root, password=Base_Website.Encrypt(password)):
             raise forms.ValidationError(Text(self, 29))
 
-        root = SQL.Get(Root, password=Base_Website.Encrypt(password))
+        root = SQL.Get(Model_Root, password=Base_Website.Encrypt(password))
         if root.password != Base_Website.Encrypt(password):
             raise forms.ValidationError(Text(self, 30))
 

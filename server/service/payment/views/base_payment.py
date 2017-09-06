@@ -9,7 +9,7 @@ class Base_Payment(Base_Website):
         content = {
             'payment': self.payment,
             'selected_products': SQL.Filter(
-                Payment_Product, payment=self.payment)
+                Model_Payment_Product, payment=self.payment)
         }
 
         if self.valid:

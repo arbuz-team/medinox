@@ -12,7 +12,7 @@ class Search_Engine(Base):
     def __Select_Products(self):
 
         language = self.request.session['translator_language']
-        self.products = SQL.Filter(Product, None,
+        self.products = SQL.Filter(Model_Product, None,
             reduce(operator.or_, (Q(name__icontains=s)                      for s in self.words)) |
             reduce(operator.or_, (Q(brand__name__icontains=s)               for s in self.words)) |
             reduce(operator.or_, (Q(description__header__icontains=s)       for s in self.words)) |
@@ -31,9 +31,9 @@ class Search_Engine(Base):
             return
 
         get_brands = lambda pks: pks \
-            if pks else SQL.All(Brand).values('pk')
+            if pks else SQL.All(Model_Brand).values('pk')
 
-        self.products = SQL.Filter(Product, None,
+        self.products = SQL.Filter(Model_Product, None,
             Q(brand__in=get_brands(brands)) &
             Q(pk__in=self.products.values('pk'))
         ).distinct()
@@ -61,7 +61,7 @@ class Search_Engine(Base):
 
         # get products from database
         if self.words: self.__Select_Products()
-        else: self.products = SQL.All(Product)
+        else: self.products = SQL.All(Model_Product)
 
         # sorting selected products
         self.__Sort_Result()

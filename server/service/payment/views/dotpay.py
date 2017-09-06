@@ -7,7 +7,7 @@ class DotPay(Base_Payment):
         post = self.request.POST
 
         if post['operation_status'] == 'completed':
-            self.payment = SQL.Get(Payment, pk=post['control'])
+            self.payment = SQL.Get(Model_Payment, pk=post['control'])
 
             # check receiver
             if post['id'] != DOTPAY_RECEIVER_ID:
@@ -28,8 +28,8 @@ class DotPay(Base_Payment):
             self.valid = True
 
     def Create_DotPay_From(self):
-        payment = SQL.Get(Payment, pk=self.context['payment'])
-        address = SQL.Filter(User_Address, user=payment.user)[0]
+        payment = SQL.Get(Model_Payment, pk=self.context['payment'])
+        address = SQL.Filter(Model_User_Address, user=payment.user)[0]
         path_manager = Path_Manager(self)
 
         dotpay_dict = \

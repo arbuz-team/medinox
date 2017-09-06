@@ -5,12 +5,12 @@ class Service_Product(Base_Service):
 
     def New(self):
 
-        self.request.session['product_product'] = Product()
+        self.request.session['product_product'] = Model_Product()
         self.request.session['product_is_editing'] = False
 
     def Edit(self):
 
-        product = SQL.Get(Product,
+        product = SQL.Get(Model_Product,
             pk=self.request.POST['value'])
 
         self.request.session['product_is_editing'] = True

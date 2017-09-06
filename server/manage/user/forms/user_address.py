@@ -5,5 +5,5 @@ from server.manage.switch.website import *
 class Form_User_Address(Abstract_Address_Form):
 
     class Meta(Abstract_Address_Form.Meta):
-        model = User_Address
+        model = Model_User_Address
         exclude = ('user', )

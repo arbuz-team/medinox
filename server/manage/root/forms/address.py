@@ -19,4 +19,4 @@ class Form_Root_Address(Abstract_Address_Form):
         Abstract_Address_Form.Set_Widgets(self)
 
     class Meta(Abstract_Address_Form.Meta):
-        model = Root_Address
+        model = Model_Root_Address

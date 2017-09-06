@@ -24,7 +24,7 @@ class Contact(Website_Manager):
     def Manage_Content(self):
         language = self.request.session['translator_language']
         self.context['form'] = Form_Email_Contact(self)
-        self.context['content'] = SQL.Filter(Contact_Content,
+        self.context['content'] = SQL.Filter(Model_Contact_Content,
             language=language).order_by('position')
 
         self.Create_Titles()

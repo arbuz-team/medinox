@@ -10,16 +10,16 @@ class Details(Website_Manager):
         user = self.request.session['user_user']
         product = self.context['product']
 
-        if SQL.Filter(Favorite_Product, product=product, user=user):
+        if SQL.Filter(Model_Favorite_Product, product=product, user=user):
             self.context['is_favorite'] = True
 
-        if SQL.Filter(Recommended_Product, product=product):
+        if SQL.Filter(Model_Recommended_Product, product=product):
             self.context['is_recommended'] = True
 
     def Descriptions(self):
 
         # get descriptions
-        self.context['descriptions'] = SQL.Filter(Description,
+        self.context['descriptions'] = SQL.Filter(Model_Description,
               product=self.context['product']).order_by('position')
 
         # variable for list of description
@@ -32,13 +32,13 @@ class Details(Website_Manager):
     def Widgets(self):
 
         # get widgets
-        widgets = SQL.Filter(Widget,
+        widgets = SQL.Filter(Model_Widget,
             product=self.context['product'])
 
         self.context['widgets'] = [
             {
                 'widget': widget,
-                'values': SQL.Filter(Values, widget=widget)
+                'values': SQL.Filter(Model_Values, widget=widget)
             }
             for widget in widgets
         ]
@@ -46,7 +46,7 @@ class Details(Website_Manager):
     def Manage_Content(self):
 
         # get product and save to session
-        self.context['product'] = SQL.Get(Product, pk=self.other_value)
+        self.context['product'] = SQL.Get(Model_Product, pk=self.other_value)
         self.request.session['product_product'] = self.context['product']
         self.request.session['product_last_selected'] = \
             self.context['product']

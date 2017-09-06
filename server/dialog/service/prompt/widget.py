@@ -13,7 +13,7 @@ class Service_Widget(Base_Service):
             if self.request.POST['value']:
 
                 widget = self.request.POST['value']
-                self.instance = SQL.Get(Widget, pk=widget)
+                self.instance = SQL.Get(Model_Widget, pk=widget)
                 self.context['edit'] = {'url': '/product/widget/manage/'}
 
         # other value get widget to edit
@@ -34,7 +34,7 @@ class Service_Widget(Base_Service):
 
         # code for each widget
         self.request.session['product_widget'] = self.instance
-        self.context['values'] = SQL.Filter(Values, widget=self.instance)
+        self.context['values'] = SQL.Filter(Model_Values, widget=self.instance)
         self.context['title'] = Text(self, 156)
         self.context['form'] = self.Prepare_Form(
             Form_Widget, instance=self.instance)
