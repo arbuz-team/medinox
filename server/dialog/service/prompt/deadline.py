@@ -8,7 +8,7 @@ class Service_Deadline(Base_Service):
         # open edit deadline
         if 'value' in self.request.POST:
             payment = self.request.POST['value']
-            self.instance = SQL.Get(Order_Deadline, payment=payment)
+            self.instance = SQL.Get(Model_Order_Deadline, payment=payment)
 
         # when form not valid
         else: self.instance = \

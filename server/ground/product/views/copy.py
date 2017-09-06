@@ -8,7 +8,7 @@ class Copy_Product(Website_Manager):
     def Create_Copy_Product(from_product, name, language, parent):
 
         # create copy product
-        copy_product = Product()
+        copy_product = Model_Product()
         copy_product.name = name
         copy_product.url_name = Path_Manager.To_URL(name)
         copy_product.price = from_product.price

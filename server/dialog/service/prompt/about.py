@@ -8,16 +8,16 @@ class Service_About(Base_Service):
 
         # get position parent
         index = self.dialog.Get_Post_Other('index')
-        position = SQL.Get(About_Content, pk=index).position
+        position = SQL.Get(Model_About_Content, pk=index).position
 
         # create new
-        about = About_Content(position=position)
+        about = Model_About_Content(position=position)
         about.direction = direction
         self.request.session['main_about'] = about
 
     def Edit(self):
 
-        about = SQL.Get(About_Content,
+        about = SQL.Get(Model_About_Content,
             pk=self.request.POST['value'])
 
         self.request.session['main_about'] = about

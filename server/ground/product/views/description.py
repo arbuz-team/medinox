@@ -12,7 +12,7 @@ class Description_Manager(Website_Manager):
 
             product_desc = self.request.session['product_description']
             position_manager = Position_Manager(self)
-            position_manager.Insert_Element(Description, product_desc)
+            position_manager.Insert_Element(Model_Description, product_desc)
 
             product_desc.header = description.cleaned_data['header']
             product_desc.paragraph = description.cleaned_data['paragraph']
@@ -33,7 +33,7 @@ class Description_Manager(Website_Manager):
 
     def Manage_Button(self):
         position_manager = Position_Manager(self)
-        position_manager.Button_Service(Description)
+        position_manager.Button_Service(Model_Description)
         return HttpResponse()
 
     @staticmethod

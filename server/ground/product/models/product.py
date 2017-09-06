@@ -1,9 +1,9 @@
-from server.manage.user.models import User
+from server.manage.user.models import Model_User
 from server.ground.catalog.models import *
 from server.manage.switch.models import *
 
 
-class Brand(Abstract_Model):
+class Model_Brand(Abstract_Model):
 
     name = models.CharField(max_length=20)
 
@@ -12,7 +12,7 @@ class Brand(Abstract_Model):
 
 
 
-class Prices(Abstract_Model):
+class Model_Prices(Abstract_Model):
 
     eur = models.FloatField()
     pln = models.FloatField()
@@ -35,13 +35,13 @@ class Prices(Abstract_Model):
 
 
 
-class Product(Abstract_Model):
+class Model_Product(Abstract_Model):
 
     url_name = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     image = models.ImageField(blank=True)
-    price = models.ForeignKey(Prices, null=True, on_delete=models.SET_NULL)
-    brand = models.ForeignKey(Brand, null=True, on_delete=models.SET_NULL)
+    price = models.ForeignKey(Model_Prices, null=True, on_delete=models.SET_NULL)
+    brand = models.ForeignKey(Model_Brand, null=True, on_delete=models.SET_NULL)
     parent = models.ForeignKey(Model_Catalog, null=True, on_delete=models.SET_NULL)
     language = models.CharField(max_length=2)
 
@@ -56,12 +56,12 @@ class Product(Abstract_Model):
 
 
 
-class Description(Abstract_Model):
+class Model_Description(Abstract_Model):
 
     header = models.CharField(max_length=200)
     paragraph = models.TextField()
     image = models.ImageField()
-    product = models.ForeignKey(Product)
+    product = models.ForeignKey(Model_Product)
 
     def Set_Variables(self):
         self.image_dir = 'img/product/description/'
@@ -71,41 +71,41 @@ class Description(Abstract_Model):
 
 
 
-class Widget(Abstract_Model):
+class Model_Widget(Abstract_Model):
 
     name = models.CharField(max_length=50)
     type = models.CharField(max_length=20)
-    product = models.ForeignKey(Product)
+    product = models.ForeignKey(Model_Product)
 
     def __str__(self):
         return self.name
 
 
 
-class Values(Abstract_Model):
+class Model_Values(Abstract_Model):
 
     name = models.CharField(max_length=50)
     super_price = models.IntegerField(default=0)
-    widget = models.ForeignKey(Widget)
+    widget = models.ForeignKey(Model_Widget)
 
     def __str__(self):
         return self.name
 
 
 
-class Recommended_Product(Abstract_Model):
+class Model_Recommended_Product(Abstract_Model):
 
-    product = models.OneToOneField(Product)
+    product = models.OneToOneField(Model_Product)
 
     def __str__(self):
         return self.product.details_en.name
 
 
 
-class Favorite_Product(Abstract_Model):
+class Model_Favorite_Product(Abstract_Model):
 
-    product = models.ForeignKey(Product)
-    user = models.ForeignKey(User)
+    product = models.ForeignKey(Model_Product)
+    user = models.ForeignKey(Model_User)
 
     class Meta:
         unique_together = ('product', 'user')

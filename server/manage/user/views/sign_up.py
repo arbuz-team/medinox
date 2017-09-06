@@ -14,7 +14,7 @@ class Sign_Up(Website_Manager):
 
         if self.context['form'].is_valid():
             user = self.context['form'].save(commit=False)
-            user.unique = User.Generate_User_Unique()
+            user.unique = Model_User.Generate_User_Unique()
             SQL.Save(data=user)
 
             self.Create_No_Approved_User()
@@ -51,7 +51,7 @@ class Sign_Up(Website_Manager):
     def Manage_Valid(self):
 
         if self.request.POST['_name_'] == 'email':
-            if SQL.Filter(User, email=self.request.POST['value']):
+            if SQL.Filter(Model_User, email=self.request.POST['value']):
                 return HttpResponse()
 
         if self.request.POST['_name_'] == 'password':
@@ -65,9 +65,9 @@ class Sign_Up(Website_Manager):
         self.context['key'] = binascii.hexlify(os.urandom(20))
         form = self.context['form']
 
-        if not SQL.Filter(No_Approved_User, approved_key=self.context['key']):
-            SQL.Save(No_Approved_User,
-                user=SQL.Get(User, email=form.cleaned_data['email']),
+        if not SQL.Filter(Model_No_Approved_User, approved_key=self.context['key']):
+            SQL.Save(Model_No_Approved_User,
+                user=SQL.Get(Model_User, email=form.cleaned_data['email']),
                 approved_key=self.context['key']
             )
 

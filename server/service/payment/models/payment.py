@@ -1,10 +1,10 @@
 from server.ground.product.models import *
-from server.manage.root.models import Delivery
+from server.manage.root.models import Model_Delivery
 
 
-class Payment(Abstract_Model):
+class Model_Payment(Abstract_Model):
 
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(Model_User)
     date = models.DateField()
     total_price = models.CharField(max_length=10)
     delivery_price = models.FloatField()
@@ -19,7 +19,7 @@ class Payment(Abstract_Model):
 
         total = self.delivery_price
         selected_products = SQL.Filter(
-            Payment_Product, payment=self)
+            Model_Payment_Product, payment=self)
 
         for selected in selected_products:
             product_price = selected.product.price.Get_Price(_object)
@@ -31,7 +31,7 @@ class Payment(Abstract_Model):
     @staticmethod
     def Initialize(_object, user):
 
-        payments = SQL.Filter(Payment,
+        payments = SQL.Filter(Model_Payment,
               user=user, status='cart')
 
         if payments.count() > 1:
@@ -40,8 +40,8 @@ class Payment(Abstract_Model):
         if not payments:
 
             # delivery prices for first user address
-            delivery = Delivery.Get_Price(_object)
-            payment = Payment(
+            delivery = Model_Delivery.Get_Price(_object)
+            payment = Model_Payment(
                 user=user,
                 date=datetime.today().date(),
                 total_price='0.00',
@@ -55,11 +55,11 @@ class Payment(Abstract_Model):
 
 
 
-class Payment_Product(Abstract_Model):
+class Model_Payment_Product(Abstract_Model):
 
-    payment = models.ForeignKey(Payment)
-    product = models.ForeignKey(Product)
-    values = models.ManyToManyField(Values)
+    payment = models.ForeignKey(Model_Payment)
+    product = models.ForeignKey(Model_Product)
+    values = models.ManyToManyField(Model_Values)
     number = models.IntegerField()
 
     def __str__(self):

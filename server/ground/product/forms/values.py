@@ -25,7 +25,7 @@ class Form_Values(Abstract_Model_Form):
 
     class Meta:
 
-        model = Values
+        model = Model_Values
         fields = (
             'name',
             'super_price',

@@ -14,7 +14,7 @@ class Sort_By_Name(Base):
 
         print(order_by, '\n\n\n\n')
 
-        return SQL.Filter(Product,
+        return SQL.Filter(Model_Product,
             pk__in=self.products).order_by(order_by)
 
     def __init__(self, search_engine):

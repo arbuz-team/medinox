@@ -20,15 +20,15 @@ class My_Shopping(Website_Manager):
 
         date_from, date_to = self.Get_Date()
         user = self.request.session['user_user']
-        payments = SQL.Filter(Payment, user=user, status='cart',
+        payments = SQL.Filter(Model_Payment, user=user, status='cart',
                               date__gte=date_from, date__lte=date_to)
 
         for payment in payments:
 
             details = {
                 'payment': payment,
-                'full_name': SQL.Get(Delivery_Address, payment=payment).full_name,
-                'products': SQL.Filter(Payment_Product, payment=payment)
+                'full_name': SQL.Get(Model_Delivery_Address, payment=payment).full_name,
+                'products': SQL.Filter(Model_Payment_Product, payment=payment)
             }
 
             self.context['shopping'].append(details)

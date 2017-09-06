@@ -9,7 +9,7 @@ class Widget_Manager(Website_Manager):
         self.context['form'] = Form_Widget(self, post=True)
 
         if self.context['form'].is_valid():
-            widget = Widget(product=self.request.session['product_last_selected'])
+            widget = Model_Widget(product=self.request.session['product_last_selected'])
             widget.name = self.context['form'].cleaned_data['name']
             widget.type = self.context['form'].cleaned_data['type']
             SQL.Save(data=widget)

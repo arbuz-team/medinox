@@ -26,7 +26,7 @@ class Form_Widget(Abstract_Model_Form):
 
     class Meta:
 
-        model = Widget
+        model = Model_Widget
         fields = (
             'name',
             'type',

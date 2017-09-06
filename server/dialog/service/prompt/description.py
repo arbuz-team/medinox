@@ -8,16 +8,16 @@ class Service_Description(Base_Service):
 
         # get position parent description
         index = self.dialog.Get_Post_Other('index')
-        position = SQL.Get(Description, pk=index).position
+        position = SQL.Get(Model_Description, pk=index).position
 
         # create new description
-        description = Description(position=position)
+        description = Model_Description(position=position)
         description.direction = direction
         self.request.session['product_description'] = description
 
     def Edit(self):
 
-        description = SQL.Get(Description,
+        description = SQL.Get(Model_Description,
             pk=self.request.POST['value'])
 
         self.request.session['product_description'] = description

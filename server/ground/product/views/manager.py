@@ -42,29 +42,29 @@ class Product_Manager(Website_Manager):
     def Manage_Button_Recommended(self):
         action = self.Get_Post_Other('action')
         pk = self.request.POST['value']
-        product = SQL.Get(Product, pk=pk)
+        product = SQL.Get(Model_Product, pk=pk)
 
         if action == 'delete':
-            SQL.Delete(Recommended_Product,
+            SQL.Delete(Model_Recommended_Product,
                 product=product, force=True)
 
         if action == 'append':
-            SQL.Save(Recommended_Product, product=product)
+            SQL.Save(Model_Recommended_Product, product=product)
 
         return HttpResponse()
 
     def Manage_Button_Favorite(self):
         action = self.Get_Post_Other('action')
         pk = self.request.POST['value']
-        product = SQL.Get(Product, pk=pk)
+        product = SQL.Get(Model_Product, pk=pk)
         user = self.request.session['user_user']
 
         if action == 'delete':
-            SQL.Delete(Favorite_Product,
+            SQL.Delete(Model_Favorite_Product,
                 product=product, user=user, force=True)
 
         if action == 'append':
-            SQL.Save(Favorite_Product, product=product, user=user)
+            SQL.Save(Model_Favorite_Product, product=product, user=user)
 
         return HttpResponse()
 

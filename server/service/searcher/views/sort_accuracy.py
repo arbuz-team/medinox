@@ -8,7 +8,7 @@ class Product_Content:
         result = ''
 
         for description in SQL.Filter(
-                Description, product=self.product):
+                Model_Description, product=self.product):
 
             result += description.header
             result += description.paragraph
@@ -90,7 +90,7 @@ class Sort_By_Accuracy(Base):
         sorting = 'CASE {0} END'.format(sorting)
 
         # get sorted product from database
-        return SQL.Filter(Product, pk__in=self.products).extra(
+        return SQL.Filter(Model_Product, pk__in=self.products).extra(
             select={'sorting': sorting}, order_by=['sorting'])
 
     def Sort(self):

@@ -5,18 +5,18 @@ from server.service.payment.forms import *
 class Selected_User_Payment(Website_Manager):
 
     def Create_Payment_Structure(self):
-        payment = SQL.Get(Payment, pk=self.other_value)
+        payment = SQL.Get(Model_Payment, pk=self.other_value)
 
         self.context['shopping'] = [{
-            'fullname': SQL.Get(Invoice_Address, payment=payment).full_name,
+            'fullname': SQL.Get(Model_Invoice_Address, payment=payment).full_name,
             'payment':  payment,
-            'products': SQL.Filter(Payment_Product, payment=payment)
+            'products': SQL.Filter(Model_Payment_Product, payment=payment)
         }]
 
     def Manage_Content(self):
 
         path_manager = Path_Manager(self)
-        notifications = SQL.Filter(Notification_Model, direct_url=\
+        notifications = SQL.Filter(Model_Notification, direct_url=\
             path_manager.Get_Urls(current_language=True))
 
         # notifications is viewed

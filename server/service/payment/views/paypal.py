@@ -8,7 +8,7 @@ class PayPal(Base_Payment):
         post = self.request.POST
 
         if post['payment_status'] == 'Completed':
-            self.payment = SQL.Get(Payment, pk=post['custom'])
+            self.payment = SQL.Get(Model_Payment, pk=post['custom'])
 
             # check receiver
             if post['receiver_email'] != PAYPAL_RECEIVER_EMAIL:

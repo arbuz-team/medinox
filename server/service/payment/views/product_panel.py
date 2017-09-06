@@ -4,7 +4,7 @@ from server.manage.switch.website import *
 class Buy(Website_Manager):
 
     def Manage_Form(self):
-        product = SQL.Get(Product, pk=self.other_value)
+        product = SQL.Get(Model_Product, pk=self.other_value)
         self.payment_models_manager.Add_Cart_Product(product)
 
         path_manager = Path_Manager(self)
@@ -20,7 +20,7 @@ class Buy(Website_Manager):
 class Cart_Manager(Website_Manager):
 
     def Manage_Form(self):
-        product = SQL.Get(Product, pk=self.other_value)
+        product = SQL.Get(Model_Product, pk=self.other_value)
         self.payment_models_manager.Add_Cart_Product(product)
         return HttpResponse()
 

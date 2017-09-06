@@ -35,7 +35,7 @@ def Save_Result(json_list):
 
 
 
-json_en = Convert_To_Json('/service/translator/language/EN', 'translator.language_en')
-json_pl = Convert_To_Json('/service/translator/language/PL', 'translator.language_pl')
-# json_de = Convert_To_Json('/service/translator/language/DE', 'translator.language_de')
+json_en = Convert_To_Json('/service/translator/language/EN', 'translator.model_language_en')
+json_pl = Convert_To_Json('/service/translator/language/PL', 'translator.model_language_pl')
+# json_de = Convert_To_Json('/service/translator/language/DE', 'translator.model_language_de')
 Save_Result([json_en, json_pl])

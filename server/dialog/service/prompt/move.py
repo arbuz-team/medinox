@@ -17,7 +17,7 @@ class Service_Move(Base_Service):
 
             # get element
             if element_type == 'product':
-                return SQL.Get(Product, pk=element_pk)
+                return SQL.Get(Model_Product, pk=element_pk)
 
             if element_type == 'catalog':
                 return SQL.Get(Model_Catalog, pk=element_pk)

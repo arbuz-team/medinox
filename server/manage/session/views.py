@@ -60,11 +60,11 @@ class Session_Controller:
 
         if 'root_address' not in self.request.session:
             self.request.session['root_address'] = \
-                SQL.First(Root_Address)
+                SQL.First(Model_Root_Address)
 
         if 'root_social_media' not in self.request.session:
             self.request.session['root_social_media'] = \
-                SQL.All(Social_Media)
+                SQL.All(Model_Social_Media)
 
         if 'root_note' not in self.request.session:
             self.request.session['root_note'] = None
@@ -162,7 +162,7 @@ class Session_Controller:
             self.request.session['searcher_sort_direction'] = 'descending'
 
         if 'searcher_result' not in self.request.session:
-            self.request.session['searcher_result'] = SQL.All(Product)
+            self.request.session['searcher_result'] = SQL.All(Model_Product)
 
     def Check_Session_Main(self):
 

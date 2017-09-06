@@ -15,17 +15,17 @@ class Cart_Block(Endpoints, Inspector):
 
         self.context['payment'] = payment
         self.context['cart'] = SQL.Filter(
-            Payment_Product, payment=payment)
+            Model_Payment_Product, payment=payment)
 
         return self.Render_HTML('block/cart.html')
 
     def Manage_Button_Append(self):
-        product = SQL.Get(Product, pk=self.request.POST['value'])
+        product = SQL.Get(Model_Product, pk=self.request.POST['value'])
         self.payment_models_manager.Add_Cart_Product(product)
         return HttpResponse()
 
     def Manage_Button_Delete(self):
-        product = SQL.Get(Product, pk=self.request.POST['value'])
+        product = SQL.Get(Model_Product, pk=self.request.POST['value'])
         self.payment_models_manager.Delete_Cart_Product(product)
         return HttpResponse()
 

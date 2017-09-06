@@ -1,7 +1,7 @@
 from server.manage.switch.models import *
 
 
-class Notification_Model(Abstract_Model):
+class Model_Notification(Abstract_Model):
 
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=20)

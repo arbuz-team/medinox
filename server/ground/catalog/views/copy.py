@@ -21,7 +21,7 @@ class Copy_Catalog(Website_Manager):
     def Copy_Content_Recursive(self, from_catalog, copy_catalog, language):
 
         # copy products in current catalog
-        products = SQL.Filter(Product, parent=from_catalog)
+        products = SQL.Filter(Model_Product, parent=from_catalog)
         for child_product in products:
 
             # copy child product

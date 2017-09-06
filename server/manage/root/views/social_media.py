@@ -6,7 +6,7 @@ from server.service.payment.forms import *
 class Social_Media_Manager(Website_Manager):
 
     def Manage_Content(self):
-        self.context['social_media'] = SQL.All(Social_Media)
+        self.context['social_media'] = SQL.All(Model_Social_Media)
         return self.Render_HTML('root/social_media.html')
 
     def Manage_Form(self):
@@ -14,7 +14,7 @@ class Social_Media_Manager(Website_Manager):
         pk = self.request.POST['_name_']
         url = self.request.POST['value']
 
-        social = SQL.Get(Social_Media, pk=pk)
+        social = SQL.Get(Model_Social_Media, pk=pk)
         social.url = url
         SQL.Save(data=social)
 

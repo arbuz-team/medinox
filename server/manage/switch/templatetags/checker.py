@@ -50,4 +50,4 @@ def is_catalog(element):
 
 @register.filter
 def is_product(element):
-    return element.__class__.__name__ == 'Product'
+    return element.__class__.__name__ == 'Model_Product'

@@ -17,7 +17,7 @@ class Form_Product(Abstract_Image_Form):
 
         name = self.data['name']
         parent = self.request.session['catalog_parent']
-        children = SQL.Filter(Product, parent=parent)
+        children = SQL.Filter(Model_Product, parent=parent)
 
         if children.filter(name=name):
             raise forms.ValidationError(Text(self, 159))
@@ -29,7 +29,7 @@ class Form_Product(Abstract_Image_Form):
         self.fields['price_eur'] = forms.FloatField(required=False)
         self.fields['price_pln'] = forms.FloatField(required=False)
         self.fields['price_gbp'] = forms.FloatField(required=False)
-        self.fields['brand'] = forms.ModelChoiceField(queryset=SQL.All(Brand))
+        self.fields['brand'] = forms.ModelChoiceField(queryset=SQL.All(Model_Brand))
         Abstract_Image_Form.Create_Fields(self)
 
     def Set_Widgets(self):

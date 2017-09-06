@@ -7,10 +7,10 @@ class Form_Forgot_Password(Abstract_Form):
     def clean_email(self):
         email = self.data['email']
 
-        if not SQL.Filter(User, email=email):
+        if not SQL.Filter(Model_User, email=email):
             raise forms.ValidationError(Text(self, 54))
 
-        if not SQL.Get(User, email=email).approved:
+        if not SQL.Get(Model_User, email=email).approved:
             raise forms.ValidationError(Text(self, 55))
 
         return email
