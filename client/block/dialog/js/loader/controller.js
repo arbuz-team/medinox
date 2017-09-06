@@ -26,7 +26,7 @@ export function Dialog_Loader_Controller(config)
 
 		view =                          new Dialog_Loader_View(config),
 
-		form_controller =               new Form_Controllers(config_loader),
+		form_controller =               new Form_Controllers(config_loader, true),
 		post_button_controller =        new Post_Button_Controllers(config_loader),
 		event_button_controller =       new Event_Button_Controllers(config_loader),
 		little_form_controller =        new Little_Form_Controllers(config_loader),

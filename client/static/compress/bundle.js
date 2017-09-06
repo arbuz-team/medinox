@@ -200,13 +200,13 @@
 	
 	var _controller = __webpack_require__(9);
 	
-	var _controller2 = __webpack_require__(60);
+	var _controller2 = __webpack_require__(63);
 	
-	var _controller3 = __webpack_require__(61);
+	var _controller3 = __webpack_require__(64);
 	
 	var _controller4 = __webpack_require__(34);
 	
-	var _controller5 = __webpack_require__(62);
+	var _controller5 = __webpack_require__(65);
 	
 	var _controller6 = __webpack_require__(31);
 	
@@ -1760,33 +1760,39 @@
 	
 	var _model = __webpack_require__(28);
 	
-	var _controllers = __webpack_require__(43);
+	var _model_for_dialog = __webpack_require__(43);
+	
+	var _controllers = __webpack_require__(46);
 	
 	var validator = _interopRequireWildcard(_controllers);
 	
-	var _controllers2 = __webpack_require__(47);
+	var _controllers2 = __webpack_require__(50);
 	
 	var auto_form = _interopRequireWildcard(_controllers2);
 	
-	var _controllers3 = __webpack_require__(50);
+	var _controllers3 = __webpack_require__(53);
 	
 	var selected_form = _interopRequireWildcard(_controllers3);
 	
-	var _controllers4 = __webpack_require__(51);
+	var _controllers4 = __webpack_require__(54);
 	
 	var file_converter = _interopRequireWildcard(_controllers4);
 	
-	var _controller = __webpack_require__(54);
+	var _controller = __webpack_require__(57);
 	
-	var _controller2 = __webpack_require__(56);
+	var _controller2 = __webpack_require__(59);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	var Form_Controllers = exports.Form_Controllers = function Form_Controllers(config) {
-		var form_models = new _model.Form_Models(config),
-		    address_switcher = new _controller.Address_Switcher_Controller(config),
+	var Form_Controllers = exports.Form_Controllers = function Form_Controllers(config, is_dialog) {
+		var address_switcher = new _controller.Address_Switcher_Controller(config),
 		    currency_converter = new _controller2.Currency_Converter_Controller(config),
-		    variables = form_models.variables;
+		    form_models = void 0,
+		    variables = void 0;
+	
+		if (is_dialog === true) form_models = new _model_for_dialog.Dialog_Form_Models(config);else form_models = new _model.Form_Models(config);
+	
+		variables = form_models.variables;
 	
 		var prepare_form_to_send = function prepare_form_to_send(event) {
 			var form_action = $(this).attr('action'),
@@ -1851,8 +1857,8 @@
 	var Form_Models = exports.Form_Models = function Form_Models(config) {
 		var _this = this;
 	
-		var form_loader = new _form.Block_Loader_Form(config),
-		    ground_controller = new _controller.Ground_Controller();
+		this._form_loader = new _form.Block_Loader_Form(config);
+		this._ground_controller = new _controller.Ground_Controller();
 	
 		this.variables = {
 			form_name: undefined,
@@ -1865,17 +1871,18 @@
 			delay: undefined
 		};
 	
-		var prepare_post_data = function prepare_post_data() {
+		this._prepare_post_data = function () {
 			var variables = _this.variables;
 	
 			if (!variables.post_data) variables.post_data = {};
 	
 			variables.post_data._name_ = variables.form_name;
-		},
-		    end_loading = function end_loading(response) {
-			if (ground_controller.is_redirect(response)) {
-				ground_controller.change_url(response.url);
-				ground_controller.load_single_ground_content();
+		};
+	
+		this._end_loading = function (response) {
+			if (_this._ground_controller.is_redirect(response)) {
+				_this._ground_controller.change_url(response.url);
+				_this._ground_controller.load_single_ground_content();
 			}
 	
 			var variables = _this.variables,
@@ -1892,15 +1899,15 @@
 			utilities.redirect_ground(events);
 			utilities.launch_event(events);
 		};
+	};
 	
-		this.send = function () {
-			var post_url = this.variables.post_url,
-			    post_data = this.variables.post_data;
+	Form_Models.prototype.send = function () {
+		var post_url = this.variables.post_url,
+		    post_data = this.variables.post_data;
 	
-			prepare_post_data();
+		this._prepare_post_data();
 	
-			form_loader.load_simple_content(post_url, post_data).then(end_loading);
-		};
+		this._form_loader.load_simple_content(post_url, post_data).then(this._end_loading);
 	};
 
 /***/ },
@@ -2810,9 +2817,135 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.Dialog_Form_Models = Dialog_Form_Models;
+	
+	var _model = __webpack_require__(28);
+	
+	var _dialog_form = __webpack_require__(44);
+	
+	function Dialog_Form_Models(config) {
+		_model.Form_Models.call(this, config);
+	
+		this._dialog_form_loader = new _dialog_form.Block_Loader_Dialog_Form(config);
+	}
+	
+	Dialog_Form_Models.prototype = Object.create(_model.Form_Models.prototype);
+	
+	Dialog_Form_Models.prototype.send = function () {
+		var post_url = this.variables.post_url,
+		    post_data = this.variables.post_data;
+	
+		this._prepare_post_data();
+	
+		this._dialog_form_loader.load_content(post_url, post_data).then(this._end_loading);
+	};
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Block_Loader_Dialog_Form = Block_Loader_Dialog_Form;
+	
+	var _dialog = __webpack_require__(45);
+	
+	function Block_Loader_Dialog_Form(config) {
+		_dialog.Block_Loader_Dialog.call(this, config);
+	}
+	
+	Block_Loader_Dialog_Form.prototype = Object.create(_dialog.Block_Loader_Dialog.prototype);
+	
+	Block_Loader_Dialog_Form.prototype._prepare_post_data = function (post_data) {
+		if (!post_data) post_data = {};
+	
+		post_data[this._settings.post_name] = 'form';
+	
+		this._variables.post_data = post_data;
+	};
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Block_Loader_Dialog = Block_Loader_Dialog;
+	
+	var _response = __webpack_require__(40);
+	
+	var _data = __webpack_require__(13);
+	
+	var _main = __webpack_require__(42);
+	
+	var _controller = __webpack_require__(18);
+	
+	function Block_Loader_Dialog(config) {
+		_controller.Block_Loader.call(this, config);
+	}
+	
+	Block_Loader_Dialog.prototype = Object.create(_controller.Block_Loader.prototype);
+	
+	Block_Loader_Dialog.prototype._send_request = function () {
+		var post_data = this._variables.post_data,
+		    post_name = this._settings.post_name,
+		    request_manager = new _main.Request_Manager_Main();
+	
+		this._response = request_manager.send(undefined, post_data, post_name);
+	};
+	
+	Block_Loader_Dialog.prototype._close_dialog_if_no_content = function (response) {
+		if ((0, _response.recognise_status)(response.code) === 'success' && (0, _data.is_empty)(response.html)) {
+			APP.DATA.delay = 0;
+			APP.throw_event(EVENTS.part.close_dialog);
+			return true;
+		}
+	
+		return false;
+	};
+	
+	Block_Loader_Dialog.prototype.load_content = function (post_url, post_data) {
+		var _this = this;
+	
+		return new Promise(function (resolve) {
+			_this._get_content(post_url, post_data);
+	
+			_this._hide_content().then(function () {
+				_this._receive_response().then(function (response) {
+					if (_this._close_dialog_if_no_content(response)) resolve(response);
+	
+					_this._set_content(response);
+	
+					_this._prepare_content_to_show();
+	
+					_this._show_content().then(function () {
+						resolve(response);
+					});
+				});
+			});
+		});
+	};
+	
+	Block_Loader_Dialog.prototype.define = function () {};
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.define = undefined;
 	
-	var _checkers = __webpack_require__(44);
+	var _checkers = __webpack_require__(47);
 	
 	var Validators = {};
 	
@@ -2929,7 +3062,7 @@
 	};
 
 /***/ },
-/* 44 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2939,7 +3072,7 @@
 	});
 	exports.Constructor_Validator = undefined;
 	
-	var _views = __webpack_require__(45);
+	var _views = __webpack_require__(48);
 	
 	Object.defineProperty(exports, 'Constructor_Validator', {
 	  enumerable: true,
@@ -3041,7 +3174,7 @@
 	});
 
 /***/ },
-/* 45 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3051,7 +3184,7 @@
 	});
 	exports.Constructor_Validator = exports.checker = undefined;
 	
-	var _config = __webpack_require__(46);
+	var _config = __webpack_require__(49);
 	
 	var _structure = __webpack_require__(11);
 	
@@ -3167,7 +3300,7 @@
 	};
 
 /***/ },
-/* 46 */
+/* 49 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3218,7 +3351,7 @@
 	};
 
 /***/ },
-/* 47 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3228,7 +3361,7 @@
 	});
 	exports.define = undefined;
 	
-	var _views = __webpack_require__(48);
+	var _views = __webpack_require__(51);
 	
 	var add_event_on_fields = function add_event_on_fields(auto_form_views) {
 		var settings = auto_form_views.models.settings,
@@ -3272,7 +3405,7 @@
 	};
 
 /***/ },
-/* 48 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3284,7 +3417,7 @@
 	
 	var _response = __webpack_require__(40);
 	
-	var _models = __webpack_require__(49);
+	var _models = __webpack_require__(52);
 	
 	var Auto_Form_Views = exports.Auto_Form_Views = function Auto_Form_Views(config) {
 		var models = new _models.Auto_Form_Models(config),
@@ -3424,7 +3557,7 @@
 	};
 
 /***/ },
-/* 49 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3517,7 +3650,7 @@
 	};
 
 /***/ },
-/* 50 */
+/* 53 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3571,7 +3704,7 @@
 	};
 
 /***/ },
-/* 51 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3581,7 +3714,7 @@
 	});
 	exports.define = undefined;
 	
-	var _views = __webpack_require__(52);
+	var _views = __webpack_require__(55);
 	
 	var image_convert_views = _interopRequireWildcard(_views);
 	
@@ -3607,7 +3740,7 @@
 	};
 
 /***/ },
-/* 52 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3617,7 +3750,7 @@
 	});
 	exports.Callback_Functions = exports.get_base64 = exports.settings = exports.models = undefined;
 	
-	var _models = __webpack_require__(53);
+	var _models = __webpack_require__(56);
 	
 	var image_convert_models = _interopRequireWildcard(_models);
 	
@@ -3667,7 +3800,7 @@
 	};
 
 /***/ },
-/* 53 */
+/* 56 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3687,7 +3820,7 @@
 	};
 
 /***/ },
-/* 54 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3697,7 +3830,7 @@
 	});
 	exports.Address_Switcher_Controller = Address_Switcher_Controller;
 	
-	var _main = __webpack_require__(55);
+	var _main = __webpack_require__(58);
 	
 	function Address_Switcher_Controller(config) {
 		if (!config || !config.container) {
@@ -3717,7 +3850,7 @@
 	}
 
 /***/ },
-/* 55 */
+/* 58 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3739,7 +3872,7 @@
 	}
 
 /***/ },
-/* 56 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3749,13 +3882,13 @@
 	});
 	exports.Currency_Converter_Controller = Currency_Converter_Controller;
 	
-	var _model = __webpack_require__(57);
+	var _model = __webpack_require__(60);
 	
 	var model = _interopRequireWildcard(_model);
 	
-	var _event = __webpack_require__(58);
+	var _event = __webpack_require__(61);
 	
-	var _view = __webpack_require__(59);
+	var _view = __webpack_require__(62);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -3775,7 +3908,7 @@
 	}
 
 /***/ },
-/* 57 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3842,7 +3975,7 @@
 	};
 
 /***/ },
-/* 58 */
+/* 61 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3857,7 +3990,7 @@
 	};
 
 /***/ },
-/* 59 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3867,7 +4000,7 @@
 	});
 	exports.Currency_Converter_View = Currency_Converter_View;
 	
-	var _model = __webpack_require__(57);
+	var _model = __webpack_require__(60);
 	
 	var model = _interopRequireWildcard(_model);
 	
@@ -3925,7 +4058,7 @@
 	}
 
 /***/ },
-/* 60 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4025,7 +4158,7 @@
 	}
 
 /***/ },
-/* 61 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4092,7 +4225,7 @@
 	}
 
 /***/ },
-/* 62 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4105,9 +4238,9 @@
 	
 	exports.Dialog_Controller = Dialog_Controller;
 	
-	var _controller = __webpack_require__(63);
+	var _controller = __webpack_require__(66);
 	
-	var _controller2 = __webpack_require__(65);
+	var _controller2 = __webpack_require__(68);
 	
 	function Dialog_Controller() {
 		if (_typeof(Dialog_Controller.instance) === 'object') return Dialog_Controller.instance;
@@ -4162,7 +4295,7 @@
 	}
 
 /***/ },
-/* 63 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4174,7 +4307,7 @@
 	
 	var _standard = __webpack_require__(20);
 	
-	var _view = __webpack_require__(64);
+	var _view = __webpack_require__(67);
 	
 	function Dialog_Designer_Controller(config) {
 		var _this = this;
@@ -4222,7 +4355,7 @@
 	}
 
 /***/ },
-/* 64 */
+/* 67 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4276,7 +4409,7 @@
 	}
 
 /***/ },
-/* 65 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4292,13 +4425,13 @@
 	
 	var _controllers2 = __webpack_require__(35);
 	
-	var _controllers3 = __webpack_require__(66);
+	var _controllers3 = __webpack_require__(69);
 	
-	var _controller2 = __webpack_require__(69);
+	var _controller2 = __webpack_require__(72);
 	
-	var _controller3 = __webpack_require__(70);
+	var _controller3 = __webpack_require__(73);
 	
-	var _view = __webpack_require__(73);
+	var _view = __webpack_require__(76);
 	
 	function Dialog_Loader_Controller(config) {
 		var config_loader = {
@@ -4306,7 +4439,7 @@
 			container: config.container
 		},
 		    view = new _view.Dialog_Loader_View(config),
-		    form_controller = new _controller.Form_Controllers(config_loader),
+		    form_controller = new _controller.Form_Controllers(config_loader, true),
 		    post_button_controller = new _controllers.Post_Button_Controllers(config_loader),
 		    event_button_controller = new _controllers2.Event_Button_Controllers(config_loader),
 		    little_form_controller = new _controllers3.Little_Form_Controllers(config_loader),
@@ -4342,7 +4475,7 @@
 	}
 
 /***/ },
-/* 66 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4352,7 +4485,7 @@
 	});
 	exports.Little_Form_Controllers = undefined;
 	
-	var _views = __webpack_require__(67);
+	var _views = __webpack_require__(70);
 	
 	var Little_Form_Controllers = exports.Little_Form_Controllers = function Little_Form_Controllers(form_config) {
 	  if (typeof form_config === 'undefined' && typeof form_config.container === 'undefined') {
@@ -4395,7 +4528,7 @@
 	};
 
 /***/ },
-/* 67 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4405,7 +4538,7 @@
 	});
 	exports.Little_Form_Views = undefined;
 	
-	var _models = __webpack_require__(68);
+	var _models = __webpack_require__(71);
 	
 	var Little_Form_Views = exports.Little_Form_Views = function Little_Form_Views(form_config) {
 	  var models = new _models.Little_Form_Models(form_config);
@@ -4479,7 +4612,7 @@
 	};
 
 /***/ },
-/* 68 */
+/* 71 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4572,7 +4705,7 @@
 	};
 
 /***/ },
-/* 69 */
+/* 72 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4604,7 +4737,7 @@
 	}
 
 /***/ },
-/* 70 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4614,7 +4747,7 @@
 	});
 	exports.Notifications_Controller = Notifications_Controller;
 	
-	var _view = __webpack_require__(71);
+	var _view = __webpack_require__(74);
 	
 	function Notifications_Controller(config) {
 		if (!config || !config.container) {
@@ -4637,7 +4770,7 @@
 	}
 
 /***/ },
-/* 71 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4647,7 +4780,7 @@
 	});
 	exports.Notifications_View = Notifications_View;
 	
-	var _model = __webpack_require__(72);
+	var _model = __webpack_require__(75);
 	
 	function Notifications_View() {
 		var model = void 0,
@@ -4679,7 +4812,7 @@
 	}
 
 /***/ },
-/* 72 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4728,7 +4861,7 @@
 	}
 
 /***/ },
-/* 73 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4738,7 +4871,7 @@
 	});
 	exports.Dialog_Loader_View = Dialog_Loader_View;
 	
-	var _model = __webpack_require__(74);
+	var _model = __webpack_require__(77);
 	
 	function Dialog_Loader_View(config) {
 		var model = new _model.Dialog_Loader_Model(config);
@@ -4785,7 +4918,7 @@
 	}
 
 /***/ },
-/* 74 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4795,7 +4928,7 @@
 	});
 	exports.Dialog_Loader_Model = Dialog_Loader_Model;
 	
-	var _dialog = __webpack_require__(75);
+	var _dialog = __webpack_require__(45);
 	
 	function Dialog_Loader_Model(config) {
 	
@@ -4824,73 +4957,6 @@
 			return part_dialog_loader.load_content(undefined, this.variable.post_data);
 		};
 	}
-
-/***/ },
-/* 75 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.Block_Loader_Dialog = Block_Loader_Dialog;
-	
-	var _response = __webpack_require__(40);
-	
-	var _data = __webpack_require__(13);
-	
-	var _main = __webpack_require__(42);
-	
-	var _controller = __webpack_require__(18);
-	
-	function Block_Loader_Dialog(config) {
-		_controller.Block_Loader.call(this, config);
-	}
-	
-	Block_Loader_Dialog.prototype = Object.create(_controller.Block_Loader.prototype);
-	
-	Block_Loader_Dialog.prototype._send_request = function () {
-		var post_data = this._variables.post_data,
-		    post_name = this._settings.post_name,
-		    request_manager = new _main.Request_Manager_Main();
-	
-		this._response = request_manager.send(undefined, post_data, post_name);
-	};
-	
-	Block_Loader_Dialog.prototype._close_dialog_if_no_content = function (response) {
-		if ((0, _response.recognise_status)(response.code) === 'success' && (0, _data.is_empty)(response.html)) {
-			APP.DATA.delay = 0;
-			APP.throw_event(EVENTS.part.close_dialog);
-			return true;
-		}
-	
-		return false;
-	};
-	
-	Block_Loader_Dialog.prototype.load_content = function (post_url, post_data) {
-		var _this = this;
-	
-		return new Promise(function (resolve) {
-			_this._get_content(post_url, post_data);
-	
-			_this._hide_content().then(function () {
-				_this._receive_response().then(function (response) {
-					if (_this._close_dialog_if_no_content(response)) resolve(response);
-	
-					_this._set_content(response);
-	
-					_this._prepare_content_to_show();
-	
-					_this._show_content().then(function () {
-						resolve(response);
-					});
-				});
-			});
-		});
-	};
-	
-	Block_Loader_Dialog.prototype.define = function () {};
 
 /***/ }
 /******/ ]);

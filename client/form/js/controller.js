@@ -3,6 +3,7 @@
  */
 
 import {Form_Models} 		            from './model'
+import {Dialog_Form_Models} 		    from './model_for_dialog'
 import * as validator 		            from 'form/plugin/validator/controllers'
 import * as auto_form 		            from 'form/plugin/auto_form/controllers'
 import * as selected_form 	            from 'form/plugin/selected_form/controllers'
@@ -12,13 +13,23 @@ import {Currency_Converter_Controller}  from 'form/plugin/currency_converter/js/
 
 
 
-export let Form_Controllers = function(config)
+export let Form_Controllers = function(config, is_dialog)
 {
 	let
-		form_models = new Form_Models(config),
 		address_switcher = new Address_Switcher_Controller(config),
 		currency_converter = new Currency_Converter_Controller(config),
-	    variables = form_models.variables;
+		form_models,
+	    variables;
+
+
+	if(is_dialog === true)
+		form_models = new Dialog_Form_Models(config);
+	else
+		form_models = new Form_Models(config);
+
+
+	variables = form_models.variables;
+
 
 
 	/**

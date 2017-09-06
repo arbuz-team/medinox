@@ -6,7 +6,7 @@ import {data_controller} 	                from 'arbuz/js/structure'
 import {add_to_settings, select_number} 	from 'arbuz/plugin/utilities/data'
 import {Request_Manager_Block} 		        from 'arbuz/plugin/request_manager/block'
 import {Block_Loader} 				        from './_controller'
-import {timeout_promise} from "arbuz/plugin/utilities/standard";
+import {timeout_promise}                    from "arbuz/plugin/utilities/standard";
 
 
 export function Block_Loader_Part(config)
