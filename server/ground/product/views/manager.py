@@ -35,11 +35,11 @@ class Product_Manager(Website_Manager):
 
     def Manage_Button_Delete(self):
 
-        catalog = self.request.session['product_editing']
-        catalog.name += ':' + self.Generate_Random_Chars(
+        product = self.request.session['product_editing']
+        product.name += ':' + self.Generate_Random_Chars(
             20, punctuation=False)
 
-        SQL.Delete(data=catalog)
+        SQL.Delete(data=product)
         self.request.session['product_editing'] = None
         self.Clear_Session('searcher_result')
         return HttpResponse()

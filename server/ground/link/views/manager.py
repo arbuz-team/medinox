@@ -9,12 +9,10 @@ class Link_Manager(Website_Manager):
 
     def Manage_Button_Delete(self):
 
-        catalog = self.request.session['product_editing']
-        catalog.name += ':' + self.Generate_Random_Chars(
-            20, punctuation=False)
+        link = self.request.session['link_editing']
+        self.request.session['link_editing'] = None
 
-        SQL.Delete(data=catalog)
-        self.request.session['product_editing'] = None
+        SQL.Delete(data=link, force=True)
         self.Clear_Session('searcher_result')
         return HttpResponse()
 
