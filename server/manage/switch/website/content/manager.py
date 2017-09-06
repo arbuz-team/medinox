@@ -34,15 +34,14 @@ class Direct_Block_Manager(Base):
         if self.request.POST[name] == 'button':
             return block.Manage_Button()
 
-        return self.website.Error_No_Event()
 
-    @staticmethod
-    def Packing(response):
+    def Packing(self, response):
 
-        data = {
+        try: data = {
             'html': response.content.decode('utf-8'), # Backend: change name `html` to `content`
             'code': response.status_code
         }
+        except: raise Exception('No event - response is empty')
 
         # if response url exists
         try: data['url'] = response.url

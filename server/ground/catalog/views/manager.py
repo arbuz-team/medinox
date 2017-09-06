@@ -81,11 +81,6 @@ class Catalog_Manager(Website_Manager):
             self.request.session['catalog_editing'] = None
             return HttpResponse()
 
-        if self.request.POST['_name_'] == 'show_deleted':
-            value = self.request.session['catalog_deleted_flag']
-            self.request.session['catalog_deleted_flag'] = not value
-            return HttpResponse()
-
     @staticmethod
     def Launch(request):
         return Catalog_Manager(request, only_root=True).HTML

@@ -4,10 +4,6 @@ from server.service.payment.base import *
 
 class Inspector(Base_Website):
 
-    def Error_No_Event(self):
-        self.context['error'] = 'no_event'
-        return self.Render_HTML('arbuz/error.html')
-
     def Error_Authorization(self):
         path_manager = Path_Manager(self)
         redirect = None
