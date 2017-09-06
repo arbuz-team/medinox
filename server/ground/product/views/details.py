@@ -47,7 +47,7 @@ class Details(Website_Manager):
 
         # get product and save to session
         self.context['product'] = SQL.Get(Model_Product, pk=self.other_value)
-        self.request.session['product_product'] = self.context['product']
+        self.request.session['product_editing'] = self.context['product']
         self.request.session['product_last_selected'] = \
             self.context['product']
 

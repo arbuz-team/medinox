@@ -1,4 +1,5 @@
 from server.dialog.service.base import *
+from server.service.payment.forms import *
 
 
 class Service_Note(Base_Service):

@@ -1,8 +1,9 @@
-from server.dialog.service.base import *
-from server.ground.catalog.forms.operation import *
+from server.dialog.service.tree import *
+from server.service.payment.forms import *
+from server.ground.catalog.forms import *
 
 
-class Service_Copy(Base_Service):
+class Service_Copy(Catalog_Tree):
 
     def Get_Element(self):
 
@@ -37,6 +38,7 @@ class Service_Copy(Base_Service):
 
     def Manage(self):
 
+        self.Create_Catalog_Tree()
         self.New()
 
         # code for each widget
@@ -45,4 +47,4 @@ class Service_Copy(Base_Service):
             Form_Copy, initial=self.initial)
 
         return self.Render_Dialog(
-            'prompt.html', 'copy', only_root=True)
+            'copy.html', 'copy', only_root=True)

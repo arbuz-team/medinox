@@ -1,4 +1,5 @@
 from server.dialog.service.base import *
+from server.ground.product.forms import *
 
 
 class Service_Widget(Base_Service):

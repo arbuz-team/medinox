@@ -3,6 +3,7 @@ from server.manage.switch.paths import *
 from server.manage.switch.status import *
 from server.manage.switch.settings import *
 from server.service.sql.views import *
+from server.service.translator.views import *
 
 
 class Base_Website(Base):

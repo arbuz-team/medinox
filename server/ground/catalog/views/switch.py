@@ -3,6 +3,7 @@ from server.ground.catalog.views.copy import Copy_Catalog
 from server.ground.catalog.views.manager import *
 from server.ground.catalog.views.changer import *
 from server.ground.product.views import *
+from server.ground.link.views import *
 
 
 class Catalog_Switch(Website_Manager):
@@ -22,6 +23,9 @@ class Catalog_Switch(Website_Manager):
             if request.POST['_name_'] == 'product':
                 return Product_Manager(request, only_root=True).HTML
 
+            if request.POST['_name_'] == 'link':
+                return Link_Manager(request, only_root=True).HTML
+
             if request.POST['_name_'] == 'copy':
                 element_type = request.session['catalog_copy_type']
 
@@ -30,6 +34,9 @@ class Catalog_Switch(Website_Manager):
 
                 if element_type == 'catalog':
                     return Copy_Catalog(request, only_root=True).HTML
+
+                if element_type == 'link':
+                    return Copy_Link(request, only_root=True).HTML
 
         try:
 

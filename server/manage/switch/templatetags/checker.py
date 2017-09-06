@@ -51,3 +51,11 @@ def is_catalog(element):
 @register.filter
 def is_product(element):
     return element.__class__.__name__ == 'Model_Product'
+
+@register.filter
+def is_catalog_link(element):
+    return element.__class__.__name__ == 'Model_Product_Link'
+
+@register.filter
+def is_product_link(element):
+    return element.__class__.__name__ == 'Model_Catalog_Link'

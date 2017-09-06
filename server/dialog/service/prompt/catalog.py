@@ -1,4 +1,5 @@
 from server.dialog.service.base import *
+from server.ground.catalog.forms import *
 
 
 class Service_Catalog(Base_Service):

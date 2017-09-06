@@ -93,8 +93,8 @@ class Session_Controller:
         if 'product_last_selected' not in self.request.session:
             self.request.session['product_last_selected'] = None
 
-        if 'product_product' not in self.request.session:
-            self.request.session['product_product'] = None
+        if 'product_editing' not in self.request.session:
+            self.request.session['product_editing'] = None
 
         if 'product_widget' not in self.request.session:
             self.request.session['product_widget'] = None
@@ -173,6 +173,11 @@ class Session_Controller:
 
         if 'notification_is_unreaded' not in self.request.session:
             self.request.session['notification_is_unreaded'] = False
+
+    def Check_Session_Link(self):
+
+        if 'link_editing' not in self.request.session:
+            self.request.session['link_editing'] = None
 
     def Check_Session(self):
 

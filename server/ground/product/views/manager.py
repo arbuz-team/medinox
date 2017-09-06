@@ -11,7 +11,7 @@ class Product_Manager(Website_Manager):
         if self.context['form'].is_valid():
             cleaned_data = self.context['form'].cleaned_data
 
-            product = self.request.session['product_product']
+            product = self.request.session['product_editing']
             product.name = cleaned_data['name']
             product.url_name = Path_Manager.To_URL(cleaned_data['name'])
             product.price.eur = cleaned_data['price_eur']
@@ -34,8 +34,13 @@ class Product_Manager(Website_Manager):
         return Website_Manager.Manage_Form(self)
 
     def Manage_Button_Delete(self):
-        SQL.Delete(data=self.request.session['product_product'])
-        self.request.session['product_product'] = None
+
+        catalog = self.request.session['product_editing']
+        catalog.name += ':' + self.Generate_Random_Chars(
+            20, punctuation=False)
+
+        SQL.Delete(data=catalog)
+        self.request.session['product_editing'] = None
         self.Clear_Session('searcher_result')
         return HttpResponse()
 

@@ -1,4 +1,5 @@
 from server.ground.product.views import *
+from server.ground.link.views import *
 from server.ground.catalog.forms import *
 
 
@@ -19,8 +20,14 @@ class Catalog_Manager(Website_Manager):
         products = SQL.Filter(Model_Product,
             deleted=deleted, parent=parent, language=language)
 
+        link_product = SQL.Filter(Model_Product_Link,
+            deleted=deleted, parent=parent, language=language)
+
+        link_catalog = SQL.Filter(Model_Catalog_Link,
+            deleted=deleted, parent=parent, language=language)
+
         # pages manager
-        elements = list(catalogs) + list(products)
+        elements = list(catalogs) + list(products) + list(link_product) + list(link_catalog)
         number_element_on_page = self.request.session['catalog_number_on_page']
         selected_page = self.request.session['catalog_selected_page']
 
@@ -76,8 +83,14 @@ class Catalog_Manager(Website_Manager):
 
     def Manage_Button(self):
 
-        if self.request.POST['_name_'] == 'delete' :
-            SQL.Delete(data=self.request.session['catalog_editing'])
+        if self.request.POST['_name_'] == 'delete':
+
+            catalog = self.request.session['catalog_editing']
+            catalog.name += ':' + self.Generate_Random_Chars(
+                20, punctuation=False)
+
+            SQL.Delete(data=catalog)
+
             self.request.session['catalog_editing'] = None
             return HttpResponse()
 

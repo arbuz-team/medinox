@@ -17,7 +17,7 @@ class Move_Catalog(Website_Manager):
             # change data and move catalog
             catalog.name = name
             catalog.language = language
-            catalog.parent = target
+            catalog.parent = SQL.Get(Model_Catalog, pk=target)
             SQL.Save(data=catalog)
 
             return Dialog_Prompt(self, apply=True).HTML

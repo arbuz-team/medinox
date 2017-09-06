@@ -109,3 +109,7 @@ def var(context, name, value):
 def random(_len):
     return Base_Website.Generate_Random_Chars(
         _len, punctuation=False)
+
+@register.filter
+def deleted_name(element):
+    return element.name.rsplit(':', 1)[0]

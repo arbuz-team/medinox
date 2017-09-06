@@ -1,10 +1,4 @@
 from server.manage.switch.website.base import *
-from server.ground.product.forms import *
-from server.ground.catalog.forms import *
-from server.manage.user.account.forms import *
-from server.ground.main.forms import *
-from server.service.payment.forms import *
-from server.ground.main.models import *
 
 
 class Base_Service(Base):

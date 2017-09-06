@@ -1,4 +1,5 @@
 from server.dialog.service.base import *
+from server.manage.user.account.forms import *
 
 
 class Service_Email(Base_Service):
