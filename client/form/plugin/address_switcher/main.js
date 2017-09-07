@@ -7,14 +7,21 @@ export function Address_Switcher(button)
 {
 	let
 		$button = $(button),
-		address = $button.data('address'),
+		new_address = $button.data('address'),
 		$form = $button.parents('form'),
 
 
 		receive_event = function()
 		{
-			$form.attr('action', address);
+			let old_address = $form.attr('action');
+
+			$form.data('reload', 'cart');
+			$form.data('event', 'part.open_cart');
+			$form.attr('action', new_address);
 			$form.submit();
+			$form.attr('action', old_address);
+			$form.data('reload', '');
+			$form.data('event', '');
 		};
 
 

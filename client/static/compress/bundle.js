@@ -485,7 +485,7 @@
 	
 					_this4._load_head_of_page();
 	
-					_this4._prepare_content_to_show();
+					_this4._prepare_content_to_show(response);
 	
 					_this4._show_content().then(function () {
 						resolve(response);
@@ -1372,15 +1372,17 @@
 		});
 	};
 	
-	_init.Block_Loader.prototype._prepare_content_to_show = function () {
+	_init.Block_Loader.prototype._prepare_content_to_show = function (response) {
 		if (this._state.reload === false) $(this._settings.container).scrollTop(0);
 	
-		this._refresh_events();
-		img_loader.define();
+		if (response.html !== '') {
+			this._refresh_events();
+			img_loader.define();
+		}
 	};
 	
 	_init.Block_Loader.prototype._set_content = function (response) {
-		$(this._settings.container).html(response.html);
+		if (response.html !== '') $(this._settings.container).html(response.html);
 	};
 	
 	_init.Block_Loader.prototype._show_content = function () {
@@ -3861,11 +3863,18 @@
 	exports.Address_Switcher = Address_Switcher;
 	function Address_Switcher(button) {
 		var $button = $(button),
-		    address = $button.data('address'),
+		    new_address = $button.data('address'),
 		    $form = $button.parents('form'),
 		    receive_event = function receive_event() {
-			$form.attr('action', address);
+			var old_address = $form.attr('action');
+	
+			$form.data('reload', 'cart');
+			$form.data('event', 'part.open_cart');
+			$form.attr('action', new_address);
 			$form.submit();
+			$form.attr('action', old_address);
+			$form.data('reload', '');
+			$form.data('event', '');
 		};
 	
 		$(button).click(receive_event);

@@ -49,19 +49,23 @@ Block_Loader.prototype._receive_response = function()
 };
 
 
-Block_Loader.prototype._prepare_content_to_show = function()
+Block_Loader.prototype._prepare_content_to_show = function(response)
 {
 	if(this._state.reload === false)
 		$(this._settings.container).scrollTop(0);
 
-	this._refresh_events();
-	img_loader.define();
+	if(response.html !== '')
+	{
+		this._refresh_events();
+		img_loader.define();
+	}
 };
 
 
 Block_Loader.prototype._set_content = function(response)
 {
-	$(this._settings.container).html(response.html)
+	if(response.html !== '')
+		$(this._settings.container).html(response.html)
 };
 
 

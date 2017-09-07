@@ -5,7 +5,7 @@
 
 <script>
     APP.DATA = {
-        title : '{{ title }}',
+        title : '{{ product.name }} - Product details',
         description : 'This page is about {{ product.name }}.',
     };
 </script>
@@ -72,7 +72,7 @@
                                         data-action="add"
 										data-name="redirect_for_buy"
                                         data-address="/payment/cart/{{ product.pk }}/"
-										value="tak">
+										value="yes">
 									Add to cart
 								</button>
 
