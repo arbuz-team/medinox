@@ -145,7 +145,6 @@ Request_Manager_Block.prototype._run_sending = function()
 
 				send_and_wait = () =>
 				{
-					console.log('Request_Manager_Block - send_and_wait');
 					window.removeEventListener('send_request', send_and_wait, false);
 
 					if(model._request_status === false)
@@ -170,8 +169,6 @@ Request_Manager_Block.prototype._run_sending = function()
 						});
 					}
 				};
-
-			console.log('Request_Manager_Block - _run_sending');
 
 			window.addEventListener('send_request', send_and_wait, false);
 		});

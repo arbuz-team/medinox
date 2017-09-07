@@ -774,7 +774,6 @@
 				_this._catch_timeout_error();
 			},
 			    send_and_wait = function send_and_wait() {
-				console.log('Request_Manager_Block - send_and_wait');
 				window.removeEventListener('send_request', send_and_wait, false);
 	
 				if (model._request_status === false) {
@@ -795,8 +794,6 @@
 					});
 				}
 			};
-	
-			console.log('Request_Manager_Block - _run_sending');
 	
 			window.addEventListener('send_request', send_and_wait, false);
 		});
