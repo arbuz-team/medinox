@@ -2454,13 +2454,7 @@ img {
   font-weight: bold; }
 
 .searcher-header {
-  position: relative;
-  z-index: 10;
-  display: block;
-  width: 253px;
-  height: 30px;
-  background-color: #1a1a1a;
-  opacity: 1 !important; }
+  display: none; }
 
 .searcher-filters {
   display: block;
@@ -2495,7 +2489,15 @@ img {
 @media (min-width: 1000px) {
   #SEARCHER {
     left: 0 !important;
-    z-index: 60; } }
+    z-index: 60; }
+  .searcher-header {
+    position: relative;
+    z-index: 10;
+    display: block;
+    width: 253px;
+    height: 30px;
+    background-color: #1a1a1a;
+    opacity: 1 !important; } }
 
 .searcher-logo {
   opacity: 1 !important;
