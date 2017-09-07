@@ -85,22 +85,26 @@
         </ul>
     </div><!-- searcher-filters-content -->
 
-    <div class="searcher-filters-content">
+    {% if request.session.root_login %}
 
-        <button class="button post_button"
-                data-name="show_deleted_button"
-                data-action="show_deleted"
-                data-reload="ground"
-                data-url="/catalog/manage/">
+        <div class="searcher-filters-content">
 
-            {% if request.session.catalog_deleted_flag %}
-            Hide deleted
-            {% else %}
-            Show deleted
-            {% endif %}
-        </button>
+            <button class="button post_button"
+                    data-name="show_deleted_button"
+                    data-action="show_deleted"
+                    data-reload="ground"
+                    data-url="/catalog/manage/">
 
-    </div>
+                {% if request.session.catalog_deleted_flag %}
+                Hide deleted
+                {% else %}
+                Show deleted
+                {% endif %}
+            </button>
+
+        </div>
+
+    {% endif %}
 
 
     <!--<div class="searcher-filters-title">Purpose</div>-->

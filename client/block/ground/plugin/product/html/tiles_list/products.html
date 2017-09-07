@@ -23,6 +23,14 @@
 
                 {% include 'block/ground/plugin/product/html/tile/product.html' %}
 
+            {% elif element|is_catalog_link %}
+
+             {% include 'block/ground/plugin/product/html/tile/catalog_link.html' %}
+
+            {% elif element|is_product_link %}
+
+                {% include 'block/ground/plugin/product/html/tile/product_link.html' %}
+
             {% endif %}
 
         {% endfor %}

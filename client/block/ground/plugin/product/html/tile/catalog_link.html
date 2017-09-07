@@ -11,21 +11,26 @@
 			 data-reload="ground">
 
 			<div class="tile-img mini_image">
+
 				{% if element.image %}
 
-					<div class="fill-abs">
-						<img data-src="{{ element.image }}"
-							 alt="{{ element.name }}"
-							 src="{% static 'img/pixel.png' %}" />
-					</div>
+				<div class="fill-abs">
+					<img data-src="{{ element.image }}"
+					     alt="{{ element.name }}"
+					     src="{% static 'img/pixel.png' %}" />
+				</div>
 
 				{% else %}
 
-					<div class="img-default fill-abs img-medical_records-256">
-						&nbsp;
-					</div>
+				<div class="img-default fill-abs img-hospital-256">
+					&nbsp;
+				</div>
 
 				{% endif %}
+
+				<div class="img-default fill-abs is-link img-link-256">
+					&nbsp;
+				</div>
 
 				<div class="tile-deleted-cover">&nbsp;</div>
 			</div>
@@ -43,6 +48,7 @@
 	</li>
 
 {% else %}
+
 	<li class="tile" data-id="{{ element.pk }}">
 
 		<a href="{{ element.url_name }}/">
@@ -52,13 +58,28 @@
 
 					<div class="fill-abs">
 						<img data-src="{{ element.image }}"
-							 alt="{{ element.name }}"
-							 src="{% static 'img/pixel.png' %}" />
+						     alt="{{ element.name }}"
+						     src="{% static 'img/pixel.png' %}" />
+					</div>
+
+				{% elif request.session.root_login %}
+
+					<div class="img-default fill-abs img-medical_records-256">
+						&nbsp;
 					</div>
 
 				{% else %}
 
-					<div class="img-default fill-abs img-medical_records-256">
+					<div class="img-default fill-abs">
+						&nbsp;
+					</div>
+
+				{% endif %}
+
+
+				{% if request.session.root_login %}
+
+					<div class="img-default fill-abs is-link img-link-256">
 						&nbsp;
 					</div>
 
@@ -91,7 +112,7 @@
 								data-name="catalog"
 								data-value="{{ element.pk }}"
 								data-dialog-reload="ground">
-							Edit
+							Delete link
 						</button>
 
 						<button class="button dialog_button"
@@ -101,37 +122,17 @@
 								data-value="{{ element.pk }}"
 								data-other_1="type:catalog"
 								data-dialog-reload="ground">
-							Move
+							Move link
 						</button>
 
 						<button class="button dialog_button"
 						        type="button"
 						        data-type="prompt"
-						        data-name="delete"
+						        data-name="move"
 						        data-value="{{ element.pk }}"
 						        data-other_1="type:catalog"
 						        data-dialog-reload="ground">
-							Delete
-						</button>
-
-						<button class="button dialog_button"
-								type="button"
-								data-type="prompt"
-								data-name="copy"
-								data-value="{{ element.pk }}"
-								data-other_1="type:catalog"
-								data-dialog-reload="ground">
-							Copy
-						</button>
-
-						<button class="button dialog_button"
-						        type="button"
-						        data-type="prompt"
-						        data-name="link"
-						        data-value="{{ element.pk }}"
-						        data-other_1="type:catalog"
-						        data-dialog-reload="ground">
-							Create link
+							Copy link
 						</button>
 
 					</div>
