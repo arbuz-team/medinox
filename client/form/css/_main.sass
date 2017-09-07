@@ -65,9 +65,11 @@
       color: #f8f8f8
     border: 1px solid #c6c6c6
 
+
   &:focus
     background-image: -webkit-linear-gradient(top,#f5f5f5,#f1f1f1)
     border: 1px solid #726229
+
 
   &.is-important
     background-color: lighten($Tundora, 5)
@@ -75,11 +77,18 @@
     border: 1px solid $Tundora
     color: $White
 
+    &:hover
+      background-color: lighten($Tundora, 3)
+      +linear-gradient(top, lighten($Tundora, 3), darken($Tundora, 5))
+      border: 1px solid darken($Tundora, 5)
+
+
   &.is-dangerous
     background-color: $Pomegranate
     +linear-gradient(top, $Pomegranate, $Persian_Red)
     border: 1px solid $Persian_Red
     color: $White
+
 
   &:disabled, &.is-disabled
     background:
