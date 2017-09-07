@@ -14,17 +14,17 @@
 
 				{% if element.image %}
 
-				<div class="fill-abs">
-					<img data-src="{{ element.image }}"
-					     alt="{{ element.name }}"
-					     src="{% static 'img/pixel.png' %}" />
-				</div>
+					<div class="fill-abs">
+						<img data-src="{{ element.image }}"
+						     alt="{{ element.name }}"
+						     src="{% static 'img/pixel.png' %}" />
+					</div>
 
 				{% else %}
 
-				<div class="img-default fill-abs img-hospital-256">
-					&nbsp;
-				</div>
+					<div class="img-default fill-abs img-hospital-256">
+						&nbsp;
+					</div>
 
 				{% endif %}
 
@@ -112,6 +112,15 @@
 								data-name="catalog"
 								data-value="{{ element.pk }}"
 								data-dialog-reload="ground">
+							Show real catalog
+						</button>
+
+						<button class="button dialog_button"
+						        type="button"
+						        data-type="prompt"
+						        data-name="catalog"
+						        data-value="{{ element.pk }}"
+						        data-dialog-reload="ground">
 							Delete link
 						</button>
 

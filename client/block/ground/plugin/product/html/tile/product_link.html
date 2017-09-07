@@ -5,7 +5,10 @@
 {% if element.deleted and request.session.root_login %}
 
     <li class="tile is-deleted" data-id="{{ element.pk }}">
-		<div class="post_button is-icon" type="button" data-name="restore_product_{{ element.pk }}">
+		<div class="post_button is-icon"
+		     type="button"
+		     data-name="restore_product_{{ element.pk }}"
+		     data-reload="ground">
 
 			<div class="tile-img mini_image">
 
@@ -100,6 +103,15 @@
 				</button>
 
 				<div class="tooltip-options">
+
+					<button class="button dialog_button"
+					        type="button"
+					        data-type="prompt"
+					        data-name="product"
+					        data-value="{{ element.pk }}"
+					        data-dialog-reload="ground">
+						Show real product
+					</button>
 
 					<button class="button dialog_button"
 					        type="button"
