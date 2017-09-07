@@ -56,15 +56,26 @@
 
                                     <span class="cart-list-product-price"> x {% get_price selected.product %}</span>
 
-                                    <button class="cart-list-product-remove button is-icon post_button"
-                                            type="button"
-                                            data-name="Delete_{{ selected.product.pk }}"
-                                            data-action="delete"
-                                            data-value="{{ selected.product.pk }}"
-                                            data-reload="cart ground"
-                                            data-url="/cart/">
-                                        <span class="button-icon img-waste_bin"> &nbsp; </span>
-                                    </button>
+                                    <div class="tooltip align-right align-bottom is-dangerous">
+
+                                        <button class="button is-icon tooltip_button cart-list-product-remove"
+                                                type="button"
+                                                data-name="remove_product-cart">
+                                            <span class="button-icon is-zoom img-waste_bin"> &nbsp; </span>
+                                        </button>
+
+                                        <div class="tooltip-options">
+                                            <button class="button post_button"
+                                                    type="button"
+                                                    data-name="Delete_{{ selected.product.pk }}"
+                                                    data-action="delete"
+                                                    data-value="{{ selected.product.pk }}"
+                                                    data-reload="cart ground"
+                                                    data-url="/cart/">
+                                                Are you sure?
+                                            </button>
+                                        </div>
+                                    </div>
 
                                 </form><!-- auto_form -->
 
