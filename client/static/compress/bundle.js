@@ -2954,10 +2954,11 @@
 	
 		$('form[data-test=yes]', config.$container).each(function () {
 			var name = $(this).data('name'),
-			    type = $(this).data('type');
+			    type = $(this).data('type'),
+			    post_name = config.post_name;
 	
-			if (name || type) {
-				Validators[name] = new _checkers.Constructor_Validator(name, type);
+			if ((name || type) && post_name) {
+				Validators[name] = new _checkers.Constructor_Validator(name, type, post_name);
 	
 				var fields_of_form = Validators[name].hasErrors();
 				for (var key in fields_of_form) {
@@ -3067,109 +3068,130 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.Constructor_Validator = undefined;
 	
 	var _views = __webpack_require__(48);
 	
 	Object.defineProperty(exports, 'Constructor_Validator', {
-	  enumerable: true,
-	  get: function get() {
-	    return _views.Constructor_Validator;
-	  }
+		enumerable: true,
+		get: function get() {
+			return _views.Constructor_Validator;
+		}
 	});
 	
 	
 	_views.Constructor_Validator.prototype.types = {};
 	
 	_views.checker.create_checker('email', function (value, callback) {
-	  var result = _views.checker.create_result(),
-	      re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		var result = _views.checker.create_result(),
+		    re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	
-	  if (_views.checker.check_condition(re.test(value))) result = _views.checker.create_error('It\'s not email.');
+		if (_views.checker.check_condition(re.test(value))) result = _views.checker.create_error('It\'s not email.');
 	
-	  callback(result);
+		callback(result);
 	});
 	
-	_views.checker.create_checker('email_not_in_db', function (value, callback) {
-	  var result = _views.checker.create_result(),
-	      re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	_views.checker.create_checker('email_no_in_db', function (value, callback, post_name) {
+		var result = _views.checker.create_result(),
+		    re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	
-	  if (_views.checker.check_condition(re.test(value))) {
-	    result = _views.checker.create_error('It\'s not email.');
-	    callback(result);
-	  } else {
-	    _views.checker.exist_in_db('email', value, callback, 'Someone already has that email. Try another?');
-	  }
+		if (_views.checker.check_condition(re.test(value))) {
+			result = _views.checker.create_error('It\'s not email.');
+			callback(result);
+		} else {
+			_views.checker.run_if_no_in_db('email', value, callback, post_name, 'Someone already has that email. Try another?');
+		}
+	});
+	
+	_views.checker.create_checker('email_in_db', function (value, callback, post_name) {
+		var result = _views.checker.create_result(),
+		    re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	
+		if (_views.checker.check_condition(re.test(value))) {
+			result = _views.checker.create_error('It\'s not email.');
+			callback(result);
+		} else {
+			_views.checker.run_if_in_db('email', value, callback, post_name, 'We don\'t know this email.');
+		}
 	});
 	
 	_views.checker.create_checker('password', function (value, callback) {
-	  var result = _views.checker.create_result();
+		var result = _views.checker.create_result();
 	
-	  if (_views.checker.check_condition(value.length >= 8)) result = _views.checker.create_error('Short passwords are easy to guess. Try one with at least 8 characters.');
+		if (_views.checker.check_condition(value.length >= 8)) result = _views.checker.create_error('Short passwords are easy to guess. Try one with at least 8 characters.');
 	
-	  callback(result);
+		callback(result);
+	});
+	
+	_views.checker.create_checker('safety_password', function (value, callback, post_name) {
+		var result = _views.checker.create_result();
+	
+		if (_views.checker.check_condition(value.length >= 8)) {
+			result = _views.checker.create_error('Short passwords are easy to guess. Try one with at least 8 characters.');
+			callback(result);
+		} else _views.checker.run_if_no_in_db('password', value, callback, post_name, 'This password is not safety. Try another?');
 	});
 	
 	_views.checker.create_checker('password_login', function (value, callback) {
-	  var result = _views.checker.create_result();
+		var result = _views.checker.create_result();
 	
-	  if (_views.checker.check_condition(value.length >= 8)) result = _views.checker.create_error('The password must be 8 characters long.');
+		if (_views.checker.check_condition(value.length >= 8)) result = _views.checker.create_error('The password must be 8 characters long.');
 	
-	  callback(result);
+		callback(result);
 	});
 	
 	_views.checker.create_checker('proper_name', function (value, callback) {
-	  value = value.charAt(0).toUpperCase() + value.slice(1);
+		value = value.charAt(0).toUpperCase() + value.slice(1);
 	
-	  var result = _views.checker.create_result(value);
+		var result = _views.checker.create_result(value);
 	
-	  if (_views.checker.check_condition(value.length >= 3)) result = _views.checker.create_error('The name is too short.', value);
+		if (_views.checker.check_condition(value.length >= 3)) result = _views.checker.create_error('The name is too short.', value);
 	
-	  callback(result);
+		callback(result);
 	});
 	
 	_views.checker.create_checker('number', function (value, callback) {
-	  value = value.replace(/\s/g, '');
+		value = value.replace(/\s/g, '');
 	
-	  var result = _views.checker.create_result(value);
+		var result = _views.checker.create_result(value);
 	
-	  if (_views.checker.check_condition(value.length === 9)) result = _views.checker.create_error('Number length is 9 digits.', value);
+		if (_views.checker.check_condition(value.length === 9)) result = _views.checker.create_error('Number length is 9 digits.', value);
 	
-	  if (_views.checker.check_condition(!isNaN(value))) result = _views.checker.create_error('The number must consist of digits.', value);
+		if (_views.checker.check_condition(!isNaN(value))) result = _views.checker.create_error('The number must consist of digits.', value);
 	
-	  callback(result);
+		callback(result);
 	});
 	
 	_views.checker.create_checker('full_name', function (value, callback) {
-	  value = value.replace(/\w\S*/g, function (txt) {
-	    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-	  });
-	  value = value.replace('  ', ' ');
+		value = value.replace(/\w\S*/g, function (txt) {
+			return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+		});
+		value = value.replace('  ', ' ');
 	
-	  var result = _views.checker.create_result(value),
-	      split = value.split(' ');
+		var result = _views.checker.create_result(value),
+		    split = value.split(' ');
 	
-	  if (_views.checker.check_condition(split.length >= 2 && split[0] !== '' && split[1] !== '')) result = _views.checker.create_error('Full name consists of minimum 2 word.', value);
+		if (_views.checker.check_condition(split.length >= 2 && split[0] !== '' && split[1] !== '')) result = _views.checker.create_error('Full name consists of minimum 2 word.', value);
 	
-	  callback(result);
+		callback(result);
 	});
 	
 	_views.checker.create_checker('no_empty', function (value, callback) {
-	  var result = _views.checker.create_result();
+		var result = _views.checker.create_result();
 	
-	  if (_views.checker.check_condition(value !== '')) result = _views.checker.create_error("You can't leave this empty.", value);
+		if (_views.checker.check_condition(value !== '')) result = _views.checker.create_error("You can't leave this empty.", value);
 	
-	  callback(result);
+		callback(result);
 	});
 	
 	_views.checker.create_checker('length_3', function (value, callback) {
-	  var result = _views.checker.create_result();
+		var result = _views.checker.create_result();
 	
-	  if (_views.checker.check_condition(value.length >= 3)) result = _views.checker.create_error('It\'s too short.', value);
+		if (_views.checker.check_condition(value.length >= 3)) result = _views.checker.create_error('It\'s too short.', value);
 	
-	  callback(result);
+		callback(result);
 	});
 
 /***/ },
@@ -3179,123 +3201,156 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.Constructor_Validator = exports.checker = undefined;
 	
 	var _config = __webpack_require__(49);
 	
-	var _structure = __webpack_require__(11);
+	var _controller = __webpack_require__(17);
+	
+	var request_manager = new _controller.Request_Manager();
 	
 	var checker = exports.checker = {
 	
-	  create_checker: function create_checker(name, callback) {
-	    Constructor_Validator.prototype.types[name] = {
-	      validate: callback
-	    };
-	  },
+		create_checker: function create_checker(name, callback) {
+			Constructor_Validator.prototype.types[name] = {
+				validate: callback
+			};
+		},
 	
-	  check_condition: function check_condition(condition) {
-	    return !condition;
-	  },
+		check_condition: function check_condition(condition) {
+			return !condition;
+		},
 	
-	  create_result: function create_result(correction) {
-	    var result = {
-	      bool: true
-	    };
+		create_result: function create_result(correction) {
+			var result = {
+				bool: true
+			};
 	
-	    if (typeof correction !== 'undefined') result.correction = correction;
+			if (typeof correction !== 'undefined') result.correction = correction;
 	
-	    return result;
-	  },
+			return result;
+		},
 	
-	  create_error: function create_error(message, correction) {
-	    var result = {
-	      bool: false
-	    };
+		create_error: function create_error(message, correction) {
+			var result = {
+				bool: false
+			};
 	
-	    if (typeof message !== 'undefined') result.message = message;
+			if (typeof message !== 'undefined') result.message = message;
 	
-	    if (typeof correction !== 'undefined') result.correction = correction;
+			if (typeof correction !== 'undefined') result.correction = correction;
 	
-	    return result;
-	  },
+			return result;
+		},
 	
-	  exist_in_db: function exist_in_db(name, value, callback, message) {
-	    if (name && value) {
-	      var post_data = {
-	        __exist__: name,
-	        value: value,
-	        csrfmiddlewaretoken: _structure.data_controller.get('csrf_token')
-	      };
+		run_if_in_db: function run_if_in_db(name, value, callback, post_name, message) {
+			if (name && value) {
+				(function () {
+					var run_error = function run_error() {
+						console.error('Something is wrong.');
+						callback(checker.create_error('Validator, don\' work. Please, refresh website.'));
+					},
+					    post_data = {};
 	
-	      $.post('', post_data).done(function (data) {
-	        if (data.__exist__ !== 'undefined') if (data.__exist__ === 'true') callback(checker.create_error(message));else if (data.__exist__ === 'false') callback(checker.create_result());
-	      }).fail(function () {
-	        console.error('Something is wrong.');
-	        callback(checker.create_error('Validator, don\' work. Please, refresh website.'));
-	      });
-	    }
-	  }
+					post_data[post_name] = 'exist';
+					post_data['_name_'] = name;
+					post_data['value'] = value;
+	
+					request_manager.send(undefined, post_data, post_name).then(function (data) {
+						if (data.html !== 'undefined') {
+							if (data.html === 'false') callback(checker.create_error(message));else if (data.html === 'true') callback(checker.create_result());
+						} else {
+							run_error();
+						}
+					}, run_error);
+				})();
+			}
+		},
+	
+		run_if_no_in_db: function run_if_no_in_db(name, value, callback, post_name, message) {
+			if (name && value) {
+				(function () {
+					var run_error = function run_error() {
+						console.error('Something is wrong.');
+						callback(checker.create_error('Validator, don\' work. Please, refresh website.'));
+					},
+					    post_data = {};
+	
+					post_data[post_name] = 'exist';
+					post_data['_name_'] = name;
+					post_data['value'] = value;
+	
+					request_manager.send(undefined, post_data, post_name).then(function (data) {
+						if (data.html !== 'undefined') {
+							if (data.html === 'true') callback(checker.create_error(message));else if (data.html === 'false') callback(checker.create_result());
+						} else {
+							run_error();
+						}
+					}, run_error);
+				})();
+			}
+		}
 	};
 	
-	var Constructor_Validator = exports.Constructor_Validator = function Constructor_Validator(form_name, form_type) {
+	var Constructor_Validator = exports.Constructor_Validator = function Constructor_Validator(form_name, form_type, post_name) {
 	
-	  var fields_of_form = void 0,
-	      $form = $('form[data-name=' + form_name + ']');
-	  this.types = Constructor_Validator.prototype.types;
-	  this.config = _config.list_configs[form_type];
+		var fields_of_form = void 0,
+		    $form = $('form[data-name=' + form_name + ']');
+		this.types = Constructor_Validator.prototype.types;
+		this.config = _config.list_configs[form_type];
 	
-	  if (!this.config) console.error('Validation Error: Invalid form type of list configs.');
+		if (!this.config) console.error('Validation Error: Invalid form type of list configs.');
 	
-	  this.change_status_field = function (name, value) {
-	    if (typeof fields_of_form[name] === 'boolean') {
-	      if (typeof value === 'boolean') fields_of_form[name] = value;else console.error('Validation Error: Invalid value in the field ' + value + '.');
-	    } else console.error('Validation Error: No manual for the field ' + name + '.');
-	  };
+		this.change_status_field = function (name, value) {
+			if (typeof fields_of_form[name] === 'boolean') {
+				if (typeof value === 'boolean') fields_of_form[name] = value;else console.error('Validation Error: Invalid value in the field ' + value + '.');
+			} else console.error('Validation Error: No manual for the field ' + name + '.');
+		};
 	
-	  this.check_list_field = function () {
-	    for (var key in fields_of_form) {
-	      if (fields_of_form.hasOwnProperty(key)) if (fields_of_form[key] === false) return false;
-	    }return true;
-	  };
+		this.check_list_field = function () {
+			for (var key in fields_of_form) {
+				if (fields_of_form.hasOwnProperty(key)) if (fields_of_form[key] === false) return false;
+			}return true;
+		};
 	
-	  var prepare_list_fields = function prepare_list_fields() {
-	    var fields = $form.serializeArray(),
-	        obj = {},
-	        i = void 0,
-	        length = fields.length;
+		var prepare_list_fields = function prepare_list_fields() {
+			var fields = $form.serializeArray(),
+			    obj = {},
+			    i = void 0,
+			    length = fields.length;
 	
-	    for (i = 0; i < length; ++i) {
-	      if ($form.find('*[name=' + fields[i].name + ']').hasClass('test')) obj[fields[i].name] = false;
-	    }return obj;
-	  };
+			for (i = 0; i < length; ++i) {
+				if ($form.find('*[name=' + fields[i].name + ']').hasClass('test')) obj[fields[i].name] = false;
+			}return obj;
+		};
 	
-	  fields_of_form = prepare_list_fields();
+		fields_of_form = prepare_list_fields();
 	
-	  this.field = function (name, value, callback) {
-	    if (name && value) {
-	      var type = void 0,
-	          _checker = void 0;
+		this.field = function (name, value, callback) {
+			if (name && value) {
+				var type = void 0,
+				    _checker = void 0;
 	
-	      type = this.config[name];
-	      _checker = this.types[type];
+				type = this.config[name];
+				_checker = this.types[type];
 	
-	      if (!_checker) {
-	        console.error('Validation Error: No manual for the key ' + name + '.');
-	        return false;
-	      }
+				if (!_checker) {
+					console.error('Validation Error: No manual for the key ' + name + '.');
+					return false;
+				}
 	
-	      _checker.validate(value, callback);
-	    } else if (value !== '') {
-	      var result = checker.create_error('Incorrect value ' + name);
-	      callback(result);
-	    } else callback(checker.create_error());
-	  };
+				_checker.validate(value, callback, post_name);
+			} else if (value !== '') {
+				var result = checker.create_error('Incorrect value ' + name);
+				callback(result);
+			} else callback(checker.create_error());
+		};
 	
-	  this.hasErrors = function () {
-	    return fields_of_form;
-	  };
+		this.hasErrors = function () {
+			return fields_of_form;
+		};
 	};
 
 /***/ },
@@ -3305,48 +3360,48 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	var list_configs = exports.list_configs = {};
 	
 	list_configs.register = {
-	  new_username: 'length_3',
-	  new_password: 'password',
-	  new_email: 'email_not_in_db'
+		new_username: 'length_3',
+		new_password: 'safety_password',
+		new_email: 'email_no_in_db'
 	};
 	
 	list_configs.login = {
-	  email: 'email',
-	  password: 'password_login'
+		email: 'email',
+		password: 'password_login'
 	};
 	
 	list_configs.user_address = {
-	  full_name: 'full_name',
-	  address_line: 'no_empty',
-	  city: 'proper_name',
-	  region: 'proper_name',
-	  postcode: 'no_empty',
-	  country: 'proper_name'
+		full_name: 'full_name',
+		address_line: 'no_empty',
+		city: 'proper_name',
+		region: 'proper_name',
+		postcode: 'no_empty',
+		country: 'proper_name'
 	};
 	
 	list_configs.root_address = {
-	  full_name: 'proper_name',
-	  address_line: 'no_empty',
-	  city: 'proper_name',
-	  region: 'proper_name',
-	  postcode: 'no_empty',
-	  country: 'proper_name',
-	  email: 'email'
+		full_name: 'proper_name',
+		address_line: 'no_empty',
+		city: 'proper_name',
+		region: 'proper_name',
+		postcode: 'no_empty',
+		country: 'proper_name',
+		email: 'email'
 	};
 	
 	list_configs.forgot_password = {
-	  email: 'email'
+		email: 'email_in_db'
 	};
 	
 	list_configs.email_contact = {
-	  client: 'proper_name',
-	  email: 'email',
-	  message: 'no_empty'
+		client: 'proper_name',
+		email: 'email',
+		message: 'no_empty'
 	};
 
 /***/ },

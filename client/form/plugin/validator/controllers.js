@@ -10,11 +10,12 @@ export let define = function(config)
 
 	$('form[data-test=yes]', config.$container).each(function(){
 		let name = $(this).data('name'),
-			type = $(this).data('type');
+			type = $(this).data('type'),
+			post_name = config.post_name;
 
-		if(name || type)
+		if((name || type) && post_name)
 		{
-			Validators[name] = new Constructor_Validator(name, type);
+			Validators[name] = new Constructor_Validator(name, type, post_name);
 
 			// Sprawdzanie wszystkich pól by odblokować guzik w razie ich poprawnego wypełnienia
 			let fields_of_form = Validators[name].hasErrors();
