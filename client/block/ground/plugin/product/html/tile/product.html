@@ -12,7 +12,7 @@
 
 				<div class="fill-abs">
 					<img data-src="{{ element.image }}"
-						 alt="{{ element.name }}"
+						 alt="{{ element | deleted_name }}"
 						 src="{% static 'img/pixel.png' %}" />
 				</div>
 
@@ -26,7 +26,7 @@
 			</div>
 
 			<h3 class="tile-title">
-				{{ element.name }}
+				{{ element | deleted_name }}
 			</h3>
 
 		</div>
