@@ -2,154 +2,105 @@
 {% load tags %}
 
 
-{% if element.deleted and request.session.root_login %}
+<li class="tile" data-id="{{ element.pk }}">
+	<a href="/product/{{ element.pk }}/{{ element.url_name }}/">
 
-    <li class="tile is-deleted" data-id="{{ element.pk }}">
-		<div class="post_button is-icon"
-		     type="button"
-		     data-name="restore_product_{{ element.pk }}"
-		     data-reload="ground">
+		<div class="tile-img mini_image">
+			{% if element.image %}
 
-			<div class="tile-img mini_image">
+				<div class="fill-abs">
+					<img data-src="{{ element.image }}"
+						 alt="{{ element.name }}"
+						 src="{% static 'img/pixel.png' %}" />
+				</div>
 
-				{% if element.image %}
+			{% elif request.session.root_login %}
 
-					<div class="fill-abs">
-						<img data-src="{{ element.image }}"
-							 alt="{{ element.name }}"
-							 src="{% static 'img/pixel.png' %}" />
-					</div>
+				<div class="img-default fill-abs img-hospital-256">
+					&nbsp;
+				</div>
 
-				{% else %}
+			{% else %}
 
-					<div class="img-default fill-abs img-hospital-256">
-						&nbsp;
-					</div>
+				<div class="img-default fill-abs">
+					&nbsp;
+				</div>
 
-				{% endif %}
+			{% endif %}
+
+
+			{% if request.session.root_login %}
 
 				<div class="img-default fill-abs is-link img-link-256">
 					&nbsp;
 				</div>
 
-				<div class="tile-deleted-cover">&nbsp;</div>
-			</div>
-
-			<h3 class="tile-title">
-				{{ element.name }}
-			</h3>
-
-		</div>
-
-		<div class="tile-content">
-			&nbsp;
-		</div>
-	</li>
-
-{% else %}
-
-    <li class="tile" data-id="{{ element.pk }}">
-		<a href="/product/{{ element.pk }}/{{ element.url_name }}/">
-
-			<div class="tile-img mini_image">
-				{% if element.image %}
-
-					<div class="fill-abs">
-						<img data-src="{{ element.image }}"
-							 alt="{{ element.name }}"
-							 src="{% static 'img/pixel.png' %}" />
-					</div>
-
-				{% elif request.session.root_login %}
-
-					<div class="img-default fill-abs img-hospital-256">
-						&nbsp;
-					</div>
-
-				{% else %}
-
-					<div class="img-default fill-abs">
-						&nbsp;
-					</div>
-
-				{% endif %}
-
-
-				{% if request.session.root_login %}
-
-					<div class="img-default fill-abs is-link img-link-256">
-						&nbsp;
-					</div>
-
-				{% endif %}
-			</div>
-
-			<h3 class="tile-title">
-				{{ element.name }}
-			</h3>
-		</a>
-
-		<div class="tile-content">
-			&nbsp;
-
-			{% if request.session.root_login %}
-
-			<div class="tooltip align-right align-top is-right">
-
-				<button class="button is-icon tooltip_button is-rotate-360"
-						type="button"
-						data-name="edit">
-					<span class="button-icon img-edit"> &nbsp; </span>
-				</button>
-
-				<div class="tooltip-options">
-
-					<button class="button dialog_button"
-					        type="button"
-					        data-type="prompt"
-					        data-name="product"
-					        data-value="{{ element.pk }}"
-					        data-dialog-reload="ground">
-						Show real product
-					</button>
-
-					<button class="button dialog_button"
-					        type="button"
-					        data-type="prompt"
-					        data-name="product"
-					        data-value="{{ element.pk }}"
-					        data-dialog-reload="ground">
-						Delete link
-					</button>
-
-					<button class="button dialog_button"
-					        type="button"
-					        data-type="prompt"
-					        data-name="move"
-					        data-value="{{ element.pk }}"
-					        data-other_1="type:product"
-					        data-dialog-reload="ground">
-						Move link
-					</button>
-
-					<button class="button dialog_button"
-					        type="button"
-					        data-type="prompt"
-					        data-name="move"
-					        data-value="{{ element.pk }}"
-					        data-other_1="type:product"
-					        data-dialog-reload="ground">
-						Copy link
-					</button>
-
-				</div>
-			</div>
-
 			{% endif %}
 		</div>
-	</li>
 
-{% endif %}
+		<h3 class="tile-title">
+			{{ element.name }}
+		</h3>
+	</a>
 
+	<div class="tile-content">
+		&nbsp;
+
+		{% if request.session.root_login %}
+
+		<div class="tooltip align-right align-top is-right">
+
+			<button class="button is-icon tooltip_button is-rotate-360"
+					type="button"
+					data-name="edit">
+				<span class="button-icon img-edit"> &nbsp; </span>
+			</button>
+
+			<div class="tooltip-options">
+
+				<button class="button dialog_button"
+						type="button"
+						data-type="prompt"
+						data-name="product"
+						data-value="{{ element.pk }}"
+						data-dialog-reload="ground">
+					Show real product
+				</button>
+
+				<button class="button dialog_button"
+						type="button"
+						data-type="prompt"
+						data-name="product"
+						data-value="{{ element.pk }}"
+						data-dialog-reload="ground">
+					Delete link
+				</button>
+
+				<button class="button dialog_button"
+						type="button"
+						data-type="prompt"
+						data-name="move"
+						data-value="{{ element.pk }}"
+						data-other_1="type:product"
+						data-dialog-reload="ground">
+					Move link
+				</button>
+
+				<button class="button dialog_button"
+						type="button"
+						data-type="prompt"
+						data-name="move"
+						data-value="{{ element.pk }}"
+						data-other_1="type:product"
+						data-dialog-reload="ground">
+					Copy link
+				</button>
+
+			</div>
+		</div>
+
+		{% endif %}
+	</div>
+</li>
 
 
