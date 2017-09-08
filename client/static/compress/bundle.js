@@ -2921,7 +2921,7 @@
 	
 					_this._set_content(response);
 	
-					_this._prepare_content_to_show();
+					_this._prepare_content_to_show(response);
 	
 					_this._show_content().then(function () {
 						resolve(response);

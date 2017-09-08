@@ -70,7 +70,7 @@ Block_Loader_Dialog.prototype.load_content = function(post_url, post_data)
 
 				this._set_content(response);
 
-				this._prepare_content_to_show();
+				this._prepare_content_to_show(response);
 
 				this._show_content().then(() =>
 				{
