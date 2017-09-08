@@ -5,24 +5,27 @@ from server.ground.link.models import *
 class Service_Link(Catalog_Tree):
 
     def New(self):
+
         type = self.dialog.Get_Post_Other('type')
         pk = self.request.POST['value']
+        obiekt = None
 
         if type == 'catalog':
-            catalog = SQL.Get(Model_Catalog, pk=pk)
+            obiekt = SQL.Get(Model_Catalog, pk=pk)
             self.request.session['link_editing'] = \
-                Model_Catalog_Link(catalog=catalog)
+                Model_Catalog_Link(catalog=obiekt)
 
         if type == 'product':
-            product = SQL.Get(Model_Product, pk=pk)
+            obiekt = SQL.Get(Model_Product, pk=pk)
             self.request.session['link_editing'] = \
-                Model_Product_Link(catalog=product)
+                Model_Product_Link(product=obiekt)
+
+        return obiekt
 
     def Manage(self):
 
         self.Create_Catalog_Tree()
-        self.New()
+        self.context['obiekt'] = self.New()
 
-        self.context['title'] = Text(self, 187)
         return self.Render_Dialog(
-            'link.html', only_root=True)
+            'link.html', 'link', only_root=True)

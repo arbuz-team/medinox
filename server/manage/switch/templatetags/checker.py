@@ -1,4 +1,5 @@
 from server.manage.switch.templatetags.base import *
+from server.ground.link.models import *
 
 
 class Check_Manager(Base_Tag_Manager):
@@ -46,16 +47,16 @@ def is_fileinput(field):
 
 @register.filter
 def is_catalog(element):
-    return element.__class__.__name__ == 'Model_Catalog'
+    return element.__class__ == Model_Catalog
 
 @register.filter
 def is_product(element):
-    return element.__class__.__name__ == 'Model_Product'
+    return element.__class__ == Model_Product
 
 @register.filter
 def is_catalog_link(element):
-    return element.__class__.__name__ == 'Model_Product_Link'
+    return element.__class__ == Model_Catalog_Link
 
 @register.filter
 def is_product_link(element):
-    return element.__class__.__name__ == 'Model_Catalog_Link'
+    return element.__class__ == Model_Product_Link

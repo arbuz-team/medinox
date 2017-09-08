@@ -1,7 +1,7 @@
 {% load tags %}
 
 <div class="dialog-header">
-    {{ title }}
+    Create link for: <span class="is-italic">{{ obiekt.name }}</span>
 </div>
 
 
@@ -14,9 +14,6 @@
 
         <div class="dialog-content-part">
             <!--fields of form-->
-
-            Choose catalog for new link.<br>
-            Link for "{{ name_of_element }}".
 
             <input type="hidden" name="accept_reload" value="{{ accept.reload }}">
             <input type="hidden" name="accept_redirect" value="{{ accept.redirect }}">

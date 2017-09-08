@@ -145,7 +145,7 @@
 152:Payments for selected products in Medifiller shop.
 153:Delete paragraph
 154:Are you sure you want to remove the paragraph?
-155:Catalog with the name exists
+155:The name is occupied
 156:Widget manager
 157:Catalog manager
 158:Product manager
@@ -176,4 +176,3 @@
 184:Price EUR
 185:Price PLN
 186:Price GBP
-187:Link manager

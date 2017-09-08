@@ -3,16 +3,16 @@
 
 
 
-<li class="tile" data-id="{{ element.pk }}">
+<li class="tile" data-id="{{ element.catalog.pk }}">
 
-	<a href="{{ element.url_name }}/">
+	<a href="{{ element.catalog.url_name }}/">
 
 		<div class="tile-img mini_image">
-			{% if element.image %}
+			{% if element.catalog.image %}
 
 				<div class="fill-abs">
-					<img data-src="{{ element.image }}"
-						 alt="{{ element.name }}"
+					<img data-src="{{ element.catalog.image }}"
+						 alt="{{ element.catalog.name }}"
 						 src="{% static 'img/pixel.png' %}" />
 				</div>
 
@@ -41,7 +41,7 @@
 		</div>
 
 		<h3 class="tile-title">
-			{{ element.name }}
+			{{ element.catalog.name }}
 		</h3>
 	</a>
 
@@ -64,7 +64,7 @@
 							type="button"
 							data-type="prompt"
 							data-name="catalog"
-							data-value="{{ element.pk }}"
+							data-value="{{ element.catalog.pk }}"
 							data-dialog-reload="ground">
 						Show real catalog
 					</button>
@@ -73,7 +73,7 @@
 							type="button"
 							data-type="prompt"
 							data-name="catalog"
-							data-value="{{ element.pk }}"
+							data-value="{{ element.catalog.pk }}"
 							data-dialog-reload="ground">
 						Delete link
 					</button>
@@ -82,7 +82,7 @@
 							type="button"
 							data-type="prompt"
 							data-name="move"
-							data-value="{{ element.pk }}"
+							data-value="{{ element.catalog.pk }}"
 							data-other_1="type:catalog"
 							data-dialog-reload="ground">
 						Move link
@@ -92,7 +92,7 @@
 							type="button"
 							data-type="prompt"
 							data-name="move"
-							data-value="{{ element.pk }}"
+							data-value="{{ element.catalog.pk }}"
 							data-other_1="type:catalog"
 							data-dialog-reload="ground">
 						Copy link

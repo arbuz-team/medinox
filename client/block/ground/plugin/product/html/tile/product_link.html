@@ -2,15 +2,15 @@
 {% load tags %}
 
 
-<li class="tile" data-id="{{ element.pk }}">
-	<a href="/product/{{ element.pk }}/{{ element.url_name }}/">
+<li class="tile" data-id="{{ element.product.pk }}">
+	<a href="/product/{{ element.product.pk }}/{{ element.product.url_name }}/">
 
 		<div class="tile-img mini_image">
-			{% if element.image %}
+			{% if element.product.image %}
 
 				<div class="fill-abs">
-					<img data-src="{{ element.image }}"
-						 alt="{{ element.name }}"
+					<img data-src="{{ element.product.image }}"
+						 alt="{{ element.product.name }}"
 						 src="{% static 'img/pixel.png' %}" />
 				</div>
 
@@ -39,7 +39,7 @@
 		</div>
 
 		<h3 class="tile-title">
-			{{ element.name }}
+			{{ element.product.name }}
 		</h3>
 	</a>
 
@@ -62,7 +62,7 @@
 						type="button"
 						data-type="prompt"
 						data-name="product"
-						data-value="{{ element.pk }}"
+						data-value="{{ element.product.pk }}"
 						data-dialog-reload="ground">
 					Show real product
 				</button>
@@ -71,7 +71,7 @@
 						type="button"
 						data-type="prompt"
 						data-name="product"
-						data-value="{{ element.pk }}"
+						data-value="{{ element.product.pk }}"
 						data-dialog-reload="ground">
 					Delete link
 				</button>
@@ -80,7 +80,7 @@
 						type="button"
 						data-type="prompt"
 						data-name="move"
-						data-value="{{ element.pk }}"
+						data-value="{{ element.product.pk }}"
 						data-other_1="type:product"
 						data-dialog-reload="ground">
 					Move link
@@ -90,7 +90,7 @@
 						type="button"
 						data-type="prompt"
 						data-name="move"
-						data-value="{{ element.pk }}"
+						data-value="{{ element.product.pk }}"
 						data-other_1="type:product"
 						data-dialog-reload="ground">
 					Copy link
