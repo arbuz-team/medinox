@@ -10,7 +10,7 @@ class Endpoints(Base_Website):
     def Manage_Form(self):
         pass
 
-    def Manage_Valid(self):
+    def Manage_Exist(self):
         pass
 
     def Manage_Get(self):

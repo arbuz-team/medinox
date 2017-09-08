@@ -48,18 +48,20 @@ class Sign_Up(Website_Manager):
 
         return Website_Manager.Manage_Form(self)
 
-    def Manage_Valid(self):
+    def Manage_Exist(self):
 
         if self.request.POST['_name_'] == 'email':
             if SQL.Filter(Model_User, email=self.request.POST['value']):
-                return HttpResponse()
+                return HttpResponse('true')
 
         if self.request.POST['_name_'] == 'password':
             path = './server/manage/user/passwords'
             passwords = open(Path_Manager.Base_Root(path)).read()
 
             if self.request.POST['value'] in passwords.splitlines():
-                return HttpResponse()
+                return HttpResponse('true')
+
+        return HttpResponse('false')
 
     def Create_No_Approved_User(self):
         self.context['key'] = binascii.hexlify(os.urandom(20))

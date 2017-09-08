@@ -23,8 +23,8 @@ class Dialog_Block(Endpoints):
     def Manage_Form(self):
         return self.website.Manage_Form()
 
-    def Manage_Valid(self):
-        return self.website.Manage_Valid()
+    def Manage_Exist(self):
+        return self.website.Manage_Exist()
 
     def Manage_Get(self):
         return self.website.Manage_Get()
