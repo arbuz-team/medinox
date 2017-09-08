@@ -23,7 +23,7 @@ class SQL:
 
     @staticmethod
     def Delete(model=None, data=None,
-               force=False, *args, **kwargs):
+               force=True, *args, **kwargs):
 
         # force delete
         if force:

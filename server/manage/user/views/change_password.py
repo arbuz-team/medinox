@@ -17,7 +17,7 @@ class Change_Password(Website_Manager):
             record.user.password = self.context['form'].cleaned_data['password']
             SQL.Save(data=record.user)
 
-            SQL.Delete(data=record, force=True)
+            SQL.Delete(data=record)
             self.context['form'] = None  # message of correct
 
             return self.Render_HTML('user/change_password.html')

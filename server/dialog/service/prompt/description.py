@@ -7,6 +7,16 @@ class Service_Description(Base_Service):
 
     def New(self, direction):
 
+        # empty table
+        if not self.dialog.Get_Post_Other('index'):
+
+            description = Model_Description(position=1)
+            description.direction = Direction.DOWN
+            self.request.session['product_description'] = \
+                description
+
+            return
+
         # get position parent description
         index = self.dialog.Get_Post_Other('index')
         position = SQL.Get(Model_Description, pk=index).position

@@ -51,7 +51,7 @@ class Product_Manager(Website_Manager):
 
         if action == 'delete':
             SQL.Delete(Model_Recommended_Product,
-                product=product, force=True)
+                product=product)
 
         if action == 'append':
             SQL.Save(Model_Recommended_Product, product=product)
@@ -66,7 +66,7 @@ class Product_Manager(Website_Manager):
 
         if action == 'delete':
             SQL.Delete(Model_Favorite_Product,
-                product=product, user=user, force=True)
+                product=product, user=user)
 
         if action == 'append':
             SQL.Save(Model_Favorite_Product, product=product, user=user)

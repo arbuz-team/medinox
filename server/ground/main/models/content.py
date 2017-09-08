@@ -27,3 +27,10 @@ class Model_Contact_Content(Model_Content_Tab):
 
     def Set_Variables(self):
         self.image_dir = 'img/contact/'
+
+
+
+class Model_Home_Content(Model_Content_Tab):
+
+    def Set_Variables(self):
+        self.image_dir = 'img/home/'

@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^about/$', About.Launch, name='main.about'),
     url(r'^contact/$', Contact.Launch, name='main.contact'),
 
+    url(r'^home/manage/$', Home.Launch, name='main.home.manage'),
     url(r'^about/manage/$', About.Launch, name='main.about.manage'),
     url(r'^contact/manage/$', Contact.Launch, name='main.contact.manage'),
 ]

@@ -12,7 +12,7 @@ class Payment_Models_Manager(Base_Website):
 
     def Clear_Cart(self):
         SQL.Delete(Model_Payment_Product,
-           payment=self.payment, force=True)
+           payment=self.payment)
 
 
 
@@ -44,7 +44,7 @@ class Payment_Models_Manager(Base_Website):
 
     def Delete_Cart_Product(self, product):
         SQL.Delete(Model_Payment_Product, payment=self.payment,
-                   product=product, force=True)
+                   product=product)
 
     @staticmethod
     def Edit_Number_Of_Cart_Products(selected_pk, number):

@@ -4,38 +4,38 @@ from server.ground.main.models import *
 from server.ground.product.forms import *
 
 
-class Service_About(Base_Service):
+class Service_Home(Base_Service):
 
     def New(self, direction):
 
         # empty table
         if not self.dialog.Get_Post_Other('index'):
-            about = Model_About_Content(position=1)
-            about.direction = Direction.DOWN
-            self.request.session['main_about'] = \
-                about
+            home = Model_Home_Content(position=1)
+            home.direction = Direction.DOWN
+            self.request.session['main_home'] = \
+                home
 
             return
 
         # get position parent
         index = self.dialog.Get_Post_Other('index')
-        position = SQL.Get(Model_About_Content, pk=index).position
+        position = SQL.Get(Model_Home_Content, pk=index).position
 
         # create new
-        about = Model_About_Content(position=position)
-        about.direction = direction
-        self.request.session['main_about'] = about
+        home = Model_Home_Content(position=position)
+        home.direction = direction
+        self.request.session['main_home'] = home
 
     def Edit(self):
 
-        about = SQL.Get(Model_About_Content,
+        home = SQL.Get(Model_Home_Content,
             pk=self.request.POST['value'])
 
-        self.request.session['main_about'] = about
-        self.context['image'] = about.image
+        self.request.session['main_home'] = home
+        self.context['image'] = home.image
         self.initial = {
-            'header': about.header,
-            'paragraph': about.paragraph,
+            'header': home.header,
+            'paragraph': home.paragraph,
         }
 
     def Manage(self):
@@ -54,4 +54,4 @@ class Service_About(Base_Service):
             Form_Description, initial=self.initial)
 
         return self.Render_Dialog(
-            'prompt.html', 'about', only_root=True)
+            'prompt.html', 'home', only_root=True)
