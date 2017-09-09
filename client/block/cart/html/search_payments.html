@@ -1,0 +1,74 @@
+{% load tags %}
+
+{% var 'type_mini_cart' 'for-root' %}
+
+
+<div class="title">Pending</div>
+
+{% for item in shopping %}
+
+    {% if item.payment.status == 'pending' %}
+
+        {% include "block/cart/html/mini_cart.html" %}
+
+    {% endif %}
+
+{% endfor %}
+
+
+<div class="title">Internal</div>
+
+{% for item in shopping %}
+
+    {% if item.payment.status == 'internal' %}
+
+        {% include "block/cart/html/mini_cart.html" %}
+
+    {% endif %}
+
+{% endfor %}
+
+
+<div class="title">External</div>
+
+{% for item in shopping %}
+
+    {% if item.payment.status == 'external' %}
+
+        {% include "block/cart/html/mini_cart.html" %}
+
+    {% endif %}
+
+{% endfor %}
+
+
+<div class="title">Completed</div>
+
+{% for item in shopping %}
+
+    {% if item.payment.status == 'completed' %}
+
+        {% include "block/cart/html/mini_cart.html" %}
+
+    {% endif %}
+
+{% endfor %}
+
+
+<div class="title">Cart</div>
+
+{% for item in shopping %}
+
+    {% if item.payment.status == 'cart' %}
+
+        {% include "block/cart/html/mini_cart.html" %}
+
+    {% endif %}
+
+{% endfor %}
+
+
+{% if not shopping %}
+    </div>
+    <div class="block-content-message center">No payments found
+{% endif %}
