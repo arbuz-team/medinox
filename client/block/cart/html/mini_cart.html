@@ -26,7 +26,9 @@
 
         <div class="mini_cart-field_list">
 
-            {% if button_address_name == 'root_address' and item.fullname %}
+            <!--TODO design for products -->
+
+            {% if button_address_name == 'root_address' and item.products %}
 
                 {% for selected in item.products %}
                     <div class="mini_cart-product">
