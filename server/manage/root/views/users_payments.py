@@ -81,7 +81,7 @@ class Users_Payments(Website_Manager):
 
             if file: # save if file was sent
 
-                note_file = Note_File()
+                note_file = Model_Note_File()
                 note_file.note = note
                 note_file.name = file_name
                 SQL.Save(data=note_file)

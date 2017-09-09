@@ -70,8 +70,8 @@ class Payment_Models_Manager(Base_Website):
 
         Model_Delivery_Address.Initialize(self.payment)
         Model_Invoice_Address.Initialize(self.payment)
-        Model_Order_Deadline.Initialize(self.payment)
-        Model_Order_Note.Initialize(self.payment)
+        Model_Deadline.Initialize(self.payment)
+        Model_Note.Initialize(self.payment)
 
     def __init__(self, _object):
         Base_Website.__init__(self, _object)

@@ -54,8 +54,8 @@ class Refresh(Base_Website):
     def Update_Notifications(self):
 
         today = datetime.today()
-        deadlines = SQL.Filter(Model_Order_Deadline, deadline__lt=today)
-        reminders = SQL.Filter(Model_Order_Deadline, reminder__lt=today)
+        deadlines = SQL.Filter(Model_Deadline, deadline__lt=today)
+        reminders = SQL.Filter(Model_Deadline, reminder__lt=today)
         path_manager = Path_Manager(self)
 
         for deadline in deadlines:

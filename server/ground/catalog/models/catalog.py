@@ -7,7 +7,7 @@ class Model_Catalog(Abstract_Model):
     name = models.CharField(max_length=100)
     image = models.ImageField(blank=True)
     parent = models.ForeignKey('Model_Catalog', null=True)
-    language = models.CharField(max_length=2)
+    language = models.CharField(max_length=2, default=None)
 
     def Set_Variables(self):
         self.image_dir = 'img/catalog/'

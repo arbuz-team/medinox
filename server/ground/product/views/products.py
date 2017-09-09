@@ -1,6 +1,6 @@
 from server.manage.switch.website.manager import *
 from server.manage.switch.pages import *
-from server.service.searcher.views import *
+from server.service.searcher.product import *
 
 
 class Products(Website_Manager):
