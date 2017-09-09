@@ -28,14 +28,17 @@
 			           type="date"
 			           name="date_to"
 			           data-name="date_to"
-			           value="{{ date_to }}"/>
+			           value="{{ date_to }}" />
 
 			    <input class="input users_payments-filters-searcher"
 			           type="text"
 			           name="phrase"
 			           data-name="phrase"
 			           placeholder="Search payment"
-			           value="{{ phrase }}"/>
+			           value="{{ phrase }}"
+			           pattern=".{3,}"
+			           required
+			           title="Minimum 3 characters required" />
 
 			    <button class="button users_payments-filters-find is-important"
 			            type="submit">
