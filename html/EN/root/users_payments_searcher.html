@@ -1,0 +1,61 @@
+<script>
+    APP.DATA = {
+        title : 'Users payments',
+        description : ''
+    };
+</script>
+
+<div class="ground-block block-1 BIG users_payments">
+
+    <div class="block-background fill-abs"></div>
+    {% include "block/ground/html/navigation.html" %}
+
+    <div class="block-content">
+
+        <div class="title">Users payments searcher</div>
+
+	    <div class="is-center-inside">
+
+		    <form class="users_payments-filters" data-name="searcher">
+
+			    <input class="input users_payments-filters-searcher"
+			           type="text"
+			           name="phrase"
+			           data-name="phrase"
+			           placeholder="Search payment"
+			           value="{{ phrase }}"/>
+
+			    <button class="button users_payments-filters-find is-important"
+			            type="submit">
+				    Search
+			    </button>
+
+		    </form>
+
+		    <form class="users_payments-filters auto_form" action="" data-origin="filter" data-reload="ground" data-delay="100">
+
+			    <input class="input auto_field"
+			           type="date"
+			           name="date_from"
+			           data-name="date_from"
+			           value="{{ date_from }}" />
+
+			    <input class="input auto_field"
+			           type="date"
+			           name="date_to"
+			           data-name="date_to"
+			           value="{{ date_to }}"/>
+
+		    </form>
+
+	    </div>
+
+
+        {% include "block/cart/html/users_payments.html" %}
+
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

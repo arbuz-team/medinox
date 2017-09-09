@@ -14,81 +14,102 @@
 
         <div class="title">Users payments - {{ request.session.root_payment_status | title }}</div>
 
+	    <div class="is-center-inside">
 
-        <form class="users_payments-filters is-center-inside auto_form" action="" data-origin="filter" data-reload="ground" data-delay="100">
+		    <form class="users_payments-filters" data-name="searcher">
 
-            <input class="input auto_field"
-				   type="date"
-				   name="date_from"
-				   data-name="date_from"
-				   value="{{ date_from }}" />
+			    <input class="input users_payments-filters-searcher"
+			           type="text"
+			           name="phrase"
+			           data-name="phrase"
+			           placeholder="Search payment"
+			           value="{{ phrase }}"/>
 
-            <input class="input auto_field"
-				   type="date"
-				   name="date_to"
-				   data-name="date_to"
-				   value="{{ date_to }}"/>
+			    <button class="button users_payments-filters-find is-important"
+			            type="submit">
+				    Search
+			    </button>
+
+		    </form>
+
+		    <form class="users_payments-filters is-center-inside auto_form" data-origin="filter" data-reload="ground" data-delay="100">
+
+			    <input class="input auto_field"
+			           type="date"
+			           name="date_from"
+			           data-name="date_from"
+			           value="{{ date_from }}" />
+
+			    <input class="input auto_field"
+			           type="date"
+			           name="date_to"
+			           data-name="date_to"
+			           value="{{ date_to }}"/>
 
 
-            <div class="tooltip align-left align-top">
+			    <div class="tooltip align-left align-top">
 
-                <button class="button tooltip_button"
-						type="button"
-						data-name="description">
-                    Category
-                </button>
+				    <button class="button tooltip_button"
+				            type="button"
+				            data-name="description">
+					    Category
+				    </button>
 
-                <div class="tooltip-options">
-                    <button class="button post_button"
-                            data-name="payment_status_pending"
-                            data-action="change"
-                            data-value="pending"
-                            data-reload="ground">
-                        Pending
-                    </button>
-	                <button class="button post_button"
-	                        data-name="payment_status_late_payment"
-	                        data-action="change"
-	                        data-value="late payment"
-	                        data-reload="ground">
-		                Late payment
-	                </button>
-                    <button class="button post_button"
-                            type="button"
-                            data-name="payment_status_cart"
-                            data-action="change"
-                            data-value="cart"
-                            data-reload="ground">
-                        Cart
-                    </button>
-                    <button class="button post_button"
-                            type="button"
-                            data-name="payment_status_internal"
-                            data-action="change"
-                            data-value="internal"
-                            data-reload="ground">
-                        Internal
-                    </button>
-                    <button class="button post_button"
-                            type="button"
-                            data-name="payment_status_external"
-                            data-action="change"
-                            data-value="external"
-                            data-reload="ground">
-                        External
-                    </button>
-                    <button class="button post_button"
-                            type="button"
-                            data-name="payment_status_completed"
-                            data-action="change"
-                            data-value="completed"
-                            data-reload="ground">
-                        Completed
-                    </button>
-                </div>
-            </div>
+				    <div class="tooltip-options">
+					    <button class="button post_button"
+					            data-name="payment_status_pending"
+					            data-action="change"
+					            data-value="pending"
+					            data-reload="ground">
+						    Pending
+					    </button>
+					    <button class="button post_button"
+					            data-name="payment_status_late_payment"
+					            data-action="change"
+					            data-value="late payment"
+					            data-reload="ground">
+						    Late payment
+					    </button>
+					    <button class="button post_button"
+					            type="button"
+					            data-name="payment_status_cart"
+					            data-action="change"
+					            data-value="cart"
+					            data-reload="ground">
+						    Cart
+					    </button>
+					    <button class="button post_button"
+					            type="button"
+					            data-name="payment_status_internal"
+					            data-action="change"
+					            data-value="internal"
+					            data-reload="ground">
+						    Internal
+					    </button>
+					    <button class="button post_button"
+					            type="button"
+					            data-name="payment_status_external"
+					            data-action="change"
+					            data-value="external"
+					            data-reload="ground">
+						    External
+					    </button>
+					    <button class="button post_button"
+					            type="button"
+					            data-name="payment_status_completed"
+					            data-action="change"
+					            data-value="completed"
+					            data-reload="ground">
+						    Completed
+					    </button>
+				    </div>
+			    </div>
 
-        </form>
+		    </form>
+
+	    </div>
+
+
 
 
         {% include "block/cart/html/users_payments.html" %}
