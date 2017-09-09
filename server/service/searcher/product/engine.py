@@ -13,12 +13,12 @@ class Search_Engine(Base):
 
         language = self.request.session['translator_language']
         self.products = SQL.Filter(Model_Product, None,
-            reduce(operator.or_, (Q(name__icontains=s)                      for s in self.words)) |
-            reduce(operator.or_, (Q(brand__name__icontains=s)               for s in self.words)) |
-            reduce(operator.or_, (Q(description__header__icontains=s)       for s in self.words)) |
-            reduce(operator.or_, (Q(description__paragraph__icontains=s)    for s in self.words)) |
-            reduce(operator.or_, (Q(widget__name__icontains=s)              for s in self.words)) |
-            reduce(operator.or_, (Q(widget__values__name__icontains=s)      for s in self.words)) &
+            reduce(operator.or_, (Q(name__icontains=s)                              for s in self.words)) |
+            reduce(operator.or_, (Q(brand__name__icontains=s)                       for s in self.words)) |
+            reduce(operator.or_, (Q(model_description__header__icontains=s)         for s in self.words)) |
+            reduce(operator.or_, (Q(model_description__paragraph__icontains=s)      for s in self.words)) |
+            reduce(operator.or_, (Q(model_widget__name__icontains=s)                for s in self.words)) |
+            reduce(operator.or_, (Q(model_widget__model_values__name__icontains=s)  for s in self.words)) &
                                   Q(language=language)
         )
 

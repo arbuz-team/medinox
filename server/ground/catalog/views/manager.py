@@ -37,13 +37,14 @@ class Catalog_Manager(Website_Manager):
         self.context.update(pages_manager.Create_Pages())
         return self.Render_HTML('catalog/catalogs.html')
 
-    def Manage_Form_New_Catalog(self):
+    def Manage_Form_Catalog(self):
         self.context['form'] = Form_Catalog(self, post=True)
 
         if self.context['form'].is_valid():
-            name = self.context['form'].cleaned_data['name']
 
-            catalog = Model_Catalog()
+            name = self.context['form'].cleaned_data['name']
+            catalog = self.request.session['catalog_editing']
+
             catalog.name = name
             catalog.url_name = Path_Manager.To_URL(name)
             catalog.parent = self.request.session['catalog_parent']
@@ -56,30 +57,10 @@ class Catalog_Manager(Website_Manager):
             return Dialog_Prompt(self, apply=True).HTML
         return Dialog_Prompt(self, not_valid=True).HTML
 
-    def Manage_Form_Edit_Catalog(self):
-        self.context['form'] = Form_Catalog(self, post=True)
-
-        if self.context['form'].is_valid():
-            name = self.context['form'].cleaned_data['name']
-
-            catalog = self.request.session['catalog_editing']
-            catalog.name = name
-            catalog.url_name = Path_Manager.To_URL(name)
-            catalog.parent = self.request.session['catalog_parent']
-            SQL.Save(data=catalog)
-
-            catalog.Save_Image(self.context['form'].cleaned_data['image'])
-            self.context['form'] = None
-
-            return Dialog_Prompt(self, apply=True).HTML
-        return Dialog_Prompt(self, not_valid=True).HTML
-
     def Manage_Form(self):
 
-        if self.request.session['catalog_editing']:
-            return self.Manage_Form_Edit_Catalog()
-
-        return self.Manage_Form_New_Catalog()
+        if self.request.POST['_name_'] == 'catalog':
+            return self.Manage_Form_Catalog()
 
     def Manage_Button(self):
 
