@@ -4,9 +4,6 @@ from server.service.searcher.payment import *
 
 class Search_Payments(Website_Manager):
 
-    def Manage_Content(self):
-        return HttpResponse('SAM SE NAPISZ')
-
     def Manage_Form_Searcher(self):
 
         phrase = self.request.POST['phrase']
