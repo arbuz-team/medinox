@@ -20,6 +20,7 @@ class Model_Root_Address(Abstract_Address):
 class Model_Social_Media(Abstract_Model):
 
     name = models.CharField(max_length=20)
+    type = models.CharField(max_length=20)
     url = models.URLField()
 
     def __str__(self):
