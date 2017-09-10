@@ -11,7 +11,7 @@ class Panel_App(Website_Manager):
             {
                 'name': Text(self, 24),
                 'url': path_manager.Get_Path('root.sign_out', current_language=True),
-                'icon': '/static/img/icons/128/dark/logout.png',
+                'icon': '/static/img/icons/128/dark/shut_down.png',
             },
             {
                 'name': Text(self, 25),
