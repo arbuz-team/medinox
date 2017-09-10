@@ -6,7 +6,7 @@
         {% endif %}
 
         {% for element in elements %}
-            {% include 'block/ground/plugin/product/html/tile/product.html' %}
+            {% include 'block/ground/plugin/product/html/tile/product.html' with show_edit='false' %}
         {% endfor %}
     </ul>
 

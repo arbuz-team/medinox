@@ -48,7 +48,7 @@
 	<div class="tile-content">
 		&nbsp;
 
-		{% if request.session.root_login %}
+		{% if request.session.root_login and show_edit != 'false' %}
 
 			<div class="tooltip align-right align-top is-right">
 
