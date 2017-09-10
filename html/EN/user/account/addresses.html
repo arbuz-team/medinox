@@ -11,6 +11,10 @@
     <div class="block-background fill-abs"></div>
     {% include "block/ground/html/navigation.html" %}
 
+	{% if go_back != '/' %}
+		{% include "block/ground/html/go_back.html" with href='/payment/' %}
+	{% endif %}
+
     <div class="block-content">
 
         <div class="title"> Edit addresses </div>
@@ -18,7 +22,6 @@
         {% if go_back != '/' %}
             <div class="form-accept">
                 <div>Please select your address of below list <wbr>for shipment and invoice.</div>
-                <div data-redirect="{{ go_back }}" data-name="go_back" class="button submit event_button">Go back</div>
             </div>
         {% endif %}
 

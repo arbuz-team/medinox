@@ -15,6 +15,12 @@
     <div class="block-background fill-abs"></div>
     {% include "block/ground/html/navigation.html" %}
 
+    {% if address_is_validate %}
+
+        {% include "block/ground/html/go_back.html" with href='/payment/' %}
+
+    {% endif %}
+
     <div class="block-content">
 
         {% if not address_is_validate %}
