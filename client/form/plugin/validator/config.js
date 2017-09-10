@@ -35,7 +35,7 @@ list_configs.forgot_password = {
 	email:              'email_in_db',
 };
 
-list_configs.change_passord = {
+list_configs.change_password = {
 	password:            'safety_password',
 };
 
