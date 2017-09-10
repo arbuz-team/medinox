@@ -1,4 +1,5 @@
 from server.dialog.service.base import *
+from server.service.payment.models import *
 
 
 class Service_Root_Address(Base_Service):

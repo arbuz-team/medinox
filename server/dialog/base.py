@@ -65,8 +65,9 @@ class Dialog(Base_Website):
         module = importlib.import_module(class_path)
         return getattr(module, class_name)(self).HTML
 
-    def __init__(self, _object, apply=False):
+    def __init__(self, _object, apply=False, not_valid=False):
         Base_Website.__init__(self, _object)
         self.parent_app_name= _object.app_name
+        self.not_valid = not_valid
         self.apply = apply
 
