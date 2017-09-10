@@ -2156,32 +2156,49 @@
 			}
 		};
 	
-		this.change_height_start_banner = function ($container, height_container) {
-			var width_website = model.page_controller.get_height(),
-			    height_start_banner = 0;
-	
-			if (height_container > 768) height_start_banner = height_container - 386;
-	
-			if (height_start_banner === 0 || width_website < 1000) {
-				$('.ground-block.start .block-content-image', $container).hide();
-				$('.ground-block.start .block-content-recommended-title', $container).show();
-			} else {
-				$('.ground-block.start .block-content-image', $container).show().height(height_start_banner);
-				$('.ground-block.start .block-content-recommended-title', $container).hide();
-			}
-		};
-	
-		this.change_height_content = function () {
-			var $container = $(model.container),
+		this._change_height_ground = function () {
+			var $ground = $(model.container),
 			    height = {
 				window: model.page_controller.get_height(),
 				header: model.menu_controller.get_height(),
-				ground_top: $container.position().top
+				ground_top: $ground.position().top
 			},
-			    height_container = height.window - height.header - height.ground_top;
+			    height_ground = height.window - height.header - height.ground_top;
 	
-			$container.height(height_container);
-			_this.change_height_start_banner($container, height_container);
+			$ground.height(height_ground);
+		};
+	
+		this._change_height_block_content = function () {
+			var $ground = $(model.container),
+			    $ground_block = $ground.find('.ground-block'),
+			    $spacer = $ground.find('.ground-block-spacer'),
+			    $footer = $ground.find('.footer'),
+			    height = {
+				window: model.page_controller.get_height(),
+				header: model.menu_controller.get_height(),
+				ground_top: $ground.position().top,
+				ground_blocks: 0,
+				footer: parseInt($footer.outerHeight())
+			},
+			    height_spacer = height.window - height.header - height.ground_top - height.footer;
+	
+			if ($ground_block.length) $ground_block.each(function () {
+				height.ground_blocks += parseInt($(this).outerHeight());
+			});
+	
+			height_spacer -= height.ground_blocks;
+	
+			if (height_spacer > 0) {
+				console.log($spacer.length);
+				if ($spacer.length < 1) $($footer).before('<div class="ground-block-spacer">&nbsp;</div>');
+	
+				$ground.find('.ground-block-spacer').height(height_spacer);
+			} else if ($spacer.length) $spacer.remove();
+		};
+	
+		this.change_height_content = function () {
+			_this._change_height_ground();
+			_this._change_height_block_content();
 		};
 	
 		this.change_to_long_or_short = function (that, event) {
@@ -3398,7 +3415,7 @@
 		email: 'email_in_db'
 	};
 	
-	list_configs.change_passord = {
+	list_configs.change_password = {
 		password: 'safety_password'
 	};
 	
