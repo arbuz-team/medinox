@@ -2,9 +2,9 @@
 export let list_configs = {};
 
 list_configs.register = {
-	new_username:       'length_3',
-	new_password:       'safety_password',
-	new_email:          'email_no_in_db',
+	username:           'length_3',
+	password:           'safety_password',
+	email:              'email_no_in_db',
 };
 
 list_configs.login = {
