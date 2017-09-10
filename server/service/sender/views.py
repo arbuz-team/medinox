@@ -68,7 +68,6 @@ class Sender(Base_Website):
 
         if pdf: self.email.attach(pdf['name'], pdf['file'], 'application/pdf')
         self.email.attach_alternative(html.content.decode(), 'text/html')
-        self.Attach_Image('/static/img/logo.png', 'logo')
         self.email.send()
 
     def __init__(self, _object):

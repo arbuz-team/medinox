@@ -1,6 +1,6 @@
 from server.service.sender.views import *
 from server.manage.user.forms import *
-import os, binascii
+import os
 
 
 class Sign_Up(Website_Manager):
@@ -64,12 +64,17 @@ class Sign_Up(Website_Manager):
         return HttpResponse('false')
 
     def Create_No_Approved_User(self):
-        self.context['key'] = binascii.hexlify(os.urandom(20))
+
         form = self.context['form']
+        self.context['key'] = self.Generate_Random_Chars(
+            20, punctuation=False, uppercase=False)
 
         if not SQL.Filter(Model_No_Approved_User, approved_key=self.context['key']):
+            email = form.cleaned_data['email']
+            user = SQL.Get(Model_User, email=email)
+
             SQL.Save(Model_No_Approved_User,
-                user=SQL.Get(Model_User, email=form.cleaned_data['email']),
+                user=user,
                 approved_key=self.context['key']
             )
 
@@ -78,11 +83,11 @@ class Sign_Up(Website_Manager):
     def Send_Activate_Link(self):
 
         email = self.context['form'].cleaned_data['email']
-        activate_key = self.context['key'].decode("utf-8")
+        activate_key = self.context['key']
 
         path_manager = Path_Manager(self)
         activate_url = path_manager.Get_Urls('user.approved',
-                 {'key': activate_key}, current_language=True)
+             {'key': activate_key}, current_language=True)
 
         content = {
             'activate_url': activate_url,

@@ -64,13 +64,14 @@ class Base:
         return text_ascii
 
     @staticmethod
-    def Generate_Random_Chars(length, letters=True,
+    def Generate_Random_Chars(length, lowercase=True, uppercase=True,
                               digits=True, punctuation=True):
 
         permitted_chars = ''
         result = ''
 
-        permitted_chars += string.ascii_letters if letters else ''
+        permitted_chars += string.ascii_lowercase if lowercase else ''
+        permitted_chars += string.ascii_uppercase if uppercase else ''
         permitted_chars += string.digits if digits else ''
         permitted_chars += string.punctuation if punctuation else ''
 

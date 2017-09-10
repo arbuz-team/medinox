@@ -7,11 +7,11 @@ urlpatterns = [
     url(r'^sign_up/$', Sign_Up.Launch, name='user.sign_up'),
     url(r'^sign_out/$', Sign_Out.Launch, name='user.sign_out'),
     url(r'^account/', include('server.manage.user.account.urls.en'), name='user.account'),
-    url(r'^approved/(?P<key>[a-z0-9]{40})/$',
+    url(r'^approved/(?P<key>[a-z0-9]{20})/$',
         Approved_Register.Update_User_Status, name='user.approved'),
 
     url(r'^forgot/$', Forgot_Password.Launch, name='user.forgot'),
-    url(r'^change_password/(?P<key>[a-z0-9]{40})/$',
+    url(r'^change_password/(?P<key>[a-z0-9]{20})/$',
         Change_Password.Secure, name='user.change_password'),
 
     url(r'^sign_in/cart/$', Sign_In_Cart.Launch, name='user.sign_in_cart'),

@@ -1,6 +1,6 @@
 from server.service.sender.views import *
 from server.manage.user.forms import *
-import os, binascii
+import os
 
 
 class Forgot_Password(Website_Manager):
@@ -33,7 +33,8 @@ class Forgot_Password(Website_Manager):
         return Website_Manager.Manage_Form(self)
 
     def Create_Forgot_Password_User(self):
-        self.context['key'] = binascii.hexlify(os.urandom(20))
+        self.context['key'] = self.Generate_Random_Chars(
+            20, punctuation=False, uppercase=False)
 
         if not SQL.Filter(Model_Forgot_Password_User, approved_key=self.context['key']):
             SQL.Save(Model_Forgot_Password_User,
@@ -46,7 +47,7 @@ class Forgot_Password(Website_Manager):
     def Send_Secure_Link(self):
 
         path_manager = Path_Manager(self)
-        activate_key = self.context['key'].decode("utf-8")
+        activate_key = self.context['key']
         activate_url = path_manager.Get_Urls('user.change_password',
              kwargs={'key': activate_key}, current_language=True)
 

@@ -13,7 +13,7 @@ class Account_Details(Website_Manager):
 
         if details.is_valid():
             user = self.request.session['user_user']
-            user.email = details.cleaned_data['new_email']
+            user.email = details.cleaned_data['email']
             SQL.Save(data=user)
 
             return Dialog_Prompt(self, apply=True).HTML
@@ -24,7 +24,7 @@ class Account_Details(Website_Manager):
 
         if details.is_valid():
             user = self.request.session['user_user']
-            user.username = details.cleaned_data['new_username']
+            user.username = details.cleaned_data['username']
             SQL.Save(data=user)
 
             return Dialog_Prompt(self, apply=True).HTML
@@ -35,7 +35,7 @@ class Account_Details(Website_Manager):
 
         if details.is_valid():
             user = self.request.session['user_user']
-            user.password = details.cleaned_data['new_password']
+            user.password = details.cleaned_data['password']
             SQL.Save(data=user)
 
             return Dialog_Prompt(self, apply=True).HTML

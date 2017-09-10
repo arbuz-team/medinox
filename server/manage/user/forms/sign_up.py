@@ -5,19 +5,8 @@ from nocaptcha_recaptcha.fields import NoReCaptchaField
 
 class Form_Register(Abstract_Model_Form):
 
-    def add_prefix(self, field_name):
-
-        mapping = {
-            'email':    'new_email',
-            'username': 'new_username',
-            'password': 'new_password',
-        }
-
-        field_name = mapping.get(field_name, field_name)
-        return Abstract_Model_Form.add_prefix(self, field_name)
-
     def clean_password(self):
-        password = self.data['new_password']
+        password = self.data['password']
         return Base_Website.Encrypt(password)
 
     def Create_Fields(self):
