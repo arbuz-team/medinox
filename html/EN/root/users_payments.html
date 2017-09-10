@@ -33,24 +33,14 @@
 		    </form>
 
 
-		    <form class="users_payments-filters" action="/root/search_payments/" data-name="searcher">
+		    <div class="users_payments-filters">
 
-			    <input class="input users_payments-filters-searcher"
-			           type="text"
-			           name="phrase"
-			           data-name="phrase"
-			           placeholder="Search payment"
-			           value="{{ phrase }}"
-			           pattern=".{3,}"
-			           required
-			           title="Minimum 3 characters required" />
+			    <a class="button users_payments-filters-find is-important"
+			       href="/root/search_payments/">
+				    Find payment
+			    </a>
 
-			    <button class="button users_payments-filters-find is-important"
-			            type="submit">
-				    Search
-			    </button>
-
-		    </form>
+		    </div>
 
 
 		    <div class="users_payments-filters">
