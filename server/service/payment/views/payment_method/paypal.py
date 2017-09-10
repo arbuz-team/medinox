@@ -1,10 +1,10 @@
 from server.service.payment.forms import *
-from .base_payment import *
+from server.service.payment.views.base_payment import *
 
 
 class PayPal(Base_Payment):
 
-    def Valid_PayPal(self):
+    def Valid(self):
         post = self.request.POST
 
         if post['payment_status'] == 'Completed':
@@ -28,16 +28,16 @@ class PayPal(Base_Payment):
 
             self.valid = True
 
-    def Create_PayPal_From(self):
+    def Create_From(self, _object):
         path_manager = Path_Manager(self)
 
         paypal_dict = \
         {
             'business':         PAYPAL_RECEIVER_EMAIL,
             'item_name':        'medifiller',
-            'amount':           self.context['total_price'],
-            'custom':           self.context['payment'],
-            'currency_code':    self.request.session['currency_selected'],
+            'amount':           _object.context['total_price'],
+            'custom':           _object.context['payment'],
+            'currency_code':    _object.request.session['currency_selected'],
 
             'notify_url':       path_manager.Get_Urls('payment.paypal', current_language=True),
             'return':           path_manager.Get_Urls('payment.apply', current_language=True),
@@ -52,6 +52,6 @@ class PayPal(Base_Payment):
     def Service(request):
         paypal = PayPal(request)
         paypal.Display_Status()
-        paypal.Valid_PayPal()
+        paypal.Valid()
         paypal.Send_Confirm()
         return HttpResponse('OKAY')

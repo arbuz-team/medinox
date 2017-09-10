@@ -223,27 +223,19 @@
             </div>
 
             <div class="cart-list-button">
-                <form action="https://ssl.dotpay.pl/test_payment/" method="post">
-                    {{ dotpay.as_p }}
 
-                    <button class="payment-button button"
-                            type="submit">
-                        Cash on delivery
-                    </button>
+                <a href="/payment/cash_on_delivery/" class="payment-button button">
+                    Cash on delivery
+                </a>
 
-                </form>
             </div>
 
             <div class="cart-list-button">
-                <form action="https://ssl.dotpay.pl/test_payment/" method="post">
-                    {{ dotpay.as_p }}
 
-                    <button class="payment-button button"
-                            type="submit">
-                        Delayed transfer
-                    </button>
+                <a href="/payment/delayed_transfer/" class="payment-button button">
+                    Delayed transfer
+                </a>
 
-                </form>
             </div>
 
         {% endif %}

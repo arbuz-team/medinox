@@ -1,8 +1,8 @@
-from .dotpay import *
-from .paypal import *
+from server.service.payment.views.payment_method.dotpay import *
+from server.service.payment.views.payment_method.paypal import *
 
 
-class Payment_Manager(Website_Manager, PayPal, DotPay):
+class Payment_Manager(Website_Manager):
 
     def Update_Payment(self):
 
@@ -27,9 +27,6 @@ class Payment_Manager(Website_Manager, PayPal, DotPay):
         self.context['delivery'] = payment.delivery_price
         self.context['address'] = SQL.Filter(Model_User_Address, user=self.context['user'])
         self.Update_Payment()
-
-        self.context['paypal'] = self.Create_PayPal_From()
-        self.context['dotpay'] = self.Create_DotPay_From()
 
     def Create_Address(self, pk, model):
 
@@ -67,11 +64,15 @@ class Payment_Manager(Website_Manager, PayPal, DotPay):
         self.Create_Address(address_invoice_pk, 'invoice_address')
 
         self.Load_Payment_Details()
+        self.context['paypal'] = PayPal(self.request).Create_From(self)
+        self.context['dotpay'] = DotPay(self.request).Create_From(self)
+
         self.context['address_is_validate'] = True
         return self.Render_HTML('payment/payment.html')
 
     def Manage_Form(self):
 
+        # the second step in payment
         if self.request.POST['_name_'] == 'address':
             return self.Manage_Form_Address_Payment()
 
@@ -98,7 +99,7 @@ class Payment_Manager(Website_Manager, PayPal, DotPay):
     def Manage_Get(self):
 
         if self.request.POST['__get__'] == 'delivery':
-            self.Manage_Get_Delivery()
+            return self.Manage_Get_Delivery()
 
         return Website_Manager.Manage_Get(self)
 

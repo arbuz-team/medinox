@@ -9,7 +9,7 @@ class Model_Payment(Abstract_Model):
     total_price = models.CharField(max_length=10)
     delivery_price = models.FloatField()
     currency = models.CharField(max_length=3)
-    service = models.CharField(max_length=10)
+    service = models.CharField(max_length=20)
     status = models.CharField(max_length=20)
 
     def __str__(self):

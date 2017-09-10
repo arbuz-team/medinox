@@ -3,6 +3,14 @@ from server.service.sender.views import *
 
 class Base_Payment(Base_Website):
 
+    @abstractmethod
+    def Valid(self):
+        pass
+
+    @abstractmethod
+    def Create_From(self, *args, **kwargs):
+        pass
+
     def Display_Status(self):
         status_manager = Status_Manager(self)
         status_manager.Timer_Start()

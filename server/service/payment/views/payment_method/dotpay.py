@@ -1,9 +1,9 @@
 from server.service.payment.forms import *
-from .base_payment import *
+from server.service.payment.views.base_payment import *
 
 class DotPay(Base_Payment):
 
-    def Valid_DotPay(self):
+    def Valid(self):
         post = self.request.POST
 
         if post['operation_status'] == 'completed':
@@ -27,19 +27,19 @@ class DotPay(Base_Payment):
 
             self.valid = True
 
-    def Create_DotPay_From(self):
-        payment = SQL.Get(Model_Payment, pk=self.context['payment'])
+    def Create_From(self, _object):
+        payment = SQL.Get(Model_Payment, pk=_object.context['payment'])
         address = SQL.Filter(Model_User_Address, user=payment.user)[0]
         path_manager = Path_Manager(self)
 
         dotpay_dict = \
         {
             'id':           DOTPAY_RECEIVER_ID,
-            'amount':       self.context['total_price'],
+            'amount':       _object.context['total_price'],
             'currency':     self.request.session['currency_selected'],
             'description':  Text(self, 152),
 
-            'control':      self.context['payment'],
+            'control':      _object.context['payment'],
             'firstname':    address.full_name.split(' ')[0],
             'lastname':     address.full_name.split(' ')[1],
             'email':        payment.user.email,
@@ -58,6 +58,6 @@ class DotPay(Base_Payment):
     def Service(request):
         dotpay = DotPay(request)
         dotpay.Display_Status()
-        dotpay.Valid_DotPay()
+        dotpay.Valid()
         dotpay.Send_Confirm()
         return HttpResponse('OK')
