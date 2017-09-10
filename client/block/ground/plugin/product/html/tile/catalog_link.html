@@ -64,16 +64,7 @@
 							type="button"
 							data-type="prompt"
 							data-name="catalog"
-							data-value="{{ element.catalog.pk }}"
-							data-dialog-reload="ground">
-						Show real catalog
-					</button>
-
-					<button class="button dialog_button"
-							type="button"
-							data-type="prompt"
-							data-name="catalog"
-							data-value="{{ element.catalog.pk }}"
+							data-value="{{ element.pk }}"
 							data-dialog-reload="ground">
 						Delete link
 					</button>
@@ -81,10 +72,9 @@
 					<button class="button dialog_button"
 							type="button"
 							data-type="prompt"
-							data-name="move"
-							data-value="{{ element.catalog.pk }}"
-							data-other_1="type:link"
-							data-other_2="from:catalog"
+							data-name="move_link"
+							data-value="{{ element.pk }}"
+							data-other_2="model:catalog_link"
 							data-dialog-reload="ground">
 						Move link
 					</button>
@@ -92,10 +82,9 @@
 					<button class="button dialog_button"
 							type="button"
 							data-type="prompt"
-							data-name="move"
-							data-value="{{ element.catalog.pk }}"
-							data-other_1="type:link"
-							data-other_2="from:catalog"
+							data-name="copy_link"
+							data-value="{{ element.pk }}"
+							data-other_2="model:catalog_link"
 							data-dialog-reload="ground">
 						Copy link
 					</button>

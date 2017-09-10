@@ -7,6 +7,8 @@ class Form_Link(Abstract_Form):
     def clean(self):
 
         link = self.request.session['link_editing']
+        if 'target' not in self.data:
+            raise forms.ValidationError(Text(self, 189))
 
         # get data
         name = str(link)

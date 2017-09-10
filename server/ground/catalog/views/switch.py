@@ -5,34 +5,30 @@ from server.ground.link.views import *
 
 class Catalog_Switch(Website_Manager):
 
-    def Manage_Content(self):
-        return Errors_Handler.Code_404(self.request, '__ground__')
+    @staticmethod
+    def Catalog_Not_Found(request):
+        return Errors_Handler.Code_404(request, '__ground__')
 
-    def Manage_Form(self):
+    @staticmethod
+    def Switch_Form(request):
 
-        if self.request.POST['_name_'] == 'copy':
-            element_type = self.request.session['catalog_copy_type']
+        if request.POST['_name_'] == 'copy_product':
+            return Copy_Product(request, only_root=True).HTML
 
-            if element_type == 'product':
-                return Copy_Product(self.request, only_root=True).HTML
+        if request.POST['_name_'] == 'copy_catalog':
+            return Copy_Catalog(request, only_root=True).HTML
 
-            if element_type == 'catalog':
-                return Copy_Catalog(self.request, only_root=True).HTML
+        if request.POST['_name_'] == 'copy_link':
+            return Copy_Link(request, only_root=True).HTML
 
-            if element_type == 'link':
-                return Copy_Link(self.request, only_root=True).HTML
+        if request.POST['_name_'] == 'move_product':
+            return Move_Product(request, only_root=True).HTML
 
-        if self.request.POST['_name_'] == 'move':
-            element_type = self.request.session['catalog_move_type']
+        if request.POST['_name_'] == 'move_catalog':
+            return Move_Catalog(request, only_root=True).HTML
 
-            if element_type == 'product':
-                return Move_Product(self.request, only_root=True).HTML
-
-            if element_type == 'catalog':
-                return Move_Catalog(self.request, only_root=True).HTML
-
-            if element_type == 'link':
-                return Move_Link(self.request, only_root=True).HTML
+        if request.POST['_name_'] == 'move_link':
+            return Move_Link(request, only_root=True).HTML
 
     @staticmethod
     def Launch(request, catalog_path=''):
@@ -49,11 +45,14 @@ class Catalog_Switch(Website_Manager):
             if request.POST['_name_'] == 'link':
                 return Link_Manager(request, only_root=True).HTML
 
-        try:
+        if 'form' in request.POST.values():
+            return Catalog_Switch.Switch_Form(request)
 
-            # change catalog and show content
-            Catalog_Changer(request, catalog_path)
-            return Catalog_Manager(request).HTML
+        # try:
+
+        # change catalog and show content
+        Catalog_Changer(request, catalog_path)
+        return Catalog_Manager(request).HTML
 
         # catalog not found
-        except: return Catalog_Switch(request).HTML
+        # except: return Catalog_Switch(request).HTML

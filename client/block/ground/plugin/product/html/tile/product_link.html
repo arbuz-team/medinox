@@ -62,16 +62,7 @@
 						type="button"
 						data-type="prompt"
 						data-name="product"
-						data-value="{{ element.product.pk }}"
-						data-dialog-reload="ground">
-					Show real product
-				</button>
-
-				<button class="button dialog_button"
-						type="button"
-						data-type="prompt"
-						data-name="product"
-						data-value="{{ element.product.pk }}"
+						data-value="{{ element.pk }}"
 						data-dialog-reload="ground">
 					Delete link
 				</button>
@@ -79,10 +70,9 @@
 				<button class="button dialog_button"
 						type="button"
 						data-type="prompt"
-						data-name="move"
-						data-value="{{ element.product.pk }}"
-						data-other_1="type:link"
-						data-other_2="from:product"
+						data-name="move_link"
+						data-value="{{ element.pk }}"
+						data-other_2="model:product_link"
 						data-dialog-reload="ground">
 					Move link
 				</button>
@@ -90,10 +80,9 @@
 				<button class="button dialog_button"
 						type="button"
 						data-type="prompt"
-						data-name="move"
-						data-value="{{ element.product.pk }}"
-						data-other_1="type:link"
-						data-other_2="from:product"
+						data-name="copy_link"
+						data-value="{{ element.pk }}"
+						data-other_2="model:product_link"
 						data-dialog-reload="ground">
 					Copy link
 				</button>

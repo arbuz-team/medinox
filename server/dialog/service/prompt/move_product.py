@@ -3,32 +3,24 @@ from server.service.payment.forms import *
 from server.ground.catalog.forms import *
 
 
-class Service_Move(Catalog_Tree):
+class Service_Move_Product(Catalog_Tree):
 
-    def Get_Element(self):
+    def Get_Element(self, model):
 
         if 'value' in self.request.POST:
-            element_type = self.dialog.Get_Post_Other('type')
             element_pk = self.request.POST['value']
 
             # get element
-            if element_type == 'product':
-                return SQL.Get(Model_Product, pk=element_pk)
-
-            if element_type == 'catalog':
-                return SQL.Get(Model_Catalog, pk=element_pk)
-
+            return SQL.Get(model, pk=element_pk)
         return self.request.session['catalog_move_element']
 
-    def New(self):
+    def Move_Product(self):
 
         # get post data
-        element_type = self.dialog.Get_Post_Other('type')
-        element = self.Get_Element()
+        element = self.Get_Element(Model_Product)
 
         # initial data
         self.request.session['catalog_move_element'] = element
-        self.request.session['catalog_move_type'] = element_type
         language = self.request.session['translator_language']
 
         self.initial = {
@@ -36,15 +28,19 @@ class Service_Move(Catalog_Tree):
             'name': element.name
         }
 
-    def Manage(self):
-
-        self.Create_Catalog_Tree()
-        self.New()
-
-        # code for each widget
-        self.context['title'] = Text(self, 179)
         self.context['form'] = self.Prepare_Form(
             Form_Move, initial=self.initial)
 
+    def Not_Valid(self):
+        pass
+
+    def Manage(self):
+
+        self.Move_Product()
+
+        # code for each widget
+        self.context['title'] = Text(self, 179)
+        self.Create_Catalog_Tree()
+
         return self.Render_Dialog(
-            'move.html', 'move', only_root=True)
+            'move.html', 'move_product', only_root=True)

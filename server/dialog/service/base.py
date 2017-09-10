@@ -7,6 +7,10 @@ class Base_Service(Base):
     def Manage(self):
         pass
 
+    @abstractmethod
+    def Not_Valid(self):
+        pass
+
     def Unauthorized_Access(self):
         self.context['title'] = Text(self, 69)
         self.context['text'] = Text(self, 70)
@@ -62,4 +66,5 @@ class Base_Service(Base):
         self.initial = None
         self.context = dialog.context
 
-        self.HTML = self.Manage()
+        if dialog.not_valid: self.HTML = self.Not_Valid()
+        else: self.HTML = self.Manage()
