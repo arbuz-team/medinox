@@ -3,61 +3,61 @@
  */
 
 
-  let
+let
 
-    change_fields = function(select_choice)
-    {
-      let
-        important_fields = $(select_choice).data('important_fields'),
-        fields_to_hide = $(select_choice).val();
-
-
-      let hidden_fields = function(list, type)
-      {
-        let array, array_length;
-
-        if(!list || typeof list !== 'string')
-          return false;
-
-        array = list.split(' ');
-        array_length = array.length;
-
-        for(let i = 0; i < array_length; ++i)
-          if(array[i])
-            if($('#id_'+ array[i]).length)
-              $('#id_'+ array[i]).attr('hidden', type)
-      };
-
-      hidden_fields(important_fields, false);
-      hidden_fields(fields_to_hide, true);
-    },
+	change_fields = function(select_choice)
+	{
+		let
+			important_fields = $(select_choice).data('important_fields'),
+			fields_to_hide = $(select_choice).val();
 
 
-    change_form = function(event)
-    {
-      event.preventDefault();
-      event.stopPropagation();
+		let hidden_fields = function(list, type)
+		{
+			let array, array_length;
 
-      let
-        $select_choice = $(this),
-        $title_field = $('#id_title'),
-        $options = $select_choice.children('option'),
-        form_title = $title_field.val();
+			if(!list || typeof list !== 'string')
+				return false;
 
-      $options.each(function(){
-        if($(this).is(':selected'))
-          form_title = $(this).text();
-      });
+			array = list.split(' ');
+			array_length = array.length;
 
-      $title_field.attr('value', form_title);
+			for(let i = 0; i < array_length; ++i)
+				if(array[i])
+					if($('#id_'+ array[i]).length)
+						$('#id_'+ array[i]).attr('hidden', type)
+		};
 
-      change_fields($select_choice);
-    };
+		hidden_fields(important_fields, false);
+		hidden_fields(fields_to_hide, true);
+	},
 
 
-  export let
+	change_form = function(event)
+	{
+		event.preventDefault();
+		event.stopPropagation();
 
-    define = function($container)
-    {
-      $('.selected_form-choice', $container).change(change_form);
-    };
+		let
+			$select_choice = $(this),
+			$title_field = $('#id_title'),
+			$options = $select_choice.children('option'),
+			form_title = $title_field.val();
+
+		$options.each(function(){
+			if($(this).is(':selected'))
+				form_title = $(this).text();
+		});
+
+		$title_field.attr('value', form_title);
+
+		change_fields($select_choice);
+	};
+
+
+export let
+
+	define = function(config)
+	{
+		$('.selected_form-choice', config.$container).change(change_form);
+	};

@@ -3710,51 +3710,51 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	
 	
 	var change_fields = function change_fields(select_choice) {
-	  var important_fields = $(select_choice).data('important_fields'),
-	      fields_to_hide = $(select_choice).val();
+		var important_fields = $(select_choice).data('important_fields'),
+		    fields_to_hide = $(select_choice).val();
 	
-	  var hidden_fields = function hidden_fields(list, type) {
-	    var array = void 0,
-	        array_length = void 0;
+		var hidden_fields = function hidden_fields(list, type) {
+			var array = void 0,
+			    array_length = void 0;
 	
-	    if (!list || typeof list !== 'string') return false;
+			if (!list || typeof list !== 'string') return false;
 	
-	    array = list.split(' ');
-	    array_length = array.length;
+			array = list.split(' ');
+			array_length = array.length;
 	
-	    for (var i = 0; i < array_length; ++i) {
-	      if (array[i]) if ($('#id_' + array[i]).length) $('#id_' + array[i]).attr('hidden', type);
-	    }
-	  };
+			for (var i = 0; i < array_length; ++i) {
+				if (array[i]) if ($('#id_' + array[i]).length) $('#id_' + array[i]).attr('hidden', type);
+			}
+		};
 	
-	  hidden_fields(important_fields, false);
-	  hidden_fields(fields_to_hide, true);
+		hidden_fields(important_fields, false);
+		hidden_fields(fields_to_hide, true);
 	},
 	    change_form = function change_form(event) {
-	  event.preventDefault();
-	  event.stopPropagation();
+		event.preventDefault();
+		event.stopPropagation();
 	
-	  var $select_choice = $(this),
-	      $title_field = $('#id_title'),
-	      $options = $select_choice.children('option'),
-	      form_title = $title_field.val();
+		var $select_choice = $(this),
+		    $title_field = $('#id_title'),
+		    $options = $select_choice.children('option'),
+		    form_title = $title_field.val();
 	
-	  $options.each(function () {
-	    if ($(this).is(':selected')) form_title = $(this).text();
-	  });
+		$options.each(function () {
+			if ($(this).is(':selected')) form_title = $(this).text();
+		});
 	
-	  $title_field.attr('value', form_title);
+		$title_field.attr('value', form_title);
 	
-	  change_fields($select_choice);
+		change_fields($select_choice);
 	};
 	
-	var define = exports.define = function define($container) {
-	  $('.selected_form-choice', $container).change(change_form);
+	var define = exports.define = function define(config) {
+		$('.selected_form-choice', config.$container).change(change_form);
 	};
 
 /***/ },
