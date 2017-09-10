@@ -33,42 +33,62 @@ export function Ground_View()
 	};
 
 
-	this.change_height_start_banner = function($container, height_container)
+	this._change_height_ground = function()
 	{
 		let
-			width_website = model.page_controller.get_height(),
-			height_start_banner = 0;
+			$ground = $(model.container),
+			height = {
+				window: model.page_controller.get_height(),
+				header: model.menu_controller.get_height(),
+				ground_top: $ground.position().top,
+			},
+			height_ground = height.window - height.header - height.ground_top;
 
-		if(height_container > 768)
-			height_start_banner = height_container - 386;
+		$ground.height(height_ground);
+	};
 
-		if(height_start_banner === 0 || width_website < 1000)
+
+	this._change_height_ground_by_spacer = function()
+	{
+		let
+			$ground =           $(model.container),
+			$ground_block =     $ground.find('.ground-block'),
+			$spacer =           $ground.find('.ground-block-spacer'),
+			$footer =           $ground.find('.footer'),
+			height = {
+				window:             model.page_controller.get_height(),
+				header:             model.menu_controller.get_height(),
+				ground_top:         $ground.position().top,
+				ground_blocks:      0,
+				footer:             parseInt($footer.outerHeight()),
+			},
+			height_spacer = height.window - height.header - height.ground_top - height.footer;
+
+		if($ground_block.length)
+			$ground_block.each(function()
+			{
+				height.ground_blocks += parseInt($(this).outerHeight());
+			});
+
+		height_spacer -= height.ground_blocks;
+
+		if(height_spacer > 0)
 		{
-			$('.ground-block.start .block-content-image', $container).hide();
-			$('.ground-block.start .block-content-recommended-title', $container).show();
+			console.log($spacer.length);
+			if($spacer.length < 1)
+				$($footer).before('<div class="ground-block-spacer">&nbsp;</div>');
+
+			$ground.find('.ground-block-spacer').height(height_spacer);
 		}
-		else
-		{
-			$('.ground-block.start .block-content-image', $container).show().height(height_start_banner);
-			$('.ground-block.start .block-content-recommended-title', $container).hide();
-		}
+		else if($spacer.length)
+			$spacer.remove();
 	};
 
 
 	this.change_height_content = () =>
 	{
-		let
-
-			$container = $(model.container),
-			height = {
-				window: model.page_controller.get_height(),
-				header: model.menu_controller.get_height(),
-				ground_top: $container.position().top,
-			},
-			height_container = height.window - height.header - height.ground_top;
-
-		$container.height(height_container);
-		this.change_height_start_banner($container, height_container);
+		this._change_height_ground();
+		this._change_height_ground_by_spacer();
 	};
 
 
