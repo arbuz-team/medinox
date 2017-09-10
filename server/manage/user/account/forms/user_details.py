@@ -1,3 +1,4 @@
+from server.manage.switch.website.base import *
 from server.manage.switch.forms.standard import *
 
 
@@ -23,21 +24,9 @@ class Form_User_Details(Abstract_Form):
 
     def Set_Widgets(self):
 
-        new_username_attr = {
-            'placeholder': Text(self, 90),
-            'class': 'test',
-        }
-
-        new_password_attr = {
-            'placeholder': Text(self, 91),
-            'class': 'test',
-        }
-
-        new_email_attr = {
-            'placeholder': Text(self, 89),
-            'class': 'test',
-            'autofocus': 'true',
-        }
+        new_username_attr = self.Attr(Text(self, 90), classes='test')
+        new_password_attr = self.Attr(Text(self, 91), classes='test')
+        new_email_attr = self.Attr(Text(self, 89), classes='test')
 
         self.fields['new_username'].widget = forms.TextInput(attrs=new_username_attr)
         self.fields['new_password'].widget = forms.PasswordInput(attrs=new_password_attr)
