@@ -5,7 +5,7 @@ class Move_Catalog(Website_Manager):
 
     def Manage_Form(self):
 
-        self.context['form'] = Form_Copy(self, post=True)
+        self.context['form'] = Form_Move(self, post=True)
         if self.context['form'].is_valid():
 
             # get data

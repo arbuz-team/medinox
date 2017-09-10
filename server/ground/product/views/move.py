@@ -3,10 +3,9 @@ from server.ground.product.views.copy import *
 
 class Move_Product(Website_Manager):
 
-    # Backend: test it
     def Manage_Form(self):
 
-        self.context['form'] = Form_Copy(self, post=True)
+        self.context['form'] = Form_Move(self, post=True)
         if self.context['form'].is_valid():
 
             # get data
@@ -18,7 +17,7 @@ class Move_Product(Website_Manager):
             # change data and move catalog
             product.name = name
             product.language = language
-            product.parent = target
+            product.parent = SQL.Get(Model_Catalog, pk=target)
             SQL.Save(data=product)
 
             return Dialog_Prompt(self, apply=True).HTML
