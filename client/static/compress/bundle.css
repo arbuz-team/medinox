@@ -196,6 +196,9 @@ div > .buttons_to_action {
 .is-relative {
   position: relative; }
 
+.is-min-100 {
+  min-width: 100px; }
+
 .is-text-has-notifications {
   animation: notifications 2.3s infinite; }
 
@@ -470,6 +473,10 @@ div > .buttons_to_action {
   margin: 0;
   padding: 0;
     padding-left: 5px; }
+
+.g-recaptcha {
+  margin: 2px 3px;
+    margin-bottom: 8px; }
 
 .button.is-icon {
   margin: 0;
@@ -1536,7 +1543,7 @@ img {
   width: 320px;
   margin: 30px auto; }
 
-.ground-block.SMALL .is-fills-in-width-inside .input, .ground-block.SMALL .is-fills-in-width-inside .button, .ground-block.SMALL .is-fills-in-width-inside .select {
+.ground-block.SMALL .is-fills-in-width-inside .input, .ground-block.SMALL .is-fills-in-width-inside .button, .ground-block.SMALL .is-fills-in-width-inside .select, .ground-block.SMALL .is-fills-in-width-inside .g-recaptcha {
   width: 100%;
   margin-left: 0;
   margin-right: 0; }

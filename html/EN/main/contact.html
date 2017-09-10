@@ -50,19 +50,14 @@
                     </select>
                 </div>
 
-                {% for i in form %}
+                {% for field in form %}
 
-                    <div>
-
-                        {{ i }}
-                        {% include "form/html/field_error.html" %}
-
-                    </div>
+                    {% include "form/html/manage_field.html" %}
 
                 {% endfor %}
 
-                <div>
-                    <button class="button is-important" disabled type="submit"> Done </button>
+                <div class="">
+                    <button class="button is-important is-min-100" disabled type="submit"> Send </button>
                 </div>
 
             </form>
