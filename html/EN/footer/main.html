@@ -33,7 +33,7 @@
 
         {% for element in request.session.root_social_media %}
 
-            {% if element.url %}
+            {% if element.url and element.type == 'social' %}
                 <a class="footer-social-link is-zoom" href="{{ element.url }}" target="_blank">
                     <div class="footer-social-icon footer-social-{{ element.pk }}"></div>
                 </a>
@@ -50,6 +50,19 @@
 
     </div><!-- footer-social -->
 
+    <div class="is-center-inside">
+        {% for element in request.session.root_social_media %}
+
+            {% if element.url and element.type == 'private' %}
+                <div>
+                    <a href="{{ element.url }}" target="_blank">
+                        {{ element.url }}
+                    </a>
+                </div>
+            {% endif %}
+
+        {% endfor %}
+    </div>
 
 
     <!-- ////////////    NAVIGATION    ////////////// -->
