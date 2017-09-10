@@ -3398,6 +3398,10 @@
 		email: 'email_in_db'
 	};
 	
+	list_configs.change_passord = {
+		password: 'safety_password'
+	};
+	
 	list_configs.email_contact = {
 		client: 'proper_name',
 		email: 'email',
