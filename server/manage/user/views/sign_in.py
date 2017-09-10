@@ -39,3 +39,29 @@ class Sign_In(Website_Manager):
     @staticmethod
     def Launch(request):
         return Sign_In(request).HTML
+
+
+
+class Sign_In_Cart(Sign_In):
+
+    def Manage_Form(self):
+        self.context['form'] = Form_Login(self, post=True)
+
+        if self.context['form'].is_valid():
+            email = self.context['form'].cleaned_data['email']
+            unique = SQL.Get(Model_User, email=email).unique
+
+            self.request.session['user_login'] = True
+            self.request.session['user_user'] = \
+                SQL.Get(Model_User, unique=unique)
+
+            self.context['form'] = None  # message of correct
+            self.context['cart_open'] = True
+            return self.Render_HTML('user/sign_in.html')
+
+        return self.Render_HTML('user/sign_in.html', 'login')
+
+    @staticmethod
+    def Launch(request):
+        return Sign_In_Cart(request).HTML
+

@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^change_password/(?P<key>[a-z0-9]{40})/$',
         Change_Password.Secure, name='user.change_password'),
 
+    url(r'^sign_in/cart/$', Sign_In_Cart.Launch, name='user.sign_in_cart'),
     url(r'^sign_in/redirect/(?P<url>.+)/$',
         Sign_In.Redirect, name='user.sign_in.redirect'),
 

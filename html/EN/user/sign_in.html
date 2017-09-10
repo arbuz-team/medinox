@@ -24,13 +24,16 @@
 
 
                 APP.DATA.redirect = '{{ go_back }}';
-                APP.DATA.delay = 1500;
+                APP.DATA.delay = 1000;
                 APP.throw_event(EVENTS.redirect);
             </script>
 
 		    {% if cart_open %}
 			    <script>
-				    APP.throw_event(EVENTS.part.open_cart);
+			        setTimeout(function()
+			        {
+			            APP.throw_event(EVENTS.part.open_cart);
+			        }, 1500);
 			    </script>
 		    {% endif %}
 
