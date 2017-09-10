@@ -1,12 +1,9 @@
 <script>
     APP.DATA = {
-        title : 'Login',
+        title : 'Sign in',
         description : 'Here you can login.'
     };
 </script>
-
-
-<!-- Frontend: When user is logout and click `Cart`, after sign in cart have to open -->
 
 
 <div class="ground-block block-1 SMALL">
@@ -22,13 +19,20 @@
                 Hello {{ request.session.user_username }}. Have a nice shopping! ;)
             </div>
 
-            <script>
-               APP.throw_event(EVENTS.part.reload_user_sign_in);
-                APP.DATA.redirect = '{{ go_back }}';
+	        <script>
+                APP.throw_event(EVENTS.part.reload_user_sign_in);
 
+
+                APP.DATA.redirect = '{{ go_back }}';
                 APP.DATA.delay = 1500;
                 APP.throw_event(EVENTS.redirect);
             </script>
+
+		    {% if cart_open %}
+			    <script>
+				    APP.throw_event(EVENTS.part.open_cart);
+			    </script>
+		    {% endif %}
 
         {% else %}
 
