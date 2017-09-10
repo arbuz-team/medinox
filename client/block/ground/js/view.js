@@ -16,10 +16,11 @@ export function Ground_View()
 	{
 		let
 			url = $(that).attr('href'),
-			protocol = url.substring(0, 4);
+			protocol = url.substring(0, 4),
+			mailto = url.substring(0, 7);
 
 
-		if(protocol !== 'http')
+		if(protocol !== 'http' && protocol !== 'tel:' && mailto !== 'mailto:')
 			if(event.which === 1)
 			{
 				event.preventDefault();

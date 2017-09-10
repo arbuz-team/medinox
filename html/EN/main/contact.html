@@ -31,10 +31,10 @@
                 {{ request.session.root_address.region }} {{ request.session.root_address.country }}<br>
 
                 {% if request.session.root_address.phone %}
-                    {{ request.session.root_address.phone }}<br>
+                    <a href="tel:{{ request.session.root_address.phone }}">{{ request.session.root_address.phone }}</a><br>
                 {% endif %}
 
-                {{ request.session.root_address.email }}<br>
+                <a href="mailto:{{ request.session.root_address.email }}">{{ request.session.root_address.email }}</a><br>
             </div>
 
 

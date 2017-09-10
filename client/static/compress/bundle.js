@@ -2143,9 +2143,10 @@
 	
 		this.go_to_link = function (that, event) {
 			var url = $(that).attr('href'),
-			    protocol = url.substring(0, 4);
+			    protocol = url.substring(0, 4),
+			    mailto = url.substring(0, 7);
 	
-			if (protocol !== 'http') if (event.which === 1) {
+			if (protocol !== 'http' && protocol !== 'tel:' && mailto !== 'mailto:') if (event.which === 1) {
 				event.preventDefault();
 				APP.throw_event(EVENTS.part.close);
 	

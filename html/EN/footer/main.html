@@ -100,7 +100,7 @@
         <div class="footer-contact-element">
             <i class="footer-contact-icon img-email">&nbsp;</i>
 
-            <span>{{ request.session.root_address.email }}</span>
+            <span><a href="mailto:{{ request.session.root_address.email }}">{{ request.session.root_address.email }}</a></span>
         </div>
 
 
@@ -108,7 +108,7 @@
             <div class="footer-contact-element">
                 <i class="footer-contact-icon img-telephone">&nbsp;</i>
 
-                <span>{{ request.session.root_address.phone }}</span>
+                <span><a href="tel:{{ request.session.root_address.phone }}">{{ request.session.root_address.phone }}</a></span>
             </div>
         {% endif %}
 
