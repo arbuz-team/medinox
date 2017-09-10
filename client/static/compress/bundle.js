@@ -1771,8 +1771,6 @@
 	
 	var _controllers3 = __webpack_require__(53);
 	
-	var selected_form = _interopRequireWildcard(_controllers3);
-	
 	var _controllers4 = __webpack_require__(54);
 	
 	var file_converter = _interopRequireWildcard(_controllers4);
@@ -1786,6 +1784,7 @@
 	var Form_Controllers = exports.Form_Controllers = function Form_Controllers(config, is_dialog) {
 		var address_switcher = new _controller.Address_Switcher_Controller(config),
 		    currency_converter = new _controller2.Currency_Converter_Controller(config),
+		    selected_form = new _controllers3.Selected_Form_Controller(config),
 		    form_models = void 0,
 		    variables = void 0;
 	
@@ -1825,10 +1824,10 @@
 	
 			validator.define(config_form);
 			auto_form.define(config_form);
-			selected_form.define(config_form);
 			file_converter.define(config_form);
-			address_switcher.define(config_form);
-			currency_converter.define(config_form);
+			selected_form.define();
+			address_switcher.define();
+			currency_converter.define();
 		};
 	};
 
@@ -3712,50 +3711,57 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.Selected_Form_Controller = Selected_Form_Controller;
+	function Selected_Form_Controller(config) {
+		if (!config || !config.container) {
+			console.error('Part Loader error: Invalid configuration.');
+			return {};
+		}
 	
+		var $container = config.container,
+		    change_fields = function change_fields(select_choice) {
+			var important_fields = $(select_choice).data('important_fields'),
+			    fields_to_hide = $(select_choice).val();
 	
-	var change_fields = function change_fields(select_choice) {
-		var important_fields = $(select_choice).data('important_fields'),
-		    fields_to_hide = $(select_choice).val();
+			var hidden_fields = function hidden_fields(list, type) {
+				var array = void 0,
+				    array_length = void 0;
 	
-		var hidden_fields = function hidden_fields(list, type) {
-			var array = void 0,
-			    array_length = void 0;
+				if (!list || typeof list !== 'string') return false;
 	
-			if (!list || typeof list !== 'string') return false;
+				array = list.split(' ');
+				array_length = array.length;
 	
-			array = list.split(' ');
-			array_length = array.length;
+				for (var i = 0; i < array_length; ++i) {
+					if (array[i]) if ($('#id_' + array[i]).length) $('#id_' + array[i]).attr('hidden', type);
+				}
+			};
 	
-			for (var i = 0; i < array_length; ++i) {
-				if (array[i]) if ($('#id_' + array[i]).length) $('#id_' + array[i]).attr('hidden', type);
-			}
+			hidden_fields(important_fields, false);
+			hidden_fields(fields_to_hide, true);
+		},
+		    change_form = function change_form(event) {
+			event.preventDefault();
+			event.stopPropagation();
+	
+			var $select_choice = $(this),
+			    $title_field = $('#id_title'),
+			    $options = $select_choice.children('option'),
+			    form_title = $title_field.val();
+	
+			$options.each(function () {
+				if ($(this).is(':selected')) form_title = $(this).text();
+			});
+	
+			$title_field.attr('value', form_title);
+	
+			change_fields($select_choice);
 		};
 	
-		hidden_fields(important_fields, false);
-		hidden_fields(fields_to_hide, true);
-	},
-	    change_form = function change_form(event) {
-		event.preventDefault();
-		event.stopPropagation();
-	
-		var $select_choice = $(this),
-		    $title_field = $('#id_title'),
-		    $options = $select_choice.children('option'),
-		    form_title = $title_field.val();
-	
-		$options.each(function () {
-			if ($(this).is(':selected')) form_title = $(this).text();
-		});
-	
-		$title_field.attr('value', form_title);
-	
-		change_fields($select_choice);
-	};
-	
-	var define = exports.define = function define(config) {
-		$('.selected_form-choice', config.$container).change(change_form);
-	};
+		this.define = function () {
+			$('.selected_form-choice', $container).change(change_form);
+		};
+	}
 
 /***/ },
 /* 54 */

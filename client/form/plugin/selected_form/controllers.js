@@ -3,61 +3,71 @@
  */
 
 
-let
-
-	change_fields = function(select_choice)
+export function Selected_Form_Controller(config)
+{
+	if(!config || !config.container)
 	{
-		let
-			important_fields = $(select_choice).data('important_fields'),
-			fields_to_hide = $(select_choice).val();
+		console.error('Part Loader error: Invalid configuration.');
+		return {};
+	}
 
 
-		let hidden_fields = function(list, type)
+	let
+		$container = config.container,
+
+
+		change_fields = function(select_choice)
 		{
-			let array, array_length;
+			let
+				important_fields = $(select_choice).data('important_fields'),
+				fields_to_hide = $(select_choice).val();
 
-			if(!list || typeof list !== 'string')
-				return false;
 
-			array = list.split(' ');
-			array_length = array.length;
+			let hidden_fields = function(list, type)
+			{
+				let array, array_length;
 
-			for(let i = 0; i < array_length; ++i)
-				if(array[i])
-					if($('#id_'+ array[i]).length)
-						$('#id_'+ array[i]).attr('hidden', type)
+				if(!list || typeof list !== 'string')
+					return false;
+
+				array = list.split(' ');
+				array_length = array.length;
+
+				for(let i = 0; i < array_length; ++i)
+					if(array[i])
+						if($('#id_'+ array[i]).length)
+							$('#id_'+ array[i]).attr('hidden', type)
+			};
+
+			hidden_fields(important_fields, false);
+			hidden_fields(fields_to_hide, true);
+		},
+
+
+		change_form = function(event)
+		{
+			event.preventDefault();
+			event.stopPropagation();
+
+			let
+				$select_choice = $(this),
+				$title_field = $('#id_title'),
+				$options = $select_choice.children('option'),
+				form_title = $title_field.val();
+
+			$options.each(function(){
+				if($(this).is(':selected'))
+					form_title = $(this).text();
+			});
+
+			$title_field.attr('value', form_title);
+
+			change_fields($select_choice);
 		};
 
-		hidden_fields(important_fields, false);
-		hidden_fields(fields_to_hide, true);
-	},
 
-
-	change_form = function(event)
+	this.define = function()
 	{
-		event.preventDefault();
-		event.stopPropagation();
-
-		let
-			$select_choice = $(this),
-			$title_field = $('#id_title'),
-			$options = $select_choice.children('option'),
-			form_title = $title_field.val();
-
-		$options.each(function(){
-			if($(this).is(':selected'))
-				form_title = $(this).text();
-		});
-
-		$title_field.attr('value', form_title);
-
-		change_fields($select_choice);
-	};
-
-
-export let
-
-	define = function(config)
-	{
-		$('.selected_form-choice', config.$container).change(change_form);
-	};
+		$('.selected_form-choice', $container).change(change_form);
+	}
+}
