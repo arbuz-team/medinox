@@ -17,7 +17,7 @@
 
             {{ selected.product }}
             {{ selected.number }} x
-            {% get_price selected.product payment.currency %} <br>
+            {{ selected.product }} {{ payment.currency }} <br>
 
         {% endfor %}
 
@@ -26,6 +26,6 @@
         {{ payment.total_price }} <br>
         {{ payment.service }} <br>
 
-    </p
+    </p>
 
 {% endblock content %}

@@ -55,8 +55,7 @@ class Dialog_Prompt(Dialog):
     def __init__(self, _object, apply=False,
                  not_valid=False, other_value=None):
 
-        Dialog.__init__(self, _object, apply)
-        self.not_valid = not_valid
+        Dialog.__init__(self, _object, apply, not_valid)
         self.other_value = other_value
 
         self.HTML = self.Manage()

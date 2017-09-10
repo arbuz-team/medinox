@@ -1,4 +1,5 @@
 from server.dialog.service.base import *
+from server.service.payment.models import *
 
 
 class Service_User_Address(Base_Service):

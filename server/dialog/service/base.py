@@ -7,7 +7,6 @@ class Base_Service(Base):
     def Manage(self):
         pass
 
-    @abstractmethod
     def Not_Valid(self):
         pass
 
