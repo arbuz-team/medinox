@@ -22,6 +22,9 @@ class Service_Link(Catalog_Tree):
 
         return obiekt
 
+    def Not_Valid(self):
+        pass
+
     def Manage(self):
 
         self.Create_Catalog_Tree()

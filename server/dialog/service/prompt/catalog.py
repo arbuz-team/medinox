@@ -17,6 +17,9 @@ class Service_Catalog(Base_Service):
         self.context['image'] = catalog.image
         self.initial = {'name': catalog.name}
 
+    def Not_Valid(self):
+        pass
+
     def Manage(self):
 
         if self.request.POST['value']:

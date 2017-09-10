@@ -15,6 +15,9 @@ class Service_Note(Base_Service):
         else: self.instance = \
             self.request.session['root_note']
 
+    def Not_Valid(self):
+        pass
+
     def Manage(self):
 
         # always edit

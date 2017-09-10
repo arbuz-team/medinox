@@ -4,6 +4,9 @@ from server.manage.user.account.forms import *
 
 class Service_Email(Base_Service):
 
+    def Not_Valid(self):
+        pass
+
     def Manage(self):
 
         self.context['title'] = Text(self, 86)

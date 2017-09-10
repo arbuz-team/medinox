@@ -38,6 +38,9 @@ class Service_Home(Base_Service):
             'paragraph': home.paragraph,
         }
 
+    def Not_Valid(self):
+        pass
+
     def Manage(self):
 
         position_manager = Position_Manager(self)

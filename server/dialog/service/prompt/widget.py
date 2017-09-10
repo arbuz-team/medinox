@@ -28,6 +28,9 @@ class Service_Widget(Base_Service):
             self.context['additional_form'] = \
                 self.Prepare_Form(Form_Values)
 
+    def Not_Valid(self):
+        pass
+
     def Manage(self):
 
         # check if edit widget

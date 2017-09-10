@@ -38,6 +38,9 @@ class Service_About(Base_Service):
             'paragraph': about.paragraph,
         }
 
+    def Not_Valid(self):
+        pass
+
     def Manage(self):
 
         position_manager = Position_Manager(self)

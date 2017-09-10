@@ -15,6 +15,9 @@ class Service_Deadline(Base_Service):
         else: self.instance = \
             self.request.session['root_deadline']
 
+    def Not_Valid(self):
+        pass
+
     def Manage(self):
 
         # always edit

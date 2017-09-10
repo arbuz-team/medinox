@@ -25,6 +25,9 @@ class Service_Product(Base_Service):
             'brand': product.brand,
         }
 
+    def Not_Valid(self):
+        pass
+
     def Manage(self):
 
         if self.request.POST['value']:

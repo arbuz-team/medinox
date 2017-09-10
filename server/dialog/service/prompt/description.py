@@ -39,6 +39,9 @@ class Service_Description(Base_Service):
             'paragraph': description.paragraph,
         }
 
+    def Not_Valid(self):
+        pass
+
     def Manage(self):
 
         position_manager = Position_Manager(self)
