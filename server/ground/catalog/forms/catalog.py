@@ -10,8 +10,6 @@ class Form_Catalog(Abstract_Image_Form):
         parent = self.request.session['catalog_parent']
         children = SQL.Filter(Model_Catalog, parent=parent)
 
-        # raise forms.ValidationError('AAAAAAAAAAA')
-
         if children.filter(name=name):
             raise forms.ValidationError(Text(self, 155))
 

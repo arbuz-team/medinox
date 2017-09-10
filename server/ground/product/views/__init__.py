@@ -6,3 +6,4 @@ from .products import *
 from .values import *
 from .widget import *
 from .copy import *
+from .move import *

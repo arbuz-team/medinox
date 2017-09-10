@@ -5,14 +5,14 @@ from server.ground.catalog.forms.operation import *
 class Copy_Product(Website_Manager):
 
     @staticmethod
-    def Create_Copy_Product(from_product, name, language, parent):
+    def Create_Copy_Product(from_product, name, language, target):
 
         # create copy product
         copy_product = Model_Product()
         copy_product.name = name
         copy_product.url_name = Path_Manager.To_URL(name)
         copy_product.price = from_product.price
-        copy_product.parent = parent
+        copy_product.parent = target
         copy_product.language = language
         SQL.Save(data=copy_product)
 
@@ -26,12 +26,13 @@ class Copy_Product(Website_Manager):
 
             # get data
             from_product = self.request.session['catalog_copy_element']
+            target = SQL.Get(Model_Catalog, pk=self.request.POST['target'])
             language = self.request.POST['language']
             name = self.request.POST['name']
 
             # create copy product
-            self.Create_Copy_Product(from_product, name,
-                 language, from_product.parent)
+            self.Create_Copy_Product(
+                from_product, name, language, target)
 
             return Dialog_Prompt(self, apply=True).HTML
         return Dialog_Prompt(self, not_valid=True).HTML
