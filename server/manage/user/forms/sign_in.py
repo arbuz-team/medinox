@@ -34,8 +34,8 @@ class Form_Login(Abstract_Form):
 
     def Set_Widgets(self):
 
-        email_attrs = self.Attr(Text(self, 39), classes='test', autofocus=True)
-        password_attrs = self.Attr(Text(self, 40), classes='test')
+        email_attrs = self.Attr(Text(self, 39), classes='test', autofocus=True, autocomplite='')
+        password_attrs = self.Attr(Text(self, 40), classes='test', autocomplite='')
 
         self.fields['email'].widget = forms.TextInput(attrs=email_attrs)
         self.fields['password'].widget = forms.PasswordInput(attrs=password_attrs)

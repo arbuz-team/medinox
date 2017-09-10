@@ -3,6 +3,7 @@ from django_countries import countries
 from django_countries.fields import LazyTypedChoiceField
 from server.manage.user.models import *
 from server.service.translator.views import *
+from server.manage.switch.website.base import *
 
 
 class Field:
@@ -44,12 +45,13 @@ class Base_Form(Base):
         pass
 
     @staticmethod
-    def Attr(placeholder='', classes='', autofocus=False,
-             hidden=False, other={}, field=Field.INPUT):
+    def Attr(placeholder='', classes='', autofocus=False, hidden=False,
+             autocomplite='new-password', other={}, field=Field.INPUT):
 
         attr = {
             'placeholder':  placeholder,
             'class':        classes,
+            'autocomplete': autocomplite,
             'autofocus':    'true' if autofocus else 'false'
         }
 
