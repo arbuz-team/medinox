@@ -3,9 +3,15 @@
 
 {% block content %}
 
-    <div class="content-image"> <img src="cid:logo" /> </div>
-    <div class="content-title"> You have bought product. </div>
-    <div class="content-text">
+    <p class="paragraph">
+        Hi!
+    </p>
+
+    <p class="paragraph">
+        You have bought product.
+    </p>
+
+    <p class="paragraph">
 
         {% for selected in selected_products %}
 
@@ -20,6 +26,6 @@
         {{ payment.total_price }} <br>
         {{ payment.service }} <br>
 
-    </div><!-- content-text -->
+    </p
 
 {% endblock content %}

@@ -2,9 +2,15 @@
 
 {% block content %}
 
-    <div class="content-image"> <img src="cid:logo" /> </div>
-    <div class="content-title"> This is the questions customer. </div>
-    <div class="content-text">
+    <p class="paragraph">
+        Hi!
+    </p>
+
+    <p class="paragraph">
+        This is the questions customer.
+    </p>
+
+    <p class="paragraph">
         Customer: {{ client }} <br>
         Question: {{ question }} <br>
 
@@ -15,7 +21,6 @@
         {% if url %}
             URL: {{ url }} <br>
         {% endif %}
-
-    </div><!-- content-text -->
+    </p>
 
 {% endblock content %}
