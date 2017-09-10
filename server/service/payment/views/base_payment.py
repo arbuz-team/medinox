@@ -3,6 +3,11 @@ from server.service.sender.views import *
 
 class Base_Payment(Base_Website):
 
+    def Display_Status(self):
+        status_manager = Status_Manager(self)
+        status_manager.Timer_Start()
+        status_manager.Display_Status()
+
     def Send_Confirm(self):
 
         email = self.payment.user.email
