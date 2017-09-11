@@ -1431,6 +1431,9 @@ img {
 .ground-block.payment .cart-list-button {
   display: inline-block;
   margin-top: 2px; }
+  .ground-block.payment .cart-list-button > * {
+    display: flex;
+    align-items: center; }
 
 .payment-button {
   height: 130px;
