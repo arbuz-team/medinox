@@ -74,7 +74,6 @@ export function Ground_View()
 
 		if(height_spacer > 0)
 		{
-			console.log($spacer.length);
 			if($spacer.length < 1)
 				$($footer).before('<div class="ground-block-spacer">&nbsp;</div>');
 

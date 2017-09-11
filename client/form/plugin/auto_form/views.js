@@ -103,9 +103,12 @@ export let Auto_Form_Views = function(config)
 				$field = $(this),
 
 				name = $field.data('name'),
+				other_1 = $field.data('other_1'),
+				other_2 = $field.data('other_2'),
+				other_3 = $field.data('other_3'),
 				value = $field.val();
 
-			that.send_default(name, value);
+			that.send_default(name, value, other_1, other_2, other_3);
 		}
 	};
 
@@ -136,21 +139,24 @@ export let Auto_Form_Views = function(config)
 	};
 
 
-	this.send_default = function(name, value)
+	this.send_default = function(name, value, other_1, other_2, other_3)
 	{
 		if(name && value)
 		{
-			models.prepare_post_data(name, value);
+			models.prepare_post_data(name, value, undefined, undefined, other_1, other_2, other_3);
 		}
 		else
 		{
 			let
 				$field = $(this),
 				name = $field.data('name'),
+				other_1 = $field.data('other_1'),
+				other_2 = $field.data('other_2'),
+				other_3 = $field.data('other_3'),
 				value = $field.val(),
 				field = $field.attr('name');
 
-			models.prepare_post_data(name, value, undefined, field);
+			models.prepare_post_data(name, value, undefined, field, other_1, other_2, other_3);
 		}
 
 		send();
@@ -163,9 +169,15 @@ export let Auto_Form_Views = function(config)
 		{
 			event.preventDefault();
 			let
-				$field = $(this);
+				$field = $(this),
+				name = $field.data('name'),
+				other_1 = $field.data('other_1'),
+				other_2 = $field.data('other_2'),
+				other_3 = $field.data('other_3'),
+				value = $field.val(),
+				field = $field.attr('name');
 
-			models.prepare_post_data($field.attr('name'), $field.val());
+			models.prepare_post_data(name, value, undefined, field, other_1, other_2, other_3);
 
 			send();
 		}

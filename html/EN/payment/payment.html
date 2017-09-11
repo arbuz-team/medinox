@@ -58,7 +58,8 @@
                                            type="text"
                                            title="Number of products"
                                            value="{{ selected.number }}"
-                                           data-name="{{ selected.pk }}" />
+                                           data-name="number_of_products"
+                                           data-other_1="pk:{{ selected.pk }}" />
 
                                     <span class="cart-list-product-price"> x {% get_price selected.product %}</span>
 

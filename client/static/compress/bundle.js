@@ -2168,7 +2168,7 @@
 			$ground.height(height_ground);
 		};
 	
-		this._change_height_block_content = function () {
+		this._change_height_ground_by_spacer = function () {
 			var $ground = $(model.container),
 			    $ground_block = $ground.find('.ground-block'),
 			    $spacer = $ground.find('.ground-block-spacer'),
@@ -2189,7 +2189,6 @@
 			height_spacer -= height.ground_blocks;
 	
 			if (height_spacer > 0) {
-				console.log($spacer.length);
 				if ($spacer.length < 1) $($footer).before('<div class="ground-block-spacer">&nbsp;</div>');
 	
 				$ground.find('.ground-block-spacer').height(height_spacer);
@@ -2198,7 +2197,7 @@
 	
 		this.change_height_content = function () {
 			_this._change_height_ground();
-			_this._change_height_block_content();
+			_this._change_height_ground_by_spacer();
 		};
 	
 		this.change_to_long_or_short = function (that, event) {
@@ -3536,9 +3535,12 @@
 			if (check_is_number(event)) {
 				var $field = $(this),
 				    name = $field.data('name'),
+				    other_1 = $field.data('other_1'),
+				    other_2 = $field.data('other_2'),
+				    other_3 = $field.data('other_3'),
 				    value = $field.val();
 	
-				that.send_default(name, value);
+				that.send_default(name, value, other_1, other_2, other_3);
 			}
 		};
 	
@@ -3559,16 +3561,19 @@
 			send();
 		};
 	
-		this.send_default = function (name, value) {
+		this.send_default = function (name, value, other_1, other_2, other_3) {
 			if (name && value) {
-				models.prepare_post_data(name, value);
+				models.prepare_post_data(name, value, undefined, undefined, other_1, other_2, other_3);
 			} else {
 				var $field = $(this),
 				    _name = $field.data('name'),
+				    _other_ = $field.data('other_1'),
+				    _other_2 = $field.data('other_2'),
+				    _other_3 = $field.data('other_3'),
 				    _value = $field.val(),
 				    field = $field.attr('name');
 	
-				models.prepare_post_data(_name, _value, undefined, field);
+				models.prepare_post_data(_name, _value, undefined, field, _other_, _other_2, _other_3);
 			}
 	
 			send();
@@ -3577,9 +3582,15 @@
 		this.send_on_enter = function (event) {
 			if (check_is_key_code_enter(event)) {
 				event.preventDefault();
-				var $field = $(this);
+				var $field = $(this),
+				    name = $field.data('name'),
+				    other_1 = $field.data('other_1'),
+				    other_2 = $field.data('other_2'),
+				    other_3 = $field.data('other_3'),
+				    value = $field.val(),
+				    field = $field.attr('name');
 	
-				models.prepare_post_data($field.attr('name'), $field.val());
+				models.prepare_post_data(name, value, undefined, field, other_1, other_2, other_3);
 	
 				send();
 			}
@@ -3705,12 +3716,15 @@
 			if (setter) state.error = true;else state.error = false;
 		};
 	
-		this.prepare_post_data = function (name, value, action, field) {
+		this.prepare_post_data = function (name, value, action, field, other_1, other_2, other_3) {
 			variables.post_data = {};
 	
 			variables.post_data[this.settings.post_name] = this.settings.origin;
 			variables.post_data._name_ = name;
 			variables.post_data.value = value;
+			variables.post_data.other_1 = other_1;
+			variables.post_data.other_2 = other_2;
+			variables.post_data.other_3 = other_3;
 	
 			if ((0, _data.is_defined)(action)) variables.post_data.action = action;
 	
