@@ -1,0 +1,14 @@
+{% extends 'EN/sender/template.html' %}
+
+{% block content %}
+
+    <p class="paragraph">
+        This message is from administrator and is about payment - {{payment_name/number}}. Payment date - {{payment_date}}.<br>
+        <a href="{{payment_url}}" target="_blank">Go to payment.</a>
+    </p>
+
+    <p class="paragraph">
+        {{message}}
+    </p>
+
+{% endblock content %}
