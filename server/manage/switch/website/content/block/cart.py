@@ -51,7 +51,7 @@ class Cart_Block(Endpoints, Inspector):
 
     def Manage_Little_Form(self):
 
-        selected_pk = self.request.POST['__little__']
+        selected_pk = self.Get_Post_Other('pk')
         number = self.request.POST['value']
 
         self.payment_models_manager\
