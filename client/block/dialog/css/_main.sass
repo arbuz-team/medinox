@@ -66,10 +66,16 @@
     margin-top: 200px
 
   .dialog-content-part
+
+    .input, .select, .textarea
+      margin:
+        left: 0
+        right: 0
+
     span
       .input, .select, .textarea
         width: 220px
 
     div:not(.file_shell)
-      .input, .select, .textarea
-        width: 468px
+      >.input, >.select, >.textarea
+        width: 474px
