@@ -72,6 +72,9 @@ class Session_Controller:
         if 'root_deadline' not in self.request.session:
             self.request.session['root_deadline'] = None
 
+        if 'root_payment' not in self.request.session:
+            self.request.session['root_payment'] = None
+
     def Check_Session_Translator(self):
 
         if 'translator_language' not in self.request.session:

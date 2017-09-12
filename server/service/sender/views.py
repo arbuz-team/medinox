@@ -52,6 +52,12 @@ class Sender(Base_Website):
         recipient = [recipient, ROOT_EMAIL]
         self.Send_Email(title, content, recipient, html_file, reply_to)
 
+    def Send_Root_Email(self, title, context, recipient):
+        html_file = 'send_root_email.html'
+        reply_to = [ROOT_EMAIL]
+        recipient = [recipient, ROOT_EMAIL]
+        self.Send_Email(title, context, recipient, html_file, reply_to)
+
     def Send_Email(self, title, content, recipient,
                    html_file, reply_to=None, pdf=None):
 

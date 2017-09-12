@@ -51,8 +51,9 @@ class Other_Manager(Base_Tag_Manager):
 
 
 @register.simple_tag(takes_context=True)
-def url(context, name=None, full=False, *args, **kwargs):
+def url(context, name=None, full=False, **kwargs):
 
+    print(full)
     task = 'Get_Path_Or_Url'
     request = context['request']
     values = {

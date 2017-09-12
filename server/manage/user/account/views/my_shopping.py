@@ -56,3 +56,26 @@ class My_Shopping(Website_Manager):
     @staticmethod
     def Launch(request):
         return My_Shopping(request, authorization=True).HTML
+
+
+
+class Selected_Shopping(Website_Manager):
+
+    def Create_Payment_Structure(self):
+        payment = SQL.Get(Model_Payment, unique=self.other_value)
+
+        self.context['shopping'] = [{
+            'fullname': SQL.Get(Model_Invoice_Address, payment=payment).full_name,
+            'payment':  payment,
+            'products': SQL.Filter(Model_Payment_Product, payment=payment)
+        }]
+
+    def Manage_Content(self):
+        self.Create_Payment_Structure()
+        self.context['button_address_name'] = 'user_address'
+        return self.Render_HTML('user/account/my_shopping.html')
+
+    @staticmethod
+    def Launch(request, unique):
+        return Selected_Shopping(request,
+             authorization=True, other_value=unique).HTML

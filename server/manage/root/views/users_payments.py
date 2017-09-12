@@ -1,5 +1,6 @@
-from server.manage.switch.website.manager import *
 from server.service.payment.forms import *
+from server.service.sender.views import *
+from server.manage.root.forms import *
 
 
 class Users_Payments(Website_Manager):
@@ -103,6 +104,24 @@ class Users_Payments(Website_Manager):
             return Dialog_Prompt(self, apply=True).HTML
         return Dialog_Prompt(self, not_valid=True).HTML
 
+    def Manage_Form_Send_Email(self):
+
+        form_email = Form_Send_Email(self, post=True)
+        if form_email.is_valid():
+
+            payment = self.request.session['root_payment']
+            title = self.request.POST['title']
+            message = self.request.POST['message']
+            recipient = payment.user.email
+
+            self.context['payment'] = payment
+            self.context['message'] = message
+
+            sender = Sender(self)
+            sender.Send_Root_Email(title, self.context, recipient)
+            return Dialog_Prompt(self, apply=True).HTML
+        return Dialog_Prompt(self, not_valid=True).HTML
+
     def Manage_Form(self):
 
         if self.request.POST['_name_'] == 'note':
@@ -110,6 +129,9 @@ class Users_Payments(Website_Manager):
 
         if self.request.POST['_name_'] == 'deadline':
             return self.Manage_Form_Deadline()
+
+        if self.request.POST['_name_'] == 'send_email':
+            return self.Manage_Form_Send_Email()
 
         return Website_Manager.Manage_Form(self)
 

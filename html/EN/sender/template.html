@@ -1,3 +1,5 @@
+{% load tags %}
+
 <!DOCTYPE html>
 <html lang="pl-PL">
 
@@ -113,7 +115,8 @@
 
 		<p class="paragraph">
 			Something is wrong?<br>
-			Contact with us by <a class="paragraph-link" href="{{contact_url}}">{{contact_url}}</a>.
+			Contact with us by <a class="paragraph-link" href="{% url 'main.contact' full=True %}">
+			{% url 'main.contact' full=True %}</a>.
 		</p>
 
 	</div><!-- body -->

@@ -11,6 +11,7 @@ class Model_Payment(Abstract_Model):
     currency = models.CharField(max_length=3)
     service = models.CharField(max_length=20)
     status = models.CharField(max_length=20)
+    unique = models.CharField(max_length=20)
 
     def __str__(self):
         return self.user.username
@@ -27,6 +28,17 @@ class Model_Payment(Abstract_Model):
 
         self.total_price = format(total, '.2f')
         SQL.Save(data=self)
+
+    @staticmethod
+    def Generate_Unique():
+
+        unique = Base.Generate_Random_Chars(
+            20, punctuation=False)
+
+        if SQL.Filter(Model_Payment, unique=unique):
+            return Model_Payment.Generate_Unique()
+
+        return unique
 
     @staticmethod
     def Initialize(_object, user):
@@ -48,7 +60,8 @@ class Model_Payment(Abstract_Model):
                 delivery_price=delivery,
                 service='None',
                 currency=_object.request.session['currency_selected'],
-                status='cart'
+                status='cart',
+                unique=Model_Payment.Generate_Unique()
             )
 
             SQL.Save(data=payment)
