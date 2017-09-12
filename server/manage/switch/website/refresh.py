@@ -1,6 +1,7 @@
-from server.manage.switch.website.base import *
 from server.service.payment.models import *
 from server.service.notification.models import *
+from server.service.sender.views import *
+from django.db.utils import DatabaseError,IntegrityError
 
 
 class Refresh(Base_Website):
@@ -53,46 +54,44 @@ class Refresh(Base_Website):
 
     def Update_Notifications(self):
 
+        if self.request.method == 'GET':
+            return
+
         today = datetime.today()
         deadlines = SQL.Filter(Model_Deadline, deadline__lt=today)
         reminders = SQL.Filter(Model_Deadline, reminder__lt=today)
-        path_manager = Path_Manager(self)
 
+        # unique: (type, direct_url)
+        # its for no repeting data
         for deadline in deadlines:
 
             try:
 
-                SQL.Save(
-                    Model_Notification,
-                    name=deadline.name,
-                    type='deadline',
-                    date=today,
-                    direct_url=path_manager.Get_Urls(
-                        'root.selected_user_payment',
-                        kwargs={'pk': deadline.payment.pk},
-                        current_language=True
-                    )
-                )
+                Model_Notification\
+                    .Create_Deadline_Notification(self, deadline)
 
-            except: pass
+                # send email
+                sender = Sender(self)
+                sender.Send_Notification(
+                    Text(self, 193), self.context, deadline)
 
+            except IntegrityError: pass
+
+        # unique: (type, direct_url)
+        # its for no repeting data
         for reminder in reminders:
 
             try:
 
-                SQL.Save(
-                    Model_Notification,
-                    name=reminder.name,
-                    type='reminder',
-                    date=today,
-                    direct_url=path_manager.Get_Urls(
-                        'root.selected_user_payment',
-                        kwargs={'pk': reminder.payment.pk},
-                        current_language=True
-                    )
-                )
+                Model_Notification\
+                    .Create_Reminder_Notification(self, reminder)
 
-            except: pass
+                # send email
+                sender = Sender(self)
+                sender.Send_Notification(
+                    Text(self, 194), self.context, reminder)
+
+            except IntegrityError: pass
 
         self.request.session['notification_is_unreaded'] = \
             True if SQL.Filter(Model_Notification, not_viewed=True) \

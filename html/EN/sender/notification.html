@@ -1,0 +1,17 @@
+{% extends 'EN/sender/template.html' %}
+{% load tags %}
+
+{% block content %}
+
+    <p class="paragraph">
+        This message has been sent by administrator and applies payment:
+        <div> ID: {{ payment.unique }} </div>
+        <div> Payment date - {{ payment.date }}. </div>
+        <a href="{% url 'user.account.selected_shopping' full=True unique=payment.unique %}" target="_blank">Go to payment.</a>
+    </p>
+
+    <p class="paragraph">
+        {{ message }}
+    </p>
+
+{% endblock content %}

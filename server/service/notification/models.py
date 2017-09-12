@@ -11,3 +11,37 @@ class Model_Notification(Abstract_Model):
 
     class Meta:
        unique_together = ('direct_url', 'type',)
+
+    @staticmethod
+    def Create_Deadline_Notification(_object, deadline):
+        today = datetime.today()
+        path_manager = Path_Manager(_object)
+
+        SQL.Save(
+            Model_Notification,
+            name=deadline.name,
+            type='deadline',
+            date=today,
+            direct_url=path_manager.Get_Urls(
+                'root.selected_user_payment',
+                kwargs={'pk': deadline.payment.pk},
+                current_language=True
+            )
+        )
+
+    @staticmethod
+    def Create_Reminder_Notification(_object, reminder):
+        today = datetime.today()
+        path_manager = Path_Manager(_object)
+
+        SQL.Save(
+            Model_Notification,
+            name=reminder.name,
+            type='reminder',
+            date=today,
+            direct_url=path_manager.Get_Urls(
+                'root.selected_user_payment',
+                kwargs={'pk': reminder.payment.pk},
+                current_language=True
+            )
+        )

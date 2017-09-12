@@ -1,3 +1,4 @@
+from server.manage.switch.website.manager import *
 from server.service.sender.views import *
 from server.ground.main.forms import *
 
