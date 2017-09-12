@@ -54,6 +54,8 @@ class Cart_Block(Endpoints, Inspector):
         selected_pk = self.Get_Post_Other('pk')
         number = self.request.POST['value']
 
+        if not number: return HttpResponse()
+
         self.payment_models_manager\
             .Edit_Number_Of_Cart_Products(selected_pk, number)
 
