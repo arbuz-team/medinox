@@ -17,12 +17,12 @@
 
             {% include "form/html/manage_field.html" with field=form.name %}
             <div>
-                <label for="deadline">Deadline: </label>
-                {% include "form/html/manage_field_multiple_in_line.html" with field=form.deadline %}
-            </div>
-            <div>
                 <label for="deadline">Reminder: </label>
                 {% include "form/html/manage_field_multiple_in_line.html" with field=form.reminder %}
+            </div>
+            <div>
+                <label for="deadline">Deadline: </label>
+                {% include "form/html/manage_field_multiple_in_line.html" with field=form.deadline %}
             </div>
 
             {% include "form/html/manage_field.html" with field=form.send_to_client %}
@@ -70,7 +70,7 @@
         <button class="button dialog_send event_button"
                 type="button"
                 data-name="{{ accept.name }}"
-                data-reload="{{ accept.reload }}"
+                data-reload="menu menu_mobile {{ accept.reload }}"
                 data-redirect="{{ accept.redirect }}"
                 data-event="{{ accept.event }}">
             Accept
