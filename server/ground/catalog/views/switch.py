@@ -5,9 +5,9 @@ from server.ground.link.views import *
 
 class Catalog_Switch(Website_Manager):
 
-    @staticmethod
-    def Catalog_Not_Found(request):
-        return Errors_Handler.Code_404(request, '__ground__')
+    def Manage_Content(self):
+        return Errors_Handler.Code_404(
+            self.request, '__ground__')
 
     @staticmethod
     def Switch_Form(request):
@@ -48,11 +48,12 @@ class Catalog_Switch(Website_Manager):
         if 'form' in request.POST.values():
             return Catalog_Switch.Switch_Form(request)
 
-        # try:
+        try:
 
-        # change catalog and show content
-        Catalog_Changer(request, catalog_path)
-        return Catalog_Manager(request).HTML
+            # change catalog and show content
+            Catalog_Changer(request, catalog_path)
+            return Catalog_Manager(request).HTML
 
         # catalog not found
-        # except: return Catalog_Switch(request).HTML
+        except Catalog_Not_Found:
+            return Catalog_Switch(request).HTML
