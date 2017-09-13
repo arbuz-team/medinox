@@ -85,7 +85,7 @@ class Model_Widget(Abstract_Model):
 class Model_Values(Abstract_Model):
 
     name = models.CharField(max_length=50)
-    super_price = models.IntegerField(default=0)
+    super_price = models.FloatField(default=0)
     widget = models.ForeignKey(Model_Widget)
 
     def __str__(self):
