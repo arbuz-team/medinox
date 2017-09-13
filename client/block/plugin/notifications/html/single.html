@@ -5,7 +5,9 @@
 	 data-unread="{{ notification.not_viewed }}"
 	 data-type="{{ notification.type }}">
 
-	<a class="notifications-single-content fill-abs" href="{{ notification.direct_url }}" target="_blank">
+	<a class="notifications-single-content fill-abs event_button"
+	   href="{{ notification.direct_url }}" target="_blank"
+	   data-reload="menu menu_mobile">
 
 		<div class="notifications-single-info">{{ notification.type }}</div>
 
