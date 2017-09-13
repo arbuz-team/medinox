@@ -61,6 +61,10 @@ class Searcher_Block(Endpoints):
             self.request.session['catalog_deleted_flag'] = not value
             return HttpResponse()
 
+        if self.request.POST['_name_'] == 'clear_session':
+            self.Clear_Session('searcher_')
+            return HttpResponse()
+
     def Error(self, response_class, context):
         return response_class(self.Render_To_String(
             'error/searcher.html', context=context))
