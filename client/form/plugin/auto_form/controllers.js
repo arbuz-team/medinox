@@ -25,20 +25,25 @@ let
 			{
 				if($field.hasClass('only_enter'))
 					$field
-					.keydown(auto_form_views.send_on_enter);
+						.keydown(auto_form_views.send_on_enter);
 				else
 				{
 					if($field.hasClass('always'))
 						$field
-						.keyup(auto_form_views.send_if_number_only);
+							.keyup(auto_form_views.send_if_number_only);
 
 					if($field.hasClass('only_number_3'))
 						$field
-						.keydown(auto_form_views.try_press_number_max_3);
+							.keydown(auto_form_views.try_press_number_max_3);
 
-					$field
-					.change(auto_form_views.send_default)
-					.keydown(auto_form_views.send_on_enter);
+
+					if($field.hasClass('searcher_field'))
+						$field
+							.keydown(auto_form_views.send_for_searcher);
+					else
+						$field
+						.change(auto_form_views.send_default)
+						.keydown(auto_form_views.send_on_enter);
 				}
 			}
 

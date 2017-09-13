@@ -163,6 +163,29 @@ export let Auto_Form_Views = function(config)
 	};
 
 
+	this.send_for_searcher = function(name, value, other_1, other_2, other_3)
+	{
+		if(name && value)
+		{
+			models.prepare_post_data(name, value, undefined, undefined, other_1, other_2, other_3);
+		}
+		else
+		{
+			let
+				$field = $(this),
+				name = $field.attr('name'),
+				other_1 = $field.data('other_1'),
+				other_2 = $field.data('other_2'),
+				other_3 = $field.data('other_3'),
+				value = $field.val();
+
+			models.prepare_post_data(name, value, undefined, undefined, other_1, other_2, other_3);
+		}
+
+		send();
+	};
+
+
 	this.send_on_enter = function(event)
 	{
 		if(check_is_key_code_enter(event))
@@ -170,14 +193,13 @@ export let Auto_Form_Views = function(config)
 			event.preventDefault();
 			let
 				$field = $(this),
-				name = $field.data('name'),
+				name = $field.attr('name'),
 				other_1 = $field.data('other_1'),
 				other_2 = $field.data('other_2'),
 				other_3 = $field.data('other_3'),
-				value = $field.val(),
-				field = $field.attr('name');
+				value = $field.val();
 
-			models.prepare_post_data(name, value, undefined, field, other_1, other_2, other_3);
+			models.prepare_post_data(name, value, undefined, undefined, other_1, other_2, other_3);
 
 			send();
 		}

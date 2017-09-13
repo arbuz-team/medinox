@@ -3450,7 +3450,7 @@
 	
 					if ($field.hasClass('only_number_3')) $field.keydown(auto_form_views.try_press_number_max_3);
 	
-					$field.change(auto_form_views.send_default).keydown(auto_form_views.send_on_enter);
+					if ($field.hasClass('searcher_field')) $field.keydown(auto_form_views.send_for_searcher);else $field.change(auto_form_views.send_default).keydown(auto_form_views.send_on_enter);
 				}
 			} else $field.change(auto_form_views.send_default);
 		});
@@ -3579,18 +3579,34 @@
 			send();
 		};
 	
+		this.send_for_searcher = function (name, value, other_1, other_2, other_3) {
+			if (name && value) {
+				models.prepare_post_data(name, value, undefined, undefined, other_1, other_2, other_3);
+			} else {
+				var $field = $(this),
+				    _name2 = $field.attr('name'),
+				    _other_4 = $field.data('other_1'),
+				    _other_5 = $field.data('other_2'),
+				    _other_6 = $field.data('other_3'),
+				    _value2 = $field.val();
+	
+				models.prepare_post_data(_name2, _value2, undefined, undefined, _other_4, _other_5, _other_6);
+			}
+	
+			send();
+		};
+	
 		this.send_on_enter = function (event) {
 			if (check_is_key_code_enter(event)) {
 				event.preventDefault();
 				var $field = $(this),
-				    name = $field.data('name'),
+				    name = $field.attr('name'),
 				    other_1 = $field.data('other_1'),
 				    other_2 = $field.data('other_2'),
 				    other_3 = $field.data('other_3'),
-				    value = $field.val(),
-				    field = $field.attr('name');
+				    value = $field.val();
 	
-				models.prepare_post_data(name, value, undefined, field, other_1, other_2, other_3);
+				models.prepare_post_data(name, value, undefined, undefined, other_1, other_2, other_3);
 	
 				send();
 			}
