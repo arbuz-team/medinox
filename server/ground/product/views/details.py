@@ -1,9 +1,18 @@
 from .widget import *
 from .values import *
 from .description import *
+from .manager import *
 
 
 class Details(Website_Manager):
+
+    def Manage_Button(self):
+        return Product_Manager(
+            self.request, autostart=False).Manage_Button()
+
+    def Manage_Form(self):
+        return Product_Manager(
+            self.request, autostart=False).Manage_Form()
 
     def Status_Buttons(self):
 
