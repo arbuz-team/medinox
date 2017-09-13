@@ -1,5 +1,6 @@
 from server.service.payment.views.payment_method.dotpay import *
 from server.service.payment.views.payment_method.paypal import *
+from server.manage.switch.website.manager import *
 
 
 class Payment_Manager(Website_Manager):

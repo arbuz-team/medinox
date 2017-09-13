@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.core.mail import EmailMultiAlternatives
 from email.mime.image import MIMEImage
-from server.service.pdf.views import *
+from server.manage.switch.website.base import *
+from threading import Thread
 
 
 class Sender(Base_Website):
@@ -58,6 +59,19 @@ class Sender(Base_Website):
         recipient = [recipient, ROOT_EMAIL]
         self.Send_Email(title, context, recipient, html_file, reply_to)
 
+    def Send_Notification(self, title, context, model_object):
+
+        client_email = model_object.payment.user.email
+        html_file = 'notification.html'
+        reply_to = [ROOT_EMAIL]
+
+        recipients = []
+        if model_object.send_to_client: recipients.append(client_email)
+        if model_object.send_to_root: recipients.append(ROOT_EMAIL)
+
+        context['payment'] = model_object.payment
+        self.Send_Email(title, context, recipients, html_file, reply_to)
+
     def Send_Email(self, title, content, recipient,
                    html_file, reply_to=None, pdf=None):
 
@@ -67,15 +81,27 @@ class Sender(Base_Website):
         self.email = EmailMultiAlternatives(
             subject=title,
             body=html.content.decode(),
-            from_email='Medifiller <sender@arbuz.team>',
+            from_email='Medinox <sender@arbuz.team>',
             to=recipient,
             reply_to=reply_to
         )
 
         if pdf: self.email.attach(pdf['name'], pdf['file'], 'application/pdf')
         self.email.attach_alternative(html.content.decode(), 'text/html')
-        self.email.send()
+        Email_Thread(self.email).start()
 
     def __init__(self, _object):
         Base_Website.__init__(self, _object)
         self.email = None
+
+
+
+class Email_Thread(Thread):
+
+    def __init__(self, email):
+        self.email = email
+        Thread.__init__(self)
+
+    def run(self):
+        self.email.send()
+

@@ -17,7 +17,7 @@ class Service_Send_Email(Base_Service):
     def Manage(self):
 
         self.Open_Dialog()
-        self.context['title'] = Text(self, 172)
+        self.context['title'] = Text(self, 192)
         self.context['form'] = Form_Send_Email(self)
 
         return self.Render_Dialog(
