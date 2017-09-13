@@ -7,6 +7,11 @@ from .manager import *
 class Details(Website_Manager):
 
     def Manage_Button(self):
+
+        if self.request.POST['_name_'] == 'delete_image':
+            return Description_Manager(
+                self.request, autostart=False).Manage_Button()
+
         return Product_Manager(
             self.request, autostart=False).Manage_Button()
 
