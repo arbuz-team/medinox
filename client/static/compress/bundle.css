@@ -740,7 +740,7 @@ div > .buttons_to_action {
         border-bottom: 1px solid #e8e8e8; }
 
 .currency_converter {
-  padding: 15px 0 !important;
+  padding: 0 !important;
   font-size: 0; }
 
 .currency_converter-col {
