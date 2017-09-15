@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^widget/manage/$', Widget_Manager.Launch, name='product.widget.manage'),
     url(r'^values/manage/$', Values_Manager.Launch, name='product.values.manage'),
     url(r'^description/manage/$', Description_Manager.Launch, name='product.description.manage'),
+    url(r'^brand/manage/$', Brand_Manager.Launch, name='product.brand.manage'),
 ]
