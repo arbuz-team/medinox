@@ -1,11 +1,12 @@
 from server.dialog.service.base import *
+from server.ground.product.models import *
 
 
 class Service_Delete_Brand(Base_Service):
 
     def Manage(self):
 
-        pk = self.request.POST['additional_value']
+        pk = self.request.POST['accept_value']
         brand = SQL.Get(Model_Brand, pk=pk)
         products = SQL.Filter(Model_Product, brand=brand)
 

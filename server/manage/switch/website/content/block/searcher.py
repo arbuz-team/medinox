@@ -1,5 +1,4 @@
 from server.manage.switch.website.endpoints import *
-from server.manage.switch.website.base import *
 from server.ground.product.models import *
 
 
@@ -64,6 +63,14 @@ class Searcher_Block(Endpoints):
         if self.request.POST['_name_'] == 'clear_session':
             self.Clear_Session('searcher_')
             return HttpResponse()
+
+    def Manage_Form(self):
+
+        if self.request.POST['_name_'] == 'brand':
+            brand = Model_Brand()
+            brand.name = self.request.POST['name']
+            SQL.Save(data=brand)
+            return self.Manage_Content()
 
     def Error(self, response_class, context):
         return response_class(self.Render_To_String(

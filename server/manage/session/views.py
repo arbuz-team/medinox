@@ -105,6 +105,9 @@ class Session_Controller:
         if 'product_description' not in self.request.session:
             self.request.session['product_description'] = None
 
+        if 'product_brand' not in self.request.session:
+            self.request.session['product_brand'] = None
+
         if 'product_is_editing' not in self.request.session:
             self.request.session['product_is_editing'] = False
 
