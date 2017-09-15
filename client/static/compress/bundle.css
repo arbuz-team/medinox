@@ -1954,12 +1954,12 @@ img {
     .ground-block.paragraph .block-content-paragraph-actions .button {
       padding-top: 2px;
       padding-bottom: 2px; }
-  .ground-block.paragraph .block-content-paragraph-image {
-    max-width: 650px;
+  .ground-block.paragraph .paragraph-image {
+    max-width: 50%;
     margin: 20px auto;
       margin-bottom: 0;
     text-align: center; }
-    .ground-block.paragraph .block-content-paragraph-image img {
+    .ground-block.paragraph .paragraph-image img {
       height: auto;
       vertical-align: bottom; }
   .ground-block.paragraph .block-content.is-new, .ground-block.paragraph .is-new.block-content-message {
@@ -1986,12 +1986,12 @@ img {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto; }
-  .ground-block.paragraph .paragraph.with_image,
-  .ground-block.paragraph .block-content-paragraph-image {
+  .ground-block.paragraph .paragraph-content.with_image,
+  .ground-block.paragraph .paragraph-image {
     display: inline-block;
     width: 48%;
     vertical-align: top; }
-  .ground-block.paragraph .block-content-paragraph-image {
+  .ground-block.paragraph .paragraph-image {
     margin-left: 20px; } }
 
 #CART {

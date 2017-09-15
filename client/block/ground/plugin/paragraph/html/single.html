@@ -23,24 +23,24 @@
 		<div class="block-content-paragraph">
 
 			{% if element.image and element.paragraph %}
-			<div class="paragraph with_image">
+			<div class="paragraph-content with_image">
 				{{ element.paragraph | safe }}
 			</div>
 			{% elif element.paragraph %}
-			<div class="paragraph">
+			<div class="paragraph-content">
 				{{ element.paragraph | safe }}
 			</div>
 			{% endif %}
 
 
 			{% if element.image and element.header %}
-			<div class="block-content-paragraph-image">
+			<div class="paragraph-image">
 				<img data-src="{{ element.image }}"
 					 alt="{{ element.header }}"
 					 src="{% static 'img/pixel.png' %}"/>
 			</div>
 			{% elif element.image %}
-			<div class="block-content-paragraph-image">
+			<div class="paragraph-image">
 				<img data-src="{{ element.image }}"
 					 alt="Example image"
 					 src="{% static 'img/pixel.png' %}"/>
