@@ -52,10 +52,9 @@
 
                             <div class="cart-list-product-actions">
 
-                                <form class="auto_form" action="/cart/" data-origin="little" data-reload="cart">
+                                <form class="auto_form" data-origin="little" data-reload="cart">
 
                                     <input class="cart-list-product-number input auto_field only_number_3 always"
-                                           type="text"
                                            title="Number of products"
                                            value="{{ selected.number }}"
                                            data-name="number_of_products"
@@ -77,8 +76,7 @@
                                                     data-name="Delete_{{ selected.product.pk }}"
                                                     data-action="delete"
                                                     data-value="{{ selected.product.pk }}"
-                                                    data-reload="cart ground"
-                                                    data-url="/cart/">
+                                                    data-reload="cart ground">
                                                 Are you sure?
                                             </button>
                                         </div>
