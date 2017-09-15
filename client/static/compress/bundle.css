@@ -199,6 +199,9 @@ div > .buttons_to_action {
 .is-min-100 {
   min-width: 100px; }
 
+.is-margin-r-30 {
+  margin-right: 30px; }
+
 .is-text-has-notifications {
   animation: notifications 2.3s infinite; }
 
@@ -507,6 +510,9 @@ div > .buttons_to_action {
     bottom: 0;
     width: 40px;
     height: 40px; }
+    .input_button .input_button-button.is-width-20 {
+      width: 20px;
+      height: 20px; }
 
 .button.is-text_icon .button-icon {
   float: right;
@@ -2427,6 +2433,11 @@ img {
 .dialog-address-value {
   display: block;
   margin-left: 120px; }
+
+.dialog-widget-option {
+  line-height: 22px; }
+  .dialog-widget-option:hover {
+    background-color: #f0f0f0; }
 
 #SEARCHER {
   top: 0;

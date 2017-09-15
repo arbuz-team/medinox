@@ -41,7 +41,7 @@
 
                     {% endfor %}
 
-                    <button class="button" type="submit"> Create </button>
+                    <button class="button"> Create </button>
                 </div>
 
                 <input type="hidden" name="accept_reload" value="{{ accept.reload }}">
@@ -58,8 +58,17 @@
 				{% if values %}
 
 					{% for value in values %}
-						<div>
-							{{ value.name }} - Dopłata: {{ value.super_price }}
+						<div class="dialog-widget-option input_button">
+							<span class="is-bold is-float-left"> {{ value.name }} </span>
+							<div class="is-right-inside is-margin-r-30"> Dopłata: {{ value.super_price }} {{ request.session.currency_selected }} </div>
+							<button class="button input_button-button is-width-20 is-icon post_button"
+							        title="Delete option"
+									data-name="delete_widget_option-{{ forloop.counter0 }}"
+									data-action="delete_widget_option"
+									data-value="{{ value.pk }}"
+									data-reload="dialog">
+								<span class="button-icon img-waste_bin">&nbsp;</span>
+							</button>
 						</div>
 					{% endfor %}
 
