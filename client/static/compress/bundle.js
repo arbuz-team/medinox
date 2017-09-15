@@ -1917,29 +1917,13 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.launch_event = exports.redirect_ground = exports.reload_plugins = exports.prepare_delay = exports.json_is_error = exports.html_is_error = exports.request_manager = undefined;
+	exports.launch_event = exports.redirect_ground = exports.reload_plugins = exports.prepare_delay = exports.request_manager = undefined;
 	
 	var _block = __webpack_require__(14);
 	
 	var _standard = __webpack_require__(20);
 	
 	var request_manager = exports.request_manager = new _block.Request_Manager_Block(),
-	    html_is_error = exports.html_is_error = function html_is_error(HTML_response, status) {
-		if (status !== 'success') return true;
-	
-		if (HTML_response === '') return true;
-	
-		return false;
-	},
-	    json_is_error = exports.json_is_error = function json_is_error(JSON_response, status) {
-		if (status !== 'success') return true;
-	
-		var response = JSON.parse(JSON_response);
-	
-		if (response.__button__ !== 'true') return true;
-	
-		return false;
-	},
 	    prepare_delay = exports.prepare_delay = function prepare_delay(data) {
 		var delay = data.delay;
 	
@@ -3491,6 +3475,8 @@
 	
 	var _response = __webpack_require__(40);
 	
+	var _utilities = __webpack_require__(29);
+	
 	var _models = __webpack_require__(52);
 	
 	var Auto_Form_Views = exports.Auto_Form_Views = function Auto_Form_Views(config) {
@@ -3616,15 +3602,10 @@
 			var delay = void 0,
 			    function_for_setTimeout = function function_for_setTimeout() {
 				if (models.get_state_response() && models.get_state_error() === false) {
-					APP.DATA.delay = delay;
 	
-					if (models.settings.redirect) {
-						APP.DATA.redirect = models.settings.redirect;
-	
-						APP.throw_event(EVENTS.redirect);
-					} else if (models.settings.reload) {
-						APP.throw_event(EVENTS.part['reload_' + models.settings.reload]);
-					}
+					(0, _utilities.reload_plugins)(models.settings);
+					(0, _utilities.redirect_ground)(models.settings);
+					(0, _utilities.launch_event)(models.settings);
 				} else if (models.get_state_error()) {
 					return false;
 				} else {
@@ -3687,6 +3668,7 @@
 			origin: undefined,
 			redirect: undefined,
 			reload: undefined,
+			event: undefined,
 			delay: undefined
 		};
 	
@@ -3707,6 +3689,7 @@
 					_this.settings.origin = $form.data('origin');
 					_this.settings.redirect = $form.data('redirect');
 					_this.settings.reload = $form.data('reload');
+					_this.settings.event = $form.data('event');
 					_this.settings.delay = $form.data('delay');
 				}
 	

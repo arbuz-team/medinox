@@ -3,6 +3,7 @@
  */
 
 import {recognise_status}   from 'arbuz/plugin/utilities/response'
+import {reload_plugins, redirect_ground, launch_event} from 'form/js/utilities'
 import {Auto_Form_Models}   from './models'
 
 
@@ -221,18 +222,11 @@ export let Auto_Form_Views = function(config)
 				{
 					if(models.get_state_response() && models.get_state_error() === false)
 					{
-						APP.DATA.delay = delay;
 
-						if(models.settings.redirect)
-						{
-							APP.DATA.redirect = models.settings.redirect;
 
-							APP.throw_event(EVENTS.redirect);
-						}
-						else if(models.settings.reload)
-						{
-							APP.throw_event(EVENTS.part['reload_'+ models.settings.reload]);
-						}
+						reload_plugins(models.settings);
+						redirect_ground(models.settings);
+						launch_event(models.settings);
 					}
 
 					else if(models.get_state_error())

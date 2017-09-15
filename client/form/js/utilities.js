@@ -10,31 +10,6 @@ export let
 
 	request_manager = new Request_Manager_Block(),
 
-	html_is_error = function(HTML_response, status)
-	{
-		if(status !== 'success')
-			return true;
-
-		if(HTML_response === '')
-			return true;
-
-		return false;
-	},
-
-
-	json_is_error = function(JSON_response, status)
-	{
-		if(status !== 'success')
-			return true;
-
-		let response = JSON.parse(JSON_response);
-
-		if(response.__button__ !== 'true')
-			return true;
-
-		return false;
-	},
-
 
 	prepare_delay = function(data)
 	{

@@ -20,6 +20,7 @@ export let Auto_Form_Models = function(config)
 		origin:     undefined,
 		redirect:   undefined,
 		reload:     undefined,
+		event:      undefined,
 		delay:      undefined,
 	};
 
@@ -48,6 +49,7 @@ export let Auto_Form_Models = function(config)
 					this.settings.origin = $form.data('origin');
 					this.settings.redirect = $form.data('redirect');
 					this.settings.reload = $form.data('reload');
+					this.settings.event = $form.data('event');
 					this.settings.delay = $form.data('delay');
 				}
 
