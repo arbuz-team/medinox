@@ -32,9 +32,18 @@ class Description_Manager(Website_Manager):
         return Website_Manager.Manage_Form(self)
 
     def Manage_Button(self):
-        position_manager = Position_Manager(self)
-        position_manager.Button_Service(Model_Description)
-        return HttpResponse()
+
+        if self.request.POST['_name_'] == 'delete_image':
+            description = self.request.session['product_description']
+            description.image = None
+            SQL.Save(data=description)
+            return HttpResponse()
+
+        else:
+
+            position_manager = Position_Manager(self)
+            position_manager.Button_Service(Model_Description)
+            return HttpResponse()
 
     @staticmethod
     def Launch(request):

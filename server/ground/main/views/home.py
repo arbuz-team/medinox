@@ -39,9 +39,18 @@ class Home(Website_Manager):
         return Dialog_Prompt(self, not_valid=True).HTML
 
     def Manage_Button(self):
-        position_manager = Position_Manager(self)
-        position_manager.Button_Service(Model_Home_Content)
-        return HttpResponse()
+
+        if self.request.POST['_name_'] == 'delete_image':
+            home = self.request.session['main_home']
+            home.image = None
+            SQL.Save(data=home)
+            return HttpResponse()
+
+        else:
+
+            position_manager = Position_Manager(self)
+            position_manager.Button_Service(Model_Home_Content)
+            return HttpResponse()
 
     @staticmethod
     def Launch(request):

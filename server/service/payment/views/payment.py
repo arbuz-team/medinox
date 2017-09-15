@@ -1,9 +1,16 @@
 from server.service.payment.views.payment_method.dotpay import *
 from server.service.payment.views.payment_method.paypal import *
+from server.manage.switch.website.content.block.cart import *
 from server.manage.switch.website.manager import *
 
 
 class Payment_Manager(Website_Manager):
+
+    def Manage_Little_Form(self):
+        return Cart_Block(self).Manage_Little_Form()
+
+    def Manage_Button(self):
+        return Cart_Block(self).Manage_Button()
 
     def Update_Payment(self):
 

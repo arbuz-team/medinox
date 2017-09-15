@@ -9,7 +9,7 @@ class Currency_Manager(Website_Manager, Base_Currency_Manager):
     def Exchange_Rate(amount, currency_from, currency_to):
 
         # create url
-        url = 'https://www.google.com/finance/converter?a={0}&from={1}&to={2}'
+        url = 'https://finance.google.com/finance/converter?a={0}&from={1}&to={2}'
         url = url.format(amount, currency_from, currency_to)
 
         # get html

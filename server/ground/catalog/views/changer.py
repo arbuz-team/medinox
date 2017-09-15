@@ -1,6 +1,11 @@
 from server.manage.session.views import *
 
 
+class Catalog_Not_Found(Exception):
+    pass
+
+
+
 class Catalog_Changer(Base):
 
     @staticmethod
@@ -12,7 +17,7 @@ class Catalog_Changer(Base):
                 url_name=url_name, parent=parent)
 
             if cat: return cat[0]
-            else: raise Exception('Catalog not exists')
+            else: raise Catalog_Not_Found()
 
         return None
 
