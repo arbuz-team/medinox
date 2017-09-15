@@ -82,30 +82,51 @@
 
             {% endfor %}
         </ul>
+
     </div><!-- searcher-filters-content -->
 
-    {% if request.session.root_login %}
 
-        <div class="searcher-filters-content">
 
-            <button class="button post_button"
-                    data-name="show_deleted_button"
-                    data-action="show_deleted"
-                    data-reload="ground"
-                    data-url="/catalog/manage/">
+</form><!-- searcher-filters -->
 
-                {% if request.session.catalog_deleted_flag %}
-                Hide deleted
-                {% else %}
-                Show deleted
-                {% endif %}
+
+{% if request.session.root_login %}
+
+    <div class="searcher-phrase">
+        <form method="post" action="" class="input_button" data-name="brand">
+
+            <input class="input searcher-field searcher-phrase-field" name="name" placeholder="Brand name">
+
+            <button class="button input_button-button is-icon">
+                <span class="button-icon img-add-128">&nbsp;</span>
             </button>
 
-        </div>
+        </form>
+    </div>
 
-    {% endif %}
 
-    {% comment %}
+    <div class="searcher-filters-content">
+
+        <button class="button post_button"
+                data-name="show_deleted_button"
+                data-action="show_deleted"
+                data-reload="ground"
+                data-url="/catalog/manage/">
+
+            {% if request.session.catalog_deleted_flag %}
+            Hide deleted
+            {% else %}
+            Show deleted
+            {% endif %}
+        </button>
+
+    </div>
+
+{% endif %}
+
+
+
+{% comment %}
     <!--<div class="searcher-filters-title">Purpose</div>-->
 
     <!--<div class="searcher-filters-content">-->
@@ -139,6 +160,4 @@
         <!--</ul>-->
     <!--</div>&lt;!&ndash; searcher-filters-content &ndash;&gt;-->
 
-    {% endcomment %}
-
-</form><!-- searcher-filters -->
+{% endcomment %}
