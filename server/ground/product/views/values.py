@@ -20,7 +20,7 @@ class Values_Manager(Website_Manager):
 
     def Manage_Button(self):
 
-        if 'delete' in self.request.POST['_name_']:
+        if 'delete_widget_option' in self.request.POST['_name_']:
             SQL.Delete(Model_Values, pk=self.request.POST['value'])
             return HttpResponse()
 

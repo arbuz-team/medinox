@@ -12,6 +12,8 @@ class Product_Manager(Website_Manager):
             cleaned_data = self.context['form'].cleaned_data
 
             product = self.request.session['product_editing']
+            if not product.price: product.price = Model_Prices()
+
             product.name = cleaned_data['name']
             product.url_name = Path_Manager.To_URL(cleaned_data['name'])
             product.price.eur = cleaned_data['price_eur']
@@ -19,8 +21,9 @@ class Product_Manager(Website_Manager):
             product.price.gbp = cleaned_data['price_gbp']
             product.parent = self.request.session['catalog_parent']
             product.language = self.request.session['translator_language']
-            SQL.Save(data=product)
 
+            SQL.Save(data=product.price)
+            SQL.Save(data=product)
             product.Save_Image(cleaned_data['image'])
 
             return Dialog_Prompt(self, apply=True).HTML
@@ -75,13 +78,13 @@ class Product_Manager(Website_Manager):
 
     def Manage_Button(self):
 
-        if 'delete' in self.request.POST['_name_']:
+        if self.request.POST['_name_'] == 'delete':
             return self.Manage_Button_Delete()
 
-        if 'recommended' in self.request.POST['_name_']:
+        if self.request.POST['_name_'] == 'recommended':
             return self.Manage_Button_Recommended()
 
-        if 'favorite' in self.request.POST['_name_']:
+        if self.request.POST['_name_'] == 'favorite':
             return self.Manage_Button_Favorite()
 
     @staticmethod

@@ -4,11 +4,19 @@ from server.ground.product.models import *
 
 class Form_Product(Abstract_Image_Form):
 
-    def clean_price(self):
+    def Price_Valid(self, name):
+        if name not in self.data: return 0
+        if not self.data[name]: return 0
+        return self.data[name]
 
-        try: return int(float(self.data['price']) * 100)
-        except ValueError:
-            return 0
+    def clean_price_eur(self):
+        return self.Price_Valid('price_eur')
+
+    def clean_price_pln(self):
+        return self.Price_Valid('price_pln')
+
+    def clean_price_gbp(self):
+        return self.Price_Valid('price_gbp')
 
     def clean(self):
 
@@ -29,7 +37,9 @@ class Form_Product(Abstract_Image_Form):
         self.fields['price_eur'] = forms.FloatField(required=False)
         self.fields['price_pln'] = forms.FloatField(required=False)
         self.fields['price_gbp'] = forms.FloatField(required=False)
-        self.fields['brand'] = forms.ModelChoiceField(queryset=SQL.All(Model_Brand))
+        self.fields['brand'] = forms.ModelChoiceField(queryset=SQL.All(Model_Brand),
+                                empty_label='choose brand', required=False)
+
         Abstract_Image_Form.Create_Fields(self)
 
     def Set_Widgets(self):
