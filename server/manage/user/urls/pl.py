@@ -6,7 +6,7 @@ urlpatterns = [
     url(r'^zaloguj/$', Sign_In.Launch, name='user.sign_in'),
     url(r'^zarejestruj/$', Sign_Up.Launch, name='user.sign_up'),
     url(r'^wyloguj/$', Sign_Out.Launch, name='user.sign_out'),
-    url(r'^konto/', include('server.manage.user.account.urls.en'), name='user.account'),
+    url(r'^konto/', include('server.manage.user.account.urls.pl'), name='user.account'),
     url(r'^potwierdzenie/(?P<key>[a-z0-9]{20})/$',
         Approved_Register.Update_User_Status, name='user.approved'),
 
