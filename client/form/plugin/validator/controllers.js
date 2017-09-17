@@ -35,7 +35,8 @@ export let define = function(config)
 
 	$('form[data-test=yes] .test', config.$container)
 	.keyup(catch_event_validate)
-	.change(catch_event_validate);
+	.change(catch_event_validate)
+	.focusout(catch_event_validate);
 
 
 	$('.show_password-checkbox', config.$container).change(function()

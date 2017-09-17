@@ -2971,7 +2971,7 @@
 			} else console.error('Validation Error: Incorrect or empty form name/type.');
 		});
 	
-		$('form[data-test=yes] .test', config.$container).keyup(catch_event_validate).change(catch_event_validate);
+		$('form[data-test=yes] .test', config.$container).keyup(catch_event_validate).change(catch_event_validate).focusout(catch_event_validate);
 	
 		$('.show_password-checkbox', config.$container).change(function () {
 			if ($(this).is(':checked')) show_password(this);else hide_password(this);
@@ -3365,9 +3365,10 @@
 	var list_configs = exports.list_configs = {};
 	
 	list_configs.register = {
+		email: 'email_no_in_db',
 		username: 'length_3',
-		password: 'safety_password',
-		email: 'email_no_in_db'
+		phone: 'length_3',
+		password: 'safety_password'
 	};
 	
 	list_configs.login = {
