@@ -58,20 +58,14 @@ class Path_Manager(Base):
                 'en': secure + 'en.' + domain +
                       reverse(name, urlconf='server.manage.switch.urls.en', kwargs=kwargs),
 
-                # 'pl': secure + 'pl.' + domain +
-                #      reverse(name, urlconf='server.manage.switch.urls.pl', kwargs=kwargs),
-
-                # 'de': secure + 'de.' + domain +
-                #      reverse(name, urlconf='server.manage.switch.urls.de', kwargs=kwargs),
+                'pl': secure + 'pl.' + domain +
+                      reverse(name, urlconf='server.manage.switch.urls.pl', kwargs=kwargs),
 
                 'local_en': secure + domain +
-                            reverse(name, urlconf='server.manage.switch.urls.en', kwargs=kwargs),
+                      reverse(name, urlconf='server.manage.switch.urls.en', kwargs=kwargs),
 
-                # 'local_pl': secure + domain +
-                #       reverse(name, urlconf='server.manage.switch.urls.pl', kwargs=kwargs),
-
-                # 'local_de': secure + domain +
-                #       reverse(name, urlconf='server.manage.switch.urls.de', kwargs=kwargs),
+                'local_pl': secure + domain +
+                      reverse(name, urlconf='server.manage.switch.urls.pl', kwargs=kwargs),
             }
 
         if current_language:
@@ -96,8 +90,7 @@ class Path_Manager(Base):
         urls = \
             {
                 'en': reverse(name, urlconf='server.manage.switch.urls.en', kwargs=kwargs),
-                # 'pl': reverse(name, urlconf='server.manage.switch.urls.pl', kwargs=kwargs),
-                # 'de': reverse(name, urlconf='server.manage.switch.urls.de', kwargs=kwargs),
+                'pl': reverse(name, urlconf='server.manage.switch.urls.pl', kwargs=kwargs),
             }
 
         if language:
