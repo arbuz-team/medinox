@@ -1,6 +1,5 @@
 from server.service.sender.views import *
 from server.manage.user.forms import *
-import os
 
 
 class Sign_Up(Website_Manager):
@@ -20,6 +19,7 @@ class Sign_Up(Website_Manager):
             self.Create_No_Approved_User()
             self.Send_Activate_Link()
 
+            self.request.session['user_user'] = user
             self.context['form'] = Form_User_Address(self)
             return self.Render_HTML('user/sign_up.html', 'user_address')
 

@@ -1,16 +1,20 @@
 from django.conf.urls import url, include
+from server.manage.switch.website.content.errors_handler import *
 
 urlpatterns = [
-    url(r'^uzytkownik/', include('server.manage.user.urls.pl'), name='user'),
-    url(r'^administrator/', include('server.manage.root.urls.pl'), name='root'),
-    url(r'^komunikat/', include('server.ground.statement.urls.pl'), name='statement'),
-    url(r'^produkt/', include('server.ground.product.urls.pl'), name='product'),
-    url(r'^ustawienia/', include('server.manage.setting.urls.pl'), name='setting'),
-    url(r'^wyszukiwarka/', include('server.page.searcher.urls.pl'), name='searcher'),
-    url(r'^koszyk/', include('server.page.cart.urls.pl'), name='cart'),
-    url(r'^nawigacja/', include('server.page.navigation.urls.pl'), name='navigation'),
-    url(r'^platnosci/', include('server.service.payment.urls.pl'), name='payment'),
-    url(r'^pdf/', include('server.service.pdf.urls.pl'), name='pdf'),
-    url(r'', include('server.ground.main.urls.pl'), name='main'),
+    url(r'^użytkownik/', include('server.manage.user.urls.en'), name='user'),
+    url(r'^administrator/', include('server.manage.root.urls.en'), name='root'),
+    url(r'^produkt/', include('server.ground.product.urls.en'), name='product'),
+    url(r'^katalog/', include('server.ground.catalog.urls.en'), name='catalog'),
+    url(r'^link/', include('server.ground.link.urls.en'), name='link'),
+    url(r'^ustawienia/', include('server.manage.setting.urls.en'), name='setting'),
+    url(r'^płatności/', include('server.service.payment.urls.en'), name='payment'),
+    url(r'^powiadomienia/', include('server.service.notification.urls.en'), name='notification'),
+    url(r'^waluta/', include('server.service.currency.urls.en'), name='currency'),
+    url(r'^pdf/', include('server.service.pdf.urls.en'), name='pdf'),
+    url(r'', include('server.ground.main.urls.en'), name='main'),
 ]
 
+handler403 = Errors_Handler.Code_403
+handler404 = Errors_Handler.Code_404
+handler500 = Errors_Handler.Code_500

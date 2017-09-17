@@ -12,7 +12,9 @@ class Model_Root(Abstract_Model):
 
 class Model_Root_Address(Abstract_Address):
 
-    phone = models.CharField(max_length=20)
+    phone_1 = models.CharField(max_length=25)
+    phone_2 = models.CharField(max_length=25)
+    fax = models.CharField(max_length=25)
     email = models.EmailField(max_length=50)
 
 

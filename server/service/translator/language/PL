@@ -1,16 +1,7 @@
-1:Wybierz lub utwórz nowego producenta produktu
-2:Wybierz lub utwórz nowe przeznaczenie produktu
-3:Szczegóły produktu po angielsku
-4:Szczegóły produktu po polsku
-5:Szczegóły produktu po niemiecku
-6:Gdzie wyświetlać produkt
-7:Dodaj zdjęcie produktu
 9:Dodaj nowy polecany produkt
 10:Aby dodać polecany produkt, należy wyszukać go w istniejących produktach na stronie. Następnie w szczegółach produktu nacisnąć na przycisk `Recommended`.
 11:Cena w walucie {0} musi być większa niż zero.
 12:Liczba produktów dostępnych w magazynie musi być większa niż zero.
-13:Szczegóły produktu po angielsku są wymagane.
-14:Szczegóły wyświetlania produktu są wymagane.
 15:Producent produktu jest wymagany.
 17:Zdjęcie produktu jest wymagane.
 18:Słowa kluczowe
@@ -146,3 +137,46 @@
 152:Dokonywanie płatności za wybrane produkty w sklepie Medifiller.
 153:Usuń paragraf
 154:Jesteś pewny, że chcesz usunąć ten paragraf?
+155:Ta nazwa jest już zajęta
+156:Zarządzanie widżetem
+157:Zarządzanie katalogiem
+158:Zarządzanie produktem
+159:Produkt z tą nazwą już istnieje
+160:Usuń opis produktu
+161:Jesteś pewny, że chcesz usunąć ten opis?
+162:Błąd
+163:Błąd
+164:Nazwa
+165:Błąd - nazwa pliku jest wymagana
+166:Błąd - nazwa obrazka jest wymagana
+167:Nazwa
+169:Twój notes
+170:Nazwa terminu
+171:Ustawienia terminarza
+172:Ustawienia notatki
+173:Nazwa
+174:Dodatkowa cena
+175:Nazwa
+176:Nazwa
+177:Kopiuj element
+178: - kopia
+179:Przenieś element
+180:Sprawdź swój CSRF token
+181:Brak uprawnień
+182:Strona nie została znaleziona
+183:Wewnętrzny błąd serwera
+184:Cena EUR
+185:Cena PLN
+186:Cena GBP
+187:Usuń paragraf
+188:Jesteś pewien, że chcesz usunąć ten paragraf?
+189:Wybierz katalog docelowy
+190:Tytuł
+191:Wiadomość
+192:Wyślij email
+193:Przypominamy o płatności - deadline
+194:Przypominamy o płatności - reminder
+196:Numer telefonu
+197:Numer telefonu
+198:Fax
+199:NIP / TIN

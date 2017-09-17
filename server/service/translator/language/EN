@@ -1,15 +1,7 @@
-1:Select or create product brand
-2:Select or create product purpose
-3:Product details in English
-4:Product details in Polish
-5:Product details in German
-6:Where to display product
-7:Add image to product
 9:Append new recommended product
 10:First recommended product must exist in list product. To add recommended product you have to search product and click `Recommend` button in product details.
 11:Price in {0} have to be greater than zero.
 12:Stock have to be greater than zero.
-13:English details are required.
 15:Product's brand name is required.
 17:Product's image is required.
 18:Keywords
@@ -184,4 +176,7 @@
 192:Send email
 193:We remind you about payment - deadline
 194:We remind you about payment - reminder
-195:Brand manager
+196:Phone number
+197:Phone number
+198:Fax
+199:NIP / TIN
