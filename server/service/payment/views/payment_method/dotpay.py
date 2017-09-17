@@ -40,8 +40,8 @@ class DotPay(Base_Payment):
             'description':  Text(self, 152),
 
             'control':      _object.context['payment'],
-            'firstname':    address.full_name.split(' ')[0],
-            'lastname':     address.full_name.split(' ')[1],
+            'firstname':    address.name,
+            'lastname':     address.surname,
             'email':        payment.user.email,
 
             'lang':         self.request.session['translator_language'].lower(),

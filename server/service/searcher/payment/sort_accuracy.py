@@ -10,8 +10,14 @@ class Payment_Content:
 
         accuracy += self.user.email.count(word) * 10
         accuracy += self.user.username.count(word) * 8
-        accuracy += self.delivery_address.full_name.count(word) * 5
-        accuracy += self.invoice_address.full_name.count(word) * 5
+        accuracy += self.delivery_address.name.count(word) * 5
+        accuracy += self.delivery_address.surname.count(word) * 5
+        accuracy += self.delivery_address.company_name.count(word) * 5
+        accuracy += self.delivery_address.nip.count(word) * 5
+        accuracy += self.invoice_address.name.count(word) * 5
+        accuracy += self.invoice_address.surname.count(word) * 5
+        accuracy += self.invoice_address.company_name.count(word) * 5
+        accuracy += self.invoice_address.nip.count(word) * 5
 
         return accuracy
 

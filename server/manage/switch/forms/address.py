@@ -9,20 +9,24 @@ class Abstract_Address_Form(Abstract_Model_Form):
 
     def Set_Widgets(self):
 
-        full_name_attr = self.Attr(Text(self, 47), classes='test', autocomplite='', autofocus=True)
+        name_attr = self.Attr(Text(self, 200), classes='test', autocomplite='', autofocus=True)
+        surname_attr = self.Attr(Text(self, 201), classes='test', autocomplite='')
+        company_name_attr = self.Attr(Text(self, 202), classes='test', autocomplite='')
+        nip_attr = self.Attr(Text(self, 199), classes='test', autocomplite='')
         address_line_attr = self.Attr(Text(self, 48), classes='test', autocomplite='')
         city_attr = self.Attr(Text(self, 50), classes='test', autocomplite='')
         region_attr = self.Attr(Text(self, 51), classes='test', autocomplite='')
         postcode_attr = self.Attr(Text(self, 52), classes='test', autocomplite='')
-        nip_attr = self.Attr(Text(self, 199), classes='test', autocomplite='')
         country_attr = self.Attr(field=Field.SELECT, autocomplite='')
 
-        self.fields['full_name'].widget = forms.TextInput(attrs=full_name_attr)
+        self.fields['name'].widget = forms.TextInput(attrs=name_attr)
+        self.fields['surname'].widget = forms.TextInput(attrs=surname_attr)
+        self.fields['company_name'].widget = forms.TextInput(attrs=company_name_attr)
+        self.fields['nip'].widget = forms.TextInput(attrs=nip_attr)
         self.fields['address_line'].widget = forms.TextInput(attrs=address_line_attr)
         self.fields['city'].widget = forms.TextInput(attrs=city_attr)
         self.fields['region'].widget = forms.TextInput(attrs=region_attr)
         self.fields['postcode'].widget = forms.TextInput(attrs=postcode_attr)
-        self.fields['nip'].widget = forms.TextInput(attrs=nip_attr)
         self.fields['country'].widget.attrs = country_attr
 
     def Exclude_Fields(self):

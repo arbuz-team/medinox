@@ -49,7 +49,9 @@ class Search_Payments(Website_Manager):
         for payment in payments:
 
             details = {
-                'fullname': SQL.Get(Model_Invoice_Address, payment=payment).full_name,
+                'name': SQL.Get(Model_Invoice_Address, payment=payment).name,
+                'surname': SQL.Get(Model_Invoice_Address, payment=payment).surname,
+                'company_name': SQL.Get(Model_Invoice_Address, payment=payment).company_name,
                 'payment':  payment,
                 'products': SQL.Filter(Model_Payment_Product, payment=payment)
             }

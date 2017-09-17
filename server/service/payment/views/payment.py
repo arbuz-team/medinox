@@ -50,7 +50,10 @@ class Payment_Manager(Website_Manager):
         if model == 'invoice_address':
             address = SQL.Get(Model_Invoice_Address, payment=payment)
 
-        address.full_name = user_address.full_name
+        address.name = user_address.name
+        address.surname = user_address.surname
+        address.company_name = user_address.company_name
+        address.nip = user_address.nip
         address.address_line = user_address.address_line
         address.city = user_address.city
         address.region = user_address.region

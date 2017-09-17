@@ -31,7 +31,6 @@
 44:Nazwa użytkownika
 45:Hasło
 46:Email
-47:Imie i nazwisko
 48:Adres zamieszkania
 50:Miasto
 51:Stan / Prowincja / Region
@@ -180,3 +179,6 @@
 197:Numer telefonu
 198:Fax
 199:NIP / TIN
+200:Name
+201:Surname
+202:Nazwa firmy

@@ -16,7 +16,10 @@ class Model_Delivery_Address(Abstract_Address):
 
         if not payments_address:
             SQL.Save(Model_Delivery_Address,
-                full_name='',
+                name='',
+                surname='',
+                company_name='',
+                nip='',
                 address_line='',
                 city='',
                 region='',
@@ -42,7 +45,10 @@ class Model_Invoice_Address(Abstract_Address):
 
         if not invoice_address:
             SQL.Save(Model_Invoice_Address,
-                full_name='',
+                name='',
+                surname='',
+                company_name='',
+                nip='',
                 address_line='',
                 city='',
                 region='',

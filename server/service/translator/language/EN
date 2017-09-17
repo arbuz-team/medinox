@@ -31,7 +31,6 @@
 44:Username
 45:Password
 46:Email
-47:Full Name
 48:Address Line
 50:City
 51:State / Province / Region
@@ -180,3 +179,6 @@
 197:Phone number
 198:Fax
 199:NIP / TIN
+200:Name
+201:Surname
+202:Company name
