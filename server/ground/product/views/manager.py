@@ -9,20 +9,24 @@ class Product_Manager(Website_Manager):
         self.context['form'] = Form_Product(self, post=True)
 
         if self.context['form'].is_valid():
-            cleaned_data = self.context['form'].cleaned_data
 
+            cleaned_data = self.context['form'].cleaned_data
             product = self.request.session['product_editing']
-            if not product.price: product.price = Model_Prices()
+
+            if not product.price:
+                price = Model_Prices()
+                price.eur = cleaned_data['price_eur']
+                price.pln = cleaned_data['price_pln']
+                price.gbp = cleaned_data['price_gbp']
+                SQL.Save(data=price)
+
+                product.price = price
 
             product.name = cleaned_data['name']
             product.url_name = Path_Manager.To_URL(cleaned_data['name'])
-            product.price.eur = cleaned_data['price_eur']
-            product.price.pln = cleaned_data['price_pln']
-            product.price.gbp = cleaned_data['price_gbp']
             product.parent = self.request.session['catalog_parent']
             product.language = self.request.session['translator_language']
 
-            SQL.Save(data=product.price)
             SQL.Save(data=product)
             product.Save_Image(cleaned_data['image'])
 
