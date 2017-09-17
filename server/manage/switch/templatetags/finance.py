@@ -7,7 +7,8 @@ class Finance_Manager(Base_Tag_Manager):
     @register.simple_tag(takes_context=True)
     def get_price(context, product):
         currency = context.request.session['currency_selected']
-        price = product.price.Get_Price(context)
+        if not product.price: price = 0
+        else: price = product.price.Get_Price(context)
         return '{0:.2f} {1}'.format(price, currency)
 
     def Get_Product_Price(self):
