@@ -13,8 +13,13 @@
 	    <div class="dialog-address-content">
 
 		    <div class="dialog-address-field">
+			    <div class="dialog-address-name">   Nazwa firmy:</div>
+		        <div class="dialog-address-value">  {{ delivery.company name }} &nbsp;</div>
+		    </div>
+
+		    <div class="dialog-address-field">
 			    <div class="dialog-address-name">   Imię i nazwisko:</div>
-		        <div class="dialog-address-value">  {{ delivery.full_name }} &nbsp;</div>
+		        <div class="dialog-address-value">  {{ delivery.name }} {{ delivery.surname }} &nbsp;</div>
 		    </div>
 
 		    <div class="dialog-address-field">
@@ -49,9 +54,14 @@
 		<div class="dialog-address-content">
 
 			<div class="dialog-address-field">
-			    <div class="dialog-address-name">   Imię i nazwisko:     </div>
-				<div class="dialog-address-value">  {{ invoice.full_name }} &nbsp;</div>
-		    </div>
+				<div class="dialog-address-name">   Nazwa firmy:</div>
+				<div class="dialog-address-value">  {{ invoice.company name }} &nbsp;</div>
+			</div>
+
+			<div class="dialog-address-field">
+				<div class="dialog-address-name">   Imię i nazwisko:</div>
+				<div class="dialog-address-value">  {{ invoice.name }} {{ invoice.surname }} &nbsp;</div>
+			</div>
 
 			<div class="dialog-address-field">
 			    <div class="dialog-address-name">   Adres:</div>

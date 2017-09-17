@@ -13,16 +13,14 @@
 	    <div class="dialog-address-content">
 
 		    <div class="dialog-address-field">
-			    <div class="dialog-address-name">   Full name:</div>
-		        <div class="dialog-address-value">  {{ delivery.full_name }} &nbsp;</div>
+			    <div class="dialog-address-name">   Company name:</div>
+		        <div class="dialog-address-value">  {{ delivery.company_name }} &nbsp;</div>
 		    </div>
 
-		    {% if delivery.doctor_number %}
 		    <div class="dialog-address-field">
-			    <div class="dialog-address-name">   Doctor number:</div>
-		        <div class="dialog-address-value">  {{ delivery.doctor_number }} &nbsp;</div>
+			    <div class="dialog-address-name">   Full name:</div>
+		        <div class="dialog-address-value">  {{ delivery.name }} {{ delivery.surname }} &nbsp;</div>
 		    </div>
-		    {% endif %}
 
 		    <div class="dialog-address-field">
 			    <div class="dialog-address-name">   Address line:</div>
@@ -55,17 +53,20 @@
 
 		<div class="dialog-address-content">
 
+			{% if item.company_name %}
+			{{ item.company_name }}
+			{% elif item.name and item.surname %}
+			{{ item.name }} {{ item.surname }}
+			{% endif %}
 			<div class="dialog-address-field">
-			    <div class="dialog-address-name">   Full name:     </div>
-				<div class="dialog-address-value">  {{ invoice.full_name }} &nbsp;</div>
+			    <div class="dialog-address-name">   Company name:     </div>
+				<div class="dialog-address-value">  {{ invoice.company_name }} &nbsp;</div>
 		    </div>
 
-			{% if invoice.doctor_number %}
 			<div class="dialog-address-field">
-			    <div class="dialog-address-name">   Doctor number:</div>
-				<div class="dialog-address-value">  {{ invoice.doctor_number }} &nbsp;</div>
+			    <div class="dialog-address-name">   Full name:     </div>
+				<div class="dialog-address-value">  {{ item.name }} {{ item.surname }} &nbsp;</div>
 		    </div>
-			{% endif %}
 
 			<div class="dialog-address-field">
 			    <div class="dialog-address-name">   Address line:</div>

@@ -126,10 +126,14 @@
 
                                 <div class="address_block-shell"></div>
 
-                                <div class="address_block-title change_length-button"> {{ item.full_name }} </div>
+                                {% if item.company_name %}
+                                    <div class="address_block-title change_length-button"> {{ item.company_name }} </div>
+                                {% elif item.name and item.surname %}
+                                    <div class="address_block-title change_length-button"> {{ item.name }} {{ item.surname }} </div>
 
                                 <div class="address_block-field_list">
-                                    <div class="is-nowrap">{{ item.full_name }} &nbsp; </div>
+                                    <div class="is-nowrap">{{ item.company_name }} &nbsp; </div>
+                                    <div class="is-nowrap">{{ item.name }} {{ item.surname }} &nbsp; </div>
                                     <div class="is-nowrap">{{ item.address_line }} &nbsp; </div>
                                     <div class="is-nowrap">{{ item.city }} &nbsp; </div>
                                     <div class="is-nowrap">{{ item.region }} &nbsp; </div>
