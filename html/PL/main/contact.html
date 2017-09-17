@@ -22,7 +22,11 @@
         <div class="block-content-left">
 
             <div class="title">
-                {{ request.session.root_address.full_name }}
+                {% if request.session.root_address.company_name %}
+                    {{ request.session.root_address.full_name }}
+                {% elif request.session.root_address.name and request.session.root_address.surname %}
+                    {{ request.session.root_address.name }} {{ request.session.root_address.surname }}
+                {% endif %}
             </div>
 
             <div class="paragraph">
