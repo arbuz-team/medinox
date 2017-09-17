@@ -12,8 +12,6 @@ class Sort_By_Name(Base):
         if direction == 'descending': order_by = '-name'
         if direction == 'ascending': order_by = 'name'
 
-        print(order_by, '\n\n\n\n')
-
         return SQL.Filter(Model_Product,
             pk__in=self.products).order_by(order_by)
 

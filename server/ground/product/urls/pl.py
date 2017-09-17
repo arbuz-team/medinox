@@ -4,7 +4,7 @@ from server.ground.product.views import *
 urlpatterns = [
     url(r'^$', Panel_App.Launch, name='product.start'),
     url(r'^:/$', Products.Launch, name='product.products'),
-    url(r'^(?P<pk>\d+)/(?P<name>\w+)/$', Details.Launch, name='product.details'),
+    url(r'^(?P<pk>\d+)/(?P<product_name>\w+)/$', Details.Launch, name='product.details'),
     url(r'^zarządzaj/$', Product_Manager.Launch, name='product.manage'),
     url(r'^widżet/zarządzaj/$', Widget_Manager.Launch, name='product.widget.manage'),
     url(r'^opcje/zarządzaj/$', Values_Manager.Launch, name='product.values.manage'),
