@@ -75,7 +75,7 @@ class Details(Website_Manager):
         return self.Render_HTML('product/details.html')
 
     @staticmethod
-    def Launch(request, pk, name):
+    def Launch(request, pk, product_name):
 
         if '_name_' in request.POST:
 
