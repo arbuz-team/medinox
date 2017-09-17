@@ -8,6 +8,7 @@ class Model_User(Abstract_Model):
     email = models.EmailField(max_length=50, unique=True)
     username = models.CharField(max_length=20)
     password = models.CharField(max_length=75)
+    phone = models.CharField(max_length=25)
     approved = models.BooleanField(default=False)
 
     @staticmethod
