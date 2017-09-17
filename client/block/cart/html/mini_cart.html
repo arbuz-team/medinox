@@ -15,8 +15,14 @@
             </span>
 
             <span class="mini_cart-title-name">
-                {% if button_address_name == 'root_address' and item.fullname %}
-                    {{ item.fullname }}
+                {% if button_address_name == 'root_address'  %}
+
+                    {% if item.company_name  %}
+                        {{ item.company_name }}
+                    {% elif item.name and item.surname %}
+                        {{ item.name }} {{ item.surname }}
+                    {% endif %}
+
                 {% else %}
                     {{ item.payment.user }}
                 {% endif %}
