@@ -2,7 +2,7 @@
 {% if request.session.user_login %}
 
 	<li class="navigation-field menu_mobile-tile">
-		<a class="fill-abs" href="/user/sign_out/">
+		<a class="fill-abs" href="{% url 'user.sign_out' %}">
 			Sign out
 		</a>
 	</li>
@@ -10,7 +10,7 @@
 {% else %}
 
 	<li class="navigation-field menu_mobile-tile">
-		<a class="fill-abs" href="/user/sign_up/">
+		<a class="fill-abs" href="{% url 'user.sign_up' %}">
 			Sign up
 		</a>
 	</li>
@@ -21,7 +21,7 @@
 <li class="menu-field menu-field-space"> | </li>
 
 <li class="navigation-field">
-	<a class="fill-abs" href="/contact/">
+	<a class="fill-abs" href="{% url 'main.contact' %}">
 		Contact
 	</a>
 </li>
@@ -40,7 +40,7 @@
 {% else %}
 
 	<li class="navigation-field">
-		<a class="fill-abs" href="/user/sign_in/cart/">
+		<a class="fill-abs" href="{% url 'user.sign_in_cart' %}">
 			Cart
 		</a>
 	</li>

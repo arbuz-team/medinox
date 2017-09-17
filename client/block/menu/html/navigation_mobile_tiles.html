@@ -9,7 +9,7 @@
 {% if request.session.root_login %}
 
 	<li class="menu_mobile-tile">
-		<a class="button is-icon fill-abs" href="/root/">
+		<a class="button is-icon fill-abs" href="{% url 'root.start' %}">
 			<span class="button-icon img-simple_settings-light-64"> &nbsp; </span>
 		</a>
 	</li>
@@ -35,7 +35,7 @@
 
 
 	<li class="menu_mobile-tile">
-		<a class="button is-icon fill-abs" href="/root/sign_out/">
+		<a class="button is-icon fill-abs" href="{% url 'root.sign_out' %}">
 			<span class="button-icon img-shut_down-light-64"> &nbsp; </span>
 		</a>
 	</li>
@@ -47,14 +47,14 @@
 	{% if not request.session.user_login %}
 
 		<li class="navigation-field menu_mobile-tile">
-			<a class="button is-icon fill-abs" href="/user/sign_up/">
+			<a class="button is-icon fill-abs" href="{% url 'user.sign_up' %}">
 				<span class="button-icon img-businessman-light-64"> &nbsp; </span>
 			</a>
 		</li>
 
 
 		<li class="navigation-field menu_mobile-tile">
-			<a class="button is-icon fill-abs" href="/user/sign_in/">
+			<a class="button is-icon fill-abs" href="{% url 'user.sign_in' %}">
 				<span class="button-icon img-padlock_open-light-64"> &nbsp; </span>
 			</a>
 		</li>
@@ -62,7 +62,7 @@
 	{% else %}
 
 		<li class="navigation-field menu_mobile-tile">
-			<a class="button is-icon fill-abs" href="/user/account/">
+			<a class="button is-icon fill-abs" href="{% url 'user.account' %}">
 				<span class="button-icon img-simple_settings-light-64"> &nbsp; </span>
 			</a>
 		</li>
@@ -71,7 +71,7 @@
 
 
 	<li class="navigation-field menu_mobile-tile">
-		<a class="button is-icon fill-abs" href="/contact/">
+		<a class="button is-icon fill-abs" href="{% url 'main.contact' %}">
 			<span class="button-icon img-telephone-light-64"> &nbsp; </span>
 		</a>
 	</li>
@@ -80,7 +80,7 @@
 	{% if request.session.user_login %}
 
 		<li class="navigation-field menu_mobile-tile">
-			<a class="button is-icon fill-abs" href="/user/sign_out/">
+			<a class="button is-icon fill-abs" href="{% url 'user.sign_out' %}">
 				<span class="button-icon img-shut_down-light-64"> &nbsp; </span>
 			</a>
 		</li>

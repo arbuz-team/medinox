@@ -7,13 +7,13 @@
 </li>
 
 <li class="navigation-field">
-	<a class="fill-abs" href="/catalog/:/">
+	<a class="fill-abs" href="{% url 'catalog.start' %}">
 		Products
 	</a>
 </li>
 
 <li class="navigation-field">
-	<a class="fill-abs" href="/about/">
+	<a class="fill-abs" href="{% url 'main.about' %}">
 		About
 	</a>
 </li>
@@ -22,7 +22,7 @@
 {% if request.session.user_login %}
 
 	<li class="navigation-field">
-		<a class="fill-abs" href="/user/account/">
+		<a class="fill-abs" href="{% url 'user.account' %}">
 			Account
 		</a>
 	</li>
@@ -30,7 +30,7 @@
 {% else %}
 
 	<li class="navigation-field">
-		<a class="fill-abs" href="/user/sign_in/">
+		<a class="fill-abs" href="{% url 'user.sign_in' %}">
 			Sign in
 		</a>
 	</li>
