@@ -1,0 +1,78 @@
+{% load tags %}
+
+<div class="dialog-header">
+    {{ title }}
+</div>
+
+
+<!-- Frontend: Test this dialog. -->
+
+<div class="dialog-content">
+
+    <div class="dialog-content-part">
+
+        <div class="little_form" data-origin="little" data-reload="dialog searcher">
+            <input class="input"
+				   data-name="{{ form_name }}"
+				   placeholder="Nazwa dla nowego {{ form_name }}">
+			<button class="button" type="button">Stwórz</button>
+        </div>
+
+    </div>
+
+    <!--data-type="{{ form_name }}" data-test="yes"-->
+    <form class="dialog_form" method="post" data-name="{{ form_name }}">
+
+        <div class="dialog-content-part">
+            <!--fields of form-->
+
+            {{ form.non_field_errors }}
+
+            <div class="scroll">
+                {% for field in form %}
+
+
+                    {% if field|is_checkbox %}
+
+                        {% include "form/html/manage_field.html" %}
+
+                    {% elif field|is_radio %}
+
+                        {% for selector in field %}
+                            <div class="selecter radio">
+                                {{ selector.tag }}
+                                <label for="{{ selector.id_for_label }}" class="selecter-field"></label>
+                                <label for="{{ selector.id_for_label }}" class="selecter-text">{{ selector.choice_label }}</label>
+                            </div>
+                        {% endfor %}
+
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+
+        </div><!-- dialog-content-part -->
+
+        <div class="dialog-content-part">
+            <!--buttons-->
+
+            <button class="button event_button"
+                    type="button"
+                    data-name="button_close_dialog"
+                    data-event="part.close_dialog">
+                Zamknij
+            </button>
+
+            <button class="button dialog_send event_button"
+                    type="button"
+                    data-reload="{{ accept.reload }}"
+                    data-redirect="{{ accept.redirect }}"
+                    data-event="{{ accept.event }}">
+                Zaakceptuj
+            </button>
+
+        </div><!-- dialog-content-part -->
+
+    </form>
+
+</div><!-- dialog-content -->

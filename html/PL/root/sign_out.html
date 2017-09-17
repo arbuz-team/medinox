@@ -1,0 +1,25 @@
+<script>
+    APP.throw_event(EVENTS.part.reload_root_sign_in);
+
+  APP.DATA.redirect = '/';
+  APP.DATA.delay = 1500;
+  APP.throw_event(EVENTS.redirect);
+</script>
+
+
+<div class="ground-block block-1 SMALL">
+
+  <div class="block-background fill-abs"></div>
+  {% include "block/ground/html/navigation.html" %}
+
+  <div class="block-content">
+
+      <div class="block-content-message">
+          Zostałeś wylogowany jako administrator.
+      </div>
+
+  </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

@@ -1,0 +1,25 @@
+{% extends 'EN/sender/template.html' %}
+{% load tags %}
+
+{% block content %}
+
+    <p class="paragraph">
+        Cześć!
+    </p>
+
+    <p class="paragraph">
+        Ten komunikat został wysłany przez administratora i potwierdza dokonanie płatności:
+        <div> ID: {{ payment.unique }} </div>
+        <div> Data płatności - {{ payment.date }}. </div>
+        <a href="{% url 'user.account.selected_shopping' full=True unique=payment.unique %}" target="_blank">Przejdź do płatności.</a>
+    </p>
+
+    <p class="paragraph">
+        {{ message }}
+    </p>
+
+    <p class="paragraph">
+        Pozdrowienia!
+    </p>
+
+{% endblock content %}

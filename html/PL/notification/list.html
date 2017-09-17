@@ -1,0 +1,12 @@
+
+{% if not notifications %}
+
+	<div class="dialog-message"> Brak powiadomień </div>
+
+{% endif %}
+
+{% for notification in notifications %}
+
+	{% include 'block/plugin/notifications/html/single.html' %}
+
+{% endfor %}

@@ -1,0 +1,30 @@
+
+<div class="menu_mobile-who">
+
+    {% if request.session.root_login %}
+        Cześć <span class="menu_mobile-who-name">administratorze</span>! Jak się masz? :)
+    {% elif request.session.user_login %}
+        Cześć <span class="menu_mobile-who-name">{{ request.session.user_user.username }}</span>! Jak się masz? :)
+    {% else %}
+        Zarejestruj się! :)
+    {% endif %}
+
+</div>
+
+<div class="menu_mobile-tiles is-have-4">
+
+    {% include 'block/menu/html/navigation_mobile_tiles.html' %}
+
+</div>
+
+<ul class="navigation-list">
+
+    {% include 'block/menu/html/navigation_primary.html' %}
+
+    {% include 'block/menu/html/navigation_secondary_root.html' %}
+
+    {% include 'block/menu/html/navigation_secondary_user.html' %}
+
+    {% include 'block/menu/html/navigation_additional.html' %}
+
+</ul>

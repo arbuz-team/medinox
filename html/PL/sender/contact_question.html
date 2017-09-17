@@ -1,0 +1,30 @@
+{% extends 'EN/sender/template.html' %}
+
+{% block content %}
+
+    <p class="paragraph">
+        Cześć!
+    </p>
+
+    <p class="paragraph">
+        To jest pytanie klienta.
+    </p>
+
+    <p class="paragraph">
+        Klient: {{ client }} <br>
+        Pytanie: {{ question }} <br>
+
+        {% if product %}
+            Produkt: {{ product }} <br>
+        {% endif %}
+
+        {% if url %}
+            URL: {{ url }} <br>
+        {% endif %}
+    </p>
+
+    <p class="paragraph">
+        Pozdrowienia!
+    </p>
+
+{% endblock content %}

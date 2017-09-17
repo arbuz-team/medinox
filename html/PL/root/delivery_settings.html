@@ -1,0 +1,56 @@
+{% load tags %}
+
+<script>
+  APP.DATA = {
+    title : 'Ceny dostawy',
+    description : ''
+  };
+</script>
+
+
+<div class="ground-block block-1 SMALL deliver_settings">
+
+    <div class="block-background fill-abs"></div>
+    {% include "block/ground/html/navigation.html" %}
+
+    <div class="block-content">
+
+        <form class="auto_form" action="" data-origin="form">
+
+            <div class="title">Ceny dostawy</div>
+
+            {% for item in options %}
+
+                <div class="deliver_settings-row">
+
+                    <label class="deliver_settings-row-label" for="{{ item.country }}_EUR">
+						{{ item.country }}:&nbsp;
+					</label>
+
+                    <input class="deliver_settings-row-input input auto_field"
+						   name="{{ item.country }}_EUR"
+						   id="{{ item.country }}_EUR"
+                           data-name="{{ item.pk }} EUR"
+                           value="{{ item.price_eur|to_price }}" />
+
+					<span>EUR</span>
+
+                    <input class="deliver_settings-row-input input auto_field"
+						   name="{{ item.country }}_PLN"
+						   id="{{ item.country }}_PLN"
+                           data-name="{{ item.pk }} PLN"
+                           value="{{ item.price_pln|to_price }}" />
+
+					<span>PLN</span>
+
+                </div>
+
+            {% endfor %}
+
+        </form>
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

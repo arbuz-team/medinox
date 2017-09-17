@@ -1,0 +1,78 @@
+{% load tags %}
+
+<script>
+    APP.DATA = {
+        title : 'Rejestracja',
+        description : ''
+    };
+</script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+
+<div class="ground-block block-1 SMALL">
+
+    <div class="block-background fill-abs"></div>
+    {% include "block/ground/html/navigation.html" %}
+
+    <div class="block-content is-fills-in-width-inside">
+
+        {% if not form %}
+
+            <div class="block-content-message">
+                Cześć {{ self.request.session.user_username }}, miło cię poznać! Odwiedź swoją skrzynkę pocztową i aktywne konto. ;)
+            </div>
+
+            <script>
+                APP.DATA.redirect = '/';
+                APP.DATA.delay = 2000;
+                window.dispatchEvent(EVENTS.redirect);
+            </script>
+
+        {% else %}
+
+
+            <form method="post" data-name="{{ form_name }}" data-type="{{ form_name }}" data-test="yes">
+
+                <div class="title"> Rejestracja </div>
+
+                {% for field in form %}
+
+                    {% if field.name == 'password' %}
+
+                        <div class="show_password">
+                            {{ field }}
+                            <input class="show_password-checkbox"
+								   type="checkbox"
+                                   title="Pokaż/ukryj hasło"/>
+                            <div class="status">{{ field.errors }}</div>
+                        </div>
+
+                    {% else %}
+
+                        {% include "form/html/manage_field.html" %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+                <div class="is-having-margins-5">
+                    Przez rejestrację potwierdzasz, że przeczytałeś i zaakceptowałeś naszą
+                    <a href="{% url 'user.agreement' full=True %}" target="_blank">umowę użytkownika</a>.
+                </div>
+
+                <div>
+					<button class="button is-important"
+							disabled>
+						Zarejestruj
+					</button>
+				</div>
+
+            </form>
+
+        {% endif %}
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

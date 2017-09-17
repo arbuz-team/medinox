@@ -1,0 +1,158 @@
+{% load staticfiles %}
+{% load tags %}
+
+<div class="searcher-header"></div>
+
+<div class="searcher-logo">
+  <a class="searcher-logo-link" href="/">
+      <img class="searcher-logo-image" data-src="{% static 'img/logo.png' %}" src="{% static 'img/pixel.png' %}" alt="Medinox" title="Strona główna">
+  </a>
+</div>
+
+
+<div class="searcher-phrase auto_form">
+    <form action="/searcher/" data-origin="filter" data-redirect="/product/:/" data-delay="100">
+        <input class="searcher-field searcher-phrase-field auto_field only_enter"
+			   name="phrase"
+			   placeholder="Szukaj" />
+    </form>
+</div>
+
+
+<form class="searcher-filters auto_form" data-origin="filter" data-redirect="/product/:/" data-delay="500">
+
+    <div class="searcher-sort">
+        <div>
+            <select class="searcher-field select auto_field"
+                    name="category"
+                    data-name="sort">
+                <option value="search_accuracy" selected> dokładność wyszukiwania </option>
+                <option value="price"> cena </option>
+                <option value="name_of_product"> nazwa produktu </option>
+            </select>
+        </div>
+    </div><!-- searcher-sort -->
+
+
+    <div class="searcher-order">
+        <div>
+            <select class="searcher-field select auto_field"
+                    name="direction"
+                    data-name="sort">
+                <option value="descending" selected> malejąco </option>
+                <option value="ascending"> rosnąco </option>
+            </select>
+        </div>
+    </div><!-- searcher-order -->
+
+
+    <div class="searcher-filters-title">Marka</div>
+
+    <div class="searcher-filters-content">
+        <ul>
+            {% for brand in brands %}
+
+                <li class="selecter checkbox">
+                    <input type="checkbox" class="auto_field"
+                           id="id_{{ brand.name }}"
+                           name="brand"
+                           value="{{ brand.pk }}"/>
+                    <label for="id_{{ brand.name }}" class="selecter-field"></label>
+                    <label for="id_{{ brand.name }}" class="selecter-text">{{ brand.name }}</label>
+
+                    {% if request.session.root_login %}
+                        <button class="button is-icon searcher-filters-remove dialog_button is-zoom"
+                                type="button"
+                                data-type="confirm"
+                                data-name="delete_brand"
+                                data-dialog-name="delete_brand_{{ brand.pk }}"
+                                data-dialog-value="{{ brand.pk }}"
+                                data-dialog-action="delete"
+                                data-dialog-reload="searcher"
+                                data-dialog-url="/product/brand/manage/">
+                            <span class="button-icon img-waste_bin"> &nbsp; </span>
+                        </button>
+                    {% endif %}
+                </li>
+
+            {% endfor %}
+        </ul>
+
+    </div><!-- searcher-filters-content -->
+
+
+
+</form><!-- searcher-filters -->
+
+
+{% if request.session.root_login %}
+
+    <div class="searcher-phrase">
+        <form method="post" action="" class="input_button" data-name="brand">
+
+            <input class="input searcher-field searcher-phrase-field" name="name" placeholder="Dodaj markę">
+
+            <button class="button input_button-button is-icon">
+                <span class="button-icon img-add-128">&nbsp;</span>
+            </button>
+
+        </form>
+    </div>
+
+
+    <div class="searcher-filters-content">
+
+        <button class="button post_button"
+                data-name="show_deleted_button"
+                data-action="show_deleted"
+                data-reload="ground"
+                data-url="/catalog/manage/">
+
+            {% if request.session.catalog_deleted_flag %}
+                Ukryj usunięte
+            {% else %}
+                Pokaż usunięte
+            {% endif %}
+        </button>
+
+    </div>
+
+{% endif %}
+
+
+
+{% comment %}
+    <!--<div class="searcher-filters-title">Purpose</div>-->
+
+    <!--<div class="searcher-filters-content">-->
+        <!--<ul>-->
+            <!--{ for purpose in purposes %}-->
+
+                <!--<li class="selecter checkbox">-->
+                    <!--<input type="checkbox" class="auto_field"-->
+                           <!--data-name="purpose"-->
+                           <!--id="id_purpose_{{ purpose.pk }}"-->
+                           <!--name="{{ purpose.pk }}" />-->
+                    <!--<label for="id_purpose_{{ purpose.pk }}" class="selecter-field"></label>-->
+                    <!--<label for="id_purpose_{{ purpose.pk }}" class="selecter-text"></label>-->
+
+                    <!--{ if request.session.root_login %}-->
+                        <!--<button class="button is-icon searcher-filters-remove dialog_button"-->
+                                <!--type="button"-->
+                                <!--data-type="confirm"-->
+                                <!--data-name="delete_purpose"-->
+                                <!--data-dialog-name="delete_purpose_{{ purpose.pk }}"-->
+                                <!--data-dialog-value="{{ purpose.pk }}"-->
+                                <!--data-dialog-action="delete"-->
+                                <!--data-dialog-reload="searcher"-->
+                                <!--data-dialog-url="/product/purpose/">-->
+                            <!--<span class="button-icon img-waste_bin"> &nbsp; </span>-->
+                        <!--</button>-->
+                    <!--{ endif %}-->
+                <!--</li>-->
+
+            <!--{ endfor %}-->
+        <!--</ul>-->
+    <!--</div>&lt;!&ndash; searcher-filters-content &ndash;&gt;-->
+
+{% endcomment %}

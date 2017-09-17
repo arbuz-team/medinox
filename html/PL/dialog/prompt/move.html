@@ -1,0 +1,78 @@
+{% load tags %}
+
+<div class="dialog-header">
+    {{ title }}
+</div>
+
+
+<div class="dialog-content">
+
+    <!--data-type="{{ form_name }}" data-test="yes"-->
+    <form class="dialog_form" method="post" data-name="{{ form_name }}">
+
+        {{ form.non_field_errors }}
+
+        <div class="dialog-content-part">
+            <!--fields of form-->
+            {% for field in form %}
+
+                {% include "form/html/manage_field.html" %}
+
+            {% endfor %}
+
+            <input type="hidden" name="accept_reload" value="{{ accept.reload }}">
+            <input type="hidden" name="accept_redirect" value="{{ accept.redirect }}">
+            <input type="hidden" name="accept_event" value="{{ accept.event }}">
+
+            <div class="directory_tree">
+                <div class="directory_tree-title">Wybierz katalog</div>
+                {{ catalog_tree|safe }}
+            </div>
+
+        </div><!-- dialog-content-part -->
+    </form>
+
+    <div class="dialog-content-part">
+        <!--buttons-->
+
+        {% if edit %}
+            <div class="tooltip align-right align-bottom dialog-content-button is-dangerous">
+
+                <button class="button tooltip_button" type="button" data-name="dialog_deleting">
+                    Usuń
+                </button>
+
+                <div class="tooltip-options">
+                    <button class="button post_button"
+                            type="button"
+                            data-name="{{ form_name }}"
+                            data-action="delete"
+                            data-reload="ground"
+                            data-event="part.close_dialog"
+                            data-url="{{ edit.url }}">
+                        Jesteś pewien?
+                    </button>
+                </div>
+            </div>
+        {% endif %}
+
+        <button class="button event_button"
+                type="button"
+                data-name="button_close_dialog"
+                data-event="part.close_dialog">
+            Zamknij
+        </button>
+
+        <button class="button dialog_send event_button"
+                type="button"
+                data-name="{{ accept.name }}"
+                data-reload="{{ accept.reload }}"
+                data-redirect="{{ accept.redirect }}"
+                data-event="{{ accept.event }}">
+            Zaakceptuj
+        </button>
+
+    </div><!-- dialog-content-part -->
+
+
+</div><!-- dialog-content -->

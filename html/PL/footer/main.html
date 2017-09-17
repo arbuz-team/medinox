@@ -1,0 +1,165 @@
+{% load staticfiles %}
+{% load tags %}
+
+<div class="footer-content">
+
+
+    <!-- ////////////    COOKIES    ////////////// -->
+
+    <div class="footer-cookies">
+        <span class="footer-cookies-content">Ta strona używa cookies. Korzystając ze strony wyrażasz zgodę na używanie plików cookies.</span>
+    </div><!-- footer-cookies -->
+
+
+
+    <!-- ////////////    SOCIAL    ////////////// -->
+
+    <div class="footer-social">
+
+        {% if request.session.root_login %}
+            <div class="footer-edit buttons_to_action">
+                <a class="button is-important" href="/root/social_media/">Edytuj</a>
+            </div>
+        {% endif %}
+
+
+        <div class="footer-social-element">
+            <div class="footer-social-icon">
+                <div class="footer-social-dot"></div>
+            </div>
+        </div>
+
+
+        {% for element in request.session.root_social_media %}
+
+            {% if element.url and element.type == 'social' %}
+                <a class="footer-social-link is-zoom" href="{{ element.url }}" target="_blank">
+                    <div class="footer-social-icon footer-social-{{ element.pk }}"></div>
+                </a>
+            {% endif %}
+
+        {% endfor %}
+
+
+        <div class="footer-social-element">
+            <div class="footer-social-icon">
+                <div class="footer-social-dot"></div>
+            </div>
+        </div>
+
+    </div><!-- footer-social -->
+
+    <div class="is-center-inside">
+        {% for element in request.session.root_social_media %}
+
+            {% if element.url and element.type == 'private' %}
+                <div>
+                    <a href="{{ element.url }}" target="_blank">
+                        {{ element.url }}
+                    </a>
+                </div>
+            {% endif %}
+
+        {% endfor %}
+    </div>
+
+
+    <!-- ////////////    NAVIGATION    ////////////// -->
+
+    <div class="footer-navigation">
+
+        <a class="footer-navigation-link" href="/contact/">
+            Kontakt
+        </a>
+
+        <span class="footer-navigation-separator">|</span>
+
+        <a class="footer-navigation-link" href="/user/agreement/">
+            Regulamin
+        </a>
+
+        <span class="footer-navigation-separator">|</span>
+
+        <div class="footer-navigation-link dialog_button"
+             data-type="alert"
+             data-name="icons">
+            Przypisy
+        </div>
+
+        <span class="footer-navigation-separator">|</span>
+
+        <a class="footer-navigation-link" href="/user/sign_up/">
+            Zarejestruj się
+        </a>
+
+    </div><!-- footer-navigation -->
+
+
+
+    <!-- ////////////    CONTACT    ////////////// -->
+
+    <div class="footer-contact">
+
+        {% if request.session.root_login %}
+            <div class="footer-edit buttons_to_action">
+                <a class="button is-important" href="/root/company_details/">
+                    Edycja
+                </a>
+            </div>
+        {% endif %}
+
+
+        <div class="footer-contact-element">
+            <i class="footer-contact-icon img-email">&nbsp;</i>
+
+            <span><a href="mailto:{{ request.session.root_address.email }}">{{ request.session.root_address.email }}</a></span>
+        </div>
+
+
+        {% if request.session.root_address.phone %}
+            <div class="footer-contact-element">
+                <i class="footer-contact-icon img-telephone">&nbsp;</i>
+
+                <span><a href="tel:{{ request.session.root_address.phone }}">{{ request.session.root_address.phone }}</a></span>
+            </div>
+        {% endif %}
+
+
+        <div class="footer-contact-element">
+            <i class="footer-contact-icon img-home">&nbsp;</i>
+
+            <span>
+                {{ request.session.root_address.address_line }}
+                <br>
+                {{ request.session.root_address.postcode }}
+                {{ request.session.root_address.city }}
+            </span>
+        </div>
+
+    </div><!-- footer-contact -->
+
+
+
+    <!-- ////////////    AUTHOR    ////////////// -->
+
+    <div class="footer-author">
+
+        <span class="footer-author-text">
+            © 2016 ArbuzTeam. All Rights Reserved
+        </span>
+
+        <span class="footer-author-separator">|</span>
+
+        <a class="footer-author-link" href="{% redirect 'root.sign_in' 'root.start' %}">
+            Logowanie
+        </a>
+
+        <span class="footer-author-separator">|</span>
+
+        <a class="footer-author-link" href="https://www.arbuz.team/">
+            ArbuzTeam
+        </a>
+
+    </div><!-- footer-author -->
+
+</div>

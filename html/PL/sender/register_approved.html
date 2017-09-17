@@ -1,0 +1,23 @@
+{% extends 'EN/sender/template.html' %}
+{% load tags %}
+
+{% block content %}
+
+    <p class="paragraph">
+        Cześć!
+    </p>
+
+    <p class="paragraph">
+        Chcesz dołączyć do naszego sklepu? Musisz zrobić jeden krok. <br>
+        Kliknij poniższy link, aby aktywować konto.
+    </p>
+
+    <p class="paragraph">
+        <a class="paragraph-button" href="{{ activate_url }}"> Aktywuj </a>
+    </p>
+
+    <p class="paragraph">
+        Pozdrowienia!
+    </p>
+
+{% endblock content %}

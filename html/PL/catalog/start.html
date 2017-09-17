@@ -1,0 +1,5 @@
+<script>
+  APP.DATA.redirect = '/catalog/:/{{ request.session.catalog_path }}';
+  APP.DATA.delay = 0;
+  APP.throw_event(EVENTS.redirect);
+</script>

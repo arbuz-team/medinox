@@ -1,0 +1,53 @@
+<script>
+  APP.DATA = {
+    title : 'Media społecznościowe',
+    description : ''
+  };
+</script>
+
+<div class="ground-block block-1 MEDIUM">
+
+    <div class="block-background fill-abs"></div>
+    {% include "block/ground/html/navigation.html" %}
+
+    <div class="block-content">
+
+        <form class="auto_form" action="" data-origin="form">
+
+            <div class="title">Media społecznościowe</div>
+
+            {% for item in social_media %}
+
+                <div class="social_media-row">
+
+                    <label class="social_media-row-label" for="edit_{{ item.name }}">
+                        {{ item.name }}:&nbsp;
+                    </label>
+
+                    <input class="social_media-row-input input auto_field"
+						   type="url"
+						   name="{{ item.name }}"
+                           placeholder="{{ item.name }} account..."
+                           id="edit_{{ item.name }}"
+                           data-name="{{ item.pk }}"
+                           value="{{ item.url }}" />
+                </div>
+
+            {% endfor %}
+
+            <div class="social_media-row">
+                <label class="social_media-row-label" for="button_refresh">&nbsp;</label>
+                <button class="button event_button is-important"
+						type="button"
+                        id="button_refresh"
+                        data-name="button_refresh"
+                        data-event="reload_website">
+                    Pokaż zmiany
+                </button>
+            </div>
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

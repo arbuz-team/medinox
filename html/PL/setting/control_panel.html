@@ -1,0 +1,26 @@
+<script>
+  APP.DATA = {
+    title : 'Panel sterowania',
+    description : ''
+  };
+</script>
+
+
+<div class="ground-block block-1 SMALL">
+
+    <div class="block-background fill-abs"></div>
+    {% include "block/ground/html/navigation.html" %}
+
+    <div class="block-content">
+
+        <button class="button post_button"
+				type="button"
+                data-name="Reset_passwords"
+                data-action="reset_passwords"
+                data-url="/setting/">Resetuj hasła</button> <br>
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

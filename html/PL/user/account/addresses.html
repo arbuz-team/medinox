@@ -1,0 +1,111 @@
+<script>
+  APP.DATA = {
+    title : 'Twoje adresy',
+    description : ''
+  };
+</script>
+
+
+<div class="ground-block block-1 BIG">
+
+    <div class="block-background fill-abs"></div>
+    {% include "block/ground/html/navigation.html" %}
+
+	{% if go_back != '/' %}
+		{% include "block/ground/html/go_back.html" with href='/payment/' %}
+	{% endif %}
+
+    <div class="block-content">
+
+        <div class="title"> Edytuj adresy </div>
+
+        {% if go_back != '/' %}
+            <div class="form-accept">
+                <div> Edytuj swój lub dodaj nowy adres <wbr> dla dostawy lub faktury.</div>
+            </div>
+        {% endif %}
+
+        {% for id_address, edit_form_address in edit_forms_address.items %}
+
+            <div class="address_block change_length">
+                <form method="post" data-name="{{ form_name_edit }}_{{ id_address }}" data-type="user_address" data-test="yes">
+
+                    <div class="address_block-shell"></div>
+
+                    <div class="address_block-title change_length-button">
+						Adresy {{ id_address }}
+					</div>
+
+					<div class="address_block-field_list">
+						{% for field in edit_form_address %}
+
+							{% include "form/html/manage_field.html" %}
+
+						{% endfor %}
+					</div>
+
+                    <div class="address_block-buttons">
+                        <button class="button"
+								disabled>
+							Aktualizuj
+						</button>
+
+						<div class="tooltip align-right align-bottom is-dangerous">
+
+							<button class="button tooltip_button"
+									type="button"
+									data-name="remove_product-cart">
+								Usuń
+							</button>
+
+							<div class="tooltip-options">
+								<button class="button post_button"
+										type="button"
+										data-name="delete_address_{{ id_address }}"
+										data-action="delete"
+										data-reload="ground"
+										data-value="{{ id_address }}">
+									Jesteś pewien?
+								</button>
+							</div>
+						</div>
+                    </div>
+
+                </form>
+            </div><!-- form_block -->
+
+        {% endfor %}
+
+
+        <div class="address_block change_length">
+            <form method="post" data-name="{{ form_name_new }}" data-type="user_address" data-test="yes">
+
+                <div class="address_block-shell"></div>
+
+                <div class="address_block-title change_length-button">
+					Dodaj nowy adres
+				</div>
+
+				<div class="address_block-field_list">
+					{% for field in new_form_address %}
+
+						{% include "form/html/manage_field.html" %}
+
+					{% endfor %}
+				</div>
+
+                <div class="address_block-buttons is-short">
+					<button class="button"
+							disabled>
+						Dodaj adres
+					</button>
+				</div>
+
+            </form>
+        </div><!-- form_block -->
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

@@ -5,7 +5,6 @@
   };
 </script>
 
-<!-- Frontend: fields have to testing but not required. -->
 
 <div class="ground-block block-1 SMALL">
 
@@ -16,16 +15,16 @@
 
         <form method="post" action="" data-name="{{ form_name }}" data-type="{{ form_name }}" data-test="yes">
 
-            <div class="title"> Edit your address </div>
+            <div class="title"> Edit your data </div>
 
-            {% for field in form %}
+                {% for field in form %}
 
-                {% include "form/html/manage_field.html" %}
+                    {% include "form/html/manage_field.html" %}
 
-            {% endfor %}
+                {% endfor %}
 
             <div class="form_buttons short">
-                <button class="button" disabled type="submit"> Done </button>
+                <button class="button" disabled> Save </button>
             </div>
 
         </form>

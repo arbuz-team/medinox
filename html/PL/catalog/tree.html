@@ -1,0 +1,52 @@
+
+
+<div class="directory_tree-single">
+
+    {% if parent.name == '/' %}
+        <input class="directory_tree-radio" type="radio" id="id_{{ parent.pk }}" name="target" value="{{ parent.pk }}" checked>
+    {% else %}
+        <input class="directory_tree-radio" type="radio" id="id_{{ parent.pk }}" name="target" value="{{ parent.pk }}">
+    {% endif %}
+
+    <label class="directory_tree-name" for="id_{{ parent.pk }}">
+
+        {% if have_children %}
+            <span class="directory_tree-arrow is-close">&nbsp;</span>
+        {% else %}
+            <span class="directory_tree-arrow">&nbsp;</span>
+        {% endif %}
+
+        {{ parent.name }}
+
+    </label>
+</div>
+
+{% if catalogs %}
+
+    {% if parent.name == '/' %}
+        <ul class="directory_tree-list is-open">
+
+            {% for catalog in catalogs %}
+
+                <li class="directory_tree-element">
+                    <{{ forloop.counter0 }}>
+                </li>
+
+            {% endfor %}
+
+        </ul>
+    {% else %}
+        <ul class="directory_tree-list is-close">
+
+            {% for catalog in catalogs %}
+
+                <li class="directory_tree-element">
+                    <{{ forloop.counter0 }}>
+                </li>
+
+            {% endfor %}
+
+        </ul>
+    {% endif %}
+
+{% endif %}

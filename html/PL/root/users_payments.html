@@ -1,0 +1,113 @@
+<script>
+    APP.DATA = {
+        title : 'Płatności użytkowników',
+        description : ''
+    };
+</script>
+
+<div class="ground-block block-1 BIG users_payments">
+
+    <div class="block-background fill-abs"></div>
+    {% include "block/ground/html/navigation.html" %}
+
+    <div class="block-content">
+
+        <div class="title">Płatności użytkowników - {{ request.session.root_payment_status | title }}</div>
+
+	    <div class="is-center-inside">
+
+		    <form class="users_payments-filters is-center-inside auto_form" data-origin="filter" data-reload="ground" data-delay="100">
+
+			    <input class="input auto_field"
+			           type="date"
+			           name="date_from"
+			           data-name="date_from"
+			           value="{{ date_from }}" />
+
+			    <input class="input auto_field"
+			           type="date"
+			           name="date_to"
+			           data-name="date_to"
+			           value="{{ date_to }}"/>
+
+		    </form>
+
+
+		    <div class="users_payments-filters">
+
+			    <a class="button users_payments-filters-find is-important"
+			       href="/root/search_payments/">
+				    Znajdź płatność
+			    </a>
+
+		    </div>
+
+
+		    <div class="users_payments-filters">
+
+			    <div class="tooltip align-left align-top">
+
+				    <button class="button tooltip_button"
+				            type="button"
+				            data-name="description">
+					    Kategorie
+				    </button>
+
+				    <div class="tooltip-options">
+					    <button class="button post_button"
+					            data-name="payment_status_pending"
+					            data-action="change"
+					            data-value="pending"
+					            data-reload="ground">
+						    Oczekująca
+					    </button>
+					    <button class="button post_button"
+					            type="button"
+					            data-name="payment_status_cart"
+					            data-action="change"
+					            data-value="cart"
+					            data-reload="ground">
+						    Koszyk
+					    </button>
+					    <button class="button post_button"
+					            type="button"
+					            data-name="payment_status_internal"
+					            data-action="change"
+					            data-value="internal"
+					            data-reload="ground">
+						    Wewnętrzna
+					    </button>
+					    <button class="button post_button"
+					            type="button"
+					            data-name="payment_status_external"
+					            data-action="change"
+					            data-value="external"
+					            data-reload="ground">
+						    Zewnętrzna
+					    </button>
+					    <button class="button post_button"
+					            type="button"
+					            data-name="payment_status_completed"
+					            data-action="change"
+					            data-value="completed"
+					            data-reload="ground">
+						    Zakończona
+					    </button>
+				    </div>
+			    </div>
+
+		    </div>
+
+	    </div>
+
+
+
+
+        {% include "block/cart/html/users_payments.html" %}
+
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

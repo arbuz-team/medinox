@@ -1,0 +1,40 @@
+
+<div class="dialog-header">
+    {{ title }}
+</div>
+
+
+<div class="dialog-content">
+
+    <div class="dialog-content-part">
+        <!--dialog text-->
+        {{ text | safe }}
+    </div><!-- dialog-content-part -->
+
+
+    <div class="dialog-content-part">
+        <!--buttons-->
+
+        <button class="button event_button"
+                type="button"
+                data-name="button_close_dialog"
+                data-event="part.close_dialog">
+            Zamknij
+        </button>
+
+        <!-- Frontend: Add possibility using many event. -->
+        <!-- Frontend: Other value in post_button. -->
+        <button class="button post_button"
+                type="button"
+                data-name="{{ accept.name }}"
+                data-action="{{ accept.action }}"
+                data-value="{{ accept.value }}"
+                data-reload="{{ accept.reload }}"
+                data-redirect="{{ accept.redirect }}"
+                data-event="part.close_dialog {{ accept.event }}"
+                data-url="{{ accept.url}}">
+            Usuń
+        </button>
+    </div><!-- dialog-content-part -->
+
+</div><!-- dialog-content -->

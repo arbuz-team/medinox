@@ -1,0 +1,20 @@
+{% load staticfiles %}
+
+<script>
+  APP.DATA = {
+    title : 'O nas'
+    , description : 'Naszą misją jest zadowolenie klienta jakością naszych usług i produktów.'
+  };
+</script>
+
+
+{% if content %}
+    {% for element in content %}
+        {% include "block/ground/plugin/paragraph/html/single.html" %}
+    {% endfor %}
+{% else %}
+    {% include "block/ground/plugin/paragraph/html/new.html" %}
+{% endif %}
+
+
+{% include "EN/footer/standard.html" %}

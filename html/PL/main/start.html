@@ -1,0 +1,19 @@
+{% load staticfiles %}
+{% load tags %}
+
+<script>
+    APP.DATA = {
+        title : '',
+        description : 'To jest strona główna.',
+    };
+</script>
+
+{% if content %}
+    {% for element in content %}
+        {% include "block/ground/plugin/paragraph/html/single.html" %}
+    {% endfor %}
+{% else %}
+    {% include "block/ground/plugin/paragraph/html/new.html" %}
+{% endif %}
+
+{% include "EN/footer/start.html" %}

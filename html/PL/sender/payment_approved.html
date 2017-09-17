@@ -1,0 +1,35 @@
+{% extends 'EN/sender/template.html' %}
+{% load tags %}
+
+{% block content %}
+
+    <p class="paragraph">
+        Cześć!
+    </p>
+
+    <p class="paragraph">
+        To są zakupy, które u nas dokonałeś.
+    </p>
+
+    <p class="paragraph">
+
+        {% for selected in selected_products %}
+
+            {{ selected.product }}
+            {{ selected.number }} x
+            {{ selected.product }} {{ payment.currency }} <br>
+
+        {% endfor %}
+
+        {{ payment.user }} <br>
+        {{ payment.user.email }} <br>
+        {{ payment.total_price }} <br>
+        {{ payment.service }} <br>
+
+    </p>
+
+    <p class="paragraph">
+        Pozdrowienia!
+    </p>
+
+{% endblock content %}

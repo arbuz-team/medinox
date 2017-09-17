@@ -1,0 +1,28 @@
+<script>
+    APP.DATA = {
+        title : 'Potwierdzenie konta',
+        description : '',
+        redirect : '/user/sign_in/',
+        delay : 2000
+    };
+
+    APP.throw_event(EVENTS.redirect);
+</script>
+
+
+<div class="ground-block block-1 SMALL">
+
+    <div class="block-background fill-abs"></div>
+    {% include "block/ground/html/navigation.html" %}
+
+    <div class="block-content">
+
+        <div class="block-content-message">
+            Twoje konto zostało potwierdzone.
+        </div>
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

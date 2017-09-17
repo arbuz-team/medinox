@@ -1,0 +1,81 @@
+{% load tags %}
+
+<div class="dialog-header">
+    {{ title }}
+</div>
+
+
+<div class="dialog-content">
+
+    <!--data-type="{{ form_name }}" data-test="yes"-->
+    <form class="dialog_form" method="post" data-name="{{ form_name }}">
+
+        {{ form.non_field_errors }}
+
+        <div class="dialog-content-part">
+            <!--fields of form-->
+
+	        {% include "form/html/manage_field_multiple_in_line.html" with field=form.name %}
+	        {% include "form/html/manage_field_multiple_in_line.html" with field=form.brand %}
+
+	        {% include "form/html/manage_field.html" with field=form.price_eur %}
+	        {% include "form/html/manage_field.html" with field=form.price_pln %}
+	        {% include "form/html/manage_field.html" with field=form.price_gbp %}
+
+	        {% include "form/html/manage_field.html" with field=form.image %}
+	        {% include "form/html/manage_field.html" with field=form.image_name %}
+	        {% include "form/html/manage_field.html" with field=form.image_base64 %}
+	        {% include "form/html/manage_field.html" with field=form.image_url %}
+
+
+            <input type="hidden" name="accept_reload" value="{{ accept.reload }}">
+            <input type="hidden" name="accept_redirect" value="{{ accept.redirect }}">
+            <input type="hidden" name="accept_event" value="{{ accept.event }}">
+
+        </div><!-- dialog-content-part -->
+    </form>
+
+    <div class="dialog-content-part">
+        <!--buttons-->
+
+        {% if edit %}
+            <div class="tooltip align-right align-bottom dialog-content-button is-dangerous">
+
+                <button class="button tooltip_button" type="button" data-name="dialog_deleting">
+                    Usuń
+                </button>
+
+                <div class="tooltip-options">
+                    <button class="button post_button"
+                            type="button"
+                            data-name="{{ form_name }}"
+                            data-event="part.close_dialog"
+                            data-action="delete"
+                            data-redirect="/catalog/"
+                            data-url="{{ edit.url }}">
+                        Jesteś pewien?
+                    </button>
+                </div>
+            </div>
+        {% endif %}
+
+        <button class="button event_button"
+                type="button"
+                data-name="button_close_dialog"
+                data-event="part.close_dialog">
+            Zamknij
+        </button>
+
+        <button class="button dialog_send event_button"
+                type="button"
+                data-name="{{ accept.name }}"
+                data-reload="{{ accept.reload }}"
+                data-redirect="{{ accept.redirect }}"
+                data-event="{{ accept.event }}">
+            Zaakceptuj
+        </button>
+
+    </div><!-- dialog-content-part -->
+
+
+</div><!-- dialog-content -->

@@ -1,0 +1,82 @@
+<script>
+  APP.DATA = {
+    title : 'Szczegóły konta',
+    description : ''
+  };
+</script>
+
+
+<div class="ground-block block-1 SMALL">
+
+    <div class="block-background fill-abs"></div>
+    {% include "block/ground/html/navigation.html" %}
+
+    <div class="block-content">
+
+        <div class="title"> Szczegóły konta: </div>
+
+
+
+        <div class="edit_field">
+
+            <div class="edit_field-label"> Email: </div>
+
+            <div class="edit_field-content">
+                <div class="edit_field-text"> {{ user.email }} </div>
+
+                <button class="button is-icon is-right dialog_button"
+                        type="button"
+                        data-type="prompt"
+                        data-name="email"
+                        data-dialog-reload="ground">
+                    <span class="button-icon img-edit"> &nbsp; </span>
+                </button>
+            </div>
+
+        </div><!-- edit_field -->
+
+
+
+        <div class="edit_field">
+
+            <div class="edit_field-label"> Nazwa użytkownika: </div>
+
+            <div class="edit_field-content">
+                <div class="edit_field-text"> {{ user.username }} </div>
+
+                <button class="button is-icon is-right dialog_button"
+                        type="button"
+                        data-type="prompt"
+                        data-name="username"
+                        data-dialog-reload="ground">
+                    <span class="button-icon img-edit"> &nbsp; </span>
+                </button>
+            </div>
+
+        </div><!-- edit_field -->
+
+
+
+        <div class="edit_field">
+
+            <div class="edit_field-label"> Hasło: </div>
+
+            <div class="edit_field-content">
+                <div class="edit_field-text"> ******** </div>
+
+                <button class="button is-icon is-right dialog_button"
+                        type="button"
+                        data-type="prompt"
+                        data-name="password"
+                        data-dialog-reload="ground">
+                    <span class="button-icon img-edit"> &nbsp; </span>
+                </button>
+            </div>
+
+        </div><!-- edit_field -->
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

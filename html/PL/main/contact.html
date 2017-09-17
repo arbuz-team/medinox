@@ -1,0 +1,75 @@
+{% load tags %}
+
+<script>
+    APP.DATA = {
+        title : 'Skontaktuj się z nami',
+        description : 'Sposoby kontaktu z nami.',
+    };
+</script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+
+<!-- Both: set data for father -->
+
+
+<div class="ground-block block-1">
+
+    <div class="block-background fill-abs"></div>
+    {% include "block/ground/html/navigation.html" %}
+
+    <div class="block-content contact">
+
+        <div class="block-content-left">
+
+            <div class="title">
+                {{ request.session.root_address.full_name }}
+            </div>
+
+            <div class="paragraph">
+                {{ request.session.root_address.address_line }}<br>
+                {{ request.session.root_address.postcode }} {{ request.session.root_address.city }}<br>
+                {{ request.session.root_address.region }} {{ request.session.root_address.country }}<br>
+
+                {% if request.session.root_address.phone %}
+                    <a href="tel:{{ request.session.root_address.phone }}">{{ request.session.root_address.phone }}</a><br>
+                {% endif %}
+
+                <a href="mailto:{{ request.session.root_address.email }}">{{ request.session.root_address.email }}</a><br>
+            </div>
+
+
+            <form class="selected_form" method="post" action="" id="form_{{ form_name }}" data-name="{{ form_name }}" data-type="{{ form_name }}" data-test="yes">
+
+                <div class="title">
+                    <span>Contact us:&nbsp;</span>
+
+                    <select class="select selected_form-choice" data-important_fields="url product">
+                        <option value="{{ form_detail.2.hidden }}" selected>{{ form_detail.2.title }}</option>
+                        <option value="{{ form_detail.0.hidden }}">{{ form_detail.0.title }}</option>
+                        <option value="{{ form_detail.1.hidden }}">{{ form_detail.1.title }}</option>
+                    </select>
+                </div>
+
+                {% for field in form %}
+
+                    {% include "form/html/manage_field.html" %}
+
+                {% endfor %}
+
+                <div class="">
+                    <button class="button is-important is-min-100" disabled> Wyślij </button>
+                </div>
+
+            </form>
+
+        </div><!-- block-content-left -->
+
+        <div class="block-content-right">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4872.148130779546!2d20.928327!3d52.36907699999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x7b4ba9d61a38bc9!2sMEDINOX+Sklep+Medyczny+%2FEMBE%2F!5e0!3m2!1spl!2spl!4v1497480314179" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div><!-- block-content-right -->
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

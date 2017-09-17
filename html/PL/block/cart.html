@@ -1,0 +1,114 @@
+{% load tags %}
+
+{% if request.session.user_login %}
+
+    <div class="cart-close button is-icon event_button" data-name="cart-close_cart" data-event="part.close_cart">
+        <span class="button-icon img-close">&nbsp;</span>
+        <span class="button-text">esc</span>
+    </div>
+
+    <div class="cart-title"> Koszyk </div>
+
+    <ul class="cart-list">
+
+        {% if cart %}
+
+            {% for selected in cart %}
+
+                <li class="cart-list-product is-inline-inside">
+
+                    <div class="cart-list-product-name">
+                        <a href="/product/{{ selected.product.pk }}/{{ selected.product.url_name }}/">
+                            {{ selected.product.name }}
+                        </a>
+                    </div>
+
+
+                    <div class="cart-list-product-actions">
+                        <form class="auto_form" action="" data-origin="little">
+
+                            <input class="cart-list-product-number input auto_field only_number_3 always"
+                                   title="Number of products"
+                                   value="{{ selected.number }}"
+                                   data-name="number_of_products"
+                                   data-other_1="pk:{{ selected.pk }}" />
+
+                            <span class="cart-list-product-price"> x {% get_price selected.product %}</span>
+
+                            <div class="tooltip align-right align-bottom is-dangerous">
+
+                                <button class="button is-icon tooltip_button cart-list-product-remove"
+										type="button"
+										data-name="remove_product-cart">
+                                    <span class="button-icon is-zoom img-waste_bin"> &nbsp; </span>
+                                </button>
+
+                                <div class="tooltip-options">
+                                    <button class="button post_button"
+                                            type="button"
+                                            data-name="Delete_{{ selected.product.pk }}"
+                                            data-action="delete"
+                                            data-value="{{ selected.product.pk }}"
+                                            data-reload="cart ground">
+                                        Jesteś pewien?
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </li>
+
+            {% endfor %}
+
+
+            <li class="cart-list-total_price is-inline-inside">
+                <div class="cart-list-total_price-title">Łączna cena:</div>
+                <div class="cart-list-total_price-price">{{ payment.total_price }} {{ request.session.currency_selected }}</div>
+            </li>
+
+
+            <li class="is-inline-inside">
+
+                <div class="cart-list-button">
+					<div class="tooltip align-right align-bottom is-dangerous">
+
+						<button class="button tooltip_button" type="button" data-name="clear_cart">
+							Wyczyść koszyk
+						</button>
+
+						<div class="tooltip-options">
+							<button class="button post_button"
+									type="button"
+									data-name="clear_cart"
+									data-action="clear"
+									data-reload="cart">
+								Jesteś pewien?
+							</button>
+						</div>
+					</div>
+                </div>
+
+                <a class="cart-list-button" href="/payment/">
+                    <button class="button is-important" type="button">Przejdź do płatności</button>
+                </a>
+
+            </li>
+
+        {% else %}
+
+            <li>
+                <div class="cart-list-empty">
+                    Koszyk jest pusty
+                </div>
+            </li>
+
+        {% endif %}
+
+    </ul><!-- cart-list -->
+{% else %}
+
+    Ładowanie...
+
+{% endif %}

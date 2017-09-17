@@ -1,0 +1,84 @@
+{% load tags %}
+
+<script>
+	APP.DATA = {
+		title : 'Błąd wewnętrzny',
+		description : '',
+	};
+</script>
+
+<div class="ground-block block-1">
+
+    <div class="block-background fill-abs"></div>
+
+    <div class="block-content">
+
+        <div class="block-content-message">
+            {% if error == 'form' %}
+                Niezdefiniowana nazwa formularza.
+            {% elif error == 'no_event' %}
+                Niezdefiniowane instrukcje POST.
+            {% elif error == 'unauthorized' %}
+
+                <script>
+
+                    // {% if request.session.arbuz_permissions == 'only_root' %}
+                    APP.DATA.redirect = "{% redirect 'root.sign_in' %}";
+                    // {% elif request.session.arbuz_permissions == 'authorization' %}
+                    APP.DATA.redirect = "{% redirect 'user.sign_in' %}";
+                    // {% endif %}
+
+                    // {% if request.session.arbuz_permissions == 'only_root' or request.session.arbuz_permissions == 'authorization' %}
+                    APP.DATA.delay = 0;
+                    APP.throw_event(EVENTS.redirect);
+                    // {% endif %}
+
+                </script>
+
+            {% elif error == 'post_is_dangerous' %}
+                Dane POST zawierają znaczniki HTML. Zabronione jest używanie wyrażenia "<.*>".
+            {% endif %}
+        </div><!-- block-content-message -->
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}
+
+
+<!-- ////////////////////////////////////////////////////////////////////// -->
+
+<div class="dialog-header">
+    {% if error == 'form' or error == 'no_event' %}
+        Błąd!
+    {% elif error == 'post_is_dangerous' %}
+        Niebezpieczeństwo!
+    {% endif %}
+</div>
+
+
+<div class="dialog-content">
+
+    <div class="dialog-content-part">
+        {% if error == 'form' %}
+            Niezdefiniowana nazwa formularza.
+        {% elif error == 'no_event' %}
+            Niezdefiniowane instrukcje POST.
+        {% elif error == 'post_is_dangerous' %}
+            Dane POST zawierają znaczniki HTML. Zabronione jest używanie wyrażenia "<.*>".
+        {% endif %}
+    </div><!-- dialog-content-part -->
+
+
+    <div class="dialog-content-part">
+        <!--buttons-->
+        <button class="button event_button"
+                type="button"
+                data-name="button_close_dialog"
+                data-event="part.close_dialog">
+            Zamknij
+        </button>
+    </div><!-- dialog-content-part -->
+
+</div><!-- dialog-content -->

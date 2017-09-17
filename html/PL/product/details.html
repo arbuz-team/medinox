@@ -1,0 +1,295 @@
+{% load staticfiles %}
+{% load tags %}
+
+<!-- Frontend: widgets style -->
+
+<script>
+    APP.DATA = {
+        title : '{{ product.name }} - Szczegóły produktu',
+        description : 'Ta strona jest o produkcie: {{ product.name }}.',
+    };
+</script>
+
+
+<div class="ground-block block-1 product_details">
+
+    <div class="block-background fill-abs"></div>
+    {% include "block/ground/html/navigation.html" %}
+
+    <div class="block-content">
+
+        <div>
+
+            <div class="block-content-left">
+
+                <div class="product_details-image">
+                    {% if product.image %}
+
+                        <div class="fill-abs">
+                            <img data-src="{{ product.image }}" src="{% static 'img/pixel.png' %}" alt="{{ product.name }}">
+                        </div>
+
+                    {% else %}
+
+                        <div class="img-default fill-abs img-hospital-256">
+                            &nbsp;
+                        </div>
+
+                    {% endif %}
+                </div>
+
+            </div><!-- block-content-left -->
+
+
+            <div class="block-content-right">
+
+                <form method="post" action="/payment/buy/{{ product.pk }}/" id="form_buy" data-name="buy" data-type="buy">
+
+                    <div class="product_details-section title">
+                        <h1>{{ product.name }}</h1>
+                    </div>
+
+
+                    {% if request.session.user_login or request.session.root_login %}
+
+                        <div class="product_details-section action_panel">
+
+                            <div class="product_details-action_panel-prices">
+                                {% if request.session.user_login %}
+                                    Cena produktu: {% get_price product %}
+                                {% else %}
+                                    Jeśli chcesz kupować musisz być zalogowany.
+                                    <a href="{% redirect 'user.sign_in' %}">Zaloguj się!</a>
+                                {% endif %}
+                            </div>
+
+                            <div class="product_details-action_panel-buttons">
+
+                                {% if request.session.user_login %}
+                                    <!-- Frontend: Don't redirect to payment. -->
+                                    <button class="button form-address_switcher"
+                                            type="button"
+                                            data-action="add"
+                                            data-name="redirect_for_buy"
+                                            data-address="/payment/cart/{{ product.pk }}/"
+                                            value="yes">
+                                        Dodaj do koszyka
+                                    </button>
+
+
+                                    <!-- Frontend: Change name of __button__ field (data-action). -->
+                                    {% if is_favorite %}
+                                        <button class="button post_button"
+                                                type="button"
+                                                data-name="Favorite_{{ product.pk }}"
+                                                data-action="favorite"
+                                                data-value="{{ product.pk }}"
+                                                data-other_1="action:delete"
+                                                data-reload="ground"
+                                                data-url="/product/manage/">
+                                            Usuń z ulubionych
+                                        </button>
+                                    {% else %}
+                                        <button class="button post_button"
+                                                type="button"
+                                                data-name="Favorite_{{ product.pk }}"
+                                                data-action="favorite"
+                                                data-value="{{ product.pk }}"
+                                                data-other_1="action:append"
+                                                data-reload="ground"
+                                                data-url="/product/manage/">
+                                            Dodaj do ulubionych
+                                        </button>
+                                    {% endif %}
+
+
+                                    <!-- Frontend: Don't open cart. -->
+                                    <button class="button"
+                                            name="redirect_for_buy"
+                                            value="tak">
+                                        Kup
+                                    </button>
+                                {% endif %}
+
+                                <br>
+
+                                {% if request.session.root_login %}
+                                    <button class="button dialog_button"
+                                            type="button"
+                                            data-type="confirm"
+                                            data-name="delete_product"
+                                            data-dialog-name="Delete_{{ product.pk }}"
+                                            data-dialog-action="delete"
+                                            data-dialog-value="{{ product.pk }}"
+                                            data-dialog-redirect="/catalog/"
+                                            data-dialog-url="/product/manage/">
+                                        Usuń
+                                    </button>
+
+
+                                    {% comment %}
+                                        <!--{% if is_recommended %}-->
+                                            <!--<button class="button post_button"-->
+                                                    <!--type="button"-->
+                                                    <!--data-name="Recommend_{{ product.pk }}"-->
+                                                    <!--data-action="recommended"-->
+                                                    <!--data-value="{{ product.pk }}"-->
+                                                    <!--data-other_1="action:delete"-->
+                                                    <!--data-reload="ground"-->
+                                                    <!--data-url="/product/manage/">-->
+                                                <!--Remove form recommended-->
+                                            <!--</button>-->
+                                        <!--{% else %}-->
+                                            <!--<button class="button post_button"-->
+                                                    <!--type="button"-->
+                                                    <!--data-name="Recommend_{{ product.pk }}"-->
+                                                    <!--data-action="recommended"-->
+                                                    <!--data-value="{{ product.pk }}"-->
+                                                    <!--data-other_1="action:append"-->
+                                                    <!--data-reload="ground"-->
+                                                    <!--data-url="/product/manage/">-->
+                                                <!--Add to recommended-->
+                                            <!--</button>-->
+                                        <!--{% endif %}-->
+                                    {% endcomment %}
+
+
+                                    <button class="button dialog_button"
+                                            type="button"
+                                            data-type="prompt"
+                                            data-name="product"
+                                            data-value="{{ product.pk }}"
+                                            data-dialog-reload="ground">
+                                        Edytuj
+                                    </button>
+                                {% endif %}
+
+                            </div><!-- product_details-action_panel-buttons -->
+
+                        </div><!-- product_details-section action_panel -->
+
+                    {% else %}
+
+                        <div class="product_details-section">
+                            Jeśli chcesz kupić produkt musisz być zalogowany.
+                            <a href="{% redirect 'user.sign_in' %}">Zaloguj się!</a>
+                        </div>
+
+                    {% endif %}
+
+
+                    <div class="product_details-section payment">
+                        Sposoby płatności: Paypal, Dotpay, odbiór osobisty
+                    </div>
+
+                    <div class="product_details-section transport">
+                        Sposoby dostawy: DHL, FedEx, Inpost
+                    </div>
+
+
+
+                    <div class="product_details-section title">
+                        <h3>Opcje wyboru</h3>
+                    </div>
+
+                    <div class="product_details-section subproduct_widgets">
+
+                        {% if request.session.root_login %}
+                            <div class="widget widget-add">
+                                <button class="button dialog_button"
+                                        type="button"
+                                        data-type="prompt"
+                                        data-name="widget"
+                                        data-dialog-reload="ground">
+                                    Dodaj widget
+                                </button>
+                            </div>
+                        {% endif %}
+
+                        <!-- NASZE WIDGETY -->
+
+                        {% for item in widgets %}
+
+                            <div class="widget">
+                                <div class="widget-title">{{ item.widget.name }}</div>
+
+                                {% if request.session.root_login %}
+                                    <button class="button dialog_button is-icon is-right"
+                                            type="button"
+                                            data-type="prompt"
+                                            data-name="widget"
+                                            data-value="{{ item.widget.pk }}"
+                                            data-dialog-reload="ground">
+                                        <span class="button-icon img-edit"> &nbsp; </span>
+                                    </button>
+                                {% endif %}
+
+                                {% if item.widget.type == 'Checkbox' %}
+
+                                    {% for field in item.values %}
+                                        <div class="selecter checkbox">
+                                            <input class="input"
+												   type="checkbox"
+												   id="id_checkbox_{{ field.name }}"
+												   name="widget_{{ item.widget.pk }}_{{ forloop.counter0 }}"
+												   value="{{ field.pk }}">
+
+                                            <label class="selecter-field" for="id_checkbox_{{ field.name }}"></label>
+                                            <label class="selecter-text" for="id_checkbox_{{ field.name }}">
+                                                {{ field.name }} (+ {{ field.super_price }} {{ request.session.currency_selected }})
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+
+                                {% elif item.widget.type == 'Radio' %}
+
+                                    {% for field in item.values %}
+                                        <div class="selecter radio">
+                                            <input class="input"
+												   type="radio"
+												   id="id_radio_{{ field.name }}"
+												   name="widget_{{ item.widget.pk }}_0"
+												   value="{{ field.pk }}">
+
+                                            <label class="selecter-field" for="id_radio_{{ field.name }}"></label>
+                                            <label class="selecter-text" for="id_radio_{{ field.name }}">
+                                                {{ field.name }} (+ {{ field.super_price }} {{ request.session.currency_selected }})
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+
+                                {% elif item.widget.type == 'Select' %}
+
+                                    <select class="select" id="id_select" name="widget_{{ item.widget.pk }}_0" required="">
+                                        {% for field in item.values %}
+                                            <option value="{{ field.pk }}">{{ field.name }} (+ {{ field.super_price }} {{ request.session.currency_selected }})</option>
+                                        {% endfor %}
+                                    </select>
+
+                                {% endif %}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div><!-- product_details-section subproduct_widgets -->
+
+                </form>
+
+            </div><!-- block-content-right -->
+
+        </div>
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% if descriptions %}
+    {% for element in descriptions %}
+        {% include "block/ground/plugin/paragraph/html/single.html" %}
+    {% endfor %}
+{% else %}
+    {% include "block/ground/plugin/paragraph/html/new.html" %}
+{% endif %}
+
+{% include "EN/footer/standard.html" %}

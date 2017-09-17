@@ -1,0 +1,105 @@
+
+<div class="dialog-header">
+    Adresy - dostawa i faktura
+</div>
+
+
+<div class="dialog-content">
+
+    <div class="dialog-content-part">
+
+        <div class="dialog-address-title">Adres dostawy</div>
+
+	    <div class="dialog-address-content">
+
+		    <div class="dialog-address-field">
+			    <div class="dialog-address-name">   Imię i nazwisko:</div>
+		        <div class="dialog-address-value">  {{ delivery.full_name }} &nbsp;</div>
+		    </div>
+
+		    <div class="dialog-address-field">
+			    <div class="dialog-address-name">   Adres:</div>
+		        <div class="dialog-address-value">  {{ delivery.address_line }} &nbsp;</div>
+		    </div>
+
+		    <div class="dialog-address-field">
+			    <div class="dialog-address-name">   Miasto:</div>
+		        <div class="dialog-address-value">  {{ delivery.city }} &nbsp;</div>
+		    </div>
+
+		    <div class="dialog-address-field">
+			    <div class="dialog-address-name">   Region:</div>
+		        <div class="dialog-address-value">  {{ delivery.region }} &nbsp;</div>
+		    </div>
+
+		    <div class="dialog-address-field">
+			    <div class="dialog-address-name">   Kod pocztowy:</div>
+		        <div class="dialog-address-value">  {{ delivery.postcode }} &nbsp;</div>
+		    </div>
+
+		    <div class="dialog-address-field">
+			    <div class="dialog-address-name">   Kraj:</div>
+		        <div class="dialog-address-value">  {{ delivery.country }} &nbsp;</div>
+		    </div>
+
+	    </div>
+
+	    <div class="dialog-address-title">Adres faktury</div>
+
+		<div class="dialog-address-content">
+
+			<div class="dialog-address-field">
+			    <div class="dialog-address-name">   Imię i nazwisko:     </div>
+				<div class="dialog-address-value">  {{ invoice.full_name }} &nbsp;</div>
+		    </div>
+
+			<div class="dialog-address-field">
+			    <div class="dialog-address-name">   Adres:</div>
+				<div class="dialog-address-value">  {{ invoice.address_line }} &nbsp;</div>
+		    </div>
+
+			<div class="dialog-address-field">
+			    <div class="dialog-address-name">   Miasto:</div>
+				<div class="dialog-address-value">  {{ invoice.city }} &nbsp;</div>
+		    </div>
+
+			<div class="dialog-address-field">
+			    <div class="dialog-address-name">   Region:</div>
+				<div class="dialog-address-value">  {{ invoice.region }} &nbsp;</div>
+		    </div>
+
+			<div class="dialog-address-field">
+			    <div class="dialog-address-name">   Kod pocztowy:</div>
+				<div class="dialog-address-value">  {{ invoice.postcode }} &nbsp;</div>
+		    </div>
+
+			<div class="dialog-address-field">
+			    <div class="dialog-address-name">   Kraj:</div>
+				<div class="dialog-address-value">  {{ invoice.country }} &nbsp;</div>
+		    </div>
+
+		</div>
+
+    </div><!-- dialog-content-part -->
+
+
+
+    <div class="dialog-content-part">
+        <!--buttons-->
+        <button class="button post_button"
+                type="button"
+                data-name="edit_addresses"
+                data-action="edit_addresses"
+                data-reload="dialog">
+            Edytuj
+        </button>
+
+        <button class="button event_button"
+                type="button"
+                data-name="button_close_dialog"
+                data-event="part.close_dialog">
+            Zamknij
+        </button>
+    </div><!-- dialog-content-part -->
+
+</div><!-- dialog-content -->

@@ -1,0 +1,75 @@
+<script>
+    APP.DATA = {
+        title : 'Logowanie',
+        description : 'Tutaj możesz się zalogować.'
+    };
+</script>
+
+
+<div class="ground-block block-1 SMALL">
+
+    <div class="block-background fill-abs"></div>
+    {% include "block/ground/html/navigation.html" %}
+
+    <div class="block-content is-fills-in-width-inside">
+
+        {% if not form or request.session.user_login %}
+
+            <div class="block-content-message">
+                Cześć {{ request.session.user_username }}. Miłych zakupów! ;)
+            </div>
+
+	        <script>
+                APP.throw_event(EVENTS.part.reload_user_sign_in);
+
+
+                APP.DATA.redirect = '{{ go_back }}';
+                APP.DATA.delay = 1000;
+                APP.throw_event(EVENTS.redirect);
+            </script>
+
+		    {% if cart_open %}
+			    <script>
+			        setTimeout(function()
+			        {
+			            APP.throw_event(EVENTS.part.open_cart);
+			        }, 1500);
+			    </script>
+		    {% endif %}
+
+        {% else %}
+
+            <form method="post" id="form_{{ form_name }}" data-name="{{ form_name }}" data-type="{{ form_name }}" data-test="yes">
+
+                <div class="title"> Logowanie </div>
+
+                {% for field in form %}
+
+					{% include "form/html/manage_field.html" %}
+
+                {% endfor %}
+
+                <div>
+                    <button class="button is-important"
+							disabled>
+						Zaloguj
+					</button>
+
+                    <a href="/user/sign_up/">
+						<button class="button" type="button"> Rejestracja </button>
+					</a>
+
+                    <a href="/user/forgot/">
+						<button class="button" type="button"> Zapomniałeś hasłą? </button>
+					</a>
+                </div>
+
+            </form>
+
+        {% endif %}
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}
