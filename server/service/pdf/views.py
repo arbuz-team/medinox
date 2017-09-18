@@ -13,12 +13,10 @@ class Generator_PDF(Base):
         products = SQL.Filter(Model_Payment_Product, payment=payment)
         seller = SQL.First(Model_Root_Address)
 
-        self.context['invoice'] = {
-            'payment':          payment,
-            'seller':           seller,
-            'client':           client,
-            'products':         products,
-        }
+        self.context['payment'] = payment
+        self.context['seller'] = seller
+        self.context['client'] = client
+        self.context['products'] = products
 
         html = self.Render_HTML('pdf/invoice.html')
         return self.Generate(html)
@@ -54,9 +52,11 @@ class Generator_PDF(Base):
         return False
 
     def __init__(self, request, pk, authorization=False):
-        Base.__init__(self, request)
+
         self.authorization = authorization
         self.invoice_pk = pk
+        self.request = request
+        Base.__init__(self, self)
 
     @staticmethod
     def Launch(request, pk):
