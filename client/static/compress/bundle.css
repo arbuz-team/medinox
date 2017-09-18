@@ -1861,7 +1861,7 @@ img {
   -o-transition: height 200ms;
   transition: height 200ms; }
   .address_block.is-long, .is-long.mini_cart {
-    height: 360px; }
+    height: 500px; }
     .address_block.is-long .address_block-shell, .is-long.mini_cart .address_block-shell, .address_block.is-long .mini_cart-shell, .is-long.mini_cart .mini_cart-shell {
       height: 0; }
 
@@ -1893,7 +1893,7 @@ img {
   .ground:not(.smaller) .ground-block.MEDIUM .address_block, .ground:not(.smaller) .ground-block.MEDIUM .mini_cart, .ground:not(.smaller) .ground-block.BIG .address_block, .ground:not(.smaller) .ground-block.BIG .mini_cart {
     display: inline-block;
     width: 207px;
-    height: 360px;
+    height: 500px;
     margin-right: 10px;
     cursor: auto; }
     .ground:not(.smaller) .ground-block.MEDIUM .address_block:nth-child(3n + 4), .ground:not(.smaller) .ground-block.MEDIUM .mini_cart:nth-child(3n + 4), .ground:not(.smaller) .ground-block.BIG .address_block:nth-child(3n + 4), .ground:not(.smaller) .ground-block.BIG .mini_cart:nth-child(3n + 4) {
@@ -1914,7 +1914,7 @@ img {
   .ground.smaller .ground-block.MEDIUM .address_block, .ground.smaller .ground-block.MEDIUM .mini_cart, .ground.smaller .ground-block.BIG .address_block, .ground.smaller .ground-block.BIG .mini_cart {
     display: inline-block;
     width: 207px;
-    height: 360px;
+    height: 500px;
     margin-right: 10px;
     cursor: auto; }
     .ground.smaller .ground-block.MEDIUM .address_block:nth-child(3n + 4), .ground.smaller .ground-block.MEDIUM .mini_cart:nth-child(3n + 4), .ground.smaller .ground-block.BIG .address_block:nth-child(3n + 4), .ground.smaller .ground-block.BIG .mini_cart:nth-child(3n + 4) {
