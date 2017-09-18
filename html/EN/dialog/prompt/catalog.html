@@ -16,18 +16,13 @@
             <!--fields of form-->
 
 	        {% include "form/html/manage_field_multiple_in_line.html" with field=form.name %}
-	        {% include "form/html/manage_field_multiple_in_line.html" with field=form.brand %}
-
-	        {% include "form/html/manage_field.html" with field=form.price_eur %}
-	        {% include "form/html/manage_field.html" with field=form.price_pln %}
-	        {% include "form/html/manage_field.html" with field=form.price_gbp %}
 
 	        {% include "form/html/manage_field.html" with field=form.image %}
 	        {% include "form/html/manage_field.html" with field=form.image_name %}
 	        {% include "form/html/manage_field.html" with field=form.image_base64 %}
 
-	        {% if request.session.product_editing.pk %}
-	            {% include "form/html/manage_field.html" with field=form.image_url pk=request.session.product_editing.pk type='product' %}
+	        {% if request.session.catalog_editing.pk %}
+	            {% include "form/html/manage_field.html" with field=form.image_url pk=request.session.catalog_editing.pk type='catalog' %}
 	        {% else %}
 	            {% include "form/html/manage_field.html" with field=form.image_url %}
 	        {% endif %}
