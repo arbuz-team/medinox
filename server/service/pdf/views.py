@@ -1,27 +1,23 @@
-from server.manage.switch.website.manager import *
 from server.service.payment.models import *
 from server.manage.root.models import *
 from server.service.translator.views import *
 from weasyprint import HTML
 
 
-class Generator_PDF(Website_Manager):
+class Generator_PDF(Base):
 
-    def Invoice(self, pk):
+    def Invoice(self):
 
-        payment = SQL.Get(Model_Payment, pk=pk)
-        address = SQL.Get(Model_Invoice_Address, payment=payment)
+        payment = SQL.Get(Model_Payment, pk=self.invoice_pk)
+        client = SQL.Get(Model_Invoice_Address, payment=payment)
         products = SQL.Filter(Model_Payment_Product, payment=payment)
         seller = SQL.First(Model_Root_Address)
 
         self.context['invoice'] = {
-            'unique':           payment.pk,
-            'date':             payment.date,
-            'delivery':         payment.delivery_price,
+            'payment':          payment,
             'seller':           seller,
-            'client':           address,
+            'client':           client,
             'products':         products,
-            'brutto_price':     float(payment.total_price),
         }
 
         html = self.Render_HTML('pdf/invoice.html')
@@ -51,12 +47,17 @@ class Generator_PDF(Website_Manager):
         if not self.request.session['user_login']:
             return False
 
-        payment = SQL.Get(Model_Payment, pk=self.other_value)
+        payment = SQL.Get(Model_Payment, pk=self.invoice_pk)
         if self.request.session['user_user'] == payment.user:
             return True
 
         return False
 
+    def __init__(self, request, pk, authorization=False):
+        Base.__init__(self, request)
+        self.authorization = authorization
+        self.invoice_pk = pk
+
     @staticmethod
     def Launch(request, pk):
-        return Generator_PDF(request, other_value=pk).Invoice(pk)
+        return Generator_PDF(request, pk).Invoice()
