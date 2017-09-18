@@ -32,7 +32,7 @@
 						   name="{{ item.country }}_EUR"
 						   id="{{ item.country }}_EUR"
                            data-name="{{ item.pk }} EUR"
-                           value="{{ item.price_eur|to_price }}" />
+                           value="{{ item.price.eur }}" />
 
 					<span>EUR</span>
 
@@ -41,7 +41,7 @@
 						   name="{{ item.country }}_PLN"
 						   id="{{ item.country }}_PLN"
                            data-name="{{ item.pk }} PLN"
-                           value="{{ item.price_pln|to_price }}" />
+                           value="{{ item.price.pln }}" />
 
 					<span>PLN</span>
 
