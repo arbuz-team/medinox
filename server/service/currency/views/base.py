@@ -23,6 +23,18 @@ class Base_Currency_Manager(Base):
 
         return '{0:.2f}'.format(price)
 
+    def Get_Price(self, price):
+        price_pln = price
+
+        switch = {
+            'PLN': price_pln,
+            'EUR': self.Exchange_Rate(price_pln, 'PLN', 'EUR'),
+            'GBP': self.Exchange_Rate(price_pln, 'PLN', 'GBP'),
+        }
+
+        currency = self.request.session['currency_selected']
+        return float(switch[currency])
+
     def Set_Default_Currency(self):
 
         geo = GeoIP()

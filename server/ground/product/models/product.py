@@ -19,24 +19,13 @@ class Model_Product(Abstract_Model):
     name = models.CharField(max_length=100)
     image = models.ImageField(blank=True)
     price = models.FloatField(default=0)
+    force_delivery_price = models.FloatField(default=0)
     brand = models.ForeignKey(Model_Brand, null=True, on_delete=models.SET_NULL)
     parent = models.ForeignKey(Model_Catalog, null=True, on_delete=models.SET_NULL)
     language = models.CharField(max_length=2)
 
     def Set_Variables(self):
         self.image_dir = 'img/product/'
-
-    def Get_Price(self, _object):
-        price_pln = self.price
-
-        switch = {
-            'PLN': price_pln,
-            'EUR': Base_Currency_Manager.Exchange_Rate(price_pln, 'PLN', 'EUR'),
-            'GBP': Base_Currency_Manager.Exchange_Rate(price_pln, 'PLN', 'GBP')
-        }
-
-        currency = _object.request.session['currency_selected']
-        return float(switch[currency])
 
     def __str__(self):
         return self.name

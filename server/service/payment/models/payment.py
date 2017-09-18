@@ -23,7 +23,8 @@ class Model_Payment(Abstract_Model):
             Model_Payment_Product, payment=self)
 
         for selected in selected_products:
-            product_price = selected.product.Get_Price(_object)
+            currency_manager = Base_Currency_Manager(_object)
+            product_price = currency_manager.Get_Price(selected.product)
             total += product_price * selected.number
 
         self.total_price = format(total, '.2f')
@@ -52,12 +53,14 @@ class Model_Payment(Abstract_Model):
         if not payments:
 
             # delivery prices for first user address
-            delivery = Model_Delivery.Get_Price(_object)
+            currency_manager = Base_Currency_Manager(_object)
+            delivery_prices = SQL.First(Model_Delivery)
+            delivery = currency_manager.Get_Price() # zależy od produktów!!
             payment = Model_Payment(
                 user=user,
                 date=datetime.today().date(),
                 total_price='0.00',
-                delivery_price=delivery,
+                delivery_price=0,
                 service='None',
                 currency=_object.request.session['currency_selected'],
                 status='cart',
