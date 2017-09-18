@@ -182,3 +182,5 @@
 200:Name
 201:Surname
 202:Company name
+203:Delete catalog
+204:Are you sure you want to remove the catalog?
