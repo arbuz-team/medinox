@@ -8,7 +8,7 @@ class Finance_Manager(Base_Tag_Manager):
     def get_price(context, product):
         currency = context.request.session['currency_selected']
         if not product.price: price = 0
-        else: price = product.price.Get_Price(context)
+        else: price = product.Get_Price(context)
         return '{0:.2f} {1}'.format(price, currency)
 
     def Get_Product_Price(self):

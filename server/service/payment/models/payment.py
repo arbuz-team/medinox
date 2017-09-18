@@ -23,7 +23,7 @@ class Model_Payment(Abstract_Model):
             Model_Payment_Product, payment=self)
 
         for selected in selected_products:
-            product_price = selected.product.price.Get_Price(_object)
+            product_price = selected.product.Get_Price(_object)
             total += product_price * selected.number
 
         self.total_price = format(total, '.2f')

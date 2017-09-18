@@ -13,16 +13,8 @@ class Product_Manager(Website_Manager):
             cleaned_data = self.context['form'].cleaned_data
             product = self.request.session['product_editing']
 
-            if not product.price:
-                price = Model_Prices()
-                price.eur = cleaned_data['price_eur']
-                price.pln = cleaned_data['price_pln']
-                price.gbp = cleaned_data['price_gbp']
-                SQL.Save(data=price)
-
-                product.price = price
-
             product.name = cleaned_data['name']
+            product.price = cleaned_data['price_pln']
             product.url_name = Path_Manager.To_URL(cleaned_data['name'])
             product.parent = self.request.session['catalog_parent']
             product.language = self.request.session['translator_language']
