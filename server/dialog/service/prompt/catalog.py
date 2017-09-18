@@ -32,4 +32,4 @@ class Service_Catalog(Base_Service):
             Form_Catalog, initial=self.initial)
 
         return self.Render_Dialog(
-            'prompt.html', 'catalog', only_root=True)
+            'catalog.html', 'catalog', only_root=True)
