@@ -70,61 +70,58 @@
 
 {% elif field.name == 'price_eur' %}
 
-<div class="currency_converter">
+	<div class="currency_converter">
 
-	<div class="currency_converter-col">
+		<div class="currency_converter-col" data-currency="EUR">
 
-		<div class="selecter checkbox">
-			<input type="checkbox" name="price_eur" id="id_price_eur" checked>
-			<label for="id_price_eur" class="selecter-field"></label>
-			<label for="id_price_eur" class="selecter-text">Set EUR</label>
+			<div> Set EUR </div>
+
+			{{ field }}
+			<div class="status-external"> {{ field.errors }} </div>
+			<div class="status"></div>
+
+			<button class="button currency_converter-button"
+			        type="button">
+				Calculate
+			</button>
+
 		</div>
 
-		{{ field }}
-		<div class="status-external">{{ field.errors }}</div>
-		<div class="status"></div>
+{% elif field.name == 'price_pln' %}
 
-		<button class="button" type="button">Calculate</button>
+		<div class="currency_converter-col" data-currency="PLN">
 
-	</div>
+			<div> Set PLN </div>
 
-	{% elif field.name == 'price_pln' %}
+			{{ field }}
+			<div class="status-external"> {{ field.errors }} </div>
+			<div class="status"></div>
 
-	<div class="currency_converter-col">
+			<button class="button currency_converter-button"
+			        type="button">
+				Calculate
+			</button>
 
-		<div class="selecter checkbox">
-			<input type="checkbox" name="price_pln" id="id_price_pln">
-			<label for="id_price_pln" class="selecter-field"></label>
-			<label for="id_price_pln" class="selecter-text">Set PLN</label>
 		</div>
 
-		{{ field }}
-		<div class="status-external">{{ field.errors }}</div>
-		<div class="status"></div>
+{% elif field.name == 'price_gbp' %}
 
-		<button class="button" type="button">Calculate</button>
+		<div class="currency_converter-col" data-currency="GBP">
 
-	</div>
+			<div> Set GBP </div>
 
-	{% elif field.name == 'price_gbp' %}
+			{{ field }}
+			<div class="status-external"> {{ field.errors }} </div>
+			<div class="status"></div>
 
-	<div class="currency_converter-col">
+			<button class="button currency_converter-button"
+			        type="button">
+				Calculate
+			</button>
 
-		<div class="selecter checkbox">
-			<input type="checkbox" name="price_gbp" id="id_price_gbp">
-			<label for="id_price_gbp" class="selecter-field"></label>
-			<label for="id_price_gbp" class="selecter-text">Set GBP</label>
 		</div>
 
-		{{ field }}
-		<span class="status-external">{{ field.errors }}</span>
-		<span class="status"></span>
-
-		<button class="button" type="button">Calculate</button>
-
 	</div>
-
-</div>
 
 
 

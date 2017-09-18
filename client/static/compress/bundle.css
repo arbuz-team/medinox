@@ -752,7 +752,8 @@ div > .buttons_to_action {
 .currency_converter-col {
   display: inline-block;
   width: 152px;
-  margin: 0 3px; }
+  margin: 0 3px;
+  font-size: 15px; }
   .currency_converter-col .selecter, .currency_converter-col .button, .currency_converter-col .currency_converter-field {
     display: block;
     width: 100%;

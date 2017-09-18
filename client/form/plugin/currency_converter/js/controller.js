@@ -23,6 +23,7 @@ export function Currency_Converter_Controller(config)
 	{
 		$(model.selector.checkbox, container)   .each(event_broker(view.change_status_field))
 												.change(event_broker(view.change_status_field));
+
 		$(model.selector.button, container)     .click(event_broker(view.calculate));
 	}
 }

@@ -4006,6 +4006,7 @@
 	
 		this.define = function () {
 			$(model.selector.checkbox, container).each((0, _event.event_broker)(view.change_status_field)).change((0, _event.event_broker)(view.change_status_field));
+	
 			$(model.selector.button, container).click((0, _event.event_broker)(view.calculate));
 		};
 	}
@@ -4133,28 +4134,24 @@
 			    $input = $(model.selector.input, $column),
 			    base_price = $input.val(),
 			    base_currency = $column.data('currency'),
-			    $all_checkbox = $(model.selector.checkbox, $container),
-			    $disabled_buttons = $(model.selector.button, $container).filter(':disabled'),
+			    $buttons = $(model.selector.button, $container),
 			    list_of_currencies = [];
 	
-			$all_checkbox.prop('disabled', true);
-	
-			$disabled_buttons.each(function () {
+			$buttons.each(function () {
 				var $a_button = $(this),
 				    $a_column = $a_button.parents(model.selector.column),
 				    currency = $a_column.data('currency');
 	
-				list_of_currencies.push(currency);
+				if (base_currency !== currency) list_of_currencies.push(currency);
 			});
 	
-			model.get_price(base_price, base_currency, list_of_currencies).then(function (array) {
+			if (base_price && base_currency && list_of_currencies) model.get_price(base_price, base_currency, list_of_currencies).then(function (array) {
 				for (var i = 0; array.length > i; ++i) {
 					var currency = array[i].currency,
 					    price = array[i].price,
 					    $input_for_setting = $(model.selector.input, model.selector.column + '[data-currency=' + currency + ']');
 	
 					$input_for_setting.val(price);
-					$all_checkbox.prop('disabled', false);
 				}
 			});
 		};

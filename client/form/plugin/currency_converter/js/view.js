@@ -32,43 +32,41 @@ export function Currency_Converter_View()
 	this.calculate = function(button)
 	{
 		let
-			$button =               $(button),
-			$column =               $button.parents(model.selector.column),
-			$container =            $column.parents(model.selector.container),
-			$input =                $(model.selector.input, $column),
-			base_price =            $input.val(),
-			base_currency =         $column.data('currency'),
+			$button =           $(button),
+			$column =           $button.parents(model.selector.column),
+			$container =        $column.parents(model.selector.container),
+			$input =            $(model.selector.input, $column),
+			base_price =        $input.val(),
+			base_currency =     $column.data('currency'),
 
-			$all_checkbox =         $(model.selector.checkbox, $container),
-			$disabled_buttons =     $(model.selector.button, $container).filter(':disabled'),
+			$buttons =          $(model.selector.button, $container),
 
 			list_of_currencies =    [];
 
-		$all_checkbox.prop('disabled', true);
-
-		$disabled_buttons.each(function()
+		$buttons.each(function()
 		{
 			let
 				$a_button =     $(this),
 				$a_column =     $a_button.parents(model.selector.column),
 				currency =      $a_column.data('currency');
 
-			list_of_currencies.push(currency);
+			if(base_currency !== currency)
+				list_of_currencies.push(currency);
 		});
 
 
-		model.get_price(base_price, base_currency, list_of_currencies).then((array) =>
-		{
-			for(let i = 0; array.length > i; ++i)
+		if(base_price && base_currency && list_of_currencies)
+			model.get_price(base_price, base_currency, list_of_currencies).then((array) =>
 			{
-				let
-					currency = array[i].currency,
-					price = array[i].price,
-					$input_for_setting = $(model.selector.input, model.selector.column +'[data-currency='+ currency +']');
+				for(let i = 0; array.length > i; ++i)
+				{
+					let
+						currency = array[i].currency,
+						price = array[i].price,
+						$input_for_setting = $(model.selector.input, model.selector.column +'[data-currency='+ currency +']');
 
-				$input_for_setting.val(price);
-				$all_checkbox.prop('disabled', false);
-			}
-		});
+					$input_for_setting.val(price);
+				}
+			});
 	};
 }
