@@ -39,16 +39,14 @@ export function Currency_Converter_View()
 			base_price =        $input.val(),
 			base_currency =     $column.data('currency'),
 
-			$buttons =          $(model.selector.button, $container),
+			$all_columns =          $(model.selector.column, $container),
 
 			list_of_currencies =    [];
 
-		$buttons.each(function()
+		$all_columns.each(function()
 		{
 			let
-				$a_button =     $(this),
-				$a_column =     $a_button.parents(model.selector.column),
-				currency =      $a_column.data('currency');
+				currency =      $(this).data('currency');
 
 			if(base_currency !== currency)
 				list_of_currencies.push(currency);
