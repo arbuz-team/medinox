@@ -1917,13 +1917,23 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.launch_event = exports.redirect_ground = exports.reload_plugins = exports.prepare_delay = exports.request_manager = undefined;
+	exports.launch_event = exports.redirect_ground = exports.reload_plugins = exports.prepare_delay = exports.get_and_remove_data = exports.get_data = exports.request_manager = undefined;
 	
 	var _block = __webpack_require__(14);
 	
 	var _standard = __webpack_require__(20);
 	
 	var request_manager = exports.request_manager = new _block.Request_Manager_Block(),
+	    get_data = exports.get_data = function get_data(elem, name) {
+		return $(elem).data(name);
+	},
+	    get_and_remove_data = exports.get_and_remove_data = function get_and_remove_data(elem, name) {
+		var data = get_data(elem, name);
+	
+		$(elem).removeAttr('data-' + name);
+	
+		return data;
+	},
 	    prepare_delay = exports.prepare_delay = function prepare_delay(data) {
 		var delay = data.delay;
 	
@@ -2480,6 +2490,8 @@
 	
 	var _views = __webpack_require__(39);
 	
+	var _utilities = __webpack_require__(29);
+	
 	var Post_Button_Controllers = exports.Post_Button_Controllers = function Post_Button_Controllers(config) {
 		if (typeof config === 'undefined' && typeof config.container === 'undefined') {
 			console.error('Exeption error: invalid container.');
@@ -2491,28 +2503,32 @@
 			event.preventDefault();
 			event.stopPropagation();
 	
-			var button_name = $(this).data('name');
+			var button_id = this;
 	
-			if (buttons_views[button_name]) buttons_views[button_name].start();else console.error('Button "' + button_name + '" doesn\'t exsist');
+			if (buttons_views[button_id]) buttons_views[button_id].start();else {
+				console.group('Button doesn\'t exsist');
+				console.error(button_id);
+				console.groupEnd();
+			}
 		},
 		    create_button_views = function create_button_views() {
-			var button_name = $(this).data('name');
+			var button_id = this;
 			config.button = this;
 	
-			config.button_name = button_name;
-			config.button_action = $(this).data('action');
-			config.button_value = $(this).data('value');
-			config.button_other_1 = $(this).data('other_1');
-			config.button_other_2 = $(this).data('other_2');
-			config.button_other_3 = $(this).data('other_3');
-			config.button_reload = $(this).data('reload');
-			config.button_redirect = $(this).data('redirect');
-			config.button_event = $(this).data('event');
-			config.button_url = $(this).data('url');
+			config.button_name = (0, _utilities.get_and_remove_data)(this, 'name');
+			config.button_action = (0, _utilities.get_and_remove_data)(this, 'action');
+			config.button_value = (0, _utilities.get_and_remove_data)(this, 'value');
+			config.button_other_1 = (0, _utilities.get_and_remove_data)(this, 'other_1');
+			config.button_other_2 = (0, _utilities.get_and_remove_data)(this, 'other_2');
+			config.button_other_3 = (0, _utilities.get_and_remove_data)(this, 'other_3');
+			config.button_reload = (0, _utilities.get_and_remove_data)(this, 'reload');
+			config.button_redirect = (0, _utilities.get_and_remove_data)(this, 'redirect');
+			config.button_event = (0, _utilities.get_and_remove_data)(this, 'event');
+			config.button_url = (0, _utilities.get_and_remove_data)(this, 'url');
 	
 			if ($(this).hasClass('is-text_icon')) config.button_html = $(this).find('.button-text').html();else config.button_html = $(this).html();
 	
-			buttons_views[button_name] = new _views.Post_Button_Views(config);
+			buttons_views[button_id] = new _views.Post_Button_Views(config);
 		};
 	
 		this.define = function () {

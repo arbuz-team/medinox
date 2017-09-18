@@ -3,6 +3,7 @@
  */
 
 import {Post_Button_Views} from './views'
+import {get_and_remove_data} from 'form/js/utilities'
 
 
 export let Post_Button_Controllers = function(config)
@@ -24,38 +25,42 @@ export let Post_Button_Controllers = function(config)
 			event.stopPropagation();
 
 			let
-				button_name = $(this).data('name');
+				button_id = this;
 
-			if(buttons_views[button_name])
-				buttons_views[button_name].start();
+			if(buttons_views[button_id])
+				buttons_views[button_id].start();
 			else
-				console.error('Button "'+ button_name +'" doesn\'t exsist');
+			{
+				console.group('Button doesn\'t exsist');
+				console.error(button_id);
+				console.groupEnd();
+			}
 		},
 
 
 		create_button_views = function()
 		{
 			let
-				button_name = $(this).data('name');
+				button_id = this;
 			config.button = this;
 
-			config.button_name = button_name;
-			config.button_action = $(this).data('action');
-			config.button_value = $(this).data('value');
-			config.button_other_1 = $(this).data('other_1');
-			config.button_other_2 = $(this).data('other_2');
-			config.button_other_3 = $(this).data('other_3');
-			config.button_reload = $(this).data('reload');
-			config.button_redirect = $(this).data('redirect');
-			config.button_event = $(this).data('event');
-			config.button_url = $(this).data('url');
+			config.button_name =        get_and_remove_data(this, 'name');
+			config.button_action =      get_and_remove_data(this, 'action');
+			config.button_value =       get_and_remove_data(this, 'value');
+			config.button_other_1 =     get_and_remove_data(this, 'other_1');
+			config.button_other_2 =     get_and_remove_data(this, 'other_2');
+			config.button_other_3 =     get_and_remove_data(this, 'other_3');
+			config.button_reload =      get_and_remove_data(this, 'reload');
+			config.button_redirect =    get_and_remove_data(this, 'redirect');
+			config.button_event =       get_and_remove_data(this, 'event');
+			config.button_url =         get_and_remove_data(this, 'url');
 
 			if($(this).hasClass('is-text_icon'))
 				config.button_html = $(this).find('.button-text').html();
 			else
 				config.button_html = $(this).html();
 
-			buttons_views[button_name] = new Post_Button_Views(config);
+			buttons_views[button_id] = new Post_Button_Views(config);
 		};
 
 
@@ -63,10 +68,8 @@ export let Post_Button_Controllers = function(config)
 	{
 		let $post_buttons = $('.post_button', config.container);
 
-		$post_buttons
-		.each(create_button_views);
+		$post_buttons.each(create_button_views);
 
-		$post_buttons
-		.click(manage_buttons);
+		$post_buttons.click(manage_buttons);
 	};
 };
