@@ -13,41 +13,37 @@
     <div class="block-background fill-abs"></div>
     {% include "block/ground/html/navigation.html" %}
 
-    <div class="block-content">
+    <div class="block-content is-right-inside">
 
-        <form class="auto_form" action="" data-origin="form">
+        <form class="auto_form" data-name="delivery_settings">
 
             <div class="title">Price for delivery</div>
 
-            {% for item in options %}
+            <div>
+	            <label for="id_price"> Normal price: </label>
+	            <input class="input"
+	                   name="price"
+	                   id="id_price"
+	                   type="number"
+	                   step="0.01"
+	                   value="{{ price }}">
+            </div>
 
-                <div class="deliver_settings-row">
+	        <div>
+	            <label for="id_price_postage"> Price with postage: </label>
+	            <input class="input"
+	                   name="price_postage"
+	                   id="id_price_postage"
+	                   type="number"
+	                   step="0.01"
+	                   value="{{ price_postage }}">
+            </div>
 
-                    <label class="deliver_settings-row-label" for="{{ item.country }}_EUR">
-						{{ item.country }}:&nbsp;
-					</label>
-
-                    <input class="deliver_settings-row-input input auto_field"
-						   type="text"
-						   name="{{ item.country }}_EUR"
-						   id="{{ item.country }}_EUR"
-                           data-name="{{ item.pk }} EUR"
-                           value="{{ item.price.eur }}" />
-
-					<span>EUR</span>
-
-                    <input class="deliver_settings-row-input input auto_field"
-						   type="text"
-						   name="{{ item.country }}_PLN"
-						   id="{{ item.country }}_PLN"
-                           data-name="{{ item.pk }} PLN"
-                           value="{{ item.price.pln }}" />
-
-					<span>PLN</span>
-
-                </div>
-
-            {% endfor %}
+	        <div>
+		        <button class="button">
+			        Save
+		        </button>
+	        </div>
 
         </form>
 
