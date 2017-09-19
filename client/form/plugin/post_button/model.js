@@ -76,11 +76,10 @@ Post_Button.prototype._send_post = function()
 		timeout_promise(200).then(() =>
 		{
 			let
-				post_url = this._settings.url,
+				post_url = this._button_data.url,
 				post_data = this._settings.post_data,
 				post_name = this._settings.post_name,
 				request_manager = new Request_Manager_Main();
-
 
 			request_manager
 				.send(post_url, post_data, post_name)
