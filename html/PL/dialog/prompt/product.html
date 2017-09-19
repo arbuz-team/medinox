@@ -22,6 +22,24 @@
 	        {% include "form/html/manage_field.html" with field=form.price_eur %}
 	        {% include "form/html/manage_field.html" with field=form.price_gbp %}
 
+	        <div class="is-font-0-only_this">
+		        <span class="selecter checkbox is-block_inline is-width-50">
+			        <input class="if_disabled" id="id_big_size" name="big_size" type="checkbox" data-id="big_size">
+					<label for="id_big_size" class="selecter-field"></label>
+					<label for="id_big_size" class="selecter-text"> ten produkt jest dużych gabarytów </label>
+				</span>
+
+		        <span>
+			        <input class="input set_disabled is-width-50"
+			               name="price_big_size"
+			               type="number"
+			               step="0.01"
+			               placeholder="Cena dostawy dużego produktu"
+			               data-id="big_size"
+			               disabled>
+		        </span>
+	        </div>
+
 	        {% include "form/html/manage_field.html" with field=form.image %}
 	        {% include "form/html/manage_field.html" with field=form.image_name %}
 	        {% include "form/html/manage_field.html" with field=form.image_base64 %}

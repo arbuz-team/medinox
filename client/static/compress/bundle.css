@@ -199,6 +199,13 @@ div > .buttons_to_action {
 .is-min-100 {
   min-width: 100px; }
 
+.is-width-50 {
+  width: 50% !important;
+  max-width: 50% !important; }
+
+.is-block_inline {
+  display: inline-block !important; }
+
 .is-margin-r-40 {
   margin-right: 30px; }
 
@@ -216,6 +223,11 @@ div > .buttons_to_action {
 
 .is-center-inside {
   text-align: center; }
+
+.is-font-0-only_this {
+  font-size: 0; }
+  .is-font-0-only_this > * {
+    font-size: 16px; }
 
 .is-mobile-visible {
   display: block; }
@@ -519,7 +531,7 @@ div > .buttons_to_action {
   font-size: 24px; }
 
 .selecter {
-  width: 100%;
+  display: block;
   position: relative;
   min-height: 27px;
   line-height: 27px;
