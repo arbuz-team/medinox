@@ -50,15 +50,29 @@
 						<img class="file-tile-image" data-src="{{ image }}" src="/static/img/pixel.png" alt="image">
 
 						<div class="file-tile-remove fill-abs">
-							<button class="button post_button is-icon"
-							        type="button"
-									data-name="dialog_deleting_image"
-									data-action="delete_image"
-							        data-value="{{ pk }}"
-							        data-url="/{{ type }}/manage/"
-									data-reload="dialog ground">
-								<span class="button-icon img-waste_bin-64"> &nbsp; </span>
-							</button>
+
+							{% if type == 'catalog' %}
+								<button class="button post_button is-icon"
+								        type="button"
+								        data-name="dialog_deleting_image"
+								        data-action="delete_image"
+								        data-value="{{ pk }}"
+								        data-url="{% url 'catalog.manage' %}"
+								        data-reload="dialog ground">
+									<span class="button-icon img-waste_bin-64"> &nbsp; </span>
+								</button>
+							{% elif type == 'product' %}
+								<button class="button post_button is-icon"
+								        type="button"
+										data-name="dialog_deleting_image"
+										data-action="delete_image"
+								        data-value="{{ pk }}"
+								        data-url="{% url 'product.manage' %}"
+										data-reload="dialog ground">
+									<span class="button-icon img-waste_bin-64"> &nbsp; </span>
+								</button>
+							{% endif %}
+
 						</div>
 					</div>
 					<div class="file-tile-title">File_name.png</div>

@@ -11,7 +11,7 @@
 
 
 <div class="searcher-phrase auto_form">
-    <form action="/searcher/" data-origin="filter" data-redirect="/product/:/" data-delay="100">
+    <form data-origin="filter" data-redirect="/produkt/:/" data-delay="100">
         <input class="searcher-field searcher-phrase-field auto_field only_enter"
 			   name="phrase"
 			   placeholder="Szukaj" />
@@ -19,7 +19,7 @@
 </div>
 
 
-<form class="searcher-filters auto_form" data-origin="filter" data-redirect="/product/:/" data-delay="500">
+<form class="searcher-filters auto_form" data-origin="filter" data-redirect="/produkt/:/" data-delay="500">
 
     <div class="searcher-sort">
         <div>
@@ -69,7 +69,7 @@
                                 data-dialog-value="{{ brand.pk }}"
                                 data-dialog-action="delete"
                                 data-dialog-reload="searcher"
-                                data-dialog-url="/product/brand/manage/">
+                                data-dialog-url="/produkt/marka/zarządzaj/">
                             <span class="button-icon img-waste_bin"> &nbsp; </span>
                         </button>
                     {% endif %}
@@ -106,7 +106,7 @@
                 data-name="show_deleted_button"
                 data-action="show_deleted"
                 data-reload="ground"
-                data-url="/catalog/manage/">
+                data-url="/katalog/zarządzaj/">
 
             {% if request.session.catalog_deleted_flag %}
                 Ukryj usunięte
