@@ -68,7 +68,7 @@ export let
 
 
 
-	get_price = function(base_price, base_currency, list_of_currencies)
+	get_price = function(url, base_price, base_currency, list_of_currencies)
 	{
 		return new Promise((resolve) =>
 		{
@@ -83,6 +83,6 @@ export let
 					currencies_to:  prepare_currencies(list_of_currencies),
 				};
 
-			request_manager.send('/currency/', data, content).then(receive_data(resolve));
+			request_manager.send(url, data, content).then(receive_data(resolve));
 		});
 	};

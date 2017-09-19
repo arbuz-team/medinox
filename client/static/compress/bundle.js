@@ -4134,7 +4134,7 @@
 		input: '.currency_converter-field',
 		button: '.currency_converter-button'
 	},
-	    get_price = exports.get_price = function get_price(base_price, base_currency, list_of_currencies) {
+	    get_price = exports.get_price = function get_price(url, base_price, base_currency, list_of_currencies) {
 		return new Promise(function (resolve) {
 			var content = '__ground__',
 			    data = {
@@ -4145,7 +4145,7 @@
 				currencies_to: prepare_currencies(list_of_currencies)
 			};
 	
-			request_manager.send('/currency/', data, content).then(receive_data(resolve));
+			request_manager.send(url, data, content).then(receive_data(resolve));
 		});
 	};
 
@@ -4185,6 +4185,7 @@
 			    $input = $(model.selector.input, $column),
 			    base_price = $input.val(),
 			    base_currency = $column.data('currency'),
+			    url = $container.data('url'),
 			    $all_columns = $(model.selector.column, $container),
 			    list_of_currencies = [];
 	
@@ -4194,7 +4195,7 @@
 				if (base_currency !== currency) list_of_currencies.push(currency);
 			});
 	
-			if (base_price && base_currency && list_of_currencies) model.get_price(base_price, base_currency, list_of_currencies).then(function (array) {
+			if (base_price && base_currency && list_of_currencies) model.get_price(url, base_price, base_currency, list_of_currencies).then(function (array) {
 				for (var i = 0; array.length > i; ++i) {
 					var currency = array[i].currency,
 					    price = array[i].price,
