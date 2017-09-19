@@ -11,6 +11,23 @@ export let
 	request_manager = new Request_Manager_Block(),
 
 
+	get_data = function(elem, name)
+	{
+		return $(elem).data(name);
+	},
+
+
+	get_and_remove_data = function(elem, name)
+	{
+		let
+			data = get_data(elem, name);
+
+		$(elem).removeAttr('data-'+ name);
+
+		return data;
+	},
+
+
 	prepare_delay = function(data)
 	{
 		let delay = data.delay;

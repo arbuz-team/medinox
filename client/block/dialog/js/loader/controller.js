@@ -3,7 +3,7 @@
  */
 
 import {Form_Controllers}           from 'form/js/controller'
-import {Post_Button_Controllers}    from 'form/plugin/post_button/controllers'
+import {define_post_button}         from 'form/plugin/post_button/define'
 import {Event_Button_Controllers}   from 'form/plugin/event_button/controllers'
 import {Little_Form_Controllers}    from 'form/plugin/little_form/controllers'
 
@@ -27,7 +27,6 @@ export function Dialog_Loader_Controller(config)
 		view =                          new Dialog_Loader_View(config),
 
 		form_controller =               new Form_Controllers(config_loader, true),
-		post_button_controller =        new Post_Button_Controllers(config_loader),
 		event_button_controller =       new Event_Button_Controllers(config_loader),
 		little_form_controller =        new Little_Form_Controllers(config_loader),
 		directory_tree_controller =     new Directory_Tree(config_loader),
@@ -64,7 +63,7 @@ export function Dialog_Loader_Controller(config)
 	this.define = function()
 	{
 		form_controller.define();
-		post_button_controller.define();
+		define_post_button(config_loader);
 		event_button_controller.define();
 		little_form_controller.define();
 		directory_tree_controller.define();
