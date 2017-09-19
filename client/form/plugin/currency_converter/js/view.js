@@ -32,6 +32,8 @@ export function Currency_Converter_View()
 			base_price =        $input.val(),
 			base_currency =     $column.data('currency'),
 
+			url = $container.data('url'),
+
 			$all_columns =          $(model.selector.column, $container),
 
 			list_of_currencies =    [];
@@ -47,7 +49,7 @@ export function Currency_Converter_View()
 
 
 		if(base_price && base_currency && list_of_currencies)
-			model.get_price(base_price, base_currency, list_of_currencies).then((array) =>
+			model.get_price(url, base_price, base_currency, list_of_currencies).then((array) =>
 			{
 				for(let i = 0; array.length > i; ++i)
 				{
