@@ -62,18 +62,36 @@ class Catalog_Manager(Website_Manager):
         if self.request.POST['_name_'] == 'catalog':
             return self.Manage_Form_Catalog()
 
+    def Manage_Button_Delete(self):
+
+        if 'value' in self.request.POST:
+            pk = self.request.POST['value']
+            catalog = SQL.Get(Model_Catalog, pk=pk)
+
+        else: catalog = self.request.session['product_editing']
+        catalog.name += ':' + self.Generate_Random_Chars(
+            20, punctuation=False)
+
+        SQL.Delete(data=catalog)
+
+        self.request.session['catalog_editing'] = None
+        return HttpResponse()
+
+    def Manage_Button_Delete_Image(self):
+
+        pk = self.request.POST['value']
+        catalog = SQL.Get(Model_Catalog, pk=pk)
+        catalog.image = None
+        SQL.Save(data=catalog)
+        return HttpResponse()
+
     def Manage_Button(self):
 
         if self.request.POST['_name_'] == 'delete':
+            return self.Manage_Button_Delete()
 
-            catalog = self.request.session['catalog_editing']
-            catalog.name += ':' + self.Generate_Random_Chars(
-                20, punctuation=False)
-
-            SQL.Delete(data=catalog)
-
-            self.request.session['catalog_editing'] = None
-            return HttpResponse()
+        if self.request.POST['_name_'] == 'delete_image':
+            return self.Manage_Button_Delete_Image()
 
     @staticmethod
     def Launch(request):

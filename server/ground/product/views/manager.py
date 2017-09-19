@@ -13,16 +13,8 @@ class Product_Manager(Website_Manager):
             cleaned_data = self.context['form'].cleaned_data
             product = self.request.session['product_editing']
 
-            if not product.price:
-                price = Model_Prices()
-                price.eur = cleaned_data['price_eur']
-                price.pln = cleaned_data['price_pln']
-                price.gbp = cleaned_data['price_gbp']
-                SQL.Save(data=price)
-
-                product.price = price
-
             product.name = cleaned_data['name']
+            product.price = cleaned_data['price_pln']
             product.url_name = Path_Manager.To_URL(cleaned_data['name'])
             product.parent = self.request.session['catalog_parent']
             product.language = self.request.session['translator_language']
@@ -42,7 +34,11 @@ class Product_Manager(Website_Manager):
 
     def Manage_Button_Delete(self):
 
-        product = self.request.session['product_editing']
+        if 'value' in self.request.POST:
+            pk = self.request.POST['value']
+            product = SQL.Get(Model_Product, pk=pk)
+
+        else: product = self.request.session['product_editing']
         product.name += ':' + self.Generate_Random_Chars(
             20, punctuation=False)
 
@@ -80,6 +76,14 @@ class Product_Manager(Website_Manager):
 
         return HttpResponse()
 
+    def Manage_Button_Delete_Image(self):
+
+        pk = self.request.POST['value']
+        product = SQL.Get(Model_Product, pk=pk)
+        product.image = None
+        SQL.Save(data=product)
+        return HttpResponse()
+
     def Manage_Button(self):
 
         if self.request.POST['_name_'] == 'delete':
@@ -90,6 +94,9 @@ class Product_Manager(Website_Manager):
 
         if self.request.POST['_name_'] == 'favorite':
             return self.Manage_Button_Favorite()
+
+        if self.request.POST['_name_'] == 'delete_image':
+            return self.Manage_Button_Delete_Image()
 
     @staticmethod
     def Launch(request):

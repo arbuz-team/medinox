@@ -7,21 +7,14 @@ import * as model from './model'
 
 export function Currency_Converter_View()
 {
-	this.change_status_field = function(checkbox)
+	this.change_status_field = function(input)
 	{
 		let
-			$checkbox =     $(checkbox),
-			checked =       $checkbox.prop('checked'),
-			$column =       $checkbox.parents(model.selector.column),
-			$input =        $(model.selector.input, $column),
+			$input =        $(input),
+			$column =       $input.parents(model.selector.column),
 			$button =       $(model.selector.button, $column);
 
-		if(checked)
-		{
-			$input.prop('disabled', false);
-			$button.prop('disabled', false);
-		}
-		else
+		if($column.data('currency') === 'EUR' || $column.data('currency') === 'GBP')
 		{
 			$input.prop('disabled', true);
 			$button.prop('disabled', true);
@@ -39,16 +32,14 @@ export function Currency_Converter_View()
 			base_price =        $input.val(),
 			base_currency =     $column.data('currency'),
 
-			$buttons =          $(model.selector.button, $container),
+			$all_columns =          $(model.selector.column, $container),
 
 			list_of_currencies =    [];
 
-		$buttons.each(function()
+		$all_columns.each(function()
 		{
 			let
-				$a_button =     $(this),
-				$a_column =     $a_button.parents(model.selector.column),
-				currency =      $a_column.data('currency');
+				currency =      $(this).data('currency');
 
 			if(base_currency !== currency)
 				list_of_currencies.push(currency);

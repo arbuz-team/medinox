@@ -9,26 +9,25 @@ class Catalog_Switch(Website_Manager):
         return Errors_Handler.Code_404(
             self.request, '__ground__')
 
-    @staticmethod
-    def Switch_Form(request):
+    def Manage_Form(self):
 
-        if request.POST['_name_'] == 'copy_product':
-            return Copy_Product(request, only_root=True).HTML
+        if self.request.POST['_name_'] == 'copy_product':
+            return Copy_Product(self.request, only_root=True).HTML
 
-        if request.POST['_name_'] == 'copy_catalog':
-            return Copy_Catalog(request, only_root=True).HTML
+        if self.request.POST['_name_'] == 'copy_catalog':
+            return Copy_Catalog(self.request, only_root=True).HTML
 
-        if request.POST['_name_'] == 'copy_link':
-            return Copy_Link(request, only_root=True).HTML
+        if self.request.POST['_name_'] == 'copy_link':
+            return Copy_Link(self.request, only_root=True).HTML
 
-        if request.POST['_name_'] == 'move_product':
-            return Move_Product(request, only_root=True).HTML
+        if self.request.POST['_name_'] == 'move_product':
+            return Move_Product(self.request, only_root=True).HTML
 
-        if request.POST['_name_'] == 'move_catalog':
-            return Move_Catalog(request, only_root=True).HTML
+        if self.request.POST['_name_'] == 'move_catalog':
+            return Move_Catalog(self.request, only_root=True).HTML
 
-        if request.POST['_name_'] == 'move_link':
-            return Move_Link(request, only_root=True).HTML
+        if self.request.POST['_name_'] == 'move_link':
+            return Move_Link(self.request, only_root=True).HTML
 
     @staticmethod
     def Launch(request, catalog_path=''):
@@ -46,7 +45,8 @@ class Catalog_Switch(Website_Manager):
                 return Link_Manager(request, only_root=True).HTML
 
         if 'form' in request.POST.values():
-            return Catalog_Switch.Switch_Form(request)
+            return Catalog_Switch(request, autostart=False)\
+                .Manage_Form()
 
         try:
 

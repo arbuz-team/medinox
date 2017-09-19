@@ -49,6 +49,8 @@
 							        type="button"
 							        data-name="dialog_deleting_image"
 							        data-action="delete_image"
+							        data-value="{{ pk }}"
+							        data-url="/{{ type }}/manage/"
 							        data-reload="dialog ground">
 								<span class="button-icon img-waste_bin-64"> &nbsp; </span>
 							</button>
@@ -68,13 +70,13 @@
 
 
 
-{% elif field.name == 'price_eur' %}
+{% elif field.name == 'price_pln' %}
 
 	<div class="currency_converter">
 
-		<div class="currency_converter-col" data-currency="EUR">
+		<div class="currency_converter-col" data-currency="PLN">
 
-			<div> Set EUR </div>
+			<div> PLN price </div>
 
 			{{ field }}
 			<div class="status-external"> {{ field.errors }} </div>
@@ -87,20 +89,15 @@
 
 		</div>
 
-{% elif field.name == 'price_pln' %}
+{% elif field.name == 'price_eur' %}
 
-		<div class="currency_converter-col" data-currency="PLN">
+		<div class="currency_converter-col" data-currency="EUR">
 
-			<div> Set PLN </div>
+			<div> EUR price </div>
 
 			{{ field }}
 			<div class="status-external"> {{ field.errors }} </div>
 			<div class="status"></div>
-
-			<button class="button currency_converter-button"
-			        type="button">
-				Calculate
-			</button>
 
 		</div>
 
@@ -108,7 +105,7 @@
 
 		<div class="currency_converter-col" data-currency="GBP">
 
-			<div> Set GBP </div>
+			<div> GBP price </div>
 
 			{{ field }}
 			<div class="status-external"> {{ field.errors }} </div>

@@ -46,7 +46,7 @@ class Cart_Block(Endpoints, Inspector):
             return_value = self.Manage_Button_Clear()
 
         cart = self.payment_models_manager.Get_Cart()
-        cart.Update_Total_Price(self)
+        Update_Total_Price(self, cart)
         return return_value
 
     def Manage_Little_Form(self):

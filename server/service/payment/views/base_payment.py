@@ -1,4 +1,6 @@
 from server.service.sender.views import *
+from server.service.pdf.views import *
+from server.manage.session.views import *
 
 
 class Base_Payment(Base_Website):
@@ -27,8 +29,10 @@ class Base_Payment(Base_Website):
 
         if self.valid:
 
-            generator = Generator_PDF(self.request, authorization=True)
-            pdf = generator.Invoice(self.payment.pk)
+            generator = Generator_PDF(self.request,
+                  pk=self.payment.pk, authorization=True)
+
+            pdf = generator.Invoice()
             Sender(self).Send_Payment_Approved(content, email, pdf)
 
         else: Sender(self).Send_Payment_Failure(content, email)

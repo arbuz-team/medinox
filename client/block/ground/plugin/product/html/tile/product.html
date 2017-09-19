@@ -112,15 +112,17 @@
 						Copy
 					</button>
 
-					<!--<button class="button dialog_button"-->
-					        <!--type="button"-->
-					        <!--data-type="confirm"-->
-					        <!--data-name="delete"-->
-					        <!--data-value="{{ element.pk }}"-->
-					        <!--data-other_1="type:product"-->
-					        <!--data-dialog-reload="ground">-->
-						<!--Delete-->
-					<!--</button>-->
+					<button class="button dialog_button"
+					        type="button"
+					        data-type="confirm"
+					        data-name="delete_product"
+					        data-other_1="type:product"
+					        data-dialog-action="delete"
+					        data-dialog-url="/product/manage/"
+					        data-dialog-value="{{ element.pk }}"
+					        data-dialog-reload="ground">
+						Delete
+					</button>
 
 					<button class="button dialog_button"
 					        type="button"
