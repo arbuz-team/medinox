@@ -53,7 +53,7 @@ export function Ground_Controller()
 			.click( transfer_event( view.change_to_long_or_short));
 
 		model.ground_form_controller.define();
-		model.post_button_controller.define();
+		model.define_post_button(model.config_loader);
 		model.event_button_controller.define();
 	};
 

@@ -3,9 +3,9 @@
  */
 
 import {Block_Loader_Part}     			from 'block/plugin/block_loader/block'
-import {Block_Motion_Controllers} 	from 'block/plugin/block_motion/controller'
+import {Block_Motion_Controllers} 	    from 'block/plugin/block_motion/controller'
 import {Form_Controllers}  				from 'form/js/controller'
-import {Post_Button_Controllers}        from 'form/plugin/post_button/controllers'
+import {define_post_button}             from 'form/plugin/post_button/define'
 
 
 
@@ -38,11 +38,6 @@ export function Search_Controller()
 			duration_close: 200,
 		}),
 
-		post_button_controller = new Post_Button_Controllers({
-			container: '#SEARCHER',
-			part_name: 'searcher',
-		}),
-
 		searcher_form_controller = new Form_Controllers(config_loader);
 
 
@@ -53,7 +48,10 @@ export function Search_Controller()
 
 		searcher_motion_controller.define();
 		searcher_form_controller.define();
-		post_button_controller.define();
+		define_post_button({
+			container: '#SEARCHER',
+			part_name: 'searcher',
+		});
 	};
 
 

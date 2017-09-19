@@ -5,7 +5,7 @@
 import {Block_Loader_Part}     			from 'block/plugin/block_loader/block'
 import {Block_Motion_Controllers}       from 'block/plugin/block_motion/controller'
 import {Form_Controllers}               from 'form/js/controller'
-import {Post_Button_Controllers}        from 'form/plugin/post_button/controllers'
+import {define_post_button}                         from 'form/plugin/post_button/define'
 import {Event_Button_Controllers}       from 'form/plugin/event_button/controllers'
 
 
@@ -40,7 +40,6 @@ export function Cart_Controller()
 			duration_close: 200,
 		}),
 
-		post_button_controller = new Post_Button_Controllers(config_loader),
 		event_button_controller = new Event_Button_Controllers({
 			container: container_id,
 		}),
@@ -96,7 +95,7 @@ export function Cart_Controller()
 
 		cart_form_controller.define();
 		cart_motion_controller.define();
-		post_button_controller.define();
+		define_post_button(config_loader);
 		event_button_controller.define();
 	};
 
