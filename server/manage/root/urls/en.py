@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^selected_user_payment/(?P<pk>\d+)/$', Selected_User_Payment.Launch, name='root.selected_user_payment'),
     url(r'^social_media/$', Social_Media_Manager.Launch, name='root.social_media'),
     url(r'^delivery_settings/$', Delivery_Settings.Launch, name='root.delivery_settings'),
+    url(r'^payment_settings/$', Payment_Settings.Launch, name='root.payment_settings'),
 
     url(r'^sign_in/redirect/(?P<url>.+)/$',
         Sign_In.Redirect, name='root.sign_in.redirect'),
