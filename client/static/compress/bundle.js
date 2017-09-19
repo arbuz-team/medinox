@@ -1933,8 +1933,6 @@
 	    get_and_remove_data = exports.get_and_remove_data = function get_and_remove_data(elem, name) {
 		var data = get_data(elem, name);
 	
-		$(elem).removeAttr('data-' + name);
-	
 		return data;
 	},
 	    prepare_delay = exports.prepare_delay = function prepare_delay(data) {
@@ -2724,7 +2722,7 @@
 	
 		return new Promise(function (resolve) {
 			(0, _standard.timeout_promise)(200).then(function () {
-				var post_url = _this._settings.url,
+				var post_url = _this._button_data.url,
 				    post_data = _this._settings.post_data,
 				    post_name = _this._settings.post_name,
 				    request_manager = new _main.Request_Manager_Main();

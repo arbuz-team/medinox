@@ -22,7 +22,7 @@ export let
 		let
 			data = get_data(elem, name);
 
-		$(elem).removeAttr('data-'+ name);
+		// $(elem).removeAttr('data-'+ name);
 
 		return data;
 	},
