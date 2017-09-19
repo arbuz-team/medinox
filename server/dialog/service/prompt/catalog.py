@@ -18,7 +18,9 @@ class Service_Catalog(Base_Service):
         self.initial = {'name': catalog.name}
 
     def Not_Valid(self):
-        pass
+        self.context['title'] = Text(self, 157)
+        return self.Render_Dialog(
+            'catalog.html', 'catalog', only_root=True)
 
     def Manage(self):
 

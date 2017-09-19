@@ -185,3 +185,59 @@
 203:Delete catalog
 204:Are you sure you want to remove the catalog?
 205:Payment settings
+206:The name is occupied in this catalog
+207:Loading...
+208:Empty
+209:Assign
+210:Pending
+211:Internal
+212:External
+213:Completed
+214:Deadline/Reminder
+215:Note
+216:Show addresses
+217:Send e-mail
+218:Get invoice
+219:No shopping found
+220:No payments found
+221:More
+222:Show more
+223:go back
+224:Prev page
+225:Next page
+226:Close
+227:Add element
+228:Before
+229:After
+230:Move
+231:Move up
+232:Move down
+233:Delete
+234:Copy
+235:Edit
+236:Create link
+237:Delete link
+238:Move link
+239:Copy link
+240:Add new catalog
+241:Add new product
+242:Clear filters
+243:EUR price
+244:PLN price
+245:GBP price
+246:Calculate
+247:Language
+248:Currency
+249:Home
+250:Products
+251:About
+252:Account
+253:Sign in
+254:Sign out
+255:Sign up
+256:Search
+257:Root settings
+258:Root sign out
+259:Notifications
+260:Contact
+261:Cart

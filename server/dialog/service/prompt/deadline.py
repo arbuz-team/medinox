@@ -16,7 +16,9 @@ class Service_Deadline(Base_Service):
             self.request.session['root_deadline']
 
     def Not_Valid(self):
-        pass
+        self.context['title'] = Text(self, 171)
+        return self.Render_Dialog(
+            'deadline.html', 'deadline', only_root=True)
 
     def Manage(self):
 

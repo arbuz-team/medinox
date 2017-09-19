@@ -29,7 +29,11 @@ class Service_Copy_Link(Catalog_Tree):
         self.request.session['catalog_copy_element'] = element
 
     def Not_Valid(self):
-        pass
+        self.context['title'] = Text(self, 177)
+        self.Create_Catalog_Tree()
+
+        return self.Render_Dialog(
+            'copy.html', 'copy_link', only_root=True)
 
     def Manage(self):
 

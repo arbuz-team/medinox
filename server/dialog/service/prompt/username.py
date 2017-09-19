@@ -5,7 +5,13 @@ from server.manage.user.account.forms import *
 class Service_Username(Base_Service):
 
     def Not_Valid(self):
-        pass
+
+        self.context['title'] = Text(self, 87)
+        self.context['form'].Set_Hidden('email')
+        self.context['form'].Set_Hidden('password')
+
+        return self.Render_Dialog(
+            'prompt.html', 'username', authorization=True)
 
     def Manage(self):
 

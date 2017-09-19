@@ -32,7 +32,11 @@ class Service_Move_Catalog(Catalog_Tree):
             Form_Move, initial=self.initial)
 
     def Not_Valid(self):
-        pass
+        self.context['title'] = Text(self, 179)
+        self.Create_Catalog_Tree()
+
+        return self.Render_Dialog(
+            'move.html', 'move_catalog', only_root=True)
 
     def Manage(self):
 

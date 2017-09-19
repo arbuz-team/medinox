@@ -16,10 +16,6 @@ class Translator(Base):
         return SQL.Get(Model_Language_PL, id=pk).value
 
     @staticmethod
-    def Translate_DE(pk):
-        return SQL.Get(Model_Language_DE, id=pk).value
-
-    @staticmethod
     def Translate(language, pk):
 
         if not SQL.Filter(Model_Language_EN, id=pk):
@@ -34,7 +30,7 @@ class Translator(Base):
         url = self.request.get_host()
         subdomain = url.split('.', 1)[0]
 
-        if subdomain in ['pl', 'de', 'en']:
+        if subdomain in ['pl', 'en']:
             self.request.session['translator_language'] = \
                 subdomain.upper()
 
@@ -43,7 +39,7 @@ class Translator(Base):
         url = self.request.get_host()
         subdomain = url.split('.', 1)[0]
 
-        if subdomain not in ['pl', 'de', 'en']:
+        if subdomain not in ['pl', 'en']:
             client_ip = self.request.META.get('REMOTE_ADDR', None)
 
             geo = GeoIP()
@@ -52,9 +48,6 @@ class Translator(Base):
 
             if country == 'PL':
                 return redirect(path_manager.Get_Urls(language='PL'))
-
-            if country == 'DE':
-                return redirect(path_manager.Get_Urls(language='DE'))
 
         return None
 

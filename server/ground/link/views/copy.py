@@ -27,8 +27,14 @@ class Copy_Link(Website_Manager):
             from_link = self.request.session['catalog_copy_element']
             target = SQL.Get(Model_Catalog, pk=self.request.POST['target'])
 
-            # create copy product
-            self.Create_Copy_Link(from_link, target)
+            try:
+
+                # create copy product
+                self.Create_Copy_Link(from_link, target)
+
+            except IntegrityError:
+                self.context['form'].add_error(None, Text(self, 206))
+                return Dialog_Prompt(self, not_valid=True).HTML
 
             return Dialog_Prompt(self, apply=True).HTML
         return Dialog_Prompt(self, not_valid=True).HTML

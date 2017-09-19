@@ -72,15 +72,16 @@ class Users_Payments(Website_Manager):
     def Manage_Form_Note(self):
 
         note = self.request.session['root_note']
-        form_note = Form_Order_Note(self, post=True)
+        self.context['form'] = Form_Order_Note(self, post=True)
 
-        if form_note.is_valid():
-            note.note = form_note.cleaned_data['note']
+        if self.context['form'].is_valid():
+            data = self.context['form'].cleaned_data
+            note.note = data['note']
             SQL.Save(data=note)
 
             # save send files
-            file = form_note.cleaned_data['file']
-            file_name = form_note.cleaned_data['file_name']
+            file = data['file']
+            file_name = data['file_name']
 
             if file: # save if file was sent
 
@@ -96,20 +97,20 @@ class Users_Payments(Website_Manager):
 
     def Manage_Form_Deadline(self):
 
-        note = self.request.session['root_deadline']
-        form_deadline = Form_Order_Deadline(
-            self, post=True, instance=note)
+        dealdine = self.request.session['root_deadline']
+        self.context['form'] = Form_Order_Deadline(
+            self, post=True, instance=dealdine)
 
-        if form_deadline.is_valid():
-            SQL.Save(data=form_deadline)
+        if self.context['form'].is_valid():
+            SQL.Save(data=self.context['form'])
 
             return Dialog_Prompt(self, apply=True).HTML
         return Dialog_Prompt(self, not_valid=True).HTML
 
     def Manage_Form_Send_Email(self):
 
-        form_email = Form_Send_Email(self, post=True)
-        if form_email.is_valid():
+        self.context['form'] = Form_Send_Email(self, post=True)
+        if self.context['form'].is_valid():
 
             payment = self.request.session['root_payment']
             title = self.request.POST['title']

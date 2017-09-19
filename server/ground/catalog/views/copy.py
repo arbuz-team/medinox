@@ -1,4 +1,5 @@
 from server.ground.product.views.copy import *
+from django.db.utils import IntegrityError
 
 
 class Copy_Catalog(Website_Manager):
@@ -50,12 +51,18 @@ class Copy_Catalog(Website_Manager):
             language = self.request.POST['language']
             name = self.request.POST['name']
 
-            # create copy catalog
-            copy_catalog = self.Create_Copy_Catalog(
-                from_catalog, name, language, from_catalog.parent)
+            try:
 
-            # copy content
-            self.Copy_Content_Recursive(from_catalog, copy_catalog, language)
+                # create copy catalog
+                copy_catalog = self.Create_Copy_Catalog(
+                    from_catalog, name, language, from_catalog.parent)
+
+                # copy content
+                self.Copy_Content_Recursive(from_catalog, copy_catalog, language)
+
+            except IntegrityError:
+                self.context['form'].add_error(None, Text(self, 206))
+                return Dialog_Prompt(self, not_valid=True).HTML
 
             return Dialog_Prompt(self, apply=True).HTML
         return Dialog_Prompt(self, not_valid=True).HTML

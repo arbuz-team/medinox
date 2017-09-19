@@ -30,9 +30,15 @@ class Copy_Product(Website_Manager):
             language = self.request.POST['language']
             name = self.request.POST['name']
 
-            # create copy product
-            self.Create_Copy_Product(
-                from_product, name, language, target)
+            try:
+
+                # create copy product
+                self.Create_Copy_Product(
+                    from_product, name, language, target)
+
+            except IntegrityError:
+                self.context['form'].add_error(None, Text(self, 206))
+                return Dialog_Prompt(self, not_valid=True).HTML
 
             return Dialog_Prompt(self, apply=True).HTML
         return Dialog_Prompt(self, not_valid=True).HTML

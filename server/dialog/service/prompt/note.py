@@ -16,7 +16,9 @@ class Service_Note(Base_Service):
             self.request.session['root_note']
 
     def Not_Valid(self):
-        pass
+        self.context['title'] = Text(self, 172)
+        return self.Render_Dialog(
+            'prompt.html', 'note', only_root=True)
 
     def Manage(self):
 

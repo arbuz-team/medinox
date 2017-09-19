@@ -29,7 +29,9 @@ class Service_Widget(Base_Service):
                 self.Prepare_Form(Form_Values)
 
     def Not_Valid(self):
-        pass
+        self.context['title'] = Text(self, 156)
+        return self.Render_Dialog(
+            'widget.html', 'widget', 'values', only_root=True)
 
     def Manage(self):
 

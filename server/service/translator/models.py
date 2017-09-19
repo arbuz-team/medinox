@@ -6,6 +6,3 @@ class Model_Language_EN(Abstract_Model):
 
 class Model_Language_PL(Abstract_Model):
     value = models.TextField()
-
-class Model_Language_DE(Abstract_Model):
-    value = models.TextField()

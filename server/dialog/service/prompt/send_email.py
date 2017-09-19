@@ -12,7 +12,9 @@ class Service_Send_Email(Base_Service):
                 SQL.Get(Model_Payment, pk=payment)
 
     def Not_Valid(self):
-        pass
+        self.context['title'] = Text(self, 192)
+        return self.Render_Dialog(
+            'prompt.html', 'send_email', only_root=True)
 
     def Manage(self):
 

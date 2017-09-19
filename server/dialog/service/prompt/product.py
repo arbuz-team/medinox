@@ -26,7 +26,9 @@ class Service_Product(Base_Service):
         }
 
     def Not_Valid(self):
-        pass
+        self.context['title'] = Text(self, 158)
+        return self.Render_Dialog(
+            'product.html', 'product', only_root=True)
 
     def Manage(self):
 

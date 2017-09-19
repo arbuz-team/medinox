@@ -39,7 +39,9 @@ class Service_About(Base_Service):
         }
 
     def Not_Valid(self):
-        pass
+        self.context['title'] = Text(self, 93)
+        return self.Render_Dialog(
+            'prompt.html', 'about', only_root=True)
 
     def Manage(self):
 

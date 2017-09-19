@@ -9,33 +9,39 @@ class Account_Details(Website_Manager):
         return self.Render_HTML('user/account/details.html')
 
     def Manage_Form_Edit_Email(self):
-        details = Form_User_Details(self, post=True)
+        self.context['form'] = Form_User_Details(self, post=True)
 
-        if details.is_valid():
+        if self.context['form'].is_valid():
+            data = self.context['form'].cleaned_data
+
             user = self.request.session['user_user']
-            user.email = details.cleaned_data['email']
+            user.email = data['email']
             SQL.Save(data=user)
 
             return Dialog_Prompt(self, apply=True).HTML
         return Dialog_Prompt(self, not_valid=True).HTML
 
     def Manage_Form_Edit_Username(self):
-        details = Form_User_Details(self, post=True)
+        self.context['form'] = Form_User_Details(self, post=True)
 
-        if details.is_valid():
+        if self.context['form'].is_valid():
+            data = self.context['form'].cleaned_data
+
             user = self.request.session['user_user']
-            user.username = details.cleaned_data['username']
+            user.username = data['username']
             SQL.Save(data=user)
 
             return Dialog_Prompt(self, apply=True).HTML
         return Dialog_Prompt(self, not_valid=True).HTML
 
     def Manage_Form_Edit_Password(self):
-        details = Form_User_Details(self, post=True)
+        self.context['form'] = Form_User_Details(self, post=True)
 
-        if details.is_valid():
+        if self.context['form'].is_valid():
+            data = self.context['form'].cleaned_data
+
             user = self.request.session['user_user']
-            user.password = details.cleaned_data['password']
+            user.password = data['password']
             SQL.Save(data=user)
 
             return Dialog_Prompt(self, apply=True).HTML

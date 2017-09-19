@@ -32,7 +32,11 @@ class Service_Copy_Product(Catalog_Tree):
             Form_Copy, initial=self.initial)
 
     def Not_Valid(self):
-        pass
+        self.context['title'] = Text(self, 177)
+        self.Create_Catalog_Tree()
+
+        return self.Render_Dialog(
+            'copy.html', 'copy_product', only_root=True)
 
     def Manage(self):
 
