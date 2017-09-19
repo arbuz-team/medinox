@@ -20,27 +20,27 @@
             <div class="title">Price for delivery</div>
 
             <div>
-	            <label for="id_price"> Normal price: </label>
+	            <label for="id_price_on_receipt"> Normal price: </label>
 	            <input class="input"
-	                   name="price"
-	                   id="id_price"
+	                   name="price_on_receipt"
+	                   id="id_price_on_receipt"
 	                   type="number"
 	                   step="0.01"
 	                   value="{{ price }}">
             </div>
 
 	        <div>
-	            <label for="id_price_postage"> Price with postage: </label>
+	            <label for="id_price_in_advance"> Price with postage: </label>
 	            <input class="input"
-	                   name="price_postage"
-	                   id="id_price_postage"
+	                   name="price_in_advance"
+	                   id="id_price_in_advance"
 	                   type="number"
 	                   step="0.01"
 	                   value="{{ price_postage }}">
             </div>
 
 	        <div>
-		        <button class="button">
+		        <button class="button is-important is-width-50">
 			        Save
 		        </button>
 	        </div>
