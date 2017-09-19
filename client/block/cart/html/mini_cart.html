@@ -32,8 +32,6 @@
 
         <div class="mini_cart-field_list">
 
-            <!--TODO design for products -->
-
             {% if button_address_name == 'root_address' and item.products %}
 
                 {% for selected in item.products %}
@@ -46,7 +44,9 @@
             {% else %}
 
                 <div class="mini_cart-message">
-                    <span>Empty</span>
+                    <span>
+                        {% text 208 %}<!--Empty-->
+                    </span>
                 </div>
 
             {% endif %}
@@ -68,7 +68,7 @@
                     <div class="tooltip align-left align-top">
                         <button class="button tooltip_button"
                                 data-name="description">
-                            Assign
+                            {% text 209 %}<!--Assign-->
                         </button>
 
                         <div class="tooltip-options">
@@ -80,7 +80,7 @@
                                     data-other_1="index:{{ item.payment.pk }}"
                                     data-reload="ground">
                                 <span class="button-text">
-                                    Pending
+                                    {% text 210 %}<!--Pending-->
                                 </span>
                                 <span class="button-icon">
                                     {% if request.session.root_payment_status == 'pending' %}
@@ -97,7 +97,7 @@
                                     data-other_1="index:{{ item.payment.pk }}"
                                     data-reload="ground">
                                 <span class="button-text">
-                                    Internal
+                                    {% text 211 %}<!--Internal-->
                                 </span>
                                 <span class="button-icon">
                                     {% if request.session.root_payment_status == 'internal' %}
@@ -114,7 +114,7 @@
                                     data-other_1="index:{{ item.payment.pk }}"
                                     data-reload="ground">
                                 <span class="button-text">
-                                    External
+                                    {% text 212 %}<!--External-->
                                 </span>
                                 <span class="button-icon">
                                     {% if request.session.root_payment_status == 'external' %}
@@ -131,7 +131,7 @@
                                     data-other_1="index:{{ item.payment.pk }}"
                                     data-reload="ground">
                                 <span class="button-text">
-                                    Completed
+                                    {% text 213 %}<!--Completed-->
                                 </span>
                                 <span class="button-icon">
                                     {% if request.session.root_payment_status == 'completed' %}
@@ -146,7 +146,7 @@
                     <div class="tooltip align-right align-top">
                         <button class="button tooltip_button"
                                 data-name="description">
-                            More
+                            {% text 221 %}<!--More-->
                         </button>
 
                         <div class="tooltip-options">
@@ -155,31 +155,31 @@
                                     data-type="prompt"
                                     data-name="deadline"
                                     data-value="{{ item.payment.pk }}">
-                                Deadline/Reminder
+                                {% text 214 %}<!--Deadline/Reminder-->
                             </button>
                             <button class="button dialog_button"
                                     type="button"
                                     data-type="prompt"
                                     data-name="note"
                                     data-value="{{ item.payment.pk }}">
-                                Note
+                                {% text 215 %}<!--Note-->
                             </button>
                             <button class="button dialog_button"
                                     type="button"
                                     data-type="alert"
                                     data-name="{{ button_address_name }}"
                                     data-value="{{ item.payment.pk }}">
-                                Show addresses
+                                {% text 216 %}<!--Show addresses-->
                             </button>
 	                        <button class="button dialog_button"
 	                                type="button"
 	                                data-type="prompt"
 	                                data-name="send_email"
 	                                data-value="{{ item.payment.pk }}">
-		                        Send e-mail
+                                {% text 217 %}<!--Send e-mail-->
 	                        </button>
                             <a class="button" href="{% url 'pdf.invoice' full=True pk=item.payment.pk %}">
-                                Get invoice
+                                {% text 218 %}<!--Get invoice-->
                             </a>
                         </div>
                     </div>

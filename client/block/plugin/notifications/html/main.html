@@ -1,15 +1,18 @@
+{% load tags %}
 
 <div class="notifications">
 
 	<div class="notifications-list">
-		<div class="dialog-message"> Loading... </div>
+		<div class="dialog-message">
+			{% text 207 %}<!--Loading... -->
+		</div>
 	</div>
 
 	<div class="notifications-show_more">
 
 		<button class="button notifications-show_more-button"
 				type="button">
-			Show more
+			{% text 222 %}<!--Show more-->
 		</button>
 
 		<button class="button event_button"
@@ -17,7 +20,7 @@
 				data-name="close_dialog"
 				data-reload="menu menu_mobile"
 				data-event="part.close_dialog">
-			Close
+			{% text 226 %}<!--Close-->
 		</button>
 
 	</div>

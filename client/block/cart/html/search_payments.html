@@ -3,7 +3,9 @@
 {% var 'type_mini_cart' 'for-root' %}
 
 
-<div class="title">Pending</div>
+<div class="title">
+    {% text 210 %}<!--Pending-->
+</div>
 
 {% for item in shopping %}
 
@@ -16,7 +18,9 @@
 {% endfor %}
 
 
-<div class="title">Internal</div>
+<div class="title">
+    {% text 211 %}<!--Internal-->
+</div>
 
 {% for item in shopping %}
 
@@ -29,7 +33,9 @@
 {% endfor %}
 
 
-<div class="title">External</div>
+<div class="title">
+    {% text 212 %}<!--External-->
+</div>
 
 {% for item in shopping %}
 
@@ -42,7 +48,9 @@
 {% endfor %}
 
 
-<div class="title">Completed</div>
+<div class="title">
+    {% text 213 %}<!--Completed-->
+</div>
 
 {% for item in shopping %}
 
@@ -55,7 +63,9 @@
 {% endfor %}
 
 
-<div class="title">Cart</div>
+<div class="title">
+    {% text 214 %}<!--Cart-->
+</div>
 
 {% for item in shopping %}
 
@@ -70,5 +80,6 @@
 
 {% if not shopping %}
     </div>
-    <div class="block-content-message center">No payments found
+    <div class="block-content-message center">
+        {% text 220 %}<!--No payments found-->
 {% endif %}

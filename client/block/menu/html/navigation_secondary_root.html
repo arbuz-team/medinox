@@ -1,8 +1,11 @@
+{% load tags %}
 
 <li class="menu-field navigation-secondary-searcher" title="CTRL+SHIFT+S">
 	<div class="button is-icon fill-abs event_button" data-name="secondary-open_searcher" data-event="part.open_searcher">
 		<span class="button-icon img-searcher-light"> &nbsp; </span>
-		<span class="button-text">Search </span>
+		<span class="button-text">
+			{% text 256 %}<!--Search-->
+		</span>
 	</div>
 </li>
 
@@ -12,7 +15,7 @@
 
 	<li class="navigation-field menu_mobile-tile">
 		<a class="fill-abs" href="{% url 'root.start' %}">
-			Root settings
+			{% text 257 %}<!--Root settings-->
 		</a>
 	</li>
 
@@ -20,7 +23,7 @@
 
 	<li class="navigation-field menu_mobile-tile">
 		<a class="fill-abs" href="{% url 'root.sign_out' %}">
-			Root sign out
+			{% text 258 %}<!--Root sign out-->
 		</a>
 	</li>
 
@@ -31,7 +34,7 @@
 
 		<li class="navigation-field menu_mobile-tile">
 			<div class="dialog_button fill-abs is-bold is-text-has-notifications" data-type="alert" data-name="notifications">
-				Notifications
+				{% text 259 %}<!--Notifications-->
 			</div>
 		</li>
 
@@ -39,7 +42,7 @@
 
 		<li class="navigation-field menu_mobile-tile">
 			<div class="dialog_button fill-abs is-bold" data-type="alert" data-name="notifications">
-				Notifications
+				{% text 259 %}<!--Notifications-->
 			</div>
 		</li>
 

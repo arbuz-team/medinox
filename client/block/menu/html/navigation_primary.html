@@ -1,20 +1,21 @@
+{% load tags %}
 
 
 <li class="navigation-field menu_mobile-tile">
 	<a class="fill-abs" href="/">
-		Home
+		{% text 249 %}<!--Home-->
 	</a>
 </li>
 
 <li class="navigation-field">
 	<a class="fill-abs" href="{% url 'catalog.start' %}">
-		Products
+		{% text 250 %}<!--Products-->
 	</a>
 </li>
 
 <li class="navigation-field">
 	<a class="fill-abs" href="{% url 'main.about' %}">
-		About
+		{% text 251 %}<!--About-->
 	</a>
 </li>
 
@@ -23,7 +24,7 @@
 
 	<li class="navigation-field">
 		<a class="fill-abs" href="{% url 'user.account' %}">
-			Account
+			{% text 252 %}<!--Account-->
 		</a>
 	</li>
 
@@ -31,7 +32,7 @@
 
 	<li class="navigation-field">
 		<a class="fill-abs" href="{% url 'user.sign_in' %}">
-			Sign in
+			{% text 253 %}<!--Sign in-->
 		</a>
 	</li>
 

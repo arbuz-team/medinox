@@ -91,7 +91,7 @@
 							data-name="product"
 							data-value="{{ element.pk }}"
 							data-dialog-reload="ground">
-						Edit
+						{% text 235 %}<!--Edit-->
 					</button>
 
 					<button class="button dialog_button"
@@ -100,7 +100,7 @@
 							data-name="move_product"
 							data-value="{{ element.pk }}"
 							data-dialog-reload="ground">
-						Move
+						{% text 230 %}<!--Move-->
 					</button>
 
 					<button class="button dialog_button"
@@ -109,7 +109,7 @@
 							data-name="copy_product"
 							data-value="{{ element.pk }}"
 							data-dialog-reload="ground">
-						Copy
+						{% text 234 %}<!--Copy-->
 					</button>
 
 					<button class="button dialog_button"
@@ -121,7 +121,7 @@
 					        data-dialog-url="{% url 'product.manage' %}"
 					        data-dialog-value="{{ element.pk }}"
 					        data-dialog-reload="ground">
-						Delete
+						{% text 233 %}<!--Delete-->
 					</button>
 
 					<button class="button dialog_button"
@@ -131,7 +131,7 @@
 					        data-value="{{ element.pk }}"
 					        data-other_1="type:product"
 					        data-dialog-reload="ground">
-						Create link
+						{% text 236 %}<!--Create link-->
 					</button>
 
 				</div>

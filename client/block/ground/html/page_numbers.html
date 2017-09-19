@@ -1,3 +1,4 @@
+{% load tags %}
 
 {% if number_of_pages > 1 %}
 
@@ -13,7 +14,7 @@
                         data-action="change"
                         data-value="{{ prev_page }}"
                         data-reload="ground">
-                    Prev page
+                    {% text 224 %}<!--Prev page-->
                 </button>
             </div><!-- numbers_pages-one_step -->
 
@@ -50,7 +51,7 @@
                         data-action="change"
                         data-value="{{ next_page }}"
                         data-reload="ground">
-                    Next page
+                    {% text 207 %}<!--Next page-->
                 </button>
             </div><!-- numbers_pages-one_step -->
 

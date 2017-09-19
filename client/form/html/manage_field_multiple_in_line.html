@@ -93,12 +93,12 @@
 			<div> PLN price </div>
 
 			{{ field }}
-			<div class="status-external"> {{ field.errors }} </div>
+			<div class="status-external">{{ field.errors }}</div>
 			<div class="status"></div>
 
 			<button class="button currency_converter-button"
 			        type="button">
-				Calculate
+				{% text 246 %}<!--Calculate-->
 			</button>
 
 		</div>
@@ -107,7 +107,9 @@
 
 		<div class="currency_converter-col" data-currency="EUR">
 
-			<div> EUR price </div>
+			<div>
+				{% text 243 %}<!--EUR price-->
+			</div>
 
 			{{ field }}
 			<div class="status-external"> {{ field.errors }} </div>
@@ -119,16 +121,13 @@
 
 		<div class="currency_converter-col" data-currency="GBP">
 
-			<div> GBP price </div>
+			<div>
+				{% text 245 %}<!--GBP price-->
+			</div>
 
 			{{ field }}
-			<div class="status-external"> {{ field.errors }} </div>
-			<div class="status"></div>
-
-			<button class="button currency_converter-button"
-			        type="button">
-				Calculate
-			</button>
+			<span class="status-external">{{ field.errors }}</span>
+			<span class="status"></span>
 
 		</div>
 

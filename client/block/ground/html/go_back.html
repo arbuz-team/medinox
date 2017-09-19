@@ -1,4 +1,4 @@
-
+{% load tags %}
 
 <div class="ground-block-go_back is-opaque-for-hover">
 
@@ -6,7 +6,9 @@
 		<button class="button is-icon ground-block-go_back-button">
 			<span class="button-icon img-go_back"></span>
 		</button>
-		<span class="ground-block-go_back-text">go back</span>
+		<span class="ground-block-go_back-text">
+            {% text 223 %}<!--go back-->
+		</span>
 	</a>
 
 </div>

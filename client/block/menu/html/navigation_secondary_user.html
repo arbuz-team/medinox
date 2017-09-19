@@ -1,9 +1,10 @@
+{% load tags %}
 
 {% if request.session.user_login %}
 
 	<li class="navigation-field menu_mobile-tile">
 		<a class="fill-abs" href="{% url 'user.sign_out' %}">
-			Sign out
+			{% text 254 %}<!--Sign out-->
 		</a>
 	</li>
 
@@ -11,7 +12,7 @@
 
 	<li class="navigation-field menu_mobile-tile">
 		<a class="fill-abs" href="{% url 'user.sign_up' %}">
-			Sign up
+			{% text 255 %}<!--Sign up-->
 		</a>
 	</li>
 
@@ -22,7 +23,7 @@
 
 <li class="navigation-field">
 	<a class="fill-abs" href="{% url 'main.contact' %}">
-		Contact
+		{% text 260 %}<!--Contact-->
 	</a>
 </li>
 
@@ -33,7 +34,7 @@
 
 	<li class="navigation-secondary-cart navigation-field" title="CTRL+SHIFT+X">
 		<div class="fill-abs event_button" data-name="navigation-open_or_close_cart" data-event="part.open_or_close_cart">
-			Cart
+			{% text 261 %}<!--Cart-->
 		</div>
 	</li>
 
@@ -41,7 +42,7 @@
 
 	<li class="navigation-field">
 		<a class="fill-abs" href="{% url 'user.sign_in_cart' %}">
-			Cart
+			{% text 261 %}<!--Cart-->
 		</a>
 	</li>
 

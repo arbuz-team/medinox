@@ -56,7 +56,7 @@
             <div class="tooltip align-left align-top">
                 <button class="button tooltip_button is-important"
                         data-name="{{ paragraph_name }}">
-                    Add element
+	                {% text 227 %}<!--Add element-->
                 </button>
 
                 <div class="tooltip-options">
@@ -66,7 +66,7 @@
                             data-other_1="index:{{ element.pk }}"
                             data-other_2="direction:up"
                             data-dialog-reload="ground">
-                        Before
+	                    {% text 228 %}<!--Before-->
                     </button>
                     <button class="button dialog_button"
                             data-type="prompt"
@@ -74,7 +74,7 @@
                             data-other_1="index:{{ element.pk }}"
                             data-other_2="direction:down"
                             data-dialog-reload="ground">
-                        After
+	                    {% text 229 %}<!--After-->
                     </button>
                 </div>
             </div>
@@ -82,7 +82,7 @@
             <div class="tooltip align-right align-top">
                 <button class="button tooltip_button is-important"
                         data-name="{{ paragraph_name }}">
-                    Move
+	                {% text 230 %}<!--Move-->
                 </button>
 
                 <div class="tooltip-options">
@@ -94,7 +94,7 @@
 								data-action="move_up"
 								data-reload="ground"
 								data-url="{{ paragraph_url }}">
-							Move up
+							{% text 231 %}<!--Move up-->
 						</button>
                     {% endif %}
 					{% if not forloop.counter == content|length and not forloop.counter == descriptions|length %}
@@ -105,7 +105,7 @@
 								data-action="move_down"
 								data-reload="ground"
 								data-url="{{ paragraph_url }}">
-							Move down
+							{% text 232 %}<!--Move down-->
 						</button>
 					{% endif %}
                 </div>
@@ -127,7 +127,7 @@
                             data-dialog-action="delete"
                             data-dialog-reload="ground"
                             data-dialog-url="{{ paragraph_url }}">
-                        Delete
+	                    {% text 233 %}<!--Delete-->
                     </button>
                     <button class="button dialog_button"
 							type="button"
@@ -135,7 +135,7 @@
                             data-name="{{ paragraph_name }}"
                             data-value="{{ element.pk }}"
                             data-dialog-reload="ground">
-                        Edit
+	                    {% text 234 %}<!--Edit-->
                     </button>
                 </div>
             </div>

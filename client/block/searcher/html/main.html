@@ -1,10 +1,13 @@
+{% load tags %}
 
 <div id="SEARCHER" class="container-part container-motion">
     <div class="container-part-scroll">
         <div class="container-part-scroll-content">
             <div class="searcher translucent">
                 <div class="searcher-header"></div>
-                <div class="container-part-loading">Loading...</div>
+                <div class="container-part-loading">
+                    {% text 207 %}<!--Loading...-->
+                </div>
             </div>
         </div>
     </div>
@@ -13,7 +16,9 @@
             data-name="clear_searcher"
             data-action="clear_session"
             data-reload="searcher ground">
-        <span class="button-text">Clear filters</span>
+        <span class="button-text">
+            {% text 242 %}<!--Clear filters-->
+        </span>
     </div>
 
     <div class="part-hide">
