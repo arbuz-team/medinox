@@ -6,7 +6,7 @@ from server.ground.catalog.views.panel_app import *
 urlpatterns = [
 
     url(r'^$', Panel_App.Launch, name='catalog.start'),
-    url(r'^manage/$', Catalog_Manager.Launch, name='catalog.manager'),
+    url(r'^manage/$', Catalog_Manager.Launch, name='catalog.manage'),
 
     # change catalog
     url(r'^:/$', Catalog_Switch.Launch, name='catalog.switcher.empty'),
