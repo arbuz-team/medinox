@@ -4005,7 +4005,7 @@
 		    view = new _view.Currency_Converter_View();
 	
 		this.define = function () {
-			$(model.selector.checkbox, container).each((0, _event.event_broker)(view.change_status_field)).change((0, _event.event_broker)(view.change_status_field));
+			$(model.selector.input, container).each((0, _event.event_broker)(view.change_status_field));
 	
 			$(model.selector.button, container).click((0, _event.event_broker)(view.calculate));
 		};
@@ -4111,17 +4111,12 @@
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function Currency_Converter_View() {
-		this.change_status_field = function (checkbox) {
-			var $checkbox = $(checkbox),
-			    checked = $checkbox.prop('checked'),
-			    $column = $checkbox.parents(model.selector.column),
-			    $input = $(model.selector.input, $column),
+		this.change_status_field = function (input) {
+			var $input = $(input),
+			    $column = $input.parents(model.selector.column),
 			    $button = $(model.selector.button, $column);
 	
-			if (checked) {
-				$input.prop('disabled', false);
-				$button.prop('disabled', false);
-			} else {
+			if ($column.data('currency') === 'EUR' || $column.data('currency') === 'GBP') {
 				$input.prop('disabled', true);
 				$button.prop('disabled', true);
 			}
