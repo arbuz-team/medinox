@@ -1,4 +1,5 @@
 from server.manage.switch.templatetags.base import *
+from server.service.currency.views.base import *
 
 
 class Finance_Manager(Base_Tag_Manager):
@@ -8,7 +9,11 @@ class Finance_Manager(Base_Tag_Manager):
     def get_price(context, product):
         currency = context.request.session['currency_selected']
         if not product.price: price = 0
-        else: price = product.price.Get_Price(context)
+        else:
+
+            currency_manager = Base_Currency_Manager(context)
+            price = currency_manager.Get_Price(product.price)
+
         return '{0:.2f} {1}'.format(price, currency)
 
     def Get_Product_Price(self):

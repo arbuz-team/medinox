@@ -32,10 +32,6 @@ class Model_Social_Media(Abstract_Model):
 
 class Model_Delivery(Abstract_Model):
 
-    currency = models.CharField(max_length=3)
-    price = models.FloatField()
+    price_on_receipt = models.FloatField()
+    price_in_advance = models.FloatField()
 
-    @staticmethod
-    def Get_Price(_object):
-        currency = _object.request.session['currency_selected']
-        return SQL.Get(Model_Delivery, currency=currency).price

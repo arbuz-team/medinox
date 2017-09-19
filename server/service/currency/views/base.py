@@ -1,7 +1,39 @@
 from server.service.translator.views import *
+import urllib.request
 
 
 class Base_Currency_Manager(Base):
+
+    @staticmethod
+    def Exchange_Rate(amount, currency_from, currency_to):
+
+        # create url
+        url = 'https://finance.google.com/finance/converter?a={0}&from={1}&to={2}'
+        url = url.format(amount, currency_from, currency_to)
+
+        # get html
+        fp = urllib.request.urlopen(url)
+        html = fp.read().decode('ISO-8859-1')
+        fp.close()
+
+        # parse html
+        html = html[html.find('span'):html.rfind('span')]
+        price = html[html.find('>'):html.rfind('<')]
+        price = float(price[1:-4])
+
+        return '{0:.2f}'.format(price)
+
+    def Get_Price(self, price):
+        price_pln = price
+
+        switch = {
+            'PLN': price_pln,
+            'EUR': self.Exchange_Rate(price_pln, 'PLN', 'EUR'),
+            'GBP': self.Exchange_Rate(price_pln, 'PLN', 'GBP'),
+        }
+
+        currency = self.request.session['currency_selected']
+        return float(switch[currency])
 
     def Set_Default_Currency(self):
 
