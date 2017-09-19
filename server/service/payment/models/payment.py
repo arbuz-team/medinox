@@ -54,8 +54,6 @@ class Model_Payment(Abstract_Model):
 
             # delivery prices for first user address
             currency_manager = Base_Currency_Manager(_object)
-            delivery_prices = SQL.First(Model_Delivery)
-            delivery = currency_manager.Get_Price() # zależy od produktów!!
             payment = Model_Payment(
                 user=user,
                 date=datetime.today().date(),

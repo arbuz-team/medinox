@@ -207,7 +207,7 @@
 						</div>
 
 						<div class="header-name-date">
-							Date of issue: 8.09.2017
+							Date of issue: {{ payment.date }}
 						</div>
 					</div>
 
@@ -217,10 +217,18 @@
 						</div>
 
 						<div class="header-block-content">
-							Fundacja Rozwoju <br>
-							ZHP Chorągiew Gdańska <br>
-							ul. Za Murami 2-10, 80823 Gdańsk <br>
-							NIP: 583-317-37-73 <br>
+
+							{% if seller.company_name %}
+								{{ seller.company_name }} <br>
+								{{ seller.address_line }} <br>
+								{{ seller.postcode }} {{ seller.city }}<br>
+								NIP: {{ seller.nip }} <br>
+							{% else %}
+								{{ seller.name }} {{ seller.surname }} <br>
+								{{ seller.address_line }} <br>
+								{{ seller.postcode }} {{ seller.city }}<br>
+							{% endif %}
+
 						</div>
 					</div>
 
@@ -230,10 +238,18 @@
 						</div>
 
 						<div class="header-block-content">
-							Fundacja Rozwoju <br>
-							ZHP Chorągiew Gdańska <br>
-							ul. Za Murami 2-10, 80823 Gdańsk <br>
-							NIP: 583-317-37-73 <br>
+
+							{% if client.company_name %}
+								{{ client.company_name }} <br>
+								{{ client.address_line }} <br>
+								{{ client.postcode }} {{ client.city }}<br>
+								NIP: {{ client.nip }} <br>
+							{% else %}
+								{{ client.name }} {{ client.surname }} <br>
+								{{ client.address_line }} <br>
+								{{ client.postcode }} {{ client.city }}<br>
+							{% endif %}
+
 						</div>
 					</div>
 
@@ -243,18 +259,20 @@
 				<div class="tables">
 					<table class="table table-1">
 
-						<tr>
-							<th>no.</th>
-							<th class="table-head-name">Product name</th>
-							<th>Number</th>
-							<th>VAT</th>
-							<th>VAT amount</th>
-							<th>Netto amount</th>
-							<th>Brutto amount</th>
-						</tr>
+						<thead>
+							<tr>
+								<th>no.</th>
+								<th class="table-head-name">Product name</th>
+								<th>Number</th>
+								<th>VAT</th>
+								<th>VAT amount</th>
+								<th>Netto amount</th>
+								<th>Brutto amount</th>
+							</tr>
+						</thead>
 
+						<tbody>
 						<!--{% for selected in invoice.products %}-->
-
 							<tr>
 								<td>1.</td>
 								<td>{{ selected.product }}</td>
@@ -274,8 +292,9 @@
 								<td>27.00 PLN</td>
 								<td>27.23 PLN</td>
 							</tr>
-
 						<!--{% endfor %}-->
+						</tbody>
+
 					</table>
 
 
