@@ -65,5 +65,7 @@ class Base_Service(Base):
         self.initial = None
         self.context = dialog.context
 
-        if dialog.not_valid: self.HTML = self.Not_Valid()
+        if dialog.not_valid:
+            self.HTML = self.Not_Valid()
+
         else: self.HTML = self.Manage()

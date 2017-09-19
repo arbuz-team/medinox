@@ -57,5 +57,6 @@ class Dialog_Prompt(Dialog):
 
         Dialog.__init__(self, _object, apply, not_valid)
         self.other_value = other_value
+        self.context.update(_object.context)
 
         self.HTML = self.Manage()
