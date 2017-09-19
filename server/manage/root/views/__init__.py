@@ -7,3 +7,4 @@ from .social_media import *
 from .users_payments import *
 from .search_payments import *
 from .selected_user_payment import *
+from .payment_settings import *

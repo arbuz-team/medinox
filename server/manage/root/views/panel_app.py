@@ -33,6 +33,11 @@ class Panel_App(Website_Manager):
                 'url': path_manager.Get_Path('root.delivery_settings', current_language=True),
                 'icon': '/static/img/icons/128/dark/transport.png',
             },
+            {
+                'name': Text(self, 205),
+                'url': path_manager.Get_Path('root.payment_settings', current_language=True),
+                'icon': '/static/img/icons/128/dark/payment_settings.png',
+            },
         ]
 
         return self.Render_HTML('arbuz/panel_app.html')
