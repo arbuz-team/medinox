@@ -2,7 +2,7 @@
 *.pyc
 *.swp
 *.swo
-*settings.py
+server/manage/switch/settings.py
 update_settings.sh
 update_settings_outside.sh
 *migrations*
