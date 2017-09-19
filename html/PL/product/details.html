@@ -43,7 +43,7 @@
 
             <div class="block-content-right">
 
-                <form method="post" action="/payment/buy/{{ product.pk }}/" id="form_buy" data-name="buy" data-type="buy">
+                <form method="post" action="/płatności/kup_teraz/{{ product.pk }}/" id="form_buy" data-name="buy" data-type="buy">
 
                     <div class="product_details-section title">
                         <h1>{{ product.name }}</h1>
@@ -71,7 +71,7 @@
                                             type="button"
                                             data-action="add"
                                             data-name="redirect_for_buy"
-                                            data-address="/payment/cart/{{ product.pk }}/"
+                                            data-address="/płatności/koszyk/{{ product.pk }}/"
                                             value="yes">
                                         Dodaj do koszyka
                                     </button>
@@ -86,7 +86,7 @@
                                                 data-value="{{ product.pk }}"
                                                 data-other_1="action:delete"
                                                 data-reload="ground"
-                                                data-url="/product/manage/">
+                                                data-url="/produkt/zarządzaj/">
                                             Usuń z ulubionych
                                         </button>
                                     {% else %}
@@ -97,7 +97,7 @@
                                                 data-value="{{ product.pk }}"
                                                 data-other_1="action:append"
                                                 data-reload="ground"
-                                                data-url="/product/manage/">
+                                                data-url="/produkt/zarządzaj/">
                                             Dodaj do ulubionych
                                         </button>
                                     {% endif %}
@@ -121,8 +121,8 @@
                                             data-dialog-name="Delete_{{ product.pk }}"
                                             data-dialog-action="delete"
                                             data-dialog-value="{{ product.pk }}"
-                                            data-dialog-redirect="/catalog/"
-                                            data-dialog-url="/product/manage/">
+                                            data-dialog-redirect="/katalog/"
+                                            data-dialog-url="/produkt/zarządzaj/">
                                         Usuń
                                     </button>
 
@@ -136,7 +136,7 @@
                                                     <!--data-value="{{ product.pk }}"-->
                                                     <!--data-other_1="action:delete"-->
                                                     <!--data-reload="ground"-->
-                                                    <!--data-url="/product/manage/">-->
+                                                    <!--data-url="/produkt/zarządzaj/">-->
                                                 <!--Remove form recommended-->
                                             <!--</button>-->
                                         <!--{% else %}-->
@@ -147,7 +147,7 @@
                                                     <!--data-value="{{ product.pk }}"-->
                                                     <!--data-other_1="action:append"-->
                                                     <!--data-reload="ground"-->
-                                                    <!--data-url="/product/manage/">-->
+                                                    <!--data-url="/produkt/zarządzaj/">-->
                                                 <!--Add to recommended-->
                                             <!--</button>-->
                                         <!--{% endif %}-->
