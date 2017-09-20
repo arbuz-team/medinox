@@ -27,7 +27,7 @@ class Payment_Manager(Website_Manager):
 
         model_manager = Payment_Models_Manager(self)
         payment = model_manager.Get_Cart()
-        Update_Total_Price(self, payment)
+        payment.Update_Total_Price(self)
 
         self.context['user'] = self.request.session['user_user']
         self.context['cart'] = SQL.Filter(Model_Payment_Product, payment=payment)
