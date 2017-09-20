@@ -32,6 +32,19 @@ class Model_Social_Media(Abstract_Model):
 
 class Model_Delivery(Abstract_Model):
 
-    price_on_receipt = models.FloatField()
-    price_in_advance = models.FloatField()
+    delivery_price = models.FloatField()
+    cash_on_delivery = models.FloatField()
 
+
+
+class Model_Delivery_Method(Abstract_Model):
+
+    method = models.CharField(max_length=30)
+    is_active = models.BooleanField()
+
+
+
+class Model_Payment_Method(Abstract_Model):
+
+    method = models.CharField(max_length=30)
+    is_active = models.BooleanField()

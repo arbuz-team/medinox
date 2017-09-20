@@ -13,13 +13,13 @@ class Delivery_Settings(Website_Manager):
         if self.request.POST['_name_'] == 'delivery_settings':
             delivery = SQL.First(Model_Delivery)
 
-            if self.request.POST['price_on_receipt']:
-                delivery.price_on_receipt = \
-                    self.request.POST['price_on_receipt']
+            if self.request.POST['delivery_price']:
+                delivery.delivery_price = \
+                    self.request.POST['delivery_price']
 
-            if self.request.POST['price_in_advance']:
-                delivery.price_on_receipt = \
-                    self.request.POST['price_in_advance']
+            if self.request.POST['cash_on_delivery']:
+                delivery.cash_on_delivery = \
+                    self.request.POST['cash_on_delivery']
 
             SQL.Save(data=delivery)
             return HttpResponse()

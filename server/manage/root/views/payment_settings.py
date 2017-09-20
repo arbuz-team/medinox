@@ -5,23 +5,29 @@ from server.service.payment.forms import *
 class Payment_Settings(Website_Manager):
 
     def Manage_Content(self):
-        self.context['delivery'] = SQL.First(Model_Delivery)
+        self.context['payment_method'] = SQL.All(Model_Payment_Method)
         return self.Render_HTML('root/payment_settings.html')
 
     def Manage_Form(self):
 
-        if self.request.POST['_name_'] == 'delivery_settings':
-            delivery = SQL.First(Model_Delivery)
+        if self.request.POST['_name_'] == 'payment_settings':
 
-            if self.request.POST['price_on_receipt']:
-                delivery.price_on_receipt = \
-                    self.request.POST['price_on_receipt']
+            keys = self.request.POST.keys()
 
-            if self.request.POST['price_in_advance']:
-                delivery.price_on_receipt = \
-                    self.request.POST['price_in_advance']
+            methods = SQL.All(Model_Payment_Method)
+            for method in methods:
+                method.is_active = False
+                SQL.Save(data=method)
 
-            SQL.Save(data=delivery)
+            for key in keys:
+
+                if not SQL.Filter(Model_Payment_Method, method=key):
+                    continue
+
+                method = SQL.Get(Model_Payment_Method, method=key)
+                method.is_active = True
+                SQL.Save(data=method)
+
             return HttpResponse()
 
     @staticmethod

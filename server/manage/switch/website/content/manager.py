@@ -1,3 +1,4 @@
+from server.manage.switch.settings import DEBUG
 from .block import *
 
 
@@ -65,24 +66,20 @@ class Direct_Block_Manager(Base):
         self.ground_content = ground_content
 
         variables = self.request.POST.keys()
-        exception = None
         response = {}
 
         # manage only block variables
         for var in variables:
             if var.startswith('__') and var.endswith('__'):
 
-                try:
+                if DEBUG: response[var] = self.Create_Block(var)
+                else:
 
-                    response[var] = self.Create_Block(var)
-                    self.request.session['arbuz_response'] = response
+                    try: response[var] = self.Create_Block(var)
+                    except Exception as e:
+                        pass
 
-                except Exception as e:
-                    exception = e
-
-        # error in some blocks
-        if exception:
-            raise exception
+                self.request.session['arbuz_response'] = response
 
         # response
         self.request.session['arbuz_response'] = {}

@@ -1,5 +1,5 @@
 from .company_details import *
-from .delivery import *
+from .delivery_settings import *
 from .panel_app import *
 from .sign_in import *
 from .sign_out import *
