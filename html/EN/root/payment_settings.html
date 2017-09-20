@@ -22,25 +22,34 @@
 	        <div> Choose available payment ways </div>
 
 	        <div class="selecter checkbox">
-		        <input name="paypal" id="id_paypal" class="input" type="checkbox" value="true">
+
+		        {% if payment_method.0.is_active %}
+		            {% var 'checked_status_0' 'checked' %}
+		        {% endif %}
+
+		        <input name="paypal" id="id_paypal" class="input" type="checkbox" value="true" {{ checked_status_0 }}>
 		        <label for="id_paypal" class="selecter-field"></label>
 		        <label for="id_paypal" class="selecter-text">PayPal</label>
 	        </div>
 
 	        <div class="selecter checkbox">
-		        <input name="dotpay" id="id_dotpay" class="input" type="checkbox" value="true">
+
+		        {% if payment_method.1.is_active %}
+		            {% var 'checked_status_1' 'checked' %}
+		        {% endif %}
+
+		        <input name="dotpay" id="id_dotpay" class="input" type="checkbox" value="true" {{ checked_status_1 }}>
 		        <label for="id_dotpay" class="selecter-field"></label>
 		        <label for="id_dotpay" class="selecter-text">Dotpay</label>
 	        </div>
 
 	        <div class="selecter checkbox">
-		        <input name="cash_on_delivery" id="id_cash_on_delivery" class="input" type="checkbox" value="true">
-		        <label for="id_cash_on_delivery" class="selecter-field"></label>
-		        <label for="id_cash_on_delivery" class="selecter-text">Cash on delivery</label>
-	        </div>
 
-	        <div class="selecter checkbox">
-		        <input name="delayed_transfer" id="id_delayed_transfer" class="input" type="checkbox" value="true">
+		        {% if payment_method.2.is_active %}
+		            {% var 'checked_status_2' 'checked' %}
+		        {% endif %}
+
+		        <input name="delayed_transfer" id="id_delayed_transfer" class="input" type="checkbox" value="true" {{ checked_status_2 }}>
 		        <label for="id_delayed_transfer" class="selecter-field"></label>
 		        <label for="id_delayed_transfer" class="selecter-text">Delayed transfer</label>
 	        </div>

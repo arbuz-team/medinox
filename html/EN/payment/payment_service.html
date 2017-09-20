@@ -25,7 +25,7 @@
 
 		<div class="title">Choose payment method</div>
 
-		{% if payment_way.paypal %}
+		{% if payment_method.paypal %}
 			<div class="cart-list-button">
 				<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
 					{{ paypal.as_p }}
@@ -39,7 +39,7 @@
 			</div>
 		{% endif %}
 
-		{% if payment_way.dotpay %}
+		{% if payment_method.dotpay %}
 			<div class="cart-list-button">
 				<form action="https://ssl.dotpay.pl/test_payment/" method="post">
 					{{ dotpay.as_p }}
@@ -53,7 +53,7 @@
 			</div>
 		{% endif %}
 
-		{% if payment_way.delayed_transfer %}
+		{% if payment_method.delayed_transfer %}
 			<div class="cart-list-button">
 
 				<a href="/payment/delayed_transfer/" class="payment-button button">
