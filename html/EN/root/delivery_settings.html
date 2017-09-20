@@ -8,39 +8,43 @@
 </script>
 
 
-<div class="ground-block block-1 SMALL deliver_settings">
+<div class="ground-block block-1 MEDIUM deliver_settings">
 
     <div class="block-background fill-abs"></div>
     {% include "block/ground/html/navigation.html" %}
 
-    <div class="block-content is-right-inside">
+    <div class="block-content">
 
         <form class="auto_form" data-name="delivery_settings">
 
             <div class="title">Price for delivery</div>
 
             <div>
-	            <label for="id_price_on_receipt"> Normal price: </label>
+	            <label for="id_delivery_price" class="is-block_inline is-width-50 is-right-inside">
+		            Delivery price:
+	            </label>
 	            <input class="input"
-	                   name="price_on_receipt"
-	                   id="id_price_on_receipt"
+	                   name="delivery_price"
+	                   id="id_delivery_price"
 	                   type="number"
 	                   step="0.01"
 	                   value="{{ price }}">
             </div>
 
 	        <div>
-	            <label for="id_price_in_advance"> Price with postage: </label>
-	            <input class="input"
-	                   name="price_in_advance"
-	                   id="id_price_in_advance"
-	                   type="number"
-	                   step="0.01"
-	                   value="{{ price_postage }}">
+	            <label for="id_cash_on_delivery" class="is-block_inline is-width-50 is-right-inside">
+		            Cash on Delivery shipment:
+	            </label>
+		        <input class="input"
+		               name="cash_on_delivery"
+		               id="id_cash_on_delivery"
+		               type="number"
+		               step="0.01"
+		               value="{{ price_postage }}">
             </div>
 
-	        <div>
-		        <button class="button is-important is-width-50">
+	        <div class="is-center-inside">
+		        <button class="button is-important is-width-20">
 			        Save
 		        </button>
 	        </div>

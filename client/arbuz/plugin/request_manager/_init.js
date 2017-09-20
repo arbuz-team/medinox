@@ -36,7 +36,7 @@ export function Request_Manager()
 				console.log(data);
 				console.groupEnd();
 
-				// this._show_error(json);
+				this._show_error(json);
 
 				return data;
 			}
