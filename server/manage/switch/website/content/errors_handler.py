@@ -71,7 +71,7 @@ class Errors_Handler(Base):
                 .Error(self.response_class, self.context)
 
             # append error html to response
-            response[block] = Direct_Block_Manager\
+            response[block] = Direct_Block_Manager(self)\
                 .Packing(response_html)
 
         self.request.session['arbuz_response'] = {}
