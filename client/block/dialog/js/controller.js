@@ -70,6 +70,22 @@ export function Dialog_Controller()
 			{
 				// loading.then(loader.define);
 			});
+		},
+
+
+		open_with_my_text = function(event)
+		{
+			let
+				title = event.detail.title,
+				content = event.detail.content;
+
+			designer.open().then(() =>
+			{
+				loader.set_text({
+					title: title,
+					content: content,
+				});
+			});
 		};
 
 
@@ -82,5 +98,6 @@ export function Dialog_Controller()
 		$(config.external_button).click(open);
 		APP.add_own_event('dialog_close', close);
 		APP.add_own_event('dialog_reload', reload);
+		APP.add_own_event('open_dialog_with_text', open_with_my_text);
 	};
 }

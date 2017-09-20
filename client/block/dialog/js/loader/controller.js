@@ -60,6 +60,13 @@ export function Dialog_Loader_Controller(config)
 	};
 
 
+	this.set_text = function(data)
+	{
+		view.set_text(data);
+		this.define();
+	};
+
+
 	this.define = function()
 	{
 		form_controller.define();

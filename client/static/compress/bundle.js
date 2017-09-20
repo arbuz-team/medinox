@@ -210,7 +210,7 @@
 	
 	var _controller6 = __webpack_require__(31);
 	
-	var _block = __webpack_require__(14);
+	var _block = __webpack_require__(11);
 	
 	function Page_Controller() {
 		if (_typeof(Page_Controller.instance) === 'object') return Page_Controller.instance;
@@ -362,13 +362,13 @@
 	});
 	exports.Block_Loader_Part = Block_Loader_Part;
 	
-	var _structure = __webpack_require__(11);
-	
-	var _data = __webpack_require__(13);
-	
-	var _block = __webpack_require__(14);
+	var _block = __webpack_require__(11);
 	
 	var _controller = __webpack_require__(18);
+	
+	var _structure = __webpack_require__(12);
+	
+	var _data = __webpack_require__(15);
 	
 	var _standard = __webpack_require__(20);
 	
@@ -429,6 +429,14 @@
 				};
 	
 				resolve(precise_data);
+			}).catch(function (response) {
+				var precise_data = {
+					status: 'error',
+					html: response.content,
+					code: response.code
+				};
+	
+				reject(precise_data);
 			});
 		});
 	};
@@ -489,6 +497,21 @@
 					_this4._show_content().then(function () {
 						resolve(response);
 					});
+				}).catch(function (response) {
+					var dialog_event = new CustomEvent('open_dialog_with_text', {
+						'detail': {
+							title: 'Error',
+							content: 'Error code: ' + response.code
+						}
+					});
+	
+					APP.throw_event(dialog_event);
+	
+					_this4._prepare_content_to_show(response);
+	
+					_this4._show_content().then(function () {
+						resolve(response);
+					});
 				});
 			});
 		});
@@ -511,165 +534,14 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.data_controller = undefined;
-	
-	__webpack_require__(12);
-	
-	var data_controller = exports.data_controller = new function Data_Controller() {
-		var private_data = void 0,
-		    public_data = void 0;
-	
-		this.reset = function () {
-			private_data = {
-				path: location.pathname,
-				all_url: location.href,
-				history: [],
-				csrf_token: $('input[ name=csrfmiddlewaretoken ]').val() || ''
-			};
-	
-			public_data = {
-				can_do_redirect: false,
-				can_do_open_plugin: true,
-				page_name: 'Medinox',
-				title: 'Loading - Medinox',
-				description: 'This page is shop, which is ownership Medinox.',
-				statement_content: 'Empty statement.'
-			};
-		};
-	
-		this.reset();
-	
-		this.get = function (name) {
-			if (typeof private_data[name] !== 'undefined') return private_data[name];else if (typeof public_data[name] !== 'undefined') return public_data[name];else {
-				console.warn('Data structure error: Wrong call! Veriable with this name doesn\'t exist: "' + name + '".');
-			}
-		};
-	
-		this.get_crsf = function (what) {
-			if (what === 'name') return 'csrfmiddlewaretoken';else if (what === 'value') return private_data.csrf_token;else console.warn('Data structure error: Wrong call! Veriable with this name doesn\'t exist (crsf).');
-		};
-	
-		this.change = function (name, value) {
-			if (typeof public_data[name] !== 'undefined' && typeof value !== 'undefined') public_data[name] = value;else console.warn('Data structure error: Wrong call! Veriable with this name doesn\'t exist: "' + name + '".');
-		};
-	
-		this.change_much = function (object) {
-			for (var name in object) {
-				if (object.hasOwnProperty(name)) {
-					if (name === 'title') {
-						if (object[name] !== '') this.change(name, object[name] + ' - ' + public_data.page_name);else this.change(name, public_data.page_name);
-					} else this.change(name, object[name]);
-				}
-			}
-		};
-	}();
-
-/***/ },
-/* 12 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	window.EVENTS = {
-		send_request: new Event('send_request'),
-		define: new Event('define'),
-		redirect: new Event('redirect'),
-		reload_website: new Event('reload_website'),
-	
-		part: {
-			open_cart: new Event('cart_open'),
-			open_menu_mobile: new Event('menu_mobile_open'),
-			open_searcher: new Event('searcher_open'),
-	
-			open_or_close_cart: new Event('cart_open_or_close'),
-	
-			close: new Event('part_close'),
-			close_cart: new Event('cart_close'),
-			close_menu_mobile: new Event('menu_mobile_close'),
-			close_dialog: new Event('dialog_close'),
-	
-			reload_root_sign_in: new Event('reload_root_sign_in'),
-			reload_user_sign_in: new Event('reload_user_sign_in'),
-	
-			reload_menu_mobile: new Event('menu_mobile_reload'),
-			reload_menu: new Event('menu_reload'),
-			reload_cart: new Event('cart_reload'),
-			reload_searcher: new Event('searcher_reload'),
-			reload_ground: new Event('ground_reload'),
-			reload_dialog: new Event('dialog_reload')
-		}
-	};
-
-/***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	var is_undefined = exports.is_undefined = function is_undefined(object) {
-		return typeof object === 'undefined';
-	},
-	    is_defined = exports.is_defined = function is_defined(object) {
-		return typeof object !== 'undefined';
-	},
-	    is_number = exports.is_number = function is_number(object) {
-		return typeof object === 'number';
-	},
-	    is_not_number = exports.is_not_number = function is_not_number(object) {
-		return typeof object !== 'number';
-	},
-	    is_empty = exports.is_empty = function is_empty(string) {
-		return string === '';
-	},
-	    object_to_formdata = exports.object_to_formdata = function object_to_formdata(obj) {
-		var form_data = new FormData();
-	
-		for (var prop in obj) {
-			if (obj.hasOwnProperty(prop)) form_data.append(prop, obj[prop]);
-		}return form_data;
-	},
-	    select_number = exports.select_number = function select_number(to_checking, emergency) {
-		if (is_number(to_checking)) return to_checking;
-	
-		if (is_number(emergency)) return emergency;
-	
-		console.error('Utilities data error: Variable emergency is not number.');
-		return undefined;
-	},
-	    add_to_object = exports.add_to_object = function add_to_object(from, to, from_what, to_what) {
-		if (is_undefined(from[from_what])) return false;
-	
-		if (from_what && to_what) to[to_what] = from[from_what];else if (from_what) to[from_what] = from[from_what];
-	},
-	    add_to_settings = exports.add_to_settings = function add_to_settings(from, to, from_what, to_what) {
-		if (is_undefined(to) && is_undefined(to._settings)) {
-			console.error('Data Utilities error: Invalid object.');
-			return false;
-		}
-	
-		add_to_object(from, to._settings, from_what, to_what);
-	};
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
 	exports.Request_Manager_Block = Request_Manager_Block;
 	
-	var _structure = __webpack_require__(11);
+	var _structure = __webpack_require__(12);
 	
-	var _init = __webpack_require__(15);
+	var _init = __webpack_require__(14);
 	
 	__webpack_require__(17);
 	
@@ -762,6 +634,8 @@
 	
 		this._send_request().then(function (response) {
 			resolve(response);
+		}).catch(function (response) {
+			reject(response);
 		});
 	};
 	
@@ -807,9 +681,14 @@
 			_this2._add_request(post_url, post_data);
 	
 			_this2._run_sending().then(function (response) {
-				if (typeof response.json[post_name] !== 'undefined') response = response.json[post_name];else reject('Request_Manager_Block error: Invalid response.');
+				if (typeof response.json[post_name] !== 'undefined') response = response.json[post_name];else reject({
+					content: 'Request_Manager_Block error: Invalid response.',
+					code: response.code
+				});
 	
 				resolve(response);
+			}).catch(function (response) {
+				reject(response);
 			});
 		});
 	};
@@ -821,7 +700,105 @@
 	};
 
 /***/ },
-/* 15 */
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.data_controller = undefined;
+	
+	__webpack_require__(13);
+	
+	var data_controller = exports.data_controller = new function Data_Controller() {
+		var private_data = void 0,
+		    public_data = void 0;
+	
+		this.reset = function () {
+			private_data = {
+				path: location.pathname,
+				all_url: location.href,
+				history: [],
+				csrf_token: $('input[ name=csrfmiddlewaretoken ]').val() || ''
+			};
+	
+			public_data = {
+				can_do_redirect: false,
+				can_do_open_plugin: true,
+				page_name: 'Medinox',
+				title: 'Loading - Medinox',
+				description: 'This page is shop, which is ownership Medinox.',
+				statement_content: 'Empty statement.'
+			};
+		};
+	
+		this.reset();
+	
+		this.get = function (name) {
+			if (typeof private_data[name] !== 'undefined') return private_data[name];else if (typeof public_data[name] !== 'undefined') return public_data[name];else {
+				console.warn('Data structure error: Wrong call! Veriable with this name doesn\'t exist: "' + name + '".');
+			}
+		};
+	
+		this.get_crsf = function (what) {
+			if (what === 'name') return 'csrfmiddlewaretoken';else if (what === 'value') return private_data.csrf_token;else console.warn('Data structure error: Wrong call! Veriable with this name doesn\'t exist (crsf).');
+		};
+	
+		this.change = function (name, value) {
+			if (typeof public_data[name] !== 'undefined' && typeof value !== 'undefined') public_data[name] = value;else console.warn('Data structure error: Wrong call! Veriable with this name doesn\'t exist: "' + name + '".');
+		};
+	
+		this.change_much = function (object) {
+			for (var name in object) {
+				if (object.hasOwnProperty(name)) {
+					if (name === 'title') {
+						if (object[name] !== '') this.change(name, object[name] + ' - ' + public_data.page_name);else this.change(name, public_data.page_name);
+					} else this.change(name, object[name]);
+				}
+			}
+		};
+	}();
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	window.EVENTS = {
+		send_request: new Event('send_request'),
+		define: new Event('define'),
+		redirect: new Event('redirect'),
+		reload_website: new Event('reload_website'),
+	
+		part: {
+			open_cart: new Event('cart_open'),
+			open_menu_mobile: new Event('menu_mobile_open'),
+			open_searcher: new Event('searcher_open'),
+	
+			open_or_close_cart: new Event('cart_open_or_close'),
+	
+			close: new Event('part_close'),
+			close_cart: new Event('cart_close'),
+			close_menu_mobile: new Event('menu_mobile_close'),
+			close_dialog: new Event('dialog_close'),
+	
+			reload_root_sign_in: new Event('reload_root_sign_in'),
+			reload_user_sign_in: new Event('reload_user_sign_in'),
+	
+			reload_menu_mobile: new Event('menu_mobile_reload'),
+			reload_menu: new Event('menu_reload'),
+			reload_cart: new Event('cart_reload'),
+			reload_searcher: new Event('searcher_reload'),
+			reload_ground: new Event('ground_reload'),
+			reload_dialog: new Event('dialog_reload')
+		}
+	};
+
+/***/ },
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -831,9 +808,9 @@
 	});
 	exports.Request_Manager = Request_Manager;
 	
-	var _structure = __webpack_require__(11);
+	var _structure = __webpack_require__(12);
 	
-	var _data = __webpack_require__(13);
+	var _data2 = __webpack_require__(15);
 	
 	var _model = __webpack_require__(16);
 	
@@ -856,15 +833,18 @@
 				console.groupEnd();
 				return data;
 			} catch (e) {
-				error = true;
-	
-				console.log({
+				var _data = {
 					json: json,
 					code: code
-				});
+				};
+				error = true;
+	
+				console.log(_data);
 				console.groupEnd();
 	
 				_this._show_error(json);
+	
+				return _data;
 			}
 		},
 		    check_status = function check_status(code) {
@@ -875,7 +855,7 @@
 			return new Promise(function (resolve, reject) {
 				var xhr = new XMLHttpRequest(),
 				    method = obj.method || "GET",
-				    data = (0, _data.object_to_formdata)(obj.data);
+				    data = (0, _data2.object_to_formdata)(obj.data);
 	
 				error = false;
 				model._request_status = true;
@@ -952,13 +932,18 @@
 					model._request_status = false;
 					resolve(response);
 				}).catch(function (response) {
-					console.trace();
-					reject('Request Manager error: Invalid response.');
+					reject({
+						content: 'Request Manager error: Invalid response.',
+						code: response.code
+					});
 				});
 			} else {
 				console.trace();
 				console.warn(post_data);
-				reject('Request Manager error: Invalid post data.');
+				reject({
+					content: 'Request Manager error: Invalid post data.',
+					code: undefined
+				});
 			}
 		});
 	
@@ -975,6 +960,59 @@
 		console.error('Request Manager error: Request Timeout. ' + 'Run `send` in Request Manager.');
 	
 		this._clear_request();
+	};
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	var is_undefined = exports.is_undefined = function is_undefined(object) {
+		return typeof object === 'undefined';
+	},
+	    is_defined = exports.is_defined = function is_defined(object) {
+		return typeof object !== 'undefined';
+	},
+	    is_number = exports.is_number = function is_number(object) {
+		return typeof object === 'number';
+	},
+	    is_not_number = exports.is_not_number = function is_not_number(object) {
+		return typeof object !== 'number';
+	},
+	    is_empty = exports.is_empty = function is_empty(string) {
+		return string === '';
+	},
+	    object_to_formdata = exports.object_to_formdata = function object_to_formdata(obj) {
+		var form_data = new FormData();
+	
+		for (var prop in obj) {
+			if (obj.hasOwnProperty(prop)) form_data.append(prop, obj[prop]);
+		}return form_data;
+	},
+	    select_number = exports.select_number = function select_number(to_checking, emergency) {
+		if (is_number(to_checking)) return to_checking;
+	
+		if (is_number(emergency)) return emergency;
+	
+		console.error('Utilities data error: Variable emergency is not number.');
+		return undefined;
+	},
+	    add_to_object = exports.add_to_object = function add_to_object(from, to, from_what, to_what) {
+		if (is_undefined(from[from_what])) return false;
+	
+		if (from_what && to_what) to[to_what] = from[from_what];else if (from_what) to[from_what] = from[from_what];
+	},
+	    add_to_settings = exports.add_to_settings = function add_to_settings(from, to, from_what, to_what) {
+		if (is_undefined(to) && is_undefined(to._settings)) {
+			console.error('Data Utilities error: Invalid object.');
+			return false;
+		}
+	
+		add_to_object(from, to._settings, from_what, to_what);
 	};
 
 /***/ },
@@ -1005,7 +1043,7 @@
 	});
 	exports.Request_Manager = undefined;
 	
-	var _init = __webpack_require__(15);
+	var _init = __webpack_require__(14);
 	
 	Object.defineProperty(exports, 'Request_Manager', {
 		enumerable: true,
@@ -1106,13 +1144,13 @@
 		}
 	});
 	
-	var _structure = __webpack_require__(11);
+	var _structure = __webpack_require__(12);
 	
-	var _data = __webpack_require__(13);
+	var _data = __webpack_require__(15);
 	
 	var _standard = __webpack_require__(20);
 	
-	var _block = __webpack_require__(14);
+	var _block = __webpack_require__(11);
 	
 	__webpack_require__(21);
 	
@@ -1192,7 +1230,7 @@
 	});
 	exports.Block_Loader = Block_Loader;
 	
-	var _data = __webpack_require__(13);
+	var _data = __webpack_require__(15);
 	
 	function Block_Loader(config) {
 	
@@ -1252,7 +1290,7 @@
 	});
 	exports.timeout_promise = undefined;
 	
-	var _data = __webpack_require__(13);
+	var _data = __webpack_require__(15);
 	
 	var timeout_promise = exports.timeout_promise = function timeout_promise(delay) {
 		if ((0, _data.is_not_number)(delay)) delay = 0;
@@ -1270,9 +1308,9 @@
 
 	'use strict';
 	
-	var _structure = __webpack_require__(11);
+	var _structure = __webpack_require__(12);
 	
-	var _block = __webpack_require__(14);
+	var _block = __webpack_require__(11);
 	
 	var _init = __webpack_require__(19);
 	
@@ -1616,7 +1654,7 @@
 	});
 	exports.Block_Motion_Models = undefined;
 	
-	var _structure = __webpack_require__(11);
+	var _structure = __webpack_require__(12);
 	
 	var Block_Motion_Models = exports.Block_Motion_Models = function Block_Motion_Models(config) {
 	  var that = this;
@@ -1922,7 +1960,7 @@
 	});
 	exports.launch_event = exports.redirect_ground = exports.reload_plugins = exports.prepare_delay = exports.get_and_remove_data = exports.get_data = exports.request_manager = undefined;
 	
-	var _block = __webpack_require__(14);
+	var _block = __webpack_require__(11);
 	
 	var _standard = __webpack_require__(20);
 	
@@ -2013,7 +2051,7 @@
 	});
 	exports.Block_Loader_Form = Block_Loader_Form;
 	
-	var _block = __webpack_require__(14);
+	var _block = __webpack_require__(11);
 	
 	var _block2 = __webpack_require__(10);
 	
@@ -2917,7 +2955,7 @@
 	
 	var _response = __webpack_require__(44);
 	
-	var _data = __webpack_require__(13);
+	var _data = __webpack_require__(15);
 	
 	var _main = __webpack_require__(43);
 	
@@ -3691,7 +3729,7 @@
 	
 	var _main = __webpack_require__(43);
 	
-	var _data = __webpack_require__(13);
+	var _data = __webpack_require__(15);
 	
 	var Auto_Form_Models = exports.Auto_Form_Models = function Auto_Form_Models(config) {
 		var _this = this;
@@ -4428,6 +4466,17 @@
 			var loading = loader.get_content(this);
 	
 			designer.open().then(function () {});
+		},
+		    open_with_my_text = function open_with_my_text(event) {
+			var title = event.detail.title,
+			    content = event.detail.content;
+	
+			designer.open().then(function () {
+				loader.set_text({
+					title: title,
+					content: content
+				});
+			});
 		};
 	
 		this.define = function () {
@@ -4438,6 +4487,7 @@
 			$(config.external_button).click(open);
 			APP.add_own_event('dialog_close', close);
 			APP.add_own_event('dialog_reload', reload);
+			APP.add_own_event('open_dialog_with_text', open_with_my_text);
 		};
 	}
 
@@ -4606,6 +4656,11 @@
 	
 		this.set_loading = function () {
 			view.set_loading();
+		};
+	
+		this.set_text = function (data) {
+			view.set_text(data);
+			this.define();
 		};
 	
 		this.define = function () {
@@ -5057,9 +5112,18 @@
 			$(config.form, config.container).submit();
 		};
 	
+		this.set_text = function (data) {
+			var content = '<div class="dialog-content-part">' + data.content + '</div>' + '<div class="dialog-content-part">' + '<button class="button event_button"' + 'type="button"' + 'data-name="button_close_dialog"' + 'data-event="part.close_dialog">' + 'Close</button>' + '</div>';
+	
+			$(model.settings.header).html(data.title);
+			$(model.settings.content).html(content);
+		};
+	
 		this.set_loading = function () {
-			$(model.settings.header).html('<div class="container-part-loading"> Loading... </div>');
-			$(model.settings.content).html('<div class="dialog-message"> Loading... </div>');
+			this.set_text({
+				title: '<div class="container-part-loading"> Loading... </div>',
+				content: '<div class="dialog-message"> Loading... </div>'
+			});
 		};
 	}
 

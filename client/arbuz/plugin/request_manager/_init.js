@@ -27,15 +27,18 @@ export function Request_Manager()
 			}
 			catch(e)
 			{
-				error = true;
-
-				console.log({
+				let data = {
 					json: json,
 					code: code,
-				});
+				};
+				error = true;
+
+				console.log(data);
 				console.groupEnd();
 
 				this._show_error(json);
+
+				return data;
 			}
 		},
 
@@ -166,15 +169,20 @@ Request_Manager.prototype._send_request = function()
 			})
 			.catch(response =>
 			{
-				console.trace();
-			    reject('Request Manager error: Invalid response.');
+			    reject({
+				    content: 'Request Manager error: Invalid response.',
+				    code: response.code,
+			    });
 			});
 		}
 		else
 		{
 			console.trace();
 			console.warn(post_data);
-			reject('Request Manager error: Invalid post data.');
+			reject({
+				content: 'Request Manager error: Invalid post data.',
+				code: undefined,
+			});
 		}
 	});
 

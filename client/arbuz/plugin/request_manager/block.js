@@ -127,6 +127,10 @@ Request_Manager_Block.prototype._make_request = function(timer, send_and_wait, r
 	this._send_request().then(response =>
 	{
 		resolve(response);
+	})
+	.catch((response) =>
+	{
+	    reject(response);
 	});
 };
 
@@ -188,9 +192,15 @@ Request_Manager_Block.prototype.next = function(post_url, post_data, post_name)
 			if(typeof response.json[post_name] !== 'undefined')
 				response = response.json[post_name];
 			else
-				reject('Request_Manager_Block error: Invalid response.');
+				reject({
+					content: 'Request_Manager_Block error: Invalid response.',
+					code: response.code,
+				});
 
 			resolve(response);
+		}).catch((response) =>
+		{
+		    reject(response);
 		});
 	});
 };

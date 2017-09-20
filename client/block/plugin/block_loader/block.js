@@ -2,10 +2,10 @@
  * Created by mrskull on 17.07.17.
  */
 
-import {data_controller} 	                from 'arbuz/js/structure'
-import {add_to_settings, select_number} 	from 'arbuz/plugin/utilities/data'
 import {Request_Manager_Block} 		        from 'arbuz/plugin/request_manager/block'
 import {Block_Loader} 				        from './_controller'
+import {data_controller} 	                from 'arbuz/js/structure'
+import {add_to_settings, select_number} 	from 'arbuz/plugin/utilities/data'
 import {timeout_promise}                    from "arbuz/plugin/utilities/standard";
 
 
@@ -92,6 +92,16 @@ Block_Loader_Part.prototype._receive_response = function()
 				};
 
 			resolve(precise_data);
+		})
+		.catch(response =>
+		{
+			let precise_data = {
+				status: 'error',
+				html: response.content,
+				code: response.code,
+			};
+
+			reject(precise_data);
 		});
 	});
 };
@@ -160,6 +170,25 @@ Block_Loader_Part.prototype.load_content = function(post_url, post_data)
 				this._set_content(response);
 
 				this._load_head_of_page();
+
+				this._prepare_content_to_show(response);
+
+				this._show_content().then(() =>
+				{
+					resolve(response);
+				});
+			})
+			.catch((response) =>
+			{
+				let
+					dialog_event = new CustomEvent('open_dialog_with_text', {
+						'detail': {
+							title:      'Error',
+							content:    'Error code: '+ response.code,
+						}
+					});
+
+				APP.throw_event(dialog_event);
 
 				this._prepare_content_to_show(response);
 

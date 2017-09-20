@@ -54,9 +54,28 @@ export function Dialog_Loader_View(config)
 	};
 
 
+	this.set_text = function(data)
+	{
+		let content =
+			'<div class="dialog-content-part">'+ data.content +'</div>' +
+			'<div class="dialog-content-part">'+
+				'<button class="button event_button"' +
+						'type="button"' +
+						'data-name="button_close_dialog"' +
+						'data-event="part.close_dialog">' +
+					'Close</button>' +
+			'</div>'
+
+		$(model.settings.header).html(data.title);
+		$(model.settings.content).html(content);
+	};
+
+
 	this.set_loading = function()
 	{
-		$(model.settings.header).html('<div class="container-part-loading"> Loading... </div>');
-		$(model.settings.content).html('<div class="dialog-message"> Loading... </div>');
+		this.set_text({
+			title: '<div class="container-part-loading"> Loading... </div>',
+			content: '<div class="dialog-message"> Loading... </div>',
+		})
 	};
 }
