@@ -94,23 +94,23 @@
 110:Jesteś pewny, że chcesz usunąć tego producenta? Liczba produktów podpiętych pod tego producenta {0}
 111:Usuwanie przeznaczenie produktu
 112:Jesteś pewny, że chcesz usunąć te przeznaczenie produktu? Liczba produktów podpiętych pod tego przeznaczenia {0}
-113:arbuz
-114:koszyk
-115:dialog
-116:główna
-117:nawigacja
-118:płatności
-119:pdf
-120:produkt
-121:administrator
-122:wyszukiwarka
-123:nadawca
-124:sesja
-125:ustawienia
-126:komunikaty
-127:tłumacz
-128:użytkownik
-129:użytkownik.konto
+113:Arbuz
+114:Koszyk
+115:Dialog
+116:Główna
+117:Nawigacja
+118:Płatności
+119:Pdf
+120:Produkt
+121:Administrator
+122:Wyszukiwarka
+123:Nadawca
+124:Sesja
+125:Ustawienia
+126:Komunikaty
+127:Tłumacz
+128:Użytkownik
+129:Konto Użytkownika
 130:faktura.pdf
 131:Pokaż adresy
 132:Pobierz fakturę

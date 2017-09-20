@@ -94,23 +94,23 @@
 110:Are you sure you want to remove the brand? Number of products pinned to the brand {0}
 111:Delete purpose
 112:Are you sure you want to remove the purpose? Number of products pinned to the purpose {0}
-113:arbuz
-114:cart
-115:dialog
-116:main
-117:navigation
-118:payment
-119:pdf
-120:product
-121:root
-122:searcher
-123:sender
-124:session
-125:setting
-126:statement
-127:translator
-128:user
-129:user.account
+113:Arbuz
+114:Cart
+115:Dialog
+116:Main
+117:Navigation
+118:Payment
+119:Pdf
+120:Product
+121:Root
+122:Searcher
+123:Sender
+124:Session
+125:Setting
+126:Statement
+127:Translator
+128:User
+129:User Account
 130:invoice.pdf
 131:Show addresses
 132:Get invoice

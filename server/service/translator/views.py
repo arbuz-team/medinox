@@ -51,6 +51,32 @@ class Translator(Base):
 
         return None
 
+    def Get_App_Name(self):
+
+        apps = {
+            'arbuz':        113,
+            'cart':         114,
+            'dialog':       115,
+            'main':         116,
+            'navigation':   117,
+            'payment':      118,
+            'pdf':          119,
+            'product':      120,
+            'root':         121,
+            'searcher':     122,
+            'sender':       123,
+            'session':      124,
+            'setting':      125,
+            'statement':    126,
+            'translator':   127,
+            'user':         128,
+            'account':      129,
+        }
+
+        full_name = self.request.session['arbuz_app']
+        app_name = full_name.rsplit('.', 2)[1]
+        return Text(self, apps[app_name])
+
 
 def Text(_object=None, pk=0, language=None, request=None):
 
