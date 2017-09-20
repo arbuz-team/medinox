@@ -168,16 +168,16 @@ export let
 			{
 				let select_event = events_array[i],
 					split_event,
-					events = EVENTS,
-					ready_event;
+					ready_event = EVENTS;
 
 				split_event = select_event.split('.');
 
+
 				for(let i = 0; split_event.length > i; ++i)
-					if(typeof events[split_event[i]] === 'undefined')
+					if(typeof ready_event[split_event[i]] === 'undefined')
 					{
 						let
-							fun = get_event_creator(events, split_event[i]),
+							fun = get_event_creator(ready_event, split_event[i]),
 							args = get_args_from_event(split_event[i]);
 
 						if(fun && args)
@@ -186,7 +186,7 @@ export let
 							console.error('Launch Event error: Event '+ split_event[i] +' doesn\'t exist.');
 					}
 					else
-						ready_event = events[split_event[i]];
+						ready_event = ready_event[split_event[i]];
 
 
 				if(ready_event.constructor === Event || ready_event.constructor === CustomEvent)

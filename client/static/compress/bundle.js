@@ -823,6 +823,8 @@
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function Request_Manager() {
+		var _this = this;
+	
 		var error = false,
 		    pack_response = function pack_response(json, code) {
 			try {
@@ -843,6 +845,8 @@
 	
 				console.log(_data);
 				console.groupEnd();
+	
+				_this._show_error(json);
 	
 				return _data;
 			}
@@ -915,16 +919,16 @@
 	};
 	
 	Request_Manager.prototype._send_request = function () {
-		var _this = this;
+		var _this2 = this;
 	
 		model._request_promise = new Promise(function (resolve, reject) {
-			var post_url = _this._prepare_url(),
-			    post_data = _this._prepare_post_data();
+			var post_url = _this2._prepare_url(),
+			    post_data = _this2._prepare_post_data();
 	
 			if (post_data) {
-				_this._clear_request();
+				_this2._clear_request();
 	
-				_this._request({
+				_this2._request({
 					method: 'POST',
 					url: post_url,
 					data: post_data
@@ -2066,18 +2070,17 @@
 			if (events_array[i]) {
 				var select_event = events_array[i],
 				    split_event = void 0,
-				    _events = EVENTS,
-				    ready_event = void 0;
+				    ready_event = EVENTS;
 	
 				split_event = select_event.split('.');
 	
 				for (var _i = 0; split_event.length > _i; ++_i) {
-					if (typeof _events[split_event[_i]] === 'undefined') {
-						var fun = get_event_creator(_events, split_event[_i]),
+					if (typeof ready_event[split_event[_i]] === 'undefined') {
+						var fun = get_event_creator(ready_event, split_event[_i]),
 						    args = get_args_from_event(split_event[_i]);
 	
 						if (fun && args) ready_event = fun(args);else console.error('Launch Event error: Event ' + split_event[_i] + ' doesn\'t exist.');
-					} else ready_event = _events[split_event[_i]];
+					} else ready_event = ready_event[split_event[_i]];
 				}if (ready_event.constructor === Event || ready_event.constructor === CustomEvent) {
 					prepare_delay(data);
 					APP.throw_event(ready_event);
