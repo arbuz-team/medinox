@@ -932,6 +932,7 @@
 					model._request_status = false;
 					resolve(response);
 				}).catch(function (response) {
+					model._request_status = false;
 					reject({
 						content: 'Request Manager error: Invalid response.',
 						code: response.code

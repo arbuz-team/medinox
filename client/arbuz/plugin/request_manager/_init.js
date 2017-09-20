@@ -169,6 +169,7 @@ Request_Manager.prototype._send_request = function()
 			})
 			.catch(response =>
 			{
+				model._request_status = false;
 			    reject({
 				    content: 'Request Manager error: Invalid response.',
 				    code: response.code,
