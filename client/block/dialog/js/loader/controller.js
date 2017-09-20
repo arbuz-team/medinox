@@ -87,6 +87,11 @@ export function Dialog_Loader_Controller(config)
 			'<div class="dialog-content-part">'+
 				'<button class="button event_button"' +
 						'type="button"' +
+						'data-name="redirect_website_error"' +
+						'data-event="redirect_website(url:/,uri:/)">' +
+					'Redirect to home</button>' +
+				'<button class="button event_button"' +
+						'type="button"' +
 						'data-name="reaload_website_error"' +
 						'data-event="reload_website">' +
 					'Reload page</button>' +

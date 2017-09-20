@@ -250,6 +250,11 @@
 				window.location.reload();
 			}, delay);
 		},
+		    redirect_website = function redirect_website(event) {
+			var args = event.detail;
+	
+			if (args.url) window.location = args.url;
+		},
 		    define = function define() {
 			var $textarea = $('textarea');
 	
@@ -267,6 +272,7 @@
 	
 		APP.add_own_event('define', define);
 		APP.add_own_event('reload_website', reload_website);
+		APP.add_own_event('redirect_website', redirect_website);
 		APP.add_own_event('reload_user_sign_in', reload_sign_in('user'));
 		APP.add_own_event('reload_root_sign_in', reload_sign_in('root'));
 	
@@ -756,10 +762,19 @@
 
 	'use strict';
 	
+	var event_creator = function event_creator(name) {
+		return function (args) {
+			return new CustomEvent(name, {
+				'detail': args
+			});
+		};
+	};
+	
 	window.EVENTS = {
 		send_request: new Event('send_request'),
 		define: new Event('define'),
 		redirect: new Event('redirect'),
+		redirect_website: event_creator('redirect_website'),
 		reload_website: new Event('reload_website'),
 	
 		part: {
@@ -808,8 +823,6 @@
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function Request_Manager() {
-		var _this = this;
-	
 		var error = false,
 		    pack_response = function pack_response(json, code) {
 			try {
@@ -830,8 +843,6 @@
 	
 				console.log(_data);
 				console.groupEnd();
-	
-				_this._show_error(json);
 	
 				return _data;
 			}
@@ -904,16 +915,16 @@
 	};
 	
 	Request_Manager.prototype._send_request = function () {
-		var _this2 = this;
+		var _this = this;
 	
 		model._request_promise = new Promise(function (resolve, reject) {
-			var post_url = _this2._prepare_url(),
-			    post_data = _this2._prepare_post_data();
+			var post_url = _this._prepare_url(),
+			    post_data = _this._prepare_post_data();
 	
 			if (post_data) {
-				_this2._clear_request();
+				_this._clear_request();
 	
-				_this2._request({
+				_this._request({
 					method: 'POST',
 					url: post_url,
 					data: post_data
@@ -1951,6 +1962,48 @@
 	
 	var _standard = __webpack_require__(20);
 	
+	__webpack_require__(15);
+	
+	var get_event_creator = function get_event_creator(events, text_event) {
+		var fun = void 0,
+		    end_position_of_function = text_event.indexOf('(');
+	
+		if (end_position_of_function > 0) {
+			var fun_string = text_event.slice(0, end_position_of_function);
+	
+			fun = events[fun_string];
+	
+			if (typeof fun !== 'undefined' && fun.constructor !== Event) return fun;
+		}
+	},
+	    get_args_from_event = function get_args_from_event(text_event) {
+		var bracket_1 = text_event.indexOf('('),
+		    bracket_2 = text_event.indexOf(')'),
+		    args_obj = {};
+	
+		if (bracket_1 >= 0 && bracket_2 > bracket_1) {
+			var start_slice = bracket_1 + 1,
+			    end_slice = bracket_2,
+			    phrase = text_event.slice(start_slice, end_slice),
+			    split_args = void 0;
+	
+			if (phrase.indexOf(',') > 0) split_args = phrase.split(',');else split_args = [phrase];
+	
+			for (var i = 0; split_args.length > i; ++i) {
+				var arg = split_args[i],
+				    value_position = arg.indexOf(':'),
+				    name = arg.slice(0, value_position),
+				    value = arg.slice(value_position + 1);
+	
+				if (name && value) args_obj[name] = value;
+			}
+	
+			return args_obj;
+		}
+	
+		return {};
+	};
+	
 	var request_manager = exports.request_manager = new _block.Request_Manager_Block(),
 	    get_data = exports.get_data = function get_data(elem, name) {
 		return $(elem).data(name);
@@ -2013,13 +2066,19 @@
 			if (events_array[i]) {
 				var select_event = events_array[i],
 				    split_event = void 0,
-				    ready_event = EVENTS;
+				    _events = EVENTS,
+				    ready_event = void 0;
 	
 				split_event = select_event.split('.');
 	
 				for (var _i = 0; split_event.length > _i; ++_i) {
-					if (typeof ready_event[split_event[_i]] === 'undefined') console.error('Launch Event error: Event ' + split_event[_i] + ' doesn\'t exist.');else ready_event = ready_event[split_event[_i]];
-				}if (ready_event.constructor === Event) {
+					if (typeof _events[split_event[_i]] === 'undefined') {
+						var fun = get_event_creator(_events, split_event[_i]),
+						    args = get_args_from_event(split_event[_i]);
+	
+						if (fun && args) ready_event = fun(args);else console.error('Launch Event error: Event ' + split_event[_i] + ' doesn\'t exist.');
+					} else ready_event = _events[split_event[_i]];
+				}if (ready_event.constructor === Event || ready_event.constructor === CustomEvent) {
 					prepare_delay(data);
 					APP.throw_event(ready_event);
 				} else console.error('Event error: This event doesn\'t exist');
@@ -4671,7 +4730,7 @@
 		};
 	
 		this.set_error = function (data) {
-			data.content = '<div class="dialog-content-part">' + data.content + '</div>' + '<div class="dialog-content-part">' + '<button class="button event_button"' + 'type="button"' + 'data-name="reaload_website_error"' + 'data-event="reload_website">' + 'Reload page</button>' + '<button class="button event_button"' + 'type="button"' + 'data-name="button_close_dialog"' + 'data-event="part.close_dialog">' + 'Close</button>' + '</div>';
+			data.content = '<div class="dialog-content-part">' + data.content + '</div>' + '<div class="dialog-content-part">' + '<button class="button event_button"' + 'type="button"' + 'data-name="redirect_website_error"' + 'data-event="redirect_website(url:/,uri:/)">' + 'Redirect to home</button>' + '<button class="button event_button"' + 'type="button"' + 'data-name="reaload_website_error"' + 'data-event="reload_website">' + 'Reload page</button>' + '<button class="button event_button"' + 'type="button"' + 'data-name="button_close_dialog"' + 'data-event="part.close_dialog">' + 'Close</button>' + '</div>';
 	
 			view.set_text(data);
 			this.define();

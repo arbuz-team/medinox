@@ -2,12 +2,23 @@
  * Created by mrskull on 24.11.16.
  */
 
+let
+	event_creator = function(name)
+	{
+		return function(args)
+		{
+			return new CustomEvent(name, {
+				'detail': args,
+			});
+		};
+	};
 
 
 window.EVENTS = {
 	send_request:               new Event('send_request'),
 	define:                     new Event('define'),
 	redirect:                   new Event('redirect'),
+	redirect_website:           event_creator('redirect_website'),
 	reload_website:             new Event('reload_website'),
 
 	part: {

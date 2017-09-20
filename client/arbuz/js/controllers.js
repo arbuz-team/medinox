@@ -76,6 +76,15 @@ export function Page_Controller()
 		},
 
 
+		redirect_website = function(event)
+		{
+			let args = event.detail;
+
+			if(args.url)
+			window.location = args.url;
+		},
+
+
 		define = () =>
 		{
 			let $textarea = $('textarea');
@@ -95,6 +104,7 @@ export function Page_Controller()
 
 	APP.add_own_event('define', define);
 	APP.add_own_event('reload_website', reload_website);
+	APP.add_own_event('redirect_website', redirect_website);
 	APP.add_own_event('reload_user_sign_in', reload_sign_in('user'));
 	APP.add_own_event('reload_root_sign_in', reload_sign_in('root'));
 
