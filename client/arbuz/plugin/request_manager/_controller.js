@@ -71,11 +71,7 @@ Request_Manager.prototype._make_request = function(data, resolve, reject)
 
 		resolve(response);
 	})
-	.catch((error) =>
-	{
-		console.error(error);
-		reject(error);
-	});
+	.catch(reject);
 };
 
 

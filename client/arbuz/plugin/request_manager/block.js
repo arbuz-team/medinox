@@ -128,10 +128,7 @@ Request_Manager_Block.prototype._make_request = function(timer, send_and_wait, r
 	{
 		resolve(response);
 	})
-	.catch((response) =>
-	{
-	    reject(response);
-	});
+	.catch(reject);
 };
 
 
@@ -198,10 +195,8 @@ Request_Manager_Block.prototype.next = function(post_url, post_data, post_name)
 				});
 
 			resolve(response);
-		}).catch((response) =>
-		{
-		    reject(response);
-		});
+		})
+		.catch(reject);
 	});
 };
 

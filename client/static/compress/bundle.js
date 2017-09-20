@@ -429,15 +429,7 @@
 				};
 	
 				resolve(precise_data);
-			}).catch(function (response) {
-				var precise_data = {
-					status: 'error',
-					html: response.content,
-					code: response.code
-				};
-	
-				reject(precise_data);
-			});
+			}).catch(reject);
 		});
 	};
 	
@@ -498,10 +490,11 @@
 						resolve(response);
 					});
 				}).catch(function (response) {
-					var dialog_event = new CustomEvent('open_dialog_with_text', {
+					var dialog_event = new CustomEvent('open_dialog_error', {
 						'detail': {
 							title: 'Error',
-							content: 'Error code: ' + response.code
+							content: response.content,
+							code: response.code
 						}
 					});
 	
@@ -634,9 +627,7 @@
 	
 		this._send_request().then(function (response) {
 			resolve(response);
-		}).catch(function (response) {
-			reject(response);
-		});
+		}).catch(reject);
 	};
 	
 	Request_Manager_Block.prototype._run_sending = function () {
@@ -687,9 +678,7 @@
 				});
 	
 				resolve(response);
-			}).catch(function (response) {
-				reject(response);
-			});
+			}).catch(reject);
 		});
 	};
 	
@@ -1100,10 +1089,7 @@
 			}
 	
 			resolve(response);
-		}).catch(function (error) {
-			console.error(error);
-			reject(error);
-		});
+		}).catch(reject);
 	};
 	
 	_init.Request_Manager.prototype.send = function (post_url, post_data, post_name) {
@@ -4468,6 +4454,20 @@
 	
 			designer.open().then(function () {});
 		},
+		    open_with_error = function open_with_error(event) {
+			var title = event.detail.title,
+			    content = event.detail.content,
+			    code = event.detail.code;
+	
+			content = '<span class="is-bold"> Error content: </span>' + content + '<br>' + '<span class="is-bold"> Error code: </span>' + code;
+	
+			designer.open().then(function () {
+				loader.set_error({
+					title: title,
+					content: content
+				});
+			});
+		},
 		    open_with_my_text = function open_with_my_text(event) {
 			var title = event.detail.title,
 			    content = event.detail.content;
@@ -4488,6 +4488,7 @@
 			$(config.external_button).click(open);
 			APP.add_own_event('dialog_close', close);
 			APP.add_own_event('dialog_reload', reload);
+			APP.add_own_event('open_dialog_error', open_with_error);
 			APP.add_own_event('open_dialog_with_text', open_with_my_text);
 		};
 	}
@@ -4656,10 +4657,22 @@
 		};
 	
 		this.set_loading = function () {
-			view.set_loading();
+			view.set_text({
+				title: '<div class="container-part-loading"> Loading... </div>',
+				content: '<div class="dialog-message"> Loading... </div>'
+			});
 		};
 	
 		this.set_text = function (data) {
+			data.content = '<div class="dialog-content-part">' + data.content + '</div>' + '<div class="dialog-content-part">' + '<button class="button event_button"' + 'type="button"' + 'data-name="button_close_dialog"' + 'data-event="part.close_dialog">' + 'Close</button>' + '</div>';
+	
+			view.set_text(data);
+			this.define();
+		};
+	
+		this.set_error = function (data) {
+			data.content = '<div class="dialog-content-part">' + data.content + '</div>' + '<div class="dialog-content-part">' + '<button class="button event_button"' + 'type="button"' + 'data-name="reaload_website_error"' + 'data-event="reload_website">' + 'Reload page</button>' + '<button class="button event_button"' + 'type="button"' + 'data-name="button_close_dialog"' + 'data-event="part.close_dialog">' + 'Close</button>' + '</div>';
+	
 			view.set_text(data);
 			this.define();
 		};
@@ -5114,17 +5127,8 @@
 		};
 	
 		this.set_text = function (data) {
-			var content = '<div class="dialog-content-part">' + data.content + '</div>' + '<div class="dialog-content-part">' + '<button class="button event_button"' + 'type="button"' + 'data-name="button_close_dialog"' + 'data-event="part.close_dialog">' + 'Close</button>' + '</div>';
-	
 			$(model.settings.header).html(data.title);
-			$(model.settings.content).html(content);
-		};
-	
-		this.set_loading = function () {
-			this.set_text({
-				title: '<div class="container-part-loading"> Loading... </div>',
-				content: '<div class="dialog-message"> Loading... </div>'
-			});
+			$(model.settings.content).html(data.content);
 		};
 	}
 

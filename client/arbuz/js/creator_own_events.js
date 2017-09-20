@@ -3,6 +3,7 @@
  */
 
 
+
 window.EVENTS = {
 	send_request:               new Event('send_request'),
 	define:                     new Event('define'),

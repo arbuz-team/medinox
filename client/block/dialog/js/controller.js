@@ -73,6 +73,28 @@ export function Dialog_Controller()
 		},
 
 
+		open_with_error = function(event)
+		{
+			let
+				title = event.detail.title,
+				content = event.detail.content,
+				code = event.detail.code;
+
+			content =
+				'<span class="is-bold"> Error content: </span>'+ content +'<br>'+
+				'<span class="is-bold"> Error code: </span>'+ code;
+
+
+			designer.open().then(() =>
+			{
+				loader.set_error({
+					title: title,
+					content: content,
+				});
+			});
+		},
+
+
 		open_with_my_text = function(event)
 		{
 			let
@@ -98,6 +120,7 @@ export function Dialog_Controller()
 		$(config.external_button).click(open);
 		APP.add_own_event('dialog_close', close);
 		APP.add_own_event('dialog_reload', reload);
+		APP.add_own_event('open_dialog_error', open_with_error);
 		APP.add_own_event('open_dialog_with_text', open_with_my_text);
 	};
 }

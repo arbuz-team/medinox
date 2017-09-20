@@ -56,12 +56,47 @@ export function Dialog_Loader_Controller(config)
 
 	this.set_loading = function()
 	{
-		view.set_loading();
+		view.set_text({
+			title: '<div class="container-part-loading"> Loading... </div>',
+			content: '<div class="dialog-message"> Loading... </div>',
+		})
 	};
 
 
 	this.set_text = function(data)
 	{
+		data.content =
+			'<div class="dialog-content-part">'+ data.content +'</div>'+
+			'<div class="dialog-content-part">'+
+				'<button class="button event_button"' +
+						'type="button"' +
+						'data-name="button_close_dialog"' +
+						'data-event="part.close_dialog">' +
+					'Close</button>' +
+			'</div>';
+
+		view.set_text(data);
+		this.define();
+	};
+
+
+	this.set_error = function(data)
+	{
+		data.content =
+			'<div class="dialog-content-part">'+ data.content +'</div>'+
+			'<div class="dialog-content-part">'+
+				'<button class="button event_button"' +
+						'type="button"' +
+						'data-name="reaload_website_error"' +
+						'data-event="reload_website">' +
+					'Reload page</button>' +
+				'<button class="button event_button"' +
+						'type="button"' +
+						'data-name="button_close_dialog"' +
+						'data-event="part.close_dialog">' +
+					'Close</button>' +
+			'</div>';
+
 		view.set_text(data);
 		this.define();
 	};

@@ -93,16 +93,7 @@ Block_Loader_Part.prototype._receive_response = function()
 
 			resolve(precise_data);
 		})
-		.catch(response =>
-		{
-			let precise_data = {
-				status: 'error',
-				html: response.content,
-				code: response.code,
-			};
-
-			reject(precise_data);
-		});
+		.catch(reject);
 	});
 };
 
@@ -181,10 +172,11 @@ Block_Loader_Part.prototype.load_content = function(post_url, post_data)
 			.catch((response) =>
 			{
 				let
-					dialog_event = new CustomEvent('open_dialog_with_text', {
+					dialog_event = new CustomEvent('open_dialog_error', {
 						'detail': {
 							title:      'Error',
-							content:    'Error code: '+ response.code,
+							content:    response.content,
+							code:       response.code,
 						}
 					});
 
