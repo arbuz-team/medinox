@@ -198,45 +198,55 @@
 
         {% else %} <!-- //////////////////////  ADDRESS IS VALIDATE  ////////////////////// -->
 
-            <div class="title">Choose payment method</div>
+            <div class="title">Wybierz metodę płatności</div>
 
-            <div class="cart-list-button">
-                <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-                    {{ paypal.as_p }}
+            {% if payment_way.paypal %}
+                <div class="cart-list-button">
+                    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                        {{ paypal.as_p }}
 
-                    <button class="payment-button button">
-                        PayPal
-                    </button>
+                        <button class="payment-button button"
+                                type="submit">
+                            PayPal
+                        </button>
 
-                </form>
-            </div>
+                    </form>
+                </div>
+            {% endif %}
 
-            <div class="cart-list-button">
-                <form action="https://ssl.dotpay.pl/test_payment/" method="post">
-                    {{ dotpay.as_p }}
+            {% if payment_way.dotpay %}
+                <div class="cart-list-button">
+                    <form action="https://ssl.dotpay.pl/test_payment/" method="post">
+                        {{ dotpay.as_p }}
 
-                    <button class="payment-button button">
-                        Dotpay
-                    </button>
+                        <button class="payment-button button"
+                                type="submit">
+                            Dotpay
+                        </button>
 
-                </form>
-            </div>
+                    </form>
+                </div>
+            {% endif %}
 
-            <div class="cart-list-button">
+            {% if payment_way.cash_on_delivery %}
+                <div class="cart-list-button">
 
-                <a href="/płatności/płatność_przy_odbiorze/" class="payment-button button">
-                    Cash on delivery
-                </a>
+                    <a href="/payment/cash_on_delivery/" class="payment-button button">
+                        Płatność przy odbiorze
+                    </a>
 
-            </div>
+                </div>
+            {% endif %}
 
-            <div class="cart-list-button">
+            {% if payment_way.delayed_transfer %}
+                <div class="cart-list-button">
 
-                <a href="/płatności/opóźniona_płatność/" class="payment-button button">
-                    Delayed transfer
-                </a>
+                    <a href="/payment/delayed_transfer/" class="payment-button button">
+                        Przelew odroczony
+                    </a>
 
-            </div>
+                </div>
+            {% endif %}
 
         {% endif %}
 
