@@ -19,31 +19,36 @@
 
             <div class="title">Ceny dostawy</div>
 
-            <div>
-	            <label for="id_price"> Standardowa cena: </label>
-	            <input class="input"
-	                   name="price"
-	                   id="id_price"
-	                   type="number"
-	                   step="0.01"
-	                   value="{{ price }}">
-            </div>
+	        <div>
+		        <label for="id_delivery_price" class="is-block_inline is-width-50 is-right-inside">
+			        Cena dostawy:
+		        </label>
+		        <input class="input"
+		               name="delivery_price"
+		               id="id_delivery_price"
+		               type="number"
+		               step="0.01"
+		               value="{{ price }}">
+	        </div>
 
 	        <div>
-	            <label for="id_price_postage"> Cena za pobraniem: </label>
-	            <input class="input"
-	                   name="price_postage"
-	                   id="id_price_postage"
-	                   type="number"
-	                   step="0.01"
-	                   value="{{ price_postage }}">
-            </div>
+		        <label for="id_cash_on_delivery" class="is-block_inline is-width-50 is-right-inside">
+			        Cena za pobraniem:
+		        </label>
+		        <input class="input"
+		               name="cash_on_delivery"
+		               id="id_cash_on_delivery"
+		               type="number"
+		               step="0.01"
+		               value="{{ price_postage }}">
+	        </div>
 
-	        <div>
-		        <button class="button is-important">
+	        <div class="is-center-inside">
+		        <button class="button is-important is-width-20">
 			        Zapisz
 		        </button>
 	        </div>
+
 
         </form>
 
