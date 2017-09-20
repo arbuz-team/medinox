@@ -199,6 +199,10 @@ div > .buttons_to_action {
 .is-min-100 {
   min-width: 100px; }
 
+.is-width-30 {
+  width: 30% !important;
+  max-width: 30% !important; }
+
 .is-width-50 {
   width: 50% !important;
   max-width: 50% !important; }
