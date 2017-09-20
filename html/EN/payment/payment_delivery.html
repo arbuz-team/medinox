@@ -1,0 +1,71 @@
+{% load tags %}
+
+<script>
+	APP.DATA = {
+		title : 'Payment',
+		description : '',
+	};
+
+	APP.throw_event(EVENTS.part.close_cart);
+</script>
+
+
+<div class="ground-block block-1 MEDIUM payment">
+
+	<div class="block-background fill-abs"></div>
+	{% include "block/ground/html/navigation.html" %}
+
+	{% if address_is_validate %}
+
+		{% include "block/ground/html/go_back.html" with href='/payment/' %}
+
+	{% endif %}
+
+	<div class="block-content">
+
+		<div class="title">Choose payment method</div>
+
+		{% if payment_way.paypal %}
+			<div class="cart-list-button">
+				<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+					{{ paypal.as_p }}
+
+					<button class="payment-button button"
+					        type="submit">
+						PayPal
+					</button>
+
+				</form>
+			</div>
+		{% endif %}
+
+		{% if payment_way.dotpay %}
+			<div class="cart-list-button">
+				<form action="https://ssl.dotpay.pl/test_payment/" method="post">
+					{{ dotpay.as_p }}
+
+					<button class="payment-button button"
+					        type="submit">
+						Dotpay
+					</button>
+
+				</form>
+			</div>
+		{% endif %}
+
+		{% if payment_way.delayed_transfer %}
+			<div class="cart-list-button">
+
+				<a href="/payment/delayed_transfer/" class="payment-button button">
+					Delayed transfer
+				</a>
+
+			</div>
+		{% endif %}
+
+
+	</div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}

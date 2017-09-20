@@ -23,8 +23,6 @@
 
     <div class="block-content">
 
-        {% if not address_is_validate %}
-
             {% if not cart %}
 
                 <ul class="cart-list">
@@ -197,62 +195,6 @@
                 </form>
 
             {% endif %}
-
-
-
-        {% else %} <!-- //////////////////////  ADDRESS IS VALIDATE  ////////////////////// -->
-
-            <div class="title">Choose payment method</div>
-
-            {% if payment_way.paypal %}
-                <div class="cart-list-button">
-                    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-                        {{ paypal.as_p }}
-
-                        <button class="payment-button button"
-                                type="submit">
-                            PayPal
-                        </button>
-
-                    </form>
-                </div>
-            {% endif %}
-
-            {% if payment_way.dotpay %}
-                <div class="cart-list-button">
-                    <form action="https://ssl.dotpay.pl/test_payment/" method="post">
-                        {{ dotpay.as_p }}
-
-                        <button class="payment-button button"
-                                type="submit">
-                            Dotpay
-                        </button>
-
-                    </form>
-                </div>
-            {% endif %}
-
-            {% if payment_way.cash_on_delivery %}
-                <div class="cart-list-button">
-
-                    <a href="/payment/cash_on_delivery/" class="payment-button button">
-                        Cash on delivery
-                    </a>
-
-                </div>
-            {% endif %}
-
-            {% if payment_way.delayed_transfer %}
-                <div class="cart-list-button">
-
-                    <a href="/payment/delayed_transfer/" class="payment-button button">
-                        Delayed transfer
-                    </a>
-
-                </div>
-            {% endif %}
-
-        {% endif %}
 
 
     </div><!-- block-content -->
