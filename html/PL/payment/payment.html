@@ -2,7 +2,7 @@
 
 <script>
   APP.DATA = {
-    title : 'Płatności',
+    title : 'Payment',
     description : '',
   };
 
@@ -23,14 +23,12 @@
 
     <div class="block-content">
 
-        {% if not address_is_validate %}
-
             {% if not cart %}
 
                 <ul class="cart-list">
                     <li>
                         <div class="cart-list-empty">
-                            Brak płatności
+                            Payment is empty
                         </div>
                     </li>
                 </ul><!-- cart-list -->
@@ -44,7 +42,7 @@
                         <li class="cart-list-product is-inline-inside">
 
                             <div class="cart-list-product-name">
-                                <a href="/produkt/{{ selected.product.pk }}/{{ selected.product.url_name }}/">
+                                <a href="/product/{{ selected.product.pk }}/{{ selected.product.url_name }}/">
                                     {{ selected.product.name }}
                                 </a>
                             </div>
@@ -77,7 +75,7 @@
                                                     data-action="delete"
                                                     data-value="{{ selected.product.pk }}"
                                                     data-reload="cart ground">
-                                                Jesteś pewien?
+                                                Are you sure?
                                             </button>
                                         </div>
                                     </div>
@@ -92,13 +90,7 @@
 
 
                     <li class="cart-list-total_price is-inline-inside">
-                        <div class="cart-list-total_price-title">Koszt dostawy:</div>
-                        <div class="cart-list-total_price-price"></div>
-                    </li>
-
-
-                    <li class="cart-list-total_price is-inline-inside">
-                        <div class="cart-list-total_price-title">Łączna cena:</div>
+                        <div class="cart-list-total_price-title">Total price:</div>
                         <div class="cart-list-total_price-price">{{ payment.total_price }} {{ request.session.currency_selected }}</div>
                     </li>
 
@@ -112,10 +104,11 @@
                 <form method="post" action="" data-name="address" data-type="address">
 
                     <div class="form_submit">
-                        <div class="form_submit-description"> Wybierz swój adres z poniższej listy <wbr> dla dostawy oraz faktury.</div>
+                        <div class="form_submit-description">Please select your address of below list <wbr>for shipment and invoice.</div>
 
-                        <button class="form_submit-button button is-important">
-                            Dalej
+                        <button class="form_submit-button button is-important"
+                                type="submit">
+                            Next
                         </button>
                     </div>
 
@@ -126,10 +119,13 @@
 
                                 <div class="address_block-shell"></div>
 
-                                {% if item.company_name %}
-                                    <div class="address_block-title change_length-button"> {{ item.company_name }} </div>
-                                {% elif item.name and item.surname %}
-                                    <div class="address_block-title change_length-button"> {{ item.name }} {{ item.surname }} </div>
+                                <div class="address_block-title change_length-button">
+                                    {% if item.company_name %}
+                                        {{ item.company_name }}
+                                    {% elif item.name and item.surname %}
+                                        {{ item.name }} {{ item.surname }}
+                                    {% endif %}
+                                </div>
 
                                 <div class="address_block-field_list">
                                     <div class="is-nowrap">{{ item.company_name }} &nbsp; </div>
@@ -142,7 +138,7 @@
                                 </div>
 
                                 <div class="address_block-buttons">
-                                    <span>Wybierz adres do </span>
+                                    <span>Select address to</span>
 
                                     <div class="selecter radio">
                                         <input class="input"
@@ -155,7 +151,7 @@
                                                {% endif %}
                                         />
                                         <label for="id_shipment_{{ forloop.counter0 }}" class="selecter-field"></label>
-                                        <label for="id_shipment_{{ forloop.counter0 }}" class="selecter-text">dostawa</label>
+                                        <label for="id_shipment_{{ forloop.counter0 }}" class="selecter-text">shipment</label>
                                     </div>
 
                                     <div class="selecter radio">
@@ -169,7 +165,7 @@
                                                {% endif %}
                                         />
                                         <label for="id_invoice_{{ forloop.counter0 }}" class="selecter-field"></label>
-                                        <label for="id_invoice_{{ forloop.counter0 }}" class="selecter-text">faktura</label>
+                                        <label for="id_invoice_{{ forloop.counter0 }}" class="selecter-text">invoice</label>
                                     </div>
                                 </div>
 
@@ -183,7 +179,7 @@
 
                             <div class="address_block-shell"></div>
 
-                            <div class="address_block-title"> Dodaj nowy adres </div>
+                            <div class="address_block-title"> Add new address </div>
 
                             <a class="address_block-image" href="{% redirect 'user.account.addresses' 'payment' %}"></a>
 
@@ -193,62 +189,6 @@
                 </form>
 
             {% endif %}
-
-
-
-        {% else %} <!-- //////////////////////  ADDRESS IS VALIDATE  ////////////////////// -->
-
-            <div class="title">Wybierz metodę płatności</div>
-
-            {% if payment_method.paypal %}
-                <div class="cart-list-button">
-                    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-                        {{ paypal.as_p }}
-
-                        <button class="payment-button button"
-                                type="submit">
-                            PayPal
-                        </button>
-
-                    </form>
-                </div>
-            {% endif %}
-
-            {% if payment_method.dotpay %}
-                <div class="cart-list-button">
-                    <form action="https://ssl.dotpay.pl/test_payment/" method="post">
-                        {{ dotpay.as_p }}
-
-                        <button class="payment-button button"
-                                type="submit">
-                            Dotpay
-                        </button>
-
-                    </form>
-                </div>
-            {% endif %}
-
-            {% if payment_method.cash_on_delivery %}
-                <div class="cart-list-button">
-
-                    <a href="/payment/cash_on_delivery/" class="payment-button button">
-                        Płatność przy odbiorze
-                    </a>
-
-                </div>
-            {% endif %}
-
-            {% if payment_method.delayed_transfer %}
-                <div class="cart-list-button">
-
-                    <a href="/payment/delayed_transfer/" class="payment-button button">
-                        Przelew odroczony
-                    </a>
-
-                </div>
-            {% endif %}
-
-        {% endif %}
 
 
     </div><!-- block-content -->
