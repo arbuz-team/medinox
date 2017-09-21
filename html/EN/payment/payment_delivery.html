@@ -15,53 +15,37 @@
 	<div class="block-background fill-abs"></div>
 	{% include "block/ground/html/navigation.html" %}
 
-	{% if address_is_validate %}
+	{% include "block/ground/html/go_back.html" with href='/payment/' %}
 
-		{% include "block/ground/html/go_back.html" with href='/payment/' %}
-
-	{% endif %}
 
 	<div class="block-content">
 
-		<div class="title">Choose payment method</div>
+		<div class="title">Choose delivery method</div>
 
-		{% if payment_way.paypal %}
+		<form method="post" data-name="delivery_method">
+
 			<div class="cart-list-button">
-				<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-					{{ paypal.as_p }}
-
-					<button class="payment-button button"
-					        type="submit">
-						PayPal
-					</button>
-
-				</form>
+				<label for="id_courier" class="payment-button button is-center-inside">
+					Courier
+				</label>
+				<input id="id_courier" type="checkbox" class="is-hidden">
 			</div>
-		{% endif %}
 
-		{% if payment_way.dotpay %}
 			<div class="cart-list-button">
-				<form action="https://ssl.dotpay.pl/test_payment/" method="post">
-					{{ dotpay.as_p }}
-
-					<button class="payment-button button"
-					        type="submit">
-						Dotpay
-					</button>
-
-				</form>
+				<label for="id_cash_on_delivery" class="payment-button button is-center-inside">
+					Courier - cash on delivery
+				</label>
+				<input id="id_cash_on_delivery" type="checkbox" class="is-hidden">
 			</div>
-		{% endif %}
 
-		{% if payment_way.delayed_transfer %}
-			<div class="cart-list-button">
-
-				<a href="/payment/delayed_transfer/" class="payment-button button">
-					Delayed transfer
-				</a>
-
+			<div class="cart-list-button is-center-inside">
+				<label for="id_personal_receipt" class="payment-button button">
+					Personal receipt
+				</label>
+				<input id="id_personal_receipt" type="checkbox" class="is-hidden">
 			</div>
-		{% endif %}
+
+		</form>
 
 
 	</div><!-- block-content -->

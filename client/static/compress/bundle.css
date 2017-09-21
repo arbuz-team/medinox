@@ -214,6 +214,9 @@ div > .buttons_to_action {
 .is-block_inline {
   display: inline-block !important; }
 
+.is-hidden {
+  display: none; }
+
 .is-margin-r-40 {
   margin-right: 30px; }
 
@@ -230,7 +233,7 @@ div > .buttons_to_action {
   text-align: right; }
 
 .is-center-inside {
-  text-align: center; }
+  text-align: center !important; }
 
 .is-font-0-only_this {
   font-size: 0; }
@@ -1470,9 +1473,6 @@ img {
 .ground-block.payment .cart-list-button {
   display: inline-block;
   margin-top: 2px; }
-  .ground-block.payment .cart-list-button > * {
-    display: flex;
-    align-items: center; }
 
 .payment-button {
   height: 130px;
