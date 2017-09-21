@@ -3,7 +3,7 @@
  */
 
 import {Block_Loader_Part}     			from 'block/plugin/block_loader/block'
-import {Event_Button_Controllers}       from 'form/plugin/event_button/controllers'
+import {define_event_button}            from 'form/plugin/event_button/define'
 
 
 
@@ -24,10 +24,6 @@ export function Menu_Controller()
 		loader = new Block_Loader_Part({
 			part_name: part_name,
 			container: container,
-		}),
-
-		event_button_controller = new Event_Button_Controllers({
-			container: container_id
 		});
 
 
@@ -39,7 +35,9 @@ export function Menu_Controller()
 
 	this.define = function()
 	{
-		event_button_controller.define();
+		define_event_button({
+			container: container_id
+		});
 	};
 
 

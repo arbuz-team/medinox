@@ -54,7 +54,7 @@ export function Ground_Controller()
 
 		model.ground_form_controller.define();
 		model.define_post_button(model.config_loader);
-		model.event_button_controller.define();
+		model.define_event_button(model.config_form);
 	};
 
 

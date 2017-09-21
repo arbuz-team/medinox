@@ -2,6 +2,9 @@
  * Created by mrskull on 24.11.16.
  */
 
+import 'arbuz/js/base';
+import 'arbuz/js/list_of_events';
+
 import {Search_Controller}      	from 'block/searcher/js/controller'
 import {Cart_Controller}         	from 'block/cart/js/controller'
 import {Menu_Mobile_Controller}    	from 'block/menu_mobile/js/controller'
@@ -15,10 +18,9 @@ import {Request_Manager_Block} 	    from 'arbuz/plugin/request_manager/block'
 
 export function Page_Controller()
 {
+
 	if(typeof Page_Controller.instance === 'object')
 		return Page_Controller.instance;
-
-	Page_Controller.instance = this;
 
 
 	let

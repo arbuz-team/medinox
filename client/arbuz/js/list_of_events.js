@@ -2,16 +2,7 @@
  * Created by mrskull on 24.11.16.
  */
 
-let
-	event_creator = function(name)
-	{
-		return function(args)
-		{
-			return new CustomEvent(name, {
-				'detail': args,
-			});
-		};
-	};
+import {event_creator} from 'arbuz/plugin/utilities/event'
 
 
 window.EVENTS = {

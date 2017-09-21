@@ -5,39 +5,33 @@
 
 export let Dictionary = function()
 {
-  let
-    dictionary = window.DATA.dictionary;
+	let
+		dictionary = window.DATA.dictionary;
 
-  if(!dictionary)
-    dictionary = {};
-
-
-  this.add_word = function(word, translated_word)
-  {
-    if(typeof dictionary[word] === 'undefined')
-    {
-      dictionary[word] = translated_word;
-      return true;
-    }
-
-    console.error('Error in Dictionary: This word is using now.');
-    return false;
-  };
+	if(!dictionary)
+		dictionary = {};
 
 
-  this.get_word = function(word)
-  {
-    if(typeof dictionary[word] !== 'undefined')
-      return dictionary[word];
+	this.add_word = function(word, translated_word)
+	{
+		if(typeof dictionary[word] === 'undefined')
+		{
+			dictionary[word] = translated_word;
+			return true;
+		}
 
-    console.error('Error in Dictionary: This word is not exist.');
-    return false;
-  };
+		console.error('Error in Dictionary: This word is using now.');
+		return false;
+	};
 
 
-  this.show_all = function()
-  {
-    console.log(dictionary);
-  };
+	this.get_word = function(word)
+	{
+		if(typeof dictionary[word] !== 'undefined')
+			return dictionary[word];
+
+		console.error('Error in Dictionary: This word is not exist.');
+		return false;
+	};
 };
 
