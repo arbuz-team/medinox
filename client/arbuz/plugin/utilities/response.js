@@ -15,13 +15,4 @@ export let
 			return 'redirect';
 
 		return 'error';
-	},
-
-
-	prepare_error_data = function()
-	{
-		return {
-			html: '',
-			code: 500,
-		};
 	};

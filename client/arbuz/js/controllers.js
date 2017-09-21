@@ -3,7 +3,7 @@
  */
 
 import 'arbuz/js/base';
-import 'arbuz/js/creator_own_events';
+import 'arbuz/js/list_of_events';
 
 import {Search_Controller}      	from 'block/searcher/js/controller'
 import {Cart_Controller}         	from 'block/cart/js/controller'
