@@ -8,7 +8,7 @@ import {Menu_Controller}     			from 'block/menu/js/controller'
 
 import {Form_Controllers}               from 'form/js/controller'
 import {define_post_button}             from 'form/plugin/post_button/define'
-import {Event_Button_Controllers}       from 'form/plugin/event_button/controllers'
+import {define_event_button}            from 'form/plugin/event_button/define'
 
 
 export function Ground_Model()
@@ -28,8 +28,8 @@ export function Ground_Model()
 
 	this.ground_loader =            new Block_Loader_Part(this.config_loader);
 
-	this.define_post_button =   define_post_button;
-	this.event_button_controller =  new Event_Button_Controllers(this.config_form);
+	this.define_post_button =       define_post_button;
+	this.define_event_button =  define_event_button;
 	this.ground_form_controller =   new Form_Controllers(this.config_loader);
 
 	this.page_controller =          new Page_Controller();

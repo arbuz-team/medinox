@@ -3,8 +3,8 @@
  */
 
 import {Block_Loader_Part}     			from 'block/plugin/block_loader/block'
-import {Block_Motion_Controllers}     from 'block/plugin/block_motion/controller'
-import {Event_Button_Controllers}       from 'form/plugin/event_button/controllers'
+import {Block_Motion_Controllers}       from 'block/plugin/block_motion/controller'
+import {define_event_button}            from 'form/plugin/event_button/define'
 
 
 
@@ -36,10 +36,6 @@ export function Menu_Mobile_Controller()
 
 			duration_open:      300,
 			duration_close:     150,
-		}),
-
-		event_button_controller = new Event_Button_Controllers({
-			container:          container_id,
 		});
 
 
@@ -55,7 +51,9 @@ export function Menu_Mobile_Controller()
 		APP.add_own_event(part_name +'_open', motion_controller.plugin_open);
 
 		motion_controller.define();
-		event_button_controller.define();
+		define_event_button({
+			container: container_id,
+		});
 	};
 
 

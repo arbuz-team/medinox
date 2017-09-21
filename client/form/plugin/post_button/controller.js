@@ -9,26 +9,6 @@ import {get_and_remove_data} from 'form/js/utilities'
 import {event_broker} from 'arbuz/plugin/utilities/event'
 
 
-
-// Post_Button.prototype._manage_buttons = function(event)
-// {
-// 	event.preventDefault();
-// 	event.stopPropagation();
-//
-// 	let
-// 		button_id = this;
-//
-// 	if(buttons_views[button_id])
-// 		buttons_views[button_id].start();
-// 	else
-// 	{
-// 		console.group('Button doesn\'t exsist');
-// 		console.error(button_id);
-// 		console.groupEnd();
-// 	}
-// };
-
-
 let
 	get_button_text = function(button)
 	{
