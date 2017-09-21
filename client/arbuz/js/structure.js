@@ -2,9 +2,8 @@
  * Created by mrskull on 24.11.16.
  */
 
-import './creator_own_events';
 
-/*---------------- Struktura Dane_Strony ----------------*/
+/*---------------- Page structure ----------------*/
 
 export let data_controller = new function Data_Controller()
 {
