@@ -42,7 +42,9 @@ class Direct_Block_Manager(Base):
             'html': response.content.decode('utf-8'), # Backend: change name `html` to `content`
             'code': response.status_code
         }
-        except: raise Exception('No event - response is empty')
+        except Exception as e:
+            print('No event - response is empty')
+            raise e
 
         # if response url exists
         try: data['url'] = response.url

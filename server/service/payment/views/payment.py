@@ -46,6 +46,46 @@ class Payment_Manager(Website_Manager):
 
     # forms
 
+    def Calculate_Delivery_Price(self):
+
+        model_manager = Payment_Models_Manager(self)
+        payment = model_manager.Get_Cart()
+
+        products_with_force_price = SQL.Filter(Model_Payment_Product,
+                payment=payment, product__force_delivery_price__gt=0)
+
+        # standard delivery price - from root panel
+        delivery = SQL.First(Model_Delivery)
+        currency_manager = Base_Currency_Manager(self)
+        self.context['delivery_price'] = currency_manager.Get_Price(delivery.delivery_price)
+        self.context['cash_on_delivery'] = currency_manager.Get_Price(delivery.cash_on_delivery)
+
+        # one product have force price - big package
+        if len(products_with_force_price) == 1:
+
+            price = products_with_force_price[0]\
+                .product.force_delivery_price
+
+            self.context['delivery_price'] += currency_manager.Get_Price(price)
+            self.context['cash_on_delivery'] += currency_manager.Get_Price(price)
+
+        # more than one product with force price - ask seller
+        elif len(products_with_force_price) > 1:
+
+            self.context['delivery_price'] = Text(self, 262)
+            self.context['cash_on_delivery'] = Text(self, 262)
+
+    def Manage_Form_Address_Payment(self):
+
+        address_payment_pk = self.request.POST['shipment']
+        address_invoice_pk = self.request.POST['invoice']
+
+        self.Create_Address(address_payment_pk, 'delivery_address')
+        self.Create_Address(address_invoice_pk, 'invoice_address')
+        self.Calculate_Delivery_Price()
+
+        return self.Render_HTML('payment/payment_delivery.html')
+
     def Create_Address(self, pk, model):
 
         user_address = SQL.Get(Model_User_Address, pk=pk)
@@ -70,18 +110,6 @@ class Payment_Manager(Website_Manager):
         address.postcode = user_address.postcode
         address.country = user_address.country
         SQL.Save(data=address)
-
-    def Manage_Form_Address_Payment(self):
-
-        address_payment_pk = self.request.POST['shipment']
-        address_invoice_pk = self.request.POST['invoice']
-
-        self.Create_Address(address_payment_pk, 'delivery_address')
-        self.Create_Address(address_invoice_pk, 'invoice_address')
-
-        # self.context['']
-
-        return self.Render_HTML('payment/payment_delivery.html')
 
     def Manage_Form_Delivery(self):
 
