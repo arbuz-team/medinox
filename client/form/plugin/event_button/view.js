@@ -11,10 +11,10 @@ import {reload_plugins, redirect_ground, launch_event} from 'form/js/utilities'
 Event_Button.prototype._run_events = function()
 {
 	let events = {
-		reload: this._button_data.button_reload,
-		redirect: this._button_data.button_redirect,
-		events: this._button_data.button_event,
-		delay: this._button_data.button_delay,
+		reload:     this._button_data.reload,
+		redirect:   this._button_data.redirect,
+		events:     this._button_data.event,
+		delay:      this._button_data.delay,
 	};
 
 	reload_plugins(events);

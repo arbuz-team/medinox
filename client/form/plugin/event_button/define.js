@@ -10,9 +10,9 @@ export let
 
 	define_event_button = function(config)
 	{
-		let $post_buttons = $('.post_button', config.container);
+		let $buttons = $('.event_button', config.container);
 
-		$post_buttons.each(function()
+		$buttons.each(function()
 		{
 			new Event_Button(this, config.part_name);
 		});

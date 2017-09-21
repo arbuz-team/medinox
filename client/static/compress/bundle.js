@@ -200,13 +200,13 @@
 	
 	var _controller = __webpack_require__(9);
 	
-	var _controller2 = __webpack_require__(66);
+	var _controller2 = __webpack_require__(68);
 	
-	var _controller3 = __webpack_require__(67);
+	var _controller3 = __webpack_require__(69);
 	
 	var _controller4 = __webpack_require__(34);
 	
-	var _controller5 = __webpack_require__(68);
+	var _controller5 = __webpack_require__(70);
 	
 	var _controller6 = __webpack_require__(31);
 	
@@ -314,7 +314,7 @@
 	
 	var _controller2 = __webpack_require__(27);
 	
-	var _define = __webpack_require__(38);
+	var _define = __webpack_require__(41);
 	
 	function Search_Controller() {
 		if (_typeof(Search_Controller.instance) === 'object') return Search_Controller.instance;
@@ -1798,27 +1798,27 @@
 	
 	var _model = __webpack_require__(28);
 	
-	var _model_for_dialog = __webpack_require__(46);
+	var _model_for_dialog = __webpack_require__(48);
 	
-	var _controllers = __webpack_require__(49);
+	var _controllers = __webpack_require__(51);
 	
 	var validator = _interopRequireWildcard(_controllers);
 	
-	var _controllers2 = __webpack_require__(53);
+	var _controllers2 = __webpack_require__(55);
 	
 	var auto_form = _interopRequireWildcard(_controllers2);
 	
-	var _controllers3 = __webpack_require__(56);
+	var _controllers3 = __webpack_require__(58);
 	
-	var _controller = __webpack_require__(57);
+	var _controller = __webpack_require__(59);
 	
-	var _controllers4 = __webpack_require__(58);
+	var _controllers4 = __webpack_require__(60);
 	
 	var file_converter = _interopRequireWildcard(_controllers4);
 	
-	var _controller2 = __webpack_require__(61);
+	var _controller2 = __webpack_require__(63);
 	
-	var _controller3 = __webpack_require__(63);
+	var _controller3 = __webpack_require__(65);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -2193,7 +2193,7 @@
 	
 			model.ground_form_controller.define();
 			model.define_post_button(model.config_loader);
-			model.event_button_controller.define();
+			model.define_event_button(model.config_form);
 		};
 	
 		this.get_content = function () {
@@ -2315,9 +2315,9 @@
 	
 	var _controller2 = __webpack_require__(27);
 	
-	var _define = __webpack_require__(38);
+	var _define = __webpack_require__(41);
 	
-	var _controllers2 = __webpack_require__(35);
+	var _define2 = __webpack_require__(35);
 	
 	function Ground_Model() {
 		var _this = this;
@@ -2337,7 +2337,7 @@
 		this.ground_loader = new _block.Block_Loader_Part(this.config_loader);
 	
 		this.define_post_button = _define.define_post_button;
-		this.event_button_controller = new _controllers2.Event_Button_Controllers(this.config_form);
+		this.define_event_button = _define2.define_event_button;
 		this.ground_form_controller = new _controller2.Form_Controllers(this.config_loader);
 	
 		this.page_controller = new _controllers.Page_Controller();
@@ -2404,7 +2404,7 @@
 	
 	var _block = __webpack_require__(10);
 	
-	var _controllers = __webpack_require__(35);
+	var _define = __webpack_require__(35);
 	
 	function Menu_Controller() {
 		if (_typeof(Menu_Controller.instance) === 'object') return Menu_Controller.instance;
@@ -2417,9 +2417,6 @@
 		    loader = new _block.Block_Loader_Part({
 			part_name: part_name,
 			container: container
-		}),
-		    event_button_controller = new _controllers.Event_Button_Controllers({
-			container: container_id
 		});
 	
 		this.get_height = function () {
@@ -2427,7 +2424,9 @@
 		};
 	
 		this.define = function () {
-			event_button_controller.define();
+			(0, _define.define_event_button)({
+				container: container_id
+			});
 		};
 	
 		this.get_content = function () {
@@ -2443,47 +2442,18 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
-	exports.Event_Button_Controllers = undefined;
+	exports.define_event_button = undefined;
 	
-	var _views = __webpack_require__(36);
+	var _controller = __webpack_require__(36);
 	
-	var Event_Button_Controllers = exports.Event_Button_Controllers = function Event_Button_Controllers(config) {
-	  if (typeof config === 'undefined' && typeof config.container === 'undefined') {
-	    console.error('Exeption error: invalid container.');
-	    return {};
-	  }
+	var define_event_button = exports.define_event_button = function define_event_button(config) {
+		var $buttons = $('.event_button', config.container);
 	
-	  var buttons_views = {},
-	      manage_buttons = function manage_buttons(event) {
-	    var button_name = $(this).data('name'),
-	        button_prevent = $(this).data('prevent');
-	
-	    if (button_prevent !== 'false') event.preventDefault();
-	
-	    if (buttons_views[button_name]) buttons_views[button_name].start();else console.error('Button "' + button_name + '" doesn\'t exsist');
-	  },
-	      create_button_views = function create_button_views() {
-	    var button_name = $(this).data('name');
-	    config.button = this;
-	
-	    config.button_name = button_name;
-	    config.button_reload = $(this).data('reload');
-	    config.button_redirect = $(this).data('redirect');
-	    config.button_event = $(this).data('event');
-	    config.button_delay = $(this).data('delay');
-	
-	    buttons_views[button_name] = new _views.Event_Button_Views(config);
-	  };
-	
-	  this.define = function () {
-	    var $buttons = $('.event_button', config.container);
-	
-	    $buttons.each(create_button_views);
-	
-	    $buttons.click(manage_buttons);
-	  };
+		$buttons.each(function () {
+			new _controller.Event_Button(this, config.part_name);
+		});
 	};
 
 /***/ },
@@ -2495,72 +2465,78 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.Event_Button_Views = undefined;
+	exports.Event_Button = undefined;
 	
-	var _models = __webpack_require__(37);
+	var _view = __webpack_require__(37);
+	
+	Object.defineProperty(exports, 'Event_Button', {
+		enumerable: true,
+		get: function get() {
+			return _view.Event_Button;
+		}
+	});
 	
 	var _utilities = __webpack_require__(29);
 	
-	var utilities = _interopRequireWildcard(_utilities);
+	var _event = __webpack_require__(40);
 	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	var Event_Button_Views = exports.Event_Button_Views = function Event_Button_Views(config) {
-	
-		var models = new _models.Event_Button_Models(config);
-	
-		this.models = models;
-	
-		this.start = function () {
-			var events = {
-				reload: models.settings.button_reload,
-				redirect: models.settings.button_redirect,
-				events: models.settings.button_event,
-				delay: models.settings.button_delay
-			};
-	
-			utilities.reload_plugins(events);
-			utilities.redirect_ground(events);
-			utilities.launch_event(events);
+	_view.Event_Button.prototype.collect_data = function (button) {
+		this._button_data = {
+			elem: button,
+			reload: (0, _utilities.get_and_remove_data)(button, 'reload'),
+			redirect: (0, _utilities.get_and_remove_data)(button, 'redirect'),
+			event: (0, _utilities.get_and_remove_data)(button, 'event'),
+			delay: (0, _utilities.get_and_remove_data)(button, 'delay')
 		};
+	};
+	
+	_view.Event_Button.prototype.define_events = function (button) {
+		var _this = this;
+	
+		$(button).click((0, _event.event_broker)(function () {
+			if (_this._is_not_loading()) {
+				_this._set_loading();
+	
+				_this._run_events();
+	
+				_this._set_end_loading();
+			}
+		}));
 	};
 
 /***/ },
 /* 37 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	var Event_Button_Models = exports.Event_Button_Models = function Event_Button_Models(config) {
-		var that = this;
+	exports.Event_Button = undefined;
 	
-		this.settings = {
-			container: undefined,
-			button: undefined,
+	var _model = __webpack_require__(38);
 	
-			button_name: undefined,
-			button_reload: undefined,
-			button_redirect: undefined,
-			button_event: undefined,
-			button_delay: undefined
+	Object.defineProperty(exports, 'Event_Button', {
+		enumerable: true,
+		get: function get() {
+			return _model.Event_Button;
+		}
+	});
+	
+	var _utilities = __webpack_require__(29);
+	
+	_model.Event_Button.prototype._run_events = function () {
+		var events = {
+			reload: this._button_data.reload,
+			redirect: this._button_data.redirect,
+			events: this._button_data.event,
+			delay: this._button_data.delay
 		};
 	
-		(function load_settings() {
-			if (typeof config !== 'undefined') {
-				APP.add_if_isset(config, that.settings, 'container');
-	
-				APP.add_if_isset(config, that.settings, 'button');
-	
-				APP.add_if_isset(config, that.settings, 'button_name');
-				APP.add_if_isset(config, that.settings, 'button_reload');
-				APP.add_if_isset(config, that.settings, 'button_redirect');
-				APP.add_if_isset(config, that.settings, 'button_event');
-				APP.add_if_isset(config, that.settings, 'button_delay');
-			}
-		})();
+		(0, _utilities.reload_plugins)(events);
+		(0, _utilities.redirect_ground)(events);
+		(0, _utilities.launch_event)(events);
 	};
 
 /***/ },
@@ -2572,9 +2548,85 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.Event_Button = undefined;
+	
+	var _init = __webpack_require__(39);
+	
+	Object.defineProperty(exports, 'Event_Button', {
+		enumerable: true,
+		get: function get() {
+			return _init.Event_Button;
+		}
+	});
+	
+	
+	_init.Event_Button.prototype._is_not_loading = function () {
+		return this._variables.is_loading === false;
+	};
+	
+	_init.Event_Button.prototype._set_loading = function () {
+		this._variables.is_loading = true;
+	};
+	
+	_init.Event_Button.prototype._set_end_loading = function () {
+		this._variables.is_loading = false;
+	};
+
+/***/ },
+/* 39 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Event_Button = Event_Button;
+	function Event_Button(button) {
+		this._button_data = {
+			elem: undefined,
+	
+			reload: undefined,
+			redirect: undefined,
+			event: undefined,
+			delay: undefined
+		};
+	
+		this._variables = {
+			is_loading: false
+		};
+	
+		this.collect_data(button);
+		this.define_events(button);
+	}
+
+/***/ },
+/* 40 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	var event_broker = exports.event_broker = function event_broker(fun) {
+		return function (event) {
+			fun(this, event);
+		};
+	};
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.define_post_button = undefined;
 	
-	var _controller = __webpack_require__(39);
+	var _controller = __webpack_require__(42);
 	
 	var define_post_button = exports.define_post_button = function define_post_button(config) {
 		var $post_buttons = $('.post_button', config.container);
@@ -2585,7 +2637,7 @@
 	};
 
 /***/ },
-/* 39 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2595,7 +2647,7 @@
 	});
 	exports.Post_Button = undefined;
 	
-	var _view = __webpack_require__(40);
+	var _view = __webpack_require__(43);
 	
 	Object.defineProperty(exports, 'Post_Button', {
 		enumerable: true,
@@ -2606,7 +2658,7 @@
 	
 	var _utilities = __webpack_require__(29);
 	
-	var _event = __webpack_require__(45);
+	var _event = __webpack_require__(40);
 	
 	var get_button_text = function get_button_text(button) {
 		var $button = $(button);
@@ -2659,7 +2711,7 @@
 	};
 
 /***/ },
-/* 40 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2669,7 +2721,7 @@
 	});
 	exports.Post_Button = undefined;
 	
-	var _model = __webpack_require__(41);
+	var _model = __webpack_require__(44);
 	
 	Object.defineProperty(exports, 'Post_Button', {
 		enumerable: true,
@@ -2738,7 +2790,7 @@
 	};
 
 /***/ },
-/* 41 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2748,7 +2800,7 @@
 	});
 	exports.Post_Button = undefined;
 	
-	var _init = __webpack_require__(42);
+	var _init = __webpack_require__(45);
 	
 	Object.defineProperty(exports, 'Post_Button', {
 		enumerable: true,
@@ -2757,11 +2809,11 @@
 		}
 	});
 	
-	var _main = __webpack_require__(43);
+	var _main = __webpack_require__(46);
 	
 	var _standard = __webpack_require__(20);
 	
-	var _response = __webpack_require__(44);
+	var _response = __webpack_require__(47);
 	
 	_init.Post_Button.prototype._is_loading = function () {
 		return this._variables.is_loading === true;
@@ -2820,7 +2872,7 @@
 	};
 
 /***/ },
-/* 42 */
+/* 45 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2876,7 +2928,7 @@
 	}
 
 /***/ },
-/* 43 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2895,7 +2947,7 @@
 	Request_Manager_Main.prototype = Object.create(_controller.Request_Manager.prototype);
 
 /***/ },
-/* 44 */
+/* 47 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2918,22 +2970,7 @@
 	};
 
 /***/ },
-/* 45 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	var event_broker = exports.event_broker = function event_broker(fun) {
-		return function (event) {
-			fun(this, event);
-		};
-	};
-
-/***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2945,7 +2982,7 @@
 	
 	var _model = __webpack_require__(28);
 	
-	var _dialog_form = __webpack_require__(47);
+	var _dialog_form = __webpack_require__(49);
 	
 	function Dialog_Form_Models(config) {
 		_model.Form_Models.call(this, config);
@@ -2965,7 +3002,7 @@
 	};
 
 /***/ },
-/* 47 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2975,7 +3012,7 @@
 	});
 	exports.Block_Loader_Dialog_Form = Block_Loader_Dialog_Form;
 	
-	var _dialog = __webpack_require__(48);
+	var _dialog = __webpack_require__(50);
 	
 	function Block_Loader_Dialog_Form(config) {
 		_dialog.Block_Loader_Dialog.call(this, config);
@@ -2992,7 +3029,7 @@
 	};
 
 /***/ },
-/* 48 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3002,11 +3039,11 @@
 	});
 	exports.Block_Loader_Dialog = Block_Loader_Dialog;
 	
-	var _response = __webpack_require__(44);
+	var _response = __webpack_require__(47);
 	
 	var _data = __webpack_require__(15);
 	
-	var _main = __webpack_require__(43);
+	var _main = __webpack_require__(46);
 	
 	var _controller = __webpack_require__(18);
 	
@@ -3059,7 +3096,7 @@
 	Block_Loader_Dialog.prototype.define = function () {};
 
 /***/ },
-/* 49 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3069,7 +3106,7 @@
 	});
 	exports.define = undefined;
 	
-	var _checkers = __webpack_require__(50);
+	var _checkers = __webpack_require__(52);
 	
 	var Validators = {};
 	
@@ -3187,7 +3224,7 @@
 	};
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3197,7 +3234,7 @@
 	});
 	exports.Constructor_Validator = undefined;
 	
-	var _views = __webpack_require__(51);
+	var _views = __webpack_require__(53);
 	
 	Object.defineProperty(exports, 'Constructor_Validator', {
 		enumerable: true,
@@ -3320,7 +3357,7 @@
 	});
 
 /***/ },
-/* 51 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3330,7 +3367,7 @@
 	});
 	exports.Constructor_Validator = exports.checker = undefined;
 	
-	var _config = __webpack_require__(52);
+	var _config = __webpack_require__(54);
 	
 	var _controller = __webpack_require__(17);
 	
@@ -3479,7 +3516,7 @@
 	};
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3535,7 +3572,7 @@
 	};
 
 /***/ },
-/* 53 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3545,7 +3582,7 @@
 	});
 	exports.define = undefined;
 	
-	var _views = __webpack_require__(54);
+	var _views = __webpack_require__(56);
 	
 	var add_event_on_fields = function add_event_on_fields(auto_form_views) {
 		var settings = auto_form_views.models.settings,
@@ -3589,7 +3626,7 @@
 	};
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3599,11 +3636,11 @@
 	});
 	exports.Auto_Form_Views = undefined;
 	
-	var _response = __webpack_require__(44);
+	var _response = __webpack_require__(47);
 	
 	var _utilities = __webpack_require__(29);
 	
-	var _models = __webpack_require__(55);
+	var _models = __webpack_require__(57);
 	
 	var Auto_Form_Views = exports.Auto_Form_Views = function Auto_Form_Views(config) {
 		var models = new _models.Auto_Form_Models(config),
@@ -3766,7 +3803,7 @@
 	};
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3776,7 +3813,7 @@
 	});
 	exports.Auto_Form_Models = undefined;
 	
-	var _main = __webpack_require__(43);
+	var _main = __webpack_require__(46);
 	
 	var _data = __webpack_require__(15);
 	
@@ -3864,7 +3901,7 @@
 	};
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3925,7 +3962,7 @@
 	}
 
 /***/ },
-/* 57 */
+/* 59 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3956,7 +3993,7 @@
 	};
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3966,7 +4003,7 @@
 	});
 	exports.define = undefined;
 	
-	var _views = __webpack_require__(59);
+	var _views = __webpack_require__(61);
 	
 	var image_convert_views = _interopRequireWildcard(_views);
 	
@@ -3992,7 +4029,7 @@
 	};
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4002,7 +4039,7 @@
 	});
 	exports.Callback_Functions = exports.get_base64 = exports.settings = exports.models = undefined;
 	
-	var _models = __webpack_require__(60);
+	var _models = __webpack_require__(62);
 	
 	var image_convert_models = _interopRequireWildcard(_models);
 	
@@ -4052,7 +4089,7 @@
 	};
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4072,7 +4109,7 @@
 	};
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4082,7 +4119,7 @@
 	});
 	exports.Address_Switcher_Controller = Address_Switcher_Controller;
 	
-	var _main = __webpack_require__(62);
+	var _main = __webpack_require__(64);
 	
 	function Address_Switcher_Controller(config) {
 		if (!config || !config.container) {
@@ -4102,7 +4139,7 @@
 	}
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4131,7 +4168,7 @@
 	}
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4141,13 +4178,13 @@
 	});
 	exports.Currency_Converter_Controller = Currency_Converter_Controller;
 	
-	var _model = __webpack_require__(64);
+	var _model = __webpack_require__(66);
 	
 	var model = _interopRequireWildcard(_model);
 	
-	var _event = __webpack_require__(45);
+	var _event = __webpack_require__(40);
 	
-	var _view = __webpack_require__(65);
+	var _view = __webpack_require__(67);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -4168,7 +4205,7 @@
 	}
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4235,7 +4272,7 @@
 	};
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4245,7 +4282,7 @@
 	});
 	exports.Currency_Converter_View = Currency_Converter_View;
 	
-	var _model = __webpack_require__(64);
+	var _model = __webpack_require__(66);
 	
 	var model = _interopRequireWildcard(_model);
 	
@@ -4293,7 +4330,7 @@
 	}
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4312,9 +4349,9 @@
 	
 	var _controller2 = __webpack_require__(27);
 	
-	var _define = __webpack_require__(38);
+	var _define = __webpack_require__(41);
 	
-	var _controllers = __webpack_require__(35);
+	var _define2 = __webpack_require__(35);
 	
 	function Cart_Controller() {
 		var _this = this;
@@ -4339,9 +4376,6 @@
 			can_open_from: 0,
 			duration_open: 200,
 			duration_close: 200
-		}),
-		    event_button_controller = new _controllers.Event_Button_Controllers({
-			container: container_id
 		}),
 		    cart_form_controller = new _controller2.Form_Controllers(config_loader),
 		    manage_key = function manage_key(event) {
@@ -4380,8 +4414,10 @@
 	
 			cart_form_controller.define();
 			cart_motion_controller.define();
+			(0, _define2.define_event_button)({
+				container: container_id
+			});
 			(0, _define.define_post_button)(config_loader);
-			event_button_controller.define();
 		};
 	
 		this.get_content = function () {
@@ -4392,7 +4428,7 @@
 	}
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4409,7 +4445,7 @@
 	
 	var _controller = __webpack_require__(24);
 	
-	var _controllers = __webpack_require__(35);
+	var _define = __webpack_require__(35);
 	
 	function Menu_Mobile_Controller() {
 		if (_typeof(Menu_Mobile_Controller.instance) === 'object') return Menu_Mobile_Controller.instance;
@@ -4433,9 +4469,6 @@
 	
 			duration_open: 300,
 			duration_close: 150
-		}),
-		    event_button_controller = new _controllers.Event_Button_Controllers({
-			container: container_id
 		});
 	
 		this.plugin_open = function () {
@@ -4447,7 +4480,9 @@
 			APP.add_own_event(part_name + '_open', motion_controller.plugin_open);
 	
 			motion_controller.define();
-			event_button_controller.define();
+			(0, _define.define_event_button)({
+				container: container_id
+			});
 		};
 	
 		this.get_content = function () {
@@ -4459,7 +4494,7 @@
 	}
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4472,9 +4507,9 @@
 	
 	exports.Dialog_Controller = Dialog_Controller;
 	
-	var _controller = __webpack_require__(69);
+	var _controller = __webpack_require__(71);
 	
-	var _controller2 = __webpack_require__(71);
+	var _controller2 = __webpack_require__(73);
 	
 	function Dialog_Controller() {
 		if (_typeof(Dialog_Controller.instance) === 'object') return Dialog_Controller.instance;
@@ -4556,7 +4591,7 @@
 	}
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4568,7 +4603,7 @@
 	
 	var _standard = __webpack_require__(20);
 	
-	var _view = __webpack_require__(70);
+	var _view = __webpack_require__(72);
 	
 	function Dialog_Designer_Controller(config) {
 		var _this = this;
@@ -4616,7 +4651,7 @@
 	}
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4670,7 +4705,7 @@
 	}
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4682,17 +4717,17 @@
 	
 	var _controller = __webpack_require__(27);
 	
-	var _define = __webpack_require__(38);
+	var _define = __webpack_require__(41);
 	
-	var _controllers = __webpack_require__(35);
+	var _define2 = __webpack_require__(35);
 	
-	var _controllers2 = __webpack_require__(72);
+	var _controllers = __webpack_require__(74);
 	
-	var _controller2 = __webpack_require__(75);
+	var _controller2 = __webpack_require__(77);
 	
-	var _controller3 = __webpack_require__(76);
+	var _controller3 = __webpack_require__(78);
 	
-	var _view = __webpack_require__(79);
+	var _view = __webpack_require__(81);
 	
 	function Dialog_Loader_Controller(config) {
 		var config_loader = {
@@ -4701,8 +4736,7 @@
 		},
 		    view = new _view.Dialog_Loader_View(config),
 		    form_controller = new _controller.Form_Controllers(config_loader, true),
-		    event_button_controller = new _controllers.Event_Button_Controllers(config_loader),
-		    little_form_controller = new _controllers2.Little_Form_Controllers(config_loader),
+		    little_form_controller = new _controllers.Little_Form_Controllers(config_loader),
 		    directory_tree_controller = new _controller2.Directory_Tree(config_loader),
 		    notifications_controller = new _controller3.Notifications_Controller(config_loader);
 	
@@ -4742,7 +4776,7 @@
 		this.define = function () {
 			form_controller.define();
 			(0, _define.define_post_button)(config_loader);
-			event_button_controller.define();
+			(0, _define2.define_event_button)(config_loader);
 			little_form_controller.define();
 			directory_tree_controller.define();
 			notifications_controller.define();
@@ -4752,7 +4786,7 @@
 	}
 
 /***/ },
-/* 72 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4762,7 +4796,7 @@
 	});
 	exports.Little_Form_Controllers = undefined;
 	
-	var _views = __webpack_require__(73);
+	var _views = __webpack_require__(75);
 	
 	var Little_Form_Controllers = exports.Little_Form_Controllers = function Little_Form_Controllers(form_config) {
 	  if (typeof form_config === 'undefined' && typeof form_config.container === 'undefined') {
@@ -4805,7 +4839,7 @@
 	};
 
 /***/ },
-/* 73 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4815,7 +4849,7 @@
 	});
 	exports.Little_Form_Views = undefined;
 	
-	var _models = __webpack_require__(74);
+	var _models = __webpack_require__(76);
 	
 	var Little_Form_Views = exports.Little_Form_Views = function Little_Form_Views(form_config) {
 	  var models = new _models.Little_Form_Models(form_config);
@@ -4889,7 +4923,7 @@
 	};
 
 /***/ },
-/* 74 */
+/* 76 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4982,7 +5016,7 @@
 	};
 
 /***/ },
-/* 75 */
+/* 77 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5014,7 +5048,7 @@
 	}
 
 /***/ },
-/* 76 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5024,7 +5058,7 @@
 	});
 	exports.Notifications_Controller = Notifications_Controller;
 	
-	var _view = __webpack_require__(77);
+	var _view = __webpack_require__(79);
 	
 	function Notifications_Controller(config) {
 		if (!config || !config.container) {
@@ -5047,7 +5081,7 @@
 	}
 
 /***/ },
-/* 77 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5057,7 +5091,7 @@
 	});
 	exports.Notifications_View = Notifications_View;
 	
-	var _model = __webpack_require__(78);
+	var _model = __webpack_require__(80);
 	
 	function Notifications_View() {
 		var model = void 0,
@@ -5089,7 +5123,7 @@
 	}
 
 /***/ },
-/* 78 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5099,7 +5133,7 @@
 	});
 	exports.Notifications_Model = Notifications_Model;
 	
-	var _main = __webpack_require__(43);
+	var _main = __webpack_require__(46);
 	
 	function Notifications_Model() {
 		var request_manager = new _main.Request_Manager_Main(),
@@ -5138,7 +5172,7 @@
 	}
 
 /***/ },
-/* 79 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5148,7 +5182,7 @@
 	});
 	exports.Dialog_Loader_View = Dialog_Loader_View;
 	
-	var _model = __webpack_require__(80);
+	var _model = __webpack_require__(82);
 	
 	function Dialog_Loader_View(config) {
 		var model = new _model.Dialog_Loader_Model(config);
@@ -5195,7 +5229,7 @@
 	}
 
 /***/ },
-/* 80 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5205,7 +5239,7 @@
 	});
 	exports.Dialog_Loader_Model = Dialog_Loader_Model;
 	
-	var _dialog = __webpack_require__(48);
+	var _dialog = __webpack_require__(50);
 	
 	function Dialog_Loader_Model(config) {
 	
