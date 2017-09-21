@@ -6,11 +6,15 @@ from server.manage.switch.website.manager import *
 
 class Payment_Manager(Website_Manager):
 
+    # redirect
+
     def Manage_Little_Form(self):
         return Cart_Block(self).Manage_Little_Form()
 
     def Manage_Button(self):
         return Cart_Block(self).Manage_Button()
+
+    # content
 
     def Update_Payment(self):
 
@@ -35,6 +39,12 @@ class Payment_Manager(Website_Manager):
         self.context['delivery'] = payment.delivery_price
         self.context['address'] = SQL.Filter(Model_User_Address, user=self.context['user'])
         self.Update_Payment()
+
+    def Manage_Content(self):
+        self.Load_Payment_Details()
+        return self.Render_HTML('payment/payment.html')
+
+    # forms
 
     def Create_Address(self, pk, model):
 
@@ -61,11 +71,6 @@ class Payment_Manager(Website_Manager):
         address.country = user_address.country
         SQL.Save(data=address)
 
-    def Manage_Content(self):
-        self.Load_Payment_Details()
-        return self.Render_HTML('payment/payment.html')
-
-
     def Manage_Form_Address_Payment(self):
 
         address_payment_pk = self.request.POST['shipment']
@@ -74,12 +79,17 @@ class Payment_Manager(Website_Manager):
         self.Create_Address(address_payment_pk, 'delivery_address')
         self.Create_Address(address_invoice_pk, 'invoice_address')
 
+        # self.context['']
+
+        return self.Render_HTML('payment/payment_delivery.html')
+
+    def Manage_Form_Delivery(self):
+
         self.Load_Payment_Details()
         self.context['paypal'] = PayPal(self.request).Create_From(self)
         self.context['dotpay'] = DotPay(self.request).Create_From(self)
 
-        self.context['address_is_validate'] = True
-        return self.Render_HTML('payment/payment.html')
+        self.Render_HTML('payment/payment_service.html')
 
     def Manage_Form(self):
 
@@ -87,8 +97,13 @@ class Payment_Manager(Website_Manager):
         if self.request.POST['_name_'] == 'address':
             return self.Manage_Form_Address_Payment()
 
+        # the third step in payment
+        if self.request.POST['_name_'] == 'delivery':
+            return self.Manage_Form_Delivery()
+
         return Website_Manager.Manage_Form(self)
 
+    # get
 
     def Manage_Get_Delivery(self):
 
