@@ -22,32 +22,21 @@
 
 		<div class="title">Choose payment method</div>
 
-		<div class="is-font-0-only_this">
+		<form class="is-font-0-only_this">
 
 			{% if avaible.paypal %}
 				<div class="payment-shell-height">
 					<div class="payment-shell-width">
 
-						<form class="payment-button_shell" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-							{{ paypal.as_p }}
+						<input id="id_paypal"
+						       name="payment_method"
+						       type="radio"
+						       class="is-hidden if_feature"
+						       data-id="paypal">
 
-							<button class="payment-button button is-width-100">
-								PayPal
-							</button>
-						</form>
-
-					</div>
-				</div>
-			{% endif %}
-
-
-			{% if avaible.delayed_transfer %}
-				<div class="payment-shell-height">
-					<div class="payment-shell-width">
-
-						<a href="/payment/delayed_transfer/" class="payment-button button is-width-100">
-							Delayed transfer
-						</a>
+						<label for="id_paypal" class="payment-button button is-center-inside">
+							PayPal
+						</label>
 
 					</div>
 				</div>
@@ -57,20 +46,75 @@
 				<div class="payment-shell-height">
 					<div class="payment-shell-width">
 
-						<form class="payment-button_shell" action="https://ssl.dotpay.pl/test_payment/" method="post">
-							{{ dotpay.as_p }}
+						<input id="id_dotpay"
+						       name="payment_method"
+						       type="radio"
+						       class="is-hidden if_feature"
+						       data-id="dotpay">
 
-							<button class="payment-button button is-width-100">
-								Dotpay
-							</button>
-
-						</form>
+						<label for="id_dotpay" class="payment-button button is-center-inside">
+							Dotpay
+						</label>
 
 					</div>
 				</div>
 			{% endif %}
 
-		</div>
+			{% if avaible.delayed_transfer %}
+				<div class="payment-shell-height">
+					<div class="payment-shell-width">
+
+						<input id="id_delayed_transfer"
+						       name="payment_method"
+						       type="radio"
+						       class="is-hidden if_feature"
+						       data-id="delayed_transfer">
+
+						<label for="id_delayed_transfer" class="payment-button button">
+							Delayed transfer
+						</label>
+
+					</div>
+				</div>
+			{% endif %}
+
+		</form>
+
+
+
+
+		{% if avaible.paypal %}
+			<div class="to_pay set_feature is-right-inside" data-id="paypal" data-feature="hidden">
+				<form class="payment-button_shell" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+					{{ paypal.as_p }}
+
+					<button class="button is-important is-width-20 is-bold">
+						Pay
+					</button>
+				</form>
+			</div>
+		{% endif %}
+
+		{% if avaible.delayed_transfer %}
+			<div class="to_pay set_feature is-right-inside" data-id="delayed_transfer" data-feature="hidden">
+				<a href="/payment/delayed_transfer/" class="button is-important is-width-20">
+					Pay
+				</a>
+			</div>
+		{% endif %}
+
+		{% if avaible.dotpay %}
+			<div class="to_pay set_feature is-right-inside" data-id="dotpay" data-feature="hidden">
+				<form class="payment-button_shell" action="https://ssl.dotpay.pl/test_payment/" method="post">
+					{{ dotpay.as_p }}
+
+					<button class="button is-important is-width-20 is-bold">
+						Pay
+					</button>
+
+				</form>
+			</div>
+		{% endif %}
 
 
 	</div><!-- block-content -->
