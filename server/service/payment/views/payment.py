@@ -133,7 +133,9 @@ class Payment_Manager(Website_Manager):
         self.context['paypal'] = PayPal(self.request).Create_From(self)
         self.context['dotpay'] = DotPay(self.request).Create_From(self)
 
-        self.Render_HTML('payment/payment_service.html')
+        methods = SQL.All(Model_Payment_Method)
+        self.context['avaible'] = {m.method:m.is_active for m in methods}
+        return self.Render_HTML('payment/payment_service.html')
 
     def Manage_Form(self):
 
