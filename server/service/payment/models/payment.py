@@ -25,7 +25,7 @@ class Model_Payment(Abstract_Model):
 
         for selected in selected_products:
             currency_manager = Base_Currency_Manager(_object)
-            product_price = currency_manager.Get_Price(selected.product)
+            product_price = currency_manager.Get_Price(selected.product.price)
             total += product_price * selected.number
 
         self.total_price = format(total, '.2f')
