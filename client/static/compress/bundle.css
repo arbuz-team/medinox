@@ -1437,7 +1437,7 @@ img {
     -o-transition: all 600ms ease;
     transition: all 600ms ease; }
   .ground-block.payment .address_block.is-long, .ground-block.payment .is-long.mini_cart {
-    height: 295px; }
+    height: 365px; }
     .ground-block.payment .address_block.is-long::after, .ground-block.payment .is-long.mini_cart::after {
       -webkit-transform: rotate(-540deg);
       -moz-transform: rotate(-540deg);
@@ -1445,10 +1445,10 @@ img {
       -o-transform: rotate(-540deg);
       transform: rotate(-540deg); }
   .ground-block.payment .address_block.new, .ground-block.payment .new.mini_cart {
-    height: 295px; }
+    height: 365px; }
     .ground-block.payment .address_block.new .address_block-image, .ground-block.payment .new.mini_cart .address_block-image {
       display: block;
-      height: 220px;
+      height: 280px;
       margin: 10px 0;
       opacity: .6;
       background-image: url(/static/img/icons/128/dark/add.png);
@@ -1482,7 +1482,7 @@ img {
 
 @media (min-width: 680px) {
   .ground:not(.smaller) .ground-block.payment.MEDIUM .address_block, .ground:not(.smaller) .ground-block.payment.MEDIUM .mini_cart, .ground:not(.smaller) .ground-block.payment.BIG .address_block, .ground:not(.smaller) .ground-block.payment.BIG .mini_cart {
-    height: 295px; }
+    height: 365px; }
     .ground:not(.smaller) .ground-block.payment.MEDIUM .address_block::after, .ground:not(.smaller) .ground-block.payment.MEDIUM .mini_cart::after, .ground:not(.smaller) .ground-block.payment.BIG .address_block::after, .ground:not(.smaller) .ground-block.payment.BIG .mini_cart::after {
       display: none; }
   .ground:not(.smaller) .ground-block.payment.MEDIUM .address_block-field_list, .ground:not(.smaller) .ground-block.payment.BIG .address_block-field_list {
@@ -1496,7 +1496,7 @@ img {
 
 @media (min-width: 1300px) {
   .ground.smaller .ground-block.payment.MEDIUM .address_block, .ground.smaller .ground-block.payment.MEDIUM .mini_cart, .ground.smaller .ground-block.payment.BIG .address_block, .ground.smaller .ground-block.payment.BIG .mini_cart {
-    height: 295px; }
+    height: 365px; }
     .ground.smaller .ground-block.payment.MEDIUM .address_block::after, .ground.smaller .ground-block.payment.MEDIUM .mini_cart::after, .ground.smaller .ground-block.payment.BIG .address_block::after, .ground.smaller .ground-block.payment.BIG .mini_cart::after {
       display: none; }
   .ground.smaller .ground-block.payment.MEDIUM .address_block-field_list, .ground.smaller .ground-block.payment.BIG .address_block-field_list {

@@ -10,7 +10,7 @@
 </script>
 
 
-<div class="ground-block block-1 MEDIUM payment">
+<div class="ground-block block-1 MEDIUM payment_delivery">
 
 	<div class="block-background fill-abs"></div>
 	{% include "block/ground/html/navigation.html" %}
@@ -46,9 +46,17 @@
 			</div>
 
 
-			<div>
-				{{ delivery_price }}
-				{{ cash_on_delivery }}
+
+			<div data-id="id_cash_on_delivery">
+				{{ delivery_price }} {{ request.session.currency_selected }}
+			</div>
+
+			<div data-id="id_cash_on_delivery">
+				{{ cash_on_delivery }} {{ request.session.currency_selected }}
+			</div>
+
+			<div data-id="id_cash_on_delivery">
+				0.00 {{ request.session.currency_selected }}
 			</div>
 
 		</form>
