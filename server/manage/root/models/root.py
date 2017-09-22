@@ -48,3 +48,12 @@ class Model_Payment_Method(Abstract_Model):
 
     method = models.CharField(max_length=30)
     is_active = models.BooleanField()
+
+
+
+class Model_Data_For_Public(Abstract_Model):
+
+    names = models.BooleanField()
+    phones = models.BooleanField()
+    address = models.BooleanField()
+    email = models.BooleanField()

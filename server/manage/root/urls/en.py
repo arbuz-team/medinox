@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^social_media/$', Social_Media_Manager.Launch, name='root.social_media'),
     url(r'^delivery_settings/$', Delivery_Settings.Launch, name='root.delivery_settings'),
     url(r'^payment_settings/$', Payment_Settings.Launch, name='root.payment_settings'),
+    url(r'^data_for_public/$', Data_For_Public.Launch, name='root.data_for_public'),
 
     url(r'^sign_in/redirect/(?P<url>.+)/$',
         Sign_In.Redirect, name='root.sign_in.redirect'),

@@ -1,0 +1,36 @@
+<script>
+  APP.DATA = {
+    title : 'Data for public',
+    description : ''
+  };
+</script>
+
+
+<div class="ground-block block-1 SMALL">
+
+    <div class="block-background fill-abs"></div>
+    {% include "block/ground/html/navigation.html" %}
+
+    <div class="block-content is-fills-in-width-inside">
+
+        <form method="post" action="" data-name="{{ form_name }}" data-type="{{ form_name }}" data-test="yes">
+
+            <div class="title"> What should be avaible for public: </div>
+
+            <div class="selecter checkbox">
+                <input type="checkbox" id="id_names" name="brand" value="1">
+                <label for="id_names" class="selecter-field"></label>
+                <label for="id_names" class="selecter-text">example</label>
+            </div>
+
+            <div class="form_buttons short">
+                <button class="button" disabled type="submit"> Save </button>
+            </div>
+
+        </form>
+
+    </div><!-- block-content -->
+
+</div><!-- ground-block -->
+
+{% include "EN/footer/standard.html" %}
