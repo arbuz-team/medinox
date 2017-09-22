@@ -17,14 +17,32 @@
 
             <div class="title"> Co powinno być dostępne publicznie: </div>
 
-                {% for field in form %}
+            <div class="selecter checkbox">
+                <input type="checkbox" id="id_names" name="brand" value="1" {% if values.names %} checked {% endif %}>
+                <label for="id_names" class="selecter-field"></label>
+                <label for="id_names" class="selecter-text">Imie i nazwisko</label>
+            </div>
 
-                    {% include "form/html/manage_field.html" %}
+            <div class="selecter checkbox">
+                <input type="checkbox" id="id_phones" name="brand" value="1" {% if values.phones %} checked {% endif %}>
+                <label for="id_phones" class="selecter-field"></label>
+                <label for="id_phones" class="selecter-text">Numery telefonów</label>
+            </div>
 
-                {% endfor %}
+            <div class="selecter checkbox">
+                <input type="checkbox" id="id_address" name="brand" value="1" {% if values.address %} checked {% endif %}>
+                <label for="id_address" class="selecter-field"></label>
+                <label for="id_address" class="selecter-text">Adres firmy</label>
+            </div>
+
+            <div class="selecter checkbox">
+                <input type="checkbox" id="id_email" name="brand" value="1" {% if values.email %} checked {% endif %}>
+                <label for="id_email" class="selecter-field"></label>
+                <label for="id_email" class="selecter-text">Email</label>
+            </div>
 
             <div class="form_buttons short">
-                <button class="button" disabled type="submit"> Save </button>
+                <button class="button" type="submit"> Zapisz </button>
             </div>
 
         </form>

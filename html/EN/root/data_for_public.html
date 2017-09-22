@@ -18,13 +18,31 @@
             <div class="title"> What should be avaible for public: </div>
 
             <div class="selecter checkbox">
-                <input type="checkbox" id="id_names" name="brand" value="1">
+                <input type="checkbox" id="id_names" name="names" value="1" {% if values.names %} checked {% endif %}>
                 <label for="id_names" class="selecter-field"></label>
-                <label for="id_names" class="selecter-text">example</label>
+                <label for="id_names" class="selecter-text">Name and surname</label>
+            </div>
+
+            <div class="selecter checkbox">
+                <input type="checkbox" id="id_phones" name="phones" value="1" {% if values.phones %} checked {% endif %}>
+                <label for="id_phones" class="selecter-field"></label>
+                <label for="id_phones" class="selecter-text">Phones number</label>
+            </div>
+
+            <div class="selecter checkbox">
+                <input type="checkbox" id="id_address" name="address" value="1" {% if values.address %} checked {% endif %}>
+                <label for="id_address" class="selecter-field"></label>
+                <label for="id_address" class="selecter-text">Company address</label>
+            </div>
+
+            <div class="selecter checkbox">
+                <input type="checkbox" id="id_email" name="email" value="1" {% if values.email %} checked {% endif %}>
+                <label for="id_email" class="selecter-field"></label>
+                <label for="id_email" class="selecter-text">Email</label>
             </div>
 
             <div class="form_buttons short">
-                <button class="button" disabled type="submit"> Save </button>
+                <button class="button" type="submit"> Save </button>
             </div>
 
         </form>

@@ -9,7 +9,27 @@ class Data_For_Public(Website_Manager):
         return self.Render_HTML('root/data_for_public.html')
 
     def Manage_Form(self):
-            return HttpResponse()
+
+        data = SQL.First(Model_Data_For_Public)
+        data.names = False
+        data.phones = False
+        data.address = False
+        data.email = False
+
+        if 'names' in self.request.POST:
+            data.names = True
+
+        if 'phones' in self.request.POST:
+            data.phones = True
+
+        if 'address' in self.request.POST:
+            data.address = True
+
+        if 'email' in self.request.POST:
+            data.email = True
+
+        SQL.Save(data=data)
+        return HttpResponse()
 
     @staticmethod
     def Launch(request):
