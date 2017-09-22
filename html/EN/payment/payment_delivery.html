@@ -22,27 +22,27 @@
 
 		<div class="title">Choose delivery method</div>
 
-		<form method="post" data-name="delivery">
+		<form method="post" data-name="delivery" class="is-font-0-only_this">
 
-			<div class="cart-list-button">
-				<label for="id_courier" class="payment-button button is-center-inside">
+			<div class="delivery-button_shell">
+				<input id="id_courier" name="delivery" value="courier" type="radio" class="is-hidden">
+				<label for="id_courier" class="delivery-button button is-center-inside">
 					Courier
 				</label>
-				<input id="id_courier" type="checkbox" class="is-hidden">
 			</div>
 
-			<div class="cart-list-button">
-				<label for="id_cash_on_delivery" class="payment-button button is-center-inside">
+			<div class="delivery-button_shell">
+				<input id="id_cash_on_delivery" name="delivery" value="cash_on_delivery" type="radio" class="is-hidden">
+				<label for="id_cash_on_delivery" class="delivery-button button is-center-inside">
 					Courier - cash on delivery
 				</label>
-				<input id="id_cash_on_delivery" type="checkbox" class="is-hidden">
 			</div>
 
-			<div class="cart-list-button is-center-inside">
-				<label for="id_personal_receipt" class="payment-button button">
+			<div class="delivery-button_shell is-center-inside">
+				<input id="id_personal_receipt" name="delivery" value="personal_receipt" type="radio" class="is-hidden">
+				<label for="id_personal_receipt" class="delivery-button  button">
 					Personal receipt
 				</label>
-				<input id="id_personal_receipt" type="checkbox" class="is-hidden">
 			</div>
 
 
