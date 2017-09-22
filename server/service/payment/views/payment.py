@@ -113,6 +113,22 @@ class Payment_Manager(Website_Manager):
 
     def Manage_Form_Delivery(self):
 
+        # avaible methods
+        delivery_methods = {
+            'courier': Text(self, 263),
+            'cash_on_delivery': Text(self, 264),
+            'personal_receipt': Text(self, 265),
+        }
+
+        # get payment
+        model_manager = Payment_Models_Manager(self)
+        payment = model_manager.Get_Cart()
+
+        # save delivery method
+        method = self.request.POST['delivery']
+        payment.delivery_method = delivery_methods[method]
+
+        # for third step - pay
         self.Load_Payment_Details()
         self.context['paypal'] = PayPal(self.request).Create_From(self)
         self.context['dotpay'] = DotPay(self.request).Create_From(self)
