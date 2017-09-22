@@ -5,14 +5,16 @@
   .delivery-button_shell
     display: inline-block
     width: 50%
-    margin-top: 2px
+    margin-bottom: 15px
+    vertical-align: top
 
 
   .delivery-button
     display: block
-    height: 130px
     line-height: 25px
-    margin: 0 2px
+    margin: 10px 5px
+    padding: 50px 0
+    vertical-align: top
 
     font:
       size: 18px
@@ -20,3 +22,9 @@
 
   input:checked + .delivery-button
     @extend .is-important
+
+
+  .to_pay
+    font:
+      size: 20px
+      weight: bold
