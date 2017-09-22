@@ -7,7 +7,7 @@ import {Dialog_Form_Models} 		    from './model_for_dialog'
 import * as validator 		            from 'form/plugin/validator/controllers'
 import * as auto_form 		            from 'form/plugin/auto_form/controllers'
 import {Selected_Form_Controller} 	    from 'form/plugin/selected_form/controllers'
-import {Setter_Disabled} 	            from 'form/plugin/setter_disabled/controller'
+import {Feature_Setter} 	            from 'form/plugin/feature_setter/controller'
 import * as file_converter 	            from 'form/plugin/file_converter/controllers'
 import {Address_Switcher_Controller}    from 'form/plugin/address_switcher/controller'
 import {Currency_Converter_Controller}  from 'form/plugin/currency_converter/js/controller'
@@ -20,7 +20,7 @@ export let Form_Controllers = function(config, is_dialog)
 		address_switcher = new Address_Switcher_Controller(config),
 		currency_converter = new Currency_Converter_Controller(config),
 		selected_form = new Selected_Form_Controller(config),
-		setter_disabled = new Setter_Disabled(config),
+		feature_setter = new Feature_Setter(config),
 		form_models,
 	    variables;
 
@@ -85,7 +85,7 @@ export let Form_Controllers = function(config, is_dialog)
 		validator.define(config_form);
 		auto_form.define(config_form);
 		file_converter.define(config_form);
-		setter_disabled.define(config_form);
+		feature_setter.define(config_form);
 		selected_form.define();
 		address_switcher.define();
 		currency_converter.define();

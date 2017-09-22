@@ -25,21 +25,42 @@
 		<form method="post" data-name="delivery" class="is-font-0-only_this">
 
 			<div class="delivery-button_shell">
-				<input id="id_courier" name="delivery" value="courier" type="radio" class="is-hidden">
+
+				<input id="id_courier"
+				       name="delivery"
+				       value="courier"
+				       type="radio"
+				       class="is-hidden if_feature"
+				       data-id="courier">
+
 				<label for="id_courier" class="delivery-button button is-center-inside">
 					Courier
 				</label>
 			</div>
 
 			<div class="delivery-button_shell">
-				<input id="id_cash_on_delivery" name="delivery" value="cash_on_delivery" type="radio" class="is-hidden">
+
+				<input id="id_cash_on_delivery"
+				       name="delivery"
+				       value="cash_on_delivery"
+				       type="radio"
+				       class="is-hidden if_feature"
+				       data-id="cash_on_delivery">
+
 				<label for="id_cash_on_delivery" class="delivery-button button is-center-inside">
 					Courier - cash on delivery
 				</label>
 			</div>
 
 			<div class="delivery-button_shell is-center-inside">
-				<input id="id_personal_receipt" name="delivery" value="personal_receipt" type="radio" class="is-hidden">
+
+				<input id="id_personal_receipt"
+				       name="delivery"
+				       value="personal_receipt"
+				       type="radio"
+				       class="is-hidden if_feature"
+				       data-id="personal_receipt">
+
 				<label for="id_personal_receipt" class="delivery-button  button">
 					Personal receipt
 				</label>
@@ -47,20 +68,21 @@
 
 
 
-			<div data-id="id_cash_on_delivery">
+			<div class="set_feature" data-id="courier" data-feature="hidden">
 				{{ delivery_price }} {{ request.session.currency_selected }}
 			</div>
 
-			<div data-id="id_cash_on_delivery">
+			<div class="set_feature" data-id="cash_on_delivery" data-feature="hidden">
 				{{ cash_on_delivery }} {{ request.session.currency_selected }}
 			</div>
 
-			<div data-id="id_cash_on_delivery">
+			<div class="set_feature" data-id="personal_receipt" data-feature="hidden">
 				0.00 {{ request.session.currency_selected }}
 			</div>
 
+
 			<div>
-				<button>Choose</button>
+				<button class="button is-important">Choose</button>
 			</div>
 
 		</form>

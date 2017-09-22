@@ -1800,7 +1800,7 @@
 		var address_switcher = new _controller2.Address_Switcher_Controller(config),
 		    currency_converter = new _controller3.Currency_Converter_Controller(config),
 		    selected_form = new _controllers3.Selected_Form_Controller(config),
-		    setter_disabled = new _controller.Setter_Disabled(config),
+		    feature_setter = new _controller.Feature_Setter(config),
 		    form_models = void 0,
 		    variables = void 0;
 	
@@ -1841,7 +1841,7 @@
 			validator.define(config_form);
 			auto_form.define(config_form);
 			file_converter.define(config_form);
-			setter_disabled.define(config_form);
+			feature_setter.define(config_form);
 			selected_form.define();
 			address_switcher.define();
 			currency_converter.define();
@@ -3923,25 +3923,46 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	var Setter_Disabled = exports.Setter_Disabled = function Setter_Disabled(config) {
+	var Feature_Setter = exports.Feature_Setter = function Feature_Setter(config) {
 		if (typeof config === 'undefined' && typeof config.container === 'undefined') {
 			console.error('Exeption error: invalid container.');
 			return {};
 		}
 	
-		var change_input_status = function change_input_status() {
-			var $checkbox = $(this),
-			    id = $checkbox.data('id'),
-			    status = $checkbox.is(':checked') === false,
-			    $input = $('.set_disabled[data-id=' + id + ']', config.container);
+		var get_setters = function get_setters($setter) {
+			var $form = $setter.parents('form'),
+			    name = $setter.attr('name');
 	
-			$input.prop('disabled', status);
+			return $('.if_feature[name=' + name + ']', $form);
+		},
+		    set_feature = function set_feature() {
+			var $setter = $(this),
+			    id = $setter.data('id'),
+			    $elem_id = $('.set_feature[data-id=' + id + ']', config.container),
+			    feature = $elem_id.data('feature');
+	
+			$elem_id.prop(feature, true);
+		},
+		    change_input_status = function change_input_status() {
+			var $setter = $(this),
+			    id = $setter.data('id'),
+			    type = $setter.attr('type'),
+			    status = $setter.is(':checked') === false,
+			    $all_setters = get_setters($setter),
+			    $elem_id = $('.set_feature[data-id=' + id + ']', config.container),
+			    feature = $elem_id.data('feature');
+	
+			if (type === 'radio') $all_setters.each(set_feature);
+	
+			$elem_id.prop(feature, status);
 		};
 	
 		this.define = function () {
-			var $checkbox = $('.if_disabled', config.container);
+			var $all_setters = $('.if_feature', config.container);
 	
-			$checkbox.change(change_input_status);
+			$all_setters.each(set_feature);
+	
+			$all_setters.click(change_input_status);
 		};
 	};
 
