@@ -211,6 +211,10 @@ div > .buttons_to_action {
   width: 50% !important;
   max-width: 50% !important; }
 
+.is-width-100 {
+  width: 100% !important;
+  max-width: 100% !important; }
+
 .is-block_inline {
   display: inline-block !important; }
 
@@ -436,7 +440,7 @@ div > .buttons_to_action {
   .button:focus {
     background-image: -webkit-linear-gradient(top, #f5f5f5, #f1f1f1);
     border: 1px solid #726229; }
-  .button.is-important, .ground-block.payment_delivery input:checked + .button.delivery-button {
+  .button.is-important, .ground-block.payment_choose input:checked + .button.payment-button {
     background-color: #5a5a5a;
     background-image: -webkit-linear-gradient(top, #5a5a5a, #4d4d4d);
     background-image: -moz-linear-gradient(top, #5a5a5a, #4d4d4d);
@@ -445,7 +449,7 @@ div > .buttons_to_action {
     background-image: linear-gradient(top, #5a5a5a, #4d4d4d);
     border: 1px solid #4d4d4d;
     color: #FFFFFF; }
-    .button.is-important:hover, .ground-block.payment_delivery input:checked + .button.delivery-button:hover {
+    .button.is-important:hover, .ground-block.payment_choose input:checked + .button.payment-button:hover {
       background-color: #555555;
       background-image: -webkit-linear-gradient(top, #555555, #404040);
       background-image: -moz-linear-gradient(top, #555555, #404040);
@@ -1500,22 +1504,25 @@ img {
     width: 180px;
     margin-right: 0; } }
 
-.ground-block.payment_delivery .delivery-button_shell {
+.ground-block.payment_choose .payment-shell-height {
   display: inline-block;
   width: 50%;
-  margin-bottom: 15px;
   vertical-align: top; }
 
-.ground-block.payment_delivery .delivery-button {
+.ground-block.payment_choose .payment-shell-width {
+  display: block;
+  margin: 0 5px; }
+
+.ground-block.payment_choose .payment-button {
   display: block;
   line-height: 25px;
-  margin: 10px 5px;
+  margin: 5px 0;
   padding: 50px 0;
   vertical-align: top;
   font-size: 18px;
   font-weight: bold; }
 
-.ground-block.payment_delivery .to_pay {
+.ground-block.payment_choose .to_pay {
   font-size: 20px;
   font-weight: bold; }
 

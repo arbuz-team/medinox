@@ -1,18 +1,22 @@
 
 
-.ground-block.payment_delivery
+.ground-block.payment_choose
 
-  .delivery-button_shell
+  .payment-shell-height
     display: inline-block
     width: 50%
-    margin-bottom: 15px
     vertical-align: top
 
 
-  .delivery-button
+  .payment-shell-width
+    display: block
+    margin: 0 5px
+
+
+  .payment-button
     display: block
     line-height: 25px
-    margin: 10px 5px
+    margin: 5px 0
     padding: 50px 0
     vertical-align: top
 
@@ -20,7 +24,7 @@
       size: 18px
       weight: bold
 
-  input:checked + .delivery-button
+  input:checked + .payment-button
     @extend .is-important
 
 

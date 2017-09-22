@@ -10,7 +10,7 @@
 </script>
 
 
-<div class="ground-block block-1 MEDIUM payment">
+<div class="ground-block block-1 MEDIUM payment_choose">
 
 	<div class="block-background fill-abs"></div>
 	{% include "block/ground/html/navigation.html" %}
@@ -22,43 +22,55 @@
 
 		<div class="title">Choose payment method</div>
 
-		{% if avaible.paypal %}
-			<div class="cart-list-button">
-				<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-					{{ paypal.as_p }}
+		<div class="is-font-0-only_this">
 
-					<button class="payment-button button"
-					        type="submit">
-						PayPal
-					</button>
+			{% if avaible.paypal %}
+				<div class="payment-shell-height">
+					<div class="payment-shell-width">
 
-				</form>
-			</div>
-		{% endif %}
+						<form class="payment-button_shell" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+							{{ paypal.as_p }}
 
-		{% if avaible.dotpay %}
-			<div class="cart-list-button">
-				<form action="https://ssl.dotpay.pl/test_payment/" method="post">
-					{{ dotpay.as_p }}
+							<button class="payment-button button is-width-100">
+								PayPal
+							</button>
+						</form>
 
-					<button class="payment-button button"
-					        type="submit">
-						Dotpay
-					</button>
+					</div>
+				</div>
+			{% endif %}
 
-				</form>
-			</div>
-		{% endif %}
 
-		{% if avaible.delayed_transfer %}
-			<div class="cart-list-button">
+			{% if avaible.delayed_transfer %}
+				<div class="payment-shell-height">
+					<div class="payment-shell-width">
 
-				<a href="/payment/delayed_transfer/" class="payment-button button">
-					Delayed transfer
-				</a>
+						<a href="/payment/delayed_transfer/" class="payment-button button is-width-100">
+							Delayed transfer
+						</a>
 
-			</div>
-		{% endif %}
+					</div>
+				</div>
+			{% endif %}
+
+			{% if avaible.dotpay %}
+				<div class="payment-shell-height">
+					<div class="payment-shell-width">
+
+						<form class="payment-button_shell" action="https://ssl.dotpay.pl/test_payment/" method="post">
+							{{ dotpay.as_p }}
+
+							<button class="payment-button button is-width-100">
+								Dotpay
+							</button>
+
+						</form>
+
+					</div>
+				</div>
+			{% endif %}
+
+		</div>
 
 
 	</div><!-- block-content -->
