@@ -8,6 +8,7 @@ class Model_Payment(Abstract_Model):
     date = models.DateField()
     total_price = models.CharField(max_length=10)
     delivery_price = models.FloatField()
+    delivery_method = models.CharField(max_length=20)
     currency = models.CharField(max_length=3)
     service = models.CharField(max_length=20)
     status = models.CharField(max_length=20)
@@ -53,7 +54,6 @@ class Model_Payment(Abstract_Model):
         if not payments:
 
             # delivery prices for first user address
-            currency_manager = Base_Currency_Manager(_object)
             payment = Model_Payment(
                 user=user,
                 date=datetime.today().date(),
