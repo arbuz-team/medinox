@@ -11,7 +11,7 @@ class Model_Payment(Abstract_Model):
     delivery_method = models.CharField(max_length=20)
     currency = models.CharField(max_length=3)
     service = models.CharField(max_length=20)
-    status = models.CharField(max_length=20)
+    status = models.CharField(max_length=20) # group
     unique = models.CharField(max_length=20)
 
     def __str__(self):

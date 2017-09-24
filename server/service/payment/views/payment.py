@@ -75,17 +75,6 @@ class Payment_Manager(Website_Manager):
             self.context['delivery_price'] = Text(self, 262)
             self.context['cash_on_delivery'] = Text(self, 262)
 
-    def Manage_Form_Address_Payment(self):
-
-        address_payment_pk = self.request.POST['shipment']
-        address_invoice_pk = self.request.POST['invoice']
-
-        self.Create_Address(address_payment_pk, 'delivery_address')
-        self.Create_Address(address_invoice_pk, 'invoice_address')
-        self.Calculate_Delivery_Price()
-
-        return self.Render_HTML('payment/payment_delivery.html')
-
     def Create_Address(self, pk, model):
 
         user_address = SQL.Get(Model_User_Address, pk=pk)
@@ -111,13 +100,24 @@ class Payment_Manager(Website_Manager):
         address.country = user_address.country
         SQL.Save(data=address)
 
+    def Manage_Form_Address_Payment(self):
+
+        address_payment_pk = self.request.POST['shipment']
+        address_invoice_pk = self.request.POST['invoice']
+
+        self.Create_Address(address_payment_pk, 'delivery_address')
+        self.Create_Address(address_invoice_pk, 'invoice_address')
+        self.Calculate_Delivery_Price()
+
+        return self.Render_HTML('payment/payment_delivery.html')
+
     def Manage_Form_Delivery(self):
 
         # avaible methods
         delivery_methods = {
-            'courier': Text(self, 263),
-            'cash_on_delivery': Text(self, 264),
-            'personal_receipt': Text(self, 265),
+            'courier': 263,
+            'cash_on_delivery': 264,
+            'personal_receipt': 265,
         }
 
         # get payment
@@ -128,10 +128,38 @@ class Payment_Manager(Website_Manager):
         method = self.request.POST['delivery']
         payment.delivery_method = delivery_methods[method]
 
+        # save delivery price
+        self.Calculate_Delivery_Price()
+        delivery = self.request.POST['delivery']
+
+        try:
+
+            payment.delivery_price = {
+                'courier': float(self.context['delivery_price']),
+                'cash_on_delivery': float(self.context['cash_on_delivery']),
+                'personal_receipt': 0,
+            }[delivery]
+
+        except: payment.delivery_price = 0
+
+        # client don't pay
+        if delivery == 'personal_receipt':
+
+            payment.delivery_method = Text(self, 267)
+            payment.status = 'pending'
+            SQL.Save(data=payment)
+
+            path_manager = Path_Manager(self)
+            url = path_manager.Get_Path(
+                'payment.apply', current_language=True)
+
+            return HttpResponseRedirect(url)
+
         # for third step - pay
         self.Load_Payment_Details()
         self.context['paypal'] = PayPal(self.request).Create_From(self)
         self.context['dotpay'] = DotPay(self.request).Create_From(self)
+        SQL.Save(data=payment)
 
         methods = SQL.All(Model_Payment_Method)
         self.context['avaible'] = {m.method:m.is_active for m in methods}
