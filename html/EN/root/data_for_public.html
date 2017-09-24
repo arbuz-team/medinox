@@ -15,7 +15,7 @@
 
         <form method="post" action="" data-name="{{ form_name }}" data-type="{{ form_name }}" data-test="yes">
 
-            <div class="title"> What should be avaible for public: </div>
+            <div class="title"> What should be available for public: </div>
 
             <div class="selecter checkbox">
                 <input type="checkbox" id="id_names" name="names" value="1" {% if values.names %} checked {% endif %}>
@@ -42,7 +42,12 @@
             </div>
 
             <div class="form_buttons short">
-                <button class="button" type="submit"> Save </button>
+                <button class="button is-important"> Save </button>
+                <button class="button event_button"
+                        type="button"
+                        data-event="reload_website">
+                    Show changes
+                </button>
             </div>
 
         </form>
