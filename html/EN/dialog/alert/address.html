@@ -8,7 +8,17 @@
 
     <div class="dialog-content-part">
 
-        <div class="dialog-address-title">Address delivery</div>
+        <div class="dialog-address-title">
+	        <span class="is-margin-r-40">Address delivery</span>
+
+	        <button class="button is-icon dialog_button"
+	                type="button"
+	                data-type="prompt"
+	                data-name="address_delivery"
+	                data-value="{{ item.payment.pk }}">
+		        <span class="button-icon img-edit">&nbsp;</span>
+	        </button>
+        </div>
 
 	    <div class="dialog-address-content">
 
@@ -49,15 +59,20 @@
 
 	    </div>
 
-	    <div class="dialog-address-title">Address invoice</div>
+	    <div class="dialog-address-title">
+		    <span class="is-margin-r-40">Address invoice</span>
+
+		    <button class="button is-icon dialog_button"
+		            type="button"
+		            data-type="prompt"
+		            data-name="address_invoice"
+		            data-value="{{ item.payment.pk }}">
+			    <span class="button-icon img-edit">&nbsp;</span>
+		    </button>
+	    </div>
 
 		<div class="dialog-address-content">
 
-			{% if item.company_name %}
-			{{ item.company_name }}
-			{% elif item.name and item.surname %}
-			{{ item.name }} {{ item.surname }}
-			{% endif %}
 			<div class="dialog-address-field">
 			    <div class="dialog-address-name">   Company name:     </div>
 				<div class="dialog-address-value">  {{ invoice.company_name }} &nbsp;</div>
@@ -101,14 +116,6 @@
 
     <div class="dialog-content-part">
         <!--buttons-->
-        <button class="button post_button"
-                type="button"
-                data-name="edit_addresses"
-                data-action="edit_addresses"
-                data-reload="dialog">
-            Edit
-        </button>
-
         <button class="button event_button"
                 type="button"
                 data-name="button_close_dialog"
