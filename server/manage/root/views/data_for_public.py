@@ -10,7 +10,6 @@ class Data_For_Public(Website_Manager):
 
     def Manage_Form(self):
 
-        self.Clear_Session('root_for_public')
         data = SQL.First(Model_Data_For_Public)
         data.names = False
         data.phones = False
@@ -30,6 +29,8 @@ class Data_For_Public(Website_Manager):
             data.email = True
 
         SQL.Save(data=data)
+        self.Clear_Session('root_for_public')
+        
         return HttpResponse()
 
     @staticmethod
