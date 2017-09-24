@@ -109,32 +109,43 @@
         {% endif %}
 
 
-        <div class="footer-contact-element">
-            <i class="footer-contact-icon img-email">&nbsp;</i>
-
-            <span><a href="mailto:{{ request.session.root_address.email }}">{{ request.session.root_address.email }}</a></span>
-        </div>
+        {% var 'root_address' request.session.root_address %}
+        {% var 'root_for_public' request.session.root_for_public %}
 
 
-        {% if request.session.root_address.phone %}
+        {% if root_for_public.email %}
             <div class="footer-contact-element">
-                <i class="footer-contact-icon img-telephone">&nbsp;</i>
+                <i class="footer-contact-icon img-email">&nbsp;</i>
 
-                <span><a href="tel:{{ request.session.root_address.phone }}">{{ request.session.root_address.phone }}</a></span>
+                <span><a href="mailto:{{ request.session.root_address.email }}">{{ request.session.root_address.email }}</a></span>
             </div>
         {% endif %}
 
 
-        <div class="footer-contact-element">
-            <i class="footer-contact-icon img-home">&nbsp;</i>
+        {% if root_for_public.phones and root_address.phone_1 %}
+            <div class="footer-contact-element">
+                <i class="footer-contact-icon img-telephone">&nbsp;</i>
 
-            <span>
-                {{ request.session.root_address.address_line }}
-                <br>
-                {{ request.session.root_address.postcode }}
-                {{ request.session.root_address.city }}
-            </span>
-        </div>
+                <span>
+                    tel. <a href="tel:{{ root_address.phone_1 }}">{{ root_address.phone_1 }}</a><br>
+                    tel. <a href="tel:{{ root_address.phone_2 }}">{{ root_address.phone_2 }}</a><br>
+                </span>
+            </div>
+        {% endif %}
+
+
+        {% if root_for_public.address %}
+            <div class="footer-contact-element">
+                <i class="footer-contact-icon img-home">&nbsp;</i>
+
+                <span>
+                    {{ request.session.root_address.address_line }}
+                    <br>
+                    {{ request.session.root_address.postcode }}
+                    {{ request.session.root_address.city }}
+                </span>
+            </div>
+        {% endif %}
 
     </div><!-- footer-contact -->
 

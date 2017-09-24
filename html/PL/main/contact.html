@@ -48,16 +48,33 @@
                 <div>{{ root_address.region }} {{ root_address.country }}</div>
                 {% endif %}
 
-                {% if root_for_public.phone %}
-                <div>
-                    <a href="tel:{{ request.session.root_address.phone }}">{{ root_address.phone }}</a>
-                </div>
+
+                {% if root_for_public.phones %}
+
+                    {% if root_address.phone_1 %}
+                        <div>
+                            tel. <a href="tel:{{ root_address.phone_1 }}">{{ root_address.phone_1 }}</a>
+                        </div>
+                    {% endif %}
+
+                    {% if root_address.phone_2 %}
+                        <div>
+                            tel. <a href="tel:{{ root_address.phone_2 }}">{{ root_address.phone_2 }}</a>
+                        </div>
+                    {% endif %}
+
+                    {% if root_address.fax %}
+                        <div>
+                            fax <a href="tel:{{ root_address.phone }}">{{ root_address.fax }}</a>
+                        </div>
+                    {% endif %}
+
                 {% endif %}
 
                 {% if root_for_public.email %}
-                <div>
-                    <a href="mailto:{{ request.session.root_address.email }}">{{ root_address.email }}</a>
-                </div>
+                    <div>
+                        <a href="mailto:{{ request.session.root_address.email }}">{{ root_address.email }}</a>
+                    </div>
                 {% endif %}
             </div>
 
