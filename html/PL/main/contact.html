@@ -21,24 +21,44 @@
 
         <div class="block-content-left">
 
+            {% var 'root_address' request.session.root_address %}
+            {% var 'root_for_public' request.session.root_for_public %}
+
             <div class="title">
-                {% if request.session.root_address.company_name %}
-                    {{ request.session.root_address.full_name }}
-                {% elif request.session.root_address.name and request.session.root_address.surname %}
-                    {{ request.session.root_address.name }} {{ request.session.root_address.surname }}
+
+                {% if root_for_public.names and root_address.name and root_address.surname %}
+                {{ root_for_public.names }} {{ root_address.name }} {{ root_address.surname }}
+                {% else %}
+                {{ root_address.company_name }}
                 {% endif %}
             </div>
 
             <div class="paragraph">
-                {{ request.session.root_address.address_line }}<br>
-                {{ request.session.root_address.postcode }} {{ request.session.root_address.city }}<br>
-                {{ request.session.root_address.region }} {{ request.session.root_address.country }}<br>
+                <!-- names, phones, address, email -->
 
-                {% if request.session.root_address.phone %}
-                    <a href="tel:{{ request.session.root_address.phone }}">{{ request.session.root_address.phone }}</a><br>
+                {% if root_for_public.names and root_address.name and root_address.surname %}
+                <div>{{ root_address.name }} {{ root_address.surname }}</div>
+                {% else %}
+                <div>{{ root_address.company_name }}</div>
                 {% endif %}
 
-                <a href="mailto:{{ request.session.root_address.email }}">{{ request.session.root_address.email }}</a><br>
+                {% if root_for_public.address %}
+                <div>{{ root_address.address_line }}</div>
+                <div>{{ root_address.postcode }} {{ root_address.city }}</div>
+                <div>{{ root_address.region }} {{ root_address.country }}</div>
+                {% endif %}
+
+                {% if root_for_public.phone %}
+                <div>
+                    <a href="tel:{{ request.session.root_address.phone }}">{{ root_address.phone }}</a>
+                </div>
+                {% endif %}
+
+                {% if root_for_public.email %}
+                <div>
+                    <a href="mailto:{{ request.session.root_address.email }}">{{ root_address.email }}</a>
+                </div>
+                {% endif %}
             </div>
 
 
