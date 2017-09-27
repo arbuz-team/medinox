@@ -125,6 +125,9 @@ class Users_Payments(Website_Manager):
             return Dialog_Prompt(self, apply=True).HTML
         return Dialog_Prompt(self, not_valid=True).HTML
 
+    def Manage_Form_Payment_Address(self):
+        pass
+
     def Manage_Form(self):
 
         if self.request.POST['_name_'] == 'note':
@@ -135,6 +138,9 @@ class Users_Payments(Website_Manager):
 
         if self.request.POST['_name_'] == 'send_email':
             return self.Manage_Form_Send_Email()
+
+        if self.request.POST['_name_'] == 'payment_address':
+            return self.Manage_Form_Payment_Address()
 
         return Website_Manager.Manage_Form(self)
 

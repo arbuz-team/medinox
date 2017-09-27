@@ -79,6 +79,9 @@ class Session_Controller:
             self.request.session['root_for_public'] = \
                 SQL.First(Model_Data_For_Public)
 
+        if 'root_edit_payment_address' not in self.request.session:
+            self.request.session['root_edit_payment_address'] = None
+
     def Check_Session_Translator(self):
 
         if 'translator_language' not in self.request.session:

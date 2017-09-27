@@ -14,8 +14,9 @@
 	        <button class="button is-icon dialog_button"
 	                type="button"
 	                data-type="prompt"
-	                data-name="address_delivery"
-	                data-value="{{ item.payment.pk }}">
+	                data-name="address_payment"
+	                data-value="{{ delivery.pk }}"
+					data-other_1="type:delivery">
 		        <span class="button-icon img-edit">&nbsp;</span>
 	        </button>
         </div>
@@ -65,8 +66,9 @@
 		    <button class="button is-icon dialog_button"
 		            type="button"
 		            data-type="prompt"
-		            data-name="address_invoice"
-		            data-value="{{ item.payment.pk }}">
+		            data-name="address_payment"
+		            data-value="{{ invoice.pk }}"
+					data-other_1="type:invoice">
 			    <span class="button-icon img-edit">&nbsp;</span>
 		    </button>
 	    </div>
