@@ -126,7 +126,31 @@ class Users_Payments(Website_Manager):
         return Dialog_Prompt(self, not_valid=True).HTML
 
     def Manage_Form_Payment_Address(self):
-        pass
+        address = self.request.session['root_edit_payment_address']
+
+        if address.__class__ == Model_Delivery_Address:
+            self.context['form'] = Form_Delivery_Address(
+                self, post=True, instance=address)
+
+        if address.__class__ == Model_Invoice_Address:
+            self.context['form'] = Form_Invoice_Address(
+                self, post=True, instance=address)
+
+        if self.context['form'].is_valid():
+            self.context['form'].save()
+
+            post = self.request.POST.copy()
+            post.update(
+                {
+                    '_name_': 'root_address',
+                    'value': address.payment.pk
+                }
+            )
+
+            self.request.POST = post
+
+            return Dialog_Alert(self).HTML
+        return Dialog_Prompt(self, not_valid=True).HTML
 
     def Manage_Form(self):
 
@@ -139,7 +163,7 @@ class Users_Payments(Website_Manager):
         if self.request.POST['_name_'] == 'send_email':
             return self.Manage_Form_Send_Email()
 
-        if self.request.POST['_name_'] == 'payment_address':
+        if self.request.POST['_name_'] == 'address_payment':
             return self.Manage_Form_Payment_Address()
 
         return Website_Manager.Manage_Form(self)
