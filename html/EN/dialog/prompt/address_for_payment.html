@@ -30,19 +30,19 @@
 	<div class="dialog-content-part">
 		<!--buttons-->
 
-		<button class="button event_button"
-		        type="button"
-		        data-name="button_close_dialog"
-		        data-event="part.close_dialog">
-			Close
-		</button>
-
 		<button class="button dialog_button"
 		        type="button"
 		        data-type="alert"
 		        data-name="root_address"
 		        data-value="{{ payment.pk }}">
 			Back
+		</button>
+
+		<button class="button event_button"
+		        type="button"
+		        data-name="button_close_dialog"
+		        data-event="part.close_dialog">
+			Close
 		</button>
 
 		<button class="button dialog_send event_button"
