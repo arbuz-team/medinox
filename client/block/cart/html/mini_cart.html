@@ -21,10 +21,12 @@
                         {{ item.company_name }}
                     {% elif item.name and item.surname %}
                         {{ item.name }} {{ item.surname }}
+                    {% else %}
+                        {{ item.payment.user.username }}
                     {% endif %}
 
                 {% else %}
-                    {{ item.payment.user }}
+                    {{ item.payment.user.username }}
                 {% endif %}
             </span>
 
@@ -79,14 +81,14 @@
                                     data-value="pending"
                                     data-other_1="index:{{ item.payment.pk }}"
                                     data-reload="ground">
-                                <span class="button-text">
-                                    {% text 210 %}<!--Pending-->
-                                </span>
+                                    <span class="button-text">
+                                        {% text 210 %}<!--Pending-->
+                                    </span>
                                 <span class="button-icon">
-                                    {% if request.session.root_payment_status == 'pending' %}
-                                        &#10004;
-                                    {% endif %}
-                                </span>
+                                        {% if request.session.root_payment_status == 'pending' %}
+                                            &#10004;
+                                        {% endif %}
+                                    </span>
                             </button>
 
                             <button class="button is-text_icon post_button"
@@ -96,14 +98,14 @@
                                     data-value="internal"
                                     data-other_1="index:{{ item.payment.pk }}"
                                     data-reload="ground">
-                                <span class="button-text">
-                                    {% text 211 %}<!--Internal-->
-                                </span>
+                                    <span class="button-text">
+                                        {% text 211 %}<!--Internal-->
+                                    </span>
                                 <span class="button-icon">
-                                    {% if request.session.root_payment_status == 'internal' %}
-                                        &#10004;
-                                    {% endif %}
-                                </span>
+                                        {% if request.session.root_payment_status == 'internal' %}
+                                            &#10004;
+                                        {% endif %}
+                                    </span>
                             </button>
 
                             <button class="button is-text_icon post_button"
@@ -113,14 +115,14 @@
                                     data-value="external"
                                     data-other_1="index:{{ item.payment.pk }}"
                                     data-reload="ground">
-                                <span class="button-text">
-                                    {% text 212 %}<!--External-->
-                                </span>
+                                    <span class="button-text">
+                                        {% text 212 %}<!--External-->
+                                    </span>
                                 <span class="button-icon">
-                                    {% if request.session.root_payment_status == 'external' %}
-                                        &#10004;
-                                    {% endif %}
-                                </span>
+                                        {% if request.session.root_payment_status == 'external' %}
+                                            &#10004;
+                                        {% endif %}
+                                    </span>
                             </button>
 
                             <button class="button is-text_icon post_button"
@@ -130,14 +132,14 @@
                                     data-value="completed"
                                     data-other_1="index:{{ item.payment.pk }}"
                                     data-reload="ground">
-                                <span class="button-text">
-                                    {% text 213 %}<!--Completed-->
-                                </span>
+                                    <span class="button-text">
+                                        {% text 213 %}<!--Completed-->
+                                    </span>
                                 <span class="button-icon">
-                                    {% if request.session.root_payment_status == 'completed' %}
-                                        &#10004;
-                                    {% endif %}
-                                </span>
+                                        {% if request.session.root_payment_status == 'completed' %}
+                                            &#10004;
+                                        {% endif %}
+                                    </span>
                             </button>
 
                         </div>
@@ -171,13 +173,13 @@
                                     data-value="{{ item.payment.pk }}">
                                 {% text 216 %}<!--Show addresses-->
                             </button>
-	                        <button class="button dialog_button"
-	                                type="button"
-	                                data-type="prompt"
-	                                data-name="send_email"
-	                                data-value="{{ item.payment.pk }}">
+                            <button class="button dialog_button"
+                                    type="button"
+                                    data-type="prompt"
+                                    data-name="send_email"
+                                    data-value="{{ item.payment.pk }}">
                                 {% text 217 %}<!--Send e-mail-->
-	                        </button>
+                            </button>
                             <a class="button" href="{% url 'pdf.invoice' full=True pk=item.payment.pk %}">
                                 {% text 218 %}<!--Get invoice-->
                             </a>
