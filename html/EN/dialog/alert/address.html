@@ -76,13 +76,18 @@
 		<div class="dialog-address-content">
 
 			<div class="dialog-address-field">
-			    <div class="dialog-address-name">   Company name:     </div>
+			    <div class="dialog-address-name">   Company name: </div>
 				<div class="dialog-address-value">  {{ invoice.company_name }} &nbsp;</div>
 		    </div>
 
 			<div class="dialog-address-field">
-			    <div class="dialog-address-name">   Full name:     </div>
-				<div class="dialog-address-value">  {{ item.name }} {{ item.surname }} &nbsp;</div>
+			    <div class="dialog-address-name">   Name: </div>
+				<div class="dialog-address-value">  {{ invoice.name }} &nbsp;</div>
+		    </div>
+
+			<div class="dialog-address-field">
+			    <div class="dialog-address-name">   Surname: </div>
+				<div class="dialog-address-value">  {{ invoice.surname }} &nbsp;</div>
 		    </div>
 
 			<div class="dialog-address-field">
