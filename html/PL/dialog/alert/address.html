@@ -8,7 +8,18 @@
 
     <div class="dialog-content-part">
 
-        <div class="dialog-address-title">Adres dostawy</div>
+	    <div class="dialog-address-title">
+		    <span class="is-margin-r-40">Adres dostawy</span>
+
+		    <button class="button is-icon dialog_button"
+		            type="button"
+		            data-type="prompt"
+		            data-name="address_payment"
+		            data-value="{{ delivery.pk }}"
+		            data-other_1="type:delivery">
+			    <span class="button-icon img-edit">&nbsp;</span>
+		    </button>
+	    </div>
 
 	    <div class="dialog-address-content">
 
@@ -54,7 +65,18 @@
 
 	    </div>
 
-	    <div class="dialog-address-title">Adres faktury</div>
+	    <div class="dialog-address-title">
+		    <span class="is-margin-r-40">Adres faktury</span>
+
+		    <button class="button is-icon dialog_button"
+		            type="button"
+		            data-type="prompt"
+		            data-name="address_payment"
+		            data-value="{{ invoice.pk }}"
+		            data-other_1="type:invoice">
+			    <span class="button-icon img-edit">&nbsp;</span>
+		    </button>
+	    </div>
 
 		<div class="dialog-address-content">
 
@@ -106,13 +128,6 @@
 
     <div class="dialog-content-part">
         <!--buttons-->
-        <button class="button post_button"
-                type="button"
-                data-name="edit_addresses"
-                data-action="edit_addresses"
-                data-reload="dialog">
-            Edytuj
-        </button>
 
         <button class="button event_button"
                 type="button"
@@ -120,6 +135,7 @@
                 data-event="part.close_dialog">
             Zamknij
         </button>
+
     </div><!-- dialog-content-part -->
 
 </div><!-- dialog-content -->
