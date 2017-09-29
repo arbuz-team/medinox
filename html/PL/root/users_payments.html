@@ -1,3 +1,5 @@
+{% load tags %}
+
 <script>
     APP.DATA = {
         title : 'Płatności użytkowników',
@@ -12,7 +14,7 @@
 
     <div class="block-content">
 
-        <div class="title">Płatności użytkowników - {{ request.session.root_payment_status | title }}</div>
+        <div class="title">Płatności użytkowników - {% get_root_payment_status %}</div>
 
 	    <div class="is-center-inside">
 

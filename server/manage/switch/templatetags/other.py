@@ -50,6 +50,21 @@ class Other_Manager(Base_Tag_Manager):
 
 
 @register.simple_tag(takes_context=True)
+def get_root_payment_status(context):
+    request = context['request']
+    status = request.session['root_payment_status']
+
+    switch = {
+        'pending':   270,
+        'cart':      271,
+        'internal':  272,
+        'external':  273,
+        'completed': 274,
+    }
+
+    return Text(request=request, pk=switch[status])
+
+@register.simple_tag(takes_context=True)
 def url(context, name=None, full=False, **kwargs):
 
     task = 'Get_Path_Or_Url'
