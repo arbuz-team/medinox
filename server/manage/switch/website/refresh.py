@@ -2,6 +2,7 @@ from server.service.payment.models import *
 from server.service.notification.models import *
 from server.service.sender.views import *
 from django.db.utils import DatabaseError,IntegrityError
+from requests.utils import unquote
 
 
 class Refresh(Base_Website):
@@ -9,7 +10,7 @@ class Refresh(Base_Website):
     def Update_Navigation(self):
 
         navigation = []
-        url = self.request.get_full_path()
+        url = unquote(self.request.get_full_path())
         parts_of_url = url.split('/')[1:-1]
         page = '/'
 

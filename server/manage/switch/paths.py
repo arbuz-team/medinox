@@ -36,9 +36,10 @@ class Path_Manager(Base):
         name_to = self.Get_Path(
             name_to, kwargs, current_language=True)
 
+        from server.service.translator.views import Text
         name_to = b64encode(bytes(name_to, 'utf-8'))
         name_to = name_to.decode('utf-8')
-        return '{0}redirect/{1}/'.format(name_from, name_to)
+        return '{0}{1}/{2}/'.format(name_from, Text(self, 269), name_to)
 
     def Get_Urls(self, name=None, kwargs=None,
                  language=None, current_language=False):

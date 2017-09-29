@@ -36,7 +36,8 @@ class Other_Manager(Base_Tag_Manager):
 
         redirect_url = b64encode(bytes(redirect_url, 'utf-8'))
         redirect_url = redirect_url.decode('utf-8')
-        return '{0}redirect/{1}/'.format(url_name, redirect_url)
+        return '{0}{1}/{2}/'.format(url_name,
+                    Text(self, 269), redirect_url)
 
     def Get_Text_In_Current_Language(self):
         pk = self.values['pk']
