@@ -6,7 +6,6 @@ class Form_Element_Operation(Abstract_Form):
     choices = (
         ('EN', 'English'),
         ('PL', 'Polski'),
-        ('DE', 'Deutsch'),
     )
 
     def Create_Fields(self):

@@ -15,16 +15,16 @@ class Catalog_Tree(Base_Service, metaclass=ABCMeta):
         self.context['have_children'] = self.Have_Children(catalog)
         return self.Render_To_String('catalog/tree.html')
 
-    def Recursive_Catalogs(self, parent):
+    def Recursive_Catalogs(self, parent, language):
 
-        catalogs = SQL.Filter(Model_Catalog, parent=parent)
+        catalogs = SQL.Filter(Model_Catalog, parent=parent, language=language)
         tree = self.Render_Catalog(parent, catalogs)
 
         for index, catalog in enumerate(catalogs):
 
             tree = tree.replace(
                 '<{0}>'.format(index),
-                self.Recursive_Catalogs(catalog)
+                self.Recursive_Catalogs(catalog, language)
             )
 
         return tree
@@ -34,5 +34,8 @@ class Catalog_Tree(Base_Service, metaclass=ABCMeta):
         root_catalog = SQL.Get(Model_Catalog,
            parent=None, name='/')
 
-        self.context['catalog_tree'] = \
-            self.Recursive_Catalogs(root_catalog)
+        self.context['catalog_tree_en'] = \
+            self.Recursive_Catalogs(root_catalog, 'EN')
+
+        self.context['catalog_tree_pl'] = \
+            self.Recursive_Catalogs(root_catalog, 'PL')

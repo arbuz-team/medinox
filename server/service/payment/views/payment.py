@@ -21,7 +21,7 @@ class Payment_Manager(Website_Manager):
         payment = SQL.Get(Model_Payment,
             user=self.context['user'], status='cart')
 
-        self.context['payment'] = payment.pk
+        self.context['payment'] = payment
         payment.date = datetime.today().date()
         payment.total_price = self.context['total_price']
         payment.currency = self.request.session['currency_selected']
