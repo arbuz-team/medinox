@@ -1,12 +1,12 @@
 {% load tags %}
 
 <script>
-  APP.DATA = {
-    title : 'Payment',
-    description : '',
-  };
+	APP.DATA = {
+		title : 'Płatności',
+		description : '',
+	};
 
-  APP.throw_event(EVENTS.part.close_cart);
+	APP.throw_event(EVENTS.part.close_cart);
 </script>
 
 
@@ -17,178 +17,180 @@
 
     {% if address_is_validate %}
 
-        {% include "block/ground/html/go_back.html" with href='/payment/' %}
+        {% include "block/ground/html/go_back.html" with href='/płatności/' %}
 
     {% endif %}
 
     <div class="block-content">
 
-            {% if not cart %}
+        {% if not cart %}
 
-                <ul class="cart-list">
-                    <li>
-                        <div class="cart-list-empty">
-                            Payment is empty
-                        </div>
-                    </li>
-                </ul><!-- cart-list -->
-
-            {% else %}
-
-                <ul class="cart-list">
-
-                    {% for selected in cart %}
-
-                        <li class="cart-list-product is-inline-inside">
-
-                            <div class="cart-list-product-name">
-                                <a href="/product/{{ selected.product.pk }}/{{ selected.product.url_name }}/">
-                                    {{ selected.product.name }}
-                                </a>
-                            </div>
-
-
-                            <div class="cart-list-product-actions">
-
-                                <form class="auto_form" data-origin="little" data-reload="cart">
-
-                                    <input class="cart-list-product-number input auto_field only_number_3 always"
-                                           title="Number of products"
-                                           value="{{ selected.number }}"
-                                           data-name="number_of_products"
-                                           data-other_1="pk:{{ selected.pk }}" />
-
-                                    <span class="cart-list-product-price"> x {% get_price selected.product %}</span>
-
-                                    <div class="tooltip align-right align-bottom is-dangerous">
-
-                                        <button class="button is-icon tooltip_button cart-list-product-remove"
-                                                type="button"
-                                                data-name="remove_product-cart">
-                                            <span class="button-icon is-zoom img-waste_bin"> &nbsp; </span>
-                                        </button>
-
-                                        <div class="tooltip-options">
-                                            <button class="button post_button"
-                                                    type="button"
-                                                    data-name="Delete_{{ selected.product.pk }}"
-                                                    data-action="delete"
-                                                    data-value="{{ selected.product.pk }}"
-                                                    data-reload="cart ground">
-                                                Are you sure?
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                </form><!-- auto_form -->
-
-                            </div><!-- cart-list-product-actions -->
-
-                        </li><!-- cart-list-product -->
-
-                    {% endfor %}
-
-
-                    <li class="cart-list-total_price is-inline-inside">
-                        <div class="cart-list-total_price-title">Total price:</div>
-                        <div class="cart-list-total_price-price">{{ payment.total_price }} {{ request.session.currency_selected }}</div>
-                    </li>
-
-                </ul><!-- cart-list -->
-
-
-
-
-                <!-- //////////////////////  CHOOSE ADDRESS  ////////////////////// -->
-
-                <form method="post" action="" data-name="address" data-type="address">
-
-                    <div class="form_submit">
-                        <div class="form_submit-description">Please select your address of below list <wbr>for shipment and invoice.</div>
-
-                        <button class="form_submit-button button is-important"
-                                type="submit">
-                            Next
-                        </button>
+            <ul class="cart-list">
+                <li>
+                    <div class="cart-list-empty">
+                        Brak płatności
                     </div>
+                </li>
+            </ul><!-- cart-list -->
 
-                    {% for item in address %}
+        {% else %}
 
-                        <div class="address_block change_length">
-                            <div>
+            <ul class="cart-list">
 
-                                <div class="address_block-shell"></div>
+                {% for selected in cart %}
 
-                                <div class="address_block-title change_length-button">
-                                    {% if item.company_name %}
-                                        {{ item.company_name }}
-                                    {% elif item.name and item.surname %}
-                                        {{ item.name }} {{ item.surname }}
-                                    {% endif %}
-                                </div>
+                    <li class="cart-list-product is-inline-inside">
 
-                                <div class="address_block-field_list">
-                                    <div class="is-nowrap">{{ item.company_name }} &nbsp; </div>
-                                    <div class="is-nowrap">{{ item.name }} {{ item.surname }} &nbsp; </div>
-                                    <div class="is-nowrap">{{ item.address_line }} &nbsp; </div>
-                                    <div class="is-nowrap">{{ item.city }} &nbsp; </div>
-                                    <div class="is-nowrap">{{ item.region }} &nbsp; </div>
-                                    <div class="is-nowrap">{{ item.postcode }} &nbsp; </div>
-                                    <div class="is-nowrap">{{ item.country }} &nbsp; </div>
-                                </div>
+                        <div class="cart-list-product-name">
+                            <a href="/product/{{ selected.product.pk }}/{{ selected.product.url_name }}/">
+                                {{ selected.product.name }}
+                            </a>
+                        </div>
 
-                                <div class="address_block-buttons">
-                                    <span>Select address to</span>
 
-                                    <div class="selecter radio">
-                                        <input class="input"
-                                               type="radio"
-                                               id="id_shipment_{{ forloop.counter0 }}"
-                                               name="shipment"
-                                               value="{{ item.pk }}"
-                                               {% if forloop.counter0 == 0 %}
-                                               checked
-                                               {% endif %}
-                                        />
-                                        <label for="id_shipment_{{ forloop.counter0 }}" class="selecter-field"></label>
-                                        <label for="id_shipment_{{ forloop.counter0 }}" class="selecter-text">shipment</label>
-                                    </div>
+                        <div class="cart-list-product-actions">
 
-                                    <div class="selecter radio">
-                                        <input class="input"
-                                               type="radio"
-                                               id="id_invoice_{{ forloop.counter0 }}"
-                                               name="invoice"
-                                               value="{{ item.pk }}"
-                                               {% if forloop.counter0 == 0 %}
-                                               checked
-                                               {% endif %}
-                                        />
-                                        <label for="id_invoice_{{ forloop.counter0 }}" class="selecter-field"></label>
-                                        <label for="id_invoice_{{ forloop.counter0 }}" class="selecter-text">invoice</label>
+                            <form class="auto_form" data-origin="little" data-reload="cart">
+
+                                <input class="cart-list-product-number input auto_field only_number_3 always"
+                                       title="Number of products"
+                                       value="{{ selected.number }}"
+                                       data-name="number_of_products"
+                                       data-other_1="pk:{{ selected.pk }}" />
+
+                                <span class="cart-list-product-price"> x {% get_price selected.product %}</span>
+
+                                <div class="tooltip align-right align-bottom is-dangerous">
+
+                                    <button class="button is-icon tooltip_button cart-list-product-remove"
+                                            type="button"
+                                            data-name="remove_product-cart">
+                                        <span class="button-icon is-zoom img-waste_bin"> &nbsp; </span>
+                                    </button>
+
+                                    <div class="tooltip-options">
+                                        <button class="button post_button"
+                                                type="button"
+                                                data-name="Delete_{{ selected.product.pk }}"
+                                                data-action="delete"
+                                                data-value="{{ selected.product.pk }}"
+                                                data-reload="cart ground">
+                                            Are you sure?
+                                        </button>
                                     </div>
                                 </div>
 
-                            </div>
-                        </div><!-- address_block change_length -->
+                            </form><!-- auto_form -->
 
-                    {% endfor %}
+                        </div><!-- cart-list-product-actions -->
 
-                    <div class="address_block new">
+                    </li><!-- cart-list-product -->
+
+                {% endfor %}
+
+
+                <li class="cart-list-total_price is-inline-inside">
+                    <div class="cart-list-total_price-title">Total price:</div>
+                    <div class="cart-list-total_price-price">{{ payment.total_price }} {{ request.session.currency_selected }}</div>
+                </li>
+
+            </ul><!-- cart-list -->
+
+
+
+
+            <!-- //////////////////////  CHOOSE ADDRESS  ////////////////////// -->
+
+            <form method="post" data-name="address" data-type="address">
+
+                <div class="form_submit">
+                    <div class="form_submit-description">Proszę wybrać adres z listy poniżej <wbr>dla wysyłki lub faktury.</div>
+
+                    <button class="form_submit-button button is-important"
+                            type="submit">
+                        Dalej
+                    </button>
+                </div>
+
+                {% for item in address %}
+
+                    <div class="address_block change_length">
                         <div>
 
                             <div class="address_block-shell"></div>
 
-                            <div class="address_block-title"> Add new address </div>
+                            <div class="address_block-title change_length-button">
+                                {% if item.company_name %}
+                                    {{ item.company_name }}
+                                {% elif item.name and item.surname %}
+                                    {{ item.name }} {{ item.surname }}
+                                {% endif %}
+                            </div>
 
-                            <a class="address_block-image" href="{% redirect 'user.account.addresses' 'payment' %}"></a>
+                            <div class="address_block-field_list">
+                                <div class="is-nowrap">{{ item.name }} &nbsp; </div>
+                                <div class="is-nowrap">{{ item.surname }} &nbsp; </div>
+                                <div class="is-nowrap">{{ item.company_name }} &nbsp; </div>
+                                <div class="is-nowrap">{{ item.nip }} &nbsp; </div>
+                                <div class="is-nowrap">{{ item.address_line }} &nbsp; </div>
+                                <div class="is-nowrap">{{ item.city }} &nbsp; </div>
+                                <div class="is-nowrap">{{ item.region }} &nbsp; </div>
+                                <div class="is-nowrap">{{ item.postcode }} &nbsp; </div>
+                                <div class="is-nowrap">{{ item.country }} &nbsp; </div>
+                            </div>
+
+                            <div class="address_block-buttons">
+                                <span>Select address to</span>
+
+                                <div class="selecter radio">
+                                    <input class="input"
+                                           type="radio"
+                                           id="id_shipment_{{ forloop.counter0 }}"
+                                           name="shipment"
+                                           value="{{ item.pk }}"
+                                           {% if forloop.counter0 == 0 %}
+                                            checked
+                                           {% endif %}
+                                    />
+                                    <label for="id_shipment_{{ forloop.counter0 }}" class="selecter-field"></label>
+                                    <label for="id_shipment_{{ forloop.counter0 }}" class="selecter-text">dostawa</label>
+                                </div>
+
+                                <div class="selecter radio">
+                                    <input class="input"
+                                           type="radio"
+                                           id="id_invoice_{{ forloop.counter0 }}"
+                                           name="invoice"
+                                           value="{{ item.pk }}"
+                                           {% if forloop.counter0 == 0 %}
+                                            checked
+                                           {% endif %}
+                                    />
+                                    <label for="id_invoice_{{ forloop.counter0 }}" class="selecter-field"></label>
+                                    <label for="id_invoice_{{ forloop.counter0 }}" class="selecter-text">faktura</label>
+                                </div>
+                            </div>
 
                         </div>
-                    </div><!-- address_block new -->
+                    </div><!-- address_block change_length -->
 
-                </form>
+                {% endfor %}
 
-            {% endif %}
+                <div class="address_block new">
+                    <div>
+
+                        <div class="address_block-shell"></div>
+
+                        <div class="address_block-title"> Dodaj nowy adres </div>
+
+                        <a class="address_block-image" href="{% redirect 'user.account.addresses' 'payment' %}"></a>
+
+                    </div>
+                </div><!-- address_block new -->
+
+            </form>
+
+        {% endif %}
 
 
     </div><!-- block-content -->

@@ -2,7 +2,7 @@
 
 <script>
 	APP.DATA = {
-		title : 'Payment',
+		title : 'Wybierz sposób dostawy',
 		description : '',
 	};
 
@@ -10,7 +10,7 @@
 </script>
 
 
-<div class="ground-block block-1 MEDIUM payment">
+<div class="ground-block block-1 MEDIUM payment_choose">
 
 	<div class="block-background fill-abs"></div>
 	{% include "block/ground/html/navigation.html" %}
@@ -20,36 +20,84 @@
 
 	<div class="block-content">
 
-		<div class="title">Wybierz metodę dostawy</div>
+		<div class="title">Wybierz sposób dostawy</div>
 
-		<form method="post" data-name="delivery">
+		<form method="post" data-name="delivery" class="is-font-0-only_this">
 
-			<div class="cart-list-button">
-				<label for="id_courier" class="payment-button button is-center-inside">
-					Kurier
-				</label>
-				<input id="id_courier" type="checkbox" class="is-hidden">
+			<div class="payment-shell-height">
+				<div class="payment-shell-width">
+
+					<input id="id_courier"
+					       name="delivery"
+					       value="courier"
+					       type="radio"
+					       class="is-hidden if_feature"
+					       data-id="courier">
+
+					<label for="id_courier" class="payment-button button is-center-inside">
+						Kurier
+					</label>
+
+				</div>
 			</div>
 
-			<div class="cart-list-button">
-				<label for="id_cash_on_delivery" class="payment-button button is-center-inside">
-					Kurier - Wysyłka za pobraniem
-				</label>
-				<input id="id_cash_on_delivery" type="checkbox" class="is-hidden">
+			<div class="payment-shell-height">
+				<div class="payment-shell-width">
+
+					<input id="id_cash_on_delivery"
+					       name="delivery"
+					       value="cash_on_delivery"
+					       type="radio"
+					       class="is-hidden if_feature"
+					       data-id="cash_on_delivery">
+
+					<label for="id_cash_on_delivery" class="payment-button button is-center-inside">
+						Kurier - za pobraniem
+					</label>
+
+				</div>
 			</div>
 
-			<div class="cart-list-button is-center-inside">
-				<label for="id_personal_receipt" class="payment-button button">
-					Personal receipt
-				</label>
-				<input id="id_personal_receipt" type="checkbox" class="is-hidden">
+			<div class="payment-shell-height">
+				<div class="payment-shell-width">
+
+					<input id="id_personal_receipt"
+					       name="delivery"
+					       value="personal_receipt"
+					       type="radio"
+					       class="is-hidden if_feature"
+					       data-id="personal_receipt">
+
+					<label for="id_personal_receipt" class="payment-button  button">
+						Odbiór osobisty
+					</label>
+
+				</div>
 			</div>
 
 
-			<div>
-				{{ delivery_price }}
-				{{ cash_on_delivery }}
+
+			<div class="to_pay set_feature is-right-inside" data-id="courier" data-feature="hidden">
+				<div>Koszt dostawy: {{ delivery_price }} {{ request.session.currency_selected }}</div>
+				<div>
+					<button class="button is-important is-width-20 is-bold">Dalej</button>
+				</div>
 			</div>
+
+			<div class="to_pay set_feature is-right-inside" data-id="cash_on_delivery" data-feature="hidden">
+				<div>Koszt dostawy: {{ cash_on_delivery }} {{ request.session.currency_selected }}</div>
+				<div>
+					<button class="button is-important is-width-20 is-bold">Dalej</button>
+				</div>
+			</div>
+
+			<div class="to_pay set_feature is-right-inside" data-id="personal_receipt" data-feature="hidden">
+				<div>Koszt dostawy: 0.00 {{ request.session.currency_selected }}</div>
+				<div>
+					<button class="button is-important is-width-20 is-bold">Dalej</button>
+				</div>
+			</div>
+
 
 		</form>
 
