@@ -9,8 +9,8 @@ class Sort_By_Price(Base):
         # sort products
         order_by = ''
         direction = self.request.session['searcher_sort_direction']
-        if direction == 'descending': order_by = '-price__eur'
-        if direction == 'ascending': order_by = 'price__eur'
+        if direction == 'descending': order_by = '-price'
+        if direction == 'ascending': order_by = 'price'
 
         return SQL.Filter(Model_Product,
             pk__in=self.products).order_by(order_by)

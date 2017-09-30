@@ -30,11 +30,8 @@ class Search_Engine(Base):
         if not brands:
             return
 
-        get_brands = lambda pks: pks \
-            if pks else SQL.All(Model_Brand).values('pk')
-
         self.products = SQL.Filter(Model_Product, None,
-            Q(brand__in=get_brands(brands)) &
+            Q(brand__in=brands) &
             Q(pk__in=self.products.values('pk'))
         ).distinct()
 
