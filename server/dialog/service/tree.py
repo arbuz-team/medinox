@@ -34,8 +34,10 @@ class Catalog_Tree(Base_Service, metaclass=ABCMeta):
         root_catalog = SQL.Get(Model_Catalog,
            parent=None, name='/')
 
+        self.context['language'] = 'en'
         self.context['catalog_tree_en'] = \
             self.Recursive_Catalogs(root_catalog, 'EN')
 
+        self.context['language'] = 'pl'
         self.context['catalog_tree_pl'] = \
             self.Recursive_Catalogs(root_catalog, 'PL')
