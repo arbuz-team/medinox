@@ -4697,11 +4697,11 @@
 	
 	var _controllers = __webpack_require__(74);
 	
-	var _controller2 = __webpack_require__(77);
+	var _define3 = __webpack_require__(77);
 	
-	var _controller3 = __webpack_require__(78);
+	var _controller2 = __webpack_require__(79);
 	
-	var _view = __webpack_require__(81);
+	var _view = __webpack_require__(82);
 	
 	function Dialog_Loader_Controller(config) {
 		var config_loader = {
@@ -4711,8 +4711,7 @@
 		    view = new _view.Dialog_Loader_View(config),
 		    form_controller = new _controller.Form_Controllers(config_loader, true),
 		    little_form_controller = new _controllers.Little_Form_Controllers(config_loader),
-		    directory_tree_controller = new _controller2.Directory_Tree(config_loader),
-		    notifications_controller = new _controller3.Notifications_Controller(config_loader);
+		    notifications_controller = new _controller2.Notifications_Controller(config_loader);
 	
 		this.reload_content = function () {
 			return view.send_request();
@@ -4751,8 +4750,8 @@
 			form_controller.define();
 			(0, _define.define_post_button)(config_loader);
 			(0, _define2.define_event_button)(config_loader);
+			(0, _define3.define_directory_tree)(config_loader);
 			little_form_controller.define();
-			directory_tree_controller.define();
 			notifications_controller.define();
 	
 			$(config.internal_button, config.container).click(view.send_form);
@@ -4991,6 +4990,27 @@
 
 /***/ },
 /* 77 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.define_directory_tree = undefined;
+	
+	var _controller = __webpack_require__(78);
+	
+	var define_directory_tree = exports.define_directory_tree = function define_directory_tree(config) {
+		var $element = $('.directory_tree', config.container);
+	
+		$element.each(function () {
+			new _controller.Directory_Tree(this);
+		});
+	};
+
+/***/ },
+/* 78 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4999,13 +5019,13 @@
 		value: true
 	});
 	exports.Directory_Tree = Directory_Tree;
-	function Directory_Tree(config) {
-		if (!config || !config.container) {
+	function Directory_Tree(container) {
+		if (!container) {
 			console.error('Part Loader error: Invalid configuration.');
 			return {};
 		}
 	
-		this.container = config.container;
+		this.container = container;
 	
 		var change_state = function change_state() {
 			var $parent = $(this).parent().parent(),
@@ -5019,10 +5039,12 @@
 		this.define = function () {
 			$('.directory_tree-name', this.container).click(change_state);
 		};
+	
+		this.define();
 	}
 
 /***/ },
-/* 78 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5032,7 +5054,7 @@
 	});
 	exports.Notifications_Controller = Notifications_Controller;
 	
-	var _view = __webpack_require__(79);
+	var _view = __webpack_require__(80);
 	
 	function Notifications_Controller(config) {
 		if (!config || !config.container) {
@@ -5055,7 +5077,7 @@
 	}
 
 /***/ },
-/* 79 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5065,7 +5087,7 @@
 	});
 	exports.Notifications_View = Notifications_View;
 	
-	var _model = __webpack_require__(80);
+	var _model = __webpack_require__(81);
 	
 	function Notifications_View() {
 		var model = void 0,
@@ -5097,7 +5119,7 @@
 	}
 
 /***/ },
-/* 80 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5146,7 +5168,7 @@
 	}
 
 /***/ },
-/* 81 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5156,7 +5178,7 @@
 	});
 	exports.Dialog_Loader_View = Dialog_Loader_View;
 	
-	var _model = __webpack_require__(82);
+	var _model = __webpack_require__(83);
 	
 	function Dialog_Loader_View(config) {
 		var model = new _model.Dialog_Loader_Model(config);
@@ -5203,7 +5225,7 @@
 	}
 
 /***/ },
-/* 82 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

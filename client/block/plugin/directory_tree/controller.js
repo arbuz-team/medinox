@@ -3,15 +3,15 @@
  */
 
 
-export function Directory_Tree(config)
+export function Directory_Tree(container)
 {
-	if(!config || !config.container)
+	if(!container)
 	{
 		console.error('Part Loader error: Invalid configuration.');
 		return {};
 	}
 
-	this.container = config.container;
+	this.container = container;
 
 
 
@@ -33,5 +33,7 @@ export function Directory_Tree(config)
 	this.define = function()
 	{
 		$('.directory_tree-name', this.container).click(change_state);
-	}
+	};
+
+	this.define();
 }
