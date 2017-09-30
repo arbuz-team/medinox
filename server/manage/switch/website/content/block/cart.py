@@ -45,8 +45,9 @@ class Cart_Block(Endpoints, Inspector):
         if self.request.POST['_name_'] == 'clear':
             return_value = self.Manage_Button_Clear()
 
-        cart = self.payment_models_manager.Get_Cart()
-        Update_Total_Price(self, cart)
+        model_manager = Payment_Models_Manager(self)
+        payment = model_manager.Get_Cart()
+        payment.Update_Total_Price(self)
         return return_value
 
     def Manage_Little_Form(self):
@@ -58,6 +59,10 @@ class Cart_Block(Endpoints, Inspector):
 
         self.payment_models_manager\
             .Edit_Number_Of_Cart_Products(selected_pk, number)
+
+        model_manager = Payment_Models_Manager(self)
+        payment = model_manager.Get_Cart()
+        payment.Update_Total_Price(self)
 
         return HttpResponse()
 

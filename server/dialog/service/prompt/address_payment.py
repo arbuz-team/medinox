@@ -30,7 +30,7 @@ class Service_Address_Payment(Base_Service):
         self.context['title'] = Text(self, 268)
         return self.Render_Dialog(
             'address_for_payment.html',
-            'payment_address', only_root=True)
+            'address_payment', only_root=True)
 
     def Manage(self):
 
@@ -39,4 +39,4 @@ class Service_Address_Payment(Base_Service):
         self.context['title'] = Text(self, 268)
         return self.Render_Dialog(
             'address_for_payment.html',
-            'payment_address', only_root=True)
+            'address_payment', only_root=True)

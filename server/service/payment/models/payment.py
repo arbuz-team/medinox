@@ -28,6 +28,7 @@ class Model_Payment(Abstract_Model):
             product_price = currency_manager.Get_Price(selected.product.price)
             total += product_price * selected.number
 
+        print(total)
         self.total_price = format(total, '.2f')
         SQL.Save(data=self)
 

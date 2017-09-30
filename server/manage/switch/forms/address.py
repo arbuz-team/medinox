@@ -5,14 +5,15 @@ class Abstract_Address_Form(Abstract_Model_Form):
 
     def Create_Fields(self):
         self.fields['country'] = forms.ChoiceField(choices=countries)
+        self.fields['company_name'] = forms.CharField(max_length=50, required=False)
         self.fields['nip'] = forms.CharField(max_length=20, required=False)
 
     def Set_Widgets(self):
 
         name_attr = self.Attr(Text(self, 200), classes='test', autocomplite='', autofocus=True)
         surname_attr = self.Attr(Text(self, 201), classes='test', autocomplite='')
-        company_name_attr = self.Attr(Text(self, 202), classes='test', autocomplite='')
-        nip_attr = self.Attr(Text(self, 199), classes='test', autocomplite='')
+        company_name_attr = self.Attr(Text(self, 202), autocomplite='')
+        nip_attr = self.Attr(Text(self, 199), autocomplite='')
         address_line_attr = self.Attr(Text(self, 48), classes='test', autocomplite='')
         city_attr = self.Attr(Text(self, 50), classes='test', autocomplite='')
         region_attr = self.Attr(Text(self, 51), classes='test', autocomplite='')

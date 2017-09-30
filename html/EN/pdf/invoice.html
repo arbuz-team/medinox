@@ -11,6 +11,8 @@
 
 		<style>
 
+			@page { size: A4; margin: 1cm }
+
 			html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 			a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small,
 			strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form,
@@ -36,7 +38,7 @@
 				background-color: #ffffff;
 				color: #1a1a1a;
 				font-family: 'OS_Regular', sans-serif;
-				font-size: 13px;
+				font-size: 12px;
 				line-height: 1.45; }
 
 			body {
@@ -98,10 +100,11 @@
 				{
 					font-weight: bold;
 					vertical-align: middle;
+					text-align: center;
 				}
 				.table-head-name
 				{
-					width: 300px;
+					width: 250px;
 				}
 
 		</style>
@@ -207,7 +210,7 @@
 						</div>
 
 						<div class="header-name-date">
-							Date of issue: {{ payment.date }}
+							Date of issue: {{ payment.date|date:"d.m.Y" }}
 						</div>
 					</div>
 
@@ -272,27 +275,17 @@
 						</thead>
 
 						<tbody>
-						<!--{% for selected in invoice.products %}-->
+						{% for p in products %}
 							<tr>
-								<td>1.</td>
-								<td>{{ selected.product }}</td>
-								<td>5</td>
-								<td>8%</td>
-								<td>0.23 PLN</td>
-								<td>15.00 PLN</td>
-								<td>15.23 PLN</td>
+								<td>{{ forloop.counter }}.</td>
+								<td>{{ p.product.name }}</td>
+								<td>{{ p.number }}</td>
+								<td>23%</td>
+								<td>{% vat_price p.product.price payment.currency %}</td>
+								<td>{% netto_price p.product.price payment.currency %}</td>
+								<td>{% price p.product.price payment.currency %}</td>
 							</tr>
-
-							<tr>
-								<td>2.</td>
-								<td>{{ selected.product }}</td>
-								<td>5</td>
-								<td>8%</td>
-								<td>0.23 PLN</td>
-								<td>27.00 PLN</td>
-								<td>27.23 PLN</td>
-							</tr>
-						<!--{% endfor %}-->
+						{% endfor %}
 						</tbody>
 
 					</table>
@@ -306,9 +299,9 @@
 						</tr>
 
 						<tr>
-							<td>50.00 PLN</td>
-							<td>42.00 PLN</td>
-							<td>42.46 PLN</td>
+							<td>{% price payment.delivery_price payment.currency %}</td>
+							<td>{% netto_price payment.total_price payment.currency %}</td>
+							<td>{% price payment.total_price payment.currency %}</td>
 						</tr>
 					</table>
 				</div>
@@ -322,16 +315,16 @@
 
 					<div>
 						<div class="footer-name">Payment term:</div>
-						<div class="footer-value">7 days - 15.09.2017</div>
+						<div class="footer-value">7 days - {{ payment.date|date:"d.m.Y" }}</div>
 					</div>
 
 					<div>
 						<div class="footer-name">Delivery:</div>
-						<div class="footer-value">something</div>
+						<div class="footer-value">{{ payment.delivery_method }}</div>
 					</div>
 
 					<div class="footer-big_element">
-						<div class="footer-name">To pay: 42.46 PLN</div>
+						<div class="footer-name">To pay: {% price payment.total_price payment.currency %}</div>
 					</div>
 				</div>
 

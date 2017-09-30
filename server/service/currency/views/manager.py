@@ -16,7 +16,7 @@ class Currency_Manager(Website_Manager, Base_Currency_Manager):
             response = {}
             for currency_to in currencies_to:
                 response[currency_to] = self.Exchange_Rate(
-                    amount, currency_from, currency_to)
+                    amount, currency_to)
 
             return JsonResponse(response)
 
