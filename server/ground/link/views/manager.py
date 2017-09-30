@@ -10,10 +10,13 @@ class Link_Manager(Website_Manager):
         if form.is_valid():
 
             # get data
+            language = self.request.session['translator_language']
+            
             link = self.request.session['link_editing']
-            target = self.request.POST['target']
-            link.parent = SQL.Get(Model_Catalog, pk=target)
-            link.language = self.request.session['translator_language']
+            link.language = language
+            link.parent = SQL.Get(Model_Catalog, pk=self.request.POST['target_en']
+                if language == 'EN' else self.request.POST['target_pl'])
+
             SQL.Save(data=link)
 
             self.context['form'] = None

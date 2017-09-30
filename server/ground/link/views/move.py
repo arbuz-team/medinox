@@ -10,8 +10,10 @@ class Move_Link(Website_Manager):
         if self.context['form'].is_valid():
 
             # get data
+            language = self.request.session['translator_language']
             link = self.request.session['catalog_move_element']
-            target = self.request.POST['target']
+            target = self.request.POST['target_en']\
+                if language == 'EN' else self.request.POST['target_pl']
 
             # change data and move catalog
             link.parent = SQL.Get(Model_Catalog, pk=target)

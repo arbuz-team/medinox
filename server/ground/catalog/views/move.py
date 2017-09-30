@@ -11,8 +11,9 @@ class Move_Catalog(Website_Manager):
             # get data
             catalog = self.request.session['catalog_move_element']
             language = self.request.POST['language']
-            target = self.request.POST['target']
             name = self.request.POST['name']
+            target = self.request.POST['target_en']\
+                if language == 'EN' else self.request.POST['target_pl']
 
             # change data and move catalog
             catalog.name = name

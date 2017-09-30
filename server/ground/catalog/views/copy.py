@@ -5,13 +5,13 @@ from django.db.utils import IntegrityError
 class Copy_Catalog(Website_Manager):
 
     @staticmethod
-    def Create_Copy_Catalog(from_catalog, name, language, parent):
+    def Create_Copy_Catalog(from_catalog, name, language, target):
 
         # create copy catalog
         copy_catalog = Model_Catalog()
         copy_catalog.name = name
         copy_catalog.url_name = Path_Manager.To_URL(name)
-        copy_catalog.parent = parent
+        copy_catalog.parent = target
         copy_catalog.language = language
         SQL.Save(data=copy_catalog)
 
@@ -50,12 +50,14 @@ class Copy_Catalog(Website_Manager):
             from_catalog = self.request.session['catalog_copy_element']
             language = self.request.POST['language']
             name = self.request.POST['name']
+            target = SQL.Get(Model_Catalog, pk=self.request.POST['target_en']
+                if language == 'EN' else self.request.POST['target_pl'])
 
             try:
 
                 # create copy catalog
                 copy_catalog = self.Create_Copy_Catalog(
-                    from_catalog, name, language, from_catalog.parent)
+                    from_catalog, name, language, target)
 
                 # copy content
                 self.Copy_Content_Recursive(from_catalog, copy_catalog, language)

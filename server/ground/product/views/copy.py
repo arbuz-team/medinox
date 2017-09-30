@@ -26,9 +26,10 @@ class Copy_Product(Website_Manager):
 
             # get data
             from_product = self.request.session['catalog_copy_element']
-            target = SQL.Get(Model_Catalog, pk=self.request.POST['target'])
             language = self.request.POST['language']
             name = self.request.POST['name']
+            target = SQL.Get(Model_Catalog, pk=self.request.POST['target_en']
+                if language == 'EN' else self.request.POST['target_pl'])
 
             try:
 

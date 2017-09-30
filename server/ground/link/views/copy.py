@@ -24,8 +24,10 @@ class Copy_Link(Website_Manager):
         if self.context['form'].is_valid():
 
             # get data
+            language = self.request.session['translator_language']
             from_link = self.request.session['catalog_copy_element']
-            target = SQL.Get(Model_Catalog, pk=self.request.POST['target'])
+            target = SQL.Get(Model_Catalog, pk=self.request.POST['target_en']
+                if language == 'EN' else self.request.POST['target_pl'])
 
             try:
 
