@@ -3,12 +3,12 @@
 <div class="directory_tree-single">
 
     {% if parent.name == '/' %}
-        <input class="directory_tree-radio" type="radio" id="id_{{ parent.pk }}" name="target" value="{{ parent.pk }}" checked>
+        <input class="directory_tree-radio" type="radio" id="id_{{ language }}_{{ parent.pk }}" name="target_{{ language }}" value="{{ parent.pk }}" checked>
     {% else %}
-        <input class="directory_tree-radio" type="radio" id="id_{{ parent.pk }}" name="target" value="{{ parent.pk }}">
+        <input class="directory_tree-radio" type="radio" id="id_{{ language }}_{{ parent.pk }}" name="target_{{ language }}" value="{{ parent.pk }}">
     {% endif %}
 
-    <label class="directory_tree-name" for="id_{{ parent.pk }}">
+    <label class="directory_tree-name" for="id_{{ language }}_{{ parent.pk }}">
 
         {% if have_children %}
             <span class="directory_tree-arrow is-close">&nbsp;</span>

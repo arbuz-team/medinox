@@ -7,7 +7,7 @@ import {define_post_button}         from 'form/plugin/post_button/define'
 import {define_event_button}        from 'form/plugin/event_button/define'
 import {Little_Form_Controllers}    from 'form/plugin/little_form/controllers'
 
-import {Directory_Tree}             from 'block/plugin/directory_tree/controller'
+import {define_directory_tree}      from 'block/plugin/directory_tree/define'
 import {Notifications_Controller}   from 'block/plugin/notifications/js/controller'
 
 import {Dialog_Loader_View} 		from './view'
@@ -28,7 +28,6 @@ export function Dialog_Loader_Controller(config)
 
 		form_controller =               new Form_Controllers(config_loader, true),
 		little_form_controller =        new Little_Form_Controllers(config_loader),
-		directory_tree_controller =     new Directory_Tree(config_loader),
 		notifications_controller =      new Notifications_Controller(config_loader);
 
 
@@ -111,8 +110,8 @@ export function Dialog_Loader_Controller(config)
 		form_controller.define();
 		define_post_button(config_loader);
 		define_event_button(config_loader);
+		define_directory_tree(config_loader);
 		little_form_controller.define();
-		directory_tree_controller.define();
 		notifications_controller.define();
 
 		$(config.internal_button, config.container).click(view.send_form);

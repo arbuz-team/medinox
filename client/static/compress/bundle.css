@@ -224,6 +224,9 @@ div > .buttons_to_action {
 .is-margin-r-40 {
   margin-right: 30px; }
 
+.is-margin-r-10 {
+  margin-right: 10px; }
+
 .is-text-has-notifications {
   animation: notifications 2.3s infinite; }
 
