@@ -14,20 +14,53 @@
 
         <div class="dialog-content-part">
             <!--fields of form-->
-            {% for field in form %}
 
-                {% include "form/html/manage_field.html" %}
+            {% include "form/html/manage_field.html" with field=form.name %}
 
-            {% endfor %}
+
+            <div>
+                <span>Przenieś do języka:</span>
+
+                <span class="selecter radio is-block_inline is-margin-r-10">
+			        <input class="if_feature"
+                           id="id_language_0"
+                           type="radio"
+                           name="language"
+                           value="EN"
+                           data-id="directory_tree_en">
+
+					<label for="id_language_0" class="selecter-field"></label>
+					<label for="id_language_0" class="selecter-text"> English </label>
+				</span>
+
+                <span class="selecter radio is-block_inline">
+			        <input class="if_feature"
+                           id="id_language_1"
+                           type="radio"
+                           name="language"
+                           value="PL"
+                           data-id="directory_tree_pl">
+
+					<label for="id_language_1" class="selecter-field"></label>
+					<label for="id_language_1" class="selecter-text"> Polski </label>
+				</span>
+            </div>
+
+
+            <div class="directory_tree set_feature" data-id="directory_tree_en" data-feature="hidden">
+                <div class="directory_tree-title">Wybierz catalog</div>
+                {{ catalog_tree_en|safe }}
+            </div>
+
+            <div class="directory_tree set_feature" data-id="directory_tree_pl" data-feature="hidden">
+                <div class="directory_tree-title">Wybierz catalog</div>
+                {{ catalog_tree_pl|safe }}
+            </div>
+
 
             <input type="hidden" name="accept_reload" value="{{ accept.reload }}">
             <input type="hidden" name="accept_redirect" value="{{ accept.redirect }}">
             <input type="hidden" name="accept_event" value="{{ accept.event }}">
-
-            <div class="directory_tree">
-                <div class="directory_tree-title">Wybierz katalog</div>
-                {{ catalog_tree|safe }}
-            </div>
 
         </div><!-- dialog-content-part -->
     </form>
