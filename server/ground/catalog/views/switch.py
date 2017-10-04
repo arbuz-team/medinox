@@ -29,6 +29,11 @@ class Catalog_Switch(Website_Manager):
         if self.request.POST['_name_'] == 'move_link':
             return Move_Link(self.request, only_root=True).HTML
 
+    def Manage_Button(self):
+
+        if self.request.POST['_name_'] == 'change':
+            return Catalog_Manager(self.request).HTML
+
     @staticmethod
     def Launch(request, catalog_path=''):
 
@@ -47,6 +52,10 @@ class Catalog_Switch(Website_Manager):
         if 'form' in request.POST.values():
             return Catalog_Switch(request, autostart=False)\
                 .Manage_Form()
+
+        if 'button' in request.POST.values():
+            return Catalog_Switch(request, autostart=False)\
+                .Manage_Button()
 
         try:
 

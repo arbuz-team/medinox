@@ -93,6 +93,12 @@ class Catalog_Manager(Website_Manager):
         if self.request.POST['_name_'] == 'delete_image':
             return self.Manage_Button_Delete_Image()
 
+        if self.request.POST['_name_'] == 'change':
+            self.request.session['catalog_selected_page'] = \
+                int(self.request.POST['value'])
+
+            return HttpResponse()
+
     @staticmethod
     def Launch(request):
         return Catalog_Manager(request, only_root=True).HTML
