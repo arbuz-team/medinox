@@ -81,10 +81,28 @@ class Position_Manager(Base_Website):
 
         return switch[direction]
 
+    def Button_Service_Delete(self, model):
+
+        # get position
+        position = SQL.Get(model,
+           pk=self.request.POST['value']).position
+
+        # delete
+        SQL.Delete(model, pk=self.request.POST['value'])
+
+        # change greater elements positions
+        greater_objects = SQL.Filter(model,
+            position__gte=position).order_by('position')
+
+        for greater_object in greater_objects:
+            greater_object.position -= 1
+            SQL.Save(data=greater_object)
+
+
     def Button_Service(self, model):
 
         if self.request.POST['_name_'] == 'delete':
-            SQL.Delete(model, pk=self.request.POST['value'])
+            self.Button_Service_Delete(model)
 
         if self.request.POST['_name_'] == 'move_up':
             desc = SQL.Get(model, pk=self.request.POST['value'])
