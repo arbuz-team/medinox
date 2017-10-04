@@ -122,15 +122,26 @@
         {% endif %}
 
 
-        {% if root_for_public.phones and root_address.phone_1 %}
-            <div class="footer-contact-element">
-                <i class="footer-contact-icon img-telephone">&nbsp;</i>
+        {% if root_for_public.phones %}
+            {% if root_address.phone_1 or root_address.phone_2 or root_address.fax %}
+                <div class="footer-contact-element">
+                    <i class="footer-contact-icon img-telephone">&nbsp;</i>
 
-                <span>
-                    tel. <a href="tel:{{ root_address.phone_1 }}">{{ root_address.phone_1 }}</a><br>
-                    tel. <a href="tel:{{ root_address.phone_2 }}">{{ root_address.phone_2 }}</a><br>
-                </span>
-            </div>
+                    <span>
+                        {% if root_address.phone_1 %}
+                            tel. <a href="tel:{{ root_address.phone_1 }}">{{ root_address.phone_1 }}</a><br>
+                        {% endif %}
+
+                        {% if root_address.phone_2 %}
+                            tel. <a href="tel:{{ root_address.phone_2 }}">{{ root_address.phone_2 }}</a><br>
+                        {% endif %}
+
+                        {% if root_address.fax %}
+                            fax. {{ root_address.fax }}<br>
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
         {% endif %}
 
 
