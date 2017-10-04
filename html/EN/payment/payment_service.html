@@ -87,6 +87,7 @@
 			<div class="to_pay set_feature is-right-inside" data-id="paypal" data-feature="hidden">
 				<form class="payment-button_shell" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
 					{{ paypal.as_p }}
+					<div>Total price: {{ total_price }} {{ request.session.currency_selected }}</div>
 
 					<button class="button is-important is-width-20 is-bold">
 						Pay
@@ -97,6 +98,8 @@
 
 		{% if avaible.delayed_transfer %}
 			<div class="to_pay set_feature is-right-inside" data-id="delayed_transfer" data-feature="hidden">
+				<div>Total price: {{ total_price }} {{ request.session.currency_selected }}</div>
+
 				<a href="/payment/delayed_transfer/" class="button is-important is-width-20">
 					Pay
 				</a>
@@ -107,6 +110,7 @@
 			<div class="to_pay set_feature is-right-inside" data-id="dotpay" data-feature="hidden">
 				<form class="payment-button_shell" action="https://ssl.dotpay.pl/test_payment/" method="post">
 					{{ dotpay.as_p }}
+					<div>Total price: {{ total_price }} {{ request.session.currency_selected }}</div>
 
 					<button class="button is-important is-width-20 is-bold">
 						Pay
