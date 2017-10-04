@@ -24,7 +24,14 @@
                 {% endfor %}
 
             <div class="form_buttons short">
-                <button class="button" disabled type="submit"> Save </button>
+                <button class="button is-important" disabled type="submit"> Save </button>
+                <button class="button event_button is-important"
+                        type="button"
+                        id="button_refresh"
+                        data-name="button_refresh"
+                        data-event="reload_website">
+                    Show changes
+                </button>
             </div>
 
         </form>

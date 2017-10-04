@@ -23,7 +23,8 @@ list_configs.user_address = {
 };
 
 list_configs.root_address = {
-	full_name:          'proper_name',
+	name:               'proper_name',
+	surname:            'proper_name',
 	address_line:       'no_empty',
 	city:               'proper_name',
 	region:             'proper_name',
