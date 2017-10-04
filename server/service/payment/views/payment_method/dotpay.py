@@ -28,7 +28,7 @@ class DotPay(Base_Payment):
             self.valid = True
 
     def Create_From(self, _object):
-        payment = SQL.Get(Model_Payment, pk=_object.context['payment'])
+        payment = SQL.Get(Model_Payment, pk=_object.context['payment'].pk)
         address = SQL.Filter(Model_User_Address, user=payment.user)[0]
         path_manager = Path_Manager(self)
 
@@ -39,7 +39,7 @@ class DotPay(Base_Payment):
             'currency':     self.request.session['currency_selected'],
             'description':  Text(self, 152),
 
-            'control':      _object.context['payment'],
+            'control':      _object.context['payment'].pk,
             'firstname':    address.name,
             'lastname':     address.surname,
             'email':        payment.user.email,

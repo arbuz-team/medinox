@@ -36,7 +36,7 @@ class PayPal(Base_Payment):
             'business':         PAYPAL_RECEIVER_EMAIL,
             'item_name':        'medifiller',
             'amount':           _object.context['total_price'],
-            'custom':           _object.context['payment'],
+            'custom':           _object.context['payment'].pk,
             'currency_code':    _object.request.session['currency_selected'],
 
             'notify_url':       path_manager.Get_Urls('payment.paypal', current_language=True),

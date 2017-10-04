@@ -41,6 +41,12 @@ class Payment_Manager(Website_Manager):
         self.Update_Payment()
 
     def Manage_Content(self):
+
+        model_manager = Payment_Models_Manager(self)
+        payment = model_manager.Get_Cart()
+        payment.delivery_price = 0
+        SQL.Save(data=payment)
+
         self.Load_Payment_Details()
         return self.Render_HTML('payment/payment.html')
 
