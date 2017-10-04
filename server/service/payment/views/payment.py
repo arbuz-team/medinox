@@ -162,10 +162,10 @@ class Payment_Manager(Website_Manager):
             return HttpResponseRedirect(url)
 
         # for third step - pay
+        SQL.Save(data=payment)
         self.Load_Payment_Details()
         self.context['paypal'] = PayPal(self.request).Create_From(self)
         self.context['dotpay'] = DotPay(self.request).Create_From(self)
-        SQL.Save(data=payment)
 
         methods = SQL.All(Model_Payment_Method)
         self.context['avaible'] = {m.method:m.is_active for m in methods}

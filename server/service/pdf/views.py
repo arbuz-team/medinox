@@ -53,6 +53,9 @@ class Generator_PDF(Base):
 
     def __init__(self, request, pk, authorization=False):
 
+        from server.manage.session.views import Check_Session
+        Check_Session(request)
+
         self.authorization = authorization
         self.invoice_pk = pk
         self.request = request
