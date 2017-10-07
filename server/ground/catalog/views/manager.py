@@ -37,6 +37,29 @@ class Catalog_Manager(Website_Manager):
         self.context.update(pages_manager.Create_Pages())
         return self.Render_HTML('catalog/catalogs.html')
 
+    @staticmethod
+    def Create_URL_For_Catalog(catalog):
+
+        name = Path_Manager.To_URL(catalog.name)
+        path = [name]
+        parent = catalog.parent
+
+        # find all parents
+        while True:
+
+            # root directory
+            if parent.name == '/': break
+
+            name = Path_Manager.To_URL(parent.name)
+            path.append(name)
+
+            # get next parent if exist
+            if not parent.parent: break
+            else: parent = parent.parent
+
+        path.reverse()
+        return '/'.join(path) + '/'
+
     def Manage_Form_Catalog(self):
         self.context['form'] = Form_Catalog(self, post=True)
 
@@ -46,12 +69,14 @@ class Catalog_Manager(Website_Manager):
             catalog = self.request.session['catalog_editing']
 
             catalog.name = name
-            catalog.url_name = Path_Manager.To_URL(name)
             catalog.parent = self.request.session['catalog_parent']
             catalog.language = self.request.session['translator_language']
             SQL.Save(data=catalog)
 
+            catalog.url_name = self.Create_URL_For_Catalog(catalog)
             catalog.Save_Image(self.context['form'].cleaned_data['image'])
+            SQL.Save(data=catalog)
+
             self.context['form'] = None
 
             return Dialog_Prompt(self, apply=True).HTML

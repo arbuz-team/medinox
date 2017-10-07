@@ -36,7 +36,7 @@ class Catalog_Changer(Base):
 
     def Change_Catalog(self):
 
-        catalog = self.Get_Selected_Catalog()
+        catalog = SQL.Get(Model_Catalog, url_name=self.catalog_path)
         self.request.session['catalog_parent'] = catalog
         self.request.session['catalog_path'] = self.catalog_path
 
