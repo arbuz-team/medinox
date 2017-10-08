@@ -55,15 +55,15 @@
                         <div class="product_details-section action_panel">
 
                             <div class="product_details-action_panel-prices">
-                                {% if request.session.user_login %}
-                                    Cena produktu: {% get_price product %}
-                                {% else %}
-                                    Jeśli chcesz kupować musisz być zalogowany.
-                                    <a href="{% redirect 'user.sign_in' %}">Zaloguj się!</a>
-                                {% endif %}
+                                Cena produktu: <span class="is-bold">{% get_price product %}</span>
                             </div>
 
                             <div class="product_details-action_panel-buttons">
+
+                                {% if not request.session.user_login %}
+                                    Jeśli chcesz kupować musisz być zalogowany.
+                                    <a href="{% redirect 'user.sign_in' %}">Zaloguj się!</a><br>
+                                {% endif %}
 
                                 {% if request.session.user_login %}
                                     <!-- Frontend: Don't redirect to payment. -->
@@ -148,15 +148,6 @@
                         </div>
 
                     {% endif %}
-
-
-                    <div class="product_details-section payment">
-                        Sposoby płatności: Paypal, Dotpay, odbiór osobisty
-                    </div>
-
-                    <div class="product_details-section transport">
-                        Sposoby dostawy: DHL, FedEx, Inpost
-                    </div>
 
 
 

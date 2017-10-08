@@ -55,15 +55,15 @@
                     <div class="product_details-section action_panel">
 
                         <div class="product_details-action_panel-prices">
-                            {% if request.session.user_login %}
-                            Product price: {% get_price product %}
-                            {% else %}
-                            If you want buy a product you must login.
-                            <a href="{% redirect 'user.sign_in' %}">Sign in!</a>
-                            {% endif %}
+                            Product price: <span class="is-bold">{% get_price product %}</span>
                         </div>
 
                         <div class="product_details-action_panel-buttons">
+
+                            {% if not request.session.user_login %}
+                                If you want buy a product you must login.
+                                <a href="{% redirect 'user.sign_in' %}">Sign in!</a><br>
+                            {% endif %}
 
                             {% if request.session.user_login %}
                                 <!-- Frontend: Don't redirect to payment. -->
@@ -149,16 +149,6 @@
                     </div>
 
                     {% endif %}
-
-
-                    <div class="product_details-section payment">
-                        Payments: Paypal, Dotpay
-                    </div>
-
-                    <div class="product_details-section transport">
-                        Delivery: DHL, FedEx, Inpost
-                    </div>
-
 
 
                     <div class="product_details-section title">
