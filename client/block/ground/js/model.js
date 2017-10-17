@@ -39,7 +39,16 @@ export function Ground_Model()
 
 	this.change_url = function(url)
 	{
-		history.pushState('', url, url);
+		let
+			protocol = url.substring(0, 4),
+			mailto = url.substring(0, 7);
+
+
+		if(protocol !== 'http' && protocol !== 'tel:' && mailto !== 'mailto:')
+			history.pushState('', url, url);
+
+		else
+			window.location = url
 	};
 
 
