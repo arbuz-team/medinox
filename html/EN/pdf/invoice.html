@@ -281,9 +281,9 @@
 								<td>{{ p.product.name }}</td>
 								<td>{{ p.number }}</td>
 								<td>23%</td>
-								<td>{% vat_price p.product.price payment.currency %}</td>
-								<td>{% netto_price p.product.price payment.currency %}</td>
-								<td>{% price p.product.price payment.currency %}</td>
+								<td>{% vat_price p.total_price payment.currency %}</td>
+								<td>{% netto_price p.total_price payment.currency %}</td>
+								<td>{% price p.total_price payment.currency %}</td>
 							</tr>
 						{% endfor %}
 						</tbody>

@@ -3,7 +3,7 @@
 
 
 <li class="tile" data-id="{{ element.product.pk }}">
-	<a href="{% url 'product.details' pk=element.product.pk product_name=element.product.url_name %}/">
+	<a href="{% url 'product.details' pk=element.product.pk product_name=element.product.url_name %}">
 
 		<div class="tile-img mini_image">
 			{% if element.product.image %}

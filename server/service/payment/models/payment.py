@@ -19,14 +19,13 @@ class Model_Payment(Abstract_Model):
 
     def Update_Total_Price(self, _object):
 
+        # update products for invoice
         total = self.delivery_price
-        selected_products = SQL.Filter(
-            Model_Payment_Product, payment=self)
+        products = SQL.Filter(Model_Payment_Product, payment=self)
 
-        for selected in selected_products:
-            currency_manager = Base_Currency_Manager(_object)
-            product_price = currency_manager.Get_Price(selected.product.price)
-            total += product_price * selected.number
+        for product in products:
+            product.Copy_Data_For_Invoice(_object)
+            total += product.total_price * product.number
 
         self.total_price = format(total, '.2f')
         SQL.Save(data=self)
@@ -75,6 +74,31 @@ class Model_Payment_Product(Abstract_Model):
     product = models.ForeignKey(Model_Product)
     values = models.ManyToManyField(Model_Values)
     number = models.IntegerField()
+
+    # copy for invoice
+    product_name = models.CharField(max_length=100)
+    total_price = models.FloatField(default=0)
+
+    def Copy_Data_For_Invoice(self, _object):
+
+        from server.service.currency.views.base \
+            import Base_Currency_Manager
+
+        # save product name
+        self.product_name = self.product.name
+
+        # calculate total price
+        manager = Base_Currency_Manager(_object)
+        total = manager.Get_Price(self.product.price)
+
+        for value in self.values.all():
+            total += manager.Get_Price(value.super_price)
+
+        # save total price
+        self.total_price = total
+
+        # save data
+        SQL.Save(data=self)
 
     def __str__(self):
         return self.product.name
