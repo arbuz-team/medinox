@@ -182,6 +182,9 @@ class Session_Controller:
         if 'main_home' not in self.request.session:
             self.request.session['main_home'] = ''
 
+        if 'main_cookie_enable' not in self.request.session:
+            self.request.session['main_cookie_enable'] = True
+
     def Check_Session_Notification(self):
 
         if 'notification_is_unreaded' not in self.request.session:
