@@ -2140,6 +2140,10 @@
 			return function (event) {
 				fun(this, event);
 			};
+		},
+		    disable_cookie = function disable_cookie() {
+			$(this).remove();
+			$('.footer-cookies-content').html('&nbsp;');
 		};
 	
 		this.is_redirect = function (response) {
@@ -2164,6 +2168,8 @@
 	
 			$('.change_length', $container).click(transfer_event(view.change_to_long));
 			$('.change_length .change_length-button', $container).click(transfer_event(view.change_to_long_or_short));
+	
+			$('.cookie_disabler').click(disable_cookie);
 	
 			model.ground_form_controller.define();
 			model.define_post_button(model.config_loader);

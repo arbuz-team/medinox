@@ -60,8 +60,13 @@
 					{% for value in values %}
 						<div class="dialog-widget-option input_button">
 							<span class="is-bold is-float-left"> {{ value.name }} </span>
+<<<<<<< HEAD
 							<div class="is-right-inside is-margin-r-30"> Surcharge: {{ value.super_price }} {{ request.session.currency_selected }} </div>
 							<button class="button input_button-button is-width-20px is-icon post_button"
+=======
+							<div class="is-right-inside is-margin-r-30"> Surcharge: {% get_widget_price value %} </div>
+							<button class="button input_button-button is-width-20 is-icon post_button"
+>>>>>>> 594da4dd2606431bc6d16addbdfdfdc187b3c23f
 							        title="Delete option"
 									data-name="delete_widget_option-{{ forloop.counter0 }}"
 									data-action="delete_widget_option"

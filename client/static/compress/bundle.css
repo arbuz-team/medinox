@@ -231,6 +231,9 @@ div > .buttons_to_action {
 .is-margin-r-10 {
   margin-right: 10px; }
 
+.is-pointer {
+  cursor: pointer; }
+
 .is-text-has-notifications {
   animation: notifications 2.3s infinite; }
 

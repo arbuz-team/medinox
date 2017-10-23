@@ -24,6 +24,13 @@ export function Ground_Controller()
 			{
 				fun(this, event);
 			}
+		},
+
+
+		disable_cookie = function()
+		{
+			$(this).remove();
+			$('.footer-cookies-content').html('&nbsp;');
 		};
 
 
@@ -48,9 +55,12 @@ export function Ground_Controller()
 		let $container = $(model.container);
 
 		$('.change_length', $container)
-			.click( transfer_event( view.change_to_long));
+			.click( transfer_event( view.change_to_long) );
 		$('.change_length .change_length-button', $container)
-			.click( transfer_event( view.change_to_long_or_short));
+			.click( transfer_event( view.change_to_long_or_short) );
+
+		$('.cookie_disabler')
+			.click(disable_cookie);
 
 		model.ground_form_controller.define();
 		model.define_post_button(model.config_loader);

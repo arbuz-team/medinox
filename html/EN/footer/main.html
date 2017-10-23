@@ -6,11 +6,19 @@
 
     <!-- ////////////    COOKIES    ////////////// -->
 
-    <div class="footer-cookies">
-        <span class="footer-cookies-content">This website uses cookies. By using our services you agree to our use of cookies.</span>
-    </div><!-- footer-cookies -->
-
-
+        <div class="footer-cookies">
+            {% if request.session.main_cookie_enable %}
+                <span class="footer-cookies-content">This website uses cookies. By using our services you agree to our use of cookies.</span>
+                <span class="post_button is-bold is-pointer cookie_disabler"
+                      data-action="cookie"
+                      data-url="/"
+                >
+                    I understand, hide.
+                </span>
+            {% else %}
+                <span class="footer-cookies-content">&nbsp;</span>
+            {% endif %}
+        </div><!-- footer-cookies -->
 
     <!-- ////////////    SOCIAL    ////////////// -->
 
