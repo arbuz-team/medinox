@@ -199,6 +199,10 @@ div > .buttons_to_action {
 .is-min-100 {
   min-width: 100px; }
 
+.is-width-20px {
+  width: 20px !important;
+  max-width: 20px !important; }
+
 .is-width-20 {
   width: 20% !important;
   max-width: 20% !important; }
@@ -221,7 +225,7 @@ div > .buttons_to_action {
 .is-hidden {
   display: none; }
 
-.is-margin-r-40 {
+.is-margin-r-30 {
   margin-right: 30px; }
 
 .is-margin-r-10 {
@@ -540,8 +544,7 @@ div > .buttons_to_action {
     bottom: 0;
     width: 40px;
     height: 40px; }
-    .input_button .input_button-button.is-width-20 {
-      width: 20px;
+    .input_button .input_button-button.is-width-20px {
       height: 20px; }
 
 .button.is-text_icon .button-icon {

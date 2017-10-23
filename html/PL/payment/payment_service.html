@@ -89,7 +89,7 @@
 					{{ paypal.as_p }}
 					<div>Do zapłaty: {{ total_price }} {{ request.session.currency_selected }}</div>
 
-					<button class="button is-important is-width-20 is-bold">
+					<button class="button is-important is-width-20px is-bold">
 						Zapłać
 					</button>
 				</form>
@@ -99,7 +99,7 @@
 		{% if avaible.delayed_transfer %}
 			<div class="to_pay set_feature is-right-inside" data-id="delayed_transfer" data-feature="hidden">
 				<div>Do zapłaty: {{ total_price }} {{ request.session.currency_selected }}</div>
-				<a href="/payment/delayed_transfer/" class="button is-important is-width-20">
+				<a href="/payment/delayed_transfer/" class="button is-important is-width-20px">
 					Zapłać
 				</a>
 			</div>
@@ -111,7 +111,7 @@
 					{{ dotpay.as_p }}
 					<div>Do zapłaty: {{ total_price }} {{ request.session.currency_selected }}</div>
 
-					<button class="button is-important is-width-20 is-bold">
+					<button class="button is-important is-width-20px is-bold">
 						Zapłać
 					</button>
 
