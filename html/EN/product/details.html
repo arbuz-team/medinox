@@ -139,7 +139,7 @@
 
                     </div><!-- product_details-section action_panel -->
 
-                    {% if widgets %}
+                    {% if widgets or request.session.root_login %}
 
                         <div class="product_details-section title">
                             <h3>Selection options</h3>
