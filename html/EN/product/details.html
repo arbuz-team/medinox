@@ -50,8 +50,6 @@
                     </div>
 
 
-                    {% if request.session.user_login or request.session.root_login %}
-
                     <div class="product_details-section action_panel">
 
                         <div class="product_details-action_panel-prices">
@@ -141,97 +139,91 @@
 
                     </div><!-- product_details-section action_panel -->
 
-                    {% else %}
+                    {% if widgets %}
 
-                    <div class="product_details-section">
-                        If you want buy a product you must login.
-                        <a href="{% redirect 'user.sign_in' %}">Sign in!</a>
-                    </div>
+                        <div class="product_details-section title">
+                            <h3>Selection options</h3>
+                        </div>
 
-                    {% endif %}
+                        <div class="product_details-section subproduct_widgets">
 
-
-                    <div class="product_details-section title">
-                        <h3>Selection options</h3>
-                    </div>
-
-                    <div class="product_details-section subproduct_widgets">
-
-                        {% if request.session.root_login %}
-                            <div class="widget widget-add">
-                                <button class="button dialog_button"
-                                        type="button"
-                                        data-type="prompt"
-                                        data-name="widget"
-                                        data-dialog-reload="ground">
-                                    Add new widget
-                                </button>
-                            </div>
-                        {% endif %}
-
-                        <!-- NASZE WIDGETY -->
-
-                        {% for item in widgets %}
-
-                            <div class="widget">
-                                <div class="widget-title">{{ item.widget.name }}</div>
-
-                                {% if request.session.root_login %}
-                                    <button class="button dialog_button is-icon is-right"
+                            {% if request.session.root_login %}
+                                <div class="widget widget-add">
+                                    <button class="button dialog_button"
                                             type="button"
                                             data-type="prompt"
                                             data-name="widget"
-                                            data-value="{{ item.widget.pk }}"
                                             data-dialog-reload="ground">
-                                        <span class="button-icon img-edit"> &nbsp; </span>
+                                        Add new widget
                                     </button>
-                                {% endif %}
+                                </div>
+                            {% endif %}
 
-                                {% if item.widget.type == 'Checkbox' %}
+                            <!-- NASZE WIDGETY -->
 
-                                    {% for field in item.values %}
-                                        <div class="selecter checkbox">
-                                            <input class="input"
-												   type="checkbox"
-												   id="id_checkbox_{{ field.name }}"
-												   name="widget_{{ item.widget.pk }}_{{ forloop.counter0 }}"
-												   value="{{ field.pk }}">
+                            {% for item in widgets %}
 
-                                            <label class="selecter-field" for="id_checkbox_{{ field.name }}"></label>
-                                            <label class="selecter-text" for="id_checkbox_{{ field.name }}">{{ field.name }} (+ {{ field.super_price }} zł)</label>
-                                        </div>
-                                    {% endfor %}
+                                <div class="widget">
+                                    <div class="widget-title">{{ item.widget.name }}</div>
 
-                                {% elif item.widget.type == 'Radio' %}
+                                    {% if request.session.root_login %}
+                                        <button class="button dialog_button is-icon is-right"
+                                                type="button"
+                                                data-type="prompt"
+                                                data-name="widget"
+                                                data-value="{{ item.widget.pk }}"
+                                                data-dialog-reload="ground">
+                                            <span class="button-icon img-edit"> &nbsp; </span>
+                                        </button>
+                                    {% endif %}
 
-                                    {% for field in item.values %}
-                                        <div class="selecter radio">
-                                            <input class="input"
-												   type="radio"
-												   id="id_radio_{{ field.name }}"
-												   name="widget_{{ item.widget.pk }}_0"
-												   value="{{ field.pk }}">
+                                    {% if item.widget.type == 'Checkbox' %}
 
-                                            <label class="selecter-field" for="id_radio_{{ field.name }}"></label>
-                                            <label class="selecter-text" for="id_radio_{{ field.name }}">{{ field.name }} (+ {{ field.super_price }} zł)</label>
-                                        </div>
-                                    {% endfor %}
-
-                                {% elif item.widget.type == 'Select' %}
-
-                                    <select class="select" id="id_select" name="widget_{{ item.widget.pk }}_0" required="">
                                         {% for field in item.values %}
-                                            <option value="{{ field.pk }}">{{ field.name }} (+ {{ field.super_price }} zł)</option>
+                                            <div class="selecter checkbox">
+                                                <input class="input"
+                                                       type="checkbox"
+                                                       id="id_checkbox_{{ field.name }}"
+                                                       name="widget_{{ item.widget.pk }}_{{ forloop.counter0 }}"
+                                                       value="{{ field.pk }}">
+
+                                                <label class="selecter-field" for="id_checkbox_{{ field.name }}"></label>
+                                                <label class="selecter-text" for="id_checkbox_{{ field.name }}">{{ field.name }} (+ {{ field.super_price }} zł)</label>
+                                            </div>
                                         {% endfor %}
-                                    </select>
 
-                                {% endif %}
+                                    {% elif item.widget.type == 'Radio' %}
 
-                            </div>
+                                        {% for field in item.values %}
+                                            <div class="selecter radio">
+                                                <input class="input"
+                                                       type="radio"
+                                                       id="id_radio_{{ field.name }}"
+                                                       name="widget_{{ item.widget.pk }}_0"
+                                                       value="{{ field.pk }}">
 
-                        {% endfor %}
+                                                <label class="selecter-field" for="id_radio_{{ field.name }}"></label>
+                                                <label class="selecter-text" for="id_radio_{{ field.name }}">{{ field.name }} (+ {{ field.super_price }} zł)</label>
+                                            </div>
+                                        {% endfor %}
 
-                    </div><!-- product_details-section subproduct_widgets -->
+                                    {% elif item.widget.type == 'Select' %}
+
+                                        <select class="select" id="id_select" name="widget_{{ item.widget.pk }}_0" required="">
+                                            {% for field in item.values %}
+                                                <option value="{{ field.pk }}">{{ field.name }} (+ {{ field.super_price }} zł)</option>
+                                            {% endfor %}
+                                        </select>
+
+                                    {% endif %}
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div><!-- product_details-section subproduct_widgets -->
+
+                    {% endif %}
 
                 </form>
 
