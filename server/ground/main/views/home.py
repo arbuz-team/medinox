@@ -40,6 +40,10 @@ class Home(Website_Manager):
 
     def Manage_Button(self):
 
+        if self.request.POST['_name_'] == 'cookie':
+            self.request.session['main_cookie_enable'] = False
+            return HttpResponse()
+
         if self.request.POST['_name_'] == 'delete_image':
             home = self.request.session['main_home']
             home.image = None
