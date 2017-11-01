@@ -29,7 +29,7 @@ class Product_Content:
 
         self.product = product
         self.name = product.name.lower()
-        self.brand = product.brand.name.lower()
+        self.brand = product.brand.name.lower() if product.brand else ''
         self.description = self.Get_Product_Descriptions()
 
 
