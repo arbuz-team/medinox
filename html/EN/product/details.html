@@ -163,15 +163,8 @@
 
                             {% for item in widgets %}
 
-<<<<<<< HEAD
                                 <div class="widget">
                                     <div class="widget-title">{{ item.widget.name }}</div>
-=======
-                                            <label class="selecter-field" for="id_checkbox_{{ field.name }}"></label>
-                                            <label class="selecter-text" for="id_checkbox_{{ field.name }}">{{ field.name }} (+ {% get_widget_price field %})</label>
-                                        </div>
-                                    {% endfor %}
->>>>>>> 594da4dd2606431bc6d16addbdfdfdc187b3c23f
 
                                     {% if request.session.root_login %}
                                         <button class="button dialog_button is-icon is-right"
@@ -186,7 +179,6 @@
 
                                     {% if item.widget.type == 'Checkbox' %}
 
-<<<<<<< HEAD
                                         {% for field in item.values %}
                                             <div class="selecter checkbox">
                                                 <input class="input"
@@ -196,20 +188,15 @@
                                                        value="{{ field.pk }}">
 
                                                 <label class="selecter-field" for="id_checkbox_{{ field.name }}"></label>
-                                                <label class="selecter-text" for="id_checkbox_{{ field.name }}">{{ field.name }} (+ {{ field.super_price }} zł)</label>
+                                                <label class="selecter-text" for="id_checkbox_{{ field.name }}">
+                                                    {{ field.name }} (+ {{ field.super_price }} {{ request.session.currency_selected }})
+                                                </label>
                                             </div>
                                         {% endfor %}
-=======
-                                            <label class="selecter-field" for="id_radio_{{ field.name }}"></label>
-                                            <label class="selecter-text" for="id_radio_{{ field.name }}">{{ field.name }} (+ {% get_widget_price field %})</label>
-                                        </div>
-                                    {% endfor %}
->>>>>>> 594da4dd2606431bc6d16addbdfdfdc187b3c23f
 
                                     {% elif item.widget.type == 'Radio' %}
 
                                         {% for field in item.values %}
-<<<<<<< HEAD
                                             <div class="selecter radio">
                                                 <input class="input"
                                                        type="radio"
@@ -218,18 +205,19 @@
                                                        value="{{ field.pk }}">
 
                                                 <label class="selecter-field" for="id_radio_{{ field.name }}"></label>
-                                                <label class="selecter-text" for="id_radio_{{ field.name }}">{{ field.name }} (+ {{ field.super_price }} zł)</label>
+                                                <label class="selecter-text" for="id_radio_{{ field.name }}">
+                                                    {{ field.name }} (+ {{ field.super_price }} {{ request.session.currency_selected }})
+                                                </label>
                                             </div>
-=======
-                                            <option value="{{ field.pk }}">{{ field.name }} (+ {% get_widget_price field %})</option>
->>>>>>> 594da4dd2606431bc6d16addbdfdfdc187b3c23f
                                         {% endfor %}
 
                                     {% elif item.widget.type == 'Select' %}
 
                                         <select class="select" id="id_select" name="widget_{{ item.widget.pk }}_0" required="">
                                             {% for field in item.values %}
-                                                <option value="{{ field.pk }}">{{ field.name }} (+ {{ field.super_price }} zł)</option>
+                                                <option value="{{ field.pk }}">
+                                                    {{ field.name }} (+ {{ field.super_price }} {{ request.session.currency_selected }})
+                                                </option>
                                             {% endfor %}
                                         </select>
 
