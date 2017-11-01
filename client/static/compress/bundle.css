@@ -2648,9 +2648,9 @@ img {
 
 @media (min-width: 1000px) {
   .searcher-logo {
-    height: 130px; }
+    height: 120px; }
   .searcher-logo-link {
-    top: 45px; } }
+    top: 35px; } }
 
 .searcher-filters {
   display: block;
