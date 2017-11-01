@@ -3501,7 +3501,8 @@
 	};
 	
 	list_configs.user_address = {
-		full_name: 'full_name',
+		name: 'proper_name',
+		surname: 'proper_name',
 		address_line: 'no_empty',
 		city: 'proper_name',
 		region: 'proper_name',
