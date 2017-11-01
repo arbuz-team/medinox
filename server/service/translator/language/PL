@@ -179,8 +179,8 @@
 197:Numer telefonu
 198:Fax
 199:NIP / TIN
-200:Name
-201:Surname
+200:Imię
+201:Nazwisko
 202:Nazwa firmy
 203:Usuwanie katalogu
 204:Jesteś pewny, że chcesz usunąć ten catalog?
@@ -254,3 +254,4 @@
 272:Wewnętrzna
 273:Zewnętrzna
 274:Zakończona
+275:Wybierz markę

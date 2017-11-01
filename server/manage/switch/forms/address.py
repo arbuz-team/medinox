@@ -40,3 +40,7 @@ class Abstract_Address_Form(Abstract_Model_Form):
     class Meta:
         exclude = '__all__'
         # fields = '__all__'
+
+    def __init__(self, _object, post=False, *args, **kwargs):
+        Abstract_Model_Form.__init__(self, _object, post,
+             initial={'country': 'PL'}, *args, **kwargs)

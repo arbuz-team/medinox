@@ -37,6 +37,9 @@ class Catalog_Switch(Website_Manager):
     @staticmethod
     def Launch(request, catalog_path=''):
 
+        if '__ground__' not in request.POST.keys():
+            return Catalog_Switch(request).HTML
+
         # service of forms
         if '_name_' in request.POST:
 

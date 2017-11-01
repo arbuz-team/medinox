@@ -67,9 +67,12 @@ class Searcher_Block(Endpoints):
     def Manage_Form(self):
 
         if self.request.POST['_name_'] == 'brand':
-            brand = Model_Brand()
-            brand.name = self.request.POST['name']
-            SQL.Save(data=brand)
+
+            if self.request.POST['name']:
+                brand = Model_Brand()
+                brand.name = self.request.POST['name']
+                SQL.Save(data=brand)
+
             return self.Manage_Content()
 
     def Error(self, response_class, context):

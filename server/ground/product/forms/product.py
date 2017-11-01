@@ -29,7 +29,7 @@ class Form_Product(Abstract_Image_Form):
         self.fields['price_eur'] = forms.FloatField(required=False)
         self.fields['price_gbp'] = forms.FloatField(required=False)
         self.fields['brand'] = forms.ModelChoiceField(queryset=SQL.All(Model_Brand),
-                                empty_label='choose brand', required=False)
+                                empty_label=Text(self, 275), required=False)
 
         Abstract_Image_Form.Create_Fields(self)
 
