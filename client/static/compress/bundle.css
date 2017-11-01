@@ -1695,9 +1695,12 @@ img {
   .tile-img .fill-abs, .tile-img .tile-deleted-cover, .tile-img .address_block-shell, .tile-img .mini_cart-shell {
     text-align: center; }
     .tile-img .fill-abs > img, .tile-img .tile-deleted-cover > img, .tile-img .address_block-shell > img, .tile-img .mini_cart-shell > img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       max-width: 100%;
-      max-height: 100%;
-      vertical-align: middle; }
+      max-height: 100%; }
 
 .tile-title {
   font-weight: bold; }
