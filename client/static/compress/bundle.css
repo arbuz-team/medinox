@@ -1703,7 +1703,8 @@ img {
       max-height: 100%; }
 
 .tile-title {
-  font-weight: bold; }
+  font-weight: bold;
+  max-height: 46px; }
 
 @media (min-width: 1000px) {
   .tile-img {
@@ -1759,6 +1760,7 @@ img {
   padding-bottom: 0; }
 
 .products .tile {
+  position: relative;
   width: auto;
   max-width: 300px;
   min-height: 220px;
@@ -1768,13 +1770,18 @@ img {
   border-bottom: 1px solid #e8e8e8; }
 
 .products .tile-content {
-  position: relative;
-  max-width: 300px;
+  position: absolute;
+  bottom: 5px;
+  width: 225px;
+  height: 23px;
   margin: 0;
   padding: 0; }
   .products .tile-content .tooltip {
     position: absolute;
     top: -35px; }
+  .products .tile-content .tooltip_button {
+    background-color: #FFFFFF;
+    border-radius: 50%; }
 
 @media (min-width: 680px) {
   .products .tiles-list {
