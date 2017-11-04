@@ -6,6 +6,7 @@
       bottom: 0
 
   .tile
+    position: relative
     width: auto
     max-width: 300px
     min-height: 220px
@@ -16,14 +17,22 @@
     border-bottom: $G-STYLE-BORDER
 
   .tile-content
-    position: relative
-    max-width: 300px
+    position: absolute
+    bottom: 5px
+    width: 225px
+    height: 23px
     margin: 0
     padding: 0
 
     .tooltip
       position: absolute
       top: -35px
+
+    .tooltip_button
+      background-color: $White
+      border-radius: 50%
+
+
 
 
 
