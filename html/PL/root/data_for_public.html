@@ -13,30 +13,30 @@
 
     <div class="block-content is-fills-in-width-inside">
 
-        <form method="post" action="" data-name="{{ form_name }}" data-type="{{ form_name }}" data-test="yes">
+        <form method="post" action="" data-name="{{ form_name }}" data-type="{{ form_name }}">
 
             <div class="title"> Co powinno być dostępne publicznie: </div>
 
             <div class="selecter checkbox">
-                <input type="checkbox" id="id_names" name="brand" value="1" {% if values.names %} checked {% endif %}>
+                <input type="checkbox" id="id_names" name="names" value="1" {% if values.names %} checked {% endif %}>
                 <label for="id_names" class="selecter-field"></label>
                 <label for="id_names" class="selecter-text">Imie i nazwisko</label>
             </div>
 
             <div class="selecter checkbox">
-                <input type="checkbox" id="id_phones" name="brand" value="1" {% if values.phones %} checked {% endif %}>
+                <input type="checkbox" id="id_phones" name="phones" value="1" {% if values.phones %} checked {% endif %}>
                 <label for="id_phones" class="selecter-field"></label>
                 <label for="id_phones" class="selecter-text">Numery telefonów</label>
             </div>
 
             <div class="selecter checkbox">
-                <input type="checkbox" id="id_address" name="brand" value="1" {% if values.address %} checked {% endif %}>
+                <input type="checkbox" id="id_address" name="address" value="1" {% if values.address %} checked {% endif %}>
                 <label for="id_address" class="selecter-field"></label>
                 <label for="id_address" class="selecter-text">Adres firmy</label>
             </div>
 
             <div class="selecter checkbox">
-                <input type="checkbox" id="id_email" name="brand" value="1" {% if values.email %} checked {% endif %}>
+                <input type="checkbox" id="id_email" name="email" value="1" {% if values.email %} checked {% endif %}>
                 <label for="id_email" class="selecter-field"></label>
                 <label for="id_email" class="selecter-text">Email</label>
             </div>
