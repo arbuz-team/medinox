@@ -154,6 +154,12 @@ class Session_Controller:
         if 'catalog_deleted_flag' not in self.request.session:
             self.request.session['catalog_deleted_flag'] = False
 
+        if 'catalog_restore_type' not in self.request.session:
+            self.request.session['catalog_restore_type'] = None
+
+        if 'catalog_restore_pk' not in self.request.session:
+            self.request.session['catalog_restore_pk'] = None
+
     def Check_Session_Searcher(self):
 
         if 'searcher_filter_brand' not in self.request.session:

@@ -9,6 +9,24 @@ class Catalog_Switch(Website_Manager):
         return Errors_Handler.Code_404(
             self.request, '__ground__')
 
+    def Manage_Form_Restore(self):
+
+        self.context['form'] = Form_Restore(self, post=True)
+        if self.context['form'].is_valid():
+
+            # get data
+            name = self.context['form'].cleaned_data['restore_name']
+            model = self.request.session['catalog_restore_type']
+            pk = self.request.session['catalog_restore_pk']
+
+            _object = SQL.Get(model, deleted=True, pk=pk)
+            _object.name = name
+            _object.deleted = False
+            SQL.Save(data=_object)
+
+            return Dialog_Prompt(self, apply=True).HTML
+        return Dialog_Prompt(self, not_valid=True).HTML
+
     def Manage_Form(self):
 
         if self.request.POST['_name_'] == 'copy_product':
@@ -28,6 +46,9 @@ class Catalog_Switch(Website_Manager):
 
         if self.request.POST['_name_'] == 'move_link':
             return Move_Link(self.request, only_root=True).HTML
+
+        if self.request.POST['_name_'] == 'restore':
+            return self.Manage_Form_Restore()
 
     def Manage_Button(self):
 
