@@ -5,7 +5,12 @@
 {% if element.deleted and request.session.root_login %}
 
     <li class="tile is-deleted" data-id="{{ element.pk }}">
-		<div class="post_button is-icon" type="button" data-name="restore_product_{{ element.pk }}">
+	    <div class="dialog_button is-icon"
+	         data-type="prompt"
+	         data-name="restore"
+	         data-value="{{ element.pk }}"
+	         data-other_1="model_type:product"
+	         data-dialog-reload="ground">
 
 			<div class="tile-img mini_image">
 				{% if element.image %}
@@ -23,6 +28,8 @@
 				</div>
 
 				{% endif %}
+
+				<div class="tile-deleted-cover">&nbsp;</div>
 			</div>
 
 			<h3 class="tile-title">
