@@ -45,6 +45,15 @@
         </div>
     </div><!-- searcher-order -->
 
+
+    <div class="searcher-filters-title"> Przejdź do katalogu </div>
+
+    <div class="directory_tree">
+        <div class="directory_tree-title">Wybierz catalog</div>
+        {{ catalog_tree_pl|safe }}
+    </div>
+
+
     {% if brands or request.session.root_login %}
 
         <div class="searcher-filters-title">Marka</div>
