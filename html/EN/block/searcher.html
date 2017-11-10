@@ -51,6 +51,14 @@
     </div><!-- searcher-order -->
 
 
+    <div class="searcher-filters-title"> Go to catalog </div>
+
+    <div class="directory_tree">
+        <div class="directory_tree-title">Wybierz catalog</div>
+        {{ catalog_tree_en|safe }}
+    </div>
+
+
     {% if brands or request.session.root_login %}
 
         <div class="searcher-filters-title">Brand</div>
