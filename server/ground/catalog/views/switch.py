@@ -74,13 +74,9 @@ class Catalog_Switch(Website_Manager):
             if request.POST['_name_'] == 'link':
                 return Link_Manager(request, only_root=True).HTML
 
-        if 'form' in request.POST.values():
-            return Catalog_Switch(request, autostart=False)\
-                .Manage_Form()
-
-        if 'button' in request.POST.values():
-            return Catalog_Switch(request, autostart=False)\
-                .Manage_Button()
+        if 'form' in request.POST.values() or \
+            'button' in request.POST.values():
+            return Catalog_Switch(request).HTML
 
         try:
 
