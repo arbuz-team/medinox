@@ -97,7 +97,7 @@ class Catalog_Manager(Website_Manager):
         catalog.name += ':' + self.Generate_Random_Chars(
             20, punctuation=False)
 
-        SQL.Delete(data=catalog)
+        SQL.Delete(data=catalog, force=False)
 
         self.request.session['catalog_editing'] = None
         return HttpResponse()

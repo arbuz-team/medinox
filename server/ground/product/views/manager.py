@@ -42,7 +42,7 @@ class Product_Manager(Website_Manager):
         product.name += ':' + self.Generate_Random_Chars(
             20, punctuation=False)
 
-        SQL.Delete(data=product)
+        SQL.Delete(data=product, force=False)
         self.request.session['product_editing'] = None
         self.Clear_Session('searcher_result')
         return HttpResponse()
