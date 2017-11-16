@@ -17,21 +17,46 @@ class Company_Details_Manager(Website_Manager):
 
     def Manage_Form_Root_Address(self):
 
-        address = SQL.First(Model_Root_Address)
+        # shop address
+        shop_address = SQL.First(Model_Shop_Address)
+        self.context['additional_form'] = \
+            Form_Root_Address(self, instance=shop_address)
+
+        company_address = SQL.First(Model_Root_Address)
         self.context['form'] = Form_Root_Address(
-            self, post=True, instance=address)
+            self, post=True, instance=company_address)
 
         if self.context['form'].is_valid():
-            address = self.context['form'].save(commit=False) # save change of address_user
-            SQL.Save(data=address)
+            company_address = self.context['form'].save(commit=False) # save change of address_user
+            SQL.Save(data=company_address)
 
-            return self.Render_HTML('root/company_details.html', 'root_address')
-        return self.Render_HTML('root/company_details.html', 'root_address')
+            return self.Render_HTML('root/company_details.html', 'root_address', 'shop_address')
+        return self.Render_HTML('root/company_details.html', 'root_address', 'shop_address')
+
+    def Manage_Form_Shop_Address(self):
+
+        company_address = SQL.First(Model_Root_Address)
+        self.context['form'] = Form_Root_Address(
+            self, instance=company_address)
+
+        shop_address = SQL.First(Model_Shop_Address)
+        self.context['additional_form'] = Form_Shop_Address(
+            self, post=True, instance=shop_address)
+
+        if self.context['form'].is_valid():
+            shop_address = self.context['additional_form'].save(commit=False) # save change of address_user
+            SQL.Save(data=shop_address)
+
+            return self.Render_HTML('root/company_details.html', 'root_address', 'shop_address')
+        return self.Render_HTML('root/company_details.html', 'root_address', 'shop_address')
 
     def Manage_Form(self):
 
         if self.request.POST['_name_'] == 'root_address':
             return self.Manage_Form_Root_Address()
+
+        if self.request.POST['_name_'] == 'shop_address':
+            return self.Manage_Form_Shop_Address()
 
         return Website_Manager.Manage_Form(self)
 
