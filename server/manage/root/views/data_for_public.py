@@ -15,6 +15,7 @@ class Data_For_Public(Website_Manager):
         data.phones = False
         data.address = False
         data.email = False
+        data.shop_address = False
 
         if 'names' in self.request.POST:
             data.names = True
@@ -27,6 +28,9 @@ class Data_For_Public(Website_Manager):
 
         if 'email' in self.request.POST:
             data.email = True
+
+        if 'shop_address' in self.request.POST:
+            data.shop_address = True
 
         SQL.Save(data=data)
         self.Clear_Session('root_for_public')

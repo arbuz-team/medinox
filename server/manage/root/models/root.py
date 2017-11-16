@@ -66,7 +66,9 @@ class Model_Data_For_Public(Abstract_Model):
     phones = models.BooleanField()
     address = models.BooleanField()
     email = models.BooleanField()
+    shop_address = models.BooleanField()
 
     def __str__(self):
         return str({'names': self.names, 'phones': self.phones,
-                    'address': self.address, 'email': self.email})
+                    'address': self.address, 'email': self.email,
+                    'shop_address': self.shop_address})

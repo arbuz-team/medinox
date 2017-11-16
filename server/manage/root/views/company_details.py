@@ -60,6 +60,17 @@ class Company_Details_Manager(Website_Manager):
 
         return Website_Manager.Manage_Form(self)
 
+    def Manage_Button(self):
+
+        if self.request.POST['_name_'] == 'display_shop_address':
+            value = self.request.POST['value']
+
+            data = SQL.First(Model_Data_For_Public)
+            data.shop_address = True if value == 'true' else False
+            SQL.Save(data=data)
+
+            return HttpResponse()
+
     @staticmethod
     def Launch(request):
         return Company_Details_Manager(request, only_root=True).HTML
