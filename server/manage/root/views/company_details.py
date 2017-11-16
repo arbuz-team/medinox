@@ -11,7 +11,7 @@ class Company_Details_Manager(Website_Manager):
         shop_address = SQL.First(Model_Shop_Address)
 
         self.context['form'] = Form_Root_Address(self, instance=company_address)
-        self.context['additional_form'] = Form_Root_Address(self, instance=shop_address)
+        self.context['additional_form'] = Form_Shop_Address(self, instance=shop_address)
 
         return self.Render_HTML('root/company_details.html', 'root_address', 'shop_address')
 
@@ -43,7 +43,7 @@ class Company_Details_Manager(Website_Manager):
         self.context['additional_form'] = Form_Shop_Address(
             self, post=True, instance=shop_address)
 
-        if self.context['form'].is_valid():
+        if self.context['additional_form'].is_valid():
             shop_address = self.context['additional_form'].save(commit=False) # save change of address_user
             SQL.Save(data=shop_address)
 

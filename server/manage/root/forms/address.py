@@ -31,6 +31,7 @@ class Form_Shop_Address(Abstract_Address_Form):
 
     def Exclude_Fields(self):
         del self.fields['nip']
+        Abstract_Address_Form.Exclude_Fields(self)
 
     def Create_Fields(self):
         for key in self.fields:
@@ -51,4 +52,4 @@ class Form_Shop_Address(Abstract_Address_Form):
         Abstract_Address_Form.Set_Widgets(self)
 
     class Meta(Abstract_Address_Form.Meta):
-        model = Model_Root_Address
+        model = Model_Shop_Address
