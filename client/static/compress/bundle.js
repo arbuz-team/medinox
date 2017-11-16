@@ -3521,6 +3521,17 @@
 		email: 'email'
 	};
 	
+	list_configs.shop_address = {
+		name: 'proper_name',
+		surname: 'proper_name',
+		address_line: 'no_empty',
+		city: 'proper_name',
+		region: 'proper_name',
+		postcode: 'no_empty',
+		country: 'proper_name',
+		email: 'email'
+	};
+	
 	list_configs.forgot_password = {
 		email: 'email_in_db'
 	};
