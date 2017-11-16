@@ -46,22 +46,50 @@
 
                 <div class="title"> Edit store address </div>
 
-                {% for field in additional_form %}
+                {% if not display_shop_address %}
 
-                    {% include "form/html/manage_field.html" %}
+                    <div class="form_buttons short">
+                        <button class="button post_button is-important"
+                                type="button"
+                                data-name="show_shop_address"
+                                data-action="display_shop_address"
+                                data-value="true"
+                                data-reload="ground">
+                            Show store address
+                        </button>
+                    </div>
 
-                {% endfor %}
+                {% else %}
 
-                <div class="form_buttons short">
-                    <button class="button is-important" disabled type="submit"> Save </button>
-                    <button class="button event_button is-important"
-                            type="button"
-                            id="button_refresh"
-                            data-name="button_refresh_2"
-                            data-event="reload_website">
-                        Show changes
-                    </button>
-                </div>
+                    <div class="form_buttons short">
+                        <button class="button post_button is-important"
+                                type="button"
+                                data-name="show_shop_address"
+                                data-action="display_shop_address"
+                                data-value="false"
+                                data-reload="ground">
+                            Hide store address
+                        </button>
+                    </div>
+
+                    {% for field in additional_form %}
+
+                        {% include "form/html/manage_field.html" %}
+
+                    {% endfor %}
+
+                    <div class="form_buttons short">
+                        <button class="button is-important" disabled type="submit"> Save </button>
+                        <button class="button event_button is-important"
+                                type="button"
+                                id="button_refresh"
+                                data-name="button_refresh_2"
+                                data-event="reload_website">
+                            Show changes
+                        </button>
+                    </div>
+
+                {% endif %}
 
             </form>
 

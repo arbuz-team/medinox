@@ -1989,7 +1989,9 @@
 	    get_and_remove_data = exports.get_and_remove_data = function get_and_remove_data(elem, name) {
 		var data = get_data(elem, name);
 	
-		return data;
+		if (typeof data === 'undefined') data = '';
+	
+		return String(data);
 	},
 	    prepare_delay = exports.prepare_delay = function prepare_delay(data) {
 		var delay = data.delay;

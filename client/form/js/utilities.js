@@ -87,7 +87,10 @@ export let
 
 		// $(elem).removeAttr('data-'+ name);
 
-		return data;
+		if(typeof data === 'undefined')
+			data = '';
+
+		return String(data);
 	},
 
 

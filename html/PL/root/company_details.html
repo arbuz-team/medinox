@@ -46,22 +46,50 @@
 
                 <div class="title"> Edytuj dane adresowe sklepu </div>
 
-                {% for field in additional_form %}
+                {% if not display_shop_address %}
 
-                    {% include "form/html/manage_field.html" %}
+                    <div class="form_buttons short">
+                        <button class="button post_button is-important"
+                                type="button"
+                                data-name="show_shop_address"
+                                data-action="display_shop_address"
+                                data-value="true"
+                                data-reload="ground">
+                            Pokaż adres sklepu
+                        </button>
+                    </div>
 
-                {% endfor %}
+                {% else %}
 
-                <div class="form_buttons short">
-                    <button class="button is-important" type="submit" disabled> Zapisz </button>
-                    <button class="button event_button is-important"
-                            type="button"
-                            id="button_refresh_2"
-                            data-name="button_refresh"
-                            data-event="reload_website">
-                        Pokaż zmiany
-                    </button>
-                </div>
+                    <div class="form_buttons short">
+                        <button class="button post_button is-important"
+                                type="button"
+                                data-name="show_shop_address"
+                                data-action="display_shop_address"
+                                data-value="false"
+                                data-reload="ground">
+                            Ukryj adres sklepu
+                        </button>
+                    </div>
+
+                    {% for field in additional_form %}
+
+                        {% include "form/html/manage_field.html" %}
+
+                    {% endfor %}
+
+                    <div class="form_buttons short">
+                        <button class="button is-important" type="submit" disabled> Zapisz </button>
+                        <button class="button event_button is-important"
+                                type="button"
+                                id="button_refresh_2"
+                                data-name="button_refresh"
+                                data-event="reload_website">
+                            Pokaż zmiany
+                        </button>
+                    </div>
+
+                {% endif %}
 
             </form>
 
