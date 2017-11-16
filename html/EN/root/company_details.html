@@ -6,37 +6,68 @@
 </script>
 
 
-<div class="ground-block block-1 SMALL">
+<div class="ground-block block-1 DOUBLE_SMALL">
 
     <div class="block-background fill-abs"></div>
     {% include "block/ground/html/navigation.html" %}
 
-    <div class="block-content is-fills-in-width-inside">
+    <div class="aligner">
 
-        <form method="post" action="" data-name="{{ form_name }}" data-type="{{ form_name }}" data-test="yes">
+        <div class="block-content is-fills-in-width-inside">
 
-            <div class="title"> Edit your data </div>
+            <form method="post" action="" data-name="{{ form_name }}" data-type="{{ form_name }}" data-test="yes">
+
+                <div class="title"> Edit your data </div>
+
+                    {% for field in form %}
+
+                        {% include "form/html/manage_field.html" %}
+
+                    {% endfor %}
+
+                <div class="form_buttons short">
+                    <button class="button is-important" disabled type="submit"> Save </button>
+                    <button class="button event_button is-important"
+                            type="button"
+                            id="button_refresh_1"
+                            data-name="button_refresh"
+                            data-event="reload_website">
+                        Show changes
+                    </button>
+                </div>
+
+            </form>
+
+        </div><!-- block-content -->
+
+        <div class="block-content is-fills-in-width-inside">
+
+            <form method="post" action="" data-name="{{ form_name }}" data-type="{{ form_name }}" data-test="yes">
+
+                <div class="title"> Edit your data </div>
 
                 {% for field in form %}
 
-                    {% include "form/html/manage_field.html" %}
+                {% include "form/html/manage_field.html" %}
 
                 {% endfor %}
 
-            <div class="form_buttons short">
-                <button class="button is-important" disabled type="submit"> Save </button>
-                <button class="button event_button is-important"
-                        type="button"
-                        id="button_refresh"
-                        data-name="button_refresh"
-                        data-event="reload_website">
-                    Show changes
-                </button>
-            </div>
+                <div class="form_buttons short">
+                    <button class="button is-important" disabled type="submit"> Save </button>
+                    <button class="button event_button is-important"
+                            type="button"
+                            id="button_refresh"
+                            data-name="button_refresh_2"
+                            data-event="reload_website">
+                        Show changes
+                    </button>
+                </div>
 
-        </form>
+            </form>
 
-    </div><!-- block-content -->
+        </div><!-- block-content -->
+
+    </div>
 
 </div><!-- ground-block -->
 

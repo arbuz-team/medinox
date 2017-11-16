@@ -4,7 +4,7 @@
 
 .ground-block
 
-  &.SMALL
+  &.SMALL, &.DOUBLE_SMALL
     .block-content
       width: $ground-block-small--width
       margin: $ground-block--margin
@@ -15,6 +15,23 @@
         margin:
           left: 0
           right: 0
+
+  &.DOUBLE_SMALL
+    .aligner
+      width: $ground-block-small--width * 2
+      margin: 0 auto
+      font-size: 0
+
+    .block-content
+      display: inline-block
+
+    .block-content:first-child
+      margin-right: 0
+
+    .block-content:last-child
+      margin-left: 0
+
+
 
 
   &.MEDIUM, &.BIG

@@ -1614,14 +1614,28 @@ img {
     height: 500px;
     margin-top: 0; } }
 
-.ground-block.SMALL .block-content, .ground-block.SMALL .block-content-message {
+.ground-block.SMALL .block-content, .ground-block.SMALL .block-content-message, .ground-block.DOUBLE_SMALL .block-content, .ground-block.DOUBLE_SMALL .block-content-message {
   width: 320px;
   margin: 30px auto; }
 
-.ground-block.SMALL .is-fills-in-width-inside .input, .ground-block.SMALL .is-fills-in-width-inside .button, .ground-block.SMALL .is-fills-in-width-inside .select, .ground-block.SMALL .is-fills-in-width-inside .g-recaptcha {
+.ground-block.SMALL .is-fills-in-width-inside .input, .ground-block.SMALL .is-fills-in-width-inside .button, .ground-block.SMALL .is-fills-in-width-inside .select, .ground-block.SMALL .is-fills-in-width-inside .g-recaptcha, .ground-block.DOUBLE_SMALL .is-fills-in-width-inside .input, .ground-block.DOUBLE_SMALL .is-fills-in-width-inside .button, .ground-block.DOUBLE_SMALL .is-fills-in-width-inside .select, .ground-block.DOUBLE_SMALL .is-fills-in-width-inside .g-recaptcha {
   width: 100%;
   margin-left: 0;
   margin-right: 0; }
+
+.ground-block.DOUBLE_SMALL .aligner {
+  width: 640px;
+  margin: 0 auto;
+  font-size: 0; }
+
+.ground-block.DOUBLE_SMALL .block-content, .ground-block.DOUBLE_SMALL .block-content-message {
+  display: inline-block; }
+
+.ground-block.DOUBLE_SMALL .block-content:first-child, .ground-block.DOUBLE_SMALL .block-content-message:first-child {
+  margin-right: 0; }
+
+.ground-block.DOUBLE_SMALL .block-content:last-child, .ground-block.DOUBLE_SMALL .block-content-message:last-child {
+  margin-left: 0; }
 
 .ground-block.MEDIUM .block-content, .ground-block.MEDIUM .block-content-message, .ground-block.BIG .block-content, .ground-block.BIG .block-content-message {
   width: 320px;
