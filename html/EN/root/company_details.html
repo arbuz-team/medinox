@@ -17,13 +17,13 @@
 
             <form method="post" action="" data-name="{{ form_name }}" data-type="{{ form_name }}" data-test="yes">
 
-                <div class="title"> Edit your data </div>
+                <div class="title"> Edit company address </div>
 
-                    {% for field in form %}
+                {% for field in form %}
 
-                        {% include "form/html/manage_field.html" %}
+                    {% include "form/html/manage_field.html" %}
 
-                    {% endfor %}
+                {% endfor %}
 
                 <div class="form_buttons short">
                     <button class="button is-important" disabled type="submit"> Save </button>
@@ -42,13 +42,13 @@
 
         <div class="block-content is-fills-in-width-inside">
 
-            <form method="post" action="" data-name="{{ form_name }}" data-type="{{ form_name }}" data-test="yes">
+            <form method="post" action="" data-name="{{ additional_form_name }}" data-type="{{ additional_form_name }}" data-test="yes">
 
-                <div class="title"> Edit your data </div>
+                <div class="title"> Edit store address </div>
 
-                {% for field in form %}
+                {% for field in additional_form %}
 
-                {% include "form/html/manage_field.html" %}
+                    {% include "form/html/manage_field.html" %}
 
                 {% endfor %}
 
