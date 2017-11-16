@@ -6,7 +6,7 @@ from server.service.payment.forms import *
 class Company_Details_Manager(Website_Manager):
 
     def Manage_Content(self):
-        
+
         company_address = SQL.First(Model_Root_Address)
         shop_address = SQL.First(Model_Shop_Address)
 
