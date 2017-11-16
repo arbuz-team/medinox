@@ -19,6 +19,15 @@ class Model_Root_Address(Abstract_Address):
 
 
 
+class Model_Shop_Address(Abstract_Address):
+
+    phone_1 = models.CharField(max_length=25)
+    phone_2 = models.CharField(max_length=25)
+    fax = models.CharField(max_length=25)
+    email = models.EmailField(max_length=50)
+
+
+
 class Model_Social_Media(Abstract_Model):
 
     name = models.CharField(max_length=20)
