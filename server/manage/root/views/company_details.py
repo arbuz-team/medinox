@@ -40,7 +40,7 @@ class Company_Details_Manager(Website_Manager):
         return self.Render_HTML('root/company_details.html', 'root_address', 'shop_address')
 
     def Manage_Form_Shop_Address(self):
-        
+
         data = SQL.First(Model_Data_For_Public)
         self.context['display_shop_address'] = data.shop_address
 
