@@ -41,7 +41,7 @@ class Panel_App(Website_Manager):
             {
                 'name': Text(self, 266),
                 'url': path_manager.Get_Path('root.data_for_public', current_language=True),
-                'icon': '/static/img/icons/128/dark/.png',
+                'icon': '/static/img/icons/128/dark/data_share_public.png',
             },
         ]
 
