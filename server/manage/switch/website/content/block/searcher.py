@@ -1,10 +1,16 @@
 from server.manage.switch.website.endpoints import *
 from server.ground.product.models import *
+from server.ground.catalog.tree import *
 
 
 class Searcher_Block(Endpoints):
 
     def Manage_Content(self):
+
+        language = self.request.session['translator_language']
+        catalog_tree = Catalog_Tree(self, 'catalog/tree_of_link.html')
+
+        self.context['link_tree'] = catalog_tree.Create_Catalog_Tree(language)
         self.context['brands'] = SQL.All(Model_Brand)
         return self.Render_HTML('block/searcher.html')
 
