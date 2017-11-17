@@ -1,0 +1,45 @@
+
+<div class="directory_tree-single">
+
+    <a class="directory_tree-name" href="/">
+
+        {% if have_children %}
+            <span class="directory_tree-arrow is-close">&nbsp;</span>
+        {% else %}
+            <span class="directory_tree-arrow">&nbsp;</span>
+        {% endif %}
+
+        {{ parent.name }}
+
+    </a>
+</div>
+
+{% if catalogs %}
+
+    {% if parent.name == '/' %}
+        <ul class="directory_tree-list is-open">
+
+            {% for catalog in catalogs %}
+
+                <li class="directory_tree-element">
+                    <{{ forloop.counter0 }}>
+                </li>
+
+            {% endfor %}
+
+        </ul>
+    {% else %}
+        <ul class="directory_tree-list is-close">
+
+            {% for catalog in catalogs %}
+
+                <li class="directory_tree-element">
+                    <{{ forloop.counter0 }}>
+                </li>
+
+            {% endfor %}
+
+        </ul>
+    {% endif %}
+
+{% endif %}
