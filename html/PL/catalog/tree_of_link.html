@@ -3,7 +3,9 @@
 
     <a class="directory_tree-name" href="/katalog/:/{{ parent.url_name }}">
 
-        {% if have_children %}
+        {% if parent.name == '/' %}
+            <span class="directory_tree-arrow is-open">&nbsp;</span>
+        {% elif have_children %}
             <span class="directory_tree-arrow is-close">&nbsp;</span>
         {% else %}
             <span class="directory_tree-arrow">&nbsp;</span>

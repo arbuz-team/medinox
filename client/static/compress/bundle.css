@@ -2735,13 +2735,13 @@ img {
   width: 15px;
   opacity: .6; }
   .directory_tree-arrow.is-close {
-    background-image: url(/static/img/icons/32/dark/sort_down.png);
-    background-size: 10px 13px;
+    background-image: url(/static/img/icons/32/dark/sort_right.png);
+    background-size: 13px 10px;
     background-position: center;
     background-repeat: no-repeat; }
   .directory_tree-arrow.is-open {
-    background-image: url(/static/img/icons/32/dark/sort_right.png);
-    background-size: 13px 10px;
+    background-image: url(/static/img/icons/32/dark/sort_down.png);
+    background-size: 10px 13px;
     background-position: center;
     background-repeat: no-repeat; }
 
