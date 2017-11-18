@@ -1,0 +1,97 @@
+{% load staticfiles %}
+{% load tags %}
+
+
+<li class="item" data-id="{{ element.product.pk }}">
+	<a href="{% url 'product.details' pk=element.product.pk product_name=element.product.url_name %}">
+
+		<div class="item-img mini_image">
+			{% if element.product.image %}
+
+				<div class="fill-abs">
+					<img data-src="{{ element.product.image }}"
+						 alt="{{ element.product.name }}"
+						 src="{% static 'img/pixel.png' %}" />
+				</div>
+
+			{% elif request.session.root_login %}
+
+				<div class="img-default fill-abs img-hospital-256">
+					&nbsp;
+				</div>
+
+			{% else %}
+
+				<div class="img-default fill-abs">
+					&nbsp;
+				</div>
+
+			{% endif %}
+
+
+			{% if request.session.root_login %}
+
+				<div class="img-default fill-abs is-link img-link-256">
+					&nbsp;
+				</div>
+
+			{% endif %}
+		</div>
+
+		<h3 class="item-title">
+			{{ element.product.name }}
+		</h3>
+	</a>
+
+	<div class="item-content">
+		&nbsp;
+
+		{% if request.session.root_login and show_edit != 'false' %}
+
+		<div class="tooltip align-right align-top is-right">
+
+			<button class="button is-icon tooltip_button is-rotate-360"
+					type="button"
+					data-name="edit">
+				<span class="button-icon img-edit"> &nbsp; </span>
+			</button>
+
+			<div class="tooltip-options">
+
+				<button class="button dialog_button"
+						type="button"
+						data-type="prompt"
+						data-name="product"
+						data-value="{{ element.pk }}"
+						data-dialog-reload="ground">
+					{% text 237 %}<!--Delete link-->
+				</button>
+
+				<button class="button dialog_button"
+						type="button"
+						data-type="prompt"
+						data-name="move_link"
+						data-value="{{ element.pk }}"
+						data-other_2="model:product_link"
+						data-dialog-reload="ground">
+					{% text 238 %}<!--Move link-->
+				</button>
+
+				<button class="button dialog_button"
+						type="button"
+						data-type="prompt"
+						data-name="copy_link"
+						data-value="{{ element.pk }}"
+						data-other_2="model:product_link"
+						data-dialog-reload="ground">
+					{% text 239 %}<!--Copy link-->
+				</button>
+
+			</div>
+		</div>
+
+		{% endif %}
+	</div>
+</li>
+
+
