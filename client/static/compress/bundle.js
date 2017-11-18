@@ -95,13 +95,13 @@
 	
 	var _controller = __webpack_require__(11);
 	
-	var _controller2 = __webpack_require__(68);
+	var _controller2 = __webpack_require__(70);
 	
-	var _controller3 = __webpack_require__(69);
+	var _controller3 = __webpack_require__(71);
 	
 	var _controller4 = __webpack_require__(35);
 	
-	var _controller5 = __webpack_require__(70);
+	var _controller5 = __webpack_require__(72);
 	
 	var _controller6 = __webpack_require__(32);
 	
@@ -337,7 +337,9 @@
 	
 	var _controller2 = __webpack_require__(28);
 	
-	var _define = __webpack_require__(41);
+	var _define = __webpack_require__(68);
+	
+	var _define2 = __webpack_require__(41);
 	
 	function Search_Controller() {
 		if (_typeof(Search_Controller.instance) === 'object') return Search_Controller.instance;
@@ -366,7 +368,9 @@
 	
 			searcher_motion_controller.define();
 			searcher_form_controller.define();
-			(0, _define.define_post_button)({
+	
+			(0, _define.define_directory_tree)(config_loader);
+			(0, _define2.define_post_button)({
 				container: '#SEARCHER',
 				part_name: 'searcher'
 			});
@@ -4336,6 +4340,61 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.define_directory_tree = undefined;
+	
+	var _controller = __webpack_require__(69);
+	
+	var define_directory_tree = exports.define_directory_tree = function define_directory_tree(config) {
+		var $element = $('.directory_tree', config.container);
+	
+		$element.each(function () {
+			new _controller.Directory_Tree(this);
+		});
+	};
+
+/***/ },
+/* 69 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Directory_Tree = Directory_Tree;
+	function Directory_Tree(container) {
+		if (!container) {
+			console.error('Part Loader error: Invalid configuration.');
+			return {};
+		}
+	
+		this.container = container;
+	
+		var change_state = function change_state() {
+			var $parent = $(this).parent().parent(),
+			    $list = $parent.children('.directory_tree-list'),
+			    $all_lists = $parent.find('.directory_tree-list'),
+			    is_open = $list.hasClass('is-open');
+	
+			if (is_open) $all_lists.removeClass('is-open').addClass('is-close');else $list.removeClass('is-close').addClass('is-open');
+		};
+	
+		this.define = function () {
+			$('.directory_tree-name', this.container).click(change_state);
+		};
+	
+		this.define();
+	}
+
+/***/ },
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
@@ -4426,7 +4485,7 @@
 	}
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4492,7 +4551,7 @@
 	}
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4505,9 +4564,9 @@
 	
 	exports.Dialog_Controller = Dialog_Controller;
 	
-	var _controller = __webpack_require__(71);
+	var _controller = __webpack_require__(73);
 	
-	var _controller2 = __webpack_require__(73);
+	var _controller2 = __webpack_require__(75);
 	
 	function Dialog_Controller() {
 		if (_typeof(Dialog_Controller.instance) === 'object') return Dialog_Controller.instance;
@@ -4589,7 +4648,7 @@
 	}
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4601,7 +4660,7 @@
 	
 	var _standard = __webpack_require__(21);
 	
-	var _view = __webpack_require__(72);
+	var _view = __webpack_require__(74);
 	
 	function Dialog_Designer_Controller(config) {
 		var _this = this;
@@ -4649,7 +4708,7 @@
 	}
 
 /***/ },
-/* 72 */
+/* 74 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4703,7 +4762,7 @@
 	}
 
 /***/ },
-/* 73 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4719,9 +4778,9 @@
 	
 	var _define2 = __webpack_require__(36);
 	
-	var _controllers = __webpack_require__(74);
+	var _controllers = __webpack_require__(76);
 	
-	var _define3 = __webpack_require__(77);
+	var _define3 = __webpack_require__(68);
 	
 	var _controller2 = __webpack_require__(79);
 	
@@ -4783,7 +4842,7 @@
 	}
 
 /***/ },
-/* 74 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4793,7 +4852,7 @@
 	});
 	exports.Little_Form_Controllers = undefined;
 	
-	var _views = __webpack_require__(75);
+	var _views = __webpack_require__(77);
 	
 	var Little_Form_Controllers = exports.Little_Form_Controllers = function Little_Form_Controllers(form_config) {
 	  if (typeof form_config === 'undefined' && typeof form_config.container === 'undefined') {
@@ -4836,7 +4895,7 @@
 	};
 
 /***/ },
-/* 75 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4846,7 +4905,7 @@
 	});
 	exports.Little_Form_Views = undefined;
 	
-	var _models = __webpack_require__(76);
+	var _models = __webpack_require__(78);
 	
 	var Little_Form_Views = exports.Little_Form_Views = function Little_Form_Views(form_config) {
 	  var models = new _models.Little_Form_Models(form_config);
@@ -4920,7 +4979,7 @@
 	};
 
 /***/ },
-/* 76 */
+/* 78 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5011,61 +5070,6 @@
 	    }, 200);
 	  };
 	};
-
-/***/ },
-/* 77 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.define_directory_tree = undefined;
-	
-	var _controller = __webpack_require__(78);
-	
-	var define_directory_tree = exports.define_directory_tree = function define_directory_tree(config) {
-		var $element = $('.directory_tree', config.container);
-	
-		$element.each(function () {
-			new _controller.Directory_Tree(this);
-		});
-	};
-
-/***/ },
-/* 78 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.Directory_Tree = Directory_Tree;
-	function Directory_Tree(container) {
-		if (!container) {
-			console.error('Part Loader error: Invalid configuration.');
-			return {};
-		}
-	
-		this.container = container;
-	
-		var change_state = function change_state() {
-			var $parent = $(this).parent().parent(),
-			    $list = $parent.children('.directory_tree-list'),
-			    $all_lists = $parent.find('.directory_tree-list'),
-			    is_open = $list.hasClass('is-open');
-	
-			if (is_open) $all_lists.removeClass('is-open').addClass('is-close');else $list.removeClass('is-close').addClass('is-open');
-		};
-	
-		this.define = function () {
-			$('.directory_tree-name', this.container).click(change_state);
-		};
-	
-		this.define();
-	}
 
 /***/ },
 /* 79 */

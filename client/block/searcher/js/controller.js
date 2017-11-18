@@ -5,6 +5,8 @@
 import {Block_Loader_Part}     			from 'block/plugin/block_loader/block'
 import {Block_Motion_Controllers} 	    from 'block/plugin/block_motion/controller'
 import {Form_Controllers}  				from 'form/js/controller'
+
+import {define_directory_tree}      from 'block/plugin/directory_tree/define'
 import {define_post_button}             from 'form/plugin/post_button/define'
 
 
@@ -48,6 +50,8 @@ export function Search_Controller()
 
 		searcher_motion_controller.define();
 		searcher_form_controller.define();
+
+		define_directory_tree(config_loader);
 		define_post_button({
 			container: '#SEARCHER',
 			part_name: 'searcher',
