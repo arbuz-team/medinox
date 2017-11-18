@@ -1,0 +1,97 @@
+
+
+.tile
+  margin-bottom: 10px
+  padding: 30px
+
+  cursor: pointer
+
+  &.is-deleted
+
+    .tile-img, .img-default
+      opacity: 0.7 !important
+
+
+  >a, >div
+    display: block
+    height: 100%
+
+  .button.is-icon
+    width: 40px
+    height: 40px
+
+  &:hover
+    .tile-img
+      opacity: 1
+
+
+.tile-deleted-cover
+  @extend .fill-abs
+  @extend .img-reload-128
+
+  background:
+    size: 40%
+    position: center
+    color: transparentize($Boulder, 0.9)
+  opacity: 0.8
+
+  &:hover
+    opacity: 1
+
+
+.img-default
+  opacity: 0.7
+
+  &.is-link
+    background:
+      position: top 7px right 7px
+      size: 20%
+    opacity: 1
+    z-index: 1
+
+    &:hover
+      opacity: 1
+
+
+.tile-img
+  +my-box()
+
+  position: relative
+  width: 100%
+  padding: 0
+    top: 80%
+  overflow: hidden
+
+  .fill-abs
+    text-align: center
+
+    >img
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+
+      max-width: 100%
+      max-height: 100%
+
+
+.tile-title
+  font-weight: bold
+  max-height: 46px
+
+
+
+@media (min-width: $G-SIZE-3)
+
+  .tile-img
+    opacity: 0.8
+
+
+  .img-default
+    opacity: 0.5
+
+
+  .tile:hover
+    .img-default
+      opacity: 0.7
+

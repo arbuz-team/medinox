@@ -1,0 +1,41 @@
+
+.products.tiles >ul
+
+  >.tile.new
+
+    >a, >div:not(.tooltip-options)
+
+      >.tile-img.mini_image
+        +background-img(url(/static/img/icons/128/dark/add.png), 40%, center)
+        border: $G-STYLE-DARK-BORDER-DASHED
+
+      >.tile-title
+        min-height: 20px
+
+    .tooltip-options
+      left: 50% !important
+      top: 50% !important
+
+
+@media (min-width: $G-SIZE-2)
+
+  .products.tiles >ul
+    >.tile.new
+      >a, >div
+        >.tile-title
+          min-height: 23px
+
+@media (min-width: $G-SIZE-3)
+
+  .products.tiles >ul
+    >.tile.new
+      >a, >div
+
+        >.tile-img.mini_image
+          opacity: .8
+
+    >.tile.new:hover
+      >a, >div
+
+        >.tile-img.mini_image
+          opacity: .9
