@@ -30,7 +30,7 @@ class Model_Shop_Address(Abstract_Address):
 
 class Model_Social_Media(Abstract_Model):
 
-    name = models.CharField(max_length=20)
+    name = models.IntegerField()
     type = models.CharField(max_length=20)
     url = models.URLField()
 

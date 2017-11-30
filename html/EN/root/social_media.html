@@ -1,3 +1,5 @@
+{% load tags %}
+
 <script>
   APP.DATA = {
     title : 'Social media',
@@ -21,13 +23,13 @@
                 <div class="social_media-row">
 
                     <label class="social_media-row-label" for="edit_{{ item.name }}">
-                        {{ item.name }}:&nbsp;
+                        {% text item.name %}:&nbsp;
                     </label>
 
                     <input class="social_media-row-input input auto_field"
 						   type="url"
 						   name="{{ item.name }}"
-                           placeholder="{{ item.name }} account..."
+                           placeholder="{% text item.name %} account..."
                            id="edit_{{ item.name }}"
                            data-name="{{ item.pk }}"
                            value="{{ item.url }}" />
