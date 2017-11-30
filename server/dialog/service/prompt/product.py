@@ -21,7 +21,7 @@ class Service_Product(Base_Service):
         self.context['image'] = product.image
         self.initial = {
             'name': product.name,
-            'price': product.price,
+            'price_pln': product.price,
             'brand': product.brand,
         }
 
