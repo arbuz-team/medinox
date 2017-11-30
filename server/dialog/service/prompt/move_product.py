@@ -1,6 +1,6 @@
-from server.dialog.service.tree import *
 from server.service.payment.forms import *
 from server.ground.catalog.forms import *
+from server.dialog.service.tree import *
 
 
 class Service_Move_Product(Catalog_Tree):
