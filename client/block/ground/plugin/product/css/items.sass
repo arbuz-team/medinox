@@ -1,0 +1,64 @@
+
+.products
+  &.tiles
+    padding:
+      top: 0
+      bottom: 0
+
+  .tile
+    position: relative
+    width: auto
+    max-width: 300px
+    min-height: 220px
+    margin: 0
+      left: auto
+      right: auto
+
+    border-bottom: $G-STYLE-BORDER
+
+  .tile-content
+    position: absolute
+    bottom: 5px
+    width: 225px
+    height: 23px
+    margin: 0
+    padding: 0
+
+    .tooltip
+      position: absolute
+      top: -35px
+
+    .tooltip_button
+      background-color: $White
+      border-radius: 50%
+
+
+
+
+
+//-----------------------------------------
+//				EKRAN KOMPUTERA
+//-----------------------------------------
+
+@media (min-width: $G-SIZE-2)
+
+  .products
+    .tiles-list
+      font-size: 0
+      text-align: center
+
+    .tile
+      display: inline-block
+      width: 285px
+      max-width: none
+      margin: 0
+      font-size: 16px
+      text-align: left
+
+    .tile-img
+      height: 200px
+      overflow: hidden
+
+    .tile-title
+      position: relative
+      text-align: left

@@ -1,0 +1,154 @@
+{% load staticfiles %}
+{% load tags %}
+
+
+{% if element.deleted and request.session.root_login %}
+
+    <li class="item is-deleted" data-id="{{ element.pk }}">
+	    <div class="dialog_button is-icon"
+	         data-type="prompt"
+	         data-name="restore"
+	         data-value="{{ element.pk }}"
+	         data-other_1="model_type:product"
+	         data-dialog-reload="ground">
+
+			<div class="item-img mini_image">
+				{% if element.image %}
+
+				<div class="fill-abs">
+					<img data-src="{{ element.image }}"
+						 alt="{{ element | deleted_name }}"
+						 src="{% static 'img/pixel.png' %}" />
+				</div>
+
+				{% else %}
+
+				<div class="img-default fill-abs img-hospital-256">
+					&nbsp;
+				</div>
+
+				{% endif %}
+
+				<div class="item-deleted-cover">&nbsp;</div>
+			</div>
+
+			<h3 class="item-title">
+				{{ element | deleted_name }}
+			</h3>
+
+		</div>
+
+		<div class="item-content">
+			&nbsp;
+		</div>
+	</li>
+
+{% else %}
+
+    <li class="item" data-id="{{ element.pk }}">
+		<a href="{% url 'product.details' pk=element.pk product_name=element.url_name %}">
+
+			<div class="item-img mini_image">
+				{% if element.image %}
+
+					<div class="fill-abs">
+						<img data-src="{{ element.image }}"
+							 alt="{{ element.name }}"
+							 src="{% static 'img/pixel.png' %}" />
+					</div>
+
+				{% elif request.session.root_login %}
+
+					<div class="img-default fill-abs img-hospital-256">
+						&nbsp;
+					</div>
+
+				{% else %}
+
+					<div class="img-default fill-abs">
+						&nbsp;
+					</div>
+
+				{% endif %}
+			</div>
+
+			<h3 class="item-title">
+				{{ element.name }}
+			</h3>
+		</a>
+
+		<div class="item-content">
+			&nbsp;
+
+			{% if request.session.root_login and show_edit != 'false' %}
+
+			<div class="tooltip align-right align-top is-right">
+
+				<button class="button is-icon tooltip_button is-rotate-360"
+						type="button"
+						data-name="edit">
+					<span class="button-icon img-edit"> &nbsp; </span>
+				</button>
+
+				<div class="tooltip-options">
+
+					<button class="button dialog_button"
+							type="button"
+							data-type="prompt"
+							data-name="product"
+							data-value="{{ element.pk }}"
+							data-dialog-reload="ground">
+						{% text 235 %}<!--Edit-->
+					</button>
+
+					<button class="button dialog_button"
+							type="button"
+							data-type="prompt"
+							data-name="move_product"
+							data-value="{{ element.pk }}"
+							data-dialog-reload="ground">
+						{% text 230 %}<!--Move-->
+					</button>
+
+					<button class="button dialog_button"
+							type="button"
+							data-type="prompt"
+							data-name="copy_product"
+							data-value="{{ element.pk }}"
+							data-dialog-reload="ground">
+						{% text 234 %}<!--Copy-->
+					</button>
+
+					<button class="button dialog_button"
+					        type="button"
+					        data-type="confirm"
+					        data-name="delete_product"
+					        data-other_1="type:product"
+					        data-dialog-action="delete"
+					        data-dialog-url="{% url 'product.manage' %}"
+					        data-dialog-value="{{ element.pk }}"
+					        data-dialog-reload="ground">
+						{% text 233 %}<!--Delete-->
+					</button>
+
+					<button class="button dialog_button"
+					        type="button"
+					        data-type="prompt"
+					        data-name="link"
+					        data-value="{{ element.pk }}"
+					        data-other_1="type:product"
+					        data-dialog-reload="ground">
+						{% text 236 %}<!--Create link-->
+					</button>
+
+				</div>
+			</div>
+
+			{% endif %}
+		</div>
+	</li>
+
+{% endif %}
+
+
+

@@ -1,0 +1,41 @@
+{% load tags %}
+
+<div class="block-content products items">
+
+    <ul class="items-list">
+        <div>
+            {% if request.session.root_login %}
+                {% include 'block/ground/plugin/product/html/item/adding_catalog.html' %}
+            {% endif %}
+
+            {% if request.session.root_login %}
+                {% include 'block/ground/plugin/product/html/item/adding_product.html'%}
+            {% endif %}
+        </div>
+
+        {% for element in elements %}
+
+            {% if element|is_catalog %}
+
+                {% include 'block/ground/plugin/product/html/item/catalog.html' %}
+
+            {% elif element|is_product %}
+
+                {% include 'block/ground/plugin/product/html/item/product.html' %}
+
+            {% elif element|is_catalog_link %}
+
+             {% include 'block/ground/plugin/product/html/item/catalog_link.html' %}
+
+            {% elif element|is_product_link %}
+
+                {% include 'block/ground/plugin/product/html/item/product_link.html' %}
+
+            {% endif %}
+
+        {% endfor %}
+    </ul>
+
+    {% include 'block/ground/html/page_numbers.html' %}
+
+</div>

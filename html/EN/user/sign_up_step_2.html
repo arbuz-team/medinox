@@ -2,11 +2,10 @@
 
 <script>
 APP.DATA = {
-title : 'Register',
+title : 'Sign up - step 2',
 description : ''
 };
 </script>
-<script src='https://www.google.com/recaptcha/api.js'></script>
 
 
 <div class="ground-block block-1 SMALL">
@@ -33,38 +32,19 @@ description : ''
 
             <form method="post" action="" data-name="{{ form_name }}" data-type="{{ form_name }}" data-test="yes">
 
-                <div class="title"> Register </div>
+                <div class="title"> Sign up </div>
 
                 {% for field in form %}
 
-                    {% if field.name == 'password' %}
-
-                        <div class="show_password">
-                            {{ field }}
-                            <input class="show_password-checkbox"
-								   type="checkbox"
-                                   title="Show/hide password"/>
-                            <div class="status">{{ field.errors }}</div>
-                        </div>
-
-                    {% else %}
-
-                        {% include "form/html/manage_field.html" %}
-
-                    {% endif %}
+                    {% include "form/html/manage_field.html" %}
 
                 {% endfor %}
-
-                <div class="is-having-margins-5">
-                    By sign up, you agree that you've read and accepted our
-                    <a href="{% url 'user.agreement' full=True %}" target="_blank">User Agreement</a>.
-                </div>
 
                 <div>
 					<button class="button is-important"
 							disabled
 							type="submit">
-						Done
+						Next
 					</button>
 				</div>
 
