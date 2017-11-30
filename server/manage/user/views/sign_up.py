@@ -6,7 +6,7 @@ class Sign_Up(Website_Manager):
 
     def Manage_Content(self):
         self.context['form'] = Form_Register(self)
-        return self.Render_HTML('user/sign_up.html', 'register')
+        return self.Render_HTML('user/sign_up_step_1.html', 'register')
 
     def Manage_Form_Register(self):
         self.context['form'] = Form_Register(self, post=True)
@@ -21,9 +21,9 @@ class Sign_Up(Website_Manager):
 
             self.request.session['user_user'] = user
             self.context['form'] = Form_User_Address(self)
-            return self.Render_HTML('user/sign_up.html', 'user_address')
+            return self.Render_HTML('user/sign_up_step_2.html', 'user_address')
 
-        return self.Render_HTML('user/sign_up.html', 'register')
+        return self.Render_HTML('user/sign_up_step_1.html', 'register')
 
     def Manage_Form_User_Address(self):
         self.context['form'] = Form_User_Address(self, post=True)
@@ -34,9 +34,9 @@ class Sign_Up(Website_Manager):
             SQL.Save(data=address_user)  # create address_user
 
             self.context['form'] = None  # message of correct
-            return self.Render_HTML('user/sign_up.html')
+            return self.Render_HTML('user/sign_up_step_2.html')
 
-        return self.Render_HTML('user/sign_up.html', 'user_address')
+        return self.Render_HTML('user/sign_up_step_2.html', 'user_address')
 
     def Manage_Form(self):
 
