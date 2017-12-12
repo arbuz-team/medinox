@@ -1,3 +1,4 @@
+from markdownx.models import MarkdownxField
 from server.manage.switch.models import *
 import string, random
 
@@ -53,3 +54,9 @@ class Model_Forgot_Password_User(Abstract_Model):
 
     def __str__(self):
         return self.user.username
+
+
+
+class Model_Markdown(models.Model):
+
+    markdown = MarkdownxField()

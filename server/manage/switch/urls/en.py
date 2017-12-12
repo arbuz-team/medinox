@@ -2,6 +2,7 @@ from django.conf.urls import url, include
 from server.manage.switch.website.content.errors_handler import *
 
 urlpatterns = [
+    url(r'^markdownx/', include('markdownx.urls'), name='markdownx'),
     url(r'^user/', include('server.manage.user.urls.en'), name='user'),
     url(r'^root/', include('server.manage.root.urls.en'), name='root'),
     url(r'^product/', include('server.ground.product.urls.en'), name='product'),

@@ -13,6 +13,12 @@
 
     <div class="block-content">
 
+		<form method="POST" action="">{% csrf_token %}
+			{{ form_markdown }}
+		</form>
+
+		{{ form_markdown.media }}
+
 		<h1 class="title">Privacy Policy</h1>
 		<h2 class="subtitle">I Introduction to Privacy Policy</h2>
 		<p class="paragraph">
